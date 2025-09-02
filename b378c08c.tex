@@ -1,0 +1,44 @@
+Let
+
+$ I_n = n\int_{0}^{1}\frac{x^{n}}{1+x}\ dx $
+
+Evaluate the refined limit
+$$
+L = \lim_{n \to \infty} n\Bigl(I_n - \tfrac{1}{2}\Bigr)
+$$
+
+1. First, write the integral:
+$$
+I_n = n \int_{0}^{1} \frac{x^n}{1+x}\,dx
+$$
+
+2. Make the substitution $x = e^{-t/n}$. Then
+$$
+x^n = e^{-t} \\
+dx = -\tfrac{1}{n} e^{-t/n}\,dt
+$$
+and as $x:0 \to 1$, we have $t:\infty \to 0$. So
+$$
+I_n = \int_{0}^{\infty} \frac{e^{-t} e^{-t/n}}{1+e^{-t/n}}\,dt
+= \int_{0}^{\infty} \frac{e^{-t}}{1+e^{t/n}}\,dt
+$$
+
+3. Expand the slow factor for small $\varepsilon=\tfrac{1}{n}$ (keep terms through $1/n$):
+$$
+\frac{1}{1+e^{\varepsilon t}}
+= \frac{1}{2} - \frac{\varepsilon t}{4} + O(\varepsilon^3 t^3)
+$$
+
+4. Multiply by $e^{-t}$ and integrate term by term (dominated by $e^{-t}$):
+$$
+I_n = \int_{0}^{\infty} e^{-t}\!\left(\tfrac{1}{2} - \tfrac{t}{4n} + O\!\Big(\tfrac{t^3}{n^3}\Big)\right)\,dt \\
+= \tfrac{1}{2}\!\int_{0}^{\infty} e^{-t}dt \;-\; \tfrac{1}{4n}\!\int_{0}^{\infty} t e^{-t}dt \;+\; O\!\left(\tfrac{1}{n^3}\right) \\
+= \tfrac{1}{2} - \tfrac{1}{4n} + O\!\left(\tfrac{1}{n^3}\right)
+$$
+
+5. Take the limit:
+$$
+L \;=\; \lim_{n\to\infty} n\Big(I_n - \tfrac{1}{2}\Big)
+= \lim_{n\to\infty}\!\left(-\tfrac{1}{4} + O\!\left(\tfrac{1}{n^2}\right)\right)
+= -\tfrac{1}{4}
+$$

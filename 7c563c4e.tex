@@ -1,0 +1,35 @@
+Evaluate the integral
+
+$$
+I = \int_{0}^{\infty} x^5 e^{-x} L_6(x)\ L_2(x)\ dx
+$$
+
+where $L_n(x)$ denotes the Laguerre polynomial of degree $n$.
+
+1.	First write the integral as an inner product
+$$
+I = \int_{0}^{\infty} e^{-x} x^5 L_6(x) L_2(x)\ dx \
+= \langle x^5 L_6 , L_2 \rangle
+$$
+2.	Recall the Laguerre recurrence for $\alpha=0$
+$$
+x L_n(x) = (2n+1)L_n(x) - (n+1)L_{n+1}(x) - n L_{n-1}(x)
+$$
+3.	Apply the recurrence repeatedly to expand $x^5 L_6(x)$ in terms of Laguerre polynomials
+After five steps one finds
+$$
+x^5 L_6(x) = -720L_1(x) + 16200L_2(x) - 137400L_3(x) + 620400L_4(x) \\
+
+	•	1708800L_5(x) + 3059160L_6(x) - 3649800L_7(x) + 2889600L_8(x) \\
+	•	1461600L_9(x) + 428400L_{10}(x) - 55440L_{11}(x)
+$$
+
+4.	Use orthogonality
+$$
+\langle L_m , L_n \rangle = \int_{0}^{\infty} e^{-x} L_m(x) L_n(x)\ dx = \delta_{mn}
+$$
+so only the $L_2$ term survives
+5.	Conclude
+$$
+I = \langle x^5 L_6 , L_2 \rangle = 16200 \langle L_2 , L_2 \rangle = \boxed{16200}
+$$

@@ -1,0 +1,48 @@
+Evaluate the integral
+
+$$
+I = \int_{0}^{\infty} e^{-x} x^{2} L_{3}(x) L_{5}(x) dx
+$$
+
+where $L_{n}(x)$ denotes the standard Laguerre polynomial $L_n^{(0)}(x)$.
+
+Give your answer as a single integer.
+
+1. First, write the problem as an inner product:
+$$
+I = \int_{0}^{\infty} e^{-x} x^2 L_3(x) L_5(x)\, dx 
+   = \langle x^2 L_3,\, L_5 \rangle.
+$$
+
+2. To handle the $x^2$ factor, recall the Laguerre recurrence for $\alpha=0$:
+$$
+x L_n(x) = (2n+1)L_n(x) - (n+1)L_{n+1}(x) - nL_{n-1}(x).
+$$
+This relation is key because it rewrites a product with $x$ in terms of Laguerre polynomials only.
+
+3. Apply this to $L_3$:
+$$
+xL_3 = 7L_3 - 4L_4 - 3L_2.
+$$
+We will use this again for $L_4$ and $L_2$ since another factor of $x$ is coming.
+
+4. Expand $x^2 L_3$ by multiplying:
+$$
+x^2 L_3 = x(7L_3 - 4L_4 - 3L_2).
+$$
+
+5.  Now expand $x^2L_3$ by applying the recurrence again. Since we already worked out $xL_3$, we only need to apply the formula to the new terms $xL_4$ and $xL_2$.
+
+6. Substitute these into the expansion and collect terms:
+$$
+x^2 L_3 = 6L_1 - 36L_2 + 74L_3 - 64L_4 + 20L_5.
+$$
+
+7. Finally, use orthogonality:
+$$
+\langle L_m, L_n \rangle = \delta_{mn},
+$$
+so only the $L_5$ term survives:
+$$
+I = 20 \langle L_5, L_5 \rangle = 20.
+$$
