@@ -1,0 +1,31 @@
+In the attached image, determine the hyperbolic distance $d(A,B)$. Give your final answer as a decimal approximation, rounded to three significant digits
+
+**Step 1.** Use the Poincaré disk distance:
+
+$d(z_1,z_2)=\operatorname{arcosh}\!\left(1+\frac{2\,|z_1-z_2|^2}{(1-|z_1|^2)(1-|z_2|^2)}\right)$.
+
+  
+
+**Step 2.** Treat the points as complex numbers:
+
+$z_1=\tfrac{2}{5}+i\tfrac{1}{5},\quad z_2=-\tfrac{1}{5}+i\tfrac{3}{5}$.
+
+  
+
+**Step 3.** Compute components:
+
+$|z_1|^2=(\tfrac{2}{5})^2+(\tfrac{1}{5})^2=\tfrac{1}{5},\quad |z_2|^2=(\tfrac{1}{5})^2+(\tfrac{3}{5})^2=\tfrac{2}{5},\quad z_1-z_2=\tfrac{3}{5}-i\tfrac{2}{5},\quad |z_1-z_2|^2=(\tfrac{3}{5})^2+(\tfrac{2}{5})^2=\tfrac{13}{25}$.
+
+  
+
+**Step 4.** Plug in:
+
+$\displaystyle \frac{2\,|z_1-z_2|^2}{(1-|z_1|^2)(1-|z_2|^2)}=\frac{2\cdot\tfrac{13}{25}}{(1-\tfrac{1}{5})(1-\tfrac{2}{5})}=\frac{\tfrac{26}{25}}{\tfrac{12}{25}}=\tfrac{13}{6}$.
+
+  
+
+**Step 5.** Conclude:
+
+$\cosh d=1+\tfrac{13}{6}=\tfrac{19}{6}\;\Rightarrow\; d=\operatorname{arcosh}\!\left(\tfrac{19}{6}\right)=\ln\!\left(\tfrac{19}{6}+\sqrt{\left(\tfrac{19}{6}\right)^2-1}\right)\approx 1.819908,$
+
+so to three significant digits, $\boxed{d(A,B)\approx 1.82}$.
