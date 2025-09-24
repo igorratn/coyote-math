@@ -1,0 +1,46 @@
+Got it 👍 — here’s a summary of this chat so you can pick up smoothly in a new thread:
+
+⸻
+
+Context
+	•	You are working with differential geometry exercises (based on Позняк & Шикин, Дифференциальная геометрия: первое знакомство).
+	•	You want to create image-based prompts where all information is contained in the image, so the model must reason using the picture — not just text.
+	•	You’ve already practiced with paraboloid, saddle, and sphere surfaces, deriving geodesic curvature, normal curvature, and geodesic torsion of intersection curves at marked points.
+	•	The workflow:
+	1.	Start with a labeled image (surface, plane, marked point).
+	2.	Write a clear prompt tied only to what is in the image.
+	3.	Provide a step-by-step solution in human-like style (with inline KaTeX).
+	4.	Ensure the final answer has a specific, objective format (e.g., simplified fractional form, or fractional triplet).
+	•	You are now moving toward Chapter 4 (Riemannian geometry/tensors) and want prompts that use the Riemannian metric framework directly, not Darboux/frame methods only.
+	•	A recent attempt: generate an image of a geodesic triangle in the Poincaré disk. The first drafts were messy; you want clear, consistent labels, points, and arcs.
+
+⸻
+
+Key Requirements
+	1.	Image design
+	•	Must contain all necessary information (surface equation, plane, marked point, curve, etc.).
+	•	Labels should be consistent, same size, clearly placed.
+	•	No extraneous or confusing symbols.
+	•	Minimal ticks, colors, but clearly visible geometry.
+	2.	Prompts
+	•	Example:
+“In the attached image, determine the geodesic curvature, the normal curvature, and the geodesic torsion of the intersection curve at the marked point P. Give your final answer as a simplified fractional triplet.”
+	•	Must rely entirely on the image (no hidden text assumptions).
+	•	Final answer format should be specified clearly.
+	3.	Solutions
+	•	Human-like explanation, step-by-step.
+	•	Use inline KaTeX only (e.g., $x^2$, not $$x^2$$).
+	•	Avoid double commas.
+	•	Include double-check step if possible.
+	•	Tie steps to book chapters when relevant.
+
+⸻
+
+Where You Left Off
+	•	You requested a clean re-draw of the Poincaré disk geodesic triangle (points O, P, Q marked, arcs visible, labels consistent).
+	•	You want to connect this with Chapter 4 (Riemann geometry) by designing a prompt that forces reasoning using the metric, not just surface/curve formulas.
+	•	Next step: finalize the clean image and then draft a prompt + solution based on Riemannian metric reasoning.
+
+⸻
+
+👉 Would you like me to carry forward by drafting a new image-based prompt in Riemannian geometry (using the clean Poincaré disk triangle) and then solve it step by step, or do you prefer I first refine the image itself further?
