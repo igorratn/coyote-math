@@ -1,21 +1,10 @@
-In the attached $(u,v)$-chart of a surface, the marked point $P$ carries labels indicating the local scale factors $|\partial_{u}\mathbf{r}|$, $|\partial_{v}\mathbf{r}|$, and the value of $\cosh u$. The coordinate circle $u=\text{const}$ through $P$ is highlighted with an arrow showing increasing $v$. Compute the geodesic curvature $k_{g}$ at $P$ of this circle, oriented by increasing $v$. Give your final answer as an exact number (no decimals).
+In the attached $(u,v)$-chart of a surface, the marked point $P$ lies on the coordinate circle $u=\text{const}$, oriented by increasing $v$. At $P$ it is given that $\sinh u=\tfrac{4}{3}$. Compute the geodesic curvature $k_{g}$ at $P$ of this circle, oriented by increasing $v$. Give your final answer as an exact number (no decimals).
 
-**Step 1 (Set-up).** Work on the surface with metric $ds^{2}=E\,du^{2}+G\,dv^{2}$ where $E=1$, $G=\sinh^{2}u$. The curve is the coordinate circle $u=\text{const}$, oriented by increasing $v$.
 
-  
+Step 1. Work on the surface with metric $ds^{2}=du^{2}+\sinh^{2}u\,dv^{2}$. The curve is $u=\text{const}$ oriented by increasing $v$.
 
-**Step 2 (Formula).** For orthogonal coordinates $(F=0)$, the geodesic curvature of a $v$–curve ($u=\text{const}$) is
+Step 2. For orthogonal coordinates with $F=0$ the geodesic curvature of a $v$–curve is $k_g=\tfrac{1}{\sqrt{EG}}\,\partial_u(\sqrt{G})=\tfrac{1}{\sinh u}\,\partial_u(\sinh u)=\tfrac{\cosh u}{\sinh u}$.
 
-$k_g=\frac{1}{\sqrt{EG}}\;\partial_u\!\big(\sqrt{G}\big) =\frac{1}{\sinh u}\,\partial_u(\sinh u) =\frac{\cosh u}{\sinh u}.$
+Step 3. At $P$ we have $\sinh u=\tfrac{4}{3}$. Using $\cosh^{2}u-\sinh^{2}u=1$ gives $\cosh u=\sqrt{1+\left(\tfrac{4}{3}\right)^{2}}=\tfrac{5}{3}$. Hence $k_g=\tfrac{5}{4}$.
 
-**Step 3 (Read values from the image).** At $P$, the figure gives $|\partial_v\mathbf r|=\sqrt{G}=\sinh u=\tfrac{4}{3}$ and $\cosh u=\tfrac{5}{3}$.
-
-  
-
-**Step 4 (Compute).**
-
-$k_g=\frac{\cosh u}{\sinh u} =\frac{\tfrac{5}{3}}{\tfrac{4}{3}} =\frac{5}{4}.$
-
-  
-
-**Final Answer →** $\boxed{\dfrac{5}{4}}$.
+Final answer $5/4$
