@@ -1,15 +1,13 @@
-In the attached image, the unit disk is equipped with the hyperbolic metric shown. The geodesic triangle $\triangle OPQ$ is drawn with sides along geodesics: $OP$ and $OQ$ are diameters of the disk, and $PQ$ is a circular arc orthogonal to the boundary. By construction, the arc $PQ$ is chosen so that the triangle is symmetric and the base angles are equal. Determine the hyperbolic area of $\triangle OPQ$. Give your final answer as a rational multiple of $\pi$ in lowest terms.
+What is the hyperbolic area of the figure bounded by $OP$, $OQ$, and the curve $PQ$, inside the unit disk with the shown hyperbolic metric? Give your final answer as a rational multiple of $\pi$ in lowest terms.
 
-**Step 1.** We are in the Poincaré disk (conformal model), so Euclidean and hyperbolic angles coincide at interior points. The diameters meet orthogonally at $O$, hence $\angle O = \tfrac{\pi}{2}$.
+Step 1. We are in the Poincaré disk, so Euclidean and hyperbolic angles coincide. The diameters $OP$ and $OQ$ meet orthogonally at $O$, so $\angle O=\tfrac{\pi}{2}$.
 
- **Step 2.** The picture is symmetric across $y=x$, so the base angles are equal: $\angle P = \angle Q = \theta$.
+Step 2. By symmetry across $y=x$, the base angles are equal: $\angle P=\angle Q=\theta$.
 
-  **Step 3.** Let $P=(a,0)$ and $Q=(0,a)$. For the geodesic arc $PQ$ (circle orthogonal to the boundary) with center $C$ on $y=x$, the angle at $P$ satisfies
+Step 3. Let $P=(a,0)$ and $Q=(0,a)$. The orthogonality condition for the geodesic arc $PQ$ fixes $a^2=2-\sqrt{3}\approx0.52^2$.
 
-$\cos \theta = \dfrac{a^2+1}{2\sqrt{a^4+1}}$.
+Step 4. At $P$, the angle satisfies $\cos\theta=\dfrac{a^2+1}{2\sqrt{a^4+1}}$. Substituting $a^2=2-\sqrt{3}$ gives $\cos\theta=\tfrac{\sqrt{3}}{2}$, so $\theta=\tfrac{\pi}{6}$.
 
-In this construction the symmetry and orthogonality fix $a^2 = 2 - \sqrt{3}$, so $\cos \theta = \tfrac{\sqrt{3}}{2}$ and thus $\theta = \tfrac{\pi}{6}$.
+Step 5. The triangle angles are $\tfrac{\pi}{2},\tfrac{\pi}{6},\tfrac{\pi}{6}$. By Gauss–Bonnet in curvature $-1$, the area is $\pi-(\tfrac{\pi}{2}+\tfrac{\pi}{6}+\tfrac{\pi}{6})=\tfrac{\pi}{6}$.
 
-  **Step 4.** The triangle’s angles are $\angle O = \tfrac{\pi}{2}$, $\angle P = \tfrac{\pi}{6}$, $\angle Q = \tfrac{\pi}{6}$. By Gauss–Bonnet in curvature $-1$, the area is
-
-$\pi - \big(\tfrac{\pi}{2} + \tfrac{\pi}{6} + \tfrac{\pi}{6}\big) = \tfrac{\pi}{6}$.
+Final Answer: $\tfrac{\pi}{6}$.
