@@ -5,8 +5,8 @@
 
 
 % Title & metric
-\node[align=center] at (0,4.2)
-  {$\text{Local chart }(u,v)\quad\text{with}\quad ds^{2}=du^{2}+\sinh^{2}u\,dv^{2}$};
+%\node[align=center] at (0,4.2)
+%  {$\text{Local chart }(u,v)\quad\text{with}\quad ds^{2}=du^{2}+\sinh^{2}u\,dv^{2}$};
 
 % Concentric u=const "circles"
 \draw[thick,gray!40] (0,0) circle (1.0);
@@ -22,6 +22,11 @@
 %\draw[blue,->,line width=1] ({2.3*cos(20)},{2.3*sin(20)}) arc[start angle=20,end angle=60,radius=2.3];
 %\node[blue] at ({2.6*cos(40)},{2.6*sin(40)}) {$v\uparrow$};
 
+% Orientation arrow along the u-curve, placed away from P (on the upper arc)
+\draw[blue,->,line width=1] ({2.3*cos(110)},{2.3*sin(110)}) 
+    arc[start angle=110,end angle=70,radius=2.3];
+\node[blue] at ({2.6*cos(90)},{2.6*sin(90)}) {$v\downarrow$};
+
 % Point P on the highlighted circle
 \fill[blue] (2.3,0) circle (2pt) node[below right] {$P$};
 
@@ -33,6 +38,7 @@
 %\draw[gray!50,thick] (-3.1,3.2)--(-2.6,3.2);
 %\draw[gray!50,thick] (-2.85,3.2)--++(0.25,0.43);
 %\node[anchor=west] at (-2.6,3.2) {$v=\text{const}$};
+
 
 \end{tikzpicture}
 \end{document}

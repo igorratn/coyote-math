@@ -1,13 +1,15 @@
-In the attached $(u,v)$-chart of a surface, the marked point $P$ lies on the coordinate circle $u=\text{const}$, oriented by increasing $v$. At $P$ it is given that $\sinh u=\tfrac{4}{3}$. Compute the geodesic curvature $k_{g}$ at $P$ of this circle, oriented by increasing $v$. Give your final answer as an exact number (no decimals).
+In the $(u,v)$-chart of a surface with metric $ds^{2} = du^{2} + \sinh^{2}u\,dv^{2}$, the marked point $P$ lies on the curve indicated in the figure (with its orientation shown by the arrow). At $P$ it is given that $\sinh u = \tfrac{4}{3}$. Compute the signed geodesic curvature $k_g$ at $P$ of this curve. Give your final answer as an exact number (no decimals).
 
 
-Step 1. Work on the surface with metric $ds^{2}=du^{2}+\sinh^{2}u\,dv^{2}$. The curve is $u=\text{const}$ oriented by increasing $v$.
+Step 1. Work on the surface with metric $ds^{2}=du^{2}+\sinh^{2}u\,dv^{2}$.  
+The curve is $u=\text{const}$. From the figure, the arrow shows a clockwise traversal, i.e.\ $v$ is decreasing.
 
-Step 2. For orthogonal coordinates with $F=0$ the geodesic curvature of a $v$–curve is $k_g=\tfrac{1}{\sqrt{EG}}\,\partial_u(\sqrt{G})=\tfrac{1}{\sinh u}\,\partial_u(\sinh u)=\tfrac{\cosh u}{\sinh u}$.
+Step 2. In orthogonal coordinates with $F=0$, the geodesic curvature of a $v$–curve ($u=\text{const}$) has magnitude  
+$\lvert k_g\rvert \;=\;\tfrac{1}{\sqrt{EG}}\,\partial_u(\sqrt{G}) \;=\;\tfrac{1}{\sinh u}\,\partial_u(\sinh u)\;=\;\coth u$.  
+Because the curve is oriented by decreasing $v$ (clockwise), the signed value is $k_g=-\coth u$.
 
-Step 3. At $P$ we have $\sinh u=\tfrac{4}{3}$. Using $\cosh^{2}u-\sinh^{2}u=1$ gives $\cosh u=\sqrt{1+\left(\tfrac{4}{3}\right)^{2}}=\tfrac{5}{3}$. Hence $k_g=\tfrac{5}{4}$.
+Step 3. At $P$, $\sinh u=\tfrac{4}{3}$. Using $\cosh^{2}u-\sinh^{2}u=1$ gives  
+$\cosh u=\sqrt{1+\left(\tfrac{4}{3}\right)^{2}}=\tfrac{5}{3}$. Hence  
+$k_g=-\dfrac{\cosh u}{\sinh u}=-\tfrac{5}{4}$.
 
-Final answer $5/4$
-
-
-In the attached $(u, v)$-chart of a surface embedded as the upper sheet of the hyperboloid $-x^2 - y^2 + z^2 = 1$ with parameterization $x = \sinh u \cos v$, $y = \sinh u \sin v$, $z = \cosh u$, the marked point $P$ lies on a curve indicated in the figure, oriented by increasing $v$. At $P$, it is given that $\sinh u = \frac{4}{3}$. Compute at $P$ the geodesic curvature $k_g$, the normal curvature $k_n$, and the geodesic torsion $\tau_g$ of this curve, in that order. Give your final answer as a simplified fractional triplet.
+Final answer: $\,-\dfrac{5}{4}$.

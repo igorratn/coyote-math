@@ -23,33 +23,29 @@
 \coordinate (Q) at ($(P)+(\phi:\looprad)$);
 \fill[black] (Q) circle (0.015) node[inner sep=1pt,below left] {$Q$};
 
-% Optional: spoke from P to Q for reference
-%\draw[dashed,orange!80,very thick] (P)--(Q);
-
-% --- One coordinate curve that is a geodesic (black) passing through P (optional) ---
-% \draw[line width=0.7pt,black]
-%   (-1.0,-0.15) .. controls (-0.5,-0.05) and (-0.2,0.02) .. (P)
-%   .. controls (0.35,0.06) and (0.7,0.10) .. (1.05,0.15);
-
 % --- Common vector parameters (unchanged directions/lengths) ---
 \def\ang{20}     % initial direction in degrees
 \def\Len{0.42}   % uniform length for all vectors
 
-% --- Initial vector v anchored at Q (was at P) ---
+% --- Initial vector v anchored at Q (black; no label) ---
 \draw[->,line width=1.6pt,black,>=Stealth] (Q) -- ++(\ang:\Len);
 
 % --- Candidate transported vectors anchored at Q (all tails exactly at Q) ---
-% Red: small clockwise rotation (correct small holonomy for K > 0)
-\draw[->,line width=1.5pt,red!80!black,>=Stealth] (Q) -- ++({\ang-8}:\Len);
+% A (Red): small clockwise rotation (correct small holonomy for K > 0)
+\draw[->,line width=1.5pt,red!80!black,>=Stealth]
+  (Q) -- ++({\ang-8}:\Len) node[pos=1, xshift=3pt, yshift=2pt, text=black] {$\mathbf{A}$};
 
-% Green: small counterclockwise rotation (distractor)
-\draw[->,line width=1.5pt,green!60!black,>=Stealth] (Q) -- ++({\ang+8}:\Len);
+% B (Green): small counterclockwise rotation (distractor)
+\draw[->,line width=1.5pt,green!60!black,>=Stealth]
+  (Q) -- ++({\ang+8}:\Len) node[pos=1, yshift=2pt, text=black] {$\mathbf{B}$};
 
-% Blue: large counterclockwise rotation (distractor)
-\draw[->,line width=1.5pt,blue!75!black,>=Stealth] (Q) -- ++({\ang+55}:\Len);
+% C (Blue): large counterclockwise rotation (distractor)
+\draw[->,line width=1.5pt,blue!75!black,>=Stealth]
+  (Q) -- ++({\ang+55}:\Len) node[pos=1, xshift=-4pt, yshift=2pt, text=black] {$\mathbf{C}$};
 
-% Purple: large clockwise rotation (distractor)
-\draw[->,line width=1.5pt,purple!70!black,>=Stealth] (Q) -- ++({\ang-60}:\Len);
+% D (Purple): large clockwise rotation (distractor)
+\draw[->,line width=1.5pt,purple!70!black,>=Stealth]
+  (Q) -- ++({\ang-60}:\Len) node[pos=1, yshift=-3pt, text=black] {$\mathbf{D}$};
 
 \end{tikzpicture}
 \end{document}
