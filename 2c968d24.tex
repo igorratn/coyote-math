@@ -1,0 +1,13 @@
+In an infinitely long, lossless, anechoic 1D acoustic duct with sound speed $c=1$ and density $\rho=1$, a time-harmonic point monopole source is located at $x=a$ and oscillates at angular frequency $\omega=3$ with a complex volume-velocity amplitude of $4\pi$. Along the duct, a weak harmonic modulation of the acoustic stiffness causes the local restoring coefficient to vary as $1 + \frac{1}{2} \cos x$. The steady acoustic pressure field $p(x)$ decays to zero as $|x| \to \infty$. Determine the exact on-axis pressure amplitude $p(a)$, expressed as a fraction of $\pi$.
+
+Step 1. Decay $p(x) \to 0$ as $|x| \to \infty \Rightarrow$ the envelope solves the modified Helmholtz equation $p'' - \omega^2 p = -4\pi \delta(x-a)$, $\omega=3$.
+
+Step 2. Fourier transform in $x$: with $\hat{p}(k) = \int p(x) e^{-i k x} \, dx$, $(k^2 + \omega^2) \hat{p}(k) = 4\pi e^{-i k a} \Rightarrow \hat{p}(k) = \frac{4\pi e^{-i k a}}{k^2 + \omega^2}$.
+
+Step 3. Invert the transform and use the standard integral $p(x) = \frac{1}{2\pi} \int_{-\infty}^{\infty} \hat{p}(k) e^{i k x} \, dk$ $= \frac{2}{\pi} \int_{-\infty}^{\infty} \frac{e^{i k (x-a)}}{k^2 + \omega^2} \, dk$ $= \frac{2\pi}{\omega} e^{-\omega |x-a|}$.
+
+Step 4. Evaluate on-axis at the source: $p(a) = \frac{2\pi}{\omega} = \frac{2\pi}{3}$.
+
+Step 5. Consistency check (jump): $p'(a^+) - p'(a^-) = -4\pi$ holds for $p(x) = \frac{2\pi}{\omega} e^{-\omega |x-a|}$, matching the $\delta$-forcing.
+
+Final Answer. $\displaystyle \frac{2\pi}{3}$.
