@@ -1,0 +1,21 @@
+Let $\Theta(x,t)$ satisfy the sine–Gordon equation
+$\Theta_{tt}-\Theta_{xx}+\sin\Theta=0,$
+representing a real scalar field on the line with topological (winding) number initially equal to zero. 
+Assume the field is initially at rest,
+$\Theta_t(x,0)=0,$
+and has the initial spatial profile
+$\Theta(x,0)=3\pi-\varepsilon,$
+where $\varepsilon>0$ is arbitrarily small and uniform in $x$.
+Prove or disprove that $\lim\limits_{t\to+\infty}\Theta(x,t)=4\pi$.
+
+$\Theta(x,t)$ is a real scalar field satisfying the unforced sine–Gordon equation $\Theta_{tt}-\Theta_{xx}+\sin\Theta=0.$ The Lagrangian density is $\mathcal L=\tfrac12(\Theta_t^2-\Theta_x^2)-(1-\cos\Theta),$ where $V(\Theta)=1-\cos\Theta$ is the potential energy density.
+
+The conserved total energy is $E[\Theta]=\int_{\mathbb R}(\tfrac12\Theta_t^2+\tfrac12\Theta_x^2+1-\cos\Theta)dx.$ Finite energy requires $\Theta(\pm\infty,t)\in2\pi\mathbb Z$, so the topological charge $N=(\Theta(+\infty,t)-\Theta(-\infty,t))/(2\pi)\in\mathbb Z$ is conserved.
+
+Stationary vacua satisfy $\sin\Theta=0\Rightarrow\Theta=m\pi.$ Linearizing around $\Theta=2m\pi$ gives $u_{tt}-u_{xx}+u=0$, since $V^{\prime\prime}(2m\pi)=\cos(2m\pi)=+1$, implying harmonic stability. Linearizing around $\Theta=(2m+1)\pi$ gives $u_{tt}-u_{xx}-u=0$, with $V^{\prime\prime}((2m+1)\pi)=\cos((2m+1)\pi)=-1$, producing exponential growth and instability. Hence $2m\pi$ are minima (stable equilibria) and $(2m+1)\pi$ maxima (unstable equilibria) of $V(\Theta)=1-\cos\Theta.$
+
+The static kink $\Theta_K(x)=4\arctan e^{x-x_0}$ connects $0\to2\pi$ and has energy $M_K=\int_{\mathbb R}(\tfrac12{\Theta_K^\prime}^2+1-\cos\Theta_K)dx=8$, the minimal energy required for a $2\pi$ phase jump.
+
+With $\Theta(x,0)=3\pi-\varepsilon$ ($\varepsilon>0$ small), $\Theta_t(x,0)=0$, and $N=0$, the field cannot form a kink ($N=1$). It departs from the unstable $3\pi$ configuration, radiates, and relaxes to the nearest stable vacuum $\Theta=2\pi.$ Thus $\lim_{t\to+\infty}\Theta(x,t)=2\pi.$
+
+(Refs: Rajaraman, Solitons and Instantons, Ch.2; Ablowitz & Segur, Solitons and the Inverse Scattering Transform, Ch.4; Dauxois & Peyrard, Physics of Solitons, §2.1.)
