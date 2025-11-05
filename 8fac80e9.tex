@@ -1,0 +1,23 @@
+Let $\Theta(x,t)$ satisfy the sine–Gordon equation $\Theta_t^{\prime\prime}-\Theta_x^{\prime\prime}+\sin\Theta=0$ on $\mathbb{R}\times[0,\infty)$ with finite energy and zero winding. Assume $\Theta_t(x,0)=0$ and $\Theta(x,0)=3\pi+\varepsilon(x)$, where $\varepsilon(x)$ is small, smooth, not identically zero, satisfies $\varepsilon>0$, $\lim_{|x|\to\infty}\varepsilon(x)=0$, and $\lim_{|x|\to\infty}\varepsilon^{\prime}(x)=0$. Prove or disprove that $\lim\limits_{t\to+\infty}\Theta(x,t)=2\pi$.
+
+Disprove.
+For the sine–Gordon field $\Theta(x,t)$ satisfying $\Theta_{tt}^{\prime\prime}-\Theta_{xx}^{\prime\prime}+\sin\Theta=0$, finite energy requires $\Theta(\pm\infty,t)\in2\pi\mathbb{Z}$. The given initial data $\Theta_t(x,0)=0$ and $\Theta(x,0)=3\pi+\varepsilon(x)$, where $\varepsilon(x)\to0$, place the system near the equilibrium $\Theta=3\pi$.
+
+Linearizing around $\Theta=3\pi$, write $\Theta=3\pi+u$. Substituting into the equation and retaining linear terms gives $u_{tt}^{\prime\prime}-u_{xx}^{\prime\prime}-u=0$. For Fourier modes $u\sim e^{ikx+\lambda t}$, the dispersion relation $\lambda^2=1-k^2$ shows that for $|k|<1$ there exist exponentially growing modes $\sim e^{+\sqrt{1-k^2}t}$. Hence $\Theta=3\pi$ is an unstable equilibrium of the sine–Gordon dynamics.
+
+The potential energy density is $V(\Theta)=1-\cos\Theta$, whose minima at $\Theta=2m\pi$ correspond to stable vacua and maxima at $\Theta=(2m+1)\pi$ correspond to unstable equilibria. Starting slightly above $3\pi$ ($\varepsilon(x)>0$) drives the field toward the nearest stable minimum at $\Theta=4\pi$.
+
+Reaching $\Theta=2\pi$ instead would require crossing the $3\pi$ potential barrier and nucleating a kink–antikink pair. The static sine–Gordon kink $\Theta_K(x)=4\arctan e^{x-x_0}$ connects $0\to2\pi$ and has rest energy (mass)
+
+$$M_K=\int_{-\infty}^{+\infty}\left(\tfrac{1}{2}(\Theta_K^{\prime})^2+1-\cos\Theta_K\right)dx=8.$$
+
+Creating both a kink and an antikink therefore requires total energy $2M_K=16$, far greater than that available from a small perturbation near $3\pi$.
+
+Consequently, a finite-energy, zero-winding configuration near $\Theta=3\pi$ cannot relax to $\Theta=2\pi$. It departs from the unstable equilibrium, radiates small linear waves, and settles into the nearby stable vacuum $\Theta=4\pi$. Thus,
+
+$$\lim\limits_{t\to+\infty}\Theta(x,t)=4\pi,$$
+
+not $2\pi$.
+
+Reference:
+R. Rajaraman, _Solitons and Instantons_, North-Holland, 1982, Ch. 2.

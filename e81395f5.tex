@@ -1,0 +1,11 @@
+Let the Clebsch–Gordan coefficient $\langle j_1,m_1,j_2,m_2\mid j_3,m_3\rangle$ satisfy $j_3=j-1$ and $m_3=m_1+m_2=j-1$.
+Determine whether there exist allowed quantum numbers $(j_1,j_2,j,m_1,m_2)$ for which the dependence of $\langle j_1,m_1,j_2,m_2\mid j_3,m_3\rangle$ on $x=j_1-m_1$ vanishes for some admissible value of $x$.
+
+In the stretched sector $m_3=j-1$ with $j_3=j-1$, the Clebsch–Gordan coefficient $\langle j_1,m_1,j_2,m_2\mid j-1,j-1\rangle$ can be expressed as
+$$\langle j_1,m_1,j_2,m_2\mid j-1,j-1\rangle=C(j_1,j_2,j)h_1(x),\quad x=j_1-m_1.$$
+Here $C(j_1,j_2,j)$ is a normalization constant that depends only on the total angular momenta $(j_1,j_2,j)$ and ensures the orthonormality of the Clebsch–Gordan coefficients. The function $h_1(x)$ is a first-degree Hahn polynomial in the discrete variable $x=j_1-m_1$. The appearance of Hahn polynomials follows from the fact that Clebsch–Gordan coefficients, as functions of $m_1$, satisfy the same three-term recurrence relations as discrete orthogonal Hahn polynomials (Varshalovich, Quantum Theory of Angular Momentum, 1988).
+For this specific case,
+$$h_1(x)=2j(x)-(j_2-j_1+j)(j_1+j_2-j+1).$$
+Setting $h_1(j_1-m_1)=0$ gives the condition
+$$2j(j_1-m_1)=(j_2-j_1+j)(j_1+j_2-j+1).$$
+For example, choosing $j_1=j_2=1$ and $j=1$ yields $h_1(x)=2x-2$, so $x=1\Rightarrow m_1=0$. Then $m_3=j-1=0$ implies $m_2=0$, satisfying all angular-momentum coupling rules. Thus, an allowed set $(j_1,j_2,j,m_1,m_2)=(1,1,1,0,0)$ exists for which $h_1(j_1-m_1)=0$, and consequently $\langle1,0,1,0\mid0,0\rangle=0.$

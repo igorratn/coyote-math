@@ -1,10 +1,13 @@
-Let $\mathbb{Q}$ be the set of all rational numbers, and let $A={x\in\mathbb{Q}:x^2<2}$. Prove or disprove that $A$ has a least upper bound.
+Let $A=\{x\in\mathbb{R}: x\not=0 \text{ and } x - \sin(1/x)>0\}$
+Determine whether $A$ possesses a greatest lower bound.
 
-Proof.
-Let $\mathbb{Q}$ be the set of all rational numbers and $A={x\in\mathbb{Q}:x^2<2}$.
-Every $x\in A$ satisfies $x<\sqrt{2}$, so $A$ is bounded above in $\mathbb{R}$, for example by $\sqrt{2}$ itself or by any number greater than $\sqrt{2}$.
-The number $\sqrt{2}$ is an upper bound of $A$ because if $x^2<2$, then $x<\sqrt{2}$.
-If $\alpha<\sqrt{2}$, then $\alpha^2<2$, and since the rational numbers are dense in $\mathbb{R}$, there exists a rational $x$ such that $\alpha<x<\sqrt{2}$.
-This $x$ belongs to $A$ and is greater than $\alpha$, so $\alpha$ is not an upper bound of $A$.
-Hence $\sqrt{2}$ is the smallest real number that bounds $A$ above.
-Therefore, $\sup A=\sqrt{2}$.
+For large $|x|$, $\sin(1/x)\approx1/x$, so $x-\sin(1/x)\approx x$. Hence all sufficiently large positive $x$ belong to $A$, while large negative $x$ do not.
+For $x$ near $0$, $\sin(1/x)$ oscillates between $-1$ and $1$. Negative points $x_k=-1/(\pi/2+2\pi k)$ satisfy $\sin(1/x_k)=-1$, thus
+$$x_k-\sin(1/x_k)=x_k+1>0$$
+and $x_k\to0^-$. Therefore $A$ contains negative numbers arbitrarily close to $0$.
+The boundary of $A$ is determined by $x=\sin(1/x)$. On $(-1,0)$ this equation has a smallest root $\alpha$ because
+$$(-1)-\sin(-1)<0,\quad(-2/\pi)-\sin(-\pi/2)>0$$
+so by continuity $\alpha\in(-1,-2/\pi)$. Numerically $\alpha\approx-0.89754$.
+Hence $A$ possesses a greatest lower bound
+$$\inf A=\alpha\approx-0.89754$$
+where $\alpha$ is the smallest solution of $x=\sin(1/x)$ in $(-1,0)$.
