@@ -1,0 +1,23 @@
+Let the Clebsch–Gordan coefficient $\langle j_1,m_1,j_2,m_2\mid j_3,m_3\rangle$ satisfy $j_3=j+1$ and $m_3=m_1+m_2=j-1$. For fixed $(j_1,j_2,j)$, regard this coefficient as a discrete function of $x=j_1-m_1$. Determine whether there exist allowed quantum numbers $(j_1,j_2,j,m_1,m_2)$ for which this function has a zero at an admissible integer value of $x$.
+
+In the sector $m_3=j-1$ with $j_3=j+1$, fix $(j_1,j_2,j)$ and write the Clebsch–Gordan coefficient as a function of $x=j_1-m_1$:
+
+$$\langle j_1,m_1,j_2,m_2\mid j+1,j-1\rangle=C(j_1,j_2,j)h_2(x),\quad x=j_1-m_1,\quad m_2=j-1-j_1+x.$$
+
+Here $C(j_1,j_2,j)$ depends only on $(j_1,j_2,j)$, and $h_2(x)$ is a Hahn polynomial of degree $2$ in $x$ since $J-M=(j+1)-(j-1)=2$.
+
+The admissible integers $x$ satisfy
+
+$$\max(0,j_1-j_2-j+1)\le x\le\min(2j_1,j_1+j_2-j+1).$$
+
+This follows from $|m_1|\le j_1$, $|m_2|\le j_2$ using $m_1=j_1-x$, $m_2=j-1-j_1+x$. From $|m_1|\le j_1$ we get $0\le x\le2j_1$; from $|m_2|\le j_2$ we get $j_1-j_2-j+1\le x\le j_1+j_2-j+1$. Their intersection yields the stated bounds.
+
+Being quadratic, $h_2(x)$ can have up to two real zeros; for suitable $(j_1,j_2,j)$, one lies at an admissible integer $x$.
+
+For example, take $j_1=\tfrac32$, $j_2=2$, $j=\tfrac12$, so $j_3=\tfrac32$, $m_3=-\tfrac12$. With $m_1=\tfrac12$ and $m_2=-1$ (i.e., $x=j_1-m_1=1$), the coefficient
+
+$$\langle\tfrac32,\tfrac12;2,-1\mid\tfrac32,-\tfrac12\rangle=0,$$
+
+because the corresponding Wigner $3j$ symbol vanishes by the selection rule $j_1+j_2+j_3$ odd with half-integer $m$’s $\Rightarrow$ symbol $=0$ (see Varshalovich–Moskalev–Khersonskii, _Quantum Theory of Angular Momentum_; Edmonds, _Angular Momentum in Quantum Mechanics_).
+
+Therefore, there exist allowed quantum numbers $(j_1,j_2,j,m_1,m_2)$ for which the coefficient, as a function of $x=j_1-m_1$, has a zero at an admissible integer value of $x$.
