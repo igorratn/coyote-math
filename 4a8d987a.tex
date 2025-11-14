@@ -1,0 +1,36 @@
+Let the Clebsch–Gordan coefficient $\langle j_1,m_1,j_2,m_2\mid j_3,m_3\rangle$ satisfy $j_3=j+1$ and $m_3=m_1+m_2=j-1$. For fixed $(j_1,j_2,j)$, regard this coefficient as a discrete function of $x=j_1-m_1$. Determine (with proof) whether there exist allowed quantum numbers $(j_1,j_2,j,m_1,m_2)$ for which this function has a zero at an admissible integer value of $x$.
+
+  
+In the sector $m_3=j-1$ with $j_3=j+1$, fix $(j_1,j_2,j)$ and regard the Clebsch–Gordan coefficient as a function of $x=j_1-m_1$:
+
+$$f(x)=\langle j_1,m_1,j_2,m_2\mid j+1,j-1\rangle,\quad x=j_1-m_1,\quad m_1=j_1-x,\quad m_2=j-1-m_1=j-1-j_1+x.$$
+
+The admissible integers $x$ are restricted by the magnetic quantum number bounds $|m_1|\le j_1$, $|m_2|\le j_2$. From $|m_1|\le j_1$ we get $-j_1\le j_1-x\le j_1$, hence $0\le x\le2j_1$. From $|m_2|\le j_2$ we get $-j_2\le j-1-j_1+x\le j_2$, hence $j_1-j+1-j_2\le x\le j_1-j+1+j_2$. Combining these, the admissible $x$ satisfy
+
+$$\max(0,j_1-j_2-j+1)\le x\le\min(2j_1,j_1+j_2-j+1).$$
+
+Since the task asks for allowed quantum numbers, we additionally require the standard $SU(2)$ coupling condition that the angular momenta satisfy the triangle inequality $|j_1-j_2|\le j_3\le j_1+j_2$, so that the Clebsch–Gordan coefficient can be nonzero (Varshalovich, Moskalev and Khersonskii, Quantum Theory of Angular Momentum, World Scientific, 1988, §8.1).
+
+  
+
+To show that $f(x)$ can vanish for such an admissible integer $x$, it is enough to exhibit one concrete example. Take $j_1=1$, $j_2=2$, $j=1$. Then $j_3=j+1=2$ and $m_3=j-1=0$. The triangle inequality $|j_1-j_2|\le j_3\le j_1+j_2$ reads $1\le2\le3$, so this coupling channel is allowed. The bound above gives
+
+$$\max(0,1-2-1+1)=0\le x\le\min(2,1+2-1+1)=2,$$
+
+so $x\in{0,1,2}$. Choose $x=1$, which gives $m_1=j_1-x=0$ and $m_2=j-1-m_1=0$, so we are looking at
+
+$$\langle1,0;2,0\mid2,0\rangle.$$
+
+Using the standard relation between Clebsch–Gordan coefficients and Wigner $3j$ symbols (Edmonds, Angular Momentum in Quantum Mechanics, Princeton University Press, 1957, Ch.4, Eq.(4.2.6))
+
+$$\langle j_1,m_1,j_2,m_2\mid j_3,m_3\rangle=(-1)^{j_1-j_2+m_3}\sqrt{2j_3+1}\begin{pmatrix}j_1&j_2&j_3\\m_1&m_2&-m_3\end{pmatrix},$$
+
+we obtain
+
+$$\langle1,0;2,0\mid2,0\rangle\propto\begin{pmatrix}1&2&2\\0&0&0\end{pmatrix}.$$
+
+For integer $j_1,j_2,j_3$ the $3j$ symbol with all $m_i=0$ vanishes when $j_1+j_2+j_3$ is odd, and here $1+2+2=5$, so
+
+$$\begin{pmatrix}1&2&2\\0&0&0\end{pmatrix}=0\quad\Rightarrow\quad\langle1,0;2,0\mid2,0\rangle=0.$$
+
+Thus for $(j_1,j_2,j,m_1,m_2)=(1,2,1,0,0)$ the function $f(x)$ has a zero at the admissible integer $x=j_1-m_1=1$, so the required quantum numbers do exist.
