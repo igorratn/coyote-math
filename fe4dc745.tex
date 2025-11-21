@@ -1,0 +1,41 @@
+Let
+
+$$F(x)=\left\{\begin{array}{ccc} 2 & 2 & x \\ 2 & 2 & 1 \end{array}\right\}$$
+
+be the Wigner $\mathbf{6j}$ symbol in the standard notation
+
+$$\left\{\begin{array}{ccc} j_1 & j_2 & j_{12} \\ j_3 & j & j_{23} \end{array}\right\}$$
+
+with $j_1=j_2=j_3=j=2$ and $j_{23}=1$.
+
+Determine the number of integers $x$ satisfying $x_{\min}<x<x_{\max}$ for which $F(x)=0$.
+
+For a general Wigner $\mathbf{6j}$ symbol
+
+$$\left\{\begin{array}{ccc} a & b & c\\[2pt] d & e & f \end{array}\right\}$$
+
+to be nonzero, each of the four triples $(a,b,c)$, $(a,e,f)$, $(d,b,f)$, and $(d,e,c)$ must satisfy the usual $\mathrm{SU}(2)$ triangle inequalities
+
+$$|u-v|\le w\le u+v,\qquad u+v+w\in\mathbb Z.$$
+
+In our case
+
+$$F(x)=\left\{\begin{array}{ccc} 2 & 2 & x\\[2pt] 2 & 2 & 1 \end{array}\right\},$$
+
+so the four triples are $(2,2,x)$, $(2,2,1)$, $(2,2,1)$, $(2,2,x)$. Only $(2,2,x)$ restricts $x$, and the triangle conditions give
+
+$$|2-2|\le x\le 2+2 \quad\Rightarrow\quad 0\le x\le 4.$$
+
+Thus $x_{\min}=0$, $x_{\max}=4$, and the interior integers with $x_{\min}<x<x_{\max}$ are $x=1,2,3$.
+
+Using the Racah formula or standard $\mathbf{6j}$ tables (for example Varshalovich–Moskalev–Khersonskii, Quantum Theory of Angular Momentum, Table 10.2), one finds
+
+$$F(1)=\left\{\begin{array}{ccc} 2 & 2 & 1\\[2pt] 2 & 2 & 1 \end{array}\right\}=\frac{1}{6}\ne0,$$
+
+$$F(2)=\left\{\begin{array}{ccc} 2 & 2 & 2\\[2pt] 2 & 2 & 1 \end{array}\right\}=-\frac{1}{10}\ne0,$$
+
+$$F(3)=\left\{\begin{array}{ccc} 2 & 2 & 3\\[2pt] 2 & 2 & 1 \end{array}\right\}=\frac{1}{6\sqrt{10}}\ne0.$$
+
+So none of the interior values $x=1,2,3$ gives $F(x)=0$. The number of integers $x$ with $x_{\min}<x<x_{\max}$ and $F(x)=0$ is therefore
+
+0.

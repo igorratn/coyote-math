@@ -1,0 +1,103 @@
+Let ${p_n(x)}_{n=0}^\infty$ be orthonormal polynomials with respect to a positive weight $w(x)$ on $[a,b]$, satisfying the recurrence
+
+$$xp_n(x)=a_{n+1}p_{n+1}(x)+b_n p_n(x)+a_n p_{n-1}(x)\quad(a_{n+1}>0).$$
+
+For fixed $x_0\in(a,b)$ and $N\ge1$, consider the linear polynomial
+
+$$\pi_t(x)=p_{N+1}(x)-tp_N(x).$$
+
+Determine (with proof) whether
+
+$$\inf_{t\in\mathbb R}\frac{\|\pi_t\|_w^2}{\pi_t(x_0)^2} =\frac{1}{a_{N+1}\bigl[p_{N+1}'(x_0)p_N(x_0)-p_{N+1}(x_0)p_N'(x_0)\bigr]} =\inf_{\substack{Q\in\mathbb P_N\\Q(x_0)\ne0}}\frac{\|Q\|_w^2}{Q(x_0)^2}.$$
+
+We show that the claimed equality is false in general.
+
+Let $\{p_n(x)\}_{n=0}^\infty$ be orthonormal on $[a,b]$ with respect to $w(x)$ and satisfy
+
+$$x p_n(x)=a_{n+1}p_{n+1}(x)+b_n p_n(x)+a_n p_{n-1}(x)\quad(a_{n+1}>0).$$
+
+Fix $x_0\in(a,b)$ and $N\ge1$, and set
+
+$$\pi_t(x)=p_{N+1}(x)-t p_N(x),\qquad t\in\mathbb R.$$
+
+Define
+
+$$A=p_N(x_0),\quad B=p_{N+1}(x_0).$$
+
+Because $\{p_n\}$ is orthonormal,
+
+$$\|\pi_t\|_w^2=\|p_{N+1}\|_w^2-2t\langle p_{N+1},p_N\rangle_w+t^2\|p_N\|_w^2=1+t^2.$$
+
+Also
+
+$$\pi_t(x_0)=B-tA.$$
+
+Hence the ratio is
+
+$$F(t)=\frac{\|\pi_t\|_w^2}{\pi_t(x_0)^2}=\frac{1+t^2}{(B-tA)^2}.$$
+
+To find $\inf_{t\in\mathbb R}F(t)$, differentiate:
+
+$$F'(t)=\frac{2t(B-tA)^2-(1+t^2)2(B-tA)(-A)}{(B-tA)^4}.$$
+
+The critical points satisfy $F'(t)=0$, i.e.,
+
+$$t(B-tA)^2+(1+t^2)A(B-tA)=0.$$
+
+If $B-tA\neq0$ (i.e., $t\neq B/A$), we can divide by $B-tA$ and get
+
+$$t(B-tA)+(1+t^2)A=0,$$
+
+that is
+
+$$tB-t^2A+A+At^2=0\quad\Longrightarrow\quad tB+A=0\quad\Longrightarrow\quad t_*=-\frac{A}{B}$$
+
+(provided $B\neq0$; if $B=0$ the computation below still gives the correct infimum by taking limits).
+
+At $t=t_*$ we have
+
+$$1+t_*^2=1+\frac{A^2}{B^2}=\frac{A^2+B^2}{B^2},$$
+
+$$(B-t_*A)^2=\left(B+\frac{A^2}{B}\right)^2=\left(\frac{A^2+B^2}{B}\right)^2=\frac{(A^2+B^2)^2}{B^2},$$
+
+so
+
+$$F(t_*)=\frac{(A^2+B^2)/B^2}{(A^2+B^2)^2/B^2}=\frac{1}{A^2+B^2}.$$
+
+As $t\to\pm\infty$,
+
+$$F(t)\sim\frac{t^2}{t^2A^2}=\frac{1}{A^2},$$
+
+so the infimum of $F(t)$ over $t\in\mathbb R$ is
+
+$$\inf_{t\in\mathbb R}\frac{\|\pi_t\|_w^2}{\pi_t(x_0)^2}=\frac{1}{A^2+B^2}=\frac{1}{p_N(x_0)^2+p_{N+1}(x_0)^2}.$$
+
+On the other hand, by the standard theory of orthogonal polynomials, the Christoffel–Darboux kernel
+
+$$K_N(x,y)=\sum_{j=0}^N p_j(x)p_j(y)$$
+
+satisfies the CD identity and its diagonal limit
+
+$$K_N(x_0,x_0)=a_{N+1}\bigl[p_{N+1}'(x_0)p_N(x_0)-p_{N+1}(x_0)p_N'(x_0)\bigr],$$
+
+and the Christoffel function
+
+$$\lambda_N(x_0)=\inf_{\substack{Q\in\mathbb P_N\\Q(x_0)\ne0}}\frac{\|Q\|_w^2}{Q(x_0)^2}$$
+
+equals
+
+$$\lambda_N(x_0)=\frac{1}{K_N(x_0,x_0)}=\frac{1}{a_{N+1}\bigl[p_{N+1}'(x_0)p_N(x_0)-p_{N+1}(x_0)p_N'(x_0)\bigr]}.$$
+
+Thus in general
+
+$$\inf_{t\in\mathbb R}\frac{\|\pi_t\|_w^2}{\pi_t(x_0)^2}=\frac{1}{p_N(x_0)^2+p_{N+1}(x_0)^2},$$
+
+while
+
+$$\inf_{\substack{Q\in\mathbb P_N\\Q(x_0)\ne0}}\frac{\|Q\|_w^2}{Q(x_0)^2} =\frac{1}{a_{N+1}\bigl[p_{N+1}'(x_0)p_N(x_0)-p_{N+1}(x_0)p_N'(x_0)\bigr]}.$$
+
+These two expressions are not equal in general (for generic orthogonal systems $p_N(x_0)^2+p_{N+1}(x_0)^2\ne a_{N+1}\bigl[p_{N+1}'(x_0)p_N(x_0)-p_{N+1}(x_0)p_N'(x_0)\bigr]$), so the claimed equality
+
+$$\inf_{t\in\mathbb R}\frac{\|\pi_t\|_w^2}{\pi_t(x_0)^2} =\frac{1}{a_{N+1}\bigl[p_{N+1}'(x_0)p_N(x_0)-p_{N+1}(x_0)p_N'(x_0)\bigr]} =\inf_{\substack{Q\in\mathbb P_N\\Q(x_0)\ne0}}\frac{\|Q\|_w^2}{Q(x_0)^2}$$
+
+is false in general.

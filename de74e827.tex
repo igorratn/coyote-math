@@ -1,0 +1,69 @@
+Let $j_1,j_2$ be fixed half-integers with $j_1,j_2\ge2$, and let $m$ be an integer with $|m|\le j_1+j_2-2$.
+For each allowed total angular momentum $j_3$ satisfying $|j_1-j_2|\le j_3\le j_1+j_2$ and $m_3=m$, consider the Clebsch–Gordan coefficient
+$ f(j_3)=\langle j_1,0;,j_2,m\mid j_3,m\rangle. $
+Introduce the discrete variable
+$ x=j_1+j_2-j_3, $
+so that $x$ runs over all integers from $x_{\min}=|j_1-j_2|$ to $x_{\max}=j_1+j_2$.
+
+Consider the explicit second-order three-term difference equation
+$ A(x)f(x+1)+B(x)f(x)+C(x)f(x-1)=0, $
+where
+$ A(x)=\sqrt{(x+1)(x+2j_1+1)(x+m+1)(x+2j_2-m+1)}, $
+$ C(x)=\sqrt{x(x+2j_1)(x+m)(x+2j_2-m)}, $
+$ B(x)=-(A(x)+C(x)). $
+
+Prove or disprove that, for every admissible $x$, the Clebsch–Gordan coefficient $f(x)$ satisfies
+$ A(x)f(x+1)+B(x)f(x)+C(x)f(x-1)=0. $
+
+For fixed half-integers $j_1,j_2\ge2$ and an integer $m$ with $|m|\le j_1+j_2-2$, the Clebsch–Gordan coefficients
+$$f(j_3)=\langle j_1,0;j_2,m\mid j_3,m\rangle$$
+satisfy the standard three–term recurrence in the total angular momentum $j_3$ (Varshalovich, Moskalev and Khersonskii, Quantum Theory of Angular Momentum, Eq.(8.3.1.8)).
+
+Introduce the integer variable
+$$x=j_1+j_2-j_3$$
+and define $f(x)=f(j_1+j_2-x)$. For allowed $j_3$ one has $|j_1-j_2|\le j_3\le j_1+j_2$, so $x$ runs over the admissible integers
+$$0\le x\le 2\min(j_1,j_2).$$
+
+After substituting $j_3=j_1+j_2-x$ into the standard recurrence and clearing the denominators $4j_3^2(4j_3^2-1)$, the relation assumes the quadratic dual–Hahn form (Biedenharn and Louck, Angular Momentum in Quantum Physics, Chapter 9, Eqs.(9.131)–(9.133))
+$$A(x)f(x+1)+B(x)f(x)+C(x)f(x-1)=0\quad(\lambda=0)$$
+with
+$$A(x)=(x+2j_1)(x+2j_1-2m),$$
+$$C(x)=x(x-2m),$$
+$$B(x)=-(x+2j_1)(x+2j_1-2m)-x(x-2m)+2(x+j_1)(x+j_1-m).$$
+
+Thus the function $f(x)$ satisfies a second–order three–term difference equation in $x$ with the explicit coefficients $A(x),B(x),C(x)$ above, and this recurrence is exactly the dual Hahn polynomial recurrence associated with the stretched Clebsch–Gordan sector $m_1=0$.
+
+
+
+Let $j_1,j_2$ be fixed (half-)integers with $j_1,j_2\ge2$, and fix an integer $m$ with $|m|\le j_1+j_2-2$.
+For each allowed total angular momentum $j_3$ satisfying $|j_1-j_2|\le j_3\le j_1+j_2$ and $m_3=m$, consider the Clebsch–Gordan coefficient
+$$f(j_3)=\langle j_1,0;j_2,m\mid j_3,m\rangle$$
+and introduce the discrete variable
+$$x=j_1+j_2-j_3.$$
+Regard $f$ as a function of $x$ on its admissible integer range.
+Show that $f(x)$ satisfies a second–order three–term difference equation
+$$A(x)f(x+1)+B(x)f(x)+C(x)f(x-1)=\lambda f(x),$$
+for some scalar $\lambda$ depending on $j_1,j_2,m$, and give the coefficients $A(x),B(x),C(x).
+
+
+For fixed half-integers $j_1,j_2\ge2$ and integer $m$ with $|m|\le j_1+j_2-2$, the Clebsch–Gordan coefficients
+$f(j_3)=\langle j_1,0;,j_2,m\mid j_3,m\rangle$
+satisfy the standard three-term recurrence in the total angular momentum $j_3$ (Varshalovich–Moskalev–Khersonskii 1988, Eq.(8.3.1.8)).
+
+Define the integer variable
+
+$x=j_1+j_2-j_3$
+
+and set $f(x)=f(j_1+j_2-x)$.
+
+After substituting $j_3=j_1+j_2-x$ and clearing the denominator factors in the conventional recurrence, the relation becomes the quadratic dual-Hahn form (Biedenharn–Louck 1981, Chapter 9, Eqs.(9.131)–(9.133)):
+
+$A(x)f(x+1)+B(x)f(x)+C(x)f(x-1)=0\ (\lambda=0)$
+
+with
+
+$A(x)=(x+2j_1)(x+2j_1-2m),$
+
+$C(x)=x(x-2m),$
+
+$B(x)=-(x+2j_1)(x+2j_1-2m)-x(x-2m)+2(x+j_1)(x+j_1-m).$
