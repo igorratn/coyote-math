@@ -1,0 +1,89 @@
+Let $\{p_n(x)\}_{n=0}^\infty$ be the sequence of orthonormal polynomials with respect to a positive weight $w(x)$ on an interval $[a,b]$, satisfying the three-term recurrence
+
+$$x p_n(x)=a_{n+1}p_{n+1}(x)+b_n p_n(x)+a_n p_{n-1}(x)\qquad (a_{n+1}>0).$$
+
+For a fixed integer $N\ge0$ and a fixed $x_0\in(a,b)$, define the one-parameter family of polynomials
+
+$$\pi_t(x)=p_{N+1}(x)-t p_N(x),\qquad t\in\mathbb{R}.$$
+
+Prove that
+
+$$\inf_{t\in\mathbb{R}}\frac{\|\pi_t\|_w^2}{\pi_t(x_0)^2} =\frac{1}{p_N(x_0)^2+p_{N+1}(x_0)^2} =\inf_{\substack{Q\in\mathbb{P}_{N+1}\\Q(x_0)\ne0}}\frac{\|Q\|_w^2}{Q(x_0)^2}.$$
+
+In other words: the minimal $L^2_w$–to–point-value ratio among all polynomials of degree at most $N+1$ is attained by minimizing the same ratio over the one-parameter family
+
+$$\pi_t(x)=p_{N+1}(x)-t p_N(x).$$
+
+The proposed triple equality is not true. Only the minimisation over the one-parameter family holds.
+
+From orthonormality one has
+
+$$\|p_{N+1}-t p_N\|_w^2=\|p_{N+1}\|_w^2-2t\langle p_{N+1},p_N\rangle_w+t^2\|p_N\|_w^2=1+t^2.$$
+
+Let $A=p_N(x_0)$ and $B=p_{N+1}(x_0)$. Then
+
+$$\pi_t(x_0)=B-tA$$
+
+and
+
+$$F(t)=\frac{1+t^2}{(B-tA)^2}.$$
+
+The unique stationary point is
+
+$$t^*=-A/B\qquad(B\neq0),$$
+
+and substitution gives
+
+$$F(t^*)=\frac{1}{A^2+B^2}=\frac{1}{p_N(x_0)^2+p_{N+1}(x_0)^2}.$$
+
+To see that this is the global minimum:
+
+as $t\to\pm\infty$ one has
+
+$$F(t)\sim\frac{t^2}{t^2A^2}=\frac{1}{A^2},$$
+
+which is strictly larger than $1/(A^2+B^2)$ because $B^2>0$.
+
+Moreover $F(t)\to+\infty$ at $t=B/A$ (the denominator vanishes), and $F(t)$ is strictly convex on each side of $t=B/A$.
+
+Hence the only stationary point $t^*$ is necessarily the global minimiser.
+
+Therefore
+
+$$\inf_{t\in\mathbb R}\frac{\|p_{N+1}-t p_N\|_w^2}{(p_{N+1}(x_0)-t p_N(x_0))^2}=\frac{1}{p_N(x_0)^2+p_{N+1}(x_0)^2}.$$
+
+For the full space $\mathbb P_{N+1}$, any $Q$ has expansion
+
+$$Q=\sum_{k=0}^{N+1}c_k p_k.$$
+
+Then
+
+$$\|Q\|_w^2=\sum_{k=0}^{N+1}c_k^2$$
+
+and
+
+$$Q(x_0)=\sum_{k=0}^{N+1}c_k p_k(x_0).$$
+
+Cauchy–Schwarz gives
+
+$$Q(x_0)^2\le\Bigl(\sum_{k=0}^{N+1}c_k^2\Bigr)\Bigl(\sum_{k=0}^{N+1}p_k(x_0)^2\Bigr)$$
+
+with equality only for $c_k\propto p_k(x_0).$
+
+Thus
+
+$$\inf_{\substack{Q\in\mathbb P_{N+1}\\Q(x_0)\ne0}}\frac{\|Q\|_w^2}{Q(x_0)^2}=\frac{1}{\sum_{k=0}^{N+1}p_k(x_0)^2}.$$
+
+Since for interior $x_0\in(a,b)$ one has $p_0(x_0),\dots,p_{N-1}(x_0)\neq0$,
+
+$$\sum_{k=0}^{N+1}p_k(x_0)^2>p_N(x_0)^2+p_{N+1}(x_0)^2.$$
+
+Therefore the equality
+
+$$\frac{1}{p_N(x_0)^2+p_{N+1}(x_0)^2}=\inf_{\substack{Q\in\mathbb P_{N+1}\\Q(x_0)\ne0}}\frac{\|Q\|_w^2}{Q(x_0)^2}$$
+
+is false in general.
+
+The only universally valid identity is
+
+$$\inf_{t\in\mathbb R}\frac{\|p_{N+1}-t p_N\|_w^2}{(p_{N+1}(x_0)-t p_N(x_0))^2}=\frac{1}{p_N(x_0)^2+p_{N+1}(x_0)^2}.$$
