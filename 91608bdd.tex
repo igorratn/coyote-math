@@ -6,15 +6,12 @@ For a fixed integer $N\ge0$ and a fixed $x_0\in(a,b)$, define the one-parameter 
 
 $$\pi_t(x)=p_{N+1}(x)-t p_N(x),\qquad t\in\mathbb{R}.$$
 
-Prove that
+Prove or disprove the following recurrence relation with full mathematical rigor:
 
-$$\inf_{t\in\mathbb{R}}\frac{\|\pi_t\|_w^2}{\pi_t(x_0)^2} =\frac{1}{p_N(x_0)^2+p_{N+1}(x_0)^2} =\inf_{\substack{Q\in\mathbb{P}_{N+1}\\Q(x_0)\ne0}}\frac{\|Q\|_w^2}{Q(x_0)^2}.$$
+$$\inf_{t\in\mathbb{R}}\frac{\|\pi_t\|_w^2}{\pi_t(x_0)^2} < \inf_{\substack{Q\in\mathbb{P}_{N+1}\\Q(x_0)\ne0}}\frac{\|Q\|_w^2}{Q(x_0)^2}.$$
 
-In other words: the minimal $L^2_w$–to–point-value ratio among all polynomials of degree at most $N+1$ is attained by minimizing the same ratio over the one-parameter family
 
-$$\pi_t(x)=p_{N+1}(x)-t p_N(x).$$
-
-The proposed triple equality is not true. Only the minimisation over the one-parameter family holds.
+The proposed extremal inequality is false.
 
 From orthonormality one has
 
@@ -28,62 +25,78 @@ and
 
 $$F(t)=\frac{1+t^2}{(B-tA)^2}.$$
 
-The unique stationary point is
+We analyze the infimum across all possible cases for $A$ and $B$. By the interlacing theorem for zeros of consecutive orthogonal polynomials (Szegő, Theorem 3.3.2, Orthogonal Polynomials, 4th ed., 1975), $p_N$ and $p_{N+1}$ cannot both vanish at the same interior point $x_0$. Thus $A^2+B^2>0$.
 
-$$t^*=-A/B\qquad(B\neq0),$$
+Case 1: $A\neq0$ and $B\neq0$
 
-and substitution gives
+In the general case $A\neq0$ and $B\neq0$, the function $F(t)=(1+t^2)/(B-tA)^2$ is smooth on $\mathbb{R}$, and its derivative vanishes only when the numerator and denominator gradients balance. Setting $F^\prime(t)=0$ reduces to a linear equation in $t$, whose unique solution is $t^*=-A/B$. Substituting gives
 
 $$F(t^*)=\frac{1}{A^2+B^2}=\frac{1}{p_N(x_0)^2+p_{N+1}(x_0)^2}.$$
 
-To see that this is the global minimum:
+As $|t|\to\infty$, $F(t)\sim1/A^2>1/(A^2+B^2)$, so $t^*$ is the global minimiser.
 
-as $t\to\pm\infty$ one has
+Case 2: $A=0$
 
-$$F(t)\sim\frac{t^2}{t^2A^2}=\frac{1}{A^2},$$
+Then $B\neq0$, and
 
-which is strictly larger than $1/(A^2+B^2)$ because $B^2>0$.
+$$F(t)=\frac{1+t^2}{B^2}.$$
 
-Moreover $F(t)\to+\infty$ at $t=B/A$ (the denominator vanishes), and $F(t)$ is strictly convex on each side of $t=B/A$.
+Minimized at $t^*=0$, with
 
-Hence the only stationary point $t^*$ is necessarily the global minimiser.
+$$\inf F(t)=\frac{1}{B^2}=\frac{1}{A^2+B^2}.$$
 
-Therefore
+Case 3: $B=0$
+
+Then $A\neq0$, and
+
+$$F(t)=\frac{1+t^2}{t^2A^2}=\frac{1}{A^2}+\frac{1}{t^2A^2}.$$
+
+Thus
+
+$$\inf F(t)=\frac{1}{A^2}=\frac{1}{A^2+B^2}.$$
+
+Therefore, in all cases,
 
 $$\inf_{t\in\mathbb R}\frac{\|p_{N+1}-t p_N\|_w^2}{(p_{N+1}(x_0)-t p_N(x_0))^2}=\frac{1}{p_N(x_0)^2+p_{N+1}(x_0)^2}.$$
 
-For the full space $\mathbb P_{N+1}$, any $Q$ has expansion
+For the full space $\mathbb{P}_{N+1}$, any $Q$ has expansion
 
 $$Q=\sum_{k=0}^{N+1}c_k p_k.$$
 
 Then
 
-$$\|Q\|_w^2=\sum_{k=0}^{N+1}c_k^2$$
-
-and
-
-$$Q(x_0)=\sum_{k=0}^{N+1}c_k p_k(x_0).$$
+$$\|Q\|_w^2=\sum_{k=0}^{N+1}c_k^2,\qquad Q(x_0)=\sum_{k=0}^{N+1}c_k p_k(x_0).$$
 
 Cauchy–Schwarz gives
 
-$$Q(x_0)^2\le\Bigl(\sum_{k=0}^{N+1}c_k^2\Bigr)\Bigl(\sum_{k=0}^{N+1}p_k(x_0)^2\Bigr)$$
+$$Q(x_0)^2\le\Bigl(\sum_{k=0}^{N+1}c_k^2\Bigr)\Bigl(\sum_{k=0}^{N+1}p_k(x_0)^2\Bigr),$$
 
-with equality only for $c_k\propto p_k(x_0).$
-
-Thus
+with equality only for $c_k\propto p_k(x_0)$. Thus
 
 $$\inf_{\substack{Q\in\mathbb P_{N+1}\\Q(x_0)\ne0}}\frac{\|Q\|_w^2}{Q(x_0)^2}=\frac{1}{\sum_{k=0}^{N+1}p_k(x_0)^2}.$$
 
-Since for interior $x_0\in(a,b)$ one has $p_0(x_0),\dots,p_{N-1}(x_0)\neq0$,
+Since $p_0(x_0)\neq0$,
 
-$$\sum_{k=0}^{N+1}p_k(x_0)^2>p_N(x_0)^2+p_{N+1}(x_0)^2.$$
+$$\sum_{k=0}^{N+1}p_k(x_0)^2=\left(\sum_{k=0}^{N-1}p_k(x_0)^2\right)+p_N(x_0)^2+p_{N+1}(x_0)^2>p_N(x_0)^2+p_{N+1}(x_0)^2,$$
 
-Therefore the equality
+so
 
-$$\frac{1}{p_N(x_0)^2+p_{N+1}(x_0)^2}=\inf_{\substack{Q\in\mathbb P_{N+1}\\Q(x_0)\ne0}}\frac{\|Q\|_w^2}{Q(x_0)^2}$$
+$$\frac{1}{p_N(x_0)^2+p_{N+1}(x_0)^2}>\frac{1}{\sum_{k=0}^{N+1}p_k(x_0)^2}.$$
+
+When $N=0$,
+
+$$\frac{1}{p_0(x_0)^2+p_1(x_0)^2}=\frac{1}{\sum_{k=0}^1 p_k(x_0)^2},$$
+
+so the two infima are equal.
+
+Conclusion. For all $N\ge0$,
+
+$$\inf_{t\in\mathbb R}\frac{\|\pi_t\|_w^2}{\pi_t(x_0)^2}=\frac{1}{p_N(x_0)^2+p_{N+1}(x_0)^2}\ge\frac{1}{\sum_{k=0}^{N+1}p_k(x_0)^2},$$
+
+with strict inequality for $N\ge1$.
+
+Thus the proposed inequality
+
+$$\inf_{t\in\mathbb R}\frac{\|\pi_t\|_w^2}{\pi_t(x_0)^2}<\inf_{\substack{Q\in\mathbb P_{N+1}\\Q(x_0)\ne0}}\frac{\|Q\|_w^2}{Q(x_0)^2}$$
 
 is false in general.
-
-The only universally valid identity is
-
-$$\inf_{t\in\mathbb R}\frac{\|p_{N+1}-t p_N\|_w^2}{(p_{N+1}(x_0)-t p_N(x_0))^2}=\frac{1}{p_N(x_0)^2+p_{N+1}(x_0)^2}.$$
