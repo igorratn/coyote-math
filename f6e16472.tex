@@ -10,10 +10,16 @@ Determine (with proof) whether the following two quantities are equal:
 
 $$\inf_{t\in\mathbb R}\frac{\|\pi_t\|_w^2}{\pi_t(x_0)^2} \quad\text{and}\quad \inf_{\substack{Q\in\mathbb P_N\\Q(x_0)\ne0}}\frac{\|Q\|_w^2}{Q(x_0)^2}.$$
 
-
 The two quantities are not equal in general.
 
 Proof
+
+
+For a fixed integer $N\ge1$ and parameter $t\in\mathbb R$, we first define the polynomial
+
+$$\pi_t(x)=p_{N+1}(x)-t p_N(x),\qquad x\in(a,b).$$
+
+Then, for this fixed $N$ and a fixed point $x_0\in(a,b)$, we compare the two infima.
 
 Let $A=p_N(x_0)$, $B=p_{N+1}(x_0)$. By orthonormality,
 $$
@@ -23,7 +29,9 @@ Consider
 $$
 F(t)=\frac{1+t^2}{(B-tA)^2}.
 $$
-By the interlacing theorem, $A^2+B^2>0$.
+
+By the interlacing theorem for zeros of consecutive orthogonal polynomials (G. Szegő, Theorem 3.3.2, _Orthogonal Polynomials_, Fourth Edition, AMS Colloquium Publications, Vol. 23, 1975), the polynomials $p_N(x)$ and $p_{N+1}(x)$ cannot both vanish at an interior point $x_0 \in (a,b)$, therefore $A^2+B^2>0$.
+
 
 - If $A=0$ (then $B\neq0$), $F(t)=\frac{1+t^2}{B^2}$ is minimised at $t=0$ with value $1/B^2$.
 
@@ -42,15 +50,52 @@ $$
 \inf_t\frac{\|\pi_t\|_w^2}{\pi_t(x_0)^2}=\frac{1}{p_N(x_0)^2+p_{N+1}(x_0)^2}.
 $$
 
-The second quantity is the Christoffel function
-$$
-\lambda_N(x_0)=\frac{1}{\sum_{j=0}^N p_j(x_0)^2}.
-$$
+The second quantity is the minimum weighted norm squared for any polynomial $Q$ of degree at most $N$ normalized to $Q(x_0)=1$.
 
-Counterexample (orthonormal Legendre polynomials, $N=1$, $x_0=0$):  
-$p_0(0)^2=1/2$, $p_1(0)^2=0$, $p_2(0)^2=5/8$.  
-First quantity: $1/(0+5/8)=8/5$.  
-Second quantity: $1/(1/2+0)=2$.  
-Since $8/5\neq2$, the two infima differ in general.
+$$\inf_{\substack{Q\in\mathbb P_N\\Q(x_0)\ne0}}\frac{\|Q\|_w^2}{Q(x_0)^2}$$
+
+This quantity is defined as the Christoffel function, $\lambda_N(x_0)$, and its value is the reciprocal of the Christoffel-Darboux kernel evaluated at $x_0$:
+
+$$\lambda_N(x_0)=\frac{1}{K_N(x_0,x_0)} = \frac{1}{\sum_{j=0}^N p_j(x_0)^2}$$
+
+The two quantities, $\inf_{t} \frac{\|\pi_t\|_w^2}{\pi_t(x_0)^2}$ and $\inf_{Q} \frac{\|Q\|_w^2}{Q(x_0)^2}$, are equal if and only if their denominators are equal:
+
+Expanding the sum, this requires:
+
+$$p_N(x_0)^2+p_{N+1}(x_0)^2 = \left(\sum_{j=0}^{N-1} p_j(x_0)^2\right) + p_N(x_0)^2$$
+
+Which simplifies to the condition:
+
+$$p_{N+1}(x_0)^2 = \sum_{j=0}^{N-1} p_j(x_0)^2$$
+
+This relation is not true in general.
+
+Counterexample (orthonormal Legendre polynomials). The problem assumes the polynomials $\{p_n(x)\}$ are orthonormal with respect to a positive weight $w(x)$ on an interval $[a,b]$ and satisfy a three-term recurrence. On the interval $[-1,1]$ with weight $w(x)=1$, the orthonormal Legendre polynomials are
+
+$$p_n(x)=\sqrt{\frac{2n+1}{2}}\,P_n(x),$$
+
+where $P_n$ are the standard Legendre polynomials. They satisfy the classical three-term recurrence
+
+$$(n+1)P_{n+1}(x)=(2n+1)xP_n(x)-nP_{n-1}(x),$$
+
+which, after orthonormalization, is of the form
+
+$$x p_n(x)=a_{n+1}p_{n+1}(x)+b_n p_n(x)+a_n p_{n-1}(x),\quad a_{n+1}>0,\ b_n\in\mathbb R,$$
+
+so all assumptions of the prompt are satisfied.
+
+Choose $N=1$ and $x_0=0$. Using $P_0(0)=1$, $P_1(0)=0$, $P_2(0)=-\tfrac12$ gives
+
+$$p_0(0)^2=\tfrac12,\quad p_1(0)^2=0,\quad p_2(0)^2=\tfrac58.$$
+
+From the general formulas,
+
+$$\inf_{t\in\mathbb R}\frac{\|\pi_t\|_w^2}{\pi_t(0)^2} =\frac{1}{p_1(0)^2+p_2(0)^2} =\frac{1}{0+5/8} =\frac85,$$
+
+and, since the second infimum is over $\mathbb P_1$,
+
+$$\inf_{\substack{Q\in\mathbb P_1\\Q(0)\ne0}}\frac{\|Q\|_w^2}{Q(0)^2} =\frac{1}{p_0(0)^2+p_1(0)^2} =\frac{1}{1/2+0} =2.$$
+
+Thus in this Legendre example the two quantities are $8/5$ and $2$, so they are not equal in general.
 
 This completes the proof.
