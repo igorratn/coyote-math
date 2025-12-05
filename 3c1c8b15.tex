@@ -1,5 +1,8 @@
-Let the Clebsch–Gordan coefficient $\langle j_1,m_1,j_2,m_2\mid j_3,m_3\rangle$ satisfy the constraints $j_1=j$, $j_2=1$, $j_3=j$, $m_1=j/2$, $m_2=1$, $m_3=j/2+1$. For $j\to\infty$ the coefficient acquires an oscillatory asymptotic form as a trigonometric function of a phase $\Phi$. Determine, with rigorous justification, the fixed phase shift component $\Phi_{\text{fixed}}$ in the argument of this trigonometric function.
+Let the Clebsch–Gordan coefficient $\langle j_1,m_1,j_2,m_2\mid j_3,m_3\rangle$ satisfy the constraints $j_1=j$, $j_2=1$, $j_3=j$, $m_1=j/2$, $m_2=1$, $m_3=j/2+1$. For $j\to\infty$ the coefficient acquires an oscillatory asymptotic form as a trigonometric function of a phase $\Phi$. \
+Prove or disprove, with rigorous justification, that the fixed phase shift component $\Phi_{\text{fixed}}$ in the argument of this trigonometric function has the value
+$\Phi_{\text{fixed}}=-\tfrac{3\pi}{4}.$
 
+We show that the statement is TRUE. \
 The oscillatory behavior in the large–$j$ regime is described via the Hahn–Jacobi asymptotic correspondence: the Clebsch–Gordan coefficient is expressed in terms of a Hahn polynomial whose large–order limit is a Jacobi polynomial, and the phase $\Phi$ is read off from the uniform asymptotic expansion of $P_n^{(\alpha,\beta)}(\cos\theta)$ in Szegő, Orthogonal Polynomials, AMS, 1975, Ch. VIII, Eq. (8.21.10),
 
 $$\Phi=\bigl((n+\tfrac{\alpha+\beta+1}{2})\theta-\tfrac{\alpha\pi}{2}-\tfrac{\pi}{4}\bigr).$$
@@ -15,3 +18,7 @@ $$\alpha=j_3-j_1+j_2=j-j+1=1.$$
 Substituting $\alpha=1$ into the fixed–phase expression gives
 
 $$\Phi_{\text{fixed}}=-(\tfrac{\pi}{2}+\tfrac{\pi}{4})=-(\tfrac{2\pi}{4}+\tfrac{\pi}{4})=-\tfrac{3\pi}{4}.$$
+
+The conclusion is that the fixed phase shift component $\Phi_{\text{fixed}}$ has the value **$-\tfrac{3\pi}{4}$**.
+
+

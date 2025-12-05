@@ -1,0 +1,21 @@
+Let the polynomial $p_n(x)$ of degree $n\ge0$ satisfy the differential equation $(1-x^2)p_n^{\prime\prime}(x)+\tau(x)p_n^{\prime}(x)+\lambda_n p_n(x)=0$, where $\tau(x)$ is a polynomial of degree at most $1$ and $\lambda_n$ is a real constant depending on $n$. Assume only that each $p_n(x)$ is finite for all $x\in\mathbb{R}$. Determine, with proof, whether it is necessarily true that the family ${p_n}_{n\ge0}$ coincides (up to normalization) with the Jacobi polynomials $P_n^{(\alpha,\beta)}(x)$ for some $\alpha,\beta>-1$.
+
+The statement is false. The differential equation
+
+$(1-x^2)p_n^{\prime\prime}(x) + \tau(x)p_n^{\prime}(x) + \lambda_n p_n(x) = 0$
+
+with $\deg\tau\le1$ does not by itself force the family ${p_n}_{n\ge0}$ to be the Jacobi polynomials $P_n^{(\alpha,\beta)}(x)$ with $\alpha,\beta>-1$.
+
+Write $\tau(x)=c_1 x+c_0$. Matching this with the Jacobi form
+
+$(1-x^2)P_n^{(\alpha,\beta)\prime\prime}(x) + [(\beta-\alpha)-(\alpha+\beta+2)x]P_n^{(\alpha,\beta)\prime}(x) + n(n+\alpha+\beta+1)P_n^{(\alpha,\beta)}(x)=0$
+
+requires
+
+$c_1=-(\alpha+\beta+2)$ and $c_0=\beta-\alpha$,
+
+together with the orthogonality restrictions $\alpha>-1$, $\beta>-1$.
+
+Take for example $\tau(x)=5x+3$, so $c_1=5$ and $c_0=3$. Then matching gives $\alpha+\beta=-7$, contradicting $\alpha>-1$ and $\beta>-1$ (which imply $\alpha+\beta>-2$). Yet for each $n$ the ODE still has a polynomial solution $p_n$.
+
+Thus one can construct families ${p_n}$ satisfying all hypotheses but not proportional to any Jacobi family, so the conclusion does
