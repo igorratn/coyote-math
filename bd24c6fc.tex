@@ -1,0 +1,17 @@
+The Racah polynomials $\hat{R}_n(\lambda(x))$ are the most general family of discrete orthogonal polynomials, defined on a quadratic lattice $\lambda(x)$, and are orthogonal on a finite set of $N+1$ points.
+
+We consider the sequence of orthonormal polynomials $\{\hat{R}_n(\lambda(x))\}$, where $\|\hat{R}_n\|^2 = 1$ for all $n$. These polynomials satisfy the three-term recurrence relation (TTRR):
+
+$$\lambda(x) \hat{R}_n(\lambda(x)) = \alpha_n \hat{R}_{n+1}(\lambda(x)) + \beta_n \hat{R}_n(\lambda(x)) + \gamma_n \hat{R}_{n-1}(\lambda(x))$$
+
+The TTRR is represented by the finite $(N+1) \times (N+1)$ Jacobi matrix $\mathbf{J}_{N+1}$.
+
+Rigorously determine whether the following statement is true or false:
+
+Since the eigenvalues of the Jacobi matrix $\mathbf{J}_{N+1}$ are the real, distinct points of the quadratic lattice $\{\lambda(x)\}$, the matrix $\mathbf{J}_{N+1}$ must be Hermitian (symmetric in the real case), which requires the coefficients to satisfy the condition: $\mathbf{\alpha_n = \gamma_{n+1}}$ for all $n=0, 1, \dots, N-1$.
+
+The statement is TRUE.
+
+The Jacobi matrix $\mathbf{J}_{N+1}$ represents the multiplication operator $M$, defined on the orthonormal basis by
+$M(f)(\lambda)=\lambda\,f(\lambda)$. 
+The eigenvalues of $\mathbf{J}_{N+1}$ are precisely the real lattice points ${\lambda(x)}$, so $M$ is a self-adjoint operator. Because the basis ${\hat R_n}$ is orthonormal ($|\hat R_n|=1$), the matrix of a self-adjoint operator in this basis must be Hermitian, i.e., symmetric. Symmetry forces the superdiagonal entries $\alpha_n$ to equal the subdiagonal entries $\gamma_{n+1}$. Therefore the relation $\alpha_n=\gamma_{n+1}$ is necessary.
