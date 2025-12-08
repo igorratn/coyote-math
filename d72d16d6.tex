@@ -1,0 +1,33 @@
+Let $\{p_n(x)\}$ be any sequence of orthogonal polynomials (monic or orthonormal) with respect to a positive measure on the real line, having squared norms $d_n^2>0$ and leading coefficients $a_n$. The truncated Christoffel–Darboux kernel of order $N$ is defined for $x \neq y$ by:
+
+$$\sum_{n=0}^{N-1}\frac{p_n(x)p_n(y)}{d_n^2} = \frac{a_{N-1}}{a_N d_{N-1} d_N}\frac{p_N(x)p_{N-1}(y)-p_{N-1}(x)p_N(y)}{x-y}$$
+
+This identity is used to construct a discrete $N$-point measure supported at points $\{x_i\}_{i=0}^{N-1}$ with positive Christoffel weights $\tilde{\rho}(x_i)$ via:
+
+$$\tilde{\rho}(x_i)^{-1} = \sum_{n=0}^{N-1}\frac{p_n(x_i)^2}{d_n^2}$$
+
+Rigorously determine whether the following statement is true or false:
+
+For every integer $N \ge 1$ and every choice of $y$ lying outside the convex hull of the support of the original measure, the equation
+ 
+ $$\sum_{n=0}^{N-1}\frac{p_n(z)p_n(y)}{d_n^2}=0$$
+ 
+ has exactly $N$ real and distinct roots $z=x_0,\dots,x_{N-1}$, and the associated discrete weights $\tilde{\rho}(x_i)$ defined above are necessarily strictly positive.
+
+The statement is FALSE.
+
+Let $F_N(z;y)=\sum_{n=0}^{N-1}\frac{p_n(z)p_n(y)}{d_n^2}$.
+
+For fixed $y$, this is a polynomial in $z$. Since $\deg p_n = n$, the highest–degree term comes from $n = N-1$: $p_{N-1}(z)=a_{N-1}z^{N-1}+\cdots$, so the coefficient of $z^{N-1}$ in $F_N(z;y)$ equals $\frac{a_{N-1}p_{N-1}(y)}{d_{N-1}^2}$.
+
+All zeros of $p_{N-1}$ lie inside the convex hull of the support of the original measure, so if $y$ lies outside that convex hull then $p_{N-1}(y)\neq 0$. Hence $\deg_z F_N(z;y)=N-1$, and therefore $F_N(\cdot;y)$ cannot have $N$ distinct real roots. The statement is already false, so no conclusion about $\tilde{\rho}(x_i)$ can follow.
+
+Counterexample (Legendre polynomials).
+
+Let $p_n(x)=P_n(x)$ be the Legendre polynomials on $[-1,1]$, with $d_0^2=2$ and $d_1^2=2/3$.
+
+Take $N=2$ and choose $y=2$, which lies outside $[-1,1]$. Then
+
+$F_2(z;2)=\frac{P_0(z)P_0(2)}{d_0^2}+\frac{P_1(z)P_1(2)}{d_1^2}=\frac{1\cdot 1}{2}+\frac{z\cdot 2}{2/3}=\frac12+3z$.
+
+This is a degree–1 polynomial, so it has exactly one real root, not two. Thus the claim fails even in the simplest classical case.
