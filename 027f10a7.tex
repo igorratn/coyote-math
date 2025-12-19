@@ -1,0 +1,41 @@
+Let $P_n^{(\alpha,\beta)}(x)$ denote the Jacobi polynomials, orthogonal on $[-1,1]$ with respect to $p(x)=(1-x)^\alpha(1+x)^\beta$, where $\alpha,\beta>-1$. 
+
+Define the modified weight $\tilde p(x)=(1-x)^{\alpha+1}(1+x)^\beta=(1-x)p(x)$, and suppose that for $n\ge1$, $\tilde P_n^{(\alpha,\beta)}(x)=P_n^{(\alpha,\beta)}(x)+\delta_nP_{n-1}^{(\alpha+1,\beta)}(x)$, with $\deg(\tilde P_n^{(\alpha,\beta)})=n$. 
+The polynomials $\tilde P_n^{(\alpha,\beta)}(x)$ are constructed to be orthogonal with respect to $\tilde p(x)$.
+
+Claim. The condition $(\tilde P_n^{(\alpha,\beta)},P_{n-1}^{(\alpha+1,\beta)})_{\tilde p}=0$ is necessary and sufficient to determine $\delta_n$. 
+
+Determine whether this claim is **True or False**, and give a rigorous proof of your conclusion.
+
+**The claim is True.**
+
+Necessity
+
+The weight $\tilde{p}(x) = (1-x)^{\alpha+1}(1+x)^\beta$ (with $\alpha > -1$, $\beta > -1$) is nonnegative on $[-1,1]$ and positive on $(-1,1)$. Any degree-$n$ polynomial orthogonal to all lower-degree polynomials under $\langle \cdot, \cdot \rangle_{\tilde{p}}$ must vanish on inner products with any degree $< n$ polynomial, including the degree $n-1$ $P_{n-1}^{(\alpha+1,\beta)}(x)$. Hence,
+
+$$\langle \tilde{P}_n^{(\alpha,\beta)}, P_{n-1}^{(\alpha+1,\beta)} \rangle_{\tilde{p}} = 0.$$
+
+Sufficiency
+
+Imposing the condition yields
+
+$$\delta_n = -\frac{\langle P_n^{(\alpha,\beta)}, P_{n-1}^{(\alpha+1,\beta)} \rangle_{\tilde{p}}}{\|P_{n-1}^{(\alpha+1,\beta)}\|_{\tilde{p}}^2},$$
+
+unique since the norm is positive.
+
+The family $\{P_k^{(\alpha+1,\beta)}(x)\}_{k \geq 0}$ is orthogonal under $\tilde{p}$ (standard Jacobi with parameters $\alpha+1, \beta$) and spans polynomials of degree $< n$ for $k = 0$ to $n-1$.
+
+For $k \leq n-2$,
+
+$$\langle \tilde{P}_n^{(\alpha,\beta)}, P_k^{(\alpha+1,\beta)} \rangle_{\tilde{p}} = \langle P_n^{(\alpha,\beta)}, P_k^{(\alpha+1,\beta)} \rangle_{\tilde{p}} + \delta_n \langle P_{n-1}^{(\alpha+1,\beta)}, P_k^{(\alpha+1,\beta)} \rangle_{\tilde{p}}.$$
+
+1.  The second term is zero by orthogonality under $\tilde{p}$.
+    
+2.  The first is $\langle P_n^{(\alpha,\beta)}, (1-x) P_k^{(\alpha+1,\beta)} \rangle_p$ (original weight $p(x) = (1-x)^\alpha (1+x)^\beta$), and $\deg((1-x) P_k^{(\alpha+1,\beta)}) \leq n-1$, so it vanishes by orthogonality of $P_n^{(\alpha,\beta)}$ under $p$.
+    
+
+The case $k = n-1$ holds by the condition.
+
+Thus, full orthogonality to degrees $< n$ is achieved.
+
+**Final Answer: True.**

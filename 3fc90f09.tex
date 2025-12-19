@@ -1,0 +1,27 @@
+Let $\{H_n(x)\}$ denote the standard **Physicist's Hermite Polynomials**, orthogonal on $(-\infty, \infty)$ with respect to the weight $p(x) = e^{-x^2}$.
+
+A new system of polynomials, $\{\tilde{H}_n(x)\}$, is orthogonal on $(-\infty, \infty)$ with respect to the weight $\tilde{p}(x) = (x^2 + 1) e^{-x^2}$.
+
+The polynomials are related by the identity:
+
+$$\tilde{H}_n(x) = H_{n+2}(x) + \alpha_n H_n(x) + \beta_n H_{n-2}(x)$$
+
+**Claim:**
+
+Using the known three-term recurrence relation for $H_n(x)$ , the coefficient $\alpha_n$ in the identity above is given by:
+
+$$\alpha_n = -(2n + 1)$$
+
+Determine whether this claim is **True or False**, and give a rigorous proof of your conclusion.
+
+The claim is False.
+
+Take n=0. Then the identity reads $\tilde H_0(x)=H_2(x)+\alpha_0H_0(x)$, with $H_0(x)=1$ and $H_2(x)=4x^2-2$. Orthogonality of $\tilde H_0$ to $H_0$ in the modified inner product means
+
+$0=\int_{-\infty}^{\infty}\tilde H_0(x)H_0(x)(x^2+1)e^{-x^2}dx=\int_{-\infty}^{\infty}(4x^2-2+\alpha_0)(x^2+1)e^{-x^2}dx$.
+
+Expanding gives $(4x^2-2+\alpha_0)(x^2+1)=4x^4+(2+\alpha_0)x^2+(\alpha_0-2)$, so using $\int e^{-x^2}dx=\sqrt\pi$, $\int x^2e^{-x^2}dx=\sqrt\pi/2$, $\int x^4e^{-x^2}dx=3\sqrt\pi/4$ we get
+
+$0=4\cdot\frac{3\sqrt\pi}{4}+(2+\alpha_0)\cdot\frac{\sqrt\pi}{2}+(\alpha_0-2)\sqrt\pi=\sqrt\pi\left(2+\frac{3\alpha_0}{2}\right)$,
+
+hence $\alpha_0=-4/3$. The claim would give $\alpha_0=-(2\cdot0+1)=-1$, so the claim is false.

@@ -1,0 +1,58 @@
+Let $H_n(x)$ denote the physicist’s Hermite polynomials, orthogonal on $(-\infty,\infty)$ with respect to the weight $p(x)=e^{-x^2}$.
+
+Let $\tilde H_n(x)$ be polynomials orthogonal with respect to the modified weight $\tilde p(x)=(x^2+1)e^{-x^2}$. Assume for $n\ge2$ that
+
+$$\tilde H_n(x)=H_n(x)+\delta_nH_{n-2}(x)$$
+
+and that $\deg(\tilde H_n)=n$.
+
+**Claim:** The condition $(\tilde H_n,H_{n-2})_{\tilde p}=0$ is necessary and sufficient to determine $\delta_n$.
+
+Determine whether this claim is **True or False**, and give a rigorous proof of your conclusion.
+
+The claim is **False**.
+
+
+**Necessity holds.** If $\tilde H_n$ is orthogonal of degree $n$ with respect to the positive weight $\tilde p$, then it is orthogonal to every polynomial of degree less than $n$ . Since $\deg(H_{n-2})=n-2<n$, we must have $(\tilde H_n,H_{n-2})_{\tilde p}=0$.
+
+Sufficiency fails for $n\ge4$. Recall the physicist’s Hermite identity:
+
+$$xH_k=\frac12H_{k+1}+kH_{k-1}$$
+
+which implies:
+
+$$x^2H_k=\frac14H_{k+2}+\frac{2k+1}{2}H_k+k(k-1)H_{k-2}$$
+
+Writing $\tilde p=(x^2+1)e^{-x^2}$, we have:
+
+$$(H_a,H_b)_{\tilde p}=(H_a,H_b)_{e^{-x^2}}+(H_a,x^2H_b)_{e^{-x^2}}$$
+
+By orthogonality under $e^{-x^2}$, the first term vanishes unless $a=b$, and the second term can be nonzero only if $a\in\{b+2,b,b-2\}$.
+
+Now let $n\ge4$ and $\tilde H_n=H_n+\delta_nH_{n-2}$.
+
+Orthogonality to $H_{n-4}$ requires:
+
+$$0=(\tilde H_n,H_{n-4})_{\tilde p}=(H_n,H_{n-4})_{\tilde p}+\delta_n(H_{n-2},H_{n-4})_{\tilde p}$$
+
+Here $(H_n,H_{n-4})_{\tilde p}=0$, while:
+
+$$(H_{n-2},H_{n-4})_{\tilde p}=(H_{n-2},x^2H_{n-4})_{e^{-x^2}}=\frac14\|H_{n-2}\|_{e^{-x^2}}^2\ne0$$
+
+since $x^2H_{n-4}$ contains $\frac14H_{n-2}$. Hence $\delta_n=0$.
+
+With $\delta_n=0$, orthogonality to $H_{n-2}$ would require:
+
+$$0=(\tilde H_n,H_{n-2})_{\tilde p}=(H_n,H_{n-2})_{\tilde p}$$
+
+But:
+
+$$(H_n,H_{n-2})_{\tilde p}=(H_n,x^2H_{n-2})_{e^{-x^2}}=\frac14\|H_n\|_{e^{-x^2}}^2\ne0$$
+
+since $x^2H_{n-2}$ contains $\frac14H_n$. This is a contradiction.
+
+Therefore, for $n\ge4$ there is no choice of $\delta_n$ for which $H_n+\delta_nH_{n-2}$ is orthogonal with respect to $\tilde p$, and the single condition $(\tilde H_n,H_{n-2})_{\tilde p}=0$ is not sufficient.
+
+As a side note, for $n=2$ and $n=3$ parity eliminates all but one lower-degree orthogonality condition, so in those cases the single condition does determine $\delta_n$. However, the claim is stated for all $n\ge2$, and it fails for $n\ge4$.
+
+**Final Answer: False.**

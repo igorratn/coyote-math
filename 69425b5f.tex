@@ -1,0 +1,35 @@
+Consider the Jacobi polynomial $P_n^{(\alpha,\beta)}(x)$ on $[-1,1]$ with parameters $\alpha=1$ and $\beta=0$.
+Define $x^*=-\tfrac12$.
+
+Determine whether the following claim is true or false, and justify your answer:
+As $x$ increases, the successive local maxima of $|P_n^{(\alpha,\beta)}(x)|$ strictly decrease on $(-1,x^*)$ and strictly increase on $(x^*,1)$.
+
+
+
+The claim is **TRUE**.
+
+Write $y(x)=P_n^{(\alpha,\beta)}(x)$ and let $-1=x_{n,0}<x_{n,1}<\cdots<x_{n,n}=1$ be the successive points where $|y(x)|$ attains its local maxima on $[-1,1]$ (including the endpoints).
+
+This proof uses exactly the version of Szegő's result stated and proved in G. Szegő, Orthogonal Polynomials, AMS Colloquium Publications, Vol. 23, 4th ed., Chapter VII, Theorem 7.32.1, together with the paragraph immediately following the derivative computation in that proof.
+
+Szegő defines the critical point $x_0$:
+
+$$x_0=\frac{\beta-\alpha}{\alpha+\beta+1}$$
+
+He then defines an auxiliary function $f$ by the identity:
+
+$$n(n+\alpha+\beta+1)f(x)=n(n+\alpha+\beta+1)[P_n^{(\alpha,\beta)}(x)]^2+(1-x^2)\left(\frac{d}{dx}P_n^{(\alpha,\beta)}(x)\right)^2.$$
+
+He then differentiates this identity and, using the Jacobi differential equation (via the identity he cites earlier in the book), obtains the derivative:
+
+$$n(n+\alpha+\beta+1)f'(x)=2\{\alpha-\beta+(\alpha+\beta+1)x\}\left(\frac{d}{dx}P_n^{(\alpha,\beta)}(x)\right)^2.$$
+
+In particular, since $\left(\frac{d}{dx}P_n^{(\alpha,\beta)}(x)\right)^2\ge0$, the sign of $f'(x)$ is determined by the linear factor $\alpha-\beta+(\alpha+\beta+1)x$, so $f'(x)$ can change sign only at the unique point where that factor vanishes, namely $x=x_0$.
+
+Szegő then explains immediately after this computation that when $\alpha>-1/2$ and $\beta>-1/2$ (so in particular $-1<x_0<1$), the monotonicity of $f$ forces the heights of the successive relative maxima of $|P_n^{(\alpha,\beta)}(x)|$ to be decreasing as $x$ increases on the left side up to $x_0$, and increasing as $x$ increases on the right side starting at $x_0$, when the maxima are listed in order along the interval and the endpoint values at $x=-1$ and $x=1$ are included in the two sequences. Concretely, this yields an index $m$ such that $x_{n,m}\le x_0\le x_{n,m+1}$ and $|P_n^{(\alpha,\beta)}(x_{n,0})|>\cdots>|P_n^{(\alpha,\beta)}(x_{n,m})|<|P_n^{(\alpha,\beta)}(x_{n,m+1})|<\cdots<|P_n^{(\alpha,\beta)}(x_{n,n})|$.
+
+Now specialize exactly as in the prompt. Take $\alpha=1$ and $\beta=0$. Then $\alpha>-1/2$ and $\beta>-1/2$ hold, and
+
+$$x^*=x_0=\frac{\beta-\alpha}{\alpha+\beta+1}=\frac{0-1}{1+0+1}=-\frac{1}{2}.$$
+
+Therefore the conclusion just stated applies with $x^*=-\frac{1}{2}$, and it follows that, as $x$ increases, the successive local maxima of $|P_n^{(1,0)}(x)|$ strictly decrease on $(-1,x^*)$ and strictly increase on $(x^*,1)$. Therefore the statement is true.

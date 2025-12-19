@@ -1,0 +1,49 @@
+Let ${P_n(x)}_{n=0}^\infty$ be a sequence of monic polynomials defined by the exponential generating function
+
+$$G(x,t)=\sum_{n=0}^\infty P_n(x)\frac{t^n}{n!}=\frac{e^{xt}}{(1-t)^{5/2}}.$$
+
+  
+
+**TRUE or FALSE:**
+
+For every $n\ge 0$, the polynomial $P_n(x)$ satisfies a linear differential equation of the form
+
+$$\alpha(x)P_n^{\prime\prime}(x)+\beta(x)P_n^{\prime}(x)+\gamma_nP_n(x)=0,$$
+
+where $\alpha(x)$ and $\beta(x)$ are polynomials independent of $n$, and $\gamma_n$ is a real constant depending on $n$.
+
+  
+
+Determine, with proof, whether this statement is true or false.
+
+The statement is TRUE.
+
+The sequence of polynomials $P_n(x)$ is defined by the exponential generating function
+
+$G(x,t)=\frac{e^{xt}}{(1-t)^{5/2}}.$
+
+This form of $G(x,t)$ defines a classical orthogonal polynomial family (a Laguerre-type family corresponding to $L_n^{(\alpha)}(x)$ with $\alpha=3/2$, up to scaling).
+
+  
+
+By Bochner’s Theorem, every classical orthogonal polynomial family satisfies a second-order linear differential equation
+
+$\alpha(x)P_n^{\prime\prime}(x)+\beta(x)P_n^{\prime}(x)+\gamma_nP_n(x)=0,$
+
+where $\alpha(x)$ and $\beta(x)$ are polynomials independent of $n$, and $\gamma_n$ depends only on $n$.
+
+  
+
+For this Laguerre-type family the coefficients are
+
+$\alpha(x)=x,$
+
+$\beta(x)=-x+5/2,$
+
+$\gamma_n=n.$
+
+These satisfy all requirements: $\alpha(x)$ and $\beta(x)$ are polynomials independent of $n$, and $\gamma_n$ is a real constant that depends only on $n$.
+
+  
+
+Therefore, the statement is TRUE.

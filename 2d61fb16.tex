@@ -1,0 +1,48 @@
+Let $P_n(x)$ be the Legendre polynomials on $[-1,1]$ orthogonal with respect to $\rho(x)=1$. Fix $a>1$. Let $\{\bar P_n(x)\}_{n \ge 0}$ be the unique sequence of polynomials with $\deg \bar P_n = n$ such that
+
+$$\int_{-1}^1 \bar P_n(x)x^k \frac{dx}{a-x}=0$$
+
+for all integers $k$ with $0 \le k \le n-1$, and such that $\bar P_n$ has the same leading coefficient as $P_n$.
+
+Define $D_n$ by the identity
+
+$$\bar P_n(x)=D_n(P_n(x)c_{n-1}(a)-P_{n-1}(x)c_n(a))$$
+
+where $c_m(a)=\int_{-1}^1\frac{P_m(t)}{a-t}dt$.
+
+**Claim:** For every $n \ge 1$, the value of the modified polynomial at the endpoint $x=1$ satisfies $\bar P_n(1) = \frac{D_n}{n}$.
+
+Determine, with rigorous proof, whether the claim is **True or False**.
+
+The claim is false. 
+
+The Legendre polynomials satisfy $P_n(1)=1$ for all $n$. Substituting $x=1$ into the defining identity gives
+
+$$\bar P_n(1)=D_n(P_n(1)c_{n-1}(a)-P_{n-1}(1)c_n(a)) = D_n(c_{n-1}(a)-c_n(a)).$$
+
+Thus the claim $\bar P_n(1)=D_n/n$ is equivalent to
+
+$$c_{n-1}(a)-c_n(a)=\frac{1}{n}.$$
+
+Compute the first two coefficients using $P_0(x)=1$ and $P_1(x)=x$:
+
+$$c_0(a)=\int_{-1}^1\frac{1}{a-t}dt=\ln\frac{a+1}{a-1},$$
+
+$$c_1(a)=\int_{-1}^1\frac{t}{a-t}dt =\int_{-1}^1\left(-1+\frac{a}{a-t}\right)dt =-2+a\ln\frac{a+1}{a-1}.$$
+
+Hence
+
+$$c_0(a)-c_1(a) =2+(1-a)\ln\frac{a+1}{a-1}.$$
+
+For the claim to hold at $n=1$, this expression must equal $1$, i.e.
+
+$$(a-1)\ln\frac{a+1}{a-1}=1.$$
+
+
+Since the claim asserts the identity for all $a > 1$, one counterexample suffices. Taking $a = 2$ gives
+
+$$(2-1)\ln\frac{3}{1}=\ln3\neq1.$$
+
+Hence $c_0(2) - c_1(2) \neq 1$, so $\bar P_1(1) \neq D_1$. Therefore the claim fails already for $n = 1$, and is false in general. 
+
+Final Answer: False.
