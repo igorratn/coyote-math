@@ -1,41 +1,75 @@
-Let $P_n^{(\alpha,\beta)}(x)$ denote the Jacobi polynomials, orthogonal on $[-1,1]$ with respect to $p(x)=(1-x)^\alpha(1+x)^\beta$, where $\alpha,\beta>-1$. 
+Let $P_n^{(\alpha,\beta)}(x)$ denote the Jacobi polynomials, orthogonal on $[-1,1]$ with respect to $p(x)=(1-x)^\alpha(1+x)^\beta$, where $\alpha,\beta>-1$.
 
-Define the modified weight $\tilde p(x)=(1-x)^{\alpha+1}(1+x)^\beta=(1-x)p(x)$, and suppose that for $n\ge1$, $\tilde P_n^{(\alpha,\beta)}(x)=P_n^{(\alpha,\beta)}(x)+\delta_nP_{n-1}^{(\alpha+1,\beta)}(x)$, with $\deg(\tilde P_n^{(\alpha,\beta)})=n$. 
-The polynomials $\tilde P_n^{(\alpha,\beta)}(x)$ are constructed to be orthogonal with respect to $\tilde p(x)$.
+Fix $\beta_1\in\mathbb R$ with $|\beta_1|>1$ and define the modified weight
 
-Claim. The condition $(\tilde P_n^{(\alpha,\beta)},P_{n-1}^{(\alpha+1,\beta)})_{\tilde p}=0$ is necessary and sufficient to determine $\delta_n$. 
+$$\tilde p(x)=\frac{p(x)}{x-\beta_1}.$$
 
-Determine whether this claim is **True or False**, and give a rigorous proof of your conclusion.
+For functions $f$ and $g$, define the inner product
 
-**The claim is True.**
+$$(f,g)_{\tilde p}=\int_{-1}^1 f(x)g(x)\tilde p(x)dx.$$
 
-Necessity
+For $n\ge1$, define a sequence of polynomials $\tilde P_n^{(\alpha,\beta)}(x)$ by the ansatz
 
-The weight $\tilde{p}(x) = (1-x)^{\alpha+1}(1+x)^\beta$ (with $\alpha > -1$, $\beta > -1$) is nonnegative on $[-1,1]$ and positive on $(-1,1)$. Any degree-$n$ polynomial orthogonal to all lower-degree polynomials under $\langle \cdot, \cdot \rangle_{\tilde{p}}$ must vanish on inner products with any degree $< n$ polynomial, including the degree $n-1$ $P_{n-1}^{(\alpha+1,\beta)}(x)$. Hence,
+$$\tilde P_n^{(\alpha,\beta)}(x)=P_n^{(\alpha,\beta)}(x)+\gamma_n P_{n-1}^{(\alpha,\beta)}(x),$$
 
-$$\langle \tilde{P}_n^{(\alpha,\beta)}, P_{n-1}^{(\alpha+1,\beta)} \rangle_{\tilde{p}} = 0.$$
+so that $\deg(\tilde P_n^{(\alpha,\beta)})=n$ for every $\gamma_n\in\mathbb R.$
 
-Sufficiency
+Claim: The condition $(\tilde P_n^{(\alpha,\beta)},1)_{\tilde p}=0$ is necessary and sufficient for
 
-Imposing the condition yields
+$$(\tilde P_n^{(\alpha,\beta)},q)_{\tilde p}=0 \quad \text{for every polynomial } q \text{ with } \deg(q)<n.$$
 
-$$\delta_n = -\frac{\langle P_n^{(\alpha,\beta)}, P_{n-1}^{(\alpha+1,\beta)} \rangle_{\tilde{p}}}{\|P_{n-1}^{(\alpha+1,\beta)}\|_{\tilde{p}}^2},$$
 
-unique since the norm is positive.
+Determine whether this claim is True or False, and give a rigorous proof of your conclusion.
 
-The family $\{P_k^{(\alpha+1,\beta)}(x)\}_{k \geq 0}$ is orthogonal under $\tilde{p}$ (standard Jacobi with parameters $\alpha+1, \beta$) and spans polynomials of degree $< n$ for $k = 0$ to $n-1$.
+Conclusion: True.
 
-For $k \leq n-2$,
+Proof.
 
-$$\langle \tilde{P}_n^{(\alpha,\beta)}, P_k^{(\alpha+1,\beta)} \rangle_{\tilde{p}} = \langle P_n^{(\alpha,\beta)}, P_k^{(\alpha+1,\beta)} \rangle_{\tilde{p}} + \delta_n \langle P_{n-1}^{(\alpha+1,\beta)}, P_k^{(\alpha+1,\beta)} \rangle_{\tilde{p}}.$$
+Necessity. If $(\tilde P_n^{(\alpha,\beta)},q)_{\tilde p}=0$ for every polynomial $q$ with $\deg(q)<n$, then taking $q=1$ gives $(\tilde P_n^{(\alpha,\beta)},1)_{\tilde p}=0$.
 
-1.  The second term is zero by orthogonality under $\tilde{p}$.
-    
-2.  The first is $\langle P_n^{(\alpha,\beta)}, (1-x) P_k^{(\alpha+1,\beta)} \rangle_p$ (original weight $p(x) = (1-x)^\alpha (1+x)^\beta$), and $\deg((1-x) P_k^{(\alpha+1,\beta)}) \leq n-1$, so it vanishes by orthogonality of $P_n^{(\alpha,\beta)}$ under $p$.
-    
+Sufficiency. Assume $(\tilde P_n^{(\alpha,\beta)},1)_{\tilde p}=0$. Let $q$ be any polynomial with $\deg(q)<n$ and write $q(x)=q(\beta_1)+(x-\beta_1)r(x)$, where $r(x)=(q(x)-q(\beta_1))/(x-\beta_1)$ is a polynomial with $\deg(r) \le n-2$. Then
 
-The case $k = n-1$ holds by the condition.
+$$(\tilde P_n,q)_{\tilde p}=\int_{-1}^1 \tilde P_n(x)q(x)\frac{p(x)}{x-\beta_1}dx=q(\beta_1)(\tilde P_n,1)_{\tilde p}+\int_{-1}^1 \tilde P_n(x)r(x)p(x)dx.$$
 
-Thus, full orthogonality to degrees $< n$ is achieved.
+The first term is zero by assumption. For the second term, using $\tilde P_n=P_n+\gamma_n P_{n-1}$ and $\deg(r) \le n-2$, Jacobi orthogonality with respect to $p$ gives $(P_n,r)_p=0$ and $(P_{n-1},r)_p=0$, hence $\int_{-1}^1 \tilde P_n(x)r(x)p(x)dx=0$. Therefore $(\tilde P_n,q)_{\tilde p}=0$ for all $q$ with $\deg(q)<n$.
 
-**Final Answer: True.**
+This proves $(\tilde P_n,1)_{\tilde p}=0$ is necessary and sufficient for full orthogonality to all polynomials of degree less than $n$ with respect to $\tilde p$.
+
+Final Answer: True.aLet $P_n^{(\alpha,\beta)}(x)$ denote the Jacobi polynomials, orthogonal on $[-1,1]$ with respect to $p(x)=(1-x)^\alpha(1+x)^\beta$, where $\alpha,\beta>-1$.
+
+Fix $\beta_1\in\mathbb R$ with $|\beta_1|>1$ and define the modified weight
+
+$$\tilde p(x)=\frac{p(x)}{x-\beta_1}.$$
+
+For functions $f$ and $g$, define the inner product
+
+$$(f,g)_{\tilde p}=\int_{-1}^1 f(x)g(x)\tilde p(x)dx.$$
+
+For $n\ge1$, define a sequence of polynomials $\tilde P_n^{(\alpha,\beta)}(x)$ by the ansatz
+
+$$\tilde P_n^{(\alpha,\beta)}(x)=P_n^{(\alpha,\beta)}(x)+\gamma_n P_{n-1}^{(\alpha,\beta)}(x),$$
+
+so that $\deg(\tilde P_n^{(\alpha,\beta)})=n$ for every $\gamma_n\in\mathbb R.$
+
+Claim: The condition $(\tilde P_n^{(\alpha,\beta)},1)_{\tilde p}=0$ is necessary and sufficient for
+
+$$(\tilde P_n^{(\alpha,\beta)},q)_{\tilde p}=0 \quad \text{for every polynomial } q \text{ with } \deg(q)<n.$$
+
+
+Determine whether this claim is True or False, and give a rigorous proof of your conclusion.
+
+Conclusion: True.
+
+Proof.
+
+Necessity. If $(\tilde P_n^{(\alpha,\beta)},q)_{\tilde p}=0$ for every polynomial $q$ with $\deg(q)<n$, then taking $q=1$ gives $(\tilde P_n^{(\alpha,\beta)},1)_{\tilde p}=0$.
+
+Sufficiency. Assume $(\tilde P_n^{(\alpha,\beta)},1)_{\tilde p}=0$. Let $q$ be any polynomial with $\deg(q)<n$ and write $q(x)=q(\beta_1)+(x-\beta_1)r(x)$, where $r(x)=(q(x)-q(\beta_1))/(x-\beta_1)$ is a polynomial with $\deg(r) \le n-2$. Then
+
+$$(\tilde P_n,q)_{\tilde p}=\int_{-1}^1 \tilde P_n(x)q(x)\frac{p(x)}{x-\beta_1}dx=q(\beta_1)(\tilde P_n,1)_{\tilde p}+\int_{-1}^1 \tilde P_n(x)r(x)p(x)dx.$$
+
+The first term is zero by assumption. For the second term, using $\tilde P_n=P_n+\gamma_n P_{n-1}$ and $\deg(r) \le n-2$, Jacobi orthogonality with respect to $p$ gives $(P_n,r)_p=0$ and $(P_{n-1},r)_p=0$, hence $\int_{-1}^1 \tilde P_n(x)r(x)p(x)dx=0$. Therefore $(\tilde P_n,q)_{\tilde p}=0$ for all $q$ with $\deg(q)<n$.
+
+This proves $(\tilde P_n,1)_{\tilde p}=0$ is necessary and sufficient for full orthogonality to all polynomials of degree less than $n$ with respect to $\tilde p$.
+
+Final Answer: True.
