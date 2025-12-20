@@ -28,3 +28,14 @@
 ## Sine-Gordon and Dynamical Systems echo *  echo *  echo * 
 ## Sine-Gordon and Dynamical Systems echo *  echo *  echo * 
 ## Sine-Gordon and Dynamical Systems echo *  echo *  echo * 
+## Sine-Gordon and Dynamical Systems
+* 
+* 
+* 
+* 
+* 
+* 
+* 
+* 
+* 
+* 
