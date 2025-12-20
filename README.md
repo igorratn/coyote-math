@@ -1,11 +1,11 @@
 
 Coyote Math Task Index
 Jacobi and Legendre Polynomials
-[Jacobi: Local Maxima](https://www.google.com/search?q=027f10a7.md)
+[Jacobi: Local Maxima](027f10a7.md)
 
 [Jacobi: Alpha1, Beta0](69425b5f.md)
 
-[Legendre: a > 1](2d61fb16.md)
+[Legendre: a ) 1](2d61fb16.md)
 
 [Legendre: Recurrence](91608bdd.md)
 
@@ -16,5 +16,4 @@ Hermite Polynomials
 
 [Hermite: Standard](3fc90f09.md)
 
-* $$Hermite: Real Line$$(f6e16472.md)(f6e16472.md))
-* 
+[Hermite: Real Line](f6e16472.md)
