@@ -1,0 +1,28 @@
+Consider the Laguerre polynomials $L_n^{(3)}(x)$ on the interval $(0, \infty)$ with parameter $\alpha = 3$ and define $x^* = 3.5$. 
+
+Question: Determine whether the following claim is true or false, and justify your answer with a rigorous proof:
+
+As $x$ increases, the successive local maxima of $|L_n^{(3)}(x)|$ strictly decrease on $(0, x^*)$ and strictly increase on $(x^*, \infty)$.
+
+
+The claim is TRUE.
+
+Let $y(x) = L_n^{(3)}(x)$. As shown in A.F. Nikiforov and V.B. Uvarov, Special Functions of Mathematical Physics (1988), Chapter 2, Section 7, solutions of hypergeometric-type equations admit the auxiliary function
+
+$$v(x) = y(x)^2 + \lambda_n^{-1}\sigma(x)y'(x)^2$$
+
+, whose values at the local maxima of $|y|$ coincide with $|y(x)|^2$, since $y'(x) = 0$ at those points.
+
+For Laguerre polynomials $L_n^{(\alpha)}$, the differential equation has parameters $\sigma(x) = x$, $\tau(x) = \alpha + 1 - x$, and $\lambda_n = n$. Differentiation yields (NU, Eq. (6))
+
+$$v'(x) = \frac{\sigma'(x) - 2\tau(x)}{\lambda_n} y'(x)^2$$
+
+. Thus the monotonicity of the successive maxima of $|y|$ is governed by the sign of the linear factor $\sigma'(x) - 2\tau(x)$.
+
+For $\alpha = 3$,
+
+$$\sigma'(x) - 2\tau(x) = 1 - 2(4 - x) = 2x - 7$$
+
+which changes sign at $x^* = 3.5$. Hence $v'(x) < 0$ on $(0, 3.5)$, so the successive maxima of $|L_n^{(3)}(x)|$ strictly decrease there, while $v'(x) > 0$ on $(3.5, \infty)$, so the successive maxima strictly increase.
+
+Final Answer: TRUE.
