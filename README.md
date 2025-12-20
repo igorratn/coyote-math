@@ -116,4 +116,3 @@ Racah & Hahn
 [Generating Function: Monic](4dc6fb67.md)
 
 [Christoffel-Darboux Kernel](d72d16d6.md)
-
