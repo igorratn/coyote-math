@@ -17,3 +17,4 @@ Hermite Polynomials
 [Hermite: Standard](3fc90f09.md)
 
 [Hermite: Real Line](f6e16472.md))
+* 
