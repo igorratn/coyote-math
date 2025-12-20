@@ -5,7 +5,7 @@ Jacobi and Legendre Polynomials
 
 [Jacobi: Alpha1, Beta0](69425b5f.md)
 
-[Legendre: a ) 1](2d61fb16.md)
+[Legendre: a > 1](2d61fb16.md)
 
 [Legendre: Recurrence](91608bdd.md)
 
