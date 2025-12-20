@@ -61,7 +61,6 @@ Racah & Hahn
 [6j Symbol Evaluation](fe4dc745.md)
 
 3. Differential Equations & Physics
-Sine-Gordon Dynamics
 [Sine-Gordon: DNA Overtwist](34b8ebad.md)
 
 [Sine-Gordon: Initial Phase 5pi/2](7132b649.md)
@@ -82,7 +81,6 @@ Sine-Gordon Dynamics
 
 [Sine-Gordon: Coupled Pendula](ee4bc277.md)
 
-Physics & Waves
 [Acoustic Duct Pressure](2c968d24.md)
 
 [Membrane Displacement](2538fcdd.md)
@@ -118,3 +116,4 @@ Physics & Waves
 [Generating Function: Monic](4dc6fb67.md)
 
 [Christoffel-Darboux Kernel](d72d16d6.md)
+
