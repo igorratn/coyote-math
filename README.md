@@ -28,25 +28,3 @@
 * 
 * 
 * 
-
-## Sine-Gordon and Dynamical Systems
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-
-## Geometry and Topology
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-* 
