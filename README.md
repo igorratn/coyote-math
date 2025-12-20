@@ -1,52 +1,19 @@
-# Coyote Math Task Index
 
-## Jacobi and Legendre Polynomials
-* 
-* 
-* 
-* 
+Coyote Math Task Index
+Jacobi and Legendre Polynomials
+[Jacobi: Local Maxima](https://www.google.com/search?q=027f10a7.md)
 
-## Hermite Polynomials
-* 
-* 
-* 
-* 
+[Jacobi: Alpha1, Beta0](69425b5f.md)
 
-## Laguerre Polynomials
-* 
-* 
-* 
-* 
+[Legendre: a > 1](2d61fb16.md)
 
-## Quantum Mechanics
-* 
-* 
-* 
-* 
-* 
-## Sine-Gordon and Dynamical Systems echo *  echo *  echo * 
-## Sine-Gordon and Dynamical Systems echo *  echo *  echo * 
-## Sine-Gordon and Dynamical Systems echo *  echo *  echo * 
-## Sine-Gordon and Dynamical Systems echo *  echo *  echo * 
-## Sine-Gordon and Dynamical Systems
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-## Sine-Gordon and Dynamical Systems
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-* 
+[Legendre: Recurrence](91608bdd.md)
+
+Hermite Polynomials
+[Hermite: Modified Weight](076ef56b.md)
+
+[Hermite: Physicist Claims](18942427.md)
+
+[Hermite: Standard](3fc90f09.md)
+
+[Hermite: Real Line](f6e16472.md)
