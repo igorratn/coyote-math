@@ -4,27 +4,31 @@
 printf "# Coyote Math Task Index\n\n" > README.md
 printf "## Recent Updates\n\n" >> README.md
 
-# Function to extract a clean title/snippet from a file
-get_snippet() {
-    # 1. Get first 10 lines
-    # 2. Ignore lines starting with \ (LaTeX commands) or # (Markdown headers)
-    # 3. Ignore empty lines
-    # 4. Take the first remaining line and cut it at 80 characters
-    grep -vE '^\\|^#|^$' "$1" | head -n 1 | cut -c 1-80 | sed 's/[[:space:]]*$//'
+# Function to extract and clean math snippets
+get_math_snippet() {
+    # Grabs the first line that isn't a LaTeX command or header
+    # Removes common LaTeX preamble junk to find the actual problem statement
+    content=$(grep -vE '^\\|^#|^$' "$1" | head -n 1)
+    
+    # Clean up the snippet: 
+    # - Limit length to 100 chars
+    # - Remove any trailing special characters that break markdown links
+    clean=$(echo "$content" | cut -c 1-100 | sed 's/[]()[]//g')
+    echo "$clean"
 }
 
-# 2. Build the "Recent Updates" Section (Last 5 modified files)
+# 2. Build Recent Updates
 ls -t *.md | grep -v "README.md" | head -5 | while read -r file; do
-    SNIPPET=$(get_snippet "$file")
-    # If snippet is empty, use the filename as a backup title
-    [ -z "$SNIPPET" ] && SNIPPET="Problem: ${file%.*}"
-    printf "* [%s](%s)\n" "$SNIPPET" "$file" >> README.md
+    TITLE=$(get_math_snippet "$file")
+    [ -z "$TITLE" ] && TITLE="Problem: ${file%.*}"
+    # Format as: Snippet Text [view file](filename) 
+    # This keeps the math outside the link brackets for better rendering
+    printf "* %s ... [[view]](%s)\n" "$TITLE" "$file" >> README.md
 done
 
 printf "\n---\n\n" >> README.md
 
-# 3. Build the Grouped Categories
-# We use your existing categories but populate them dynamically
+# 3. Library by Category
 categories=("Jacobi" "Legendre" "Hermite" "Laguerre" "Racah" "Hahn" "Clebsch" "Sine-Gordon" "Geodesic")
 display_names=("Jacobi Polynomials" "Legendre Polynomials" "Hermite Polynomials" "Laguerre Polynomials" "Racah Polynomials" "Hahn Polynomials" "Quantum Mechanics" "Differential Equations" "Geometry & Topology")
 
@@ -34,21 +38,21 @@ for i in "${!categories[@]}"; do
     cat_key="${categories[$i]}"
     cat_name="${display_names[$i]}"
     
-    # Check if any files contain the keyword (case-insensitive)
     files=$(grep -il "$cat_key" *.md | grep -v "README.md")
     
     if [ -n "$files" ]; then
         printf "### $cat_name\n\n" >> README.md
         echo "$files" | while read -r file; do
-            SNIPPET=$(get_snippet "$file")
-            [ -z "$SNIPPET" ] && SNIPPET="Problem: ${file%.*}"
-            printf "* [%s](%s)\n" "$SNIPPET" "$file" >> README.md
+            TITLE=$(get_math_snippet "$file")
+            [ -z "$TITLE" ] && TITLE="Problem: ${file%.*}"
+            # Keeping the math part separate from the link part improves rendering
+            printf "* %s ... [[view]](%s)\n" "$TITLE" "$file" >> README.md
         done
         printf "\n" >> README.md
     fi
 done
 
-# 4. Git Push
+# 4. Standard Push
 git add .
-git commit -m "Update intelligent dynamic index"
+git commit -m "Fix math rendering in index"
 git push origin main
