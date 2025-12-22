@@ -2,11 +2,11 @@
 
 ## Recent Updates
 
+* Let $p_nx_{n\ge0}$ be the monic orthogonal polynomials with respect to a positive weight $\rhox$ ... [[view]](b013b487.md)
+* Consider the physicists’ Hermite polynomials $H_nx$ on $-\infty,\infty$ with $n\ge1$, and define ... [[view]](18942427.md)
 * Let $P_n^{\alpha,\beta}x$ denote the Jacobi polynomials, orthogonal on $-1,1$ with respect to  ... [[view]](9c2e2dec.md)
 * Let $P_n^{\alpha,\beta}x$ be the Jacobi polynomials orthogonal on $-1,1$ with respect to $px ... [[view]](85d6da54.md)
 * Let $P_nx$ be the Legendre polynomials on $-1,1$ orthogonal with respect to $\rhox=1$. Fix $a> ... [[view]](2d61fb16.md)
-*   % Unit circle boundary of the Poincaré disk ... [[view]](poincare_AB_asymmetric.md)
-* Let ... [[view]](main.md)
 
 ---
 
