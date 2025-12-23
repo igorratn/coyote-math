@@ -2,11 +2,11 @@
 
 ## Recent Updates
 
+* Let $P_n^{\alpha,\beta}x$ be the jacobi polynomials with parameters $\alpha, \beta > -1$, orthog ... [[view]](e89ce469.md)
 * Determine, with rigorous proof, whether the following statement is true or false for Laguerre polyno ... [[view]](d416c4c4.md)
 * Let $p_nx_{n\ge0}$ be the monic orthogonal polynomials with respect to a positive weight $\rhox$ ... [[view]](b013b487.md)
 * Fix $\alpha,\beta>-1$. There exist constants $C>0$ and $\delta\in0,1$, independent of $n$, such th ... [[view]](ec15106e.md)
 * Consider the physicists’ Hermite polynomials $H_nx$ on $-\infty,\infty$ with $n\ge1$, and define ... [[view]](18942427.md)
-* Let $P_n^{\alpha,\beta}x$ denote the Jacobi polynomials, orthogonal on $-1,1$ with respect to  ... [[view]](9c2e2dec.md)
 
 ---
 
@@ -22,6 +22,7 @@
 * Let $P_n^{\alpha,\beta}x$ denote the Jacobi polynomials, orthogonal on $-1,1$ with respect to  ... [[view]](9c2e2dec.md)
 * The Racah polynomials $\hat{R}_n\lambdax$ are the most general family of discrete orthogonal pol ... [[view]](bd24c6fc.md)
 * Let the polynomial $p_nx$ of degree $n\ge0$ satisfy the differential equation $1-x^2p_n^{\prime\ ... [[view]](e75e5639.md)
+* Let $P_n^{\alpha,\beta}x$ be the jacobi polynomials with parameters $\alpha, \beta > -1$, orthog ... [[view]](e89ce469.md)
 * Fix $\alpha,\beta>-1$. There exist constants $C>0$ and $\delta\in0,1$, independent of $n$, such th ... [[view]](ec15106e.md)
 
 ### Legendre Polynomials
