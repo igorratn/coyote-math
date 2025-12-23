@@ -2,11 +2,11 @@
 
 ## Recent Updates
 
+* Determine, with rigorous proof, whether the following statement is true or false for Laguerre polyno ... [[view]](d416c4c4.md)
 * Let $p_nx_{n\ge0}$ be the monic orthogonal polynomials with respect to a positive weight $\rhox$ ... [[view]](b013b487.md)
 * Fix $\alpha,\beta>-1$. There exist constants $C>0$ and $\delta\in0,1$, independent of $n$, such th ... [[view]](ec15106e.md)
 * Consider the physicists’ Hermite polynomials $H_nx$ on $-\infty,\infty$ with $n\ge1$, and define ... [[view]](18942427.md)
 * Let $P_n^{\alpha,\beta}x$ denote the Jacobi polynomials, orthogonal on $-1,1$ with respect to  ... [[view]](9c2e2dec.md)
-* Let $P_n^{\alpha,\beta}x$ be the Jacobi polynomials orthogonal on $-1,1$ with respect to $px ... [[view]](85d6da54.md)
 
 ---
 
@@ -44,6 +44,7 @@
 * Let $\{L_n^{\alpha}x\}$ denote the **Generalized Laguerre Polynomials**, orthogonal on $0, \inf ... [[view]](5dd03fbd.md)
 * Consider the Laguerre polynomials $L_n^{3}x$ on the interval $0, \infty$ with parameter $\alph ... [[view]](6c96b851.md)
 * Evaluate the integral ... [[view]](7c563c4e.md)
+* Determine, with rigorous proof, whether the following statement is true or false for Laguerre polyno ... [[view]](d416c4c4.md)
 * Evaluate the ratio ... [[view]](dd5e2fc5.md)
 * Evaluate the integral ... [[view]](e724070a.md)
 
