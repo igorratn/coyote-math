@@ -2,11 +2,11 @@
 
 ## Recent Updates
 
+* Let $p_nx$ be the monic Legendre polynomials on $-1,1$ orthogonal with respect to $\rhox=1$. F ... [[view]](147341f7.md)
+* Consider the quantum harmonic oscillator orthonormal basis ... [[view]](25d6839e.md)
 * let $H_nx$ be the hermite polynomials, orthogonal on $-\infty, \infty$ with respect to the weigh ... [[view]](dd13f374.md)
 * let $P_n^{\alpha,\beta}x$ be the jacobi polynomials with parameters $\alpha, \beta > -1$, orthog ... [[view]](ca5a3f25.md)
 * Let $P_n^{\alpha,\beta}x$ be the jacobi polynomials with parameters $\alpha, \beta > -1$, orthog ... [[view]](e89ce469.md)
-* Determine, with rigorous proof, whether the following statement is true or false for Laguerre polyno ... [[view]](d416c4c4.md)
-* Let $p_nx_{n\ge0}$ be the monic orthogonal polynomials with respect to a positive weight $\rhox$ ... [[view]](b013b487.md)
 
 ---
 
@@ -28,6 +28,7 @@
 
 ### Legendre Polynomials
 
+* Let $p_nx$ be the monic Legendre polynomials on $-1,1$ orthogonal with respect to $\rhox=1$. F ... [[view]](147341f7.md)
 * Let $P_nx$ be the Legendre polynomials on $-1,1$ orthogonal with respect to $\rhox=1$. Fix $a> ... [[view]](2d61fb16.md)
 * Let $\{p_nx\}$ be any sequence of orthogonal polynomials monic or orthonormal with respect to a  ... [[view]](d72d16d6.md)
 * Let **$\{{p_nx}\}_{n=0}^\infty$** be orthonormal polynomials with respect to a positive weight **$ ... [[view]](f6e16472.md)
