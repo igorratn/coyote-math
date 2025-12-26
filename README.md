@@ -2,11 +2,11 @@
 
 ## Recent Updates
 
+* Consider the monic Laguerre polynomials $p_nx$ on $0, \infty$ with weight $\rhox = e^{-x}$, wh ... [[view]](3bde7860.md)
 * Let $p_nx$ be the monic Legendre polynomials on $-1,1$ orthogonal with respect to $\rhox=1$. F ... [[view]](147341f7.md)
 * Consider the quantum harmonic oscillator orthonormal basis ... [[view]](25d6839e.md)
 * let $H_nx$ be the hermite polynomials, orthogonal on $-\infty, \infty$ with respect to the weigh ... [[view]](dd13f374.md)
 * let $P_n^{\alpha,\beta}x$ be the jacobi polynomials with parameters $\alpha, \beta > -1$, orthog ... [[view]](ca5a3f25.md)
-* Let $P_n^{\alpha,\beta}x$ be the jacobi polynomials with parameters $\alpha, \beta > -1$, orthog ... [[view]](e89ce469.md)
 
 ---
 
@@ -44,6 +44,7 @@
 ### Laguerre Polynomials
 
 * Evaluate the integral ... [[view]](0526785f.md)
+* Consider the monic Laguerre polynomials $p_nx$ on $0, \infty$ with weight $\rhox = e^{-x}$, wh ... [[view]](3bde7860.md)
 * Let ${P_nx}_{n=0}^\infty$ be a sequence of monic polynomials defined by the exponential generating ... [[view]](4dc6fb67.md)
 * Let $\{L_n^{\alpha}x\}$ denote the **Generalized Laguerre Polynomials**, orthogonal on $0, \inf ... [[view]](5dd03fbd.md)
 * Consider the Laguerre polynomials $L_n^{3}x$ on the interval $0, \infty$ with parameter $\alph ... [[view]](6c96b851.md)
