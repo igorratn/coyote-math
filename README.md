@@ -2,11 +2,11 @@
 
 ## Recent Updates
 
+* Let $H_nx$ be the physicist's Hermite polynomials. For $z \in \mathbb{C} \setminus \mathbb{R}$, de ... [[view]](5c7587a5.md)
 * Let $P_n^{\alpha,\beta}x$ denote the Jacobi polynomials, orthogonal on $-1,1$ with respect to  ... [[view]](9c2e2dec.md)
 * Consider the physicists' Hermite polynomials $H_nx$ on $-\infty, \infty$ with $n \ge 1$, and let ... [[view]](18942427.md)
 * Consider the monic Laguerre polynomials $p_nx$ on $0, \infty$ with weight $\rhox = e^{-x}$, wh ... [[view]](3bde7860.md)
 * Let $p_nx$ be the monic Legendre polynomials on $-1,1$ orthogonal with respect to $\rhox=1$. F ... [[view]](147341f7.md)
-* Consider the quantum harmonic oscillator orthonormal basis ... [[view]](25d6839e.md)
 
 ---
 
@@ -39,6 +39,7 @@
 * Let $\{P_nx\}_{n \ge 0}$ be a sequence of polynomials defined by the exponential generating functi ... [[view]](07a8cfcf.md)
 * Consider the physicists' Hermite polynomials $H_nx$ on $-\infty, \infty$ with $n \ge 1$, and let ... [[view]](18942427.md)
 * Let $\{H_nx\}$ denote the standard **Physicist's Hermite Polynomials**, orthogonal on $-\infty, \ ... [[view]](3fc90f09.md)
+* Let $H_nx$ be the physicist's Hermite polynomials. For $z \in \mathbb{C} \setminus \mathbb{R}$, de ... [[view]](5c7587a5.md)
 * let $H_nx$ be the hermite polynomials, orthogonal on $-\infty, \infty$ with respect to the weigh ... [[view]](dd13f374.md)
 
 ### Laguerre Polynomials
