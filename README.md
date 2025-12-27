@@ -2,11 +2,11 @@
 
 ## Recent Updates
 
+* Let $L_n^{\alpha}x$ denote the standard non-monic generalized Laguerre polynomials with $\alph ... [[view]](53de3231.md)
 * Let $H_nx$ be the physicist's Hermite polynomials. For $z \in \mathbb{C} \setminus \mathbb{R}$, de ... [[view]](5c7587a5.md)
 * Let $P_n^{\alpha,\beta}x$ denote the Jacobi polynomials, orthogonal on $-1,1$ with respect to  ... [[view]](9c2e2dec.md)
 * Consider the physicists' Hermite polynomials $H_nx$ on $-\infty, \infty$ with $n \ge 1$, and let ... [[view]](18942427.md)
 * Consider the monic Laguerre polynomials $p_nx$ on $0, \infty$ with weight $\rhox = e^{-x}$, wh ... [[view]](3bde7860.md)
-* Let $p_nx$ be the monic Legendre polynomials on $-1,1$ orthogonal with respect to $\rhox=1$. F ... [[view]](147341f7.md)
 
 ---
 
@@ -47,6 +47,7 @@
 * Evaluate the integral ... [[view]](0526785f.md)
 * Consider the monic Laguerre polynomials $p_nx$ on $0, \infty$ with weight $\rhox = e^{-x}$, wh ... [[view]](3bde7860.md)
 * Let ${P_nx}_{n=0}^\infty$ be a sequence of monic polynomials defined by the exponential generating ... [[view]](4dc6fb67.md)
+* Let $L_n^{\alpha}x$ denote the standard non-monic generalized Laguerre polynomials with $\alph ... [[view]](53de3231.md)
 * Let $\{L_n^{\alpha}x\}$ denote the **Generalized Laguerre Polynomials**, orthogonal on $0, \inf ... [[view]](5dd03fbd.md)
 * Consider the Laguerre polynomials $L_n^{3}x$ on the interval $0, \infty$ with parameter $\alph ... [[view]](6c96b851.md)
 * Evaluate the integral ... [[view]](7c563c4e.md)
