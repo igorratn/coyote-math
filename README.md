@@ -2,7 +2,7 @@
 
 ## Recent Updates
 
-* Problem: 25fec83d ... [[view]](25fec83d.md)
+* Let $P_n^{\alpha,\beta}x$ denote the Jacobi polynomials, orthogonal on $-1,1$ with respect to  ... [[view]](25fec83d.md)
 * Let $p_nx_{n\ge0}$ be the monic orthogonal polynomials with respect to a positive weight $\rhox$ ... [[view]](b013b487.md)
 * Let $L_n^{\alpha}x$ denote the standard non-monic generalized Laguerre polynomials with $\alph ... [[view]](53de3231.md)
 * Let $H_nx$ be the physicist's Hermite polynomials. For $z \in \mathbb{C} \setminus \mathbb{R}$, de ... [[view]](5c7587a5.md)
@@ -15,6 +15,7 @@
 ### Jacobi Polynomials
 
 * Let $P_n^{\alpha,\beta}x$ denote the Jacobi polynomials, orthogonal on $-1,1$ with respect to  ... [[view]](027f10a7.md)
+* Let $P_n^{\alpha,\beta}x$ denote the Jacobi polynomials, orthogonal on $-1,1$ with respect to  ... [[view]](25fec83d.md)
 * A physical quantity $Q_n$ is directly proportional to the value of a high-order Racah polynomial $u_ ... [[view]](31001068.md)
 * Let the Clebsch–Gordan coefficient $\langle j_1,m_1,j_2,m_2\mid j_3,m_3\rangle$ satisfy the constrai ... [[view]](3c1c8b15.md)
 * Consider the Jacobi polynomial $P_n^{\alpha,\beta}x$ on $-1,1$ with parameters $\alpha=1$ and  ... [[view]](69425b5f.md)
@@ -29,6 +30,7 @@
 ### Legendre Polynomials
 
 * Let $p_nx$ be the monic Legendre polynomials on $-1,1$ orthogonal with respect to $\rhox=1$. F ... [[view]](147341f7.md)
+* Let $P_n^{\alpha,\beta}x$ denote the Jacobi polynomials, orthogonal on $-1,1$ with respect to  ... [[view]](25fec83d.md)
 * Let $P_nx$ be the Legendre polynomials on $-1,1$ orthogonal with respect to $\rhox=1$. Fix $a> ... [[view]](2d61fb16.md)
 * Let $\{p_nx\}$ be any sequence of orthogonal polynomials monic or orthonormal with respect to a  ... [[view]](d72d16d6.md)
 * Let **$\{{p_nx}\}_{n=0}^\infty$** be orthonormal polynomials with respect to a positive weight **$ ... [[view]](f6e16472.md)
