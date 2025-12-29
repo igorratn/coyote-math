@@ -3,10 +3,10 @@
 ## Recent Updates
 
 * Let $L_n^{\alpha}t$ be the Laguerre polynomials. For $\mathrm{Re}\alpha > -1$ and $z \in \math ... [[view]](9c127187.md)
+* For $n \ge 1$, define the Hermite function of the second kind as: ... [[view]](67128ca2.md)
+* Let $L_n^{\alpha}t$ be the Laguerre polynomials with $\mathrm{Re}\alpha>-1$. For $z\in\mathbb{ ... [[view]](b4d59303.md)
 * Let $L_n^{\alpha}z$ be the Laguerre polynomials. For $\text{Re}\alpha > -1$ and $z \in \mathbb ... [[view]](6c1ed21d.md)
 * Let $P_n^{\alpha,\beta}x$ denote the Jacobi polynomials, orthogonal on $-1,1$ with respect to  ... [[view]](25fec83d.md)
-* Let $p_nx_{n\ge0}$ be the monic orthogonal polynomials with respect to a positive weight $\rhox$ ... [[view]](b013b487.md)
-* Let $L_n^{\alpha}x$ denote the standard non-monic generalized Laguerre polynomials with $\alph ... [[view]](53de3231.md)
 
 ---
 
@@ -42,6 +42,7 @@
 * Consider the physicists' Hermite polynomials $H_nx$ on $-\infty, \infty$ with $n \ge 1$, and let ... [[view]](18942427.md)
 * Let $\{H_nx\}$ denote the standard **Physicist's Hermite Polynomials**, orthogonal on $-\infty, \ ... [[view]](3fc90f09.md)
 * Let $H_nx$ be the physicist's Hermite polynomials. For $z \in \mathbb{C} \setminus \mathbb{R}$, de ... [[view]](5c7587a5.md)
+* For $n \ge 1$, define the Hermite function of the second kind as: ... [[view]](67128ca2.md)
 * let $H_nx$ be the hermite polynomials, orthogonal on $-\infty, \infty$ with respect to the weigh ... [[view]](dd13f374.md)
 
 ### Laguerre Polynomials
@@ -55,6 +56,7 @@
 * Consider the Laguerre polynomials $L_n^{3}x$ on the interval $0, \infty$ with parameter $\alph ... [[view]](6c96b851.md)
 * Evaluate the integral ... [[view]](7c563c4e.md)
 * Let $L_n^{\alpha}t$ be the Laguerre polynomials. For $\mathrm{Re}\alpha > -1$ and $z \in \math ... [[view]](9c127187.md)
+* Let $L_n^{\alpha}t$ be the Laguerre polynomials with $\mathrm{Re}\alpha>-1$. For $z\in\mathbb{ ... [[view]](b4d59303.md)
 * Determine, with rigorous proof, whether the following statement is true or false for Laguerre polyno ... [[view]](d416c4c4.md)
 * Evaluate the ratio ... [[view]](dd5e2fc5.md)
 * Evaluate the integral ... [[view]](e724070a.md)
