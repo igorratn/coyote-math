@@ -2,11 +2,11 @@
 
 ## Recent Updates
 
-* [For n ≥ 1, define the Jacobi function of the second kind as](b8db5f5e.md)
-* [Let $L_n^{\alpha}t$ be the Laguerre polynomials. For $\mathrm{Re}\alpha > -1$ an](9c127187.md)
-* [For $n \ge 1$, define the Hermite function of the second kind as:](67128ca2.md)
-* [Let $L_n^{\alpha}t$ be the Laguerre polynomials with $\mathrm{Re}\alpha>-1$. For](b4d59303.md)
-* [Let $L_n^{\alpha}z$ be the Laguerre polynomials. For ${Re}\alpha > -1$ and $z \i](6c1ed21d.md)
+* For n ≥ 1, define the Jacobi function of the second kind as ... [[b8db5f5e.md]](b8db5f5e.md)
+* Let $L_n^{\alpha}t$ be the Laguerre polynomials. For $\mathrm{Re}\alpha > -1$ an ... [[9c127187.md]](9c127187.md)
+* For $n \ge 1$, define the Hermite function of the second kind as: ... [[67128ca2.md]](67128ca2.md)
+* Let $L_n^{\alpha}t$ be the Laguerre polynomials with $\mathrm{Re}\alpha>-1$. For ... [[b4d59303.md]](b4d59303.md)
+* Let $L_n^{\alpha}z$ be the Laguerre polynomials. For ${Re}\alpha > -1$ and $z \i ... [[6c1ed21d.md]](6c1ed21d.md)
 
 ---
 
@@ -38,4 +38,4 @@ Root: Special Functions & Geometry
 
 ---
 
-*Note: Total files indexed:       76. All names and IDs are clickable links.*
+*Note: Total files indexed:       76. All leaves and filenames are clickable links.*
