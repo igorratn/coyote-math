@@ -1,32 +1,35 @@
 #!/bin/bash
 
-# 1. Setup Environment
-# Splitting all.md into temporary files so the script can "see" individual problems
-csplit -s -z all.md '/==> /' '{*}'
-for f in xx*; do
-    # Extract the filename from the header line (e.g., 027f10a7.md)
-    name=$(head -n 1 "$f" | sed 's/==> \(.*\) <==/\1/')
-    mv "$f" "$name"
-done
-
-# 2. Start the README
+# 1. Start the README
 printf "# Coyote Math Task Index\n\n" > README.md
 
-# 3. Build the Tree using NU and Geometry Content
+# 2. Re-building the Tree using Content-Based Clustering
 printf "## Problem Tree\n\n" >> README.md
 printf '```text\n' >> README.md
 printf "Root: Special Functions & Geometry\n" >> README.md
 
+# Defined clusters based on NU book chapters and specific task keywords
 nu_names=("Hypergeometric Type" "Classical Orthogonal" "Discrete Variables" "Differential Geometry" "Physical Applications" "Second Kind & Transforms")
-nu_pats=("hypergeometric\|Rodrigues\|gamma" "Jacobi\|Legendre\|Hermite\|Laguerre\|Chebyshev" "Hahn\|Racah\|Clebsch\|3j\|difference" "geodesic\|curvature\|torsion\|Poincare\|metric\|disk" "membrane\|acoustic\|thermal\|sine-Gordon\|vibration" "Cauchy\|second kind\|Q_n\|asymptotic\|integral")
+nu_pats=("hypergeometric\|Rodrigues\|gamma\|Jacobi\|Bochner" "Legendre\|Hermite\|Laguerre\|Chebyshev\|orthonormal" "Hahn\|Racah\|Clebsch\|3j\|discrete" "geodesic\|curvature\|torsion\|Poincare\|metric\|torus" "membrane\|acoustic\|harmonic\|sine-Gordon\|vibration" "Cauchy\|second kind\|Q_n\|asymptotic\|integral")
+
+# We use csplit to temporarily break all.md into parts to identify which "file" belongs where
+csplit -s -z all.md '/==> /' '{*}'
 
 for i in "${!nu_names[@]}"; do
     name="${nu_names[$i]}"
     pat="${nu_pats[$i]}"
-    
-    # Identify files containing the cluster keywords
-    matches=$(grep -ilE "$pat" *.md | grep -v "README.md" | grep -v "all.md" | sed 's/\.md//g' | tr '\n' ',' | sed 's/,$//')
-    
+    matches=""
+
+    for part in xx*; do
+        # Check if the content of this part matches the pattern
+        if grep -qiE "$pat" "$part"; then
+            # Extract the original filename from the header
+            filename=$(head -n 1 "$part" | sed 's/==> \(.*\) <==/\1/')
+            # Append to matches list
+            [ -z "$matches" ] && matches="${filename%.md}" || matches="$matches,${filename%.md}"
+        fi
+    done
+
     if [ -n "$matches" ]; then
         if [ "$i" -eq $((${#nu_names[@]}-1)) ]; then
             printf "└── %s\n" "$name" >> README.md
@@ -37,50 +40,33 @@ for i in "${!nu_names[@]}"; do
         fi
     fi
 done
-printf '```\n\n' >> README.md
 
+# Cleanup temporary parts
+rm xx*
+
+printf '```\n\n' >> README.md
 
 
 printf "---\n\n" >> README.md
 
-# 4. Recent Updates
+# 3. Recent Updates (extracted from the head of all.md)
 printf "## Recent Updates\n\n" >> README.md
 
-get_math_snippet() {
-    # Remove \text and grab the first descriptive line
-    content=$(grep -vE '^\\|^#|^$|==>' "$1" | head -n 1 | sed 's/\\text//g')
-    echo "$content" | cut -c 1-100 | sed 's/[]()[]//g'
+# Function to clean snippets: removes \text and mathematical brackets
+clean_snippet() {
+    echo "$1" | sed 's/\\text//g' | sed 's/[]()[]//g' | cut -c 1-80
 }
 
-ls -t *.md | grep -vE "README.md|all.md" | head -5 | while read -r file; do
-    TITLE=$(get_math_snippet "$file")
-    [ -z "$TITLE" ] && TITLE="Problem: ${file%.*}"
-    printf "* %s ... [[view]](%s)\n" "$TITLE" "$file" >> README.md
+# Grab the first 5 entries from all.md
+grep "==>" all.md | head -n 5 | while read -r line; do
+    fname=$(echo "$line" | sed 's/==> \(.*\) <==/\1/')
+    # Get the first line of content following that header in all.md
+    snippet=$(grep -A 2 "$line" all.md | tail -n 1)
+    TITLE=$(clean_snippet "$snippet")
+    printf "* %s ... [[view]](%s)\n" "$TITLE" "all.md" >> README.md
 done
 
-printf "\n---\n\n" >> README.md
-
-# 5. Library by Category
-printf "## Library by Category\n\n" >> README.md
-
-for i in "${!nu_names[@]}"; do
-    name="${nu_names[$i]}"
-    pat="${nu_pats[$i]}"
-    
-    files=$(grep -ilE "$pat" *.md | grep -vE "README.md|all.md")
-    
-    if [ -n "$files" ]; then
-        printf "### %s\n\n" "$name" >> README.md
-        echo "$files" | while read -r file; do
-            TITLE=$(get_math_snippet "$file")
-            [ -z "$TITLE" ] && TITLE="ID: ${file%.*}"
-            printf "* %s ... [[view]](%s)\n" "$TITLE" "$file" >> README.md
-        done
-        printf "\n" >> README.md
-    fi
-done
-
-# 6. Push to Git
+# 4. Git Push
 git add .
-git commit -m "Split all.md and update index with NU terminology"
+git commit -m "Fixed empty root by clustering directly from all.md content"
 git push origin main
