@@ -30,10 +30,9 @@ nu_names=(
     "Geometry: Surfaces & Geodesics"
     "Physics: Waves & Vibrations"
     "Physics: Heat & Potential"
-    "Asymptotics & Second Kind"
+    "Asymptotics & Integral Transforms"
 )
 
-# Updated patterns to include sine-Gordon and equilibria
 nu_pats=(
     "hypergeometric|Rodrigues|Bochner"
     "Jacobi|Legendre|Chebyshev"
@@ -44,7 +43,7 @@ nu_pats=(
     "geodesic|curvature|torsion|surface"
     "membrane|acoustic|harmonic|vibration|sine-Gordon|equilibria|dynamics"
     "heat|temperature|potential|equilibrium"
-    "Cauchy|second kind|Q_n|asymptotic|integral"
+    "Cauchy|second kind|Q_n|asymptotic|integral|limit|integrand"
 )
 
 unassigned_files=$(ls -1 *.md | grep -v "README.md")
@@ -93,8 +92,8 @@ fi
 
 # 4. Footer and Git Automation
 file_count=$(ls -1 *.md | grep -v "README.md" | wc -l)
-printf "\n---\n\n*Note: Total files indexed: %s. All leaves and filenames are clickable links.*\n" "$file_count" >> README.md
+printf "\n---\n\n*Note: Total files indexed: %s. Recent titles and tree leaves are clickable links.*\n" "$file_count" >> README.md
 
 git add .
-git commit -m "Auto-index: $file_count files updated with sine-Gordon and dynamics support"
+git commit -m "Auto-index: Added asymptotic integral proof and updated README ($file_count files)"
 git push origin main

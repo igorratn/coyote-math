@@ -2,11 +2,11 @@
 
 ## Recent Updates
 
+* Let$$I_n = n^2 \int_{0}^{1}\frac{x^{n}}{1+2x+\frac{2}{n}}\,dx.$$Compute$$L = \li ... [[bd4a59ea.md]](bd4a59ea.md)
 * For n ≥ 1, define the Jacobi function of the second kind as ... [[b8db5f5e.md]](b8db5f5e.md)
 * Let $L_n^{\alpha}t$ be the Laguerre polynomials. For $\mathrm{Re}\alpha > -1$ an ... [[9c127187.md]](9c127187.md)
 * For $n \ge 1$, define the Hermite function of the second kind as: ... [[67128ca2.md]](67128ca2.md)
 * Let $L_n^{\alpha}t$ be the Laguerre polynomials with $\mathrm{Re}\alpha>-1$. For ... [[b4d59303.md]](b4d59303.md)
-* Let $L_n^{\alpha}z$ be the Laguerre polynomials. For ${Re}\alpha > -1$ and $z \i ... [[6c1ed21d.md]](6c1ed21d.md)
 
 ---
 
@@ -31,11 +31,11 @@ Root: Special Functions & Geometry
 │&nbsp;&nbsp;&nbsp;└── [2538fcdd](2538fcdd.md), [25d6839e](25d6839e.md), [2c968d24](2c968d24.md), [7132b649](7132b649.md), [8fac80e9](8fac80e9.md), [98a2ead0](98a2ead0.md), [b1b7ad37](b1b7ad37.md), [c9135c09](c9135c09.md), [d75ab6e0](d75ab6e0.md), [de514810](de514810.md), [ee4bc277](ee4bc277.md)  
 ├── **Physics: Heat & Potential** 
 │&nbsp;&nbsp;&nbsp;└── [989a8a47](989a8a47.md), [a64df3e0](a64df3e0.md), [dc2e0db2](dc2e0db2.md)  
-└── **Asymptotics & Second Kind** 
-&nbsp;&nbsp;&nbsp;&nbsp;└── [91608bdd](91608bdd.md), [b013b487](b013b487.md), [b378c08c](b378c08c.md), [edbc87d5](edbc87d5.md)  
+└── **Asymptotics & Integral Transforms** 
+&nbsp;&nbsp;&nbsp;&nbsp;└── [91608bdd](91608bdd.md), [b013b487](b013b487.md), [b378c08c](b378c08c.md), [bd4a59ea](bd4a59ea.md), [edbc87d5](edbc87d5.md)  
 └── **Unclassified Tasks** 
-&nbsp;&nbsp;&nbsp;&nbsp;└── [45c7ef0e](45c7ef0e.md), [bd4a59ea](bd4a59ea.md)  
+&nbsp;&nbsp;&nbsp;&nbsp;└── [45c7ef0e](45c7ef0e.md)  
 
 ---
 
-*Note: Total files indexed:       75. All leaves and filenames are clickable links.*
+*Note: Total files indexed:       75. Recent titles and tree leaves are clickable links.*
