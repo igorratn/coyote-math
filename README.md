@@ -28,13 +28,13 @@ Root: Special Functions & Geometry
 ├── **Geometry: Surfaces & Geodesics** 
 │&nbsp;&nbsp;&nbsp;└── [34b8ebad](34b8ebad.md), [616131bf](616131bf.md), [6587534d](6587534d.md), [aad144ac](aad144ac.md), [c7441c68](c7441c68.md)  
 ├── **Physics: Waves & Vibrations** 
-│&nbsp;&nbsp;&nbsp;└── [2538fcdd](2538fcdd.md), [25d6839e](25d6839e.md), [2c968d24](2c968d24.md), [d75ab6e0](d75ab6e0.md)  
+│&nbsp;&nbsp;&nbsp;└── [2538fcdd](2538fcdd.md), [25d6839e](25d6839e.md), [2c968d24](2c968d24.md), [7132b649](7132b649.md), [8fac80e9](8fac80e9.md), [98a2ead0](98a2ead0.md), [b1b7ad37](b1b7ad37.md), [c9135c09](c9135c09.md), [d75ab6e0](d75ab6e0.md), [de514810](de514810.md), [ee4bc277](ee4bc277.md)  
 ├── **Physics: Heat & Potential** 
-│&nbsp;&nbsp;&nbsp;└── [8fac80e9](8fac80e9.md), [989a8a47](989a8a47.md), [a64df3e0](a64df3e0.md), [c9135c09](c9135c09.md), [dc2e0db2](dc2e0db2.md)  
+│&nbsp;&nbsp;&nbsp;└── [989a8a47](989a8a47.md), [a64df3e0](a64df3e0.md), [dc2e0db2](dc2e0db2.md)  
 └── **Asymptotics & Second Kind** 
-&nbsp;&nbsp;&nbsp;&nbsp;└── [91608bdd](91608bdd.md), [98a2ead0](98a2ead0.md), [b013b487](b013b487.md), [b1b7ad37](b1b7ad37.md), [b378c08c](b378c08c.md), [de514810](de514810.md), [edbc87d5](edbc87d5.md), [ee4bc277](ee4bc277.md)  
+&nbsp;&nbsp;&nbsp;&nbsp;└── [91608bdd](91608bdd.md), [b013b487](b013b487.md), [b378c08c](b378c08c.md), [edbc87d5](edbc87d5.md)  
 └── **Unclassified Tasks** 
-&nbsp;&nbsp;&nbsp;&nbsp;└── [45c7ef0e](45c7ef0e.md), [7132b649](7132b649.md), [bd4a59ea](bd4a59ea.md)  
+&nbsp;&nbsp;&nbsp;&nbsp;└── [45c7ef0e](45c7ef0e.md), [bd4a59ea](bd4a59ea.md)  
 
 ---
 
