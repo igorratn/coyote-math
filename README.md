@@ -35,12 +35,14 @@
 
 Root: Methodological Strategy 
 ├── **Nikiforov-Uvarov: Second Kind & Eq. 7 Asymptotics** 
-│&nbsp;&nbsp;&nbsp;└── [67128ca2](67128ca2.md),[9c127187](9c127187.md) [b4d59303](b4d59303.md),[b8db5f5e](b8db5f5e.md) [d72d16d6](d72d16d6.md)  
+│&nbsp;&nbsp;&nbsp;└── [147341f7](147341f7.md), [67128ca2](67128ca2.md), [9c127187](9c127187.md), [b4d59303](b4d59303.md), [b8db5f5e](b8db5f5e.md), [ca5a3f25](ca5a3f25.md), [d416c4c4](d416c4c4.md), [d72d16d6](d72d16d6.md), [dd13f374](dd13f374.md), [e89ce469](e89ce469.md)  
+├── **Nikiforov-Uvarov: Local Maxima & Estimates (§7)** 
+│&nbsp;&nbsp;&nbsp;└── [18942427](18942427.md), [34b8ebad](34b8ebad.md), [69425b5f](69425b5f.md), [6c96b851](6c96b851.md), [7132b649](7132b649.md), [8fac80e9](8fac80e9.md), [9129831b](9129831b.md), [98a2ead0](98a2ead0.md), [a64df3e0](a64df3e0.md), [b1b7ad37](b1b7ad37.md), [c617c526](c617c526.md), [c9135c09](c9135c09.md), [ca5a3f25](ca5a3f25.md), [d72d16d6](d72d16d6.md), [d75ab6e0](d75ab6e0.md), [de514810](de514810.md), [edbc87d5](edbc87d5.md), [ee4bc277](ee4bc277.md), [f94b00ef](f94b00ef.md)  
 ├── **Polynomial Rigidity: Wronskian Constant Logic** 
 │&nbsp;&nbsp;&nbsp;└── [147341f7](147341f7.md)  
 └── **Phase Space: Stability & Relaxation Dynamics** 
-&nbsp;&nbsp;&nbsp;&nbsp;└── [989a8a47](989a8a47.md),[98a2ead0](98a2ead0.md) [c9135c09](c9135c09.md),[ee4bc277](ee4bc277.md)  
+&nbsp;&nbsp;&nbsp;&nbsp;└── [34b8ebad](34b8ebad.md), [8fac80e9](8fac80e9.md), [989a8a47](989a8a47.md), [98a2ead0](98a2ead0.md), [b1b7ad37](b1b7ad37.md), [c9135c09](c9135c09.md), [de514810](de514810.md), [ee4bc277](ee4bc277.md)  
 
 ---
 
-*Note: Tree 2 uses context-locked fingerprints to isolate specific proof machinery.*
+*Note: Tree 2 uses logical intersection (AND gates) to group methodology precisely.*
