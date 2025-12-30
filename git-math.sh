@@ -43,26 +43,26 @@ done
 
 printf "\n---\n\n" >> README.md
 
-# 4. Tree 2: Logical Closeness (Theorem-Based)
-# This tree clusters problems that share the same "Proof DNA"
+# 4. Build Tree 2: Logical Closeness (Theorem-Based)
 printf "## Tree 2: Logical Closeness (Proof Machinery)\n\n" >> README.md
 
 logic_names=(
-    "Polynomial Rigidity (Constant Wronskians)"
-    "Asymptotic Matching (z -> infinity)"
-    "Orthogonal Projection (t^k vs p_n)"
-    "Integral Kernels (Hilbert/Cauchy Transforms)"
-    "Norm Identities (h_n Evaluations)"
+    "Asymptotic Expansion (z -> inf)"
+    "Polynomial Rigidity (Constant W_n)"
+    "Orthogonality & Basis Projections"
+    "Integral Kernels (Second Kind)"
+    "Norms & Squared Integrals (h_n)"
 )
 
 logic_pats=(
-    "rigidity|constant|W_n|Wronskian|bounded polynomial"
-    "asymptotic|O\(z|decay|z \to \infty|leading term"
-    "t\^k|orthogonal to|degree < n|vanishing integral"
-    "kernel|1\/z-t|second kind|q_n|Hilbert transform"
-    "h_n|norm|p_n\^2|normalization"
+    "O\(z|z \\to \\infty|leading term|decay"
+    "rigidity|constant|W_n|Wronskian|P(z) \\equiv"
+    "t\^k|orthogonal|degree < n|vanishing|p_j p_n"
+    "1\/z-t|kernel|q_n|second kind|fraction inside"
+    "h_n|norm|p_n\^2|integral.*p_n"
 )
 
+# Reset: Tree 2 scans all files again
 all_files=$(ls -1 *.md | grep -v "README.md")
 printf "Root: Shared Mathematical Logic \n" >> README.md
 
@@ -71,12 +71,13 @@ for i in "${!logic_names[@]}"; do
     pat="${logic_pats[$i]}"
     links=""
     for file in $all_files; do
-        # We look for the specific theorem/logic signatures
-        if tail -n +1 "$file" | grep -qiE "$pat"; then
+        # Use -E for extended regex to handle \( and \^ properly
+        if grep -qiE "$pat" "$file"; then
             id="${file%.md}"
             [ -z "$links" ] && links="[$id]($file)" || links="$links, [$id]($file)"
         fi
     done
+
     if [ -n "$links" ]; then
         if [ "$i" -eq $((${#logic_names[@]}-1)) ]; then
             printf "└── **%s** \n&nbsp;&nbsp;&nbsp;&nbsp;└── %s  \n" "$name" "$links" >> README.md
