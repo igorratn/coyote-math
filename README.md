@@ -2,17 +2,17 @@
 
 ## Recent Updates
 
-* For n ≥ 1, define the Jacobi function of the second kind as ... [[view]](b8db5f5e.md)
-* Let $L_n^{\alpha}t$ be the Laguerre polynomials. For $\mathrm{Re}\alpha > -1$ an ... [[view]](9c127187.md)
-* For $n \ge 1$, define the Hermite function of the second kind as: ... [[view]](67128ca2.md)
-* Let $L_n^{\alpha}t$ be the Laguerre polynomials with $\mathrm{Re}\alpha>-1$. For ... [[view]](b4d59303.md)
-* Let $L_n^{\alpha}z$ be the Laguerre polynomials. For ${Re}\alpha > -1$ and $z \i ... [[view]](6c1ed21d.md)
+* [For n ≥ 1, define the Jacobi function of the second kind as](b8db5f5e.md)
+* [Let $L_n^{\alpha}t$ be the Laguerre polynomials. For $\mathrm{Re}\alpha > -1$ an](9c127187.md)
+* [For $n \ge 1$, define the Hermite function of the second kind as:](67128ca2.md)
+* [Let $L_n^{\alpha}t$ be the Laguerre polynomials with $\mathrm{Re}\alpha>-1$. For](b4d59303.md)
+* [Let $L_n^{\alpha}z$ be the Laguerre polynomials. For ${Re}\alpha > -1$ and $z \i](6c1ed21d.md)
 
 ---
 
 ## Problem Tree
 
-Root: Special Functions & Geometry
+Root: Special Functions & Geometry  
 ├── **Hypergeometric: Rodrigues & ODEs** 
 │&nbsp;&nbsp;&nbsp;└── [07a8cfcf](07a8cfcf.md), [18942427](18942427.md), [4dc6fb67](4dc6fb67.md), [6c96b851](6c96b851.md), [c617c526](c617c526.md)  
 ├── **Jacobi & Legendre Polynomials** 
@@ -38,4 +38,4 @@ Root: Special Functions & Geometry
 
 ---
 
-*Note: Total files indexed:       76. Leaves are clickable links.*
+*Note: Total files indexed:       76. All names and IDs are clickable links.*
