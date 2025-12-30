@@ -36,20 +36,20 @@ Root: Special Functions & Geometry
 
 ---
 
-## Tree 2: Logical Closeness (Proof Machinery)
+## Tree 2: Closeness by Theorem & Logic
 
-Root: Shared Mathematical Logic 
-├── **Asymptotic Expansion (z -> inf)** 
-│&nbsp;&nbsp;&nbsp;└── [147341f7](147341f7.md), [25d6839e](25d6839e.md), [2c968d24](2c968d24.md), [53de3231](53de3231.md), [67128ca2](67128ca2.md), [989a8a47](989a8a47.md), [9c127187](9c127187.md), [b4d59303](b4d59303.md), [b8db5f5e](b8db5f5e.md), [dc2e0db2](dc2e0db2.md), [dd13f374](dd13f374.md)  
-├── **Polynomial Rigidity (Constant W_n)** 
-│&nbsp;&nbsp;&nbsp;└── [07a8cfcf](07a8cfcf.md), [147341f7](147341f7.md), [25fec83d](25fec83d.md), [3bde7860](3bde7860.md), [4dc6fb67](4dc6fb67.md), [53de3231](53de3231.md), [85d6da54](85d6da54.md), [9c127187](9c127187.md), [9c2e2dec](9c2e2dec.md), [b013b487](b013b487.md), [bca2a699](bca2a699.md), [c7441c68](c7441c68.md), [ca5a3f25](ca5a3f25.md), [d416c4c4](d416c4c4.md), [dc2e0db2](dc2e0db2.md), [dd13f374](dd13f374.md), [e75e5639](e75e5639.md), [e81395f5](e81395f5.md), [e89ce469](e89ce469.md), [ec15106e](ec15106e.md)  
-├── **Orthogonality & Basis Projections** 
+Root: Methodological Closeness 
+├── **Asymptotic Decay & Limits** 
+│&nbsp;&nbsp;&nbsp;└── [147341f7](147341f7.md), [25d6839e](25d6839e.md), [2c968d24](2c968d24.md), [67128ca2](67128ca2.md), [989a8a47](989a8a47.md), [9c127187](9c127187.md), [b4d59303](b4d59303.md), [b8db5f5e](b8db5f5e.md), [dc2e0db2](dc2e0db2.md), [dd13f374](dd13f374.md)  
+├── **Polynomial Rigidity (Constant Identities)** 
+│&nbsp;&nbsp;&nbsp;└── [07a8cfcf](07a8cfcf.md), [147341f7](147341f7.md), [18942427](18942427.md), [25d6839e](25d6839e.md), [25fec83d](25fec83d.md), [3bde7860](3bde7860.md), [4dc6fb67](4dc6fb67.md), [53de3231](53de3231.md), [6c1ed21d](6c1ed21d.md), [85d6da54](85d6da54.md), [8fac80e9](8fac80e9.md), [9c127187](9c127187.md), [9c2e2dec](9c2e2dec.md), [b013b487](b013b487.md), [bca2a699](bca2a699.md), [c7441c68](c7441c68.md), [ca5a3f25](ca5a3f25.md), [d416c4c4](d416c4c4.md), [dc2e0db2](dc2e0db2.md), [dd13f374](dd13f374.md), [e75e5639](e75e5639.md), [e81395f5](e81395f5.md), [e89ce469](e89ce469.md), [ec15106e](ec15106e.md)  
+├── **Orthogonality & Projections** 
 │&nbsp;&nbsp;&nbsp;└── [027f10a7](027f10a7.md), [0526785f](0526785f.md), [076ef56b](076ef56b.md), [147341f7](147341f7.md), [25fec83d](25fec83d.md), [2d61fb16](2d61fb16.md), [2deb9b93](2deb9b93.md), [2f5da8d9](2f5da8d9.md), [31001068](31001068.md), [3c1c8b15](3c1c8b15.md), [3fc90f09](3fc90f09.md), [4dc6fb67](4dc6fb67.md), [53de3231](53de3231.md), [5c7587a5](5c7587a5.md), [5dd03fbd](5dd03fbd.md), [69425b5f](69425b5f.md), [7c563c4e](7c563c4e.md), [85d6da54](85d6da54.md), [9129831b](9129831b.md), [91608bdd](91608bdd.md), [9c2e2dec](9c2e2dec.md), [b013b487](b013b487.md), [bd24c6fc](bd24c6fc.md), [c617c526](c617c526.md), [ca5a3f25](ca5a3f25.md), [d72d16d6](d72d16d6.md), [dd13f374](dd13f374.md), [e724070a](e724070a.md), [e75e5639](e75e5639.md), [e81395f5](e81395f5.md), [e89ce469](e89ce469.md), [f6e16472](f6e16472.md), [f94b00ef](f94b00ef.md)  
-├── **Integral Kernels (Second Kind)** 
+├── **Integral Kernels (Hilbert/Cauchy)** 
 │&nbsp;&nbsp;&nbsp;└── [147341f7](147341f7.md), [25fec83d](25fec83d.md), [2f5da8d9](2f5da8d9.md), [31001068](31001068.md), [3bde7860](3bde7860.md), [53de3231](53de3231.md), [5c7587a5](5c7587a5.md), [67128ca2](67128ca2.md), [6c1ed21d](6c1ed21d.md), [9c127187](9c127187.md), [b013b487](b013b487.md), [b4d59303](b4d59303.md), [b8db5f5e](b8db5f5e.md), [d72d16d6](d72d16d6.md), [f6e16472](f6e16472.md)  
-└── **Norms & Squared Integrals (h_n)** 
-&nbsp;&nbsp;&nbsp;&nbsp;└── [0526785f](0526785f.md), [076ef56b](076ef56b.md), [147341f7](147341f7.md), [18942427](18942427.md), [25d6839e](25d6839e.md), [3bde7860](3bde7860.md), [3fc90f09](3fc90f09.md), [53de3231](53de3231.md), [5c7587a5](5c7587a5.md), [616131bf](616131bf.md), [67128ca2](67128ca2.md), [85d6da54](85d6da54.md), [91608bdd](91608bdd.md), [9c2e2dec](9c2e2dec.md), [aad144ac](aad144ac.md), [b8db5f5e](b8db5f5e.md), [bd24c6fc](bd24c6fc.md), [ca5a3f25](ca5a3f25.md), [d72d16d6](d72d16d6.md), [dd13f374](dd13f374.md), [e75e5639](e75e5639.md), [e81395f5](e81395f5.md), [e89ce469](e89ce469.md), [f6e16472](f6e16472.md)  
+└── **Norms & Squared Integrals** 
+&nbsp;&nbsp;&nbsp;&nbsp;└── [0526785f](0526785f.md), [076ef56b](076ef56b.md), [147341f7](147341f7.md), [18942427](18942427.md), [25d6839e](25d6839e.md), [3fc90f09](3fc90f09.md), [53de3231](53de3231.md), [5c7587a5](5c7587a5.md), [616131bf](616131bf.md), [67128ca2](67128ca2.md), [85d6da54](85d6da54.md), [91608bdd](91608bdd.md), [9c2e2dec](9c2e2dec.md), [aad144ac](aad144ac.md), [b8db5f5e](b8db5f5e.md), [bd24c6fc](bd24c6fc.md), [ca5a3f25](ca5a3f25.md), [d72d16d6](d72d16d6.md), [dd13f374](dd13f374.md), [e75e5639](e75e5639.md), [e81395f5](e81395f5.md), [e89ce469](e89ce469.md), [f6e16472](f6e16472.md)  
 
 ---
 
-*Note: Total files indexed:       76. Logic tree allows overlapping assignments.*
+*Note: Total files indexed:       76.*
