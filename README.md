@@ -1,11 +1,24 @@
 # Coyote Math Task Index
 
-## Dynamic Methodological Strategy
-This tree is built by harvesting mathematical DNA signatures from the problem set.
+## Methodological Clustering (Proof DNA)
 
-### Non-Euclidean & Hyperbolic Geometry
-* [027f10a7](027f10a7.md), [0526785f](0526785f.md), [076ef56b](076ef56b.md), [07a8cfcf](07a8cfcf.md), [147341f7](147341f7.md), [18942427](18942427.md), [2538fcdd](2538fcdd.md), [25d6839e](25d6839e.md), [25fec83d](25fec83d.md), [2c968d24](2c968d24.md), [2d61fb16](2d61fb16.md), [2deb9b93](2deb9b93.md), [2f5da8d9](2f5da8d9.md), [31001068](31001068.md), [34b8ebad](34b8ebad.md), [3bde7860](3bde7860.md), [3c1c8b15](3c1c8b15.md), [3fc90f09](3fc90f09.md), [45c7ef0e](45c7ef0e.md), [4a8d987a](4a8d987a.md), [4dc6fb67](4dc6fb67.md), [53de3231](53de3231.md), [5c7587a5](5c7587a5.md), [5dd03fbd](5dd03fbd.md), [616131bf](616131bf.md), [69425b5f](69425b5f.md), [6c1ed21d](6c1ed21d.md), [6c96b851](6c96b851.md), [7132b649](7132b649.md), [7c563c4e](7c563c4e.md), [85d6da54](85d6da54.md), [8fac80e9](8fac80e9.md), [9129831b](9129831b.md), [91608bdd](91608bdd.md), [989a8a47](989a8a47.md), [98a2ead0](98a2ead0.md), [9c127187](9c127187.md), [9c2e2dec](9c2e2dec.md), [a050c5dc](a050c5dc.md), [a64df3e0](a64df3e0.md), [aad144ac](aad144ac.md), [b013b487](b013b487.md), [b1b7ad37](b1b7ad37.md), [b378c08c](b378c08c.md), [b4d59303](b4d59303.md), [bca2a699](bca2a699.md), [bd24c6fc](bd24c6fc.md), [bd4a59ea](bd4a59ea.md), [c617c526](c617c526.md), [c7441c68](c7441c68.md), [c9135c09](c9135c09.md), [ca5a3f25](ca5a3f25.md), [d416c4c4](d416c4c4.md), [d72d16d6](d72d16d6.md), [d75ab6e0](d75ab6e0.md), [dc2e0db2](dc2e0db2.md), [dd13f374](dd13f374.md), [dd5e2fc5](dd5e2fc5.md), [de514810](de514810.md), [de74e827](de74e827.md), [e724070a](e724070a.md), [e75e5639](e75e5639.md), [e81395f5](e81395f5.md), [e89ce469](e89ce469.md), [ec15106e](ec15106e.md), [edbc87d5](edbc87d5.md), [ee4bc277](ee4bc277.md), [eea363eb](eea363eb.md), [f14b7ce3](f14b7ce3.md), [f6e16472](f6e16472.md), [f94b00ef](f94b00ef.md), [fe4dc745](fe4dc745.md), [poincare_AB_asymmetric](poincare_AB_asymmetric.md)
+This tree groups files by the mathematical machinery used to solve them.
 
-### Miscellaneous / Other Methods
-* [6587534d](6587534d.md), [67128ca2](67128ca2.md), [b8db5f5e](b8db5f5e.md)
+### 1. Weight Modification & Linear Combinations
+* [027f10a7](027f10a7.md), [076ef56b](076ef56b.md), [25d6839e](25d6839e.md), [5dd03fbd](5dd03fbd.md), [85d6da54](85d6da54.md), [9c2e2dec](9c2e2dec.md), [b013b487](b013b487.md)
+
+### 2. Wronskians & Structural Identities
+* [147341f7](147341f7.md), [25fec83d](25fec83d.md), [53de3231](53de3231.md), [5c7587a5](5c7587a5.md), [9c127187](9c127187.md), [f6e16472](f6e16472.md)
+
+### 3. Auxiliary Function Monotonicity (NU §7)
+* [18942427](18942427.md), [69425b5f](69425b5f.md), [6c96b851](6c96b851.md)
+
+### 4. Recurrence & Moment Integration
+* [2f5da8d9](2f5da8d9.md), [3fc90f09](3fc90f09.md), [4a8d987a](4a8d987a.md), [7c563c4e](7c563c4e.md), [91608bdd](91608bdd.md), [a050c5dc](a050c5dc.md), [bd24c6fc](bd24c6fc.md), [bd4a59ea](bd4a59ea.md), [de74e827](de74e827.md), [e81395f5](e81395f5.md), [eea363eb](eea363eb.md), [f94b00ef](f94b00ef.md), [fe4dc745](fe4dc745.md)
+
+### 5. Discrete-Continuous Mappings & CG Coeffs
+* [2f5da8d9](2f5da8d9.md), [31001068](31001068.md), [3c1c8b15](3c1c8b15.md), [a050c5dc](a050c5dc.md), [bd24c6fc](bd24c6fc.md), [c617c526](c617c526.md), [de74e827](de74e827.md), [e81395f5](e81395f5.md), [f94b00ef](f94b00ef.md), [fe4dc745](fe4dc745.md)
+
+### 6. Field Equations & Hyperbolic Geometry
+* [2538fcdd](2538fcdd.md), [2c968d24](2c968d24.md), [2deb9b93](2deb9b93.md), [dc2e0db2](dc2e0db2.md), [f14b7ce3](f14b7ce3.md)
 
