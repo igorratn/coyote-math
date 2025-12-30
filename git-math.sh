@@ -8,26 +8,26 @@ printf "## Problem Tree\n\n" >> README.md
 printf '```text\n' >> README.md
 printf "Root: Special Functions & Geometry\n" >> README.md
 
-# Hardcoded category names and search patterns
+# Hardcoded NU and Geometry categories
 nu_names=("Hypergeometric Type" "Classical Orthogonal" "Discrete Variables" "Differential Geometry" "Physical Applications" "Second Kind & Transforms")
-nu_pats=("hypergeometric\|differential equation\|Rodrigues" "Jacobi\|Legendre\|Hermite\|Laguerre" "Hahn\|Racah\|Clebsch\|3j\|difference equation" "geodesic\|curvature\|torsion\|Poincare\|metric" "membrane\|acoustic\|thermal\|sine-Gordon" "Cauchy\|second kind\|Q_n\|asymptotic")
+# These patterns are sourced from the Nikiforov-Uvarov index and your geometry tasks
+nu_pats=("hypergeometric\|Rodrigues\|gamma" "Jacobi\|Legendre\|Hermite\|Laguerre\|Chebyshev" "Hahn\|Racah\|Clebsch\|3j\|difference" "geodesic\|curvature\|torsion\|Poincare\|metric\|disk" "membrane\|acoustic\|thermal\|sine-Gordon\|vibration" "Cauchy\|second kind\|Q_n\|asymptotic\|integral")
 
 for i in "${!nu_names[@]}"; do
     name="${nu_names[$i]}"
     pat="${nu_pats[$i]}"
     
-    # Dynamically find matching files (excluding the script and readme)
+    # -i: case insensitive, -l: list filename, -E: regex
+    # We look at all .md files except README
     matches=$(grep -ilE "$pat" *.md | grep -v "README.md" | sed 's/\.md//g' | tr '\n' ',' | sed 's/,$//')
     
     if [ -n "$matches" ]; then
-        # Use tree symbols to ensure depth is visible
+        # Check if it is the last category for tree branching
         if [ "$i" -eq $((${#nu_names[@]}-1)) ]; then
             printf "└── %s\n" "$name" >> README.md
-            # Add leaf level
             printf "    └── %s\n" "$matches" >> README.md
         else
             printf "├── %s\n" "$name" >> README.md
-            # Add leaf level
             printf "│   └── %s\n" "$matches" >> README.md
         fi
     fi
@@ -42,7 +42,7 @@ printf "---\n\n" >> README.md
 printf "## Recent Updates\n\n" >> README.md
 
 get_math_snippet() {
-    # Grabs first non-empty line and removes \text per instruction
+    # Grabs first non-empty line, removes \text per instruction
     content=$(grep -vE '^\\|^#|^$' "$1" | head -n 1 | sed 's/\\text//g')
     echo "$content" | cut -c 1-100 | sed 's/[]()[]//g'
 }
@@ -77,5 +77,5 @@ done
 
 # 5. Git Automation
 git add .
-git commit -m "Fix tree rendering and update NU geometry index"
+git commit -m "Fix empty tree and update NU geometry index"
 git push origin main
