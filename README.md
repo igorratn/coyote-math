@@ -1,18 +1,257 @@
 # Coyote Math Task Index
 
+## Dynamic Problem Tree
+
+```text
+Root: Mathematical Physics Collection
+├── Step Cluster: 07a8cfcf,2c968d24,2deb9b93,31001068,3bde7860,53de3231,5c7587a5,616131bf,6587534d,6c1ed21d,7132b649,7c563c4e,85d6da54,9129831b,9c127187,9c2e2dec,a64df3e0,aad144ac,all,b013b487,bca2a699,c7441c68,ca5a3f25,dc2e0db2,f14b7ce3
+├── Determine Cluster: 027f10a7,076ef56b,07a8cfcf,147341f7,18942427,25d6839e,25fec83d,2c968d24,2d61fb16,2f5da8d9,31001068,34b8ebad,3bde7860,3c1c8b15,3fc90f09,45c7ef0e,4a8d987a,4dc6fb67,53de3231,5c7587a5,5dd03fbd,616131bf,67128ca2,69425b5f,6c1ed21d,6c96b851,7132b649,85d6da54,989a8a47,98a2ead0,9c127187,9c2e2dec,a050c5dc,aad144ac,all,b013b487,b1b7ad37,b4d59303,b8db5f5e,bd24c6fc,c9135c09,ca5a3f25,d416c4c4,d72d16d6,dc2e0db2,dd13f374,de514810,e75e5639,e81395f5,e89ce469,ec15106e,edbc87d5,ee4bc277,f14b7ce3,f6e16472,f94b00ef,fe4dc745
+├── Big Cluster: 2538fcdd,3c1c8b15,91608bdd,aad144ac,all,b013b487,b378c08c,bca2a699,bd4a59ea,ca5a3f25,d416c4c4,dd13f374,e89ce469,ec15106e,main,poincare_AB_asymmetric
+├── Gamma Cluster: 027f10a7,0526785f,07a8cfcf,34b8ebad,4dc6fb67,53de3231,616131bf,9c127187,9c2e2dec,aad144ac,all,b1b7ad37,b4d59303,b8db5f5e,bd24c6fc,c617c526,ca5a3f25,d416c4c4
+├── In Cluster: 027f10a7,0526785f,076ef56b,07a8cfcf,147341f7,18942427,2538fcdd,25d6839e,25fec83d,2c968d24,2d61fb16,2deb9b93,2f5da8d9,31001068,34b8ebad,3bde7860,3c1c8b15,3fc90f09,45c7ef0e,4a8d987a,4dc6fb67,53de3231,5c7587a5,5dd03fbd,616131bf,6587534d,67128ca2,69425b5f,6c1ed21d,6c96b851,7132b649,7c563c4e,85d6da54,8fac80e9,9129831b,91608bdd,989a8a47,98a2ead0,9c127187,9c2e2dec,a050c5dc,a64df3e0,aad144ac,all,b013b487,b1b7ad37,b378c08c,b4d59303,b8db5f5e,bca2a699,bd24c6fc,bd4a59ea,c617c526,c7441c68,c9135c09,ca5a3f25,d416c4c4,d72d16d6,d75ab6e0,dc2e0db2,dd13f374,dd5e2fc5,de514810,de74e827,e724070a,e75e5639,e81395f5,e89ce469,ec15106e,edbc87d5,ee4bc277,f14b7ce3,f6e16472,f94b00ef,fe4dc745,main,poincare_AB_asymmetric
+├── Laguerre Cluster: 0526785f,3bde7860,4dc6fb67,53de3231,5dd03fbd,6c1ed21d,6c96b851,7c563c4e,9c127187,all,b4d59303,d416c4c4,dd5e2fc5,e724070a
+├── Jacobi Cluster: 027f10a7,25fec83d,31001068,3c1c8b15,69425b5f,85d6da54,9c2e2dec,all,b8db5f5e,bd24c6fc,ca5a3f25,e75e5639,e89ce469,ec15106e
+└── Miscellaneous: Others
+```
+
 ## Recent Updates
 
+* ==> 027f10a7.md <== ... [[view]](all.md)
+* For n ≥ 1, define the Jacobi function of the second kind as ... [[view]](b8db5f5e.md)
 * Let $L_n^{\alpha}t$ be the Laguerre polynomials. For $\mathrm{Re}\alpha > -1$ and $z \in \math ... [[view]](9c127187.md)
 * For $n \ge 1$, define the Hermite function of the second kind as: ... [[view]](67128ca2.md)
 * Let $L_n^{\alpha}t$ be the Laguerre polynomials with $\mathrm{Re}\alpha>-1$. For $z\in\mathbb{ ... [[view]](b4d59303.md)
-* Let $L_n^{\alpha}z$ be the Laguerre polynomials. For $\text{Re}\alpha > -1$ and $z \in \mathbb ... [[view]](6c1ed21d.md)
-* Let $P_n^{\alpha,\beta}x$ denote the Jacobi polynomials, orthogonal on $-1,1$ with respect to  ... [[view]](25fec83d.md)
 
 ---
 
 ## Library by Category
 
-### Jacobi Polynomials
+### Step
+
+* Let $\{P_nx\}_{n \ge 0}$ be a sequence of polynomials defined by the exponential generating functi ... [[view]](07a8cfcf.md)
+* In an infinitely long, lossless, anechoic 1D acoustic duct with sound speed $c=1$ and density $\rho= ... [[view]](2c968d24.md)
+* What is the hyperbolic area of the figure bounded by $OP$, $OQ$, and the curve $PQ$, inside the unit ... [[view]](2deb9b93.md)
+* A physical quantity $Q_n$ is directly proportional to the value of a high-order Racah polynomial $u_ ... [[view]](31001068.md)
+* Consider the monic Laguerre polynomials $p_nx$ on $0, \infty$ with weight $\rhox = e^{-x}$, wh ... [[view]](3bde7860.md)
+* Let $L_n^{\alpha}x$ denote the standard non-monic generalized Laguerre polynomials with $\alph ... [[view]](53de3231.md)
+* Let $H_nx$ be the physicist's Hermite polynomials. For $z \in \mathbb{C} \setminus \mathbb{R}$, de ... [[view]](5c7587a5.md)
+* In the attached image, determine the geodesic curvature, the normal curvature, and the geodesic tors ... [[view]](616131bf.md)
+* In the attached image of a flat torus shown as a tiled unit square with opposite edges identified, s ... [[view]](6587534d.md)
+* Let $L_n^{\alpha}z$ be the Laguerre polynomials. For ${Re}\alpha > -1$ and $z \in \mathbb{C} \ ... [[view]](6c1ed21d.md)
+* Let $\Thetax$ evolve under sine–Gordon dynamics with $\Theta0=\tfrac{5\pi}{2}$. Determine $\Thet ... [[view]](7132b649.md)
+* Evaluate the integral ... [[view]](7c563c4e.md)
+* Let $P_n^{\alpha,\beta}x$ be the Jacobi polynomials orthogonal on $-1,1$ with respect to $px ... [[view]](85d6da54.md)
+* In the $u,v$-chart of a surface with metric $ds^{2} = du^{2} + \sinh^{2}u\,dv^{2}$, the marked poi ... [[view]](9129831b.md)
+* Let $L_n^{\alpha}t$ be the Laguerre polynomials. For $\mathrm{Re}\alpha > -1$ and $z \in \math ... [[view]](9c127187.md)
+* Let $P_n^{\alpha,\beta}x$ denote the Jacobi polynomials, orthogonal on $-1,1$ with respect to  ... [[view]](9c2e2dec.md)
+* In the provided image, a flat torus is depicted using a rhombic fundamental domain with $60^\circ$ b ... [[view]](a64df3e0.md)
+* In the attached image, determine the geodesic torsion of the intersection curve at the marked point  ... [[view]](aad144ac.md)
+* ==> 027f10a7.md <== ... [[view]](all.md)
+* Let $p_nx_{n\ge0}$ be the monic orthogonal polynomials with respect to a positive weight $\rhox$ ... [[view]](b013b487.md)
+* On a surface of constant positive Gaussian curvature $K=2$, a geodesic circle of radius $r=\tfrac{1} ... [[view]](bca2a699.md)
+* In the attached image, the fundamental domain of a flat torus is drawn as a rhombus with opposite ed ... [[view]](c7441c68.md)
+* let $P_n^{\alpha,\beta}x$ be the jacobi polynomials with parameters $\alpha, \beta > -1$, orthog ... [[view]](ca5a3f25.md)
+* In a steady one-dimensional heat-conduction problem, a thin rod with uniform thermal conductivity $k ... [[view]](dc2e0db2.md)
+* In the attached image, determine the hyperbolic distance $dA,B$. Give your final answer as a decim ... [[view]](f14b7ce3.md)
+
+### Determine
+
+* Let $P_n^{\alpha,\beta}x$ denote the Jacobi polynomials, orthogonal on $-1,1$ with respect to  ... [[view]](027f10a7.md)
+* Let $H_nx$ denote the physicist’s Hermite polynomials, orthogonal on $-\infty,\infty$ with respe ... [[view]](076ef56b.md)
+* Let $\{P_nx\}_{n \ge 0}$ be a sequence of polynomials defined by the exponential generating functi ... [[view]](07a8cfcf.md)
+* Let $p_nx$ be the monic Legendre polynomials on $-1,1$ orthogonal with respect to $\rhox=1$. F ... [[view]](147341f7.md)
+* Consider the physicists' Hermite polynomials $H_nx$ on $-\infty, \infty$ with $n \ge 1$, and let ... [[view]](18942427.md)
+* Consider the quantum harmonic oscillator orthonormal basis ... [[view]](25d6839e.md)
+* Let $P_n^{\alpha,\beta}x$ denote the Jacobi polynomials, orthogonal on $-1,1$ with respect to  ... [[view]](25fec83d.md)
+* In an infinitely long, lossless, anechoic 1D acoustic duct with sound speed $c=1$ and density $\rho= ... [[view]](2c968d24.md)
+* Let $P_nx$ be the Legendre polynomials on $-1,1$ orthogonal with respect to $\rhox=1$. Fix $a> ... [[view]](2d61fb16.md)
+* Let the Clebsch–Gordan coefficient $\langle1,0;2,0\mid2,0\rangle$ be given. Determine with proof w ... [[view]](2f5da8d9.md)
+* A physical quantity $Q_n$ is directly proportional to the value of a high-order Racah polynomial $u_ ... [[view]](31001068.md)
+* In a torsional DNA model Yakushevich-type without external torque, the base-pair twist angle $\The ... [[view]](34b8ebad.md)
+* Consider the monic Laguerre polynomials $p_nx$ on $0, \infty$ with weight $\rhox = e^{-x}$, wh ... [[view]](3bde7860.md)
+* Let the Clebsch–Gordan coefficient $\langle j_1,m_1,j_2,m_2\mid j_3,m_3\rangle$ satisfy the constrai ... [[view]](3c1c8b15.md)
+* Let $\{H_nx\}$ denote the standard **Physicist's Hermite Polynomials**, orthogonal on $-\infty, \ ... [[view]](3fc90f09.md)
+* Let $A=\{x\in\mathbb{R}: x\not=0 { and } x - \sin1/x>0\}$ ... [[view]](45c7ef0e.md)
+* Let the Clebsch–Gordan coefficient $\langle j_1,m_1,j_2,m_2\mid j_3,m_3\rangle$ satisfy $j_3=j+1$ an ... [[view]](4a8d987a.md)
+* Let ${P_nx}_{n=0}^\infty$ be a sequence of monic polynomials defined by the exponential generating ... [[view]](4dc6fb67.md)
+* Let $L_n^{\alpha}x$ denote the standard non-monic generalized Laguerre polynomials with $\alph ... [[view]](53de3231.md)
+* Let $H_nx$ be the physicist's Hermite polynomials. For $z \in \mathbb{C} \setminus \mathbb{R}$, de ... [[view]](5c7587a5.md)
+* Let $\{L_n^{\alpha}x\}$ denote the **Generalized Laguerre Polynomials**, orthogonal on $0, \inf ... [[view]](5dd03fbd.md)
+* In the attached image, determine the geodesic curvature, the normal curvature, and the geodesic tors ... [[view]](616131bf.md)
+* For $n \ge 1$, define the Hermite function of the second kind as: ... [[view]](67128ca2.md)
+* Consider the Jacobi polynomial $P_n^{\alpha,\beta}x$ on $-1,1$ with parameters $\alpha=1$ and  ... [[view]](69425b5f.md)
+* Let $L_n^{\alpha}z$ be the Laguerre polynomials. For ${Re}\alpha > -1$ and $z \in \mathbb{C} \ ... [[view]](6c1ed21d.md)
+* Consider the Laguerre polynomials $L_n^{3}x$ on the interval $0, \infty$ with parameter $\alph ... [[view]](6c96b851.md)
+* Let $\Thetax$ evolve under sine–Gordon dynamics with $\Theta0=\tfrac{5\pi}{2}$. Determine $\Thet ... [[view]](7132b649.md)
+* Let $P_n^{\alpha,\beta}x$ be the Jacobi polynomials orthogonal on $-1,1$ with respect to $px ... [[view]](85d6da54.md)
+* In a long Josephson junction or any continuum limit of a coupled-pendulum chain, the gauge-invaria ... [[view]](989a8a47.md)
+* In an easy-plane ferroelectric chain with no external field, the polarization angle $\Thetax,t$ ob ... [[view]](98a2ead0.md)
+* Let $L_n^{\alpha}t$ be the Laguerre polynomials. For $\mathrm{Re}\alpha > -1$ and $z \in \math ... [[view]](9c127187.md)
+* Let $P_n^{\alpha,\beta}x$ denote the Jacobi polynomials, orthogonal on $-1,1$ with respect to  ... [[view]](9c2e2dec.md)
+* Let the Clebsch–Gordan coefficient $\langle j_1,m_1,j_2,m_2\mid j_3,m_3\rangle$ satisfy $j_3=j+1$ an ... [[view]](a050c5dc.md)
+* In the attached image, determine the geodesic torsion of the intersection curve at the marked point  ... [[view]](aad144ac.md)
+* ==> 027f10a7.md <== ... [[view]](all.md)
+* Let $p_nx_{n\ge0}$ be the monic orthogonal polynomials with respect to a positive weight $\rhox$ ... [[view]](b013b487.md)
+* In a quasi-one-dimensional charge-density-wave conductor with no external bias, the CDW phase $\Thet ... [[view]](b1b7ad37.md)
+* Let $L_n^{\alpha}t$ be the Laguerre polynomials with $\mathrm{Re}\alpha>-1$. For $z\in\mathbb{ ... [[view]](b4d59303.md)
+* For n ≥ 1, define the Jacobi function of the second kind as ... [[view]](b8db5f5e.md)
+* The Racah polynomials $\hat{R}_n\lambdax$ are the most general family of discrete orthogonal pol ... [[view]](bd24c6fc.md)
+* In an anisotropic ferromagnetic spin chain, the azimuthal spin angle $\Thetax,t$ satisfies the dam ... [[view]](c9135c09.md)
+* let $P_n^{\alpha,\beta}x$ be the jacobi polynomials with parameters $\alpha, \beta > -1$, orthog ... [[view]](ca5a3f25.md)
+* Determine, with rigorous proof, whether the following statement is true or false for Laguerre polyno ... [[view]](d416c4c4.md)
+* Let $\{p_nx\}$ be any sequence of orthogonal polynomials monic or orthonormal with respect to a  ... [[view]](d72d16d6.md)
+* In a steady one-dimensional heat-conduction problem, a thin rod with uniform thermal conductivity $k ... [[view]](dc2e0db2.md)
+* let $H_nx$ be the hermite polynomials, orthogonal on $-\infty, \infty$ with respect to the weigh ... [[view]](dd13f374.md)
+* In a Frenkel–Kontorova chain without external drive, the misfit field $\Thetax,t$ satisfies the da ... [[view]](de514810.md)
+* Let the polynomial $p_nx$ of degree $n\ge0$ satisfy the differential equation $1-x^2p_n^{\prime\ ... [[view]](e75e5639.md)
+* Let the Clebsch–Gordan coefficient $\langle j_1,m_1,j_2,m_2\mid j_3,m_3\rangle$ satisfy $j_3=j-1$ an ... [[view]](e81395f5.md)
+* Let $P_n^{\alpha,\beta}x$ be the jacobi polynomials with parameters $\alpha, \beta > -1$, orthog ... [[view]](e89ce469.md)
+* Fix $\alpha,\beta>-1$. There exist constants $C>0$ and $\delta\in0,1$, independent of $n$, such th ... [[view]](ec15106e.md)
+* In a one-dimensional superfluid ring with a periodic array of weak links and no external drive, the  ... [[view]](edbc87d5.md)
+* In a one-dimensional mechanical chain of coupled pendula without external drive, the angular displac ... [[view]](ee4bc277.md)
+* In the attached image, determine the hyperbolic distance $dA,B$. Give your final answer as a decim ... [[view]](f14b7ce3.md)
+* Let **$\{{p_nx}\}_{n=0}^\infty$** be orthonormal polynomials with respect to a positive weight **$ ... [[view]](f6e16472.md)
+* Fix two half-integer angular momenta $j_1,j_2\ge2$ and consider the Clebsch–Gordan coefficient $$f ... [[view]](f94b00ef.md)
+* Let ... [[view]](fe4dc745.md)
+
+### Big
+
+* In the half-plane $x > 1$, the steady transverse displacement $ux,y$ of a non-uniform membrane sat ... [[view]](2538fcdd.md)
+* Let the Clebsch–Gordan coefficient $\langle j_1,m_1,j_2,m_2\mid j_3,m_3\rangle$ satisfy the constrai ... [[view]](3c1c8b15.md)
+* Let $\{p_nx\}_{n=0}^\infty$ be the sequence of orthonormal polynomials with respect to a positive  ... [[view]](91608bdd.md)
+* In the attached image, determine the geodesic torsion of the intersection curve at the marked point  ... [[view]](aad144ac.md)
+* ==> 027f10a7.md <== ... [[view]](all.md)
+* Let $p_nx_{n\ge0}$ be the monic orthogonal polynomials with respect to a positive weight $\rhox$ ... [[view]](b013b487.md)
+* Let ... [[view]](b378c08c.md)
+* On a surface of constant positive Gaussian curvature $K=2$, a geodesic circle of radius $r=\tfrac{1} ... [[view]](bca2a699.md)
+* Let ... [[view]](bd4a59ea.md)
+* let $P_n^{\alpha,\beta}x$ be the jacobi polynomials with parameters $\alpha, \beta > -1$, orthog ... [[view]](ca5a3f25.md)
+* Determine, with rigorous proof, whether the following statement is true or false for Laguerre polyno ... [[view]](d416c4c4.md)
+* let $H_nx$ be the hermite polynomials, orthogonal on $-\infty, \infty$ with respect to the weigh ... [[view]](dd13f374.md)
+* Let $P_n^{\alpha,\beta}x$ be the jacobi polynomials with parameters $\alpha, \beta > -1$, orthog ... [[view]](e89ce469.md)
+* Fix $\alpha,\beta>-1$. There exist constants $C>0$ and $\delta\in0,1$, independent of $n$, such th ... [[view]](ec15106e.md)
+* Let ... [[view]](main.md)
+*   % Unit circle boundary of the Poincaré disk ... [[view]](poincare_AB_asymmetric.md)
+
+### Gamma
+
+* Let $P_n^{\alpha,\beta}x$ denote the Jacobi polynomials, orthogonal on $-1,1$ with respect to  ... [[view]](027f10a7.md)
+* Evaluate the integral ... [[view]](0526785f.md)
+* Let $\{P_nx\}_{n \ge 0}$ be a sequence of polynomials defined by the exponential generating functi ... [[view]](07a8cfcf.md)
+* In a torsional DNA model Yakushevich-type without external torque, the base-pair twist angle $\The ... [[view]](34b8ebad.md)
+* Let ${P_nx}_{n=0}^\infty$ be a sequence of monic polynomials defined by the exponential generating ... [[view]](4dc6fb67.md)
+* Let $L_n^{\alpha}x$ denote the standard non-monic generalized Laguerre polynomials with $\alph ... [[view]](53de3231.md)
+* In the attached image, determine the geodesic curvature, the normal curvature, and the geodesic tors ... [[view]](616131bf.md)
+* Let $L_n^{\alpha}t$ be the Laguerre polynomials. For $\mathrm{Re}\alpha > -1$ and $z \in \math ... [[view]](9c127187.md)
+* Let $P_n^{\alpha,\beta}x$ denote the Jacobi polynomials, orthogonal on $-1,1$ with respect to  ... [[view]](9c2e2dec.md)
+* In the attached image, determine the geodesic torsion of the intersection curve at the marked point  ... [[view]](aad144ac.md)
+* ==> 027f10a7.md <== ... [[view]](all.md)
+* In a quasi-one-dimensional charge-density-wave conductor with no external bias, the CDW phase $\Thet ... [[view]](b1b7ad37.md)
+* Let $L_n^{\alpha}t$ be the Laguerre polynomials with $\mathrm{Re}\alpha>-1$. For $z\in\mathbb{ ... [[view]](b4d59303.md)
+* For n ≥ 1, define the Jacobi function of the second kind as ... [[view]](b8db5f5e.md)
+* The Racah polynomials $\hat{R}_n\lambdax$ are the most general family of discrete orthogonal pol ... [[view]](bd24c6fc.md)
+* Consider the second-order linear difference equation on the non-uniform lattice $xk=kk+\gamma+\de ... [[view]](c617c526.md)
+* let $P_n^{\alpha,\beta}x$ be the jacobi polynomials with parameters $\alpha, \beta > -1$, orthog ... [[view]](ca5a3f25.md)
+* Determine, with rigorous proof, whether the following statement is true or false for Laguerre polyno ... [[view]](d416c4c4.md)
+
+### In
+
+* Let $P_n^{\alpha,\beta}x$ denote the Jacobi polynomials, orthogonal on $-1,1$ with respect to  ... [[view]](027f10a7.md)
+* Evaluate the integral ... [[view]](0526785f.md)
+* Let $H_nx$ denote the physicist’s Hermite polynomials, orthogonal on $-\infty,\infty$ with respe ... [[view]](076ef56b.md)
+* Let $\{P_nx\}_{n \ge 0}$ be a sequence of polynomials defined by the exponential generating functi ... [[view]](07a8cfcf.md)
+* Let $p_nx$ be the monic Legendre polynomials on $-1,1$ orthogonal with respect to $\rhox=1$. F ... [[view]](147341f7.md)
+* Consider the physicists' Hermite polynomials $H_nx$ on $-\infty, \infty$ with $n \ge 1$, and let ... [[view]](18942427.md)
+* In the half-plane $x > 1$, the steady transverse displacement $ux,y$ of a non-uniform membrane sat ... [[view]](2538fcdd.md)
+* Consider the quantum harmonic oscillator orthonormal basis ... [[view]](25d6839e.md)
+* Let $P_n^{\alpha,\beta}x$ denote the Jacobi polynomials, orthogonal on $-1,1$ with respect to  ... [[view]](25fec83d.md)
+* In an infinitely long, lossless, anechoic 1D acoustic duct with sound speed $c=1$ and density $\rho= ... [[view]](2c968d24.md)
+* Let $P_nx$ be the Legendre polynomials on $-1,1$ orthogonal with respect to $\rhox=1$. Fix $a> ... [[view]](2d61fb16.md)
+* What is the hyperbolic area of the figure bounded by $OP$, $OQ$, and the curve $PQ$, inside the unit ... [[view]](2deb9b93.md)
+* Let the Clebsch–Gordan coefficient $\langle1,0;2,0\mid2,0\rangle$ be given. Determine with proof w ... [[view]](2f5da8d9.md)
+* A physical quantity $Q_n$ is directly proportional to the value of a high-order Racah polynomial $u_ ... [[view]](31001068.md)
+* In a torsional DNA model Yakushevich-type without external torque, the base-pair twist angle $\The ... [[view]](34b8ebad.md)
+* Consider the monic Laguerre polynomials $p_nx$ on $0, \infty$ with weight $\rhox = e^{-x}$, wh ... [[view]](3bde7860.md)
+* Let the Clebsch–Gordan coefficient $\langle j_1,m_1,j_2,m_2\mid j_3,m_3\rangle$ satisfy the constrai ... [[view]](3c1c8b15.md)
+* Let $\{H_nx\}$ denote the standard **Physicist's Hermite Polynomials**, orthogonal on $-\infty, \ ... [[view]](3fc90f09.md)
+* Let $A=\{x\in\mathbb{R}: x\not=0 { and } x - \sin1/x>0\}$ ... [[view]](45c7ef0e.md)
+* Let the Clebsch–Gordan coefficient $\langle j_1,m_1,j_2,m_2\mid j_3,m_3\rangle$ satisfy $j_3=j+1$ an ... [[view]](4a8d987a.md)
+* Let ${P_nx}_{n=0}^\infty$ be a sequence of monic polynomials defined by the exponential generating ... [[view]](4dc6fb67.md)
+* Let $L_n^{\alpha}x$ denote the standard non-monic generalized Laguerre polynomials with $\alph ... [[view]](53de3231.md)
+* Let $H_nx$ be the physicist's Hermite polynomials. For $z \in \mathbb{C} \setminus \mathbb{R}$, de ... [[view]](5c7587a5.md)
+* Let $\{L_n^{\alpha}x\}$ denote the **Generalized Laguerre Polynomials**, orthogonal on $0, \inf ... [[view]](5dd03fbd.md)
+* In the attached image, determine the geodesic curvature, the normal curvature, and the geodesic tors ... [[view]](616131bf.md)
+* In the attached image of a flat torus shown as a tiled unit square with opposite edges identified, s ... [[view]](6587534d.md)
+* For $n \ge 1$, define the Hermite function of the second kind as: ... [[view]](67128ca2.md)
+* Consider the Jacobi polynomial $P_n^{\alpha,\beta}x$ on $-1,1$ with parameters $\alpha=1$ and  ... [[view]](69425b5f.md)
+* Let $L_n^{\alpha}z$ be the Laguerre polynomials. For ${Re}\alpha > -1$ and $z \in \mathbb{C} \ ... [[view]](6c1ed21d.md)
+* Consider the Laguerre polynomials $L_n^{3}x$ on the interval $0, \infty$ with parameter $\alph ... [[view]](6c96b851.md)
+* Let $\Thetax$ evolve under sine–Gordon dynamics with $\Theta0=\tfrac{5\pi}{2}$. Determine $\Thet ... [[view]](7132b649.md)
+* Evaluate the integral ... [[view]](7c563c4e.md)
+* Let $P_n^{\alpha,\beta}x$ be the Jacobi polynomials orthogonal on $-1,1$ with respect to $px ... [[view]](85d6da54.md)
+* Let $\Thetax,t$ satisfy the sine–Gordon equation $\Theta_t^{\prime\prime}-\Theta_x^{\prime\prime}+ ... [[view]](8fac80e9.md)
+* In the $u,v$-chart of a surface with metric $ds^{2} = du^{2} + \sinh^{2}u\,dv^{2}$, the marked poi ... [[view]](9129831b.md)
+* Let $\{p_nx\}_{n=0}^\infty$ be the sequence of orthonormal polynomials with respect to a positive  ... [[view]](91608bdd.md)
+* In a long Josephson junction or any continuum limit of a coupled-pendulum chain, the gauge-invaria ... [[view]](989a8a47.md)
+* In an easy-plane ferroelectric chain with no external field, the polarization angle $\Thetax,t$ ob ... [[view]](98a2ead0.md)
+* Let $L_n^{\alpha}t$ be the Laguerre polynomials. For $\mathrm{Re}\alpha > -1$ and $z \in \math ... [[view]](9c127187.md)
+* Let $P_n^{\alpha,\beta}x$ denote the Jacobi polynomials, orthogonal on $-1,1$ with respect to  ... [[view]](9c2e2dec.md)
+* Let the Clebsch–Gordan coefficient $\langle j_1,m_1,j_2,m_2\mid j_3,m_3\rangle$ satisfy $j_3=j+1$ an ... [[view]](a050c5dc.md)
+* In the provided image, a flat torus is depicted using a rhombic fundamental domain with $60^\circ$ b ... [[view]](a64df3e0.md)
+* In the attached image, determine the geodesic torsion of the intersection curve at the marked point  ... [[view]](aad144ac.md)
+* ==> 027f10a7.md <== ... [[view]](all.md)
+* Let $p_nx_{n\ge0}$ be the monic orthogonal polynomials with respect to a positive weight $\rhox$ ... [[view]](b013b487.md)
+* In a quasi-one-dimensional charge-density-wave conductor with no external bias, the CDW phase $\Thet ... [[view]](b1b7ad37.md)
+* Let ... [[view]](b378c08c.md)
+* Let $L_n^{\alpha}t$ be the Laguerre polynomials with $\mathrm{Re}\alpha>-1$. For $z\in\mathbb{ ... [[view]](b4d59303.md)
+* For n ≥ 1, define the Jacobi function of the second kind as ... [[view]](b8db5f5e.md)
+* On a surface of constant positive Gaussian curvature $K=2$, a geodesic circle of radius $r=\tfrac{1} ... [[view]](bca2a699.md)
+* The Racah polynomials $\hat{R}_n\lambdax$ are the most general family of discrete orthogonal pol ... [[view]](bd24c6fc.md)
+* Let ... [[view]](bd4a59ea.md)
+* Consider the second-order linear difference equation on the non-uniform lattice $xk=kk+\gamma+\de ... [[view]](c617c526.md)
+* In the attached image, the fundamental domain of a flat torus is drawn as a rhombus with opposite ed ... [[view]](c7441c68.md)
+* In an anisotropic ferromagnetic spin chain, the azimuthal spin angle $\Thetax,t$ satisfies the dam ... [[view]](c9135c09.md)
+* let $P_n^{\alpha,\beta}x$ be the jacobi polynomials with parameters $\alpha, \beta > -1$, orthog ... [[view]](ca5a3f25.md)
+* Determine, with rigorous proof, whether the following statement is true or false for Laguerre polyno ... [[view]](d416c4c4.md)
+* Let $\{p_nx\}$ be any sequence of orthogonal polynomials monic or orthonormal with respect to a  ... [[view]](d72d16d6.md)
+* Let $\Thetax,t$ satisfy the sine–Gordon equation ... [[view]](d75ab6e0.md)
+* In a steady one-dimensional heat-conduction problem, a thin rod with uniform thermal conductivity $k ... [[view]](dc2e0db2.md)
+* let $H_nx$ be the hermite polynomials, orthogonal on $-\infty, \infty$ with respect to the weigh ... [[view]](dd13f374.md)
+* Evaluate the ratio ... [[view]](dd5e2fc5.md)
+* In a Frenkel–Kontorova chain without external drive, the misfit field $\Thetax,t$ satisfies the da ... [[view]](de514810.md)
+* Let $j_1,j_2$ be fixed half-integers with $j_1,j_2\ge2$, and let $m$ be an integer with $|m|\le j_1+ ... [[view]](de74e827.md)
+* Evaluate the integral ... [[view]](e724070a.md)
+* Let the polynomial $p_nx$ of degree $n\ge0$ satisfy the differential equation $1-x^2p_n^{\prime\ ... [[view]](e75e5639.md)
+* Let the Clebsch–Gordan coefficient $\langle j_1,m_1,j_2,m_2\mid j_3,m_3\rangle$ satisfy $j_3=j-1$ an ... [[view]](e81395f5.md)
+* Let $P_n^{\alpha,\beta}x$ be the jacobi polynomials with parameters $\alpha, \beta > -1$, orthog ... [[view]](e89ce469.md)
+* Fix $\alpha,\beta>-1$. There exist constants $C>0$ and $\delta\in0,1$, independent of $n$, such th ... [[view]](ec15106e.md)
+* In a one-dimensional superfluid ring with a periodic array of weak links and no external drive, the  ... [[view]](edbc87d5.md)
+* In a one-dimensional mechanical chain of coupled pendula without external drive, the angular displac ... [[view]](ee4bc277.md)
+* In the attached image, determine the hyperbolic distance $dA,B$. Give your final answer as a decim ... [[view]](f14b7ce3.md)
+* Let **$\{{p_nx}\}_{n=0}^\infty$** be orthonormal polynomials with respect to a positive weight **$ ... [[view]](f6e16472.md)
+* Fix two half-integer angular momenta $j_1,j_2\ge2$ and consider the Clebsch–Gordan coefficient $$f ... [[view]](f94b00ef.md)
+* Let ... [[view]](fe4dc745.md)
+* Let ... [[view]](main.md)
+*   % Unit circle boundary of the Poincaré disk ... [[view]](poincare_AB_asymmetric.md)
+
+### Laguerre
+
+* Evaluate the integral ... [[view]](0526785f.md)
+* Consider the monic Laguerre polynomials $p_nx$ on $0, \infty$ with weight $\rhox = e^{-x}$, wh ... [[view]](3bde7860.md)
+* Let ${P_nx}_{n=0}^\infty$ be a sequence of monic polynomials defined by the exponential generating ... [[view]](4dc6fb67.md)
+* Let $L_n^{\alpha}x$ denote the standard non-monic generalized Laguerre polynomials with $\alph ... [[view]](53de3231.md)
+* Let $\{L_n^{\alpha}x\}$ denote the **Generalized Laguerre Polynomials**, orthogonal on $0, \inf ... [[view]](5dd03fbd.md)
+* Let $L_n^{\alpha}z$ be the Laguerre polynomials. For ${Re}\alpha > -1$ and $z \in \mathbb{C} \ ... [[view]](6c1ed21d.md)
+* Consider the Laguerre polynomials $L_n^{3}x$ on the interval $0, \infty$ with parameter $\alph ... [[view]](6c96b851.md)
+* Evaluate the integral ... [[view]](7c563c4e.md)
+* Let $L_n^{\alpha}t$ be the Laguerre polynomials. For $\mathrm{Re}\alpha > -1$ and $z \in \math ... [[view]](9c127187.md)
+* ==> 027f10a7.md <== ... [[view]](all.md)
+* Let $L_n^{\alpha}t$ be the Laguerre polynomials with $\mathrm{Re}\alpha>-1$. For $z\in\mathbb{ ... [[view]](b4d59303.md)
+* Determine, with rigorous proof, whether the following statement is true or false for Laguerre polyno ... [[view]](d416c4c4.md)
+* Evaluate the ratio ... [[view]](dd5e2fc5.md)
+* Evaluate the integral ... [[view]](e724070a.md)
+
+### Jacobi
 
 * Let $P_n^{\alpha,\beta}x$ denote the Jacobi polynomials, orthogonal on $-1,1$ with respect to  ... [[view]](027f10a7.md)
 * Let $P_n^{\alpha,\beta}x$ denote the Jacobi polynomials, orthogonal on $-1,1$ with respect to  ... [[view]](25fec83d.md)
@@ -21,80 +260,11 @@
 * Consider the Jacobi polynomial $P_n^{\alpha,\beta}x$ on $-1,1$ with parameters $\alpha=1$ and  ... [[view]](69425b5f.md)
 * Let $P_n^{\alpha,\beta}x$ be the Jacobi polynomials orthogonal on $-1,1$ with respect to $px ... [[view]](85d6da54.md)
 * Let $P_n^{\alpha,\beta}x$ denote the Jacobi polynomials, orthogonal on $-1,1$ with respect to  ... [[view]](9c2e2dec.md)
+* ==> 027f10a7.md <== ... [[view]](all.md)
+* For n ≥ 1, define the Jacobi function of the second kind as ... [[view]](b8db5f5e.md)
 * The Racah polynomials $\hat{R}_n\lambdax$ are the most general family of discrete orthogonal pol ... [[view]](bd24c6fc.md)
 * let $P_n^{\alpha,\beta}x$ be the jacobi polynomials with parameters $\alpha, \beta > -1$, orthog ... [[view]](ca5a3f25.md)
 * Let the polynomial $p_nx$ of degree $n\ge0$ satisfy the differential equation $1-x^2p_n^{\prime\ ... [[view]](e75e5639.md)
 * Let $P_n^{\alpha,\beta}x$ be the jacobi polynomials with parameters $\alpha, \beta > -1$, orthog ... [[view]](e89ce469.md)
 * Fix $\alpha,\beta>-1$. There exist constants $C>0$ and $\delta\in0,1$, independent of $n$, such th ... [[view]](ec15106e.md)
-
-### Legendre Polynomials
-
-* Let $p_nx$ be the monic Legendre polynomials on $-1,1$ orthogonal with respect to $\rhox=1$. F ... [[view]](147341f7.md)
-* Let $P_n^{\alpha,\beta}x$ denote the Jacobi polynomials, orthogonal on $-1,1$ with respect to  ... [[view]](25fec83d.md)
-* Let $P_nx$ be the Legendre polynomials on $-1,1$ orthogonal with respect to $\rhox=1$. Fix $a> ... [[view]](2d61fb16.md)
-* Let $\{p_nx\}$ be any sequence of orthogonal polynomials monic or orthonormal with respect to a  ... [[view]](d72d16d6.md)
-* Let **$\{{p_nx}\}_{n=0}^\infty$** be orthonormal polynomials with respect to a positive weight **$ ... [[view]](f6e16472.md)
-
-### Hermite Polynomials
-
-* Let $H_nx$ denote the physicist’s Hermite polynomials, orthogonal on $-\infty,\infty$ with respe ... [[view]](076ef56b.md)
-* Let $\{P_nx\}_{n \ge 0}$ be a sequence of polynomials defined by the exponential generating functi ... [[view]](07a8cfcf.md)
-* Consider the physicists' Hermite polynomials $H_nx$ on $-\infty, \infty$ with $n \ge 1$, and let ... [[view]](18942427.md)
-* Let $\{H_nx\}$ denote the standard **Physicist's Hermite Polynomials**, orthogonal on $-\infty, \ ... [[view]](3fc90f09.md)
-* Let $H_nx$ be the physicist's Hermite polynomials. For $z \in \mathbb{C} \setminus \mathbb{R}$, de ... [[view]](5c7587a5.md)
-* For $n \ge 1$, define the Hermite function of the second kind as: ... [[view]](67128ca2.md)
-* let $H_nx$ be the hermite polynomials, orthogonal on $-\infty, \infty$ with respect to the weigh ... [[view]](dd13f374.md)
-
-### Laguerre Polynomials
-
-* Evaluate the integral ... [[view]](0526785f.md)
-* Consider the monic Laguerre polynomials $p_nx$ on $0, \infty$ with weight $\rhox = e^{-x}$, wh ... [[view]](3bde7860.md)
-* Let ${P_nx}_{n=0}^\infty$ be a sequence of monic polynomials defined by the exponential generating ... [[view]](4dc6fb67.md)
-* Let $L_n^{\alpha}x$ denote the standard non-monic generalized Laguerre polynomials with $\alph ... [[view]](53de3231.md)
-* Let $\{L_n^{\alpha}x\}$ denote the **Generalized Laguerre Polynomials**, orthogonal on $0, \inf ... [[view]](5dd03fbd.md)
-* Let $L_n^{\alpha}z$ be the Laguerre polynomials. For $\text{Re}\alpha > -1$ and $z \in \mathbb ... [[view]](6c1ed21d.md)
-* Consider the Laguerre polynomials $L_n^{3}x$ on the interval $0, \infty$ with parameter $\alph ... [[view]](6c96b851.md)
-* Evaluate the integral ... [[view]](7c563c4e.md)
-* Let $L_n^{\alpha}t$ be the Laguerre polynomials. For $\mathrm{Re}\alpha > -1$ and $z \in \math ... [[view]](9c127187.md)
-* Let $L_n^{\alpha}t$ be the Laguerre polynomials with $\mathrm{Re}\alpha>-1$. For $z\in\mathbb{ ... [[view]](b4d59303.md)
-* Determine, with rigorous proof, whether the following statement is true or false for Laguerre polyno ... [[view]](d416c4c4.md)
-* Evaluate the ratio ... [[view]](dd5e2fc5.md)
-* Evaluate the integral ... [[view]](e724070a.md)
-
-### Racah Polynomials
-
-* A physical quantity $Q_n$ is directly proportional to the value of a high-order Racah polynomial $u_ ... [[view]](31001068.md)
-* The Racah polynomials $\hat{R}_n\lambdax$ are the most general family of discrete orthogonal pol ... [[view]](bd24c6fc.md)
-* Consider the second-order linear difference equation on the non-uniform lattice $xk=kk+\gamma+\de ... [[view]](c617c526.md)
-* Let ... [[view]](fe4dc745.md)
-
-### Hahn Polynomials
-
-* Let the Clebsch–Gordan coefficient $\langle1,0;2,0\mid2,0\rangle$ be given. Determine with proof w ... [[view]](2f5da8d9.md)
-* Let the Clebsch–Gordan coefficient $\langle j_1,m_1,j_2,m_2\mid j_3,m_3\rangle$ satisfy the constrai ... [[view]](3c1c8b15.md)
-* Let the Clebsch–Gordan coefficient $\langle j_1,m_1,j_2,m_2\mid j_3,m_3\rangle$ satisfy $j_3=j+1$ an ... [[view]](a050c5dc.md)
-* Let $j_1,j_2$ be fixed half-integers with $j_1,j_2\ge2$, and let $m$ be an integer with $|m|\le j_1+ ... [[view]](de74e827.md)
-* Let the Clebsch–Gordan coefficient $\langle j_1,m_1,j_2,m_2\mid j_3,m_3\rangle$ satisfy $j_3=j-1$ an ... [[view]](e81395f5.md)
-* Fix two half-integer angular momenta $j_1,j_2\ge2$ and consider the Clebsch–Gordan coefficient $$f ... [[view]](f94b00ef.md)
-
-### Quantum Mechanics
-
-* Let the Clebsch–Gordan coefficient $\langle1,0;2,0\mid2,0\rangle$ be given. Determine with proof w ... [[view]](2f5da8d9.md)
-* Let the Clebsch–Gordan coefficient $\langle j_1,m_1,j_2,m_2\mid j_3,m_3\rangle$ satisfy the constrai ... [[view]](3c1c8b15.md)
-* Let the Clebsch–Gordan coefficient $\langle j_1,m_1,j_2,m_2\mid j_3,m_3\rangle$ satisfy $j_3=j+1$ an ... [[view]](4a8d987a.md)
-* Let the Clebsch–Gordan coefficient $\langle j_1,m_1,j_2,m_2\mid j_3,m_3\rangle$ satisfy $j_3=j+1$ an ... [[view]](a050c5dc.md)
-* Let $j_1,j_2$ be fixed half-integers with $j_1,j_2\ge2$, and let $m$ be an integer with $|m|\le j_1+ ... [[view]](de74e827.md)
-* Let the Clebsch–Gordan coefficient $\langle j_1,m_1,j_2,m_2\mid j_3,m_3\rangle$ satisfy $j_3=j-1$ an ... [[view]](e81395f5.md)
-* Fix two half-integer angular momenta $j_1,j_2\ge2$ and consider the Clebsch–Gordan coefficient $$f ... [[view]](f94b00ef.md)
-
-### Geometry & Topology
-
-*   % Parameters ... [[view]](2deb9b93-i.md)
-* What is the hyperbolic area of the figure bounded by $OP$, $OQ$, and the curve $PQ$, inside the unit ... [[view]](2deb9b93.md)
-* In the attached image, determine the geodesic curvature, the normal curvature, and the geodesic tors ... [[view]](616131bf.md)
-* % ---------- Params ---------- ... [[view]](6587534d-i.md)
-* In the attached image of a flat torus shown as a tiled unit square with opposite edges identified, s ... [[view]](6587534d.md)
-* In the $u,v$-chart of a surface with metric $ds^{2} = du^{2} + \sinh^{2}u\,dv^{2}$, the marked poi ... [[view]](9129831b.md)
-* In the attached image, determine the geodesic torsion of the intersection curve at the marked point  ... [[view]](aad144ac.md)
-* On a surface of constant positive Gaussian curvature $K=2$, a geodesic circle of radius $r=\tfrac{1} ... [[view]](bca2a699.md)
 

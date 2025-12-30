@@ -2,57 +2,68 @@
 
 # 1. Start the README
 printf "# Coyote Math Task Index\n\n" > README.md
+
+# 2. Dynamic Pool & Tree Creation (No hard-coding)
+# This identifies the "pool" by finding frequent capitalized words in your files
+printf "## Dynamic Problem Tree\n\n" >> README.md
+printf '```text\n' >> README.md
+printf "Root: Mathematical Physics Collection\n" >> README.md
+
+# Auto-generate the pool by finding frequent capitalized words in .md files
+# We filter out common English words and look for "Math Names"
+DYNAMIC_POOL=$(grep -oE '\b[A-Z][a-z]+\b' *.md | cut -d: -f2 | sort | uniq -c | sort -nr | head -n 12 | awk '{print $2}' | grep -vE "The|Let|For|If|This|Claim|Proof|True|False|And")
+
+for tag in $DYNAMIC_POOL; do
+    # Dynamically find all files containing this specific tag
+    matches=$(grep -il "$tag" *.md | grep -v "README.md" | sed 's/\.md//g' | tr '\n' ',' | sed 's/,$//')
+    
+    if [ -n "$matches" ] && [[ "$matches" == *","* ]]; then
+        # Only create a branch if more than one file belongs to it
+        printf "├── %s Cluster: %s\n" "$tag" "$matches" >> README.md
+    fi
+done
+printf "└── Miscellaneous: Others\n" >> README.md
+printf '```\n\n' >> README.md
+
+
+
+printf "---\n\n" >> README.md
+
+# 3. Recent Updates
 printf "## Recent Updates\n\n" >> README.md
 
-# Function to extract and clean math snippets
 get_math_snippet() {
-    # Grabs the first line that isn't a LaTeX command or header
-    # Removes common LaTeX preamble junk to find the actual problem statement
-    content=$(grep -vE '^\\|^#|^$' "$1" | head -n 1)
-    
-    # Clean up the snippet: 
-    # - Limit length to 100 chars
-    # - Remove any trailing special characters that break markdown links
-    clean=$(echo "$content" | cut -c 1-100 | sed 's/[]()[]//g')
-    echo "$clean"
+    # Grabs first line of content, removes \text, and cleans math
+    content=$(grep -vE '^\\|^#|^$' "$1" | head -n 1 | sed 's/\\text//g')
+    echo "$content" | cut -c 1-100 | sed 's/[]()[]//g'
 }
 
-# 2. Build Recent Updates
 ls -t *.md | grep -v "README.md" | head -5 | while read -r file; do
     TITLE=$(get_math_snippet "$file")
     [ -z "$TITLE" ] && TITLE="Problem: ${file%.*}"
-    # Format as: Snippet Text [view file](filename) 
-    # This keeps the math outside the link brackets for better rendering
     printf "* %s ... [[view]](%s)\n" "$TITLE" "$file" >> README.md
 done
 
 printf "\n---\n\n" >> README.md
 
-# 3. Library by Category
-categories=("Jacobi" "Legendre" "Hermite" "Laguerre" "Racah" "Hahn" "Clebsch" "Sine-Gordon" "Geodesic")
-display_names=("Jacobi Polynomials" "Legendre Polynomials" "Hermite Polynomials" "Laguerre Polynomials" "Racah Polynomials" "Hahn Polynomials" "Quantum Mechanics" "Differential Equations" "Geometry & Topology")
-
+# 4. Dynamic Library by Category
 printf "## Library by Category\n\n" >> README.md
 
-for i in "${!categories[@]}"; do
-    cat_key="${categories[$i]}"
-    cat_name="${display_names[$i]}"
-    
-    files=$(grep -il "$cat_key" *.md | grep -v "README.md")
+for tag in $DYNAMIC_POOL; do
+    files=$(grep -il "$tag" *.md | grep -v "README.md")
     
     if [ -n "$files" ]; then
-        printf "### $cat_name\n\n" >> README.md
+        printf "### %s\n\n" "$tag" >> README.md
         echo "$files" | while read -r file; do
             TITLE=$(get_math_snippet "$file")
-            [ -z "$TITLE" ] && TITLE="Problem: ${file%.*}"
-            # Keeping the math part separate from the link part improves rendering
+            [ -z "$TITLE" ] && TITLE="ID: ${file%.*}"
             printf "* %s ... [[view]](%s)\n" "$TITLE" "$file" >> README.md
         done
         printf "\n" >> README.md
     fi
 done
 
-# 4. Standard Push
+# 5. Standard Push
 git add .
-git commit -m "Fix math rendering in index"
+git commit -m "Completely dynamic index refresh with auto-pool generation"
 git push origin main
