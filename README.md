@@ -1,6 +1,6 @@
 # Coyote Math Task Index
 
-## Dynamic Problem Tree
+## Problem Tree
 
 ```text
 Root: Special Functions & Geometry
