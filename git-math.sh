@@ -3,7 +3,7 @@
 # 1. Start the README
 printf "# Coyote Math Task Index\n\n" > README.md
 
-# 2. Recent Updates (Top Section)
+# 2. Recent Updates
 printf "## Recent Updates\n\n" >> README.md
 
 clean_title() {
@@ -17,38 +17,13 @@ ls -t *.md | grep -v "README.md" | head -n 5 | while read -r file; do
 done
 printf "\n---\n\n" >> README.md
 
-# 3. Build Tree 1: Topic Classification
+# 3. Tree 1: Topic Classification (Unchanged)
 printf "## Tree 1: Classification by Topic\n\n" >> README.md
-
-nu_names=(
-    "Hypergeometric: Rodrigues & ODEs"
-    "Jacobi & Legendre Polynomials"
-    "Hermite & Laguerre Polynomials"
-    "Discrete: Hahn & Racah"
-    "Discrete: Clebsch-Gordan / 3j"
-    "Geometry: Poincare & Metrics"
-    "Geometry: Surfaces & Geodesics"
-    "Physics: Waves & Vibrations"
-    "Physics: Heat & Potential"
-    "Asymptotics & Integral Transforms"
-)
-
-nu_pats=(
-    "hypergeometric|Rodrigues|Bochner"
-    "Jacobi|Legendre|Chebyshev"
-    "Hermite|Laguerre"
-    "Hahn|Racah"
-    "Clebsch|3j|Wigner"
-    "Poincare|metric|disk|upper half"
-    "geodesic|curvature|torsion|surface"
-    "membrane|acoustic|harmonic|vibration|sine-Gordon|equilibria|dynamics"
-    "heat|temperature|potential|equilibrium"
-    "Cauchy|second kind|Q_n|asymptotic|integral|limit|integrand"
-)
+nu_names=("Hypergeometric: Rodrigues & ODEs" "Jacobi & Legendre Polynomials" "Hermite & Laguerre Polynomials" "Discrete: Hahn & Racah" "Discrete: Clebsch-Gordan / 3j" "Geometry: Poincare & Metrics" "Geometry: Surfaces & Geodesics" "Physics: Waves & Vibrations" "Physics: Heat & Potential" "Asymptotics & Integral Transforms")
+nu_pats=("hypergeometric|Rodrigues|Bochner" "Jacobi|Legendre|Chebyshev" "Hermite|Laguerre" "Hahn|Racah" "Clebsch|3j|Wigner" "Poincare|metric|disk|upper half" "geodesic|curvature|torsion|surface" "membrane|acoustic|harmonic|vibration|sine-Gordon|equilibria|dynamics" "heat|temperature|potential|equilibrium" "Cauchy|second kind|Q_n|asymptotic|integral|limit|integrand")
 
 unassigned_files=$(ls -1 *.md | grep -v "README.md")
 printf "Root: Special Functions & Geometry  \n" >> README.md
-
 for i in "${!nu_names[@]}"; do
     name="${nu_names[$i]}"
     pat="${nu_pats[$i]}"
@@ -63,60 +38,58 @@ for i in "${!nu_names[@]}"; do
         fi
     done
     unassigned_files=$still_unassigned
-    if [ -n "$links" ]; then
-        printf "├── **%s** \n" "$name" >> README.md
-        printf "│&nbsp;&nbsp;&nbsp;└── %s  \n" "$links" >> README.md
-    fi
+    [ -n "$links" ] && printf "├── **%s** \n&nbsp;&nbsp;&nbsp;&nbsp;└── %s  \n" "$name" "$links" >> README.md
 done
 
 printf "\n---\n\n" >> README.md
 
-# 4. Build Tree 2: Methodological Closeness
-printf "## Tree 2: Classification by Methodological Closeness\n\n" >> README.md
+# 4. Tree 2: Logical Closeness (Theorem-Based)
+# This tree clusters problems that share the same "Proof DNA"
+printf "## Tree 2: Logical Closeness (Proof Machinery)\n\n" >> README.md
 
-close_names=(
-    "Asymptotic Behavior & Limits"
-    "Rigidity & Polynomial Identities"
-    "Orthogonality & Inner Products"
-    "Integral Kernels & Transforms"
+logic_names=(
+    "Polynomial Rigidity (Constant Wronskians)"
+    "Asymptotic Matching (z -> infinity)"
+    "Orthogonal Projection (t^k vs p_n)"
+    "Integral Kernels (Hilbert/Cauchy Transforms)"
+    "Norm Identities (h_n Evaluations)"
 )
 
-close_pats=(
-    "asymptotic|limit|O\(z|z \to \infty"
-    "rigidity|constant|identical|degree <|Wronskian"
-    "orthogonal|inner product|h_n|norm|p_n^2"
-    "Cauchy|kernel|second kind|q_n\(z\)|transform"
+logic_pats=(
+    "rigidity|constant|W_n|Wronskian|bounded polynomial"
+    "asymptotic|O\(z|decay|z \to \infty|leading term"
+    "t\^k|orthogonal to|degree < n|vanishing integral"
+    "kernel|1\/z-t|second kind|q_n|Hilbert transform"
+    "h_n|norm|p_n\^2|normalization"
 )
 
-# Reset: Tree 2 needs to see all files again
 all_files=$(ls -1 *.md | grep -v "README.md")
-printf "Root: Mathematical Machinery \n" >> README.md
+printf "Root: Shared Mathematical Logic \n" >> README.md
 
-for i in "${!close_names[@]}"; do
-    name="${close_names[$i]}"
-    pat="${close_pats[$i]}"
+for i in "${!logic_names[@]}"; do
+    name="${logic_names[$i]}"
+    pat="${logic_pats[$i]}"
     links=""
     for file in $all_files; do
+        # We look for the specific theorem/logic signatures
         if tail -n +1 "$file" | grep -qiE "$pat"; then
             id="${file%.md}"
             [ -z "$links" ] && links="[$id]($file)" || links="$links, [$id]($file)"
         fi
     done
     if [ -n "$links" ]; then
-        if [ "$i" -eq $((${#close_names[@]}-1)) ]; then
-            printf "└── **%s** \n" "$name" >> README.md
-            printf "&nbsp;&nbsp;&nbsp;&nbsp;└── %s  \n" "$links" >> README.md
+        if [ "$i" -eq $((${#logic_names[@]}-1)) ]; then
+            printf "└── **%s** \n&nbsp;&nbsp;&nbsp;&nbsp;└── %s  \n" "$name" "$links" >> README.md
         else
-            printf "├── **%s** \n" "$name" >> README.md
-            printf "│&nbsp;&nbsp;&nbsp;└── %s  \n" "$links" >> README.md
+            printf "├── **%s** \n│&nbsp;&nbsp;&nbsp;└── %s  \n" "$name" "$links" >> README.md
         fi
     fi
 done
 
-# 5. Footer and Git Automation
+# 5. Footer
 file_count=$(ls -1 *.md | grep -v "README.md" | wc -l)
-printf "\n---\n\n*Note: Total files indexed: %s. Recent titles and tree leaves are clickable links.*\n" "$file_count" >> README.md
+printf "\n---\n\n*Note: Total files indexed: %s. Logic tree allows overlapping assignments.*\n" "$file_count" >> README.md
 
 git add .
-git commit -m "Auto-index: Updated dual-tree README structure ($file_count files)"
+git commit -m "Auto-index: Refined logical closeness tree ($file_count files)"
 git push origin main
