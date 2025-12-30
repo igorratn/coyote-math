@@ -31,14 +31,14 @@
 
 ---
 
-## Tree 2: Semantic Strategy & Proof DNA
+## Tree 2: Semantic Strategy & Proof DNA (NU TOC Alignment)
 
 Root: Methodological Strategy 
 ├── **NU §11: Second Kind Asymptotics (dn2/an ratio)** 
-│&nbsp;&nbsp;&nbsp;└── [67128ca2](67128ca2.md), [b8db5f5e](b8db5f5e.md)  
+│&nbsp;&nbsp;&nbsp;└── [147341f7](147341f7.md), [25fec83d](25fec83d.md), [3bde7860](3bde7860.md), [53de3231](53de3231.md), [5c7587a5](5c7587a5.md), [67128ca2](67128ca2.md), [9c127187](9c127187.md), [b8db5f5e](b8db5f5e.md)  
 ├── **NU §7: Local Maxima & Estimates (v(x) function)** 
-│&nbsp;&nbsp;&nbsp;└── [18942427](18942427.md), [6c96b851](6c96b851.md), [ca5a3f25](ca5a3f25.md), [d416c4c4](d416c4c4.md), [ec15106e](ec15106e.md)  
-├── **Polynomial Rigidity: Wronskian Identities** 
+│&nbsp;&nbsp;&nbsp;└── [18942427](18942427.md), [6c96b851](6c96b851.md)  
+├── **Polynomial Rigidity: Wronskian Identities (§6)** 
 │&nbsp;&nbsp;&nbsp;└── [147341f7](147341f7.md)  
 └── **Physical Stability: Energy Barriers & Damping** 
 &nbsp;&nbsp;&nbsp;&nbsp;└── [34b8ebad](34b8ebad.md), [8fac80e9](8fac80e9.md), [989a8a47](989a8a47.md), [98a2ead0](98a2ead0.md), [b1b7ad37](b1b7ad37.md), [c9135c09](c9135c09.md), [de514810](de514810.md), [edbc87d5](edbc87d5.md), [ee4bc277](ee4bc277.md)  
