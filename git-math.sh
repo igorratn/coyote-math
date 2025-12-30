@@ -13,7 +13,7 @@ ls -t *.md | grep -v "README.md" | head -n 5 | while read -r file; do
 done
 printf "\n---\n\n" >> README.md
 
-# 3. Tree 1: Topic Classification (Original logic)
+# 3. Tree 1: Topic Classification (Kept for reference)
 printf "## Tree 1: Classification by Topic\n\n" >> README.md
 nu_names=("Hypergeometric" "Jacobi & Legendre" "Hermite & Laguerre" "Discrete" "Clebsch-Gordan" "Geometry" "Physics" "Asymptotics")
 nu_pats=("hypergeometric" "Jacobi|Legendre" "Hermite|Laguerre" "Hahn|Racah" "Clebsch|3j" "Poincare|metric" "vibration|potential" "q_n|asymptotic|limit")
@@ -32,38 +32,53 @@ done
 
 printf "\n---\n\n" >> README.md
 
-# 4. Tree 2: Fine-Grained Closeness (Proof Machinery)
-# We use -F (fixed strings) to find exact math matches
+# 4. Tree 2: Fine-Grained Closeness (Fuzzy Logic)
 printf "## Tree 2: Logical Closeness (Theorem Machinery)\n\n" >> README.md
 
-# Closeness based on the logic we just used for Legendre Q_n
-logic_names=("Limit Matching (z -> inf)" "Constant Wronskians" "Orthogonal Projection" "Integral Kernels" "Norms (h_n)")
-# These exact strings are what we used in our proof
-logic_keys=("z \to \infty" "W_n(z)" "t^k" "1/(z-t)" "h_n")
+# We use Extended Regex (|) to catch different ways the same logic is written
+logic_names=(
+    "Asymptotic Decay (z -> inf)"
+    "Polynomial Rigidity (Wronskians)"
+    "Orthogonality & Basis Projections"
+    "Integral Kernels (Hilbert/Cauchy)"
+    "Norms & Squared Integrals"
+)
+
+logic_pats=(
+    "z.*to.*inf|z.*rightarrow.*inf|O\(z|decay"
+    "W_n|Wronskian|constant|identical|rigidity"
+    "t\^k|orthogonal|basis|degree|projection"
+    "1\/z-t|kernel|q_n|second kind|Cauchy"
+    "h_n|norm|p_n\^2|integral.*p_n"
+)
 
 all_files=$(ls -1 *.md | grep -v "README.md")
 printf "Root: Shared Proof Logic \n" >> README.md
 
 for i in "${!logic_names[@]}"; do
     name="${logic_names[$i]}"
-    key="${logic_keys[$i]}"
+    pat="${logic_pats[$i]}"
     links=""
     for file in $all_files; do
-        # Use -F to find the literal math string
-        if grep -qF "$key" "$file"; then
+        # We use -E for extended regex to catch any of the variations in the pattern
+        if grep -qiE "$pat" "$file"; then
             id="${file%.md}"
             [ -z "$links" ] && links="[$id]($file)" || links="$links, [$id]($file)"
         fi
     done
     if [ -n "$links" ]; then
-        printf "├── **%s** \n│&nbsp;&nbsp;&nbsp;└── %s  \n" "$name" "$links" >> README.md
+        if [ "$i" -eq $((${#logic_names[@]}-1)) ]; then
+            printf "└── **%s** \n&nbsp;&nbsp;&nbsp;&nbsp;└── %s  \n" "$name" "$links" >> README.md
+        else
+            printf "├── **%s** \n│&nbsp;&nbsp;&nbsp;└── %s  \n" "$name" "$links" >> README.md
+        fi
     fi
 done
 
-# 5. Footer and Automation
+# 5. Footer
 file_count=$(ls -1 *.md | grep -v "README.md" | wc -l)
-printf "\n---\n\n*Note: Tree 2 uses logical fingerprints to show shared methodology.*\n" >> README.md
+printf "\n---\n\n*Note: Tree 2 uses fuzzy matching on proof signatures to reveal methodological closeness.*\n" >> README.md
 
 git add .
-git commit -m "Auto-index: Fine-grained methodology tree ($file_count files)"
+git commit -m "Auto-index: Expanded fuzzy logic tree ($file_count files)"
 git push origin main
