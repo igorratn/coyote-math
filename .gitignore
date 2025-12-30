@@ -7,5 +7,6 @@
 *.out
 *.run.xml
 *.synctex.gz
+all.md
 _build/
 latex.out/
