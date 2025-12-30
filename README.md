@@ -34,8 +34,8 @@ Root: Special Functions & Geometry
 └── **Asymptotics & Second Kind** 
 &nbsp;&nbsp;&nbsp;&nbsp;└── [91608bdd](91608bdd.md), [98a2ead0](98a2ead0.md), [b013b487](b013b487.md), [b1b7ad37](b1b7ad37.md), [b378c08c](b378c08c.md), [de514810](de514810.md), [edbc87d5](edbc87d5.md), [ee4bc277](ee4bc277.md)  
 └── **Unclassified Tasks** 
-&nbsp;&nbsp;&nbsp;&nbsp;└── [45c7ef0e](45c7ef0e.md), [7132b649](7132b649.md), [bd4a59ea](bd4a59ea.md), [main](main.md)  
+&nbsp;&nbsp;&nbsp;&nbsp;└── [45c7ef0e](45c7ef0e.md), [7132b649](7132b649.md), [bd4a59ea](bd4a59ea.md)  
 
 ---
 
-*Note: Total files indexed:       76. All leaves and filenames are clickable links.*
+*Note: Total files indexed:       75. All leaves and filenames are clickable links.*
