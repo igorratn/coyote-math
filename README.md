@@ -1,5 +1,8 @@
 # Coyote Math Task Index
 
+## Documentation
+Detailed proof analysis and clustering: [Google Doc](https://docs.google.com/document/d/1vrRIbRS1Zi0qY7KNODVhqSM5Zrq4iXK4TO8kBl9UVBI/edit?tab=t.0)
+
 ## Recent Activity
 The 5 most recently updated mathematical tasks in the repository:
 
