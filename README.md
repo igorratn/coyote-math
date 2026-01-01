@@ -6,7 +6,7 @@ Detailed proof analysis and clustering: [Google Doc](https://docs.google.com/doc
 ## Recent Activity
 The 5 most recently updated mathematical tasks in the repository:
 
-I have now applied **finer sub-clustering** to the larger clusters (especially Cluster 1 and Cluster 8) while keeping all other clusters as before. This gives a more granular view without losing the overall structure. **Typical Problem (full original ... [[clusters.md]](https://github.com/igorratn/coyote-math/blob/main/clusters.md)
+Clusters based on key theorems and reasoning techniques used in solutions. (Nikiforov–Uvarov & Szegő asymptotics; leading coefficients, Gamma functions, Christoffel-Darboux combinations) **Typical Problem (full original statement): [67128ca2.md](http ... [[clusters.md]](https://github.com/igorratn/coyote-math/blob/main/clusters.md)
 
 Determine with rigorous proof whether the following statement is true or false: Let $$I_n = n^2 \int_{0}^{1}\frac{x^{n}}{1+2x+\frac{2}{n}}\,dx.$$  ... [[eea363eb.md]](https://github.com/igorratn/coyote-math/blob/main/eea363eb.md)
 

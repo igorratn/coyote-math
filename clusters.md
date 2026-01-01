@@ -1,8 +1,9 @@
 ### Finer Clustering of Analytical Problems from the Repository
 
-I have now applied **finer sub-clustering** to the larger clusters (especially Cluster 1 and Cluster 8) while keeping all other clusters as before. This gives a more granular view without losing the overall structure.
+Clusters based on key theorems and reasoning techniques used in solutions.
 
-#### Cluster 1: Functions of the Second Kind – Asymptotics and Identities
+#### Cluster 1: Functions of the Second Kind – Asymptotics and Identities  
+(Nikiforov–Uvarov & Szegő asymptotics; leading coefficients, Gamma functions, Christoffel-Darboux combinations)
 
 ##### Sub-Cluster 1.1: Large-z Asymptotics (Leading Coefficients, Gamma Expressions)
 
@@ -25,7 +26,19 @@ Determine whether this claim is True or False, and give a rigorous proof of your
 ##### Sub-Cluster 1.2: Identities and Christoffel-Darboux Type Combinations (Independence of z, Differential Relations)
 
 **Typical Problem (full original statement): [53de3231.md](https://github.com/igorratn/coyote-math/blob/main/53de3231.md)**  
-Laguerre second-kind combination Φ_n^{(α)}(z) is independent of z and equals −Γ(n+α)/n!.
+Let $L_n^{(\alpha)}(x)$ denote the standard (non-monic) generalized Laguerre polynomials with $\alpha > -1$, orthogonal on $[0, \infty)$ with respect to the weight $x^\alpha e^{-x}$.  
+
+For $z \in \mathbb{C} \setminus [0, \infty)$, define the function of the second kind by  
+
+$$Q_n^{(\alpha)}(z) = \int_0^\infty \frac{L_n^{(\alpha)}(s) s^\alpha e^{-s}}{z - s} \, ds.$$  
+
+For $n \ge 1$, define  
+
+$$\Phi_n^{(\alpha)}(z) = L_n^{(\alpha)}(z) Q_{n-1}^{(\alpha)}(z) - L_{n-1}^{(\alpha)}(z) Q_n^{(\alpha)}(z).$$  
+
+The claim is that for every $n \ge 1$, the function $\Phi_n^{(\alpha)}(z)$ is independent of $z$ on $\mathbb{C} \setminus [0, \infty)$ and satisfies  
+
+$$\Phi_n^{(\alpha)}(z) = -\frac{\Gamma(n + \alpha)}{n!}.$$
 
 **Other Problems** (brief):  
 - [9c127187.md](https://github.com/igorratn/coyote-math/blob/main/9c127187.md): Laguerre scaled second-kind differential relation.  
@@ -156,7 +169,23 @@ $$\sup_{x \in [-A, A]} \left| \frac{H_n(x)}{d_n} \right| \le C_A.$$
 ##### Sub-Cluster 8.1: Zeros and Existence (Orthogonal Polynomial Zero Distribution)
 
 **Typical Problem (full original statement): [f94b00ef.md](https://github.com/igorratn/coyote-math/blob/main/f94b00ef.md)**  
-Fix two (half-)integer angular momenta $j_1,j_2\ge2$ and consider the Clebsch–Gordan coefficient $f(j_3)=\langle j_1,0;j_2,0\mid j_3,0\rangle$ for all allowed $j_3$. Introduce the discrete variable $x=j_1+j_2-j_3$. Determine, with proof, whether there exists at least one integer $x$ with $0<x<2\min(j_1,j_2)$ such that $f(x)=0$.
+Fix two (half-)integer angular momenta $j_1,j_2\ge2$ and consider the Clebsch–Gordan coefficient  
+
+$$f(j_3)=\langle j_1,0;j_2,0\mid j_3,0\rangle$$  
+
+for all allowed $j_3$ satisfying the triangle inequality $|j_1-j_2|\le j_3\le j_1+j_2$ and the parity condition that $j_1+j_2+j_3$ is an integer. Introduce the discrete variable  
+
+$$x=j_1+j_2-j_3,$$  
+
+so that $x$ runs over the integers $x=0,1,\dots,2\min(j_1,j_2)$. Regard $f$ as a function of $x$:  
+
+$$f(x)=\langle j_1,0;j_2,0\mid j_1+j_2-x,0\rangle.$$  
+
+Determine, with proof, whether there exists at least one integer $x$ with  
+
+$$0<x<2\min(j_1,j_2)$$  
+
+such that $f(x)=0$.
 
 **Other Problems** (brief):  
 - [2f5da8d9.md](https://github.com/igorratn/coyote-math/blob/main/2f5da8d9.md), [a050c5dc.md](https://github.com/igorratn/coyote-math/blob/main/a050c5dc.md), [4a8d987a.md](https://github.com/igorratn/coyote-math/blob/main/4a8d987a.md), [fe4dc745.md](https://github.com/igorratn/coyote-math/blob/main/fe4dc745.md), [e81395f5.md](https://github.com/igorratn/coyote-math/blob/main/e81395f5.md): Specific CG/6j zeros.
