@@ -6,7 +6,7 @@ Detailed proof analysis and clustering: [Google Doc](https://docs.google.com/doc
 ## Recent Activity
 The 5 most recently updated mathematical tasks in the repository:
 
-Based on the theorems and reasoning used in their solutions (e.g., Nikiforov–Uvarov auxiliary functions for monotonicity, Laplace-type substitutions for asymptotics, energy monotonicity for PDE relaxation, Hahn/Racah recurrences for angular momentum, ... [[clusters.md]](https://github.com/igorratn/coyote-math/blob/main/clusters.md)
+Clusters based on key theorems and reasoning techniques used in solutions. (Nikiforov–Uvarov & Szegő asymptotics; leading coefficients, Gamma functions, Christoffel-Darboux combinations) **Typical Problem (full original statement): [67128ca2.md](http ... [[clusters.md]](https://github.com/igorratn/coyote-math/blob/main/clusters.md)
 
 Determine with rigorous proof whether the following statement is true or false: Let $$I_n = n^2 \int_{0}^{1}\frac{x^{n}}{1+2x+\frac{2}{n}}\,dx.$$  ... [[eea363eb.md]](https://github.com/igorratn/coyote-math/blob/main/eea363eb.md)
 
