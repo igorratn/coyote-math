@@ -1,9 +1,10 @@
-### Refined Clustering of Analytical Problems from the Repository
+### Finer Clustering of Analytical Problems from the Repository
 
-Clusters based on key theorems and reasoning techniques used in solutions.
+I have now applied **finer sub-clustering** to the larger clusters (especially Cluster 1 and Cluster 8) while keeping all other clusters as before. This gives a more granular view without losing the overall structure.
 
-#### Cluster 1: Functions of the Second Kind – Asymptotics and Identities  
-(Nikiforov–Uvarov & Szegő asymptotics; leading coefficients, Gamma functions, Christoffel-Darboux combinations)
+#### Cluster 1: Functions of the Second Kind – Asymptotics and Identities
+
+##### Sub-Cluster 1.1: Large-z Asymptotics (Leading Coefficients, Gamma Expressions)
 
 **Typical Problem (full original statement): [67128ca2.md](https://github.com/igorratn/coyote-math/blob/main/67128ca2.md)**  
 For $n \ge 1$, define the Hermite function of the second kind as:  
@@ -18,13 +19,20 @@ Determine whether this claim is True or False, and give a rigorous proof of your
 
 **Other Problems** (brief):  
 - [b8db5f5e.md](https://github.com/igorratn/coyote-math/blob/main/b8db5f5e.md): Jacobi large-z limit with Gamma expression.  
-- [9c127187.md](https://github.com/igorratn/coyote-math/blob/main/9c127187.md): Laguerre scaled second-kind differential relation.  
 - [b4d59303.md](https://github.com/igorratn/coyote-math/blob/main/b4d59303.md): Laguerre large-z limit with (-1)^n Γ(n+α+1).  
+- [5c7587a5.md](https://github.com/igorratn/coyote-math/blob/main/5c7587a5.md): Hermite combination asymptotic limit.
+
+##### Sub-Cluster 1.2: Identities and Christoffel-Darboux Type Combinations (Independence of z, Differential Relations)
+
+**Typical Problem (full original statement): [53de3231.md](https://github.com/igorratn/coyote-math/blob/main/53de3231.md)**  
+Laguerre second-kind combination Φ_n^{(α)}(z) is independent of z and equals −Γ(n+α)/n!.
+
+**Other Problems** (brief):  
+- [9c127187.md](https://github.com/igorratn/coyote-math/blob/main/9c127187.md): Laguerre scaled second-kind differential relation.  
 - [6c1ed21d.md](https://github.com/igorratn/coyote-math/blob/main/6c1ed21d.md): Laguerre second-kind derivative-shift identity = 0.  
-- [53de3231.md](https://github.com/igorratn/coyote-math/blob/main/53de3231.md): Laguerre combination constant −Γ(n+α)/n!.  
-- [5c7587a5.md](https://github.com/igorratn/coyote-math/blob/main/5c7587a5.md): Hermite combination asymptotic limit.  
 - [3bde7860.md](https://github.com/igorratn/coyote-math/blob/main/3bde7860.md): Monic Laguerre squared-denominator combination independent of z.  
-- [147341f7.md](https://github.com/igorratn/coyote-math/blob/main/147341f7.md) & [2d61fb16.md](https://github.com/igorratn/coyote-math/blob/main/2d61fb16.md): Modified Legendre second-kind and related evaluations.
+- [147341f7.md](https://github.com/igorratn/coyote-math/blob/main/147341f7.md): Modified Legendre second-kind combination at pole a>1.  
+- [2d61fb16.md](https://github.com/igorratn/coyote-math/blob/main/2d61fb16.md): Modified Legendre orthogonal to 1/(a-x); value at x=1.
 
 #### Cluster 2: Monotonicity of Local Maxima (Nikiforov–Uvarov Auxiliary Function v(x))
 
@@ -143,13 +151,22 @@ $$\sup_{x \in [-A, A]} \left| \frac{H_n(x)}{d_n} \right| \le C_A.$$
 - [e89ce469.md](https://github.com/igorratn/coyote-math/blob/main/e89ce469.md): Scaled √n (1-x²) Jacobi interior.  
 - [ec15106e.md](https://github.com/igorratn/coyote-math/blob/main/ec15106e.md): Global Jacobi envelope with δ.
 
-#### Cluster 8: CG/6j Symbols as Hahn/Racah (Recurrences, Zeros, Phases)
+#### Cluster 8: CG/6j Symbols as Hahn/Racah
+
+##### Sub-Cluster 8.1: Zeros and Existence (Orthogonal Polynomial Zero Distribution)
+
+**Typical Problem (full original statement): [f94b00ef.md](https://github.com/igorratn/coyote-math/blob/main/f94b00ef.md)**  
+Fix two (half-)integer angular momenta $j_1,j_2\ge2$ and consider the Clebsch–Gordan coefficient $f(j_3)=\langle j_1,0;j_2,0\mid j_3,0\rangle$ for all allowed $j_3$. Introduce the discrete variable $x=j_1+j_2-j_3$. Determine, with proof, whether there exists at least one integer $x$ with $0<x<2\min(j_1,j_2)$ such that $f(x)=0$.
+
+**Other Problems** (brief):  
+- [2f5da8d9.md](https://github.com/igorratn/coyote-math/blob/main/2f5da8d9.md), [a050c5dc.md](https://github.com/igorratn/coyote-math/blob/main/a050c5dc.md), [4a8d987a.md](https://github.com/igorratn/coyote-math/blob/main/4a8d987a.md), [fe4dc745.md](https://github.com/igorratn/coyote-math/blob/main/fe4dc745.md), [e81395f5.md](https://github.com/igorratn/coyote-math/blob/main/e81395f5.md): Specific CG/6j zeros.
+
+##### Sub-Cluster 8.2: Recurrences, Phases, and Lattice Conditions
 
 **Typical Problem (full original statement): [3c1c8b15.md](https://github.com/igorratn/coyote-math/blob/main/3c1c8b15.md)**  
 Let the Clebsch–Gordan coefficient $\langle j_1,m_1,j_2,m_2\mid j_3,m_3\rangle$ satisfy the constraints $j_1=j$, $j_2=1$, $j_3=j$, $m_1=j/2$, $m_2=1$, $m_3=j/2+1$. For $j\to\infty$ the coefficient acquires an oscillatory asymptotic form as a trigonometric function of a phase $\Phi$. Prove or disprove, with rigorous justification, that the fixed phase shift component $\Phi_{\text{fixed}}$ in the argument of this trigonometric function has the value $\Phi_{\text{fixed}}=-\tfrac{3\pi}{4}$.
 
 **Other Problems** (brief):  
-- [2f5da8d9.md](https://github.com/igorratn/coyote-math/blob/main/2f5da8d9.md), [a050c5dc.md](https://github.com/igorratn/coyote-math/blob/main/a050c5dc.md), [4a8d987a.md](https://github.com/igorratn/coyote-math/blob/main/4a8d987a.md), [f94b00ef.md](https://github.com/igorratn/coyote-math/blob/main/f94b00ef.md), [fe4dc745.md](https://github.com/igorratn/coyote-math/blob/main/fe4dc745.md), [e81395f5.md](https://github.com/igorratn/coyote-math/blob/main/e81395f5.md): Zeros in CG/6j.  
 - [de74e827.md](https://github.com/igorratn/coyote-math/blob/main/de74e827.md): Three-term difference for CG.  
 - [31001068.md](https://github.com/igorratn/coyote-math/blob/main/31001068.md), [c617c526.md](https://github.com/igorratn/coyote-math/blob/main/c617c526.md), [bd24c6fc.md](https://github.com/igorratn/coyote-math/blob/main/bd24c6fc.md): Racah lattice/argument conditions.
 
