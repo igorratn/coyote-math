@@ -17,14 +17,14 @@ $$\lim_{z\to\infty} z^{n+1} Q_n(z) = \sqrt{\pi} \, n!.$$
 Determine whether this claim is True or False, and give a rigorous proof of your conclusion.
 
 **Other Problems** (brief):  
-- b8db5f5e.md: Jacobi large-z limit with Gamma expression.  
-- 9c127187.md: Laguerre scaled second-kind differential relation.  
-- b4d59303.md: Laguerre large-z limit with (-1)^n Γ(n+α+1).  
-- 6c1ed21d.md: Laguerre second-kind derivative-shift identity = 0.  
-- 53de3231.md: Laguerre combination constant −Γ(n+α)/n!.  
-- 5c7587a5.md: Hermite combination asymptotic limit.  
-- 3bde7860.md: Monic Laguerre squared-denominator combination independent of z.  
-- 147341f7.md & 2d61fb16.md: Modified Legendre second-kind and related evaluations.
+- [b8db5f5e.md](https://github.com/igorratn/coyote-math/blob/main/b8db5f5e.md): Jacobi large-z limit with Gamma expression.  
+- [9c127187.md](https://github.com/igorratn/coyote-math/blob/main/9c127187.md): Laguerre scaled second-kind differential relation.  
+- [b4d59303.md](https://github.com/igorratn/coyote-math/blob/main/b4d59303.md): Laguerre large-z limit with (-1)^n Γ(n+α+1).  
+- [6c1ed21d.md](https://github.com/igorratn/coyote-math/blob/main/6c1ed21d.md): Laguerre second-kind derivative-shift identity = 0.  
+- [53de3231.md](https://github.com/igorratn/coyote-math/blob/main/53de3231.md): Laguerre combination constant −Γ(n+α)/n!.  
+- [5c7587a5.md](https://github.com/igorratn/coyote-math/blob/main/5c7587a5.md): Hermite combination asymptotic limit.  
+- [3bde7860.md](https://github.com/igorratn/coyote-math/blob/main/3bde7860.md): Monic Laguerre squared-denominator combination independent of z.  
+- [147341f7.md](https://github.com/igorratn/coyote-math/blob/main/147341f7.md) & [2d61fb16.md](https://github.com/igorratn/coyote-math/blob/main/2d61fb16.md): Modified Legendre second-kind and related evaluations.
 
 #### Cluster 2: Monotonicity of Local Maxima (Nikiforov–Uvarov Auxiliary Function v(x))
 
@@ -38,8 +38,8 @@ Question: Determine whether the following claim is true or false, and justify yo
 Claim: As $|x|$ increases along either half-line away from $x^* = 0$, the successive local maxima of $|H_n(x)|$ strictly increase.
 
 **Other Problems** (brief):  
-- 6c96b851.md: Laguerre (α=3) maxima decrease then increase around x*=3.5.  
-- 69425b5f.md: Jacobi (α=1, β=0) maxima behavior around x*=−1/2.
+- [6c96b851.md](https://github.com/igorratn/coyote-math/blob/main/6c96b851.md): Laguerre (α=3) maxima decrease then increase around x*=3.5.  
+- [69425b5f.md](https://github.com/igorratn/coyote-math/blob/main/69425b5f.md): Jacobi (α=1, β=0) maxima behavior around x*=−1/2.
 
 #### Cluster 3: Modified/Rationally Perturbed Orthogonality (Three-Term Recurrence, Inner Product Decomposition)
 
@@ -67,8 +67,8 @@ $$(\tilde P_n^{(\alpha,\beta)},q)_{\tilde p}=0 \quad \text{for every polynomial 
 Determine whether this claim is True or False, and give a rigorous proof of your conclusion.
 
 **Other Problems** (brief):  
-- 9c2e2dec.md, 85d6da54.md, b013b487.md: Similar rational modifications for Jacobi/general.  
-- 076ef56b.md, 3fc90f09.md, 25d6839e.md, 5dd03fbd.md: Hermite/Laguerre modified weights; span sufficiency/counterexamples.
+- [9c2e2dec.md](https://github.com/igorratn/coyote-math/blob/main/9c2e2dec.md), [85d6da54.md](https://github.com/igorratn/coyote-math/blob/main/85d6da54.md), [b013b487.md](https://github.com/igorratn/coyote-math/blob/main/b013b487.md): Similar rational modifications for Jacobi/general.  
+- [076ef56b.md](https://github.com/igorratn/coyote-math/blob/main/076ef56b.md), [3fc90f09.md](https://github.com/igorratn/coyote-math/blob/main/3fc90f09.md), [25d6839e.md](https://github.com/igorratn/coyote-math/blob/main/25d6839e.md), [5dd03fbd.md](https://github.com/igorratn/coyote-math/blob/main/5dd03fbd.md): Hermite/Laguerre modified weights; span sufficiency/counterexamples.
 
 #### Cluster 4: Laguerre Integral Evaluations (Parameter Shifts, Recurrence, Orthogonality)
 
@@ -80,9 +80,9 @@ $$I = \int_{0}^{\infty} e^{-x}\ x\ L_3(x)\ L_2^{(1)}(x)\ dx$$
 where $L_n(x)$ denotes the Laguerre polynomial with $\alpha = 0$ and $L_n^{(1)}(x)$ denotes the Laguerre polynomial with $\alpha = 1$.
 
 **Other Problems** (brief):  
-- 7c563c4e.md: ∫ x^5 e^{-x} L_6 L_2 dx.  
-- e724070a.md: ∫ e^{-x} x² L_3 L_5 dx.  
-- dd5e2fc5.md: Ratio of quadratic norms L_3 and L_2.
+- [7c563c4e.md](https://github.com/igorratn/coyote-math/blob/main/7c563c4e.md): ∫ x^5 e^{-x} L_6 L_2 dx.  
+- [e724070a.md](https://github.com/igorratn/coyote-math/blob/main/e724070a.md): ∫ e^{-x} x² L_3 L_5 dx.  
+- [dd5e2fc5.md](https://github.com/igorratn/coyote-math/blob/main/dd5e2fc5.md): Ratio of quadratic norms L_3 and L_2.
 
 #### Cluster 5: Asymptotic Integrals (Laplace-Type Substitution, Taylor Expansion)
 
@@ -100,8 +100,8 @@ $$L = \lim_{n\to\infty}\left( I_n - \frac{n}{3} \right)$$
 exists and is equal to $$-\frac{4}{9}$$.
 
 **Other Problems** (brief):  
-- bd4a59ea.md: Compute the same refined limit.  
-- b378c08c.md: Refined limit for denominator 1+x.
+- [bd4a59ea.md](https://github.com/igorratn/coyote-math/blob/main/bd4a59ea.md): Compute the same refined limit.  
+- [b378c08c.md](https://github.com/igorratn/coyote-math/blob/main/b378c08c.md): Refined limit for denominator 1+x.
 
 #### Cluster 6: Generating Functions & Polynomial ODEs (Bochner Classification)
 
@@ -121,8 +121,8 @@ and a sequence of real constants $\{\gamma_n\}_{n \ge 0}$ such that, for every $
 $$\alpha(x)P_n''(x) + \beta(x)P_n'(x) + \gamma_n P_n(x) = 0$$
 
 **Other Problems** (brief):  
-- 4dc6fb67.md: Generating function e^{xt}/(1-t)^{5/2}.  
-- e75e5639.md: Pearson-type DE necessity for Jacobi.
+- [4dc6fb67.md](https://github.com/igorratn/coyote-math/blob/main/4dc6fb67.md): Generating function e^{xt}/(1-t)^{5/2}.  
+- [e75e5639.md](https://github.com/igorratn/coyote-math/blob/main/e75e5639.md): Pearson-type DE necessity for Jacobi.
 
 #### Cluster 7: Bounds for Scaled Polynomials (Darboux Asymptotics, NU Envelopes)
 
@@ -138,10 +138,10 @@ Determine, with rigorous proof, whether for any fixed $A > 0$ there exists a con
 $$\sup_{x \in [-A, A]} \left| \frac{H_n(x)}{d_n} \right| \le C_A.$$
 
 **Other Problems** (brief):  
-- ca5a3f25.md: Jacobi interior (1-x²) bound.  
-- d416c4c4.md: Global Laguerre envelope.  
-- e89ce469.md: Scaled √n (1-x²) Jacobi interior.  
-- ec15106e.md: Global Jacobi envelope with δ.
+- [ca5a3f25.md](https://github.com/igorratn/coyote-math/blob/main/ca5a3f25.md): Jacobi interior (1-x²) bound.  
+- [d416c4c4.md](https://github.com/igorratn/coyote-math/blob/main/d416c4c4.md): Global Laguerre envelope.  
+- [e89ce469.md](https://github.com/igorratn/coyote-math/blob/main/e89ce469.md): Scaled √n (1-x²) Jacobi interior.  
+- [ec15106e.md](https://github.com/igorratn/coyote-math/blob/main/ec15106e.md): Global Jacobi envelope with δ.
 
 #### Cluster 8: CG/6j Symbols as Hahn/Racah (Recurrences, Zeros, Phases)
 
@@ -149,9 +149,9 @@ $$\sup_{x \in [-A, A]} \left| \frac{H_n(x)}{d_n} \right| \le C_A.$$
 Let the Clebsch–Gordan coefficient $\langle j_1,m_1,j_2,m_2\mid j_3,m_3\rangle$ satisfy the constraints $j_1=j$, $j_2=1$, $j_3=j$, $m_1=j/2$, $m_2=1$, $m_3=j/2+1$. For $j\to\infty$ the coefficient acquires an oscillatory asymptotic form as a trigonometric function of a phase $\Phi$. Prove or disprove, with rigorous justification, that the fixed phase shift component $\Phi_{\text{fixed}}$ in the argument of this trigonometric function has the value $\Phi_{\text{fixed}}=-\tfrac{3\pi}{4}$.
 
 **Other Problems** (brief):  
-- 2f5da8d9.md, a050c5dc.md, 4a8d987a.md, f94b00ef.md, fe4dc745.md, e81395f5.md: Zeros in CG/6j.  
-- de74e827.md: Three-term difference for CG.  
-- 31001068.md, c617c526.md, bd24c6fc.md: Racah lattice/argument conditions.
+- [2f5da8d9.md](https://github.com/igorratn/coyote-math/blob/main/2f5da8d9.md), [a050c5dc.md](https://github.com/igorratn/coyote-math/blob/main/a050c5dc.md), [4a8d987a.md](https://github.com/igorratn/coyote-math/blob/main/4a8d987a.md), [f94b00ef.md](https://github.com/igorratn/coyote-math/blob/main/f94b00ef.md), [fe4dc745.md](https://github.com/igorratn/coyote-math/blob/main/fe4dc745.md), [e81395f5.md](https://github.com/igorratn/coyote-math/blob/main/e81395f5.md): Zeros in CG/6j.  
+- [de74e827.md](https://github.com/igorratn/coyote-math/blob/main/de74e827.md): Three-term difference for CG.  
+- [31001068.md](https://github.com/igorratn/coyote-math/blob/main/31001068.md), [c617c526.md](https://github.com/igorratn/coyote-math/blob/main/c617c526.md), [bd24c6fc.md](https://github.com/igorratn/coyote-math/blob/main/bd24c6fc.md): Racah lattice/argument conditions.
 
 #### Cluster 9: Damped Sine-Gordon Relaxation (Energy Monotonicity)
 
@@ -165,7 +165,9 @@ In a torsional DNA model (Yakushevich-type) without external torque, the base-pa
 **Typical Problem (full original statement): [2c968d24.md](https://github.com/igorratn/coyote-math/blob/main/2c968d24.md)**  
 In an infinitely long, lossless, anechoic 1D acoustic duct with sound speed $c=1$ and density $\rho=1$, a time-harmonic point monopole source is located at $x=a$ and oscillates at angular frequency $\omega=3$ with a complex volume-velocity amplitude of $4\pi$. Along the duct, a weak harmonic modulation of the acoustic stiffness causes the local restoring coefficient to vary as $1 + \frac{1}{2} \cos x$. The steady acoustic pressure field $p(x)$ decays to zero as $|x| \to \infty$. Determine the exact on-axis pressure amplitude $p(a)$, expressed as a fraction of $\pi$.
 
-**Other Problems** (brief): 2538fcdd.md (membrane), dc2e0db2.md (modulated cooling).
+**Other Problems** (brief):  
+- [2538fcdd.md](https://github.com/igorratn/coyote-math/blob/main/2538fcdd.md) (membrane),  
+- [dc2e0db2.md](https://github.com/igorratn/coyote-math/blob/main/dc2e0db2.md) (modulated cooling).
 
 #### Cluster 11: Christoffel & Extremal Infima
 
@@ -182,7 +184,9 @@ Determine (with proof) whether the following two quantities are equal:
 
 $$\inf_{t\in\mathbb R}\frac{\|\pi_t\|_w^2}{\pi_t(x_0)^2} \quad\text{and}\quad \inf_{\substack{Q\in\mathbb P_N\\Q(x_0)\ne0}}\frac{\|Q\|_w^2}{Q(x_0)^2}.$$
 
-**Other Problems** (brief): 91608bdd.md, d72d16d6.md.
+**Other Problems** (brief):  
+- [91608bdd.md](https://github.com/igorratn/coyote-math/blob/main/91608bdd.md),  
+- [d72d16d6.md](https://github.com/igorratn/coyote-math/blob/main/d72d16d6.md).
 
 #### Cluster 12: Miscellaneous
 
@@ -198,4 +202,5 @@ $$f_n(z) = Q_n(z) P_{n+1}(z) - Q_{n+1}(z) P_n(z)$$
 Claim: For all $n \ge 0$, the function $f_n(z)$ is a polynomial in $z$ of degree exactly $0$.  
 Determine whether this claim is True or False, and provide a rigorous proof.
 
-**Other Problems** (brief): 45c7ef0e.md (set infimum).
+**Other Problems** (brief):  
+- [45c7ef0e.md](https://github.com/igorratn/coyote-math/blob/main/45c7ef0e.md) (set infimum).
