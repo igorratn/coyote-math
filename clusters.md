@@ -6,10 +6,14 @@ Clusters based on key theorems and reasoning techniques used in solutions.
 (Nikiforov–Uvarov & Szegő asymptotics; leading coefficients, Gamma functions, Christoffel-Darboux combinations)
 
 **Typical Problem (full original statement): [67128ca2.md](https://github.com/igorratn/coyote-math/blob/main/67128ca2.md)**  
-For n ≥ 1, define the Hermite function of the second kind as:  
-$$ Q_n(z) = \int_{-\infty}^\infty \frac{e^{-t^2} H_n(t)}{z-t} \, dt. $$  
+For $n \ge 1$, define the Hermite function of the second kind as:  
+
+$$Q_n(z) = \int_{-\infty}^\infty \frac{e^{-t^2} H_n(t)}{z-t} dt.$$  
+
 Claim:  
-$$ \lim_{z\to\infty} z^{n+1} Q_n(z) = \sqrt{\pi} \, n!. $$  
+
+$$\lim_{z\to\infty} z^{n+1} Q_n(z) = \sqrt{\pi} \, n!.$$  
+
 Determine whether this claim is True or False, and give a rigorous proof of your conclusion.
 
 **Other Problems** (brief):  
@@ -26,8 +30,11 @@ Determine whether this claim is True or False, and give a rigorous proof of your
 
 **Typical Problem (full original statement): [18942427.md](https://github.com/igorratn/coyote-math/blob/main/18942427.md)**  
 Consider the physicists' Hermite polynomials $H_n(x)$ on $(-\infty, \infty)$ with $n \ge 1$, and let $x^* = 0$.  
+
 Order the local maxima of $|H_n(x)|$ separately on each half-line $(-\infty, 0)$ and $(0, \infty)$ by increasing $|x|$ (equivalently, by moving away from the origin).  
+
 Question: Determine whether the following claim is true or false, and justify your answer with a rigorous proof.  
+
 Claim: As $|x|$ increases along either half-line away from $x^* = 0$, the successive local maxima of $|H_n(x)|$ strictly increase.
 
 **Other Problems** (brief):  
@@ -67,9 +74,9 @@ Determine whether this claim is True or False, and give a rigorous proof of your
 
 **Typical Problem (full original statement): [0526785f.md](https://github.com/igorratn/coyote-math/blob/main/0526785f.md)**  
 Evaluate the integral  
-$$  
-I = \int_{0}^{\infty} e^{-x}\ x\ L_3(x)\ L_2^{(1)}(x)\ dx  
-$$  
+
+$$I = \int_{0}^{\infty} e^{-x}\ x\ L_3(x)\ L_2^{(1)}(x)\ dx$$  
+
 where $L_n(x)$ denotes the Laguerre polynomial with $\alpha = 0$ and $L_n^{(1)}(x)$ denotes the Laguerre polynomial with $\alpha = 1$.
 
 **Other Problems** (brief):  
@@ -83,12 +90,14 @@ where $L_n(x)$ denotes the Laguerre polynomial with $\alpha = 0$ and $L_n^{(1)}(
 Determine with rigorous proof whether the following statement is true or false:  
 
 Let  
-$$ I_n = n^2 \int_{0}^{1}\frac{x^{n}}{1+2x+\frac{2}{n}}\,dx. $$  
+
+$$I_n = n^2 \int_{0}^{1}\frac{x^{n}}{1+2x+\frac{2}{n}}\,dx.$$  
 
 The limit  
-$$ L = \lim_{n\to\infty}\left( I_n - \frac{n}{3} \right) $$  
 
-exists and is equal to $$ -\frac{4}{9} $$.
+$$L = \lim_{n\to\infty}\left( I_n - \frac{n}{3} \right)$$  
+
+exists and is equal to $$-\frac{4}{9}$$.
 
 **Other Problems** (brief):  
 - bd4a59ea.md: Compute the same refined limit.  
@@ -119,10 +128,13 @@ $$\alpha(x)P_n''(x) + \beta(x)P_n'(x) + \gamma_n P_n(x) = 0$$
 
 **Typical Problem (full original statement): [dd13f374.md](https://github.com/igorratn/coyote-math/blob/main/dd13f374.md)**  
 Let $H_n(x)$ be the Hermite polynomials, orthogonal on $(-\infty, \infty)$ with respect to the weight $e^{-x^2}$. Let  
+
 $$d_n^2 = \int_{-\infty}^\infty e^{-x^2} \bigl(H_n(x)\bigr)^2 \, dx$$  
+
 denote the $L^2$-normalization constant.  
 
 Determine, with rigorous proof, whether for any fixed $A > 0$ there exists a constant $C_A > 0$ such that for all $n \ge 1$,  
+
 $$\sup_{x \in [-A, A]} \left| \frac{H_n(x)}{d_n} \right| \le C_A.$$
 
 **Other Problems** (brief):  
@@ -159,10 +171,15 @@ In an infinitely long, lossless, anechoic 1D acoustic duct with sound speed $c=1
 
 **Typical Problem (full original statement): [f6e16472.md](https://github.com/igorratn/coyote-math/blob/main/f6e16472.md)**  
 Let $\{p_n(x)\}_{n=0}^\infty$ be orthonormal polynomials with respect to a positive weight $w(x)$ on $[a,b]$, satisfying the recurrence  
+
 $$x p_n(x)=a_{n+1}p_{n+1}(x)+b_n p_n(x)+a_n p_{n-1}(x)\quad(a_{n+1}>0, b_n\in\mathbb R).$$  
+
 For fixed $x_0\in(a,b)$ and $N\ge1$, consider the polynomial  
+
 $$\pi_t(x)=p_{N+1}(x)-t p_N(x).$$  
+
 Determine (with proof) whether the following two quantities are equal:  
+
 $$\inf_{t\in\mathbb R}\frac{\|\pi_t\|_w^2}{\pi_t(x_0)^2} \quad\text{and}\quad \inf_{\substack{Q\in\mathbb P_N\\Q(x_0)\ne0}}\frac{\|Q\|_w^2}{Q(x_0)^2}.$$
 
 **Other Problems** (brief): 91608bdd.md, d72d16d6.md.
