@@ -6,9 +6,9 @@ Detailed proof analysis and clustering: [Google Doc](https://docs.google.com/doc
 ## Recent Activity
 The 5 most recently updated mathematical tasks in the repository:
 
-Clusters based on key theorems and reasoning techniques used in solutions. (Nikiforov–Uvarov & Szegő asymptotics; leading coefficients, Gamma functions, Christoffel-Darboux combinations) **Typical Problem (full original statement): [67128ca2.md](http ... [[clusters.md]](https://github.com/igorratn/coyote-math/blob/main/clusters.md)
+Let $Y_{\ell}^{m}(\theta, \phi)$ be the standard spherical harmonics on $\mathbb{S}^{2}$, normalized in $L^{2}(\mathbb{S}^{2})$, with integers $\ell \ge 0$ and $|m| \le \ell$. The spherical harmonics are defined by $$Y_{\ell}^{m}(\theta, \phi) = \sqr ... [[eea363eb.md]](https://github.com/igorratn/coyote-math/blob/main/eea363eb.md)
 
-Determine with rigorous proof whether the following statement is true or false: Let $$I_n = n^2 \int_{0}^{1}\frac{x^{n}}{1+2x+\frac{2}{n}}\,dx.$$  ... [[eea363eb.md]](https://github.com/igorratn/coyote-math/blob/main/eea363eb.md)
+Clusters based on key theorems and reasoning techniques used in solutions. (Nikiforov–Uvarov & Szegő asymptotics; leading coefficients, Gamma functions, Christoffel-Darboux combinations) **Typical Problem (full original statement): [67128ca2.md](http ... [[clusters.md]](https://github.com/igorratn/coyote-math/blob/main/clusters.md)
 
 Let $$I_n = n^2 \int_{0}^{1}\frac{x^{n}}{1+2x+\frac{2}{n}}\,dx.$$ Compute  ... [[bd4a59ea.md]](https://github.com/igorratn/coyote-math/blob/main/bd4a59ea.md)
 

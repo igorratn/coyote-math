@@ -1,68 +1,48 @@
+Let $Y_{\ell}^{m}(\theta, \phi)$ be the standard spherical harmonics on $\mathbb{S}^{2}$, normalized in $L^{2}(\mathbb{S}^{2})$, with integers $\ell \ge 0$ and $|m| \le \ell$.
 
-Determine with rigorous proof whether the following statement is true or false:
+The spherical harmonics are defined by
 
-Let
+$$Y_{\ell}^{m}(\theta, \phi) = \sqrt{\frac{2\ell+1}{4\pi}\frac{(\ell-m)!}{(\ell+m)!}} P_{\ell}^{m}(\cos\theta) e^{im\phi}$$
 
-$$I_n = n^2 \int_{0}^{1}\frac{x^{n}}{1+2x+\frac{2}{n}}\,dx.$$
+where $P_{\ell}^{m}$ denotes the associated Legendre function and $(\theta, \phi) \in [0, \pi] \times [0, 2\pi)$.
 
-The limit
+Claim: 
+Fix $m \in \mathbb{Z}$. There exist constants $C > 0$ and $\delta \in (0, 1)$, independent of $\ell$, such that for all integers $\ell \ge |m|$,
 
-$$L = \lim_{n\to\infty}\left( I_n - \frac{n}{3} \right)$$
+$$\sup_{\theta \in [0, \pi]} \Bigl| (\sin\theta)^{|m|+\delta} Y_{\ell}^{m}(\theta, \phi) \Bigr| \le C$$
 
-exists and is equal to $-4/9$.
+Determine, with rigorous justification, whether the statement is true or false.
 
-----------
+Answer. True. 
 
-Answer: False (The limit is actually $-1/3$).
+For $m = 0$ one must choose $\delta \in [1/2, 1)$, which is compatible with the existential quantifier $\delta \in (0, 1)$. For $|m| \ge 1$, any $\delta \in (0, 1)$ satisfies the claim.
 
-### Rigorous Proof
+Proof. Since $|e^{im\phi}| = 1$, the expression is independent of $\phi$. Let $x = \cos\theta$ and $n = \ell - |m|$. For the case $n = 0$ ($\ell = |m|$), the expression $(\sin\theta)^{|m|+\delta} Y_{|m|}^m$ is a single continuous function on the compact set $[0, \pi]$, which is necessarily bounded. We assume the final constant $C$ is chosen to dominate this $n=0$ supremum.
 
-To evaluate the limit, we analyze the behavior of the integral as $n \to \infty$. The factor $x^n$ concentrates the mass of the integral in a boundary layer of width $O(1/n)$ near $x=1$.
+We now consider $n \ge 1$. We use the identity relating associated Legendre functions to Jacobi polynomials $P_n^{(\alpha, \beta)}$:
 
-1.  Substitution
-    
-    Substitute $x = e^{-t/n}$. Then $x^n = e^{-t}$ and $dx = -(1/n) e^{-t/n} dt$. The limits $x \in [0, 1]$ transform to $t \in [\infty, 0]$. Flipping the limits gives:
-    
-    $$I_n = n \int_0^\infty e^{-t} \cdot \frac{e^{-t/n}}{1 + 2 e^{-t/n} + 2/n} \, dt$$
-    
-2.  Asymptotic Expansion
-    
-    Expand the rational part of the integrand for large $n$. For a fixed $t$, as $n \to \infty$:
-    
-    $$e^{-t/n} = 1 - \frac{t}{n} + O\left(\frac{t^2}{n^2}\right)$$
-    
-    The numerator is $1 - \frac{t}{n} + O(t^2/n^2)$. The denominator is:
-    
-    $$1 + 2\left(1 - \frac{t}{n} + O\left(\frac{t^2}{n^2}\right)\right) + \frac{2}{n} = 3 + \frac{2 - 2t}{n} + O\left(\frac{t^2}{n^2}\right)$$
-    
-    Using the geometric series $(1 + \epsilon)^{-1} = 1 - \epsilon + O(\epsilon^2)$, the fraction expands as:
-    
-    $$\frac{e^{-t/n}}{1 + 2 e^{-t/n} + 2/n} = \frac{1 - t/n}{3(1 + \frac{2-2t}{3n})} + O\left(\frac{t^2}{n^2}\right) = \frac{1}{3} - \frac{t+2}{9n} + O\left(\frac{1+t^2}{n^2}\right)$$
-    
-    The remainder term is uniformly bounded by $C(1+t^2)/n^2$ such that its integral against $e^{-t}$ is $O(n^{-2})$.
-    
-3.  Integration
-    
-    Integrate the expansion against the weight $e^{-t}$:
-    
-    $$\int_0^\infty e^{-t} \left( \frac{1}{3} - \frac{t + 2}{9n} \right) dt + O(n^{-2}) = \frac{1}{3} \int_0^\infty e^{-t} dt - \frac{1}{9n} \int_0^\infty e^{-t} (t + 2) dt + O(n^{-2})$$
-    
-    Using the standard moments $\int_0^\infty e^{-t} dt = 1$ and $\int_0^\infty t e^{-t} dt = 1$:
-    
-    $$\int_0^\infty e^{-t} (t + 2) dt = 1 + 2 = 3$$
-    
-    The integral becomes:
-    
-    $$\frac{1}{3} - \frac{3}{9n} + O(n^{-2}) = \frac{1}{3} - \frac{1}{3n} + O(n^{-2})$$
-    
-4.  Conclusion
-    
-    Multiplying by the leading factor $n$:
-    
-    $$I_n = \frac{n}{3} - \frac{1}{3} + O(n^{-1})$$
-    
-    Therefore:
-    
-    $$L = \lim_{n \to \infty} \left( I_n - \frac{n}{3} \right) = -1/3$$
-    
-    Since $-1/3 \neq -4/9$, the statement is false.
+$$P_\ell^{|m|}(x) = (-1)^{|m|} (1-x^2)^{|m|/2} \frac{(\ell+|m|)!}{2^{|m|}\ell!} P_{n}^{(|m|, |m|)}(x).$$
+
+The normalized spherical harmonic is
+
+$$|Y_{\ell}^{m}(\theta, \phi)| = B_{\ell, m} (1-x^2)^{|m|/2} |P_{n}^{(|m|, |m|)}(x)|,$$
+
+where the normalization constant is
+
+$$B_{\ell, m} = \sqrt{\frac{2\ell+1}{4\pi}} \frac{\sqrt{(\ell+|m|)! (\ell-|m|)!}}{2^{|m|} \ell!}.$$
+
+Using factorial product bounds or Stirling's formula, $B_{\ell, m} = O(\sqrt{\ell})$ for fixed $m$. Moreover, there exists $C_m > 0$ such that for all $\ell \ge |m|+1$ (i.e., $n \ge 1$), the ratio $B_{\ell, m} / \sqrt{n} \le C_m$.
+
+To bound the polynomial part, we apply the Jacobi envelope estimate from Nikiforov–Uvarov (Special Functions of Mathematical Physics, Birkhäuser Basel, 1988, Chapter II, Section 7, Equation 19). For $\alpha, \beta > -1/2$, there exists a constant $C_{|m|} > 0$, depending only on $|m|$, and independent of $n$ and $x$, such that for all $n \ge 1$ and $x \in [-1, 1]$:
+
+$$\Bigl| (1-x)^{\alpha/2+1/4} (1+x)^{\beta/2+1/4} P_n^{(\alpha, \beta)}(x) \Bigr| \le \frac{C_{|m|}}{\sqrt{n}}.$$
+
+Setting $\alpha = \beta = |m| \ge 0$, we have $|P_n^{(|m|, |m|)}(x)| \le C_{|m|} n^{-1/2} (1-x^2)^{-|m|/2 - 1/4}$. Multiplying by the weight $(\sin\theta)^{|m|+\delta} = (1-x^2)^{(|m|+\delta)/2}$ yields:
+
+$$(\sin\theta)^{|m|+\delta} |Y_{\ell}^m| \le C_{|m|} \frac{B_{\ell, m}}{\sqrt{n}} (1-x^2)^{|m|/2 + \delta/2 - 1/4}.$$
+
+As established, the prefactor $C_{|m|} B_{\ell, m} / \sqrt{n}$ is bounded by $C_{|m|} C_m$. Boundedness on $[-1,1]$ holds provided the exponent of $(1-x^2)$ is non-negative:
+
+$$\frac{|m|}{2} + \frac{\delta}{2} - \frac{1}{4} \ge 0 \iff \delta \ge \frac{1}{2} - |m|.$$
+
+If this condition holds, then $(1-x^2)^{|m|/2 + \delta/2 - 1/4} \le 1$ on $[-1, 1]$, and the supremum is controlled by the prefactor. For $|m| \ge 1$, the condition $\delta \ge 1/2 - |m|$ is satisfied for all $\delta \in (0, 1)$. For $m = 0$, the condition requires $\delta \ge 1/2$, which is compatible with the existence of $\delta \in (0, 1)$. This establishes the existence of a constant $C$ independent of $\ell$.
