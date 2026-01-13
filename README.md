@@ -6,7 +6,7 @@ Detailed proof analysis and clustering: [Google Doc](https://docs.google.com/doc
 ## Recent Activity
 The 5 most recently updated mathematical tasks in the repository:
 
-Let $Y_{\ell}^{m}(\theta, \phi)$ be the standard spherical harmonics on $\mathbb{S}^{2}$, normalized in $L^{2}(\mathbb{S}^{2})$, with integers $\ell \ge 0$ and $|m| \le \ell$. The spherical harmonics are defined by $$Y_{\ell}^{m}(\theta, \phi) = \sqr ... [[93f8b201.md]](https://github.com/igorratn/coyote-math/blob/main/93f8b201.md)
+Let $m$ be a fixed non-negative integer and $l \ge m+1$. The angular functions for the spherical harmonics are $$\Theta_{lm}(x) = \sqrt{\frac{2l+1}{2} \frac{(l-m)!}{(l+m)!}} P_l^m(x)$$  ... [[93f8b201.md]](https://github.com/igorratn/coyote-math/blob/main/93f8b201.md)
 
 Let $Y_{\ell}^{m}(\theta, \phi)$ be the standard spherical harmonics on $\mathbb{S}^{2}$, normalized in $L^{2}(\mathbb{S}^{2})$, with integers $\ell \ge 0$ and $|m| \le \ell$. The spherical harmonics are defined by $$Y_{\ell}^{m}(\theta, \phi) = \sqr ... [[eea363eb.md]](https://github.com/igorratn/coyote-math/blob/main/eea363eb.md)
 
