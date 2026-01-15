@@ -50,7 +50,9 @@ $$\Phi_n^{(\alpha)}(z) = -\frac{\Gamma(n + \alpha)}{n!}.$$
 #### Cluster 2: Monotonicity of Local Maxima (Nikiforov–Uvarov Auxiliary Function v(x))
 
 **Typical Problem (full original statement): [18942427.md](https://github.com/igorratn/coyote-math/blob/main/18942427.md)**  
-Consider the physicists' Hermite polynomials $H_n(x)$ on $(-\infty, 0)$ and $(0, \infty)$ by increasing $|x|$ (equivalently, by moving away from the origin).  
+Consider the physicists' Hermite polynomials $H_n(x)$ on $(-\infty, \infty)$ with $n \ge 1$, and let $x^* = 0$.  
+
+Order the local maxima of $|H_n(x)|$ separately on each half-line $(-\infty, 0)$ and $(0, \infty)$ by increasing $|x|$ (equivalently, by moving away from the origin).  
 
 Question: Determine whether the following claim is true or false, and justify your answer with a rigorous proof.  
 
@@ -249,7 +251,7 @@ Determine whether this claim is True or False, and provide a rigorous proof.
 **Other Problems** (brief):  
 - [45c7ef0e.md](https://github.com/igorratn/coyote-math/blob/main/45c7ef0e.md) (set infimum).
 
-#### Cluster 13: Spherical Harmonics & Associated Legendre Weighted Bounds (NU Chapter 10 Flavor / Applications)
+#### Cluster 13: Spherical Harmonics & Associated Legendre Weighted Bounds (Nikiforov–Uvarov Chapter 10 Flavor / Applications)
 (Nikiforov–Uvarov style uniform estimates for associated Legendre / spherical harmonics via Jacobi representations, weighted sup-norms, often for quantum mechanics or Laplace equation contexts)
 
 **Typical Problem (full original statement):**  
@@ -261,12 +263,17 @@ $$Y_{\ell}^{m}(\theta, \phi) = \sqrt{\frac{2\ell+1}{4\pi}\frac{(\ell-m)!}{(\ell+
 
 where $P_{\ell}^{m}$ denotes the associated Legendre function and $(\theta, \phi) \in [0, \pi] \times [0, 2\pi)$.
 
-Claim: 
+Claim:  
 Fix $m \in \mathbb{Z}$. There exist constants $C > 0$ and $\delta \in (0, 1)$, independent of $\ell$, such that for all integers $\ell \ge |m|$,
 
 $$\sup_{\theta \in [0, \pi]} \Bigl| (\sin\theta)^{|m|+\delta} Y_{\ell}^{m}(\theta, \phi) \Bigr| \le C$$
 
 Determine, with rigorous justification, whether the statement is true or false.
 
+**Conclusion:** True.
+
 **Other Problems** (brief):  
-- Uniform bounds on $(1-x^2)^{\alpha/2 +1/4 + \delta} P_n^{(\alpha,\beta)}(x)$ for $\alpha=\beta=|m|$, spherical harmonics normalization and interior estimates, hyperspherical extensions or separation-of-variables applications.
+- [93f8b201.md](https://github.com/igorratn/coyote-math/blob/main/93f8b201.md): Angular functions for spherical harmonics Θ_l^m(x) = sqrt[(2l+1)/2 * (l-m)! / (l+m)!] P_l^m(x), with l ≥ m+1 and m fixed non-negative; related bounds or identities for associated Legendre in angular context.  
+- [2002a358.md](https://github.com/igorratn/coyote-math/blob/main/2002a358.md): Standard spherical harmonics Y_ℓ^m(θ, ϕ) on S² with modified inner product using parameter β ∈ (-1,1); orthogonality or norm calculations under altered measure.  
+- NU Jacobi envelope estimate: Uniform bound $\left| (1-x)^{\alpha/2 + 1/4} (1+x)^{\beta/2 + 1/4} P_n^{(\alpha,\beta)}(x) \right| \le C / \sqrt{n}$ for α,β > -1/2 (key tool from NU Ch. II §7, applied to spherical cases with α=β=|m|).  
+- Normalization and exponent conditions: Bounds on normalization constant B_ℓ,m = O(√ℓ), and δ ≥ 1/2 - |m| for boundedness, including special cases for m=0 or |m|≥1 (from proof components in weighted Y_ℓ^m bound).
