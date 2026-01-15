@@ -6,7 +6,7 @@ Detailed proof analysis and clustering: [Google Doc](https://docs.google.com/doc
 ## Recent Activity
 The 5 most recently updated mathematical tasks in the repository:
 
-(Nikiforov–Uvarov style uniform estimates for associated Legendre / spherical harmonics via Jacobi representations, weighted sup-norms, often for quantum mechanics or Laplace equation contexts) **Typical Problem (full original statement):** Let $Y_{\ ... [[clusters.md]](https://github.com/igorratn/coyote-math/blob/main/clusters.md)
+Clusters based on key theorems and reasoning techniques used in solutions. (Nikiforov–Uvarov & Szegő asymptotics; leading coefficients, Gamma functions, Christoffel-Darboux combinations) **Typical Problem (full original statement): [67128ca2.md](http ... [[clusters.md]](https://github.com/igorratn/coyote-math/blob/main/clusters.md)
 
 Mathematical task 16ab09af ... [[16ab09af.md]](https://github.com/igorratn/coyote-math/blob/main/16ab09af.md)
 
