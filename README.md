@@ -6,9 +6,9 @@ Detailed proof analysis and clustering: [Google Doc](https://docs.google.com/doc
 ## Recent Activity
 The 5 most recently updated mathematical tasks in the repository:
 
-Here is the comprehensive clustering of all **80 unique files** found in the repository, organized by their methodological approach. Each cluster includes a "Typical Problem" with its full statement and a list of the remaining files with brief descri ... [[cluster.md]](https://github.com/igorratn/coyote-math/blob/main/cluster.md)
+Here is the comprehensive fine-clustering of the **80 files** from the repository, organized by methodological approach. Each cluster includes a **Typical Problem** with its full original description and a detailed list of the remaining files with li ... [[cluster.md]](https://github.com/igorratn/coyote-math/blob/main/cluster.md)
 
-Here is the comprehensive clustering of all **80 unique files** found in the repository, organized by their methodological approach. Each cluster includes a "Typical Problem" with its full statement and a list of the remaining files with brief descri ... [[cl.md]](https://github.com/igorratn/coyote-math/blob/main/cl.md)
+Here is the comprehensive fine-clustering of the **80 files** from the repository, organized by methodological approach. Each cluster includes a **Typical Problem** with its full original description and a detailed list of the remaining files with li ... [[cl.md]](https://github.com/igorratn/coyote-math/blob/main/cl.md)
 
 Here is the comprehensive clustering of all **80 unique files** found in the repository, organized by their methodological approach. Each cluster includes a "Typical Problem" with its full statement and a list of the remaining files with brief descri ... [[clusters.md]](https://github.com/igorratn/coyote-math/blob/main/clusters.md)
 
