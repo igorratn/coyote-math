@@ -6,7 +6,7 @@ Detailed proof analysis and clustering: [Google Doc](https://docs.google.com/doc
 ## Recent Activity
 The 5 most recently updated mathematical tasks in the repository:
 
-Clusters based on key theorems and reasoning techniques used in solutions. (Nikiforov–Uvarov & Szegő asymptotics; leading coefficients, Gamma functions, Christoffel-Darboux combinations) **Typical Problem (full original statement): [67128ca2.md](http ... [[clusters.md]](https://github.com/igorratn/coyote-math/blob/main/clusters.md)
+Here is the comprehensive fine-clustering of all 80 files from the repository, organized by the specific analytical approach used to derive the solutions. --- *(Approach: Dominant balance, leading coefficients, and Cauchy-type integral expansions)*  ... [[clusters.md]](https://github.com/igorratn/coyote-math/blob/main/clusters.md)
 
 Mathematical task 16ab09af ... [[16ab09af.md]](https://github.com/igorratn/coyote-math/blob/main/16ab09af.md)
 
