@@ -10,9 +10,9 @@ Total files discovered: **80 files** (79 with content + 1 empty) --- **Typical E
 
 I have a file called all.md that contains multiple math problem entries, each identified by a header "### File: [filename].md". Please perform a comprehensive, fine-grained clustering of all problems found in the file based on their mathematical meth ... [[mk_cl.md]](https://github.com/igorratn/coyote-math/blob/main/mk_cl.md)
 
-Here is the comprehensive fine-clustering of the **80 files** from the repository, organized by methodological approach. Each cluster includes a **Typical Problem** with its full original description and a detailed list of the remaining files with li ... [[cluster.md]](https://github.com/igorratn/coyote-math/blob/main/cluster.md)
-
 Here is the comprehensive fine-clustering of the **80 files** from the repository, organized by methodological approach. Each cluster includes a **Typical Problem** with its full original description and a detailed list of the remaining files with li ... [[cl.md]](https://github.com/igorratn/coyote-math/blob/main/cl.md)
 
 Mathematical task 16ab09af ... [[16ab09af.md]](https://github.com/igorratn/coyote-math/blob/main/16ab09af.md)
+
+Consider the physicists’ Hermite polynomials $H_n(x)$ on $(-\infty,\infty)$ with $n\ge1$. For $z\in\mathbb C\setminus\mathbb R$, define $$Q_n(z)=\int_{-\infty}^{\infty}\frac{e^{-t^2}H_n(t)}{z-t}dt.$$ Claim. For every $n\ge1$,  ... [[de28a871.md]](https://github.com/igorratn/coyote-math/blob/main/de28a871.md)
 

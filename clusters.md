@@ -337,18 +337,44 @@ Determines greatest lower bound of set $A=\{x\in\mathbb{R}: x\neq 0, x-\sin(1/x)
 
 ---
 
-## Cluster 10: Spherical Harmonics (2 files)
+You're absolutely right! Let me search more carefully for all spherical harmonics files. Looking through the document again:
 
-### Sub-cluster 10.1: Spherical Harmonic Functions - True/False Problems (2 files)
+1. **93f8b201.md** - Spherical harmonic second-kind functions
+2. **eea363eb.md** - Spherical harmonics with $(\sin\theta)^{|m|+\delta}$ weight
+3. **d4dd1d63.md** - Spherical harmonic polar components $\Theta_{lm}$ (associated Legendre functions)
+4. **2002a358.md** - Actually mentions spherical harmonics $Y_{\ell m}(\theta,\phi)$ in the problem statement
+
+You're correct - there are **4 files** involving spherical harmonics, not 2. I mistakenly only included 2 in Cluster 10, when I should have included all 4.
+
+Let me provide the corrected Cluster 10:
+
+---
+
+## Cluster 10: Spherical Harmonics (4 files)
+
+### Sub-cluster 10.1: Spherical Harmonic Uniform Bounds - True/False Problems (2 files)
 
 #### Method 10.1.A: Jacobi Polynomial Representation & Nikiforov-Uvarov Bounds (2 files)
 
 **Typical Example ([eea363eb.md](https://github.com/igorratn/coyote-math/blob/main/eea363eb.md)):**
-Tests uniform bound $\sup_{\theta\in[0,\pi]} |(\sin\theta)^{|m|+\delta}Y_\ell^m(\theta,\phi)| \leq C$ for fixed $m$. **Method:** (1) Uses $|e^{im\phi}|=1$, so bound reduces to polar component. (2) Changes variable $x=\cos\theta$ and sets $n=\ell-|m|$. Uses Jacobi representation: $P_\ell^{|m|}(x) = (-1)^{|m|}(1-x^2)^{|m|/2}\frac{(\ell+|m|)!}{2^{|m|}\ell!}P_n^{(|m|,|m|)}(x)$. (3) Normalization: $|Y_\ell^m| = B_{\ell,m}(1-x^2)^{|m|/2}|P_n^{(|m|,|m|)}(x)|$ where $B_{\ell,m}=O(\sqrt{\ell})$ satisfies $B_{\ell,m}/\sqrt{n}\leq C_m$. (4) Applies Nikiforov-Uvarov envelope estimate (Ch.II, §7, Eq.19): $|(1-x)^{\alpha/2+1/4}(1+x)^{\beta/2+1/4}P_n^{(\alpha,\beta)}(x)| \leq C_\alpha n^{-1/2}$. With $\alpha=\beta=|m|$: $|P_n^{(|m|,|m|)}(x)| \leq C_{|m|}n^{-1/2}(1-x^2)^{-|m|/2-1/4}$. (5) Multiplies by $(\sin\theta)^{|m|+\delta}=(1-x^2)^{(|m|+\delta)/2}$: exponent of $(1-x^2)$ becomes $\frac{|m|+\delta}{2}-\frac{|m|}{2}-\frac{1}{4}=\frac{\delta-1/2}{2}$. Boundedness requires $\delta\geq 1/2$. For $m=0$ need $\delta\geq 1/2$
-; for $|m|\geq 1$ any $\delta>0$ works. **Conclusion: True.**
+Studies spherical harmonics $Y_{\ell}^{m}(\theta,\phi)$ on $\mathbb{S}^2$. Tests uniform bound $\sup_{\theta\in[0,\pi]} |(\sin\theta)^{|m|+\delta}Y_\ell^m(\theta,\phi)| \leq C$ for fixed $m$. **Method:** Uses Jacobi polynomial representation $P_\ell^{|m|}(x) = (-1)^{|m|}(1-x^2)^{|m|/2}\frac{(\ell+|m|)!}{2^{|m|}\ell!}P_n^{(|m|,|m|)}(x)$ where $n=\ell-|m|$. Applies Nikiforov-Uvarov envelope estimate for Jacobi polynomials. Shows boundedness requires $\delta\geq 1/2$ for $m=0$; any $\delta>0$ works for $|m|\geq 1$. **Conclusion: True.**
 
 **Other files:**
-- [93f8b201.md](https://github.com/igorratn/coyote-math/blob/main/93f8b201.md): Spherical harmonic second-kind; uses recurrence and Christoffel-Darboux but proves claim false via normalization mismatch. **False.**
+- [93f8b201.md](https://github.com/igorratn/coyote-math/blob/main/93f8b201.md): Spherical harmonic second-kind Wronskian formula with fixed $m$; uses recurrence-based Christoffel-Darboux; proves claim false. **False.**
+
+### Sub-cluster 10.2: Spherical Harmonic Zero Distribution - True/False Problems (1 file)
+
+#### Method 10.2.A: Associated Legendre Functions & Rolle's Theorem (1 file)
+
+**Typical Example ([d4dd1d63.md](https://github.com/igorratn/coyote-math/blob/main/d4dd1d63.md)):**
+Studies polar components $\Theta_{lm}(x)$ of spherical harmonics (associated Legendre functions). Proves zeros of $\Theta_{l,m+1}$ strictly interlace zeros of $\Theta_{lm}$ on $(-1,1)$ for fixed degree $l$. **Method:** Uses definition $P_l^m(x)=(1-x^2)^{m/2}\frac{d^m}{dx^m}P_l(x)$. On interior $(1-x^2)>0$, so zeros coincide with zeros of $f_m(x)=\frac{d^m}{dx^m}P_l(x)$. Since $f_{m+1}=f_m'$, applies Rolle's theorem: between consecutive zeros of $f_m$ there exists exactly one zero of $f_{m+1}$. **Conclusion: True.**
+
+### Sub-cluster 10.3: Modified Orthogonality with Cauchy Weights - True/False Problems (1 file)
+
+#### Method 10.3.A: Pole Decomposition & Principal Value Integration (1 file)
+
+**Typical Example ([2002a358.md](https://github.com/igorratn/coyote-math/blob/main/2002a358.md)):**
+Studies spherical harmonics $Y_{\ell m}(\theta,\phi)$ but focuses on Legendre polynomial component with Cauchy principal value weight $1/(x-\beta)$ where $\beta\in(-1,1)$. Defines modified polynomial $\tilde{P}_\ell(x) = P_\ell(x) + \gamma P_{\ell-1}(x)$. Proves orthogonality condition $(\tilde{P}_\ell, q)_\beta = 0$ for all $\deg(q)<\ell$ is equivalent to single condition at pole. **Method:** Decomposes $q(x) = (x-\beta)r(x) + q(\beta)$ where $\deg(r)\leq \ell-2$. Uses principal value property: $\int_{-1}^1 \tilde{P}_\ell r dx = 0$ by standard orthogonality. Remaining term $q(\beta)\operatorname{p.v.}\int \frac{\tilde{P}_\ell}{x-\beta}dx$ must vanish for all $q(\beta)$, giving necessary and sufficient condition. **Conclusion: True.**
 
 ---
 
@@ -426,8 +452,13 @@ Tests uniform bound $\sup_{\theta\in[0,\pi]} |(\sin\theta)^{|m|+\delta}Y_\ell^m(
   - Sub-cluster 9.1 (Set Theory): 1 file
     - Method 9.1.A (Oscillation Analysis): 1 file
 
-- **Cluster 10 (Spherical Harmonics)**: 2 files
-  - Sub-cluster 10.1 (Bounds - T/F): 2 files
+- **Cluster 10 (Spherical Harmonics)**: **4 files**
+  - Sub-cluster 10.1 (Uniform Bounds - T/F): 2 files
     - Method 10.1.A (Jacobi-N-U): 2 files
+  - Sub-cluster 10.2 (Zero Distribution - T/F): 1 file
+    - Method 10.2.A (Rolle's Theorem): 1 file
+  - Sub-cluster 10.3 (Modified Orthogonality - T/F): 1 file
+    - Method 10.3.A (Pole Decomposition): 1 file
+
 
 **Total: 80 files** (79 with content + 1 empty)
