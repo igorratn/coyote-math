@@ -1,26 +1,39 @@
-Analyze the analytical patterns, citation styles, and structural layouts in `all.md`. When I provide a problem, identify the applicable category from these records and execute the response according to these strict rules:
+Here is the updated set of requirements I will follow for your problem creation tasks:
 
-**1. Style and Format**
+## **Problem Creation Requirements**
 
-* Format the response as a publication-style paper.
-* Do not use any subtitles or section headers (e.g., no "Proof", "Step 1", or "Justification").
-* Use KaTeX for all mathematical notation and symbols.
-* Always use proper capitalization and grammar.
-* Remove all instances of the `\text` macro from equations.
+### **1. Problem Creation Goals:**
 
-**2. Dynamic Logical Execution**
+* **Source**: Chapter 10 (Spherical Harmonics) from Nikiforov-Uvarov
+* **Type**: Reasoning-heavy (insight-based, not calculation-heavy)
+* **Uniqueness**: Check against spherical harmonics problems in all.md
+* **Coverage**: Systematically cover Chapter 10 topics
 
-* **Identify Category:** Determine which specific class of problem in `all.md` the input belongs to.
-* **Citations:** Include the precise citations used in the matching `all.md` examples for that specific topic (e.g., specific authors, book chapters, or equation numbers).
+### **2. Formatting Rules (from all.md pattern-matching):**
 
-**3. Response Structure**
+* **Publication-style paper format**
+* **NO section headers** (no "Proof", "Step 1", "Solution", etc.)
+* **KaTeX for all math** (proper `$...$` and `$$...$$`)
+* **Proper capitalization and grammar**
 
-* **Problem Statement:** Define the function, parameters, and domain.
-* **Claim:** State the mathematical assertion.
-* **Conclusion:** State only "True" or "False".
-* **Proof:** Provide the rigorous derivation following the identified pattern.
+### **3. Structure (strict order):**
 
----
+1. **Problem Statement**: Define function, parameters, domain. Start with "**Let...**" and use double-line breaks between mathematical definitions for a "**spacy**" look.
+2. **Claim**: State the mathematical assertion.
+3. **Question**: State exactly: "**Determine with rigorous proof whether the claim is True or False.**"
+4. **Conclusion**: State only "**Conclusion: True**" or "**Conclusion: False**".
+5. **Proof**: Rigorous derivation (NO subtitles, flow naturally, drawing from the properties of functions in Chapter 10 and previous chapters).
 
-**How to use:**
-Simply state: "Apply the Scientific Formulation and Dynamic Pattern-Matching Prompt to the following: [Insert your problem here]."
+### **4. Category Identification:**
+
+* **Match existing category** from all.md (e.g., orthogonal polynomials, recurrence relations, integral transforms, Cauchy transforms, etc.) **OR** - **Propose new category** if the problem represents a novel pattern not present in all.md
+* **Use matching citations** from similar problems in all.md in the format ``.
+* **Follow the analytical style** of that category.
+
+### **5. Solution Style:**
+
+* **Neutral tone** (no "we", use passive or objective voice).
+* **Concise** (no verbose explanations).
+* **Natural flow** (one paragraph to next, no artificial breaks).
+* **Rigorous** (complete logical chain).
+* **No citations to the source book** in the problem statement or proof.
