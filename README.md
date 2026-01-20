@@ -6,13 +6,13 @@ Detailed proof analysis and clustering: [Google Doc](https://docs.google.com/doc
 ## Recent Activity
 The 5 most recently updated mathematical tasks in the repository:
 
-A spherical harmonic of order $\ell$, denoted by $Y_{\ell m}(\theta, \phi)$, is defined as a bounded single-valued solution to the angular part of the Laplace equation. These functions take the form $Y_{\ell m}(\theta, \phi) = \Phi_m(\phi) \Theta_{\e ... [[16ab09af.md]](https://github.com/igorratn/coyote-math/blob/main/16ab09af.md)
+Let $Y_{\ell m}(\theta,\phi)$ denote the standard spherical harmonics on $\mathbb{S}^2$, normalized in $L^2(\mathbb{S}^2)$, with integers $\ell \geq 0$ and $|m| \leq \ell$. The addition theorem for spherical harmonics states $$P_\ell(\cos\omega) = \f ... [[27ff7bd2.md]](https://github.com/igorratn/coyote-math/blob/main/27ff7bd2.md)
 
-Let $u(r, \theta)$ be an axisymmetric harmonic function in $\mathbb{R}^3$. We propose an ansatz for a "modified" harmonic solution $\tilde{u}$ of the form: $$\tilde{u}(r, \theta) = r^n P_n(\cos \theta) + \alpha_n r^{n-1} P_{n-1}(\cos \theta)$$ where  ... [[1180dd83.md]](https://github.com/igorratn/coyote-math/blob/main/1180dd83.md)
+Let $D_{mm'}^{\ell}(\alpha,\beta,\gamma)$ denote the Wigner D-functions (generalized spherical harmonics) which describe how spherical harmonics transform under rotations specified by Euler angles $(\alpha,\beta,\gamma)$. These functions can be facto ... [[339da8e1.md]](https://github.com/igorratn/coyote-math/blob/main/339da8e1.md)
 
-I have a file called all.md that contains multiple math problem entries, each identified by a header "### File: [filename].md". Please perform a comprehensive, fine-grained clustering of all problems found in the file based on their mathematical meth ... [[mk_cl.md]](https://github.com/igorratn/coyote-math/blob/main/mk_cl.md)
-
-Analyze the analytical patterns, citation styles, and structural layouts in `all.md`. When I provide a problem, identify the applicable category from these records and execute the response according to these strict rules: **1. Style and Format** * Fo ... [[solver.md]](https://github.com/igorratn/coyote-math/blob/main/solver.md)
+Here's an improved prompt that addresses the mistakes: --- I have a file called all.md that contains multiple math problem entries, each identified by a header "### File: [filename].md".  ... [[mk_cl.md]](https://github.com/igorratn/coyote-math/blob/main/mk_cl.md)
 
 Total files discovered: **80 files** (79 with content + 1 empty) --- **Typical Example ([027f10a7.md](https://github.com/igorratn/coyote-math/blob/main/027f10a7.md)):**  ... [[clusters.md]](https://github.com/igorratn/coyote-math/blob/main/clusters.md)
+
+A spherical harmonic of order $\ell$, denoted by $Y_{\ell m}(\theta, \phi)$, is defined as a bounded single-valued solution to the angular part of the Laplace equation. These functions take the form $Y_{\ell m}(\theta, \phi) = \Phi_m(\phi) \Theta_{\e ... [[16ab09af.md]](https://github.com/igorratn/coyote-math/blob/main/16ab09af.md)
 
