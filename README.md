@@ -6,9 +6,9 @@ Detailed proof analysis and clustering: [Google Doc](https://docs.google.com/doc
 ## Recent Activity
 The 5 most recently updated mathematical tasks in the repository:
 
-Here is the updated set of requirements I will follow for your problem creation tasks: * **Source**: Chapter 10 (Spherical Harmonics) from Nikiforov-Uvarov * **Type**: Reasoning-heavy (insight-based, not calculation-heavy)  ... [[solver.md]](https://github.com/igorratn/coyote-math/blob/main/solver.md)
+Let $Y_{\ell m}(\mathbf{n})$ be the spherical harmonics of order $\ell$ defined on the unit sphere, where $\mathbf{n}$ is a unit vector. The addition theorem states that for any two unit vectors $\mathbf{n}_1$ and $\mathbf{n}_2$, the Legendre polynom ... [[842d9e3e.md]](https://github.com/igorratn/coyote-math/blob/main/842d9e3e.md)
 
-The spherical harmonics $Y_{\ell m}(\theta,\phi)$ satisfy three-term recurrence relations. One such relation connects harmonics of consecutive degree $\ell$ at fixed magnetic quantum number $m$: $$\cos\theta \cdot Y_{\ell m}(\theta,\phi) = A_{\ell m} ... [[842d9e3e.md]](https://github.com/igorratn/coyote-math/blob/main/842d9e3e.md)
+Here is the updated set of requirements I will follow for your problem creation tasks: * **Source**: Chapter 10 (Spherical Harmonics) from Nikiforov-Uvarov * **Type**: Reasoning-heavy (insight-based, not calculation-heavy)  ... [[solver.md]](https://github.com/igorratn/coyote-math/blob/main/solver.md)
 
 Let $Y_{\ell m}(\theta,\phi)$ denote the standard spherical harmonics on $\mathbb{S}^2$, normalized in $L^2(\mathbb{S}^2)$, with integers $\ell \geq 0$ and $|m| \leq \ell$. The addition theorem for spherical harmonics states $$P_\ell(\cos\omega) = \f ... [[27ff7bd2.md]](https://github.com/igorratn/coyote-math/blob/main/27ff7bd2.md)
 

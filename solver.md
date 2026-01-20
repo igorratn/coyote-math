@@ -8,6 +8,7 @@ Here is the updated set of requirements I will follow for your problem creation 
 * **Type**: Reasoning-heavy (insight-based, not calculation-heavy)
 * **Uniqueness**: Check against spherical harmonics problems in all.md
 * **Coverage**: Systematically cover Chapter 10 topics
+* Avoid identities that can be solved by direct substitution of standard formulas; the proof must require an analytical bridge between two or more mathematical properties.
 
 ### **2. Formatting Rules (from all.md pattern-matching):**
 
