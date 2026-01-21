@@ -1,7 +1,3 @@
-Here's an improved prompt that addresses the mistakes:
-
----
-
 I have a file called all.md that contains multiple math problem entries, each identified by a header "### File: [filename].md".
 
 Please perform a comprehensive, fine-grained clustering of all problems found in the file based on their mathematical methodology. Follow these instructions strictly:
@@ -25,7 +21,7 @@ Please perform a comprehensive, fine-grained clustering of all problems found in
 ## 1. Dynamic Discovery & Verification
 - Scan the entire all.md file to discover every unique filename with "### File:" header
 - **Count total files found and verify this number multiple times**
-- List every single file found in a numbered inventory (1-N)
+- skip for now - List every single file found in a numbered inventory (1-N)
 - Do not truncate, skip, or assume any files
 
 ## 2. Fine-Grained Multi-Level Clustering
@@ -56,7 +52,8 @@ Include counts at EVERY level:
 **For each method-based sub-sub-cluster:**
 
 **First file - FULL detailed description must include:**
-- Complete problem statement (2-3 sentences explaining what's being asked)
+- Complete problem statement copied from a file as written in katex
+
 - Complete solution methodology (4-6 sentences explaining the technique):
   - What is the key insight?
   - What mathematical tool/identity is used?
@@ -129,4 +126,7 @@ Before presenting output:
 - Verify all descriptions are specific, not generic
 - Verify all counts are accurate
 - Verify methodology-based clustering (not topic-based)
+
+##save results
+- save results as markdown document
 

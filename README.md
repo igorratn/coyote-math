@@ -6,13 +6,13 @@ Detailed proof analysis and clustering: [Google Doc](https://docs.google.com/doc
 ## Recent Activity
 The 5 most recently updated mathematical tasks in the repository:
 
-Let $Y_{\ell m}(\mathbf{n})$ be the spherical harmonics of order $\ell$ defined on the unit sphere, where $\mathbf{n}$ is a unit vector. The addition theorem states that for any two unit vectors $\mathbf{n}_1$ and $\mathbf{n}_2$, the Legendre polynom ... [[842d9e3e.md]](https://github.com/igorratn/coyote-math/blob/main/842d9e3e.md)
+Let $d_{mm'}^\ell(\beta)$ denote the reduced Wigner D-function defined for degree $\ell$ and orders $m, m'$ with $|m|, |m'| \le \ell$. Define the bilinear form $B_\ell: \mathbb{R}^{2\ell+1} \times \mathbb{R}^{2\ell+1} \to \mathbb{R}$ by $$B_\ell(\mat ... [[842d9e3e.md]](https://github.com/igorratn/coyote-math/blob/main/842d9e3e.md)
+
+Let $\Theta_{\ell m}(x)$ denote the normalized associated Legendre functions on $x\in[-1,1]$ for integers $\ell\ge m\ge0$, defined by $$\Theta_{\ell m}(x)=\sqrt{\frac{2\ell+1}{2}\frac{(\ell-m)!}{(\ell+m)!}}\,P_\ell^m(x),$$ where $P_\ell^m(x)$ are the ... [[85ca892d.md]](https://github.com/igorratn/coyote-math/blob/main/85ca892d.md)
+
+I have a file called all.md that contains multiple math problem entries, each identified by a header "### File: [filename].md". Please perform a comprehensive, fine-grained clustering of all problems found in the file based on their mathematical meth ... [[mk_cl.md]](https://github.com/igorratn/coyote-math/blob/main/mk_cl.md)
+
+The clustering output I provided was based on the complete content of the `<DOCUMENT filename="all.md">` section in your query, which contains exactly 33 unique problem files (as listed in my final summary). I double-verified the count by extracting  ... [[clusters_grok.md]](https://github.com/igorratn/coyote-math/blob/main/clusters_grok.md)
 
 Here is the updated set of requirements I will follow for your problem creation tasks: * **Source**: Chapter 10 (Spherical Harmonics) from Nikiforov-Uvarov * **Type**: Reasoning-heavy (insight-based, not calculation-heavy)  ... [[solver.md]](https://github.com/igorratn/coyote-math/blob/main/solver.md)
-
-Let $Y_{\ell m}(\theta,\phi)$ denote the standard spherical harmonics on $\mathbb{S}^2$, normalized in $L^2(\mathbb{S}^2)$, with integers $\ell \geq 0$ and $|m| \leq \ell$. The addition theorem for spherical harmonics states $$P_\ell(\cos\omega) = \f ... [[27ff7bd2.md]](https://github.com/igorratn/coyote-math/blob/main/27ff7bd2.md)
-
-Let $D_{mm'}^{\ell}(\alpha,\beta,\gamma)$ denote the Wigner D-functions (generalized spherical harmonics) which describe how spherical harmonics transform under rotations specified by Euler angles $(\alpha,\beta,\gamma)$. These functions can be facto ... [[339da8e1.md]](https://github.com/igorratn/coyote-math/blob/main/339da8e1.md)
-
-Here's an improved prompt that addresses the mistakes: --- I have a file called all.md that contains multiple math problem entries, each identified by a header "### File: [filename].md".  ... [[mk_cl.md]](https://github.com/igorratn/coyote-math/blob/main/mk_cl.md)
 
