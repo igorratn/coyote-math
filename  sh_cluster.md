@@ -1,8 +1,8 @@
 # Updated Cluster 1: Spherical Harmonics on the Unit Sphere
 
-**Total files: 13** (Previously 10, added 3 new files)
+**Total files: 19** (Previously 13, added 6 new files)
 
-This cluster contains all problems involving spherical harmonics $Y_{\ell m}(\theta,\phi)$, associated Legendre functions $P_\ell^m(x)$, or axisymmetric harmonics on the sphere. These are separated from general Legendre polynomial problems because they involve the angular part of Laplace's equation in spherical coordinates.
+This cluster contains all problems involving spherical harmonics $Y_{\ell m}(\theta,\phi)$, associated Legendre functions $P_\ell^m(x)$, Legendre polynomials $P_n(x)$, or axisymmetric harmonics on the sphere. These are separated from general orthogonal polynomial problems because they involve the angular part of Laplace's equation in spherical coordinates or related special functions.
 
 ---
 
@@ -177,27 +177,112 @@ This cluster contains all problems involving spherical harmonics $Y_{\ell m}(\th
 ## Summary of Changes
 
 **Previous Total:** 10 files  
-**New Total:** 13 files  
-**Added:** 3 files
+**Old Total:** 13 files  
+**New Total:** 19 files  
+**Added:** 6 files
 
-**New files added:**
-- [07d41e49.md](https://github.com/igorratn/coyote-math/blob/main/07d41e49.md) - Added to new section 1.8.1 "Raising Operator Derivative with Polar Singularity"
-- [9bee8030.md](https://github.com/igorratn/coyote-math/blob/main/9bee8030.md) - Added to new section 1.9.1 "Wigner D-function Rotation to North Pole"
-- [216d864a.md](https://github.com/igorratn/coyote-math/blob/main/216d864a.md) - Added to new section 1.9.2 "Weighted Moment Integrals with Addition Theorem"
+**Previous additions (from earlier update):**
+- [07d41e49.md](https://github.com/igorratn/coyote-math/blob/main/07d41e49.md) - Section 1.8.1 "Raising Operator Derivative with Polar Singularity"
+- [9bee8030.md](https://github.com/igorratn/coyote-math/blob/main/9bee8030.md) - Section 1.9.1 "Wigner D-function Rotation to North Pole"
+- [216d864a.md](https://github.com/igorratn/coyote-math/blob/main/216d864a.md) - Section 1.9.2 "Weighted Moment Integrals with Addition Theorem"
+
+**New files added (current update):**
+- **NEW_PROBLEM_01** - Section 1.10.1 "Christoffel-Darboux Kernel with Factorial Normalization"
+- **NEW_PROBLEM_02** - Section 1.10.2 "Connection Formula and Weight Transformation"
+- **NEW_PROBLEM_03** - Section 1.10.3 "Rodrigues Formula at Boundary"
+- **NEW_PROBLEM_04** - Section 1.10.4 "Weight Perturbation and Orthogonality"
+- **NEW_PROBLEM_07** - Section 1.10.5 "Three-Term Recurrence at Index Boundary"
+- **NEW_PROBLEM_08** - Section 1.10.6 "Generating Function and Factorial Series"
 
 **New sections created:**
-- Section 1.8 "Angular Momentum Operator Limits and Singularities" (1 file)
-- Section 1.9 "Rotation and Pole Behavior" (2 files)
+- Section 1.10 "Nikiforov-Uvarov Direct Methods" (6 files)
 
-**Key insights from the new files:**
+**Key insights from new NU method files:**
 
-1. **07d41e49.md (Raising Operator):** Demonstrates a common error pattern in identifying sources of singularities—the divergence comes from the $1/\sin\theta$ factor in the definition of $R_{\ell m}$, not from the $\cot\theta$ term in the raising operator (which can vanish). This is methodologically similar to problem 339da8e1.md where the error source is misidentified.
+1. **NEW_PROBLEM_01 (Christoffel-Darboux):** Factorial normalization changes asymptotic growth rate - trap is assuming normalization doesn't affect leading order. Uses NU diagonal formula + Hilb asymptotics.
 
-2. **9bee8030.md (Rotation to Pole):** Shows that rotation mixing occurs before pole evaluation, so the claim that rotations preserve the $m=0$ selection at poles fails. Only the $m'=0$ component survives after evaluation at the pole, but the Wigner d-function $d_{0m}^{\ell}(\beta)$ can be nonzero for $m \neq 0$, creating the counterexample.
+2. **NEW_PROBLEM_02 (Connection Formula):** Connection coefficients exist but don't give simple identity - trap is confusing basis expansion with function equality. Uses NU connection formula theory.
 
-3. **216d864a.md (Weighted Moments):** Uses the addition theorem to reduce the sum over $m$ to a constant, converting the problem to a standard trigonometric integral. The claimed formula has an incorrect coefficient—the true formula involves beta functions with half-integer arguments rather than the simpler factorial expression claimed.
+3. **NEW_PROBLEM_03 (Rodrigues Boundary):** Boundary behavior dominates even with factorial normalization - trap is thinking normalization cancels decay. Direct NU Rodrigues formula application.
+
+4. **NEW_PROBLEM_04 (Weight Perturbation):** Weight change breaks orthogonality via recurrence coupling - trap is assuming orthogonality is intrinsic. Uses NU weight theory + three-term recurrence.
+
+5. **NEW_PROBLEM_07 (Recurrence Boundary):** Modified recurrence fails at index boundary where coefficients vanish - trap is not checking boundary cases. Uses NU recurrence theory with coefficient matching.
+
+6. **NEW_PROBLEM_08 (Generating Function):** Factorial series differs from generating function - trap is confusing ordinary and exponential GF. Uses NU generating function + comparison test.
 
 **Methodological patterns:**
 - Problems 07d41e49 and 339da8e1 both involve misidentifying the source of mathematical behavior (singularity vs. integral value)
 - Problems 9bee8030 and 27ff7bd2 both use north pole evaluation as a testing strategy
+- All 6 new NU method problems test understanding of when standard formulas/structures break down (boundaries, perturbations, transformations)
+- New problems complement existing problems: existing focus on geometric/evaluation strategies, new focus on structural/algebraic NU methods
 - Problem 216d864a uses the addition theorem similarly to problems in section 1.2 and 1.7
+---
+
+## 1.10 Nikiforov-Uvarov Direct Methods
+
+**Total files: 6** (NEW SECTION)
+
+This section contains problems that directly apply NU methods from Chapter 10 (Classical Orthogonal Polynomials), including generating functions, Rodrigues formulas, connection formulas, weight perturbation theory, and recurrence relations.
+
+### 1.10.1 Christoffel-Darboux Kernel with Factorial Normalization
+
+**Total files: 1**
+
+**[NEW_PROBLEM_01]** - For associated Legendre functions $P_\ell^m(x)$, considers the normalized weighted sum $S_N^{(m)}(x_0) = \sum_{\ell=m}^{N} \frac{(2\ell+1)(\ell-m)!}{(\ell+m)!} \cdot [P_\ell^m(x_0)]^2$. Tests whether the diagonal Christoffel-Darboux formula gives asymptotic growth $S_N^{(m)}(x_0) = \frac{N^2}{2(1-x_0^2)} + O(N)$ for all $m \geq 0$ and $x_0 \in (-1,1)$ (False - using Hilb asymptotics shows linear growth $O(N)$ not quadratic for $m=0$; factorial normalization creates trap for higher $m$)
+
+**Solution Methodology:** Uses NU Christoffel-Darboux formula (Chapter 10) for the kernel, then applies Hilb asymptotics. The trap is that factorial normalization $\frac{(\ell-m)!}{(\ell+m)!}$ grows/decays depending on $m$, affecting growth rate. For $m=0$, kernel formula gives $O(N)$ growth. Tests understanding of factorial weights in orthogonal polynomial theory.
+
+**Conclusion:** False
+
+### 1.10.2 Connection Formula and Weight Transformation
+
+**Total files: 1**
+
+**[NEW_PROBLEM_02]** - For Legendre polynomials, considers transformation to weight $w(x) = (1-x^2)^{-1/2}$ and tests whether $P_n(x) = \sum_{k=0}^{n} c_{nk} T_k(x)$ where $c_{nk}$ are connection coefficients relating Legendre polynomials to Chebyshev polynomials (False - connection coefficients exist but sum does not equal $P_n$ in general; requires understanding of basis change vs. function equality)
+
+**Solution Methodology:** Uses NU connection formula theory (Chapter 10). Tests whether changing orthogonal weight automatically gives identity via connection coefficients. The trap is confusing "can express in basis" with "equals via simple sum". Requires three-term recurrence analysis and explicit coefficient computation.
+
+**Conclusion:** False
+
+### 1.10.3 Rodrigues Formula at Boundary
+
+**Total files: 1**
+
+**[NEW_PROBLEM_03]** - For Legendre polynomials $P_n(x)$ with Rodrigues formula $P_n(x) = \frac{1}{2^n n!} \frac{d^n}{dx^n}[(x^2-1)^n]$, considers sequence $x_k = 1 - k^{-2}$ approaching boundary $x=1$. Tests whether normalized sequence $n! \cdot P_n(x_k)$ has finite limit as $k \to \infty$ for fixed $n \geq 1$ (False - Rodrigues formula shows $(1-x_k)^n$ factor creates polynomial decay in $k$, so limit is zero not finite nonzero)
+
+**Solution Methodology:** Direct application of NU Rodrigues formula (Chapter 10) with careful boundary analysis. Expands $(x_k^2-1)^n = [(x_k-1)(x_k+1)]^n$ and uses $x_k - 1 \sim -k^{-2}$. The trap is thinking $n!$ normalization cancels factorial in denominator, but boundary behavior dominates. Tests understanding of differential operators at domain boundary.
+
+**Conclusion:** False
+
+### 1.10.4 Weight Perturbation and Orthogonality
+
+**Total files: 1**
+
+**[NEW_PROBLEM_04]** - For Legendre polynomials orthogonal under weight $w(x) = 1$ on $[-1,1]$, considers perturbed weight $\tilde{w}(x) = 1 + \epsilon x$ for small $\epsilon > 0$. Tests whether polynomials remain orthogonal: $\int_{-1}^{1} P_m(x) P_n(x) [1 + \epsilon x] dx = 0$ for $m \neq n$ (False - perturbation breaks orthogonality via three-term recurrence; $xP_n$ couples to $P_{n\pm 1}$, creating nonzero inner products)
+
+**Solution Methodology:** Uses NU weight perturbation theory and three-term recurrence (Chapter 10). Applies recurrence $xP_n = \frac{n+1}{2n+1}P_{n+1} + \frac{n}{2n+1}P_{n-1}$ to show $\langle P_m, xP_n \rangle_1 \neq 0$ for adjacent degrees. Tests understanding that orthogonality is weight-specific, not preserved under perturbation.
+
+**Conclusion:** False
+
+### 1.10.5 Three-Term Recurrence at Index Boundary
+
+**Total files: 1**
+
+**[NEW_PROBLEM_07]** - For normalized associated Legendre functions $\Theta_{\ell m}$ satisfying three-term recurrence $x\Theta_{\ell m} = A_{\ell m}\Theta_{\ell+1,m} + B_{\ell m}\Theta_{\ell-1,m}$, defines modified combination $F_\ell^m = \Theta_{\ell m} - \alpha_{\ell m}\Theta_{\ell-2,m}$ where $\alpha_{\ell m} = \frac{(\ell+m)(\ell-m)}{(2\ell-1)(2\ell+1)}$ for $\ell \geq m+2$. Tests whether two-term recurrence $xF_\ell^m = C_{\ell m}F_{\ell+1}^m + D_{\ell m}F_{\ell-1}^m$ exists for all $\ell \geq m+3$ and $m \geq 1$ (False - coefficient matching gives two formulas for $D_{\ell m}$ that disagree at boundary $\ell=m+3$ due to approaching $B_{m,m}=0$)
+
+**Solution Methodology:** Uses NU recurrence relation theory (Chapter 10) with coefficient matching. Expands $xF_\ell^m$ using three-term recurrence for $\Theta$, then matches coefficients of $\Theta_{\ell+1,m}, \Theta_{\ell-1,m}, \Theta_{\ell-3,m}$. Creates overdetermined system with consistency condition. Tests at boundary $\ell=m+3$ where $B_{\ell-2,m} = B_{m+1,m}$ is near vanishing point $B_{m,m}=0$, revealing structural obstruction.
+
+**Conclusion:** False
+
+### 1.10.6 Generating Function and Factorial Series
+
+**Total files: 1**
+
+**[NEW_PROBLEM_08]** - For Legendre polynomials $P_n(x)$ with standard generating function $\frac{1}{\sqrt{1-2tx+t^2}} = \sum P_n(x)t^n$, considers factorial-weighted series $\sum_{n=1}^{\infty} \frac{P_n(x_0)}{n!}$ for $x_0 \in (0,1)$. Tests whether series converges to $e^{x_0} - 1$ (False - series converges by comparison test, but explicit calculation shows $\frac{P_2(1/2)}{2!} = -1/16 \neq 1/8 = \frac{(1/2)^2}{2!}$, so sums differ)
+
+**Solution Methodology:** Uses NU generating function theory (Chapter 10) to understand ordinary vs. exponential generating functions. Proves convergence via bound $|P_n(x)| \leq 1$, then tests claim by direct term comparison at $x_0 = 1/2$. The trap is confusing $\sum P_n t^n$ with $\sum P_n t^n/n!$. Tests understanding that factorial weights create different series with different sums.
+
+**Conclusion:** False
+
+---
