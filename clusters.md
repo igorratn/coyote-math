@@ -1,7 +1,7 @@
 # Comprehensive Fine-Grained Clustering of Mathematical Problems
 
 ## Overview
-Total files discovered: **80 files** (79 with content + 1 empty)
+Total files discovered: **89 files** (88 with content + 1 empty - 87879ef3.md)
 
 ---
 
@@ -350,7 +350,7 @@ Let me provide the corrected Cluster 10:
 
 ---
 
-## Cluster 10: Spherical Harmonics (4 files)
+## Cluster 10: Spherical Harmonics (13 files)
 
 ### Sub-cluster 10.1: Spherical Harmonic Uniform Bounds - True/False Problems (2 files)
 
@@ -375,6 +375,63 @@ Studies polar components $\Theta_{lm}(x)$ of spherical harmonics (associated Leg
 
 **Typical Example ([2002a358.md](https://github.com/igorratn/coyote-math/blob/main/2002a358.md)):**
 Studies spherical harmonics $Y_{\ell m}(\theta,\phi)$ but focuses on Legendre polynomial component with Cauchy principal value weight $1/(x-\beta)$ where $\beta\in(-1,1)$. Defines modified polynomial $\tilde{P}_\ell(x) = P_\ell(x) + \gamma P_{\ell-1}(x)$. Proves orthogonality condition $(\tilde{P}_\ell, q)_\beta = 0$ for all $\deg(q)<\ell$ is equivalent to single condition at pole. **Method:** Decomposes $q(x) = (x-\beta)r(x) + q(\beta)$ where $\deg(r)\leq \ell-2$. Uses principal value property: $\int_{-1}^1 \tilde{P}_\ell r dx = 0$ by standard orthogonality. Remaining term $q(\beta)\operatorname{p.v.}\int \frac{\tilde{P}_\ell}{x-\beta}dx$ must vanish for all $q(\beta)$, giving necessary and sufficient condition. **Conclusion: True.**
+
+### Sub-cluster 10.4: Monotonicity and Auxiliary Functions - True/False Problems (1 file)
+
+#### Method 10.4.A: Nikiforov-Uvarov Auxiliary Function Method (1 file)
+
+**Typical Example ([16ab09af.md](https://github.com/igorratn/coyote-math/blob/main/16ab09af.md)):**
+Studies zonal spherical harmonics $Y_{\ell 0}(\theta,\phi) = \sqrt{\frac{2\ell+1}{4\pi}} P_\ell(\cos\theta)$ for $\ell \geq 1$ and $\theta \in (0,\pi/2]$. Tests whether successive local maxima of $|Y_{\ell 0}(\theta,\phi)|$ form strictly decreasing sequence as $\theta$ increases. **Method:** Uses Nikiforov-Uvarov auxiliary function $v(x) = [y(x)]^2 + \frac{\sigma(x)}{\lambda}[y'(x)]^2$ where $\sigma(x)=1-x^2$, $\lambda=\ell(\ell+1)$, and $y(x)=P_\ell(x)$. Differentiating gives $v'(x) = \frac{2x}{\lambda}[y'(x)]^2 > 0$ for $x \in (0,1)$. Since local maxima occur where $y'=0$, and $v=y^2$ at these points, monotonicity of $v$ forces successive maxima to decrease. **Conclusion: True.**
+
+### Sub-cluster 10.5: Addition Theorem Applications - True/False Problems (2 files)
+
+#### Method 10.5.A: North Pole Evaluation Strategy (1 file)
+
+**Typical Example ([27ff7bd2.md](https://github.com/igorratn/coyote-math/blob/main/27ff7bd2.md)):**
+Studies modified sum $S_\ell(\theta_1,\phi_1,\theta_2,\phi_2) = \sum_{m=-\ell}^{\ell} (-1)^m Y_{\ell m}(\theta_1,\phi_1) \overline{Y_{\ell m}(\theta_2,\phi_2)}$. Tests whether it equals $\frac{2\ell+1}{4\pi} P_\ell(-\cos\omega)$ where $\omega$ is angle between points. **Method:** Evaluates at north pole $(\theta_1,\phi_1)=(0,0)$ where only $m=0$ term survives. For $m=0$, $(-1)^0=1$ gives standard addition theorem. For $m \neq 0$, $(-1)^m$ factor breaks the formula when $\ell$ is odd. **Conclusion: False.**
+
+#### Method 10.5.B: Projection Operator Analysis (1 file)
+
+**Typical Example ([842d9e3e.md](https://github.com/igorratn/coyote-math/blob/main/842d9e3e.md)):**
+Studies operator $T_\ell$ defined by $(T_\ell f)(\mathbf{n}_1) = \int_{S^2} P_\ell(\mathbf{n}_1 \cdot \mathbf{n}_2)f(\mathbf{n}_2)d\Omega_2$. Tests whether $T_\ell$ is projection operator onto subspace of spherical harmonics of order $\ell$ with scaling $\frac{4\pi}{2\ell+1}$. **Method:** Uses addition theorem to show $T_\ell Y_{\ell' m} = \frac{4\pi}{2\ell+1}\delta_{\ell\ell'}Y_{\ell' m}$. This is scaled projection $T_\ell = \frac{4\pi}{2\ell+1}P_\ell$, not idempotent. **Conclusion: False.**
+
+### Sub-cluster 10.6: Modified Weight Orthogonality - True/False Problems (2 files)
+
+#### Method 10.6.A: Recurrence Relation Analysis (1 file)
+
+**Typical Example ([1180dd83.md](https://github.com/igorratn/coyote-math/blob/main/1180dd83.md)):**
+Studies axisymmetric function $\tilde{u}(r,\theta) = r^n P_n(\cos\theta) + \alpha_n r^{n-1} P_{n-1}(\cos\theta)$ for $n \geq 2$. Tests whether there exists nonzero $\alpha_n$ making $\tilde{u}$ orthogonal to constants on unit sphere with weight $\cos\theta$. **Method:** Uses three-term recurrence $xP_k = \frac{k+1}{2k+1}P_{k+1} + \frac{k}{2k+1}P_{k-1}$ to compute $\int_{-1}^1 [P_n(x) + \alpha_n P_{n-1}(x)]x dx$. Shows obstruction at $n=2$ where coefficient system has no nonzero solution. **Conclusion: False.**
+
+#### Method 10.6.B: Cauchy Transform Theory (1 file)
+
+**Typical Example ([339da8e1.md](https://github.com/igorratn/coyote-math/blob/main/339da8e1.md)):**
+Studies integral $I(\beta) = \int_0^\pi P_\ell(\cos\theta) \sin\theta \frac{\sin\theta}{\cos\theta - \beta} d\theta$ for $\beta \in (-1,1)$. Tests whether $I(\beta) = -\frac{2\pi}{\sqrt{1-\beta^2}}P_\ell(\beta)$. **Method:** Uses Cauchy transform and contour integration. Substitutes $x=\cos\theta$, $dx=-\sin\theta d\theta$ to get $I(\beta) = \int_{-1}^1 P_\ell(x)\frac{dx}{x-\beta}$. This is principal value integral equal to $\pi P_\ell(\beta)/\sqrt{1-\beta^2}$ by known Cauchy formula. **Conclusion: False** (factor of 2 error).
+
+### Sub-cluster 10.7: Christoffel-Darboux Kernels - True/False Problems (1 file)
+
+#### Method 10.7.A: Asymptotic Analysis with Szegő Formula (1 file)
+
+**Typical Example ([85ca892d.md](https://github.com/igorratn/coyote-math/blob/main/85ca892d.md)):**
+Studies diagonal kernel $K_N^{(m)}(x_0,x_0) = \sum_{\ell=m}^N \Theta_{\ell m}^2(x_0)$ for normalized associated Legendre functions. Tests whether $\liminf_{N\to\infty} \frac{K_N^{(m)}(x_0,x_0)}{N} \geq C(x_0,m) > 0$. **Method:** Converts to Jacobi polynomials, applies Stirling formula for normalization, uses Szegő oscillatory asymptotic (Theorem 8.21.8). Oscillatory term averages to constant via Weyl equidistribution. **Conclusion: True.**
+
+### Sub-cluster 10.8: Angular Momentum Operators - True/False Problems (1 file)
+
+#### Method 10.8.A: Raising Operator Singularity Analysis (1 file)
+
+**Typical Example ([07d41e49.md](https://github.com/igorratn/coyote-math/blob/main/07d41e49.md)):**
+Studies raising operator derivative $R_{\ell m}(\theta) = \frac{1}{\sin\theta}\frac{\partial Y_{\ell m}(\theta,0)}{\partial\theta}$ for $\ell \geq 1$, $-\ell \leq m < \ell$. Tests whether $\lim_{\theta\to 0}\frac{R_{\ell m}(\theta)}{Y_{\ell,m+1}(\theta,0)} = \sqrt{(\ell-m)(\ell+m+1)}$. **Method:** Examines raising operator $L_+ = e^{i\phi}(\frac{\partial}{\partial\theta} + i\cot\theta\frac{\partial}{\partial\phi})$ at $\phi=0$. Counterexample with $\ell=1,m=0$ shows divergence from $1/\sin\theta$ factor in definition, not from $\cot\theta$ term. **Conclusion: False.**
+
+### Sub-cluster 10.9: Rotation and Wigner Functions - True/False Problems (2 files)
+
+#### Method 10.9.A: Wigner D-Function Pole Behavior (1 file)
+
+**Typical Example ([9bee8030.md](https://github.com/igorratn/coyote-math/blob/main/9bee8030.md)):**
+Studies rotated spherical harmonic $\tilde{Y}_{\ell m}(\theta,\phi;\beta) = \sum_{m'=-\ell}^{\ell} d_{m'm}^{\ell}(\beta) Y_{\ell m'}(\theta,\phi)$ under $y$-axis rotation by $\beta \in (0,\pi)$. Tests whether pole evaluation $F_{\ell m}(\beta) = \lim_{\theta\to 0^+}\tilde{Y}_{\ell m}(\theta,0;\beta)$ satisfies $F_{\ell m}(\beta) = \sqrt{\frac{2\ell+1}{4\pi}}P_\ell(\cos\beta)\delta_{m,0}$. **Method:** At north pole, only $m'=0$ component survives giving $F_{\ell m}(\beta) = d_{0m}^{\ell}(\beta)\sqrt{\frac{2\ell+1}{4\pi}}$. Counterexample $\ell=1,m=1$ gives $d_{01}^1(\beta)=-\sin\beta/\sqrt{2} \neq 0$. **Conclusion: False.**
+
+#### Method 10.9.B: Weighted Moment Integrals (1 file)
+
+**Typical Example ([216d864a.md](https://github.com/igorratn/coyote-math/blob/main/216d864a.md)):**
+Studies weighted moment $M_{\ell,k} = \int_0^\pi \sin^{2k+1}\theta \sum_{m=-\ell}^{\ell} |Y_{\ell m}(\theta,0)|^2 d\theta$ for $\ell \geq 1$, $k \geq 0$. Tests whether $M_{\ell,k} = \frac{2\ell+1}{4\pi} \cdot \frac{2^{2k+1} k!(k+1)!}{(2k+2)!}$. **Method:** Uses addition theorem to reduce sum over $m$ to constant $\frac{2\ell+1}{4\pi}$, converts to standard trigonometric integral. Claimed formula has incorrect coefficient—true result involves beta functions with half-integer arguments. **Conclusion: False.**
 
 ---
 
@@ -452,13 +509,28 @@ Studies spherical harmonics $Y_{\ell m}(\theta,\phi)$ but focuses on Legendre po
   - Sub-cluster 9.1 (Set Theory): 1 file
     - Method 9.1.A (Oscillation Analysis): 1 file
 
-- **Cluster 10 (Spherical Harmonics)**: **4 files**
+- **Cluster 10 (Spherical Harmonics)**: **13 files** (updated from 4 files, added 9 more existing files)
   - Sub-cluster 10.1 (Uniform Bounds - T/F): 2 files
     - Method 10.1.A (Jacobi-N-U): 2 files
   - Sub-cluster 10.2 (Zero Distribution - T/F): 1 file
     - Method 10.2.A (Rolle's Theorem): 1 file
   - Sub-cluster 10.3 (Modified Orthogonality - T/F): 1 file
     - Method 10.3.A (Pole Decomposition): 1 file
+  - Sub-cluster 10.4 (Monotonicity - T/F): 1 file
+    - Method 10.4.A (N-U Auxiliary Function): 1 file
+  - Sub-cluster 10.5 (Addition Theorem - T/F): 2 files
+    - Method 10.5.A (North Pole): 1 file
+    - Method 10.5.B (Projection Operator): 1 file
+  - Sub-cluster 10.6 (Modified Weight - T/F): 2 files
+    - Method 10.6.A (Recurrence): 1 file
+    - Method 10.6.B (Cauchy Transform): 1 file
+  - Sub-cluster 10.7 (C-D Kernels - T/F): 1 file
+    - Method 10.7.A (Szegő Asymptotic): 1 file
+  - Sub-cluster 10.8 (Angular Momentum - T/F): 1 file
+    - Method 10.8.A (Raising Operator): 1 file
+  - Sub-cluster 10.9 (Rotation - T/F): 2 files
+    - Method 10.9.A (Wigner Pole): 1 file
+    - Method 10.9.B (Weighted Moments): 1 file
 
 
-**Total: 80 files** (79 with content + 1 empty)
+**Total: 89 files** (88 with content + 1 empty - 87879ef3.md)
