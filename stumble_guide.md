@@ -1,4 +1,14 @@
 # Domain-Agnostic "Stumble" Problem Generator: Complete Instructions
+# Version 3.2 - Empirical Enhancements Edition
+# Updated: 2026-01-26 based on analysis of 95 high-quality problems
+
+## Updates in v3.2:
+- **5 new trap types** (O-S): Dimension Counting, Rodrigues Boundary, Subsequence Construction, Wigner Non-Vanishing, Index Boundary
+- **4 new creative techniques** (7-10): Dimension counting, Subsequence construction, North pole evaluation, Pole decomposition
+- **Enhanced spherical harmonics domain**: Detailed guide with 8 problem patterns, Varshalovich reference integration
+- **Mandatory citation standards**: Specific format requirements with examples
+
+---
 
 ## Core Philosophy
 Create problems that **require deep mathematical reasoning** to solve, where traps serve as gatekeepers that prevent shortcuts and force engagement with the underlying structure. The best problems combine:
@@ -46,6 +56,293 @@ This is the **canonical reference** for problem creation and solutions in this f
 - Varshalovich, Moskalev, Khersonskii, *Quantum Theory of Angular Momentum* (Wigner functions, Clebsch-Gordan)
 - Watson, *Theory of Bessel Functions* (Bessel-specific results)
 - Abramowitz & Stegun / DLMF (formula verification)
+
+### Enhanced Citation Guidelines
+
+## Enhanced Citation Guidelines
+
+### Mandatory Citation Format
+
+**Your problems demonstrate excellent citation practices. Codify this standard:**
+
+#### Format Requirements
+
+**❌ BAD - Vague:**
+```
+"Use Nikiforov-Uvarov asymptotics"
+"Apply the standard bound"
+"By known theorem"
+"From the reference"
+```
+
+**✅ GOOD - Specific:**
+```
+"By Nikiforov-Uvarov (1988), Chapter II, §7, inequality (19a)..."
+"Apply Szegő, Orthogonal Polynomials (4th ed., 1975), Theorem 8.21.8..."
+"Using Varshalovich et al. (1988), Chapter 4, Equation 4.3.2..."
+"By the Nikiforov-Uvarov auxiliary function method (NU II.7, p. 87)..."
+```
+
+**Required components:**
+1. ✅ Author(s) and publication year
+2. ✅ Chapter or section number
+3. ✅ Equation/Theorem/Inequality number
+4. ✅ Page number (when possible)
+
+#### Citation Levels by Content Type
+
+**Level 1: Core Results (ALWAYS cite with full details)**
+- Asymptotic formulas (Szegő Theorem 8.21.8, NU Chapter II, §7, Eq. 19)
+- Bounds and estimates (NU inequality 19a, 20, 27)
+- Auxiliary function constructions (NU II.7, p. 87)
+- Wigner function formulas (Varshalovich Ch. 4, Eq. 4.3.2)
+- Connection formulas (NU representation sections)
+
+**Example:**
+```
+"By the Nikiforov-Uvarov interior estimate (NU 1988, Chapter II, §7, 
+inequality 19a, p. 87), for Jacobi polynomials P_n^{(α,β)}(x) with 
+α,β > -1 and x in the interior interval [-1+ε, 1-ε], there exists a 
+constant K_{ε,α,β} such that..."
+```
+
+**Level 2: Standard Properties (Cite source, may omit page)**
+- Orthogonality relations
+- Three-term recurrences
+- Rodrigues formulas
+- Basic definitions
+
+**Example:**
+```
+"By the three-term recurrence for Hermite polynomials (NU Chapter III, §13),
+we have xH_k(x) = (1/2)H_{k+1}(x) + kH_{k-1}(x)."
+```
+
+**Level 3: Well-Known Facts (Can cite domain-standard sources)**
+- Basic trigonometric identities
+- Elementary calculus results
+- Standard integral evaluations
+
+**Example:**
+```
+"By integration by parts..."
+"Using the substitution x = cos θ..."
+```
+
+### Multiple Source Coordination
+
+**When problem requires multiple references:**
+
+**Template:**
+```
+Solution combines three techniques:
+1. [Technique A] - Reference: [Author, Year, Chapter X, Eq. Y]
+2. [Technique B] - Reference: [Author, Year, Theorem Z]
+3. [Technique C] - Reference: [Author, Year, §W, p. P]
+```
+
+**Example from actual problem:**
+```
+Solution requires multiple steps:
+1. Normalization constant: NU (1988) Chapter II, §8, Eq. 8.21 with 
+   Stirling approximation for Γ((2ℓ+1)/(ℓ-m)!)
+2. Interior asymptotic formula: Szegő (1975), Theorem 8.21.8, 
+   Darboux formula for P_n^{(α,β)}(cos θ)
+3. Oscillatory cancellation: Weyl equidistribution theorem 
+   (Stein & Shakarchi, Fourier Analysis, Ch. 6)
+```
+
+### Domain-Specific Citation Patterns
+
+#### For Jacobi/Legendre Problems
+
+**Primary: NU**
+```
+"By NU Chapter II, §8, the Jacobi polynomials satisfy..."
+"Using NU inequality (19a) for interior estimates..."
+"The Rodrigues formula (NU Chapter II, §7) gives..."
+```
+
+**Secondary: Szegő** (for asymptotics)
+```
+"By Szegő, Orthogonal Polynomials (4th ed., 1975), Theorem 8.21.8,
+the Darboux asymptotic formula for large n is..."
+```
+
+#### For Spherical Harmonics Problems
+
+**Primary: NU** (for Legendre connection)
+```
+"Associated Legendre functions satisfy (NU Chapter II, §8)..."
+"By NU interior estimate inequality (20)..."
+```
+
+**Primary: Varshalovich** (for rotation/Wigner)
+```
+"The Wigner small d-function (Varshalovich et al. 1988, Ch. 5, 
+Eq. 4.3.2) for ℓ=1 is d_{01}^1(β) = -sin(β)/√2"
+"By the rotation matrix properties (Varshalovich Ch. 4)..."
+```
+
+**Tertiary: Standard texts** (for basic definitions)
+```
+"Spherical harmonics are defined as (Jackson, Classical Electrodynamics)..."
+```
+
+#### For Hermite/Laguerre Problems
+
+**Primary: NU**
+```
+"By NU Chapter III, §13 (Hermite polynomials)..."
+"The envelope estimate (NU Eq. 27) for Laguerre polynomials..."
+```
+
+#### For Bessel Functions
+
+**Primary: NU Chapter III** (when available)
+```
+"By NU Chapter III (Bessel functions)..."
+```
+
+**Alternative: Watson** (for specialized results)
+```
+"By Watson, Theory of Bessel Functions (1944), Chapter X..."
+```
+
+### Page Number Guidelines
+
+**When to include page numbers:**
+
+✅ **ALWAYS for:**
+- Auxiliary function constructions (method description spans pages)
+- Theorem proofs (want reader to see proof)
+- Specialized formulas (hard to find without page)
+- Example applications (specific instance)
+
+✅ **OPTIONAL for:**
+- Well-known formulas (easy to find via equation number)
+- Chapter-level citations (if chapter is short)
+
+✅ **NOT NEEDED for:**
+- Entire books/chapters cited generally
+- Standard formulas with equation numbers
+
+**Example with pages:**
+```
+"The Nikiforov-Uvarov auxiliary function method (NU 1988, Chapter II, 
+§7, pp. 85-88) constructs v(x) = [y(x)]² + (σ(x)/λ)[y'(x)]² where..."
+```
+
+**Example without pages:**
+```
+"By the recurrence relation (NU Eq. 13.4)..."
+```
+
+### Citation Verification Checklist
+
+Before finalizing a problem solution, verify:
+
+- [ ] Every asymptotic formula cited with Theorem/Eq number
+- [ ] Every bound cited with inequality number
+- [ ] NU used for special function properties
+- [ ] Varshalovich used for Wigner/rotation (if applicable)
+- [ ] Multiple sources coordinated with explicit technique mapping
+- [ ] Page numbers included for method descriptions
+- [ ] No vague "by standard theory" statements
+- [ ] References match actual content (no hallucinated theorems!)
+
+### Common Citation Errors to Avoid
+
+| Error | Fix |
+|-------|-----|
+| ❌ "Use NU asymptotics" | ✅ "By NU Chapter II, §7, Eq. 19a..." |
+| ❌ "Apply known result" | ✅ "By Szegő Theorem 8.21.8..." |
+| ❌ "From the book" | ✅ "By Varshalovich et al. Ch. 4, Eq. 4.3.2..." |
+| ❌ "Standard formula gives" | ✅ "The recurrence relation (NU Eq. 13.4) gives..." |
+| ❌ "By page 87" (no context) | ✅ "By the auxiliary function method (NU II.7, p. 87)..." |
+| ❌ Citing Szegő for NU content | ✅ Check which book actually contains the result |
+| ❌ Missing year/edition | ✅ "Szegő (4th ed., 1975)" not just "Szegő" |
+
+### Examples of Excellent Citations from Problem Collection
+
+**Example 1: Multiple techniques with full citations**
+```
+Solution: 
+Step 1 - Convert to Jacobi. Associated Legendre P_ℓ^{|m|}(x) can be 
+expressed using Jacobi polynomials (NU Chapter II, §8): 
+P_ℓ^{|m|}(x) = C_{ℓm}(1-x²)^{|m|/2} P_n^{(|m|,|m|)}(x) where n=ℓ-|m|.
+
+Step 2 - Apply Stirling. The normalization constant involves 
+Γ((ℓ+|m|+1))/Γ((ℓ-|m|+1)). By Stirling approximation (e.g., 
+Whittaker & Watson, Modern Analysis, §12.33), this behaves as 
+ℓ^{2|m|} for large ℓ.
+
+Step 3 - Use Szegő asymptotics. By Szegő, Orthogonal Polynomials 
+(4th ed., 1975), Theorem 8.21.8, the Darboux formula gives 
+P_n^{(α,β)}(cos θ) = A(θ)n^{-1/2}cos((n+κ)θ + φ) + O(n^{-3/2})
+uniformly for θ ∈ [ε, π-ε].
+
+Step 4 - Apply Weyl. The oscillatory sum ∑cos((n+κ)θ) averages to 
+zero by Weyl's equidistribution theorem (Stein & Shakarchi, 
+Fourier Analysis, Chapter 6, Theorem 6.1).
+```
+
+**Example 2: Auxiliary function with page number**
+```
+We use the Nikiforov-Uvarov auxiliary function method 
+(NU 1988, Chapter II, §7, pp. 85-88). For Legendre equation 
+(1-x²)y'' - 2xy' + ℓ(ℓ+1)y = 0, construct auxiliary function
+v(x) = [y(x)]² + ((1-x²)/(ℓ(ℓ+1)))[y'(x)]².
+
+Taking derivative: v'(x) = (2x/(ℓ(ℓ+1)))[y'(x)]² which is positive 
+for x ∈ (0,1), proving monotonicity.
+```
+
+**Example 3: Wigner function with equation number**
+```
+For the Wigner small d-function, we need the explicit formula for ℓ=1. 
+By Varshalovich, Moskalev, and Khersonskii, Quantum Theory of Angular 
+Momentum (1988), Chapter 4, Equation 4.3.2:
+
+d_{01}^1(β) = -sin(β)/√2
+
+This is explicitly non-zero for β ≠ 0,π, providing a counterexample 
+to the claim.
+```
+
+### Why This Level of Citation Matters
+
+1. **Prevents hallucination**: Specific eq/theorem numbers prevent inventing results
+2. **Enables verification**: Readers can check details
+3. **Shows mastery**: Deep knowledge of references, not superficial
+4. **Helps learning**: Others know exactly where to look
+5. **Professional standard**: Matches research paper quality
+6. **Problem quality**: Forces creator to actually understand references
+
+### Summary: Citation Requirements
+
+**For every problem solution:**
+
+✅ **Must have:**
+- Full NU citations with Chapter, Section, Equation number
+- Varshalovich citations for Wigner/rotation (when applicable)
+- Multiple sources coordinated when techniques combined
+- No vague "use standard theory" statements
+
+✅ **Should have:**
+- Page numbers for method descriptions
+- Edition specification for multi-edition books (Szegő 4th ed.)
+- Year for all references
+
+✅ **May omit:**
+- Page numbers for well-indexed equations
+- Citations for elementary calculus
+
+**The problems in your collection set the gold standard. This update codifies that standard explicitly.**
+
+---
+
+## Quick Reference: Common Citations
 
 ## Problem Quality Hierarchy
 
@@ -104,6 +401,398 @@ The solution should involve at least one of:
 - Geometric or physical intuition (rotation groups, quantum mechanics)
 - Asymptotic analysis with careful error tracking (multiple scales, boundary layers)
 - Representation changes (Jacobi polynomials, different bases)
+
+### Enhanced Creative Methods List
+
+**The solution should involve at least one of:**
+
+**From existing list:**
+- Novel combination of standard techniques (e.g., Stirling + Szegő + Weyl equidistribution)
+- Unexpected application of a theorem (e.g., Sturm theory for interlacing)
+- Construction of auxiliary objects (energy functions, transforms, test functions)
+- Geometric or physical intuition (rotation groups, quantum mechanics)
+- Asymptotic analysis with careful error tracking (multiple scales, boundary layers)
+- Representation changes (Jacobi polynomials, different bases)
+
+**NEW - Add these creative techniques:**
+
+**Technique 7: Dimension Counting & Linear Algebra Arguments**
+- Using dimension of solution spaces to prove existence/uniqueness without explicit construction
+- Counting: dim(polynomial space) - dim(constraints) = dim(solutions)
+- Showing ansatz has correct dimension to span solutions
+- Particularly powerful for modified weight orthogonality problems
+- **Example**: For modified weight with pole, (n+1) dimensions minus (n-1) effective constraints equals 2D solution space spanned by {P_n, P_{n-1}}
+- **References**: Linear algebra (dimension theorem), approximation theory (Chebyshev systems)
+- **When to use**: Modified weight problems, proving sufficiency without construction, ansatz validation
+
+**Technique 8: Subsequence Construction for Oscillatory Asymptotics**  
+- When oscillatory asymptotics prevent uniform bounds, construct subsequence where oscillatory term aligns
+- Identify phase: f_n(x) ~ A_n cos((n+κ)x + φ)
+- Use density/Weyl: find subsequence {n_k} where phase ≈ 0 mod 2π
+- Show amplitude doesn't decay fast enough on subsequence
+- **Key insight**: L² averaging (Weyl) vs pointwise bounds (subsequence construction) are different!
+- **Example**: Szegő asymptotics gives P_n ~ n^{-1/2}cos(...); with √n factor, can find subsequence where |P_n| ~ const → unbounded
+- **References**: Weyl equidistribution, Hardy & Wright (number theory), Szegő (oscillatory asymptotics)
+- **When to use**: Proving pointwise unboundedness despite L² convergence, oscillatory sum analysis
+
+**Technique 9: North Pole Evaluation Strategy (Spherical Harmonics)**
+- At north pole θ=0: Y_{ℓm}(0,φ) = √[(2ℓ+1)/(4π)] δ_{m,0}
+- Sums over m collapse: ∑_m f(m)Y_{ℓm}(0,0) = f(0)√[(2ℓ+1)/(4π)]
+- Provides immediate test of claimed identities
+- Often reveals counterexamples quickly
+- **Key insight**: Exploits maximal symmetry to reduce dimensionality
+- **Example**: Modified sum ∑(-1)^m Y_{ℓm}Y̅_{ℓm} tested at poles reveals (-1)^ℓ factor for odd ℓ
+- **References**: Standard spherical harmonics texts, Varshalovich (rotation matrices)
+- **When to use**: Addition theorem variants, rotation problems, testing operator actions, finding counterexamples
+
+**Technique 10: Decomposition at Poles for Principal Value Integrals**
+- For integrals with poles: q(x) = q(β) + (x-β)r(x)
+- Note: deg(r) = deg(q) - 1
+- Integral splits: pole contribution + regular part
+- ∫[f(x)q(x)/(x-β)]dx = q(β)∫[f/(x-β)]dx + ∫f(x)r(x)dx
+- First term: principal value or residue
+- Second term: regular (standard orthogonality applies)
+- **Key insight**: Separates singular behavior from smooth behavior
+- **Example**: Modified weight p̃(x) = p(x)/(x-β₁) with |β₁|>1; orthogonality to q reduces to one condition at pole plus automatic orthogonality to r
+- **References**: Complex analysis (residue theory), distribution theory (principal value)
+- **When to use**: Modified weights with rational singularities, Cauchy principal value problems, dimension counting with poles
+
+---
+
+### Technique Selection Guide
+
+**When choosing creative techniques, consider:**
+
+**For bounds/estimates:**
+- NU envelope (Technique from existing: asymptotic analysis)
+- Subsequence construction (NEW Technique 8) if proving unboundedness
+
+**For modified orthogonality:**
+- Dimension counting (NEW Technique 7) for solution space structure
+- Pole decomposition (NEW Technique 10) for singularities outside domain
+
+**For spherical harmonics:**
+- North pole evaluation (NEW Technique 9) for quick tests
+- Wigner functions (from existing: representation changes)
+- Operator domain analysis (from existing: auxiliary objects)
+
+**For growth rates:**
+- Christoffel-Darboux + asymptotics (from existing: combinations)
+- Weyl equidistribution (from existing: novel combinations)
+- Subsequence construction (NEW Technique 8) if pointwise unbounded
+
+**For recurrences:**
+- Coefficient matching (standard)
+- Index boundary analysis (relates to NEW Technique 7)
+- Dimension counting for ansatz validation (NEW Technique 7)
+
+---
+
+### Detailed Technique Descriptions
+
+#### NEW Technique 7: Dimension Counting & Linear Algebra Arguments
+
+**Description**: Using linear algebra to prove existence and uniqueness without explicit construction
+
+**Core Idea**:
+```
+Polynomial space:       dim(𝐏_n) = n+1
+Orthogonality constraints:  n conditions
+But some automatic from structure
+Effective constraints:   n-1 (one absorbed by pole/structure)
+Solution space:         (n+1) - (n-1) = 2 dimensions
+Two-term ansatz:       {P_n, P_{n-1}} has dimension 2
+Conclusion:            Ansatz spans solution space!
+```
+
+**When to use**:
+- Modified weight orthogonality problems
+- Proving sufficiency of conditions
+- Showing ansatz spans solution space
+- Avoiding explicit construction
+
+**Method**:
+1. Count dimensions of relevant polynomial spaces
+2. Count number of orthogonality constraints
+3. Identify automatic constraints (from standard orthogonality)
+4. Compute: dim(solutions) = dim(space) - dim(effective constraints)
+5. Show ansatz has matching dimension
+
+**Example Application**:
+```
+Problem: Modified weight p̃(x) = p(x)/(x-β₁), |β₁|>1
+Claim: (P̃_n, 1)_p̃ = 0 necessary and sufficient for full orthogonality
+
+Solution via dimension counting:
+- Space: deg ≤ n → dimension n+1
+- Constraints: orthogonal to deg < n → need n constraints
+- Decomposition: q = q(β₁) + (x-β₁)r where deg(r) ≤ n-2
+- Orthogonality to r automatic (standard orthogonality, deg(r) < n-1)
+- Only need: orthogonality at pole (q(β₁) term) → 1 constraint
+- Effective constraints: n-1 (not n!)
+- Solution space: (n+1) - (n-1) = 2 dimensions
+- Two-term {P_n, P_{n-1}}: dimension 2
+- Conclusion: Spans solution space → one condition suffices!
+```
+
+**Why creative**: 
+- Avoids explicit computation
+- Uses pure structure (dimension theorem)
+- Proves existence without construction
+- Not standard in special functions texts
+
+**Educational value**: 
+- Teaches linear algebra applies to analysis
+- Dimension arguments powerful
+- Understanding vs. computation
+
+**References**:
+- Linear algebra: dimension theorem, solution space structure
+- Approximation theory: Chebyshev systems, Haar condition
+- Functional analysis: kernel and image dimensions
+
+---
+
+#### NEW Technique 8: Subsequence Construction for Oscillatory Asymptotics
+
+**Description**: Constructing subsequences where oscillatory terms align to prove pointwise unboundedness
+
+**Core Idea**:
+```
+Asymptotic formula:    f_n(x) ~ A_n cos((n+κ)x + φ)
+Phase advances:        (n+κ)x takes all values mod 2π
+By Weyl/density:       can find n_k where phase ≈ 0 mod π
+On subsequence:        |cos(·)| ≥ 1/2 uniformly
+If A_n doesn't decay:  expression unbounded on {n_k}
+```
+
+**Contrast with L² behavior**:
+- **L² (integral)**: Weyl → oscillations average to zero → convergence
+- **Pointwise (sup)**: Subsequence → oscillations align → unbounded
+
+**When to use**:
+- Proving pointwise bounds don't hold
+- Showing sup_{n} expression = ∞
+- Oscillatory asymptotics (Szegő, NU interior)
+- Distinguishing L² from pointwise behavior
+
+**Method**:
+1. Apply asymptotic formula (Szegő Theorem 8.21.8 or NU Chapter II, §7)
+2. Identify oscillatory structure: cos((n+κ)θ + φ) or similar
+3. Note phase advances linearly in n
+4. Construct subsequence {n_k}:
+   - Want: (n_k+κ)θ + φ ≡ 0 mod π
+   - By density: such n_k exist (spaced roughly π/θ apart)
+   - Or use: n_k = floor(mπ/θ - κ - φ/θ) for integer m
+5. On subsequence: |cos(·)| ≥ c > 0 uniformly
+6. Check amplitude: if A_{n_k} doesn't decay fast enough → unbounded
+
+**Example Application**:
+```
+Problem: Is √n |P_n^{(α,β)}(cos θ)/d_n| uniformly bounded for θ∈[ε,π-ε]?
+
+Solution via subsequence construction:
+1. Szegő (Theorem 8.21.8): 
+   P_n(cos θ) = A(θ)n^{-1/2}cos((n+1/2)θ - π/4) + O(n^{-3/2})
+   
+2. With normalization d_n ~ cn^{-1/2}, get:
+   P_n/d_n ~ Cn^{-1/2}cos((n+1/2)θ - π/4) / n^{-1/2}
+          = C cos((n+1/2)θ - π/4)
+   
+3. Factor √n gives:
+   √n |P_n/d_n| ~ C√n |cos((n+1/2)θ - π/4)|
+   
+4. Phase: (n+1/2)θ - π/4 advances by θ each step
+   
+5. Construct subsequence:
+   Want: (n_k+1/2)θ - π/4 ≈ 0 mod π
+   Choose: n_k ≈ (mπ + π/4)/θ - 1/2 for integers m
+   
+6. On subsequence: |cos(·)| ≥ 1/√2
+   
+7. Therefore: √n_k |P_{n_k}/d_n| ≥ C√n_k/√2 → ∞
+   
+Conclusion: NOT uniformly bounded!
+```
+
+**Why creative**:
+- Combines: asymptotics + number theory + harmonic analysis
+- Non-obvious: "n^{-1/2} → 0" suggests convergence, but √n factor changes everything
+- Requires understanding phase behavior (equidistribution)
+
+**Educational value**:
+- L² vs pointwise distinction fundamental
+- Oscillatory behavior non-intuitive
+- Weyl theorem both helps (L²) and hurts (can find bad subsequence)
+- Connection: special functions + number theory
+
+**References**:
+- Szegő, *Orthogonal Polynomials*, Theorem 8.21.8 (Darboux)
+- NU Chapter II, §7 (interior oscillatory formulas)
+- Weyl equidistribution theorem
+- Hardy & Wright, *Theory of Numbers* (equidistribution)
+- Stein & Shakarchi, *Fourier Analysis* (oscillatory integrals)
+
+---
+
+#### NEW Technique 9: North Pole Evaluation Strategy
+
+**Description**: Exploiting maximal symmetry at poles to simplify spherical harmonic expressions
+
+**Core Idea**:
+```
+At north pole θ=0:
+  Y_{ℓm}(0,φ) = √[(2ℓ+1)/(4π)] δ_{m,0}
+  
+For any sum over m:
+  ∑_{m=-ℓ}^{ℓ} f(m) Y_{ℓm}(0,0) = f(0) √[(2ℓ+1)/(4π)]
+  
+Reduces 2D problem (θ,φ) to 0D evaluation!
+```
+
+**When to use**:
+- Testing addition theorem variants
+- Finding counterexamples quickly
+- Proving operator identities
+- Rotation problems
+- Modified sum formulas
+
+**Method**:
+1. Write expression involving ∑_m ... Y_{ℓm}(θ,φ) ...
+2. Evaluate at north pole: θ=0
+3. Use: Y_{ℓm}(0,φ) = √[(2ℓ+1)/(4π)] δ_{m,0}
+4. Sum collapses to single term (m=0)
+5. Compare with claimed formula
+6. If mismatch → claim is FALSE
+
+**Example Application**:
+```
+Problem: Does modified sum S_ℓ = ∑_m (-1)^m Y_{ℓm}(θ₁,φ₁)Ȳ_{ℓm}(θ₂,φ₂)
+         equal (2ℓ+1)/(4π) P_ℓ(-cos ω) for all ℓ≥1?
+
+Solution via north pole:
+1. Test at θ₁=θ₂=0:
+   
+2. Left side: 
+   S_ℓ(0,0,0,0) = ∑_m (-1)^m Y_{ℓm}(0,0) Ȳ_{ℓm}(0,0)
+                = ∑_m (-1)^m |Y_{ℓm}(0,0)|²
+                = (-1)^0 |Y_{ℓ0}(0,0)|²  (only m=0 survives)
+                = (2ℓ+1)/(4π)
+   
+3. Right side with ω=0:
+   (2ℓ+1)/(4π) P_ℓ(-1) = (2ℓ+1)/(4π) (-1)^ℓ
+   
+4. Match requires: 1 = (-1)^ℓ
+   
+5. Fails for odd ℓ!
+
+Conclusion: FALSE for odd ℓ
+```
+
+**Why creative**:
+- Exploits geometry/symmetry maximally
+- Immediate test without computation
+- Reduces dimensionality dramatically
+- Not standard approach in texts
+
+**Educational value**:
+- Learning to identify special points
+- Exploiting symmetry
+- Quick testing strategy
+- Geometric intuition
+
+**References**:
+- Standard spherical harmonics texts
+- Varshalovich (pole evaluations for Wigner functions)
+- Representation theory (highest weight states)
+
+---
+
+#### NEW Technique 10: Pole Decomposition for Principal Value Integrals
+
+**Description**: Decomposing integrand into pole residue plus regular part
+
+**Core Idea**:
+```
+For pole at x=β:
+  q(x) = q(β) + (x-β)r(x)
+where:
+  r(x) = [q(x) - q(β)]/(x-β)
+  deg(r) = deg(q) - 1  (degree drops!)
+  
+Integral splits:
+  ∫[f(x)q(x)/(x-β)]dx = q(β)∫[f/(x-β)]dx + ∫f(x)r(x)dx
+                        ↑ principal value     ↑ regular!
+```
+
+**When to use**:
+- Modified weights with rational singularities
+- Cauchy principal value problems
+- Dimension counting arguments
+- Orthogonality under singular measures
+
+**Method**:
+1. Write: q(x) = q(β) + (x-β)r(x)
+2. Check: deg(r) ≤ deg(q) - 1
+3. Split integral into two parts
+4. First part (q(β) term): principal value calculation
+5. Second part (r term): regular integral, use standard orthogonality
+6. Combine results
+
+**Example Application**:
+```
+Problem: For modified weight p̃(x) = p(x)/(x-β₁) with |β₁|>1,
+         is (P̃_n, 1)_p̃ = 0 sufficient for (P̃_n, q)_p̃ = 0 for all deg(q)<n?
+
+Solution via pole decomposition:
+1. Decompose: q(x) = q(β₁) + (x-β₁)r(x) where deg(r) ≤ n-2
+   
+2. Compute:
+   (P̃_n, q)_p̃ = ∫P̃_n(x)q(x) p(x)/(x-β₁) dx
+              = ∫P̃_n(x)[q(β₁) + (x-β₁)r(x)] p(x)/(x-β₁) dx
+              = q(β₁)∫P̃_n(x)p(x)/(x-β₁) dx + ∫P̃_n(x)r(x)p(x) dx
+              = q(β₁)(P̃_n, 1)_p̃ + (P̃_n, r)_p
+   
+3. First term: zero by assumption (P̃_n, 1)_p̃ = 0
+   
+4. Second term: r has deg ≤ n-2, and P̃_n = P_n + γP_{n-1}
+   - (P_n, r)_p = 0 (standard orthogonality, deg(r) < n)
+   - (P_{n-1}, r)_p = 0 (standard orthogonality, deg(r) ≤ n-2)
+   - Therefore: (P̃_n, r)_p = 0
+   
+5. Result: (P̃_n, q)_p̃ = 0 for all deg(q) < n
+
+Conclusion: Sufficient! (Dimension counting shows this is also necessary)
+```
+
+**Why creative**:
+- Transforms singular → regular
+- Separates contributions clearly  
+- Makes dimension counting transparent
+- Not standard in special functions
+
+**Educational value**:
+- Understanding how singularities affect integrals
+- Connection: complex analysis (residues) + real analysis (principal value)
+- Orthogonality under singular measures
+- Pole contribution vs. smooth contribution
+
+**References**:
+- Complex analysis: residue theory
+- Distribution theory: principal value definition
+- Modified orthogonal polynomials: Szegő, Chapter 2
+- Functional analysis: measures with singularities
+
+---
+
+### Summary of New Techniques
+
+| Technique | When to Use | Key Insight | References |
+|-----------|------------|-------------|------------|
+| 7. Dimension Counting | Modified weights, ansatz validation | Solution space dimension = space - constraints | Linear algebra, approximation theory |
+| 8. Subsequence Construction | Pointwise unboundedness, oscillatory | Can find subsequence where phase aligns | Weyl, Szegő, Hardy & Wright |
+| 9. North Pole Evaluation | Spherical harmonics, testing claims | Maximal symmetry reduces dimension | Varshalovich, representation theory |
+| 10. Pole Decomposition | Singular measures, principal value | Separate singular from regular | Complex analysis, distributions |
 
 ### 3. Trap as Gatekeeper, Not Goal
 The trap should:
@@ -519,6 +1208,252 @@ Basic support, custom templates needed:
 | Mathieu Functions | mathieu | ce_n, se_n, characteristic values |
 | q-Orthogonal | q_orthogonal | q-analogues, classical limit q→1 |
 
+
+## Detailed Spherical Harmonics Domain Guide
+
+Insert this new subsection after the domain tables and before "## 2. The Trap System":
+
+### Detailed Domain: Spherical Harmonics & Angular Momentum Theory
+
+**Why This Is Tier 1:**
+The spherical harmonics domain has proven exceptionally rich for creating reasoning-first problems, with **19 high-quality problems** in current collection demonstrating viability. The domain naturally combines:
+- **Representation theory** (rotation groups, basis changes)
+- **Special functions** (associated Legendre, Ferrers functions)
+- **Operator theory** (differential operators with singularities)
+- **Geometric intuition** (poles, rotation, symmetry)
+
+This multi-faceted structure creates abundant opportunities for problems requiring multiple connected insights.
+
+**Core Mathematical Objects:**
+
+1. **Spherical Harmonics**: Y_{ℓm}(θ,φ) on S²
+   - Normalized: ∫_{S²} |Y_{ℓm}|² dΩ = 1
+   - Orthogonality: (Y_{ℓm}, Y_{ℓ'm'}) = δ_{ℓℓ'}δ_{mm'}
+   - Connection: Y_{ℓm}(θ,φ) = √[(2ℓ+1)/(4π)] √[(ℓ-m)!/(ℓ+m)!] P_ℓ^m(cos θ) e^{imφ}
+
+2. **Associated Legendre Functions**: P_ℓ^m(x) on [-1,1]
+   - Rodrigues formula: P_ℓ^m(x) = ((-1)^m)/(2^ℓ ℓ!) (1-x²)^{m/2} d^{ℓ+m}/dx^{ℓ+m}[(x²-1)^ℓ]
+   - Relation to Jacobi: P_ℓ^{|m|}(x) ~ (1-x²)^{|m|/2} P_{n}^{(|m|,|m|)}(x) where n=ℓ-|m|
+   - Three-term recurrence for fixed m
+
+3. **Wigner D-functions**: D_{mm'}^{ℓ}(α,β,γ) = e^{-imα} d_{mm'}^ℓ(β) e^{-im'γ}
+   - Rotation matrices: d_{mm'}^ℓ(β) for rotation by β about y-axis
+   - At poles: d_{0m}^ℓ(β) ≠ 0 for m≠0 (common misconception!)
+   - Orthogonality: ∫d_{mm'}^ℓ d_{m''m'''}^{ℓ'} sin β dβ = (2/(2ℓ+1)) δ_{ℓℓ'} δ_{mm''} δ_{m'm'''}
+
+4. **Angular Momentum Operators**:
+   - Raising: L₊ Y_{ℓm} = √[(ℓ-m)(ℓ+m+1)] Y_{ℓ,m+1}
+   - Lowering: L₋ Y_{ℓm} = √[(ℓ+m)(ℓ-m+1)] Y_{ℓ,m-1}
+   - Singularities at poles: (1/sin θ) factor in operator representation
+
+5. **Ferrers Functions**: P_ℓ^m(z) for z ∈ ℂ \ ((-∞,-1] ∪ [1,∞))
+   - Analytic continuation of associated Legendre
+   - Branch cuts and argument behavior
+
+**Key Mathematical Phenomena:**
+
+1. **Pole Singularities** (Trap A + Trap I):
+   - Weight sin θ → 0 as θ→0,π
+   - Operators L_± contain 1/sin θ factors
+   - Must distinguish: singularity in representation vs. domain restriction
+   - Example: L₊ Y_{ℓm} well-defined at poles despite 1/sin θ in formula
+
+2. **Rotation Group Structure** (Trap R + Trap C):
+   - Rotating to pole: only Y_{ℓ0} component at θ=0
+   - But d_{0m}^ℓ(β) ≠ 0 for m≠0 → counterintuitive results
+   - Non-commutativity: rotation order matters
+   - Basis changes: quantization axis selection
+
+3. **Addition Theorems**:
+   - Standard: ∑_m Y_{ℓm}(θ₁,φ₁) Ȳ_{ℓm}(θ₂,φ₂) = (2ℓ+1)/(4π) P_ℓ(cos ω)
+   - Modified sums with (-1)^m factors break symmetry
+   - Reproducing kernel: K_N(θ,θ') = ∑_{ℓ=0}^N ∑_m Y_{ℓm}(θ,φ)Ȳ_{ℓm}(θ',φ')
+   - Growth behavior: K_N ~ N (linear) at interior points
+
+4. **Christoffel-Darboux for Fixed m**:
+   - Sum ∑_{ℓ=m}^N Θ_{ℓm}²(x₀) grows linearly: ~ cN
+   - Requires: Jacobi connection + Szegő asymptotics + Weyl equidistribution
+   - Multi-step reasoning connecting several areas
+
+5. **Index Boundaries** (Trap S):
+   - Recurrence coefficients vanish at ℓ=m
+   - Two-term ansatz breaks at boundary indices
+   - System becomes overdetermined
+
+**Primary NU Coverage:**
+- Associated Legendre via Jacobi polynomials (NU Chapter II, §8)
+- Normalization constants with Γ functions
+- Interior asymptotics (NU Chapter II, §7, Eq. 19)
+- Boundary behavior and envelope estimates
+
+**Additional Essential Reference:**
+**Varshalovich, D.A., Moskalev, A.N., and Khersonskii, V.K., *Quantum Theory of Angular Momentum*, World Scientific, 1988.**
+
+This is the **authoritative reference** for rotation matrices, Wigner functions, and angular momentum theory.
+
+**Key sections:**
+- **Chapter 4**: Wigner D-functions D_{mm'}^{ℓ}(α,β,γ)
+- **Chapter 5**: Rotation matrices d_{mm'}^ℓ(β) 
+  - Eq. 4.3.2: Explicit formulas for small ℓ
+  - Tables: Numerical values for common angles
+- **Chapter 8**: Clebsch-Gordan coefficients
+- **Chapter 2**: Spherical harmonics Y_{ℓm} properties
+
+**When to cite Varshalovich:**
+- ✅ Wigner D-function or d-function problems
+- ✅ Rotation matrix evaluations
+- ✅ Angular momentum coupling
+- ✅ Addition theorems with rotations
+- ✅ Clebsch-Gordan coefficients
+
+**Typical Problem Patterns:**
+
+**Pattern SH-1: Operator Singularities at Poles**
+```
+Setup: L₊ operator = e^{iφ}(∂/∂θ + i cot θ ∂/∂φ)
+Question: At θ=0, does lim_{θ→0} [(1/sin θ)(∂Y_{ℓm}/∂θ)]/Y_{ℓ,m+1} equal √[(ℓ-m)(ℓ+m+1)]?
+Trap: I (operator domain) + A (pole singularity)
+Technique: Distinguish 1/sin θ in definition vs. cot θ in operator
+Insight: Source of singularity matters; operator domain vs. representation
+```
+
+**Pattern SH-2: Rotation to Pole**
+```
+Setup: Rotate Y_{ℓm} by angle β about y-axis
+Question: Does F_{ℓm}(β) = lim_{θ→0} Ỹ_{ℓm}(θ,0;β) equal const·P_ℓ(cos β)·δ_{m,0}?
+Trap: R (Wigner non-vanishing) + C (basis change)
+Technique: d_{0m}^ℓ(β) evaluation, counterexample ℓ=1, m=1
+Insight: "Only m'=0 survives" ≠ "only m=0 is non-zero"
+References: Varshalovich Ch. 4, Eq. 4.3.2
+```
+
+**Pattern SH-3: Christoffel-Darboux Growth**
+```
+Setup: Sum K_N^{(m)}(x₀,x₀) = ∑_{ℓ=m}^N Θ_{ℓm}²(x₀)
+Question: Does K_N grow like N²? Like N? Bounded?
+Trap: E (oscillatory) + Q (subsequence)
+Technique: Convert to Jacobi → Stirling → Szegő → Weyl equidistribution
+Insight: Oscillatory asymptotics average to constant via Weyl → linear growth
+References: NU II.7, Szegő Theorem 8.21.8, Weyl theorem
+```
+
+**Pattern SH-4: Addition Theorem Modifications**
+```
+Setup: Modified sum S_ℓ = ∑_m (-1)^m Y_{ℓm}(θ₁,φ₁) Ȳ_{ℓm}(θ₂,φ₂)
+Question: Does S_ℓ = (2ℓ+1)/(4π) P_ℓ(-cos ω)?
+Trap: L (parity) + technique (north pole evaluation)
+Technique: Evaluate at θ₁=θ₂=0 where only m=0 survives
+Insight: (-1)^m factor breaks even for odd ℓ: (-1)^ℓ ≠ 1 generally
+```
+
+**Pattern SH-5: Index Boundary in Recurrences**
+```
+Setup: Three-term recurrence for Θ_{ℓm}, two-term ansatz F_ℓ^m = Θ_{ℓm} - αΘ_{ℓ-2,m}
+Question: Does two-term recurrence exist for all ℓ≥m+3?
+Trap: S (index boundary) + H (recurrence obstruction)
+Technique: Coefficient matching, test at ℓ=m+3 boundary
+Insight: B_{m+1,m} → 0 makes system overdetermined
+```
+
+**Pattern SH-6: North Pole Evaluation Strategy**
+```
+Technique: At θ=0, Y_{ℓm}(0,φ) = √[(2ℓ+1)/(4π)] δ_{m,0}
+Use: Simplifies any sum ∑_m f(m) Y_{ℓm}(0,0) = f(0)√[(2ℓ+1)/(4π)]
+Application: Testing claimed identities, finding counterexamples
+Strategy: Reduces 2D problem to 0D evaluation
+```
+
+**Pattern SH-7: Weighted Moment Integrals**
+```
+Setup: M_{ℓ,k} = ∫_0^π sin^{2k+1}θ ∑_m |Y_{ℓm}(θ,0)|² dθ
+Question: Does M_{ℓ,k} = (2ℓ+1)/(4π) × [simple formula]?
+Trap: F (normalization) + technique (addition theorem)
+Technique: Use addition theorem to collapse sum, evaluate integral
+Insight: Beta functions with half-integers, not simple factorials
+```
+
+**Pattern SH-8: Rodrigues at Boundary**
+```
+Setup: P_ℓ^m(x_ε) where x_ε = 1-ε, normalize by Q_ℓ^m(ε) = ε^{m/2}|P_ℓ^m(x_ε)|
+Question: Is Q_ℓ^m(ε) uniformly bounded for ε∈(0,1/2)?
+Trap: P (Rodrigues boundary) + A (boundary behavior)
+Technique: Rodrigues formula, track (1-x)^{m/2} factor cancellation
+Insight: Weight vanishing balanced by derivative growth
+```
+
+**Why Spherical Harmonics Enable Tier 1 Problems:**
+
+1. **Natural Multi-Area Connections**:
+   - Representation theory (rotations, basis changes)
+   - Special functions (Legendre, Jacobi connections)
+   - Operator theory (L_±, singularities)
+   - Harmonic analysis (addition theorem, Weyl)
+   - Geometry (poles, symmetry)
+
+2. **Rich Trap Combinations**:
+   - A+I: Poles + operators
+   - R+C: Rotation matrices + basis changes
+   - E+Q: Oscillatory + subsequences
+   - S+H: Index boundary + recurrence
+   - P+A: Rodrigues + boundary
+
+3. **Deep Reasoning Required**:
+   - Can't solve by formula lookup
+   - Must understand WHY formulas apply
+   - Multiple insights needed
+   - Connections not obvious
+
+4. **Educational Value**:
+   - Appears in physics (quantum mechanics)
+   - Appears in geophysics (Earth's field)
+   - Appears in numerical analysis (sphere)
+   - Generalizes to other Lie groups
+
+**Spherical Harmonics Workflow:**
+
+**Step 1**: Choose mathematical question:
+- Operator action at singularities?
+- Rotation behavior?
+- Sum growth rates?
+- Addition theorem variants?
+- Recurrence at boundaries?
+
+**Step 2**: Determine techniques needed:
+- From NU: Jacobi connection, asymptotics, bounds
+- From Varshalovich: Wigner functions, rotation matrices
+- From harmonic analysis: Weyl, oscillatory sums
+- From operator theory: domains, functional analysis
+
+**Step 3**: Identify natural traps:
+- Poles (A), operators (I), rotation (R), index boundary (S), etc.
+
+**Step 4**: Cite appropriately:
+- NU for Legendre/Jacobi properties
+- Varshalovich for Wigner/rotation
+- Szegő for asymptotics
+- Standard references for basic definitions
+
+**Spherical Harmonics Success Metrics:**
+
+A spherical harmonics problem is excellent if:
+- ✅ Requires 3+ connected insights
+- ✅ Uses both NU and Varshalovich (or equivalents)
+- ✅ Involves pole/singularity analysis
+- ✅ Tests understanding of rotation/representation theory
+- ✅ Natural trap emergence
+- ✅ Generalizable insights
+
+**Common Pitfalls to Avoid:**
+
+❌ Pure calculation: "Evaluate ∫Y_{32}Y_{31}dΩ"
+❌ Trivial north pole: "Does Y_{ℓm}(0,0) = 0 for m≠0?" (too obvious)
+❌ Just checking values: "Compute d_{01}^1(π/2)"
+✅ Deep question: "Why does operator L₊ remain bounded at poles despite 1/sin θ?"
+✅ Representation theory: "After rotation, does pole evaluation vanish for m≠0?"
+✅ Multi-step: "Prove kernel growth is linear using Jacobi→Szegő→Weyl"
+
+---
+
 ## 2. The Trap System (A-N)
 
 **Important:** Traps are tools to create depth, not goals in themselves. Use them to prevent shortcuts and guide toward genuine insights.
@@ -725,6 +1660,299 @@ Basic support, custom templates needed:
 **Pattern**: "Since f is even/odd, ∫f w dx = 0" (not if w breaks parity)
 
 **Reasoning-first usage**: Tests understanding of measure theory, how symmetry and integration interact—high depth
+
+
+#### Trap O: Dimension Counting & Solution Space Structure
+**Concept**: Solution space dimension arguments force specific ansatz structures
+
+**Mechanism**: 
+- For modified weight ṗ(x) = p(x)/(x-β₁) with |β₁|>1, orthogonality to polynomials of degree <n creates (n-1) conditions
+- Two-term ansatz P̃ₙ = Pₙ + γPₙ₋₁ with standard weight p(x) automatically satisfies orthogonality to degree ≤(n-2)
+- Dimension counting: (n+1) dimensions minus (n-1) constraints equals 2 degrees of freedom
+- Therefore two-term ansatz spans the solution space
+
+**Domain Adaptations**:
+- jacobi: Modified weights (1-x)^α(1+x)^β/(x-β₁)
+- legendre: Cauchy principal value weights
+- laguerre: Rational weight modifications x^α e^{-x}/(x-γ)
+- hermite: Polynomial × Gaussian modifications
+
+**Pattern**: "Condition C is necessary and sufficient for full orthogonality"
+
+**When it emerges**:
+- Modified weight problems with rational modifications
+- Ansatz constructions for orthogonal systems
+- Proving necessity and sufficiency conditions
+- Two-term vs three-term ansatz questions
+
+**Solution technique**:
+1. Decomposition: Write q(x) = q(β₁) + (x-β₁)r(x) where deg(r) ≤ n-2
+2. Show orthogonality to r is automatic from standard orthogonality  
+3. Dimension analysis: (n+1) - (n-1) = 2 dimensional solution space
+4. Conclude two-term ansatz {Pₙ, Pₙ₋₁} spans this space
+
+**Why it's a trap**: Naive approach tries to verify all (n-1) conditions separately. The insight is recognizing that most conditions are automatic and dimension counting proves sufficiency.
+
+**Educational value**: Teaches linear algebra perspective on orthogonal polynomial theory—not just analysis! Shows how dimensional arguments can prove existence without explicit construction.
+
+**Reasoning depth**: ⭐⭐⭐ (requires linear algebra + analysis + understanding of orthogonality structure)
+
+**Related traps**: 
+- Different from Trap B (parameter edge cases): This is about solution space dimension, not boundary values
+- Different from Trap H (index shift): This is about dimension matching, not recurrence boundary
+
+**References**:
+- Linear algebra textbooks (dimension theorem)
+- Approximation theory (Chebyshev systems)
+- Modified orthogonal polynomial theory
+
+**Example problems**:
+- "For modified weight ṗ(x)=p(x)/(x-β₁), prove (P̃ₙ,1)_ṗ=0 is necessary and sufficient for (P̃ₙ,q)_ṗ=0 for all deg(q)<n"
+- "Does two-term ansatz span all polynomials orthogonal to 𝐏_{n-2} under modified weight?"
+
+---
+
+#### Trap P: Rodrigues Formula Boundary Behavior
+**Concept**: Understanding how Rodrigues formulas behave as variables approach boundary values
+
+**Mechanism**:
+- Rodrigues formula: P_ℓ^m(x) = ((-1)^m)/(2^ℓ ℓ!) (1-x²)^{m/2} d^{ℓ+m}/dx^{ℓ+m}[(x²-1)^ℓ]
+- Near boundary x→1: factor (1-x²)^{m/2} → 0 but derivatives may blow up
+- Competing behaviors: weight factor vanishing vs derivative growth
+- Correct normalization by (1-x)^{m/2} reveals whether function stays bounded
+
+**Domain Adaptations**:
+- Associated Legendre: P_ℓ^m(x) near x=±1
+- Hermite: e^{x²/2} d^n/dx^n[e^{-x²}] as |x|→∞
+- Laguerre: e^x x^{-α} d^n/dx^n[x^{n+α}e^{-x}] at x=0 or x→∞
+- Chebyshev: Rodrigues form near x=±1
+
+**Pattern**: "For x_ε = 1-ε, the normalized quantity Q_ℓ^m(ε) = ε^{m/2}|P_ℓ^m(x_ε)| is bounded"
+
+**When it emerges**:
+- Boundary behavior of special functions
+- Normalization questions near singularities
+- Understanding weight factors in representations
+- Boundary conditions for PDEs
+
+**Solution technique**:
+1. Write Rodrigues formula explicitly
+2. Expand (x_ε²-1) = (x_ε-1)(x_ε+1) ≈ -ε(2) near boundary
+3. Count powers: (1-x_ε)^{m/2} = ε^{m/2} cancels leading singularity from derivatives
+4. Track remaining terms carefully
+
+**Why it's a trap**: Naive approach sees (1-x²)^{m/2}→0 and thinks function vanishes at boundary. Must track competing factors in Rodrigues formula—weight vanishes but derivatives grow.
+
+**Educational value**: Understanding Rodrigues representations isn't just about existence—must understand boundary behavior for applications (boundary conditions in PDEs, regularity theory). Teaches how to track competing singularities.
+
+**Reasoning depth**: ⭐⭐⭐ (requires asymptotic analysis + careful tracking of derivative orders + boundary layer analysis)
+
+**Related traps**:
+- Related to Trap A (boundary singularity): But focuses specifically on Rodrigues formula structure
+- Different from Trap M (asymptotic boundary): This is about exact formula behavior, not asymptotic approximation
+
+**References**:
+- Nikiforov-Uvarov (Rodrigues formulas throughout)
+- Szegő, *Orthogonal Polynomials* (Chapter 4, boundary behavior)
+
+**Example problems**:
+- "For P_ℓ^m near x=1, does normalization ε^{m/2}|P_ℓ^m(1-ε)| remain bounded for all ℓ≥1, m≤ℓ?"
+- "At what rate does Hermite polynomial H_n(x) grow as x→∞?"
+
+---
+
+#### Trap Q: Subsequence Construction for Unboundedness
+**Concept**: Constructing subsequences where oscillatory terms align to prove unboundedness
+
+**Mechanism**:
+- Asymptotic formula has oscillatory term: f_n(x) ~ A_n cos((n+κ)θ + φ)
+- Phase (n+κ)θ advances linearly in n
+- Can find subsequence {n_k} where |(n_k+κ)θ + φ - 2πm| < δ for some integer m
+- On this subsequence, |cos(·)| ≥ 1/2 uniformly
+- If amplitude A_n doesn't decay fast enough, expression unbounded on subsequence
+
+**Domain Adaptations**:
+- Jacobi: Szegő-Darboux asymptotics P_n^{(α,β)}(cos θ) = An^{-1/2}cos((n+κ)θ+φ) + O(n^{-3/2})
+- Legendre: Interior oscillatory formula
+- Spherical harmonics: Associated Legendre with large ℓ
+- Bessel: J_ν(νx) with oscillatory behavior
+
+**Pattern**: "The quantity √n |P_n(cos θ)/d_n| is uniformly bounded for θ∈[ε,π-ε]"
+
+**When it emerges**:
+- Proving bounds are NOT uniform
+- Pointwise vs L² distinction
+- Oscillatory asymptotics (Szegő, NU interior formulas)
+- When naive substitution suggests boundedness but oscillations prevent it
+
+**Solution technique**:
+1. Apply asymptotic formula (e.g., Szegő Theorem 8.21.8 or NU Chapter II, §7)
+2. Identify oscillatory structure: cos((n+κ)θ + φ) or sin(...)
+3. Note phase advances linearly: (n+κ)θ takes all values mod 2π as n varies
+4. By density (or Weyl equidistribution): find n_k where (n_k+κ)θ + φ ≡ 0 mod π
+5. On subsequence: |cos(·)| ≥ 1/√2 (or similar bound)
+6. Check if A_n decay compensates: √n · n^{-1/2} = const → UNBOUNDED
+
+**Why it's a trap**: Naive approach sees "n^{-1/2} → 0" and concludes boundedness. Must recognize oscillations don't average out for pointwise bounds—can always find subsequence where oscillations align constructively.
+
+**Educational value**: Teaches crucial distinction between:
+- L² convergence (oscillations average to zero in integral—Weyl applies)
+- Pointwise bounds (oscillations can keep function large on subsequences)
+- Uniform vs. non-uniform asymptotics
+- When equidistribution helps vs. when it creates problems
+
+**Reasoning depth**: ⭐⭐⭐ (requires asymptotics + number theory (phase equidistribution) + harmonic analysis + careful amplitude tracking)
+
+**Related traps**:
+- Different from Trap E (oscillatory cancellation): Trap E is about sums/integrals where oscillations cancel. Trap Q is about pointwise bounds where oscillations don't average
+- Different from Trap M (multiple regimes): Trap M is about formula validity. Trap Q uses valid formula but constructs subsequence within valid regime
+
+**References**:
+- Szegő, *Orthogonal Polynomials* (4th ed., 1975), Theorem 8.21.8 (Darboux asymptotics)
+- Nikiforov-Uvarov, Chapter II, §7 (interior oscillatory formulas)
+- Weyl equidistribution theorem
+- Hardy & Wright, *Introduction to the Theory of Numbers* (equidistribution)
+
+**Example problems**:
+- "For Jacobi P_n^{(α,β)}(cos θ) with θ∈[ε,π-ε], prove or disprove: √n|P_n/d_n| uniformly bounded"
+- "Does sup_{n≥1} √n|Y_{n0}(θ,0)| < ∞ for fixed θ∈(0,π)?"
+
+---
+
+#### Trap R: Wigner d-function / Rotation Matrix Non-Vanishing
+**Concept**: Common misconception about which spherical harmonic components survive under rotation
+
+**Mechanism**:
+- Rotating spherical harmonic: Ỹ_{ℓm}(θ,φ;β) = ∑_{m'=-ℓ}^{ℓ} d_{m'm}^{ℓ}(β) Y_{ℓm'}(θ,φ)
+- At north pole (θ=0): Y_{ℓm'}(0,φ) = √[(2ℓ+1)/(4π)] δ_{m',0}
+- Therefore: Ỹ_{ℓm}(0,0;β) = d_{0m}^{ℓ}(β) √[(2ℓ+1)/(4π)]
+- **KEY INSIGHT**: d_{0m}^{ℓ}(β) ≠ 0 for m≠0 in general!
+- Common error: "Only m'=0 component survives at pole, so result should be δ_{m,0}"
+
+**Domain Adaptations**:
+- Spherical harmonics: Rotation to poles
+- Wigner D-functions: D_{m'm}^{ℓ}(α,β,γ) evaluation
+- Clebsch-Gordan coefficients: Angular momentum coupling
+- Addition theorems with rotation
+
+**Pattern**: "After rotation by β, evaluation at north pole F_{ℓm}(β) = [expression with δ_{m,0}]"
+
+**When it emerges**:
+- Rotation problems for spherical harmonics
+- Wigner D-function evaluations
+- Addition theorems with modified sums ((-1)^m factors)
+- Angular momentum coupling at special geometries
+
+**Common misconception**: "Only m'=0 component survives at pole" is correct, but this doesn't mean "only m=0 is non-zero" in the final result. The sum over m' collapses, but the original m index remains in d_{0m}^{ℓ}(β).
+
+**Solution technique**:
+1. Write rotation formula with Wigner d-functions
+2. Evaluate at north pole: only m'=0 term survives
+3. Result contains d_{0m}^{ℓ}(β)
+4. Counterexample: For ℓ=1, m=1: d_{01}^{1}(β) = -sin(β)/√2 ≠ 0
+5. Formula with δ_{m,0} factor is FALSE
+
+**Why it's a trap**: Notation and indices are confusing. Understanding which index is summed over (m') vs. which remains free (m) is subtle. The claim "only m'=0 survives" is about the summation index, not about which values of m give non-zero results.
+
+**Educational value**: 
+- Understanding rotation group representation theory
+- Careful tracking of indices in sums (summation index vs. free index)
+- Wigner d-functions are non-diagonal matrices
+- Group theory: rotations mix components non-trivially
+
+**Reasoning depth**: ⭐⭐⭐ (requires representation theory + group theory + careful index tracking + understanding of Wigner functions)
+
+**Related traps**:
+- Related to Trap C (basis mismatch): Both involve coordinate/basis changes, but Trap R specifically about rotation matrices
+- Different from Trap I (operator domain): This is about representation theory, not operator singularities
+
+**References**:
+- Varshalovich, Moskalev, Khersonskii, *Quantum Theory of Angular Momentum* (1988)
+  - Chapter 4: Wigner D-functions
+  - Chapter 5: Rotation matrices d_{mm'}^{ℓ}
+  - Equation 4.3.2: Explicit formulas for small ℓ
+- Edmonds, *Angular Momentum in Quantum Mechanics*
+
+**Example problems**:
+- "After y-axis rotation by β, does F_{ℓm}(β) = lim_{θ→0} Ỹ_{ℓm}(θ,0;β) equal √[(2ℓ+1)/(4π)]P_ℓ(cos β)·δ_{m,0}?"
+- "For addition theorem ∑_m (-1)^m Y_{ℓm}(θ₁,φ₁)Ȳ_{ℓm}(θ₂,φ₂), does north pole evaluation give (2ℓ+1)/(4π)·P_ℓ(-cos ω)?"
+
+---
+
+#### Trap S: Index Boundary in Recurrence Relations
+**Concept**: Recurrence relation coefficients vanish or become singular at index boundaries, breaking the recursion
+
+**Mechanism**:
+- Three-term recurrence: x Θ_{ℓm}(x) = A_{ℓm} Θ_{ℓ+1,m}(x) + B_{ℓm} Θ_{ℓ-1,m}(x)
+- Coefficients depend on (ℓ,m): often A_{ℓm} ~ √[(ℓ-m)(ℓ+m)], B_{ℓm} ~ √[(ℓ-m+1)(ℓ+m+1)]
+- At boundary ℓ=m: coefficient B_{m,m} → 0
+- Two-term ansatz F_ℓ^m = Θ_{ℓm} - α_{ℓm} Θ_{ℓ-2,m} requires coefficient matching
+- At ℓ=m+3 boundary, coefficient B_{ℓ-2,m} = B_{m+1,m} approaches zero
+- System becomes overdetermined (3 equations, 2 unknowns) due to vanishing coefficients
+
+**Domain Adaptations**:
+- Associated Legendre: Index ℓ approaching m
+- Spherical harmonics: Y_{ℓm} with ℓ→m
+- General orthogonal polynomials: Recurrence at boundary indices
+- Bessel: J_{ν+n} with ν approaching special values
+
+**Pattern**: "For all ℓ≥m+k, the two-term recurrence xF_ℓ^m = C_{ℓm}F_{ℓ+1}^m + D_{ℓm}F_{ℓ-1}^m exists"
+
+**When it emerges**:
+- Modified recurrence relations with two-term ansatz
+- Index boundary effects in orthogonal systems
+- Trying to eliminate terms in recurrences
+- Coefficient analysis near boundaries
+
+**Solution technique**:
+1. Write two-term ansatz: F_ℓ^m = Θ_{ℓm} - α_{ℓm} Θ_{ℓ-2,m}
+2. Expand xF_ℓ^m using three-term recurrence
+3. Match coefficients to eliminate Θ_{ℓ-2,m} terms
+4. System: A_{ℓm} = C_{ℓm}A_{ℓ+1,m} and B_{ℓm} = D_{ℓm}B_{ℓ-1,m} + C_{ℓm}B_{ℓ+1,m}α_{ℓ+1}
+5. Test at boundary ℓ=m+3 where B_{ℓ-2,m} = B_{m+1,m} → 0
+6. Show system overdetermined: more constraints than unknowns
+
+**Why it's a trap**: The claim "for all ℓ≥m+k" suggests uniformity. The boundary case ℓ=m+k is special because lower-index coefficients vanish. The recurrence structure changes fundamentally at the boundary, not just quantitatively.
+
+**Educational value**:
+- Understanding recurrence relations have validity domains
+- Index boundaries create structural changes, not just special values
+- Coefficient analysis reveals when systems become singular
+- Distinguishing uniform validity from almost-everywhere validity
+
+**Reasoning depth**: ⭐⭐⭐ (requires recurrence relation theory + linear algebra (overdetermined systems) + boundary analysis + coefficient structure understanding)
+
+**Related traps**:
+- Different from Trap B (parameter edge cases): Trap B is about parameter values (ν=0) where formula undefined. Trap S is about index boundaries (ℓ→m) where recurrence structure breaks
+- Different from Trap H (index shift obstruction): Trap H is about n-k term undefined at n=k. Trap S is about coefficient vanishing creating overdetermined system
+- Related to Trap A (boundary): But specifically about recurrence coefficient structure
+
+**References**:
+- Recurrence relation theory for orthogonal polynomials
+- Nikiforov-Uvarov (recurrence relations throughout)
+- Gautschi, *Orthogonal Polynomials: Computation and Approximation*
+
+**Example problems**:
+- "For Θ_{ℓm} with three-term recurrence, define F_ℓ^m = Θ_{ℓm} - α_{ℓm}Θ_{ℓ-2,m}. Does two-term recurrence xF_ℓ^m = CF_{ℓ+1}^m + DF_{ℓ-1}^m exist for all ℓ≥m+3?"
+- "At what minimum index ℓ can two-term recurrence for F_ℓ^m be established for associated Legendre functions?"
+
+---
+
+## Updated Overview Table
+
+Add these rows to the trap overview table:
+
+| Code | Name | What It Exploits | Best Domains | Reasoning Depth |
+|------|------|------------------|--------------|-----------------|
+| O | Dimension Counting | Solution space structure | jacobi, legendre, laguerre, hermite | ⭐⭐⭐ (requires linear algebra + analysis) |
+| P | Rodrigues Boundary | Competing factors at boundaries | Associated Legendre, hermite, laguerre | ⭐⭐⭐ (requires asymptotic analysis + tracking) |
+| Q | Subsequence Construction | Oscillatory alignment | jacobi, spherical_harmonics, bessel | ⭐⭐⭐ (requires asymptotics + number theory) |
+| R | Wigner Non-Vanishing | Rotation matrix structure | spherical_harmonics, wigner | ⭐⭐⭐ (requires representation theory) |
+| S | Index Boundary | Recurrence coefficient vanishing | Associated Legendre, spherical_harmonics | ⭐⭐⭐ (requires recurrence theory + linear algebra) |
+
+---
+
+## Total Trap Count: Now 19 (A-S)
 
 ## 3. Trap Combination Strategies
 
@@ -1035,5 +2263,17 @@ A problem is **excellent** (Tier 1) if:
 **Primary Reference**: Nikiforov & Uvarov, *Special Functions of Mathematical Physics* (1988)  
 **Domains Supported**: 9 (Tier 1: 6, Tier 2: 3)  
 **Total Traps**: 14 (A-N)  
+**Problem Quality Tiers**: 3 (Focus on Tier 1)  
+**Philosophy**: Reasoning first, traps as tools for depth, NU methods as foundation, uniqueness mandatory
+
+---
+
+**Document Version**: 3.2 - Empirical Enhancements Edition  
+**Last Updated**: 2026-01-26  
+**Primary Reference**: Nikiforov & Uvarov, *Special Functions of Mathematical Physics* (1988)  
+**Secondary Reference**: Varshalovich et al., *Quantum Theory of Angular Momentum* (1988)  
+**Domains Supported**: 9 (Tier 1: 6, Tier 2: 3)  
+**Total Traps**: 19 (A-S) - **New in v3.2: O, P, Q, R, S**  
+**Total Creative Techniques**: 10 - **New in v3.2: 7, 8, 9, 10**  
 **Problem Quality Tiers**: 3 (Focus on Tier 1)  
 **Philosophy**: Reasoning first, traps as tools for depth, NU methods as foundation, uniqueness mandatory
