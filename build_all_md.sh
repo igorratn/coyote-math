@@ -11,7 +11,6 @@ skip_list=(
   "clusters.md"
   "solver.md"
   "mk_cl.md"
-  "sh_cluster.md"
   "stumble_guide.md"
 )
 
