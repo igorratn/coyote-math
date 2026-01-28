@@ -50,32 +50,6 @@ Approach:
 Process:
 Read the guides first, then confirm you understand the approach.
 ```
-
-**For Spherical Harmonics:**
-```
-I'm creating reasoning-first problems for Spherical Harmonics based on 
-Nikiforov & Uvarov (1988) Chapter II.
-
-Reference documents uploaded:
-1. stumble_guide_pruned.md - General framework
-2. spherical_harmonics_guide_pruned.md - SH-specific reference
-3. spherical_harmonics_cluster.md - Current 19 problems
-
-Current Status:
-- 19 existing problems across 12 methodology clusters
-- Goal: Create NEW problems that differ in 2-3 dimensions (mathematical object, 
-  domain/region, core insight, technique combination)
-
-Approach:
-- Reasoning-first: Require genuine mathematical insight, not just calculation
-- Natural traps: Emerge from mathematics, prevent shortcuts
-- Proper structure: Problem statement with NO citations, solution with FULL citations
-- No duplicates: Check uniqueness against cluster before creating
-
-Process:
-Read the guides first, then confirm you understand the approach.
-```
-
 ---
 
 ### **Step 2: Start New Claude Conversation**
