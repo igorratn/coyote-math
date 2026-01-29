@@ -1,260 +1,222 @@
-# Domain Guides Index
+# How prompt.md and the New Instructions Work Together
 
-Detailed mathematical guides for each supported domain, including core objects, key phenomena, problem patterns, and citation guidelines.
+## **Quick Answer**
 
----
+**prompt.md is REPLACED by the new instructions.**
 
-## Tier 1: Fully Supported Domains (⭐⭐⭐)
-
-### [Spherical Harmonics](spherical_harmonics_guide.md)
-**Status:** ✅ Complete (19 problems)
-
-**Coverage:**
-- Spherical harmonics Y_ℓm(θ,φ) on S²
-- Associated Legendre functions P_ℓ^m(x)
-- Wigner D-functions and rotation matrices
-- Angular momentum operators (L₊, L₋)
-- Ferrers functions (analytic continuation)
-
-**Key Phenomena:**
-- Pole singularities (θ → 0, π)
-- Rotation group structure
-- Addition theorems
-- Christoffel-Darboux kernels
-- Index boundaries
-
-**References:**
-- Primary: Nikiforov-Uvarov, Chapter II, §8
-- Secondary: Varshalovich et al., *Quantum Theory of Angular Momentum* (1988)
-- Tertiary: Szegő for asymptotics
-
-**Problem Patterns:** 8 documented patterns with examples
+The new `how_to_use_conversation_starter.md` is an **improved, updated version** that supersedes `prompt.md`.
 
 ---
 
-### [Bessel Functions](bessel_functions_guide.md)
-**Status:** ✅ Complete (3 problems)
+## **What Changed**
 
-**Coverage:**
-- Standard Bessel functions (J_ν, Y_ν)
-- Modified Bessel functions (I_ν, K_ν)
-- Hankel functions (H_ν^(1), H_ν^(2))
-- Spherical Bessel functions (j_n, y_n)
-- Lommel functions (s_μ,ν)
-
-**Key Phenomena:**
-- Origin singularity (regular singular point)
-- Oscillatory behavior and zeros
-- Asymptotic regime boundaries
-- Order-dependent behavior
-- Wronskian analysis
-- Inhomogeneous equations
-
-**References:**
-- Primary: Nikiforov-Uvarov, Chapter III, §14-17
-- Secondary: Watson, *Theory of Bessel Functions* (1944)
-- Tertiary: NIST DLMF (https://dlmf.nist.gov/10)
-
-**Problem Patterns:** 8 patterns (3 proven, 5 suggested)
+| Feature | Old (prompt.md) | New (how_to_use_conversation_starter.md) |
+|---------|-----------------|------------------------------------------|
+| **Guide files** | Old unpruned guides (2869 lines) | New pruned guides (891 lines) |
+| **Cluster files** | Old 3-problem cluster | New 5-problem cluster (Bessel) |
+| **Prompt length** | Long, detailed | Concise, actionable |
+| **Domain support** | Bessel only | Bessel + Spherical Harmonics |
+| **Instructions** | Basic | Complete step-by-step |
+| **Examples** | Minimal | Full session flow |
 
 ---
 
-### Hermite Polynomials
-**Status:** 🚧 In Development
+## **HOW TO USE THIS SYSTEM**
 
-**Planned Coverage:**
-- Hermite polynomials H_n(x)
-- Gaussian weight e^(-x²)
-- Quantum harmonic oscillator
-- Recurrence relations
-- Rodrigues formula
+### **Step 1: Copy This Prompt**
 
-**References:**
-- Primary: Nikiforov-Uvarov, Chapter III, §13
-- Secondary: Szegő, Chapter V
+**For Bessel Functions:**
+```
+I'm creating reasoning-first problems for Bessel Functions based on 
+Nikiforov & Uvarov (1988) Chapter III.
+
+Reference documents uploaded:
+1. stumble_guide_pruned.md - General framework
+2. bessel_functions_guide_pruned.md - Bessel-specific reference
+3. bessel_functions_cluster_updated.md - Current 5 problems
+
+Current Status:
+- 5 existing problems covering: Lommel equation, Modified Bessel basis, 
+  Mehler-Heine limit, Sturm-Liouville orthogonality, Phase synchronization
+- Goal: Create NEW problems that differ in 2-3 dimensions (mathematical object, 
+  domain/region, core insight, technique combination)
+
+Approach:
+- Reasoning-first: Require genuine mathematical insight, not just calculation
+- Natural traps: Emerge from mathematics, prevent shortcuts
+- Proper structure: Problem statement with NO citations, solution with FULL citations
+- No duplicates: Check uniqueness against cluster before creating
+
+Process:
+Read the guides first, then confirm you understand the approach.
+```
+---
+
+### **Step 2: Start New Claude Conversation**
+
+1. Open new chat with Claude
+2. **Paste the prompt** (from Step 1)
+3. **Attach the 3 files** (drag and drop into message)
+4. **Send**
+
+**Files to attach (Bessel):**
+- `stumble_guide_pruned.md`
+- `bessel_functions_guide_pruned.md`
+- `bessel_functions_cluster_updated.md`
+
+
+### **Step 3: Wait for Claude's Confirmation**
+
+Claude should respond:
+```
+I've read all three guides. I understand:
+
+[For Bessel:]
+1. The 5 existing problems cover different methodologies
+2. Gaps: §16 (integrals), §18 (addition theorems), §19 (WKB)
+3. Must check uniqueness in 4 dimensions before creating
+4. Problem statement: NO citations; Solution: FULL citations
+
+Ready to create new problems. What would you like to work on?
+```
 
 ---
 
-### Laguerre Polynomials
-**Status:** 🚧 In Development
+### **Step 4: Start Working**
 
-**Planned Coverage:**
-- Laguerre polynomials L_n(x), L_n^(α)(x)
-- Exponential weight x^α e^(-x)
-- Semi-infinite domain [0,∞)
-- Hydrogen atom radial functions
-- Connection to confluent hypergeometric
+**Option A - Explore gaps:**
+```
+Looking at the cluster, we haven't covered NU §18 (addition theorems). 
+What problems could we create there?
+```
 
-**References:**
-- Primary: Nikiforov-Uvarov, Chapter III, §12
-- Secondary: Szegő, Chapter V
+**Option B - Review specific idea:**
+```
+I'm thinking about Hankel function asymptotics. Would this duplicate 
+existing problems?
+```
 
----
-
-### Chebyshev Polynomials
-**Status:** 🚧 In Development
-
-**Planned Coverage:**
-- First kind T_n(x) = cos(n arccos x)
-- Second kind U_n(x)
-- Endpoint singularities at ±1
-- Trigonometric representation
-- Approximation theory
-
-**References:**
-- Primary: Nikiforov-Uvarov, Chapter II, §9
-- Secondary: Szegő, Chapter IV
+**Option C - Brainstorm:**
+```
+What gaps do you see in the current cluster?
+```
 
 ---
 
-### Jacobi Polynomials
-**Status:** 🚧 In Development
+## **Complete Example Session**
 
-**Planned Coverage:**
-- Jacobi polynomials P_n^(α,β)(x)
-- Weight (1-x)^α(1+x)^β
-- Most general classical polynomial
-- Envelope estimates
-- Connection formulas
+### **You:**
+[Paste Bessel prompt + attach 3 files]
 
-**References:**
-- Primary: Nikiforov-Uvarov, Chapter II, §8
-- Secondary: Szegő, Chapter IV
+### **Claude:**
+```
+I've read all three guides. I understand:
 
----
+1. The 5 existing problems:
+   - Lommel equation (inhomogeneous, growth comparison)
+   - Modified Bessel (Frobenius, Wronskian)
+   - Mehler-Heine (Legendre→Bessel limit)
+   - Sturm-Liouville (singular endpoint orthogonality)
+   - Phase synchronization (Wronskian divergence near zeros)
 
-## Tier 2: Partially Supported Domains (⭐⭐)
+2. NU Chapter III coverage gaps:
+   - §16: Sommerfeld integral representations
+   - §18: Addition theorems (Graf, Gegenbauer)
+   - §19: Large order asymptotics (Langer)
 
-### Hypergeometric Functions
-**Status:** 🔶 Basic Support
+3. Uniqueness requirements:
+   - Must differ in 2-3 dimensions
+   - Check against existing before finalizing
 
-**Coverage:**
-- ₂F₁(a,b;c;z)
-- Connection formulas
-- Singularities at 0, 1, ∞
-- Monodromy
+Ready to work on new problems. What interests you?
+```
 
-**References:**
-- Nikiforov-Uvarov throughout
-- Abramowitz & Stegun, Chapter 15
+### **You:**
+```
+Let's create a problem about Graf's addition theorem.
+```
 
----
+### **Claude:**
+```
+Good choice! Checking cluster... None of the 5 problems use addition 
+theorems, so this is NEW territory.
 
-### Wigner Functions
-**Status:** 🔶 Basic Support
+Graf's theorem: J_ν(r) = J_ν(a)J_0(b) + 2∑[k=1 to ∞]J_ν+k(a)J_k(b)cos(kφ)
 
-**Coverage:**
-- 3j, 6j, 9j symbols
-- Clebsch-Gordan coefficients
-- Racah polynomials
+For reasoning-first, we could:
+1. Test convergence in different parameter regimes
+2. Examine coordinate transformation behavior
+3. Look at truncation error growth
 
-**References:**
-- Varshalovich et al. (primary)
-- Nikiforov-Uvarov-Suslov, *Classical Orthogonal Polynomials of a Discrete Variable*
+Which direction?
+```
 
----
-
-### Elliptic Integrals
-**Status:** 🔶 Basic Support
-
-**Coverage:**
-- Complete elliptic integrals K, E, Π
-- Modulus parameter
-- Complementary forms
-
-**References:**
-- Abramowitz & Stegun, Chapter 17
-- NIST DLMF (https://dlmf.nist.gov/19)
+### **You continue iterating...**
 
 ---
 
-## Domain Guide Template
+## **Decision Tree: Which System to Use?**
 
-Each domain guide follows this structure:
-
-### 1. Why This Is Tier 1
-- Mathematical richness
-- Connection to multiple areas
-- Natural trap opportunities
-
-### 2. Core Mathematical Objects
-- Definitions with formulas
-- Differential equations
-- Normalization
-- Key identities
-
-### 3. Key Mathematical Phenomena
-- With trap associations
-- Examples of each
-- Why they're important
-
-### 4. Primary NU Coverage
-- Chapter and section references
-- Key equations and theorems
-- Page numbers
-
-### 5. Additional Essential References
-- Domain-specific books
-- When to use each reference
-- Citation examples
-
-### 6. Problem Patterns
-- Proven patterns (from existing problems)
-- Suggested patterns (for expansion)
-- Structure, insight, technique for each
-
-### 7. Trap Examples
-- Domain-specific illustrations
-- "Why it fails" explanations
-- Connection to general trap catalog
-
-### 8. Citation Examples
-- Formatted examples for common scenarios
-- Multiple source coordination
-- Level-appropriate citations
+```
+START: Do you want to create special function problems?
+  │
+  ├─→ YES, with OLD guides (unpruned, 2869 lines)
+  │     └─→ DON'T - guides are outdated
+  │
+  └─→ YES, with NEW guides (pruned, 891 lines)
+        └─→ Follow steps 1-4 above ✅
+```
 
 ---
 
-## How to Use These Guides
+## **Files You Need**
 
-### For Problem Creation
-1. Read core philosophy in main [`stumble_guide.md`](../stumble_guide.md)
-2. Choose domain and read its guide
-3. Identify interesting mathematical question
-4. Use problem patterns as templates
-5. Apply citation standards
+**From `/mnt/user-data/outputs/`:**
+- ✅ `stumble_guide_pruned.md` (645 lines)
+- ✅ `bessel_functions_guide_pruned.md` (92 lines) OR `spherical_harmonics_guide_pruned.md` (154 lines)
+- ✅ `bessel_functions_cluster_updated.md` (5 problems) OR `spherical_harmonics_cluster.md` (19 problems)
 
-### For Problem Analysis
-1. Identify domain of existing problem
-2. Read corresponding guide
-3. Match to problem patterns
-4. Verify citations against guide
-5. Document in problem cluster
-
-### For Adding New Domains
-1. Study existing guides (especially Spherical Harmonics and Bessel)
-2. Follow template structure
-3. Document 5-10 core phenomena with traps
-4. Create 3-5 seed problems
-5. Submit for review
+**DON'T use these (outdated):**
+- ❌ `stumble_guide.md` (2326 lines - replaced)
+- ❌ `bessel_functions_guide.md` (299 lines - replaced)
+- ❌ `bessel_functions_cluster.md` (3 problems - replaced)
 
 ---
 
-## Status Summary
+## **Summary: Quick Start**
 
-| Domain | Status | Problems | Guide Completion | Next Steps |
-|--------|--------|----------|------------------|------------|
-| Spherical Harmonics | ✅ Complete | 19 | 100% | Maintain, add advanced patterns |
-| Bessel Functions | ✅ Complete | 3 | 100% | Create 5-10 new problems |
-| Hermite | 🚧 In Progress | TBD | 0% | Create guide, seed problems |
-| Laguerre | 🚧 In Progress | TBD | 0% | Create guide, seed problems |
-| Chebyshev | 🚧 In Progress | TBD | 0% | Create guide, seed problems |
-| Jacobi | 🚧 In Progress | TBD | 0% | Create guide, seed problems |
-| Hypergeometric | 🔶 Basic | TBD | 20% | Expand coverage |
-| Wigner | 🔶 Basic | TBD | 20% | Expand coverage |
-| Elliptic | 🔶 Basic | TBD | 20% | Expand coverage |
+1. ✅ **Copy prompt** (Bessel or SH from Step 1)
+2. ✅ **Open new Claude chat**
+3. ✅ **Paste prompt + attach 3 pruned files**
+4. ✅ **Send**
+5. ✅ **Start working with Claude**
+
+**That's it!**
 
 ---
 
-**Last Updated:** 2026-01-27  
-**Maintained by:** Problem Generation Team
+## **Why Use the New System?**
+
+1. **Much shorter** - 69% reduction (891 vs 2869 lines)
+2. **No redundancy** - Guides don't overlap
+3. **Updated** - 5 Bessel problems (not 3), 19 SH problems
+4. **Better organized** - Clear structure, no duplication
+5. **Complete instructions** - Step-by-step with examples
+6. **Multi-domain** - Works for Bessel, SH, or future domains
+
+---
+
+## **Migration from Old System**
+
+If you were using the old unpruned guides:
+
+**Replace these files:**
+- `stumble_guide.md` → `stumble_guide_pruned.md`
+- `bessel_functions_guide.md` → `bessel_functions_guide_pruned.md`
+- `bessel_functions_cluster.md` → `bessel_functions_cluster_updated.md`
+
+**Then use the prompt from Step 1 above.**
+
+---
+
+**The new system is a complete replacement. Just follow Steps 1-4 and start creating problems!**
