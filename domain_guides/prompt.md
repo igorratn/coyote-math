@@ -64,12 +64,6 @@ Read the guides first, then confirm you understand the approach.
 - `bessel_functions_guide_pruned.md`
 - `bessel_functions_cluster_updated.md`
 
-**Files to attach (Spherical Harmonics):**
-- `stumble_guide_pruned.md`
-- `spherical_harmonics_guide_pruned.md`
-- `spherical_harmonics_cluster.md`
-
----
 
 ### **Step 3: Wait for Claude's Confirmation**
 

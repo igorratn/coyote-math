@@ -6,7 +6,7 @@ Detailed proof analysis and clustering: [Google Doc](https://docs.google.com/doc
 ## Recent Activity
 The 5 most recently updated mathematical tasks in the repository:
 
-Mathematical task 6e8de21e ... [[6e8de21e.md]](https://github.com/igorratn/coyote-math/blob/main/6e8de21e.md)
+Fix a noninteger order $\nu$ with $\Re\nu > 0$. Let $u(z)$ be a solution of Bessel’s equation: $$z^{2}u'' + zu' + (z^{2}-\nu^{2})u = 0$$ Assume $u$ is analytic in the cut plane $D = \mathbb{C} \setminus (-\infty, 0]$. Assume also that there exists a  ... [[6e8de21e.md]](https://github.com/igorratn/coyote-math/blob/main/6e8de21e.md)
 
 For complex $z \in \mathbb{C} \setminus \{0\}$ and $n \in \mathbb{N}$, consider the Bessel function of the first kind $J_n(nz)$ defined by the integral: $$J_n(nz) = \frac{1}{2\pi i} \int_{|t|=1} e^{\frac{nz}{2}(t - 1/t)} t^{-n-1} dt$$ where the conto ... [[89e30655.md]](https://github.com/igorratn/coyote-math/blob/main/89e30655.md)
 
