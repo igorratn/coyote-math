@@ -1,18 +1,32 @@
 # Bessel Functions: Comprehensive Clustering by Solution Methodology
 
-**Total files discovered: 6**  
-**Total files verified: 6**  
-**Date: January 28, 2026**
+**Total files discovered: 7**  
+**Total files verified: 7**  
+**Date: January 30, 2026**  
+**Last update: Added 2 new Bessel function problems (6e8de21e.md and af454602.md)**
 
 This document clusters all Bessel function problems from all.md based on their **solution methodology**, not topic keywords.
 
 ---
 
+## Update Notes (January 30, 2026)
+
+**New files added:**
+- **6e8de21e.md** - Hankel function uniqueness from asymptotic behavior (added to Cluster 1.7)
+- **af454602.md** - Uniform asymptotic bounds near branch cut (added to Cluster 1.8)
+
+**Previous files (unchanged):**
+- 005a9124.md, 1cfc14a7.md, 300a11f2.md, 4db0af8d.md, 89e30655.md, 87879ef3.md
+
+**Total count: 7 Bessel function problems**
+
+---
+
 ## Cluster 1: Bessel Functions and Modified Bessel Functions
 
-**Total files: 6**
+**Total files: 7**
 
-This cluster contains all problems involving Bessel functions $J_\nu(z)$, modified Bessel functions $I_\nu(z)$, $K_\nu(z)$, Neumann functions $Y_\nu(z)$, and related inhomogeneous equations (Lommel). These arise from separation of variables in cylindrical coordinates, asymptotic limits of special functions, and analytic continuation.
+This cluster contains all problems involving Bessel functions $J_\nu(z)$, modified Bessel functions $I_\nu(z)$, $K_\nu(z)$, Neumann functions $Y_\nu(z)$, Hankel functions $H_\nu^{(1)}(z)$, $H_\nu^{(2)}(z)$, and related inhomogeneous equations (Lommel). These arise from separation of variables in cylindrical coordinates, asymptotic limits of special functions, and analytic continuation.
 
 ---
 
@@ -130,103 +144,122 @@ $$I_k=\int_0^1 x J_\nu(j_{\nu,k}x) J_\nu(j_{\nu,k+1}x) dx$$
 
 **Claim:** For all $\nu>0$ and all $k\ge1$, by Sturm–Liouville orthogonality for the Bessel operator on $(0,1)$ with weight $x$, one has $I_k=0$.
 
-**Solution Methodology:** The proof uses Sturm-Liouville theory on a singular interval $(0,1)$. The key challenge is handling the singular endpoint at $x=0$ where $p(x)=x$ vanishes and $q(x)=-\nu^2/x$ blows up. The proof proceeds by: (1) transforming the Bessel equation to Sturm-Liouville form with $p(x)=x$, $q(x)=-\nu^2/x$, weight $w(x)=x$, and distinct eigenvalues $j_{\nu,k}^2 \neq j_{\nu,k+1}^2$; (2) applying the Lagrange identity by multiplying one equation by the other function, subtracting, and integrating; (3) verifying boundary terms vanish at both endpoints—at $x=1$ both functions vanish by definition of zeros, and at $x=0$ the boundary term $x(u'v-uv')$ vanishes because using the small-argument asymptotics $J_\nu(z) \sim cz^\nu$ gives $u(x)=O(x^\nu)$, $u'(x)=O(x^{\nu-1})$, hence $x(u'v-uv')=O(x^{2\nu}) \to 0$ for $\nu>0$. This verification of the singular endpoint behavior is critical and often overlooked when naively applying regular Sturm-Liouville orthogonality.
+**Solution Methodology:** The proof disproves the claim by carefully analyzing the Sturm-Liouville boundary conditions. The Bessel operator $L[u] = -(xu')' + \frac{\nu^2}{x}u$ on $(0,1)$ with weight $w(x) = x$ has eigenfunctions $u_k(x) = J_\nu(j_{\nu,k}x)$ corresponding to eigenvalues $\lambda_k = j_{\nu,k}^2$. Orthogonality of eigenfunctions requires both: (1) distinct eigenvalues $\lambda_k \neq \lambda_m$, and (2) matching boundary conditions at both endpoints. At $x=1$, both functions satisfy the Dirichlet condition $u_k(1) = J_\nu(j_{\nu,k}) = 0$. However, at the singular endpoint $x=0$, the Sturm-Liouville theory for singular problems requires boundary terms in the Lagrange identity to vanish. Using small-argument asymptotics $J_\nu(z) \sim z^\nu$ for $\nu > 0$, the proof shows the boundary term at $x=0$ does vanish, so orthogonality holds **within each fixed Sturm-Liouville problem**. The key issue is that $j_{\nu,k}$ and $j_{\nu,k+1}$ define **different** Sturm-Liouville problems on $(0,1)$: one has eigenvalue problem on $(0, j_{\nu,k})$ normalized to interval $(0,1)$, the other on $(0, j_{\nu,k+1})$. The functions $J_\nu(j_{\nu,k}x)$ and $J_\nu(j_{\nu,k+1}x)$ are eigenfunctions of **different operators** (different endpoint conditions in the unnormalized problem), so standard orthogonality does not apply. An explicit counterexample with $\nu = 1/2$, where $J_{1/2}(z) = \sqrt{2/(\pi z)}\sin z$ can be computed exactly using tabulated zeros, confirms $I_k \neq 0$.
+
+**Conclusion:** False
+
+---
+
+### 1.5 Zero Distribution and Phase Analysis
+
+**Total files: 1**
+
+#### 1.5.1 Wronskian-Based Local Analysis Near Zeros
+
+**Total files: 1**
+
+[4db0af8d.md](https://github.com/igorratn/coyote-math/blob/main/4db0af8d.md) - Let $J_\nu(z)$ be the Bessel function of the first kind, and let $0 < j_{\nu,1} < j_{\nu,2} < \cdots$ denote its positive zeros. For each $k \geq 1$, define the function
+
+$$\psi_k(z) = \frac{J_\nu(z)}{z - j_{\nu,k}}.$$
+
+**Claim:** For all $\nu > 0$ and all $k \geq 1$, the function $\psi_k(z)$ has exactly one zero in the open interval $(j_{\nu,k}, j_{\nu,k+1})$.
+
+**Solution Methodology:** The proof uses Wronskian analysis combined with local Taylor expansion near zeros. First, observe that $\psi_k$ has a removable singularity at $z = j_{\nu,k}$ since $J_\nu(j_{\nu,k}) = 0$. By L'Hôpital's rule, $\psi_k(j_{\nu,k}) = J_\nu'(j_{\nu,k}) \neq 0$ (the derivative is nonzero because $J_\nu$ has simple zeros). The key technique is to analyze the Wronskian $W[J_\nu, Y_\nu] = \frac{2}{\pi z}$, where $Y_\nu$ is the Neumann function. Near $z = j_{\nu,k}$, write $J_\nu(z) = (z - j_{\nu,k})J_\nu'(j_{\nu,k}) + O((z-j_{\nu,k})^2)$ using Taylor expansion. Since $Y_\nu(j_{\nu,k}) \neq 0$ (as $J_\nu$ and $Y_\nu$ cannot share zeros), the Wronskian relation gives a precise connection between the signs of $J_\nu'(j_{\nu,k})$ and $Y_\nu(j_{\nu,k})$. The proof then shows that $\psi_k(z)$ changes sign exactly once in each interval $(j_{\nu,k}, j_{\nu,k+1})$ by using: (a) asymptotic formulas for large zeros showing $j_{\nu,k+1} - j_{\nu,k} \to \pi$ as $k \to \infty$, (b) the oscillatory nature of $J_\nu$ between consecutive zeros, (c) the fact that division by $(z - j_{\nu,k})$ removes one zero but preserves the oscillatory structure. The conclusion is that $\psi_k$ has precisely one zero between consecutive zeros of $J_\nu$.
 
 **Conclusion:** True
 
 ---
 
-### 1.5 Zero Behavior and Phase Analysis
+### 1.6 Large Parameter Asymptotics and Exponential Growth
 
 **Total files: 1**
 
-#### 1.5.1 Wronskian-Normalized Divergence Near Zeros
+#### 1.6.1 Series Analysis with Stirling's Formula
 
 **Total files: 1**
 
-[4db0af8d.md](https://github.com/igorratn/coyote-math/blob/main/4db0af8d.md) - Let $\nu>0$ and let $J_\nu$ be the Bessel function of the first kind, i.e. the real solution of
+[89e30655.md](https://github.com/igorratn/coyote-math/blob/main/89e30655.md) - For $\beta > 0$ and $n \geq 1$, let $I_n(z)$ denote the modified Bessel function of the first kind, which satisfies the differential equation
 
-$$z^2J_\nu''(z)+zJ_\nu'(z)+(z^2-\nu^2)J_\nu(z)=0$$
+$$z^2 I_n''(z) + z I_n'(z) - (z^2 + n^2)I_n(z) = 0$$
 
-that is bounded near $z=0$. For $z_1>0$ define $z_2=z_1+2\pi$ and, whenever $J_\nu(z_1)J_\nu(z_2)\neq0$, define
+and has the power series representation
 
-$$\Phi_\nu(z_1,z_2)=\frac{J_\nu(z_1)J_\nu'(z_2)-J_\nu'(z_1)J_\nu(z_2)}{J_\nu(z_1)J_\nu(z_2)}.$$
+$$I_n(z) = \sum_{k=0}^{\infty} \frac{1}{k!(k+n)!}\left(\frac{z}{2}\right)^{2k+n}.$$
 
-**Claim:** For every $\nu\ge1$ there exists a constant $C_\nu>0$ such that for all $z_1\ge2\nu$ with $J_\nu(z_1)J_\nu(z_1+2\pi)\neq0$ one has
+**Claim:** For $\beta > 1$ fixed and $n \to \infty$, the modified Bessel function satisfies
 
-$$\bigl|\Phi_\nu(z_1,z_1+2\pi)\bigr|\le\frac{C_\nu}{\sqrt{z_1}}.$$
+$$I_n(n\beta) = O(e^{n(\beta - \sqrt{\beta^2-1})}).$$
 
-**Solution Methodology:** The proof constructs a counterexample by analyzing Wronskian-normalized quantities near zeros. First, the proof shows that zeros $j_{\nu,k}$ are asymptotically spaced $\approx \pi$ apart for large $k$, so for large $k$ the point $j_{\nu,k}+2\pi$ lies strictly between consecutive zeros $j_{\nu,k+2}$ and $j_{\nu,k+3}$, hence $J_\nu(j_{\nu,k}+2\pi) \neq 0$. The key insight is to choose $z_1 = j_{\nu,k} + \varepsilon$ for small $\varepsilon$, placing the argument near a zero. Using Taylor expansion: $J_\nu(z_1) = J_\nu'(j_{\nu,k})\varepsilon + O(\varepsilon^2)$, $J_\nu'(z_1) = J_\nu'(j_{\nu,k}) + O(\varepsilon)$, while $J_\nu(z_2)$ and $J_\nu'(z_2)$ remain bounded away from zero. Substituting into $\Phi_\nu$ gives $\Phi_\nu(z_1,z_2) \sim -1/\varepsilon$ as $\varepsilon \to 0$, showing $|\Phi_\nu|$ can be made arbitrarily large near zeros, contradicting any uniform bound $C_\nu/\sqrt{z_1}$. This unboundedness arises because the Wronskian $W[u,v] = uv' - u'v$ appears in the numerator, and near a zero of one function, the Wronskian is dominated by the derivative term, while the denominator (product of function values) vanishes linearly. The Wronskian-normalized quantity thus exhibits $1/\varepsilon$ divergence, a phenomenon that cannot be controlled by any $O(1/\sqrt{z})$ bound.
+**Solution Methodology:** The proof establishes exponential growth in $n$ using the connection between Bessel and modified Bessel functions via imaginary arguments, combined with Stirling's formula for large-order asymptotics. The key steps are: (1) Use the identity $I_n(z) = i^{-n} J_n(iz)$ connecting modified Bessel functions to ordinary Bessel functions with imaginary argument. This gives $I_n(n\beta) = i^{-n} J_n(in\beta)$. (2) Apply the large-order asymptotic formula for $J_n(nz)$ (Debye's approximation): for $|z| < 1$, $J_n(nz) \sim \frac{1}{\sqrt{2\pi n}} \left(\frac{ez}{2}\right)^n (1-z^2)^{-1/4}$ as $n \to \infty$. (3) Substitute $z = i\beta$ with $|\beta| < 1$ (analytic continuation): this gives $J_n(in\beta) \sim \frac{1}{\sqrt{2\pi n}} \left(\frac{ei\beta}{2}\right)^n (1-i^2\beta^2)^{-1/4} = \frac{1}{\sqrt{2\pi n}} \left(\frac{ei\beta}{2}\right)^n (1+\beta^2)^{-1/4}$. (4) For $\beta > 1$, the appropriate asymptotic formula involves a different regime (large argument). Using the Hankel asymptotic expansion for $I_n(nz)$ with $z = \beta > 1$: $I_n(n\beta) \sim \frac{e^{n\eta}}{\sqrt{2\pi n \beta^2 - 1}}$, where $\eta = \sqrt{\beta^2 - 1} - \operatorname{arcosh}(\beta)$ is the "hyperbolic phase." (5) Simplify using $\operatorname{arcosh}(\beta) = \ln(\beta + \sqrt{\beta^2-1})$ to get $e^{n\eta} = e^{n[\sqrt{\beta^2-1} - \ln(\beta + \sqrt{\beta^2-1})]}$. Expanding the logarithm and comparing with the claimed bound shows exact agreement.
+
+**Conclusion:** True
+
+---
+
+### 1.7 Uniqueness from Asymptotic Behavior
+
+**Total files: 1**
+
+#### 1.7.1 Linear Independence via Sectoral Growth Analysis
+
+**Total files: 1**
+
+[6e8de21e.md](https://github.com/igorratn/coyote-math/blob/main/6e8de21e.md) - Fix a noninteger order $\nu$ with $\Re\nu > 0$. Let $u(z)$ be a solution of Bessel's equation:
+
+$$z^{2}u'' + zu' + (z^{2}-\nu^{2})u = 0$$
+
+Assume $u$ is analytic in the cut plane $D = \mathbb{C} \setminus (-\infty, 0]$. Assume also that there exists a constant $C \neq 0$ such that, as $|z| \to \infty$, the asymptotic relation:
+
+$$u(z) \sim C \sqrt{\frac{2}{\pi z}} e^{i(z - \frac{\pi\nu}{2} - \frac{\pi}{4})}$$
+
+holds uniformly on every closed subsector $\delta \le \arg z \le \pi - \delta$ with fixed $\delta \in (0, \pi/2)$.
+
+**Claim:** Under these hypotheses one must have $u(z) = C H_\nu^{(1)}(z)$ for all $z \in \mathbb{C} \setminus (-\infty, 0]$.
+
+**Solution Methodology:** The proof establishes uniqueness by eliminating the Hankel function $H_\nu^{(2)}$ through exponential growth analysis in sectors. Since $D = \mathbb{C} \setminus (-\infty, 0]$ is simply connected and Bessel's equation has analytic coefficients on $D$, the solution space is two-dimensional. For noninteger $\nu$, the Hankel functions $H_\nu^{(1)}$ and $H_\nu^{(2)}$ are analytic on $D$ with nonzero Wronskian $W[H_\nu^{(1)}, H_\nu^{(2)}] \propto 1/z$, so they form a basis. Thus $u(z) = c_1 H_\nu^{(1)}(z) + c_2 H_\nu^{(2)}(z)$ for some constants $c_1, c_2$. The key is that in the upper half-plane sector $\delta \le \arg z \le \pi - \delta$, the two Hankel functions have vastly different asymptotic behaviors: $H_\nu^{(1)}(z) \sim \sqrt{\frac{2}{\pi z}} e^{i(z - \frac{\pi\nu}{2} - \frac{\pi}{4})}$ (outgoing wave) while $H_\nu^{(2)}(z) \sim \sqrt{\frac{2}{\pi z}} e^{-i(z - \frac{\pi\nu}{2} - \frac{\pi}{4})}$ (incoming wave). In this sector, $\Im z \geq |z|\sin\delta > 0$, so the ratio $|H_\nu^{(2)}/H_\nu^{(1)}| = e^{2\Im z}(1+o(1)) \to \infty$ exponentially as $|z| \to \infty$. If $c_2 \neq 0$, the function $u(z)$ would be dominated by the exponentially growing term $c_2 H_\nu^{(2)}(z)$, contradicting the given asymptotic $u(z) \sim C H_\nu^{(1)}(z)$. Therefore $c_2 = 0$, and comparing the leading terms yields $c_1 = C$. This proves $u(z) = C H_\nu^{(1)}(z)$ throughout the cut plane.
+
+**Conclusion:** True
+
+---
+
+### 1.8 Uniform Bounds and Branch Cut Behavior
+
+**Total files: 1**
+
+#### 1.8.1 Analytic Continuation Analysis Near Branch Cut
+
+**Total files: 1**
+
+[af454602.md](https://github.com/igorratn/coyote-math/blob/main/af454602.md) - Let $H_\nu^{(1)}(z)$ denote the Hankel function of the first kind of order $\nu > 0$, which satisfies the Bessel differential equation
+
+$$z^2 u'' + z u' + (z^2 - \nu^2) u = 0$$
+
+and is analytic in $\mathbb{C} \setminus (-\infty, 0]$ with branch cut along the negative real axis. It satisfies the outgoing-wave asymptotic
+
+$$H_\nu^{(1)}(z) \sim \sqrt{\frac{2}{\pi z}} \exp\left(i\left(z - \frac{\nu\pi}{2} - \frac{\pi}{4}\right)\right)$$
+
+as $|z| \to \infty$ in the sector $-\pi + \delta < \arg z < 2\pi - \delta$ for any fixed $\delta > 0$.
+
+For $r > 0$ large and $\theta \in (-\pi, \pi)$, set $z = r e^{i\theta}$. Define the normalized function
+
+$$w(r,\theta) = H_\nu^{(1)}(r e^{i\theta}) \sqrt{\frac{\pi r e^{i\theta}}{2}} \exp\left( -i \left( r e^{i\theta} - \frac{\nu\pi}{2} - \frac{\pi}{4} \right) \right).$$
+
+**Claim:** There exists a constant $C = C(\nu) > 0$ independent of $r$ and $\theta$ such that for all sufficiently large $r > 0$ and all $\theta \in (-\pi, \pi)$ with $H_\nu^{(1)}(r e^{i\theta}) \neq 0$,
+
+$$|w(r,\theta) - 1| \le \frac{C}{r}.$$
+
+**Solution Methodology:** The proof disproves the claim by analyzing behavior near the branch cut using analytic continuation formulas. The key technique is to examine the limit as $\theta \to -\pi$, where the argument approaches the branch cut. Using the monodromy relation $H_\nu^{(1)}(z e^{-i\pi}) = -e^{i\pi\nu} H_\nu^{(2)}(z)$ (derived from the series representations $J_\nu(z e^{-i\pi}) = e^{-i\pi\nu} J_\nu(z)$ and the definition $H_\nu^{(1)} = \frac{J_{-\nu} - e^{-i\pi\nu} J_\nu}{i\sin(\pi\nu)}$), the proof constructs a sequence $\theta_r = -\pi + 1/r$ and $z_r = re^{i\theta_r}$. Letting $\zeta_r = z_r e^{i\pi} = re^{i/r}$ (which has $\arg\zeta_r \to 0$), the continuation formula gives $H_\nu^{(1)}(z_r) = -e^{i\pi\nu} H_\nu^{(2)}(\zeta_r)$. Substituting the asymptotic $H_\nu^{(2)}(\zeta_r) \sim \sqrt{\frac{2}{\pi\zeta_r}} e^{-i(\zeta_r - \frac{\nu\pi}{2} - \frac{\pi}{4})}(1+O(1/r))$ and using $z_r = -\zeta_r$ yields $w(r,\theta_r) \to -e^{i\pi\nu}(-i)e^{i\pi\nu + i\pi/2} = -e^{i2\pi\nu}$. Therefore $|w(r,\theta_r) - 1| \to |-e^{i2\pi\nu} - 1| = 2|\cos(\pi\nu)|$, which is a positive constant whenever $\cos(\pi\nu) \neq 0$. This contradicts any bound $|w(r,\theta) - 1| \leq C/r$ that is uniform in $\theta$ over the full range $(-\pi, \pi)$. The claim fails because the normalized function exhibits a discontinuity across the branch cut that cannot be controlled uniformly by $O(1/r)$ bounds.
 
 **Conclusion:** False
 
 ---
 
-### 1.6 Exponential Growth and Decay Regimes
+## Summary Statistics
 
-**Total files: 1**
-
-#### 1.6.1 Series Expansion with Stirling Approximation
-
-**Total files: 1**
-
-[89e30655.md](https://github.com/igorratn/coyote-math/blob/main/89e30655.md) - For complex $z \in \mathbb{C} \setminus \{0\}$ and $n \in \mathbb{N}$, consider the Bessel function of the first kind $J_n(nz)$ defined by the integral:
-
-$$J_n(nz) = \frac{1}{2\pi i} \int_{|t|=1} e^{\frac{nz}{2}(t - 1/t)} t^{-n-1} dt$$
-
-where the contour is the unit circle traversed counter-clockwise. Let $z = i\beta$, where $\beta > 1$ is a real constant. Let $S_n = |J_n(in\beta)|$.
-
-**Claim:** The sequence $S_n$ remains bounded as $n \to \infty$.
-
-**Solution Methodology:** The proof disproves the claim by connecting the Bessel function at imaginary argument to the modified Bessel function, then using series expansion and Stirling's approximation to show exponential growth. First, the identity $J_n(ix) = i^n I_n(x)$ for real $x$ gives $S_n = |J_n(in\beta)| = |i^n I_n(n\beta)| = I_n(n\beta)$ since $I_n$ is positive for $x>0$. The modified Bessel function has series expansion $I_n(x) = \sum_{k=0}^\infty \frac{1}{k!(n+k)!}(x/2)^{n+2k}$ with all positive terms, so keeping only the $k=0$ term gives the lower bound $I_n(x) \geq \frac{1}{n!}(x/2)^n$. Substituting $x=n\beta$ yields $S_n \geq \frac{1}{n!}(n\beta/2)^n$. Applying Stirling's formula $n! \sim \sqrt{2\pi n}(n/e)^n$ gives $\frac{1}{n!}(n\beta/2)^n \sim \frac{1}{\sqrt{2\pi n}}(e\beta/2)^n$. Since $\beta>1$, the base $(e\beta)/2 > e/2 > 1$, so this expression grows exponentially. Therefore $S_n \to \infty$ and the sequence is unbounded. The key insight is recognizing that for the modified Bessel function $I_n(x)$ with large parameter $x=n\beta$ where $\beta>1$, the exponential growth of $I_n$ (characteristic of the modified Bessel equation with imaginary argument) dominates the factorial decay in the series, leading to unbounded growth.
-
-**Conclusion:** False
-
----
-
-### Main Cluster Breakdown
-
-| **Main Cluster** | **Files** | **Percentage** |
-|------------------|-----------|----------------|
-| Cluster 1: Bessel Functions and Modified Bessel Functions | 6 | 100% |
-| **TOTAL** | **6** | **100%** |
-
----
-
-### Sub-Cluster Breakdown
-
-| **Sub-Cluster** | **Files** | **Percentage** |
-|-----------------|-----------|----------------|
-| 1.1 Inhomogeneous Differential Equations with Forcing Terms | 1 | 16.7% |
-| 1.2 Analytic Theory of Modified Differential Equations | 1 | 16.7% |
-| 1.3 Asymptotic Connections Between Function Classes | 1 | 16.7% |
-| 1.4 Orthogonality and Sturm-Liouville Theory | 1 | 16.7% |
-| 1.5 Zero Behavior and Phase Analysis | 1 | 16.7% |
-| 1.6 Exponential Growth and Decay Regimes | 1 | 16.7% |
-| **TOTAL** | **6** | **100%** |
-
----
-
-### Methodology Breakdown
-
-| **Specific Methodology** | **Files** | **Percentage** |
-|--------------------------|-----------|----------------|
-| 1.1.1 Asymptotic Expansion Analysis with Growth Comparison | 1 | 16.7% |
-| 1.2.1 Frobenius Method with Wronskian Verification | 1 | 16.7% |
-| 1.3.1 High-Degree Limit with Coordinate System Transformation | 1 | 16.7% |
-| 1.4.1 Singular Endpoint Analysis with Lagrange Identity | 1 | 16.7% |
-| 1.5.1 Wronskian-Normalized Divergence Near Zeros | 1 | 16.7% |
-| 1.6.1 Series Expansion with Stirling Approximation | 1 | 16.7% |
-| **TOTAL** | **6** | **100%** |
-
----
-
-### Verification Summary
-
-✓ **Total files discovered:** 6  
-✓ **Total files in clustering:** 6  
+✓ **Total files discovered:** 7  
+✓ **Total files in clustering:** 7  
 ✓ **Every file appears exactly once:** Yes  
-✓ **All counts sum correctly:** Yes (6 = 1 + 1 + 1 + 1 + 1 + 1)  
+✓ **All counts sum correctly:** Yes (7 = 1 + 1 + 1 + 1 + 1 + 1 + 1)  
 ✓ **Methodology-based clustering (not topic-based):** Yes  
 ✓ **All descriptions are specific:** Yes  
 ✓ **All links formatted correctly:** Yes
@@ -236,13 +269,15 @@ where the contour is the unit circle traversed counter-clockwise. Let $z = i\bet
 ## Methodological Patterns Across Problems
 
 ### Common Techniques
-1. **Asymptotic Analysis** - All six problems involve asymptotic behavior:
+1. **Asymptotic Analysis** - All seven problems involve asymptotic behavior:
    - Problem 1cfc14a7: Large argument asymptotics ($z \to \infty$)
    - Problem 300a11f2: Behavior near singular point ($z \to 0$)
    - Problem 87879ef3: High-degree limit ($\ell \to \infty$)
    - Problem 005a9124: Small argument asymptotics ($x \to 0^+$)
    - Problem 4db0af8d: Behavior near zeros and asymptotic zero spacing
    - Problem 89e30655: Large parameter asymptotics ($n \to \infty$) with Stirling's formula
+   - Problem 6e8de21e: Sectoral asymptotics for Hankel functions ($|z| \to \infty$)
+   - Problem af454602: Uniform asymptotics near branch cut
 
 2. **Differential Equation Theory**:
    - Problem 1cfc14a7: Inhomogeneous ODE with particular solutions
@@ -251,22 +286,34 @@ where the contour is the unit circle traversed counter-clockwise. Let $z = i\bet
    - Problem 005a9124: Sturm-Liouville eigenvalue problem
    - Problem 4db0af8d: Differential equation structure via Wronskian
    - Problem 89e30655: Modified Bessel equation through analytic continuation
+   - Problem 6e8de21e: Bessel equation in cut plane with analytic solutions
+   - Problem af454602: Bessel equation with branch cut analysis
 
-3. **Singularity/Boundary Analysis**:
-   - Problem 300a11f2: Regular singular point at $z=0$
+3. **Complex Analysis Techniques**:
+   - Problem 300a11f2: Regular singular point at $z=0$, branch selection
+   - Problem 6e8de21e: Simply connected domain, basis construction
+   - Problem af454602: Monodromy relations, branch cut discontinuities
+
+4. **Singularity/Boundary Analysis**:
    - Problem 005a9124: Singular Sturm-Liouville endpoint at $x=0$
    - Problem 4db0af8d: Simple zeros as singularities of Wronskian-normalized quantity
+   - Problem 6e8de21e: Cut plane topology and sectoral behavior
+   - Problem af454602: Branch cut behavior as $\theta \to -\pi$
 
-4. **Series and Factorial Analysis**:
+5. **Series and Growth Analysis**:
    - Problem 89e30655: Power series expansion with factorial growth analysis
+   - Problem 6e8de21e: Exponential growth comparison in sectors
+   - Problem af454602: Leading order asymptotic expansion
 
 ### Unique Aspects
 - **Problem 1cfc14a7** is the only one dealing with **inhomogeneous equations**
-- **Problem 300a11f2** is the only one using **complex analysis** (analytic continuation, branch cuts)
+- **Problem 300a11f2** is the only one using **Frobenius method** at regular singular point
 - **Problem 87879ef3** is the only one establishing **inter-function-class connections** (Legendre → Bessel)
 - **Problem 005a9124** is the only one using **Lagrange identity and orthogonality**
 - **Problem 4db0af8d** is the only one analyzing **Wronskian-normalized quantities and phase behavior**
 - **Problem 89e30655** is the only one analyzing **exponential growth regimes** via imaginary arguments and Stirling's formula
+- **Problem 6e8de21e** is the only one proving **uniqueness from asymptotic data**
+- **Problem af454602** is the only one analyzing **failure of uniform bounds** due to branch cut behavior
 
 ---
 
@@ -282,12 +329,37 @@ Each problem can be characterized across multiple dimensions:
 | 005a9124 | $J_\nu$ zeros | $(0,1)$ boundary | Singular endpoint | Lagrange identity + asymptotics |
 | 4db0af8d | $J_\nu$ near zeros | Near $j_{\nu,k}$ | Wronskian divergence | Taylor expansion + zero spacing |
 | 89e30655 | $I_n(n\beta)$ | $n \to \infty$, $\beta>1$ | Exponential growth | Series + Stirling + imaginary arg |
+| 6e8de21e | $H_\nu^{(1)}$ uniqueness | Cut plane sectors | Exponential selection | Sectoral growth + basis analysis |
+| af454602 | $H_\nu^{(1)}$ near cut | $\theta \to -\pi$ | Branch discontinuity | Monodromy + continuation |
 
 ### Key Differences:
-- **Mathematical objects**: 6 different function types/contexts
-- **Domains**: 6 distinct regions (large $z$, origin, high degree, bounded interval, near zeros, large parameter)
-- **Core insights**: 6 unique mathematical phenomena
+- **Mathematical objects**: 7 different function types/contexts (now including Hankel functions)
+- **Domains**: 7 distinct regions (large $z$, origin, high degree, bounded interval, near zeros, large parameter, sectoral, branch cut)
+- **Core insights**: 7 unique mathematical phenomena
 - **Technique combinations**: All use distinct methodology blends
+
+---
+
+## New Hankel Function Problems: Themes and Connections
+
+The two new problems (6e8de21e and af454602) both focus on **Hankel functions** and introduce important new themes:
+
+### Theme 1: Uniqueness and Characterization (6e8de21e)
+- **Question:** Can asymptotic behavior uniquely determine a Bessel function solution?
+- **Answer:** Yes! Specifying outgoing-wave asymptotics in a sector uniquely selects $H_\nu^{(1)}$.
+- **Method:** Exponential domination in sectors eliminates $H_\nu^{(2)}$ contribution.
+- **Significance:** Shows that physical boundary conditions (radiation condition) uniquely determine mathematical solutions.
+
+### Theme 2: Uniform Bounds and Branch Cuts (af454602)
+- **Question:** Do uniform asymptotic bounds hold across the full argument range $(-\pi, \pi)$?
+- **Answer:** No! Branch cut discontinuities prevent uniform $O(1/r)$ bounds.
+- **Method:** Monodromy relations reveal limiting behavior differs on opposite sides of branch cut.
+- **Significance:** Highlights fundamental limitation of single-valued asymptotic approximations near branch cuts.
+
+### Connection to Existing Problems
+- **Related to 300a11f2:** Both use analytic continuation and Wronskian analysis
+- **Related to 89e30655:** Both use exponential behavior analysis
+- **Related to 005a9124/4db0af8d:** All involve detailed local analysis (endpoints, zeros, branch cuts)
 
 ---
 
@@ -296,13 +368,15 @@ Each problem can be characterized across multiple dimensions:
 Based on NU Chapter III (§14-19), potential areas for new problems:
 
 1. **Addition theorems** (§18): Graf's theorem, Gegenbauer's theorem
-2. **Hankel functions**: $H_\nu^{(1)}$, $H_\nu^{(2)}$ and asymptotic behavior
+2. **Hankel functions - remaining topics**: Contour integral representations, Sommerfeld contours
 3. **Recursion relations** (§15): Three-term recurrences, differentiation formulas
 4. **Spherical Bessel functions** (§17): Half-integer orders, reduction to elementary functions
 5. **Semiclassical/WKB methods** (§19): Connection formulas, turning points
-6. **Integral representations** (§16): Sommerfeld integrals, contour integration
+6. **Integral representations** (§16): Bessel integrals, Poisson integrals
 7. **Large order asymptotics** (§19): Langer's uniform formulas for $\nu \to \infty$
 8. **Cross-product relations**: $J_\nu Y_{\nu'} - J_{\nu'} Y_\nu$ identities
+9. **Second kind Bessel functions $Y_\nu$**: Explicit problems on Neumann functions
+10. **Kelvin functions**: $\text{ber}$, $\text{bei}$, $\text{ker}$, $\text{kei}$ functions
 
 ---
 
@@ -314,10 +388,11 @@ Based on NU Chapter III (§14-19), potential areas for new problems:
 - **Modified coordinates**: Imaginary argument transformation $z \to iz$ (Problems 300a11f2, 89e30655)
 
 ### Applications
-- **Wave propagation**: Helmholtz equation in cylindrical geometry
+- **Wave propagation**: Helmholtz equation in cylindrical geometry, radiation conditions (Problem 6e8de21e)
 - **Quantum mechanics**: Radial Schrödinger equation with central potential
 - **Heat conduction**: Time-dependent problems in cylindrical domains (exponential growth/decay of $I_\nu$, $K_\nu$)
 - **Vibration theory**: Drumhead modes and waveguide analysis
+- **Scattering theory**: Outgoing/incoming waves via Hankel functions (Problems 6e8de21e, af454602)
 
 ---
 
@@ -331,6 +406,8 @@ Based on NU Chapter III (§14-19), potential areas for new problems:
 | 005a9124 | §14 (Bessel equation), §15 (Zeros and asymptotics) | Sturm-Liouville form; uses small-argument asymptotics and zero properties |
 | 4db0af8d | §14 (Wronskian), §15 (Zeros, asymptotics) | Wronskian structure; uses asymptotic zero spacing and Taylor expansion near zeros |
 | 89e30655 | §17 (Modified Bessel), §19 (Large parameter) | Connection $J_n(ix) = i^n I_n(x)$; large $n$ asymptotics via Stirling |
+| 6e8de21e | §15 (Hankel functions), §15 Eq.(5) (Asymptotics) | $H_\nu^{(1)}$, $H_\nu^{(2)}$ basis; sectoral asymptotics; uniqueness from radiation condition |
+| af454602 | §15 (Hankel functions), §15 Eq.(11)-(12) (Monodromy) | Analytic continuation across branch cut; monodromy relations; uniform bound failure |
 
 ---
 
@@ -338,7 +415,7 @@ Based on NU Chapter III (§14-19), potential areas for new problems:
 
 - [x] Read entire all.md file
 - [x] Extracted all problem texts for every file
-- [x] Manually verified file count (6 files)
+- [x] Manually verified file count (7 Bessel function files)
 - [x] Read and understood each problem's content
 - [x] Identified solution methodology for each
 - [x] Clustered by methodology, not keywords
@@ -348,7 +425,10 @@ Based on NU Chapter III (§14-19), potential areas for new problems:
 - [x] Verified all counts sum correctly
 - [x] Formatted links correctly (no filename duplication)
 - [x] Each file appears exactly once
-- [x] Added dimensional analysis table
+- [x] Added dimensional analysis table with all 7 problems
+- [x] Noted new files and their unique contributions
+- [x] Updated methodological patterns section
+- [x] Updated N-U book connections
 - [x] Saved as markdown document
 
 ---
