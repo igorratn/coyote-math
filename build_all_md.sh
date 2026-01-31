@@ -8,10 +8,7 @@ out="all.md"
 skip_list=(
   "readme.md"
   "all.md"
-  "clusters.md"
-  "solver.md"
-  "mk_cl.md"
-  "stumble_guide.md"
+  "mk_cl.md" 
 )
 
 is_skipped() {
