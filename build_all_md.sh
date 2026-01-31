@@ -8,7 +8,6 @@ out="all.md"
 skip_list=(
   "readme.md"
   "all.md"
-  "mk_cl.md" 
 )
 
 is_skipped() {
