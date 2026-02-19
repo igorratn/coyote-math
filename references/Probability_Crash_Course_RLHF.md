@@ -107,9 +107,15 @@ For this domain, I should craft problems where:
 - Models might "pattern match" to DCT without verifying hypothesis
 
 **Example mental template:**
-> "Let $X_n = n^\alpha \cdot \mathbf{1}_{[0,1/n^\beta]}$ on $[0,1]$. Determine for which $(\alpha,\beta)$ we have:
-> (a) $X_n \to 0$ a.s.
-> (b) $X_n \to 0$ in $L^1$
-> (c) $E[X_n] \to 0$"
 
-This forces checking three different convergence notions and catches the common error of assuming a.s. implies $L^1$ convergence.
+
+**Problem:** Let $X_n = n^\alpha \cdot \mathbf{1}_{[0,1/n^\beta]}$ on $[0,1]$ with uniform measure, where $\alpha, \beta > 0$. Determine for which $(\alpha,\beta)$ we have:
+- (a) $X_n \to 0$ a.s.
+- (b) $X_n \to 0$ in $L^1$
+- (c) $E[X_n] \to 0$
+
+**Answer:**
+- (a) All $\alpha, \beta > 0$ ✓
+- (b) and (c) Only when $\alpha < \beta$ ✓
+
+The gap between (a) and (b)/(c) is precisely when $\alpha \geq \beta$ — the classic counterexample zone.
