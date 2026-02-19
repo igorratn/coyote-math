@@ -51,6 +51,10 @@ To interchange limit and expectation you need extra conditions:
   - First: If $\sum P(A_n) < \infty$ then $P(A_n \text{ i.o.}) = 0$
   - Second: If $A_n$ are independent and $\sum P(A_n) = \infty$ then $P(A_n \text{ i.o.}) = 1$
 
+	- Mnemonic
+		- "BC First: Convergent sum → finite occurrences (no independence)"
+		- "BC Second: Divergent sum + independence → infinite occurrences"
+
 ## Conditional Expectation
 
 $E[X | \mathcal{F}]$ is the best $L^2$ approximation of $X$ given information $\mathcal{F}$. Key properties:
