@@ -71,3 +71,45 @@ A sequence $(M_n, \mathcal{F}_n)$ is a martingale if $E[M_{n+1}|\mathcal{F}_n] =
 - Applying DCT without verifying integrable dominator
 - Assuming $E[X_n] \to E[X]$ from pointwise convergence alone
 - Misapplying Borel-Cantelli (forgetting independence in second lemma)
+
+Got it — excellent refresher. This is exactly the kind of material where AI models trip over subtle logic gaps. Let me organize my mental model for evaluation:
+
+## High-Alert Zones for RLHF Evaluation
+
+**1. Convergence Mode Confusions**
+- Watch for: claiming a.s. $\Rightarrow$ $L^p$, or $L^p$ $\Rightarrow$ a.s. (both false)
+- Watch for: using DCT without stating the dominating function
+- Watch for: invoking CLT when variance doesn't exist or isn't finite
+
+**2. Expectation Interchange Traps**
+- Models often write: "Since $X_n \to X$ a.s., $E[X_n] \to E[X]$" $\leftarrow$ **red flag** without DCT/MCT/UI
+- Classic gotcha: spike sequences like $n \cdot \mathbf{1}_{[0,1/n]}$ converge a.s. to 0 but expectations stay constant
+
+**3. Conditional Expectation Errors**
+- Forgetting measurability: claiming $E[X|\mathcal{F}] = \text{something that's not } \mathcal{F}\text{-measurable}$
+- Misapplying tower property (wrong order of conditioning)
+- Treating $E[X|Y]$ as a function of $X$ instead of $Y$
+
+**4. Borel-Cantelli Misuse**
+- Second lemma requires **independence** — models often forget this
+- Confusing "infinitely often" with "eventually always"
+
+**5. Martingale Pitfalls**
+- Optional stopping without checking bounded stopping time or integrability conditions
+- Assuming $E[M_\tau] = E[M_0]$ when $\tau$ is unbounded without verification
+
+## Stumble Problem Design Strategy
+
+For this domain, I should craft problems where:
+- Correct answer requires distinguishing convergence modes
+- Natural first approach fails due to missing UI or domination
+- Auxiliary constructions (like checking uniform integrability explicitly) are needed
+- Models might "pattern match" to DCT without verifying hypothesis
+
+**Example mental template:**
+> "Let $X_n = n^\alpha \cdot \mathbf{1}_{[0,1/n^\beta]}$ on $[0,1]$. Determine for which $(\alpha,\beta)$ we have:
+> (a) $X_n \to 0$ a.s.
+> (b) $X_n \to 0$ in $L^1$
+> (c) $E[X_n] \to 0$"
+
+This forces checking three different convergence notions and catches the common error of assuming a.s. implies $L^1$ convergence.
