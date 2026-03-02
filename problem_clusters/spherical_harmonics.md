@@ -1,7 +1,7 @@
 # Spherical Harmonics: Comprehensive Clustering by Solution Methodology
 
-**Total files: 19**  
-**Date: January 31, 2026**  
+**Total files: 20**
+**Date: March 2, 2026**
 **N-U Reference:** Chapter II, §10
 
 This document clusters all spherical harmonics problems based on their **solution methodology**, not topic keywords.
@@ -14,7 +14,7 @@ Spherical harmonics $Y_\ell^m(\theta,\phi)$ are eigenfunctions of the Laplacian 
 
 $$Y_\ell^m(\theta,\phi) = \sqrt{\frac{2\ell+1}{4\pi}\frac{(\ell-m)!}{(\ell+m)!}} P_\ell^m(\cos\theta) e^{im\phi}$$
 
-where $P_\ell^m(x)$ are associated Legendre functions. This cluster contains 19 problems studying:
+where $P_\ell^m(x)$ are associated Legendre functions. This cluster contains 20 problems studying:
 - Christoffel-Darboux kernels for fixed $m$
 - Uniform bounds on compact sets
 - Zero distribution and monotonicity
@@ -23,6 +23,7 @@ where $P_\ell^m(x)$ are associated Legendre functions. This cluster contains 19 
 - Cauchy transforms and analytic continuation
 - Angular momentum representations
 - Boundary behavior near poles
+- Generating function series
 
 ---
 
@@ -295,6 +296,26 @@ Studies argument behavior $\Phi_\ell^m(x,y) = \arg(P_\ell^m(x+iy)/P_\ell^m(x-iy)
 
 ---
 
+## Cluster 13: Generating Function Series
+
+**Total files: 1**
+
+### 13.1 Weighted Legendre Series
+
+**Total files: 1**
+
+**Typical Example: [33ca3022.md](https://github.com/igorratn/coyote-math/blob/main/33ca3022.md)**
+
+The Legendre polynomials $P_n(x)$ have generating function $\frac{1}{\sqrt{1-2tx+t^2}} = \sum_{n=0}^\infty P_n(x) t^n$ for $|t|<1$ and $x \in [-1,1]$. Consider the weighted sum $\sum_{n=1}^N \frac{P_n(x_0)}{n!}$ for fixed $x_0 \in (0,1)$.
+
+**Claim:** The series converges to $e^{x_0}-1$.
+
+**Solution Methodology:** Since $|P_n(x)| \leq 1$ for all $x \in [-1,1]$, the series converges absolutely. However, evaluate at $x_0 = 1/10$: $P_1(1/10) = 1/10$ and $P_2(1/10) = \frac{1}{2}(3/100 - 1) = -97/200$. The partial sum through $n=2$ is $\frac{1}{10} - \frac{97}{400} = -\frac{57}{400}$. Since this is already negative while $e^{1/10}-1 > 0$, and the tail satisfies $|\sum_{n=3}^\infty P_n(1/10)/n!| \le e - 5/2$, the claimed identity fails.
+
+**Conclusion: False**
+
+---
+
 ## Summary Statistics
 
 | Cluster | Files | Main Techniques |
@@ -311,7 +332,8 @@ Studies argument behavior $\Phi_\ell^m(x,y) = \arg(P_\ell^m(x+iy)/P_\ell^m(x-iy)
 | 10. Recurrence Relations | 1 | Raising/lowering operators |
 | 11. Differential Operators | 1 | Operator sums, asymptotic analysis |
 | 12. Analytic Continuation | 1 | Branch cut, Taylor expansion |
-| **Total** | **19** | |
+| 13. Generating Function | 1 | Counterexample verification |
+| **Total** | **20** | |
 
 ---
 
@@ -335,11 +357,11 @@ Cross-references to other chapters:
 
 ## Quality Control Checklist
 
-- [x] All 19 files identified and categorized
+- [x] All 20 files identified and categorized
 - [x] Methodology-based clustering (not keyword-based)
 - [x] "Typical Example" format for first file in each cluster
 - [x] One-line descriptions for remaining files
-- [x] File counts at every level sum to 19
+- [x] File counts at every level sum to 20
 - [x] Cross-references to N-U book sections
 - [x] Summary statistics table included
 - [x] Each file appears exactly once

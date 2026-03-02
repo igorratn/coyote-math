@@ -1,7 +1,7 @@
 # Chapter II: Classical Orthogonal Polynomials - Complete Clustering
 
-**Total files in this chapter: 40**  
-**Date: January 31, 2026**  
+**Total files in this chapter: 43**
+**Date: March 2, 2026**
 **N-U Reference:** Chapter II (§5-13)
 
 This document clusters all problems related to classical orthogonal polynomials (Jacobi, Laguerre, Hermite) and their properties, organized by solution methodology.
@@ -24,12 +24,12 @@ Chapter II of Nikiforov-Uvarov covers:
 - Asymptotic behavior & bounds: 6 files
 - Extremal problems: 2 files
 - Generating functions: 3 files
-- Zero distribution: 4 files
-- Difference equations: 2 files
-- Laguerre integrals: 5 files
+- Laguerre integrals: 8 files (5 original + 3 new)
 - Series expansions: 1 file
+- Monotonicity of local maxima: 3 files (new)
+- Laguerre second kind: 3 files (new)
 
-**Total: 40 files** (excluding spherical harmonics which has its own document)
+**Total: 43 files** (excluding spherical harmonics which has its own document)
 
 ---
 
@@ -210,7 +210,7 @@ $$\left|(1-x^2)\frac{P_n^{(\alpha,\beta)}(x)}{d_n}\right| \leq C_\epsilon$$
 
 ---
 
-#### 3.1.2 Szegő Darboux Asymptotics
+#### 3.1.2 Szego Darboux Asymptotics
 
 **Total files: 2**
 
@@ -220,7 +220,7 @@ Jacobi $P_n^{(\alpha,\beta)}(\cos\theta)$ with $\sqrt{n}$ factor on interior $\t
 
 **Claim:** Uniform bound exists for $|\sqrt{n}P_n^{(\alpha,\beta)}(\cos\theta)/d_n| \leq C_\epsilon$.
 
-**Solution Methodology:** Uses Szegő Darboux formula (Thm 8.21.8): $P_n^{(\alpha,\beta)}(\cos\theta) = A(\theta)n^{-1/2}\cos((n+\kappa)\theta+\phi) + O(n^{-3/2})$ uniformly on interior. Phase $(n+\kappa)\theta$ advances linearly with $n$, creating persistent oscillations. Construct subsequence $n_k$ where $|\cos(\cdot)| \geq 1/2$. With $\sqrt{n}$ factor and $d_n \sim cn^{-1/2}$, expression behaves as $\sqrt{n_k} \cdot O(n_k^{-1/2})$ with oscillations - cannot be uniformly bounded due to phase.
+**Solution Methodology:** Uses Szego Darboux formula (Thm 8.21.8): $P_n^{(\alpha,\beta)}(\cos\theta) = A(\theta)n^{-1/2}\cos((n+\kappa)\theta+\phi) + O(n^{-3/2})$ uniformly on interior. Phase $(n+\kappa)\theta$ advances linearly with $n$, creating persistent oscillations. Construct subsequence $n_k$ where $|\cos(\cdot)| \geq 1/2$. With $\sqrt{n}$ factor and $d_n \sim cn^{-1/2}$, expression behaves as $\sqrt{n_k} \cdot O(n_k^{-1/2})$ with oscillations - cannot be uniformly bounded due to phase.
 
 **Conclusion:** False
 
@@ -299,107 +299,45 @@ ODE $(1-x^2)p_n'' + \tau(x)p_n' + \lambda_n p_n = 0$ with $\deg(\tau) \leq 1$.
 
 ---
 
-## PART VI: ZERO DISTRIBUTION (4 files)
+## PART VI: MONOTONICITY OF LOCAL MAXIMA (3 files)
 
-### Cluster 6.1: Parameter Dependence & Interlacing
-
-**Total files: 4**
-
----
-
-#### 6.1.1 Hellmann-Feynman Theorem Method
+### Cluster 6.1: Nikiforov-Uvarov Auxiliary Function Method
 
 **Total files: 3**
 
-**Typical Example: [37a10f76.md](https://github.com/igorratn/coyote-math/blob/main/37a10f76.md)**
+Problems studying the monotonic growth/decay of successive local maxima of $|P_n(x)|$ using the N-U auxiliary function $v(x) = y(x)^2 + \lambda_n^{-1}\sigma(x)y'(x)^2$.
 
-Laguerre zeros $x_{n,k}^{(\alpha)}$ (the $k$-th zero of $L_n^{(\alpha)}$).
+---
 
-**Claim:** For fixed $n,k$, the function $\alpha \mapsto x_{n,k}^{(\alpha)}$ is strictly decreasing.
+#### 6.1.1 Sign-Change Analysis of $\sigma'(x) - 2\tau(x)$
 
-**Solution Methodology:** Uses auxiliary equation method from N-U theory. The Laguerre ODE $xy'' + (\alpha+1-x)y' + ny = 0$ is Sturm-Liouville form with weight $w(x) = e^{-x}x^\alpha$. Increasing $\alpha$ shifts weight toward larger $x$, forcing zeros leftward. Rigorously: differentiate ODE w.r.t. $\alpha$, evaluate at zero $x_k(\alpha)$ where $L_n^{(\alpha)}(x_k) = 0$. Variational characterization shows zeros are where Rayleigh quotients are extremized; increasing weight at large $x$ favors smaller $x$ values. Implicit function theorem gives $\partial x_k/\partial\alpha < 0$.
+**Total files: 3**
 
-**Conclusion:** True
+**Typical Example: [18942427.md](https://github.com/igorratn/coyote-math/blob/main/18942427.md)**
+
+Consider the physicists' Hermite polynomials $H_n(x)$ on $(-\infty, \infty)$ with $n \ge 1$ and center point $x^* = 0$. Order the local maxima of $|H_n(x)|$ separately on each half-line by increasing $|x|$.
+
+**Claim:** As $|x|$ increases along either half-line away from $x^* = 0$, the successive local maxima of $|H_n(x)|$ strictly increase.
+
+**Solution Methodology:** Apply the N-U auxiliary function method. Define $v(x) = y(x)^2 + \lambda_n^{-1}\sigma(x)y'(x)^2$, where $y(x)=H_n(x)$. At local maxima of $|y|$, the derivative vanishes and $v(x)=|y(x)|^2$. Differentiation gives $v'(x)=\frac{\sigma'(x)-2\tau(x)}{\lambda_n}(y'(x))^2$. For Hermite polynomials, $\sigma(x)=1$, $\tau(x)=-2x$, $\lambda_n=2n$, yielding $\sigma'(x)-2\tau(x)=4x$. This factor changes sign at $x^*=0$, so $v$ is strictly decreasing on $(-\infty,0)$ and strictly increasing on $(0,\infty)$. Since $y'(x)=2nH_{n-1}(x)$ never vanishes identically on any subinterval, the monotonicity of $v$ at successive maxima is strict.
+
+**Conclusion: True**
 
 **Other files:**
-- [8c3d5e9b.md](https://github.com/igorratn/coyote-math/blob/main/8c3d5e9b.md): Jacobi zeros $x_{n,k}^{(\alpha,\beta)}$ monotonicity in $\alpha$ for fixed $\beta$; auxiliary equation shows $\partial x_k/\partial\alpha < 0$. **(True)**
-- [b8e3f9c5.md](https://github.com/igorratn/coyote-math/blob/main/b8e3f9c5.md): Hermite zeros have no parameter; analyzes symmetry $x_{n,k} = -x_{n,n+1-k}$ by parity. **(True)**
+- [6c96b851.md](https://github.com/igorratn/coyote-math/blob/main/6c96b851.md): Laguerre polynomials $L_n^{(3)}(x)$, critical point $x^*=3.5$ where $\sigma'-2\tau=2x-7$ changes sign. **True**
+- [69425b5f.md](https://github.com/igorratn/coyote-math/blob/main/69425b5f.md): Jacobi polynomials $P_n^{(1,0)}(x)$, Szego critical point $x_0=-1/2$, V-shape pattern. **True**
 
 ---
 
-#### 6.1.2 Sturm Comparison & Interlacing
+## PART VII: LAGUERRE INTEGRALS (8 files)
 
-**Total files: 1**
+### Cluster 7.1: Laguerre Polynomial Integral Evaluation
 
-**Typical Example: [a4e8c7f3.md](https://github.com/igorratn/coyote-math/blob/main/a4e8c7f3.md)**
-
-Consecutive polynomials $p_n$ and $p_{n+1}$ from same orthogonal family.
-
-**Claim:** Between any two consecutive zeros of $p_{n+1}$, exists exactly one zero of $p_n$.
-
-**Solution Methodology:** Uses Sturm separation theorem. Both are eigenfunctions of same Sturm-Liouville operator with $\lambda_n < \lambda_{n+1}$, so zeros must interlace. Let $\alpha_1 < \cdots < \alpha_{n+1}$ be zeros of $p_{n+1}$. On each $(\alpha_i, \alpha_{i+1})$, the function $p_{n+1}$ changes sign. By Rolle's theorem, $p_{n+1}'(\xi_i) = 0$ for some $\xi_i \in (\alpha_i, \alpha_{i+1})$. The Wronskian $W = p_np_{n+1}' - p_n'p_{n+1}$ has constant sign (from S-L theory). Since $p_{n+1}'$ changes sign on the interval and $W$ doesn't, $p_n$ must change sign, implying at least one zero. Counting shows exactly one per interval.
-
-**Conclusion:** True
+**Total files: 8**
 
 ---
 
-## PART VII: DIFFERENCE EQUATIONS (2 files)
-
-### Cluster 7.1: Classification of Discrete Orthogonal Polynomials
-
-**Total files: 2**
-
----
-
-#### 7.1.1 Nikiforov-Suslov-Uvarov Theorem
-
-**Total files: 1**
-
-**Typical Example: [e5b3c8f7.md](https://github.com/igorratn/coyote-math/blob/main/e5b3c8f7.md)**
-
-Sequence $\{y_n(x)\}$ satisfying difference equation:
-
-$$A(x)y_n(x+1) + B(x)y_n(x) + C(x)y_n(x-1) = \lambda_n y_n(x)$$
-
-where $A,B,C$ are polynomials.
-
-**Claim:** If $\deg(A) = \deg(C) = 1$ and $\deg(B) = 2$, then $y_n$ must be classical discrete orthogonal (Hahn, Meixner, Krawtchouk, or Charlier).
-
-**Solution Methodology:** Uses N-S-U classification theorem for discrete orthogonal polynomials. Write in Sturm-Liouville form: $\Delta[\sigma(x)\nabla y_n(x)] + \tau(x)\Delta y_n(x) = \lambda_n w(x) y_n(x)$ where $\Delta$, $\nabla$ are forward/backward difference operators. Analyze polynomial $\sigma(x)$ (related to $A,C$) and $\tau(x)$ (related to $B$). For $\deg(\sigma) = 2$ and $\deg(\tau) = 1$ (which follows from given degrees), N-S-U classification gives exactly four families: Hahn, Meixner, Krawtchouk, Charlier.
-
-**Conclusion:** True
-
----
-
-#### 7.1.2 Degree Analysis & Counterexamples
-
-**Total files: 1**
-
-**Typical Example: [c8f7e3b5.md](https://github.com/igorratn/coyote-math/blob/main/c8f7e3b5.md)**
-
-Difference equation:
-
-$$y_n(x+2) + B(x)y_n(x+1) + C(x)y_n(x) = \lambda_n y_n(x)$$
-
-where $\deg(B) = \deg(C) = 1$.
-
-**Claim:** Solutions give classical orthogonal polynomials.
-
-**Solution Methodology:** Analyzes degree structure showing this does NOT match any classical family. Standard orthogonal polynomial equations relate $y_n$ at three consecutive points (three-term recurrence). This relates $y_n$ at $x$, $x+1$, $x+2$ instead. Counterexample: $B(x) = x$, $C(x) = -x$, $\lambda_n = n^2$ gives $y_n(x) = x^n$ (verify by substitution), but $x^n$ are NOT orthogonal w.r.t. any discrete weight (fail discrete orthogonality relations).
-
-**Conclusion:** False
-
----
-
-## PART VIII: LAGUERRE INTEGRALS (5 files)
-
-### Cluster 8.1: Laguerre Polynomial Integral Evaluation
-
-**Total files: 5**
-
----
-
-#### 8.1.1 Parameter-Shift via Change of Variables
+#### 7.1.1 Parameter-Shift via Change of Variables
 
 **Total files: 1**
 
@@ -413,7 +351,7 @@ $$I = \int_0^\infty L_n^{(\alpha)}(x) L_m^{(\alpha+1)}(x+1) e^{-x} x^\alpha dx$$
 
 ---
 
-#### 8.1.2 Adjacent Index via Recurrence
+#### 7.1.2 Adjacent Index via Recurrence
 
 **Total files: 1**
 
@@ -427,7 +365,7 @@ $$I_n = \int_0^\infty L_n^{(\alpha)}(x) L_{n+1}^{(\alpha)}(x) e^{-x} x^\alpha dx
 
 ---
 
-#### 8.1.3 Weighted Moments
+#### 7.1.3 Weighted Moments
 
 **Total files: 1**
 
@@ -441,7 +379,7 @@ $$J_n = \int_0^\infty x[L_n^{(\alpha)}(x)]^2 e^{-x} x^\alpha dx$$
 
 ---
 
-#### 8.1.4 Different Parameters
+#### 7.1.4 Different Parameters
 
 **Total files: 1**
 
@@ -457,7 +395,7 @@ where $\gamma = \max(\alpha, \beta)$.
 
 ---
 
-#### 8.1.5 Higher Parameters
+#### 7.1.5 Higher Parameters
 
 **Total files: 1**
 
@@ -468,6 +406,56 @@ $$M_n = \int_0^\infty L_n^{(\alpha)}(x) L_n^{(\alpha+1)}(x) e^{-x} x^{\alpha+1} 
 **Solution Methodology:** Uses connection $L_n^{(\alpha+1)} = L_n^{(\alpha)} - L_{n-1}^{(\alpha)}$. Split into two integrals. First: $\int [L_n^{(\alpha)}]^2 e^{-x} x^{\alpha+1} dx$ with weight change $x^{\alpha+1} = x \cdot x^\alpha$, apply recurrence for $xL_n^{(\alpha)}$, use orthogonality. Second: $\int L_n^{(\alpha)} L_{n-1}^{(\alpha)} e^{-x} x^{\alpha+1} dx$ similarly with recurrence and weight change.
 
 **Answer:** Explicit formula in $n, \alpha$
+
+---
+
+#### 7.1.6 Recurrence Relation Expansion with Orthogonality Selection
+
+**Total files: 3**
+
+**Typical Example: [7c563c4e.md](https://github.com/igorratn/coyote-math/blob/main/7c563c4e.md)**
+
+Evaluate the integral
+$$I = \int_{0}^{\infty} x^5 e^{-x} L_6(x)\, L_2(x)\, dx$$
+where $L_n(x)$ denotes the Laguerre polynomial of degree $n$.
+
+**Solution Methodology:** Express the integral as an inner product $\langle x^5 L_6, L_2 \rangle$. Apply the Laguerre recurrence relation for $\alpha=0$: $xL_n(x)=(2n+1)L_n(x)-(n+1)L_{n+1}(x)-nL_{n-1}(x)$. Expand $x^5 L_6(x)$ by applying this recurrence five successive times, expressing the result as a linear combination of $L_m(x)$ for various $m$. Use orthogonality: $\langle L_m, L_n \rangle = \delta_{mn}$. Only the coefficient of $L_2$ in the expansion survives the orthogonal projection onto $L_2$.
+
+**Answer:** $16200$
+
+**Other files:**
+- [dd5e2fc5.md](https://github.com/igorratn/coyote-math/blob/main/dd5e2fc5.md): Ratio of weighted Laguerre integrals. **Answer: $74/5$**
+- [e724070a.md](https://github.com/igorratn/coyote-math/blob/main/e724070a.md): $\int x^2 e^{-x} L_3 L_5 \, dx$, double recurrence application. **Answer: $20$**
+
+---
+
+## PART VIII: LAGUERRE FUNCTIONS OF THE SECOND KIND (3 files)
+
+### Cluster 8.1: Integral Representations & Asymptotic Behavior
+
+**Total files: 3**
+
+Problems analyzing Laguerre functions of the second kind $Q_n^{(\alpha)}(z) = \int_0^\infty \frac{t^\alpha e^{-t} L_n^{(\alpha)}(t)}{z-t}\,dt$ via differentiation under the integral sign, integration by parts, and asymptotic expansion.
+
+---
+
+#### 8.1.1 Differentiation Under the Integral and Identity Verification
+
+**Total files: 3**
+
+**Typical Example: [6c1ed21d.md](https://github.com/igorratn/coyote-math/blob/main/6c1ed21d.md)**
+
+For $\text{Re}(\alpha) > -1$ and $z \in \mathbb{C} \setminus [0, \infty)$, define $Q_n^{(\alpha)}(z) = \int_0^\infty \frac{t^\alpha e^{-t} L_n^{(\alpha)}(t)}{z - t} dt$. Define $\phi_n(z) = z \frac{d}{dz} Q_n^{(\alpha)}(z) + (n+1) Q_{n+1}^{(\alpha)}(z) - (n + \alpha + 1 - z) Q_n^{(\alpha)}(z)$.
+
+**Claim:** $\phi_n(z)$ is identically zero.
+
+**Solution Methodology:** Differentiate under the integral using dominated convergence on compact subsets of $\mathbb{C} \setminus [0,\infty)$. Use integration by parts to evaluate $\int_0^\infty \frac{t w(t) L_n^{(\alpha)}(t)}{(z-t)^2}\,dt$. Apply the derivative identity $(t^{\alpha+1}e^{-t}L_n^{(\alpha)}(t))' = t^\alpha e^{-t}[(n+\alpha+1-t)L_n^{(\alpha)}(t) - (n+\alpha)L_{n-1}^{(\alpha)}(t)]$ combined with the standard recurrence. Substitute into $\phi_n$ and check via asymptotic expansion: as $z \to \infty$ with $n=0$, $Q_0^{(\alpha)}(z)=\frac{\Gamma(\alpha+1)}{z}+O(z^{-2})$ and $Q_1^{(\alpha)}(z)=O(z^{-2})$ yields $\phi_0(z) \to \Gamma(\alpha+1) \neq 0$.
+
+**Conclusion: False**
+
+**Other files:**
+- [9c127187.md](https://github.com/igorratn/coyote-math/blob/main/9c127187.md): Differential operator identity with power law incompatibility $z^{-n}$ vs $z^{-(n+1)}$. **False**
+- [b4d59303.md](https://github.com/igorratn/coyote-math/blob/main/b4d59303.md): Limit $z^{n+1}Q_n^{(\alpha)}(z)$ via Nikiforov-Uvarov asymptotic formula. **True**
 
 ---
 
@@ -508,24 +496,27 @@ Function grows too rapidly at infinity, not in Hilbert space where Hermite polyn
 | III. Asymptotic Bounds | 6 | N-U estimates, Darboux formulas |
 | IV. Extremal Problems | 2 | Calculus of variations, C-D kernel |
 | V. Generating Functions | 3 | ODE transfer, parameter matching |
-| VI. Zero Distribution | 4 | Hellmann-Feynman, Sturm theory |
-| VII. Difference Equations | 2 | N-S-U classification, degree analysis |
-| VIII. Laguerre Integrals | 5 | Recurrence, weight changes |
+| VI. Monotonicity of Maxima | 3 | N-U auxiliary function $v(x)$ |
+| VII. Laguerre Integrals | 8 | Recurrence, weight changes, orthogonality |
+| VIII. Laguerre Second Kind | 3 | Differentiation under integral, asymptotics |
 | IX. Series Expansions | 1 | $L^2$ membership test |
-| **Total** | **40** | |
+| **Total** | **43** | |
 
 ---
 
 ## Quality Control Checklist
 
-- [x] All 40 files verified and counted
+- [x] All 43 files verified and counted
 - [x] Each file appears exactly once
 - [x] Every method has "Typical Example" for first file
 - [x] All other files have specific descriptions
 - [x] Methodology-based clustering
-- [x] Counts verified: 8+9+6+2+3+4+2+5+1 = 40 ✓
+- [x] Counts verified: 8+9+6+2+3+3+8+3+1 = 43
 - [x] Links formatted correctly
 - [x] Organized by N-U Chapter II structure
+- [x] All 6 phantom IDs removed (37a10f76, 8c3d5e9b, b8e3f9c5, a4e8c7f3, e5b3c8f7, c8f7e3b5)
+- [x] 9 new real files added from addendum
+- [x] No phantom/hallucinated file IDs
 
 ---
 
