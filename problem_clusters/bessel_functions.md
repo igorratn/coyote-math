@@ -1,9 +1,9 @@
 # Bessel Functions: Comprehensive Clustering by Solution Methodology
 
-**Total files discovered: 10**
-**Total files verified: 10**
+**Total files discovered: 11**
+**Total files verified: 11**
 **Date: March 2, 2026**
-**Last update: Added 3 previously unclustered files (5c3333ea.md, 57cd7bd6.md, f33dd204.md)**
+**Last update: Added 91a25388.md (spherical Bessel polynomial representation)**
 
 This document clusters all Bessel function problems from all.md based on their **solution methodology**, not topic keywords.
 
@@ -257,7 +257,25 @@ $$|w(r,\theta) - 1| \le \frac{C}{r}.$$
 
 ---
 
-### 1.9 Bessel Product Integral Convergence
+### 1.9 Spherical Bessel Functions — Polynomial Representation
+
+**Total files: 1**
+
+#### 1.9.1 Inductive Polynomial Structure via Recurrence
+
+**Total files: 1**
+
+[91a25388.md](https://github.com/igorratn/coyote-math/blob/main/91a25388.md) - For spherical Bessel functions $j_n(z)$ defined by $j_0=\sin z/z$, $j_1=\sin z/z^2 - \cos z/z$, and the recurrence $j_{n+1} = \frac{2n+1}{z}j_n - j_{n-1}$.
+
+**Claim:** For every $n\ge0$, there exist unique polynomials $p_n$, $q_n$ with $\deg p_n = n$, $\deg q_n = n-1$ such that $j_n(z) = (p_n(1/z)\sin z + q_n(1/z)\cos z)/z$.
+
+**Solution Methodology:** Existence proved by induction: substituting the representation into the recurrence gives $p_{n+1}(x) = (2n+1)xp_n(x) - p_{n-1}(x)$ and similarly for $q_{n+1}$, which are polynomials of the correct degree. Uniqueness proved by evaluating the zero identity at $z = k\pi$ (killing $\sin z$, forcing $Q \equiv 0$) and at $z = (m+\tfrac12)\pi$ (killing $\cos z$, forcing $P \equiv 0$).
+
+**Conclusion:** True
+
+---
+
+### 1.10 Bessel Product Integral Convergence
 
 **Total files: 1**
 
@@ -294,10 +312,10 @@ $$|w(r,\theta) - 1| \le \frac{C}{r}.$$
 
 ## Summary Statistics
 
-✓ **Total files discovered:** 10
-✓ **Total files in clustering:** 10
+✓ **Total files discovered:** 11
+✓ **Total files in clustering:** 11
 ✓ **Every file appears exactly once:** Yes
-✓ **All counts sum correctly:** Yes (1+1+1+1+1+1+1+1+1+2 = 10)
+✓ **All counts sum correctly:** Yes (1+1+1+1+1+1+1+1+1+2+1 = 11)
 ✓ **Methodology-based clustering (not topic-based):** Yes
 ✓ **All descriptions are specific:** Yes
 ✓ **All links formatted correctly:** Yes

@@ -6,6 +6,8 @@ Detailed proof analysis and clustering: [Google Doc](https://docs.google.com/doc
 ## Recent Activity
 The 5 most recently updated mathematical tasks in the repository:
 
+For integer $n\ge0$, the spherical Bessel functions $j_n(z)$ are defined recursively by $$j_0(z)=\frac{\sin z}{z}, \qquad j_1(z)=\frac{\sin z}{z^2}-\frac{\cos z}{z},$$ and for $n\ge1$,  ... [[91a25388.md]](https://github.com/igorratn/coyote-math/blob/main/91a25388.md)
+
 For $\nu > 0$, the Bessel function $J_\nu(z)$ has the large-argument asymptotic behavior: $$J_\nu(z) \sim \sqrt{\frac{2}{\pi z}} \cos \left( z - \frac{\nu\pi}{2} - \frac{\pi}{4} \right), \qquad z \to \infty.$$ Now consider:  ... [[5c3333ea.md]](https://github.com/igorratn/coyote-math/blob/main/5c3333ea.md)
 
 For integer $n \ge 0$, the Bessel function $J_n(z)$ is given by $J_n(z) = \frac{1}{2\pi} \int_0^{2\pi} \cos(n\theta - z \sin \theta) \, d\theta$. For non-integer $\nu > 0$, define $F_\nu(z) = \frac{1}{2\pi} \int_0^{2\pi} \cos(\nu\theta - z \sin \thet ... [[57cd7bd6.md]](https://github.com/igorratn/coyote-math/blob/main/57cd7bd6.md)
@@ -13,6 +15,4 @@ For integer $n \ge 0$, the Bessel function $J_n(z)$ is given by $J_n(z) = \frac{
 For $\nu > -1/2$, the Bessel function of the first kind $J_\nu(z)$ admits the Poisson integral representation: $$J_\nu(z) = \frac{(z/2)^\nu}{\sqrt{\pi}\Gamma(\nu+1/2)} \int_0^\pi \cos(z \cos \theta) \sin^{2\nu} \theta \, d\theta$$ Separately, $J_\nu( ... [[f33dd204.md]](https://github.com/igorratn/coyote-math/blob/main/f33dd204.md)
 
 Let $H_\nu^{(1)}(z)$ denote the Hankel function of the first kind of order $\nu > 0$, which satisfies the Bessel differential equation $$z^2 u'' + z u' + (z^2 - \nu^2) u = 0$$ and is analytic in $\mathbb{C} \setminus (-\infty, 0]$ with branch cut alo ... [[af454602.md]](https://github.com/igorratn/coyote-math/blob/main/af454602.md)
-
-Let $\nu>0$ and let $J_\nu$ be the Bessel function of the first kind. For $z_1>0$ define $z_2=z_1+2\pi$ and, whenever $J_\nu(z_1)J_\nu(z_2)\neq0$, define $$\Phi_\nu(z_1,z_2)=\frac{J_\nu(z_1)J_\nu'(z_2)-J_\nu'(z_1)J_\nu(z_2)}{J_\nu(z_1)J_\nu(z_2)}.$$  ... [[4db0af8d.md]](https://github.com/igorratn/coyote-math/blob/main/4db0af8d.md)
 

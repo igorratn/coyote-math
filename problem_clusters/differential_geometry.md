@@ -5,7 +5,7 @@
 
 This document clusters all differential geometry problems: hyperbolic geometry, surface curves, and flat tori.
 
-**Note:** 7 of these problems have associated figure files (`{id}-i.jpg`, `{id}-i.pdf`, `{id}-i.tex`).
+**Note:** All 8 problems with figures have associated files (`{id}-i.jpg`, `{id}-i.pdf`, `{id}-i.tex`).
 
 ---
 
@@ -43,7 +43,7 @@ What is the hyperbolic area of the figure bounded by $OP$, $OQ$, and the curve $
 **Conclusion:** Area $= \pi - (\pi/2 + \pi/6 + \pi/6) = \pi/6$.
 
 **Other files:**
-- [f14b7ce3.md](https://github.com/igorratn/coyote-math/blob/main/f14b7ce3.md) | Figure: [poincare_AB_asymmetric-i.tex](https://github.com/igorratn/coyote-math/blob/main/poincare_AB_asymmetric-i.tex): Hyperbolic distance between $A=(2/5,1/5)$ and $B=(-1/5,3/5)$ in Poincaré disk. **Answer: 1.82**
+- [f14b7ce3.md](https://github.com/igorratn/coyote-math/blob/main/f14b7ce3.md) | Figure: [f14b7ce3-i.jpg](https://github.com/igorratn/coyote-math/blob/main/f14b7ce3-i.jpg): Hyperbolic distance between $A=(2/5,1/5)$ and $B=(-1/5,3/5)$ in Poincaré disk. **Answer: 1.82**
 - [bca2a699.md](https://github.com/igorratn/coyote-math/blob/main/bca2a699.md) | Figure: [bca2a699-i.jpg](https://github.com/igorratn/coyote-math/blob/main/bca2a699-i.jpg): Holonomy on surface with $K=2$. **Answer: $-0.685$**
 
 ---
@@ -118,9 +118,7 @@ Geodesic identification on flat torus from quotient geometry.
 | a64df3e0 | `a64df3e0-i.jpg` | `a64df3e0-i.tex` |
 | c7441c68 | `c7441c68-i.jpg` | `c7441c68-i.tex` |
 
-| f14b7ce3 | `poincare_AB_asymmetric-i.tex`* | *(non-standard naming)* |
-
-\* `f14b7ce3` uses a descriptive filename instead of the `{id}-i.*` convention.
+| f14b7ce3 | `f14b7ce3-i.jpg` | `f14b7ce3-i.tex` |
 
 ---
 
@@ -129,7 +127,7 @@ Geodesic identification on flat torus from quotient geometry.
 | Problem | Cluster | Method | Image | Answer |
 |---------|---------|--------|-------|--------|
 | 2deb9b93 | 1. Hyperbolic | Gauss-Bonnet, Poincare disk | Yes | $\pi/6$ |
-| f14b7ce3 | 1. Hyperbolic | Hyperbolic distance | Yes* | 1.82 |
+| f14b7ce3 | 1. Hyperbolic | Hyperbolic distance | Yes | 1.82 |
 | bca2a699 | 1. Hyperbolic | Holonomy, constant $K$ | Yes | $-0.685$ |
 | aad144ac | 2. Surface curves | Darboux frame, geodesic torsion | No | $8/45$ |
 | 9129831b | 2. Surface curves | Signed geodesic curvature | Yes | $-5/4$ |
