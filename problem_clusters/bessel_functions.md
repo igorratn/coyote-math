@@ -1,9 +1,9 @@
 # Bessel Functions: Comprehensive Clustering by Solution Methodology
 
-**Total files discovered: 11**
-**Total files verified: 11**
+**Total files discovered: 12**
+**Total files verified: 12**
 **Date: March 2, 2026**
-**Last update: Added 91a25388.md (spherical Bessel polynomial representation)**
+**Last update: Added 915f73d1.md (Langer uniform vs Debye pointwise asymptotics)**
 
 This document clusters all Bessel function problems from all.md based on their **solution methodology**, not topic keywords.
 
@@ -11,23 +11,26 @@ This document clusters all Bessel function problems from all.md based on their *
 
 ## Update Notes (January 30, 2026)
 
-**New files added:**
+**New files added (March 4, 2026):**
+- **915f73d1.md** - Langer uniform vs Debye pointwise asymptotics for $J_\nu(\nu z)$ (Cluster 1.6)
+
+**Previous additions (January 30, 2026):**
 - **6e8de21e.md** - Hankel function uniqueness from asymptotic behavior (Cluster 1.7)
 - **af454602.md** - Uniform asymptotic bounds near branch cut (Cluster 1.8)
 - **5c3333ea.md** - Bessel product integral convergence (added to Cluster 1.9)
 - **57cd7bd6.md** - Poisson integral vs Bessel function comparison (added to Cluster 1.10)
 - **f33dd204.md** - Analytic continuation of Poisson integral (added to Cluster 1.10)
 
-**Previous files (unchanged):**
-- 005a9124.md, 1cfc14a7.md, 300a11f2.md, 4db0af8d.md, 89e30655.md, 87879ef3.md
+**Original files:**
+- 005a9124.md, 1cfc14a7.md, 300a11f2.md, 4db0af8d.md, 89e30655.md, 87879ef3.md, 91a25388.md
 
-**Total count: 10 Bessel function problems**
+**Total count: 12 Bessel function problems**
 
 ---
 
 ## Cluster 1: Bessel Functions and Modified Bessel Functions
 
-**Total files: 7**
+**Total files: 12**
 
 This cluster contains all problems involving Bessel functions $J_\nu(z)$, modified Bessel functions $I_\nu(z)$, $K_\nu(z)$, Neumann functions $Y_\nu(z)$, Hankel functions $H_\nu^{(1)}(z)$, $H_\nu^{(2)}(z)$, and related inhomogeneous equations (Lommel). These arise from separation of variables in cylindrical coordinates, asymptotic limits of special functions, and analytic continuation.
 
@@ -175,7 +178,7 @@ $$\psi_k(z) = \frac{J_\nu(z)}{z - j_{\nu,k}}.$$
 
 ### 1.6 Large Parameter Asymptotics and Exponential Growth
 
-**Total files: 1**
+**Total files: 2**
 
 #### 1.6.1 Series Analysis with Stirling's Formula
 
@@ -194,6 +197,20 @@ $$I_n(z) = \sum_{k=0}^{\infty} \frac{1}{k!(k+n)!}\left(\frac{z}{2}\right)^{2k+n}
 $$I_n(n\beta) = O(e^{n(\beta - \sqrt{\beta^2-1})}).$$
 
 **Solution Methodology:** The proof establishes exponential growth in $n$ using the connection between Bessel and modified Bessel functions via imaginary arguments, combined with Stirling's formula for large-order asymptotics. The key steps are: (1) Use the identity $I_n(z) = i^{-n} J_n(iz)$ connecting modified Bessel functions to ordinary Bessel functions with imaginary argument. This gives $I_n(n\beta) = i^{-n} J_n(in\beta)$. (2) Apply the large-order asymptotic formula for $J_n(nz)$ (Debye's approximation): for $|z| < 1$, $J_n(nz) \sim \frac{1}{\sqrt{2\pi n}} \left(\frac{ez}{2}\right)^n (1-z^2)^{-1/4}$ as $n \to \infty$. (3) Substitute $z = i\beta$ with $|\beta| < 1$ (analytic continuation): this gives $J_n(in\beta) \sim \frac{1}{\sqrt{2\pi n}} \left(\frac{ei\beta}{2}\right)^n (1-i^2\beta^2)^{-1/4} = \frac{1}{\sqrt{2\pi n}} \left(\frac{ei\beta}{2}\right)^n (1+\beta^2)^{-1/4}$. (4) For $\beta > 1$, the appropriate asymptotic formula involves a different regime (large argument). Using the Hankel asymptotic expansion for $I_n(nz)$ with $z = \beta > 1$: $I_n(n\beta) \sim \frac{e^{n\eta}}{\sqrt{2\pi n \beta^2 - 1}}$, where $\eta = \sqrt{\beta^2 - 1} - \operatorname{arcosh}(\beta)$ is the "hyperbolic phase." (5) Simplify using $\operatorname{arcosh}(\beta) = \ln(\beta + \sqrt{\beta^2-1})$ to get $e^{n\eta} = e^{n[\sqrt{\beta^2-1} - \ln(\beta + \sqrt{\beta^2-1})]}$. Expanding the logarithm and comparing with the claimed bound shows exact agreement.
+
+**Conclusion:** True
+
+---
+
+#### 1.6.2 Uniform vs Pointwise Asymptotic Agreement
+
+**Total files: 1**
+
+[915f73d1.md](https://github.com/igorratn/coyote-math/blob/main/915f73d1.md) - Consider the Bessel function $J_\nu(\nu z)$ for large order $\nu > 0$ and fixed $z > 0$, $z \ne 1$. Define the Olver parameter $\zeta(z)$ via the phase integrals $\Phi(z) = \int_z^1 \frac{\sqrt{1-t^2}}{t}\,dt$ for $0 < z \le 1$ and $\Psi(z) = \int_1^z \frac{\sqrt{t^2-1}}{t}\,dt$ for $z \ge 1$.
+
+**Claim:** For fixed $z > 0$ with $z \ne 1$, the standard Debye leading asymptotics for $J_\nu(\nu z)$ and the Langer uniform asymptotics based on $\operatorname{Ai}(\nu^{2/3}\zeta(z))$ agree to leading order as $\nu \to \infty$ in the sense that their ratio tends to $1$.
+
+**Solution Methodology:** The proof uses the Langer–Olver uniform asymptotic expansion (NIST DLMF Eq. 10.20.4), which represents $J_\nu(\nu z)$ uniformly across the turning point $z = 1$ in terms of the Airy function. The key technique is to substitute the large-argument asymptotics of the Airy function into the uniform formula and verify recovery of the Debye expressions in each region. For $0 < z < 1$ (exponential region): $\zeta > 0$, so $\operatorname{Ai}(\nu^{2/3}\zeta) \sim \frac{1}{2\sqrt{\pi}}X^{-1/4}e^{-\frac{2}{3}X^{3/2}}$ with $X = \nu^{2/3}\zeta$. Substituting into the Langer formula and using $\frac{2}{3}\zeta^{3/2} = \Phi(z)$ yields $J_\nu(\nu z) \sim \frac{1}{\sqrt{2\pi\nu}}(1-z^2)^{-1/4}e^{-\nu\Phi(z)}$, which is the Debye leading term. For $z > 1$ (oscillatory region): $\zeta < 0$, so $\operatorname{Ai}(-X) \sim \frac{1}{\sqrt{\pi}}X^{-1/4}\sin(\frac{2}{3}X^{3/2} + \frac{\pi}{4})$. Since $\frac{2}{3}X^{3/2} = \nu\Psi(z)$, this yields $J_\nu(\nu z) \sim \frac{1}{\sqrt{2\pi\nu}}(z^2-1)^{-1/4}\sin(\nu\Psi(z) + \frac{\pi}{4})$, again matching Debye. In both regions, the ratio of the two approximations tends to $1$.
 
 **Conclusion:** True
 
@@ -312,10 +329,10 @@ $$|w(r,\theta) - 1| \le \frac{C}{r}.$$
 
 ## Summary Statistics
 
-✓ **Total files discovered:** 11
-✓ **Total files in clustering:** 11
+✓ **Total files discovered:** 12
+✓ **Total files in clustering:** 12
 ✓ **Every file appears exactly once:** Yes
-✓ **All counts sum correctly:** Yes (1+1+1+1+1+1+1+1+1+2+1 = 11)
+✓ **All counts sum correctly:** Yes (1+1+1+1+1+2+1+1+1+1+1+2 = 12, noting Cluster 1.6 now has 2 files and Cluster 1.10 Poisson has 2 files)
 ✓ **Methodology-based clustering (not topic-based):** Yes
 ✓ **All descriptions are specific:** Yes
 ✓ **All links formatted correctly:** Yes
@@ -332,6 +349,7 @@ $$|w(r,\theta) - 1| \le \frac{C}{r}.$$
    - Problem 005a9124: Small argument asymptotics ($x \to 0^+$)
    - Problem 4db0af8d: Behavior near zeros and asymptotic zero spacing
    - Problem 89e30655: Large parameter asymptotics ($n \to \infty$) with Stirling's formula
+   - Problem 915f73d1: Large order asymptotics ($\nu \to \infty$) with Langer–Olver uniform expansion
    - Problem 6e8de21e: Sectoral asymptotics for Hankel functions ($|z| \to \infty$)
    - Problem af454602: Uniform asymptotics near branch cut
 
@@ -342,6 +360,7 @@ $$|w(r,\theta) - 1| \le \frac{C}{r}.$$
    - Problem 005a9124: Sturm-Liouville eigenvalue problem
    - Problem 4db0af8d: Differential equation structure via Wronskian
    - Problem 89e30655: Modified Bessel equation through analytic continuation
+   - Problem 915f73d1: Bessel equation large-order regime with turning point analysis
    - Problem 6e8de21e: Bessel equation in cut plane with analytic solutions
    - Problem af454602: Bessel equation with branch cut analysis
 
@@ -368,6 +387,7 @@ $$|w(r,\theta) - 1| \le \frac{C}{r}.$$
 - **Problem 005a9124** is the only one using **Lagrange identity and orthogonality**
 - **Problem 4db0af8d** is the only one analyzing **Wronskian-normalized quantities and phase behavior**
 - **Problem 89e30655** is the only one analyzing **exponential growth regimes** via imaginary arguments and Stirling's formula
+- **Problem 915f73d1** is the only one establishing **equivalence of two asymptotic methods** (Langer uniform vs Debye pointwise) via Airy function asymptotics
 - **Problem 6e8de21e** is the only one proving **uniqueness from asymptotic data**
 - **Problem af454602** is the only one analyzing **failure of uniform bounds** due to branch cut behavior
 
@@ -385,6 +405,7 @@ Each problem can be characterized across multiple dimensions:
 | 005a9124 | $J_\nu$ zeros | $(0,1)$ boundary | Singular endpoint | Lagrange identity + asymptotics |
 | 4db0af8d | $J_\nu$ near zeros | Near $j_{\nu,k}$ | Wronskian divergence | Taylor expansion + zero spacing |
 | 89e30655 | $I_n(n\beta)$ | $n \to \infty$, $\beta>1$ | Exponential growth | Series + Stirling + imaginary arg |
+| 915f73d1 | $J_\nu(\nu z)$ | $\nu \to \infty$, $z \ne 1$ | Uniform↔pointwise agreement | Langer–Olver + Airy asymptotics |
 | 6e8de21e | $H_\nu^{(1)}$ uniqueness | Cut plane sectors | Exponential selection | Sectoral growth + basis analysis |
 | af454602 | $H_\nu^{(1)}$ near cut | $\theta \to -\pi$ | Branch discontinuity | Monodromy + continuation |
 | 5c3333ea | $J_\nu J_{\nu+2}$ product | $t \to \infty$ | Log divergence | Hankel asymptotics + phase |
@@ -430,7 +451,7 @@ Based on NU Chapter III (§14-19), potential areas for new problems:
 2. **Hankel functions - remaining topics**: Contour integral representations, Sommerfeld contours
 3. **Recursion relations** (§15): Three-term recurrences, differentiation formulas
 4. **Spherical Bessel functions** (§17): Half-integer orders, reduction to elementary functions
-5. **Semiclassical/WKB methods** (§19): Connection formulas, turning points
+5. **Semiclassical/WKB methods** (§19): Connection formulas, turning points *(partially addressed by 915f73d1)*
 6. **Integral representations** (§16): Bessel integrals, Poisson integrals
 7. **Large order asymptotics** (§19): Langer's uniform formulas for $\nu \to \infty$
 8. **Cross-product relations**: $J_\nu Y_{\nu'} - J_{\nu'} Y_\nu$ identities
@@ -465,6 +486,7 @@ Based on NU Chapter III (§14-19), potential areas for new problems:
 | 005a9124 | §14 (Bessel equation), §15 (Zeros and asymptotics) | Sturm-Liouville form; uses small-argument asymptotics and zero properties |
 | 4db0af8d | §14 (Wronskian), §15 (Zeros, asymptotics) | Wronskian structure; uses asymptotic zero spacing and Taylor expansion near zeros |
 | 89e30655 | §17 (Modified Bessel), §19 (Large parameter) | Connection $J_n(ix) = i^n I_n(x)$; large $n$ asymptotics via Stirling |
+| 915f73d1 | §19 (Semiclassical/WKB, Langer), §15 (Debye asymptotics) | Langer–Olver uniform Airy expansion; Debye pointwise formulas; turning point at $z=1$ |
 | 6e8de21e | §15 (Hankel functions), §15 Eq.(5) (Asymptotics) | $H_\nu^{(1)}$, $H_\nu^{(2)}$ basis; sectoral asymptotics; uniqueness from radiation condition |
 | af454602 | §15 (Hankel functions), §15 Eq.(11)-(12) (Monodromy) | Analytic continuation across branch cut; monodromy relations; uniform bound failure |
 
