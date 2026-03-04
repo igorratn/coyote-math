@@ -1,7 +1,7 @@
 # Bessel Functions: Comprehensive Clustering by Solution Methodology
 
-**Total files discovered: 12**
-**Total files verified: 12**
+**Total files discovered: 13**
+**Total files verified: 13**
 **Date: March 2, 2026**
 **Last update: Added 915f73d1.md (Langer uniform vs Debye pointwise asymptotics)**
 
@@ -24,13 +24,13 @@ This document clusters all Bessel function problems from all.md based on their *
 **Original files:**
 - 005a9124.md, 1cfc14a7.md, 300a11f2.md, 4db0af8d.md, 89e30655.md, 87879ef3.md, 91a25388.md
 
-**Total count: 12 Bessel function problems**
+**Total count: 13 Bessel function problems**
 
 ---
 
 ## Cluster 1: Bessel Functions and Modified Bessel Functions
 
-**Total files: 12**
+**Total files: 13**
 
 This cluster contains all problems involving Bessel functions $J_\nu(z)$, modified Bessel functions $I_\nu(z)$, $K_\nu(z)$, Neumann functions $Y_\nu(z)$, Hankel functions $H_\nu^{(1)}(z)$, $H_\nu^{(2)}(z)$, and related inhomogeneous equations (Lommel). These arise from separation of variables in cylindrical coordinates, asymptotic limits of special functions, and analytic continuation.
 
@@ -329,10 +329,10 @@ $$|w(r,\theta) - 1| \le \frac{C}{r}.$$
 
 ## Summary Statistics
 
-✓ **Total files discovered:** 12
-✓ **Total files in clustering:** 12
+✓ **Total files discovered:** 13
+✓ **Total files in clustering:** 13
 ✓ **Every file appears exactly once:** Yes
-✓ **All counts sum correctly:** Yes (1+1+1+1+1+2+1+1+1+1+1+2 = 12, noting Cluster 1.6 now has 2 files and Cluster 1.10 Poisson has 2 files)
+✓ **All counts sum correctly:** Yes (1+1+1+1+1+2+1+1+1+1+2 = 13, across sub-clusters 1.1–1.10)
 ✓ **Methodology-based clustering (not topic-based):** Yes
 ✓ **All descriptions are specific:** Yes
 ✓ **All links formatted correctly:** Yes
