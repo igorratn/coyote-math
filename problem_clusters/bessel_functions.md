@@ -1,36 +1,40 @@
 # Bessel Functions: Comprehensive Clustering by Solution Methodology
 
-**Total files discovered: 13**
-**Total files verified: 13**
+**Total files discovered: 14**
+**Total files verified: 14**
 **Date: March 2, 2026**
-**Last update: Added 915f73d1.md (Langer uniform vs Debye pointwise asymptotics)**
+**Last update: March 11, 2026 — Added 0af97337.md (Graf addition theorem / series convergence domain); updated 91a25388.md entry**
 
-This document clusters all Bessel function problems from all.md based on their **solution methodology**, not topic keywords.
+This document clusters all Bessel function problems based on their **solution methodology**, not topic keywords.
 
 ---
 
-## Update Notes (January 30, 2026)
+## Update Notes
 
-**New files added (March 4, 2026):**
-- **915f73d1.md** - Langer uniform vs Debye pointwise asymptotics for $J_\nu(\nu z)$ (Cluster 1.6)
+**March 11, 2026:**
+- **0af97337.md** — Added. Graf's addition theorem: analytic continuation of a function does not preserve a divergent series representation. Cluster 1.9.2.
+- **91a25388.md** — Problem updated. Now covers the Neumann addition theorem and its incorrect analogue for modified Bessel functions. Cluster 1.9.1.
 
-**Previous additions (January 30, 2026):**
-- **6e8de21e.md** - Hankel function uniqueness from asymptotic behavior (Cluster 1.7)
-- **af454602.md** - Uniform asymptotic bounds near branch cut (Cluster 1.8)
-- **5c3333ea.md** - Bessel product integral convergence (added to Cluster 1.9)
-- **57cd7bd6.md** - Poisson integral vs Bessel function comparison (added to Cluster 1.10)
-- **f33dd204.md** - Analytic continuation of Poisson integral (added to Cluster 1.10)
+**March 4, 2026:**
+- **915f73d1.md** — Langer uniform vs Debye pointwise asymptotics for $J_\nu(\nu z)$ (Cluster 1.6.2)
+
+**January 30, 2026:**
+- **6e8de21e.md** — Hankel function uniqueness from asymptotic behavior (Cluster 1.7)
+- **af454602.md** — Uniform asymptotic bounds near branch cut (Cluster 1.8)
+- **5c3333ea.md** — Bessel product integral convergence (Cluster 1.10)
+- **57cd7bd6.md** — Poisson integral vs Bessel function comparison (Cluster 1.11)
+- **f33dd204.md** — Analytic continuation of Poisson integral (Cluster 1.11)
 
 **Original files:**
 - 005a9124.md, 1cfc14a7.md, 300a11f2.md, 4db0af8d.md, 89e30655.md, 87879ef3.md, 91a25388.md
 
-**Total count: 13 Bessel function problems**
+**Total count: 14 Bessel function problems**
 
 ---
 
 ## Cluster 1: Bessel Functions and Modified Bessel Functions
 
-**Total files: 13**
+**Total files: 14**
 
 This cluster contains all problems involving Bessel functions $J_\nu(z)$, modified Bessel functions $I_\nu(z)$, $K_\nu(z)$, Neumann functions $Y_\nu(z)$, Hankel functions $H_\nu^{(1)}(z)$, $H_\nu^{(2)}(z)$, and related inhomogeneous equations (Lommel). These arise from separation of variables in cylindrical coordinates, asymptotic limits of special functions, and analytic continuation.
 
@@ -42,31 +46,11 @@ This cluster contains all problems involving Bessel functions $J_\nu(z)$, modifi
 
 #### 1.1.1 Asymptotic Expansion Analysis with Growth Comparison
 
-**Total files: 1**
+[1cfc14a7.md](https://github.com/igorratn/coyote-math/blob/main/1cfc14a7.md) — Lommel's equation $z^2 u'' + zu' + (z^2-\nu^2)u = z^{s+1}$ with $s = \nu+2n$. The particular solution satisfies $u_p(z) \sim z^{\nu+2n-1}\sum a_k z^{-2k}$.
 
-[1cfc14a7.md](https://github.com/igorratn/coyote-math/blob/main/1cfc14a7.md) - Lommel's equation is given by
+**Claim:** $|u_p(z)| \le C z^{\nu+2n-1}$ for large $z$.
 
-$$z^2 u'' + zu' + (z^2 - \nu^2)u = z^{s+1}$$
-
-where $\nu, s \in \mathbb{R}$ are parameters. This inhomogeneous equation has solutions of the form
-
-$$u(z) = A J_\nu(z) + B Y_\nu(z) + u_p(z)$$
-
-where $J_\nu$, $Y_\nu$ are Bessel functions of the first and second kind, and $u_p(z)$ is a particular solution.
-
-For the case $s = \nu + 2n$ where $n \geq 1$ is an integer, a particular solution has the asymptotic expansion as $z \to \infty$:
-
-$$u_p(z) \sim z^{\nu+2n-1} \sum_{k=0}^{\infty} a_k z^{-2k}$$
-
-where the coefficients $a_k$ are determined by substitution into the differential equation.
-
-**Claim:** For all $\nu > -1$ and $n \geq 1$, the particular solution $u_p(z)$ satisfies the bound
-
-$$|u_p(z)| \leq C z^{\nu+2n-1}$$
-
-for all sufficiently large $z \geq z_0$.
-
-**Solution Methodology:** The proof uses asymptotic expansion theory combined with growth rate comparison. First, set $\alpha = \nu + 2n - 1$ and observe that since $\nu > -1$ and $n \geq 1$, we have $\alpha > 0$, ensuring polynomial growth rather than decay. By the definition of asymptotic expansion, the $k=0$ truncation gives $u_p(z) = z^\alpha(a_0 + o(1))$ as $z \to \infty$. This immediately establishes the bound for a specific particular solution with $C = |a_0| + 1$. For completeness, the proof shows that any other particular solution differs from $u_p$ by a homogeneous solution $A J_\nu + B Y_\nu$. Using the well-known asymptotic behavior $J_\nu(z) = O(z^{-1/2})$ and $Y_\nu(z) = O(z^{-1/2})$ as $z \to \infty$, these homogeneous terms decay oscillatorily while $u_p$ grows polynomially. Since $\alpha > 0$, for sufficiently large $z$, the polynomial growth $z^\alpha$ dominates the oscillatory decay $z^{-1/2}$, proving that all particular solutions satisfy the same growth bound up to a possibly different constant $C$.
+**Solution Methodology:** Set $\alpha = \nu+2n-1 > 0$. The $k=0$ truncation gives $u_p = z^\alpha(a_0+o(1))$, establishing the bound. Any other particular solution adds $AJ_\nu + BY_\nu = O(z^{-1/2})$, which is dominated by $z^\alpha$ for large $z$.
 
 **Conclusion:** True
 
@@ -78,23 +62,11 @@ for all sufficiently large $z \geq z_0$.
 
 #### 1.2.1 Frobenius Method with Wronskian Verification
 
-**Total files: 1**
+[300a11f2.md](https://github.com/igorratn/coyote-math/blob/main/300a11f2.md) — Modified Bessel equation $z^2v''+zv'-(z^2+\nu^2)v=0$ with $I_\nu(z)=e^{-i\pi\nu/2}J_\nu(iz)$, $K_\nu(z) = \frac{\pi}{2\sin(\pi\nu)}[I_{-\nu}-I_\nu]$.
 
-[300a11f2.md](https://github.com/igorratn/coyote-math/blob/main/300a11f2.md) - Let $J_\nu(z)$ denote the Bessel function of the first kind of order $\nu$, satisfying the differential equation
+**Claim:** For non-integer $\nu>0$, $\{I_\nu, I_{-\nu}\}$ is a complete basis and $K_\nu$ is their linear combination.
 
-$$z^2 u'' + zu' + (z^2 - \nu^2)u = 0.$$
-
-Consider the modified Bessel equation:
-
-$$z^2 v'' + zv' - (z^2 + \nu^2)v = 0.$$
-
-For $\nu \geq 0$, define the modified Bessel functions (using the principal branch):
-
-$$I_\nu(z) = e^{-i\pi\nu/2} J_\nu(iz), \quad K_\nu(z) = \frac{\pi}{2} \frac{I_{-\nu}(z) - I_\nu(z)}{\sin(\pi\nu)}.$$
-
-**Claim:** For non-integer $\nu > 0$, the pair $\{I_\nu(z), I_{-\nu}(z)\}$ forms a complete basis for solutions of the modified Bessel equation on $\mathbb{C} \setminus \{0\}$, and therefore $K_\nu(z)$ can be expressed as a linear combination of $I_\nu$ and $I_{-\nu}$ on this domain.
-
-**Solution Methodology:** The proof applies Frobenius theory to analyze the regular singular point at $z=0$. The modified Bessel equation has a regular singular point at the origin with indicial exponents $\pm\nu$, which can be found by substituting a Frobenius series $v = z^r \sum c_k z^k$ and examining the leading coefficients. For non-integer $\nu$, these exponents differ by a non-integer, guaranteeing two linearly independent solutions with leading behaviors $z^\nu$ and $z^{-\nu}$. The functions $I_\nu(z)$ and $I_{-\nu}(z)$ realize these solutions on any simply connected domain $D \subset \mathbb{C}\setminus\{0\}$ where a single branch of $z^\nu$ is chosen. To verify linear independence, the proof computes the Wronskian: $W[I_\nu, I_{-\nu}]$ satisfies the differential relation $W' = -\frac{1}{z}W$ (from the structure of the ODE), giving $W(z) = C/z$. The constant is known from the standard theory: $W[I_\nu, I_{-\nu}](z) = -\frac{2\sin(\pi\nu)}{\pi z}$, which is nonzero for non-integer $\nu$. Therefore $\{I_\nu, I_{-\nu}\}$ forms a fundamental set of solutions, and any solution is a linear combination of these two. In particular, $K_\nu(z)$ is explicitly written as $K_\nu(z) = \frac{\pi}{2\sin(\pi\nu)}[I_{-\nu}(z) - I_\nu(z)]$, completing the proof.
+**Solution Methodology:** Frobenius theory at $z=0$ gives indicial exponents $\pm\nu$; for non-integer $\nu$ these differ by a non-integer, guaranteeing two independent solutions. Wronskian $W[I_\nu,I_{-\nu}] = -2\sin(\pi\nu)/(\pi z) \neq 0$ confirms the basis.
 
 **Conclusion:** True
 
@@ -106,25 +78,11 @@ $$I_\nu(z) = e^{-i\pi\nu/2} J_\nu(iz), \quad K_\nu(z) = \frac{\pi}{2} \frac{I_{-
 
 #### 1.3.1 High-Degree Limit with Coordinate System Transformation
 
-**Total files: 1**
+[87879ef3.md](https://github.com/igorratn/coyote-math/blob/main/87879ef3.md) — Define $M_\ell^m(\theta) = \ell^{-m}P_\ell^m(\cos(\theta/\ell))$.
 
-[87879ef3.md](https://github.com/igorratn/coyote-math/blob/main/87879ef3.md) - For integers $\ell \geq m \geq 0$, let $P_\ell^m(x)$ denote the associated Legendre functions on $[-1,1]$. Fix $m \geq 0$ and $\theta \in (0,\pi)$, and set $x_\ell = \cos(\theta/\ell)$ so that $x_\ell \to 1$ as $\ell \to \infty$. Define:
+**Claim:** $\lim_{\ell\to\infty} M_\ell^m(\theta) = \theta^m/(2^m m!)$.
 
-$$M_\ell^m(\theta) = \ell^{-m} P_\ell^m \left( \cos \frac{\theta}{\ell} \right)$$
-
-**Claim:** For all $m \geq 0$ and all $\theta \in (0, \pi)$, the limit
-
-$$\lim_{\ell \to \infty} M_\ell^m(\theta) = \frac{\theta^m}{2^m m!}$$
-
-exists and equals the stated expression.
-
-**Solution Methodology:** The proof disproves the claim by invoking the classical **Mehler-Heine asymptotic formula** for associated Legendre functions in the high-degree limit. This formula states that for fixed $m \geq 0$ and $\theta \in (0,\pi)$,
-
-$$\lim_{\ell \to \infty} \ell^{-m} P_\ell^m \left( \cos \frac{\theta}{\ell} \right) = \left( \frac{\theta}{2} \right)^m J_m(\theta)$$
-
-where $J_m$ is the Bessel function of the first kind. The key mathematical insight is that in the limit $\ell \to \infty$ with $\theta/\ell$ held fixed, the associated Legendre functions (which are polynomial solutions in spherical coordinates) transition to Bessel functions (which are cylindrical solutions). This represents a coordinate system transformation from spherical to cylindrical harmonics in the short-wavelength/high-frequency regime. To construct a counterexample to the claimed formula, consider the simplest case $m=0$ and $\theta = \pi/2$. The claimed limit would give $\frac{(\pi/2)^0}{2^0 \cdot 0!} = 1$. However, applying the Mehler-Heine formula yields $J_0(\pi/2) \approx 0.472 \neq 1$, immediately disproving the claim. The correct limiting function is the Bessel function $J_m(\theta)$, not the elementary function $\theta^m/(2^m m!)$ stated in the claim.
-
-**Physical significance:** This asymptotic connection is fundamental in mathematical physics, showing how solutions to Laplace's equation in spherical coordinates (spherical harmonics, via associated Legendre functions) reduce to solutions in cylindrical coordinates (cylindrical harmonics, via Bessel functions) when the wavelength becomes small compared to the radius of curvature of the sphere.
+**Solution Methodology:** Mehler-Heine formula gives $\lim_{\ell\to\infty}\ell^{-m}P_\ell^m(\cos(\theta/\ell)) = (\theta/2)^m J_m(\theta)$. At $m=0$, $\theta=\pi/2$: claim gives $1$, correct answer is $J_0(\pi/2)\approx 0.472$.
 
 **Conclusion:** False
 
@@ -136,21 +94,11 @@ where $J_m$ is the Bessel function of the first kind. The key mathematical insig
 
 #### 1.4.1 Singular Endpoint Analysis with Lagrange Identity
 
-**Total files: 1**
+[005a9124.md](https://github.com/igorratn/coyote-math/blob/main/005a9124.md) — Define $I_k = \int_0^1 x J_\nu(j_{\nu,k}x)J_\nu(j_{\nu,k+1}x)\,dx$.
 
-[005a9124.md](https://github.com/igorratn/coyote-math/blob/main/005a9124.md) - Let $J_\nu(z)$ be the Bessel function of the first kind, i.e., the solution of
+**Claim:** Sturm-Liouville orthogonality gives $I_k = 0$.
 
-$$z^2J_\nu''(z)+zJ_\nu'(z)+(z^2-\nu^2)J_\nu(z)=0$$
-
-that is bounded near $z=0$. For $\nu>0$, let $0<j_{\nu,1}<j_{\nu,2}<\cdots$ be the positive zeros of $J_\nu$.
-
-For $k\ge1$, define
-
-$$I_k=\int_0^1 x J_\nu(j_{\nu,k}x) J_\nu(j_{\nu,k+1}x) dx$$
-
-**Claim:** For all $\nu>0$ and all $k\ge1$, by Sturm–Liouville orthogonality for the Bessel operator on $(0,1)$ with weight $x$, one has $I_k=0$.
-
-**Solution Methodology:** The proof disproves the claim by carefully analyzing the Sturm-Liouville boundary conditions. The Bessel operator $L[u] = -(xu')' + \frac{\nu^2}{x}u$ on $(0,1)$ with weight $w(x) = x$ has eigenfunctions $u_k(x) = J_\nu(j_{\nu,k}x)$ corresponding to eigenvalues $\lambda_k = j_{\nu,k}^2$. Orthogonality of eigenfunctions requires both: (1) distinct eigenvalues $\lambda_k \neq \lambda_m$, and (2) matching boundary conditions at both endpoints. At $x=1$, both functions satisfy the Dirichlet condition $u_k(1) = J_\nu(j_{\nu,k}) = 0$. However, at the singular endpoint $x=0$, the Sturm-Liouville theory for singular problems requires boundary terms in the Lagrange identity to vanish. Using small-argument asymptotics $J_\nu(z) \sim z^\nu$ for $\nu > 0$, the proof shows the boundary term at $x=0$ does vanish, so orthogonality holds **within each fixed Sturm-Liouville problem**. The key issue is that $j_{\nu,k}$ and $j_{\nu,k+1}$ define **different** Sturm-Liouville problems on $(0,1)$: one has eigenvalue problem on $(0, j_{\nu,k})$ normalized to interval $(0,1)$, the other on $(0, j_{\nu,k+1})$. The functions $J_\nu(j_{\nu,k}x)$ and $J_\nu(j_{\nu,k+1}x)$ are eigenfunctions of **different operators** (different endpoint conditions in the unnormalized problem), so standard orthogonality does not apply. An explicit counterexample with $\nu = 1/2$, where $J_{1/2}(z) = \sqrt{2/(\pi z)}\sin z$ can be computed exactly using tabulated zeros, confirms $I_k \neq 0$.
+**Solution Methodology:** $J_\nu(j_{\nu,k}x)$ and $J_\nu(j_{\nu,k+1}x)$ are eigenfunctions of different operators (different eigenvalue scalings), so orthogonality does not apply. Explicit counterexample with $\nu=1/2$ confirms $I_k\neq 0$.
 
 **Conclusion:** False
 
@@ -162,15 +110,11 @@ $$I_k=\int_0^1 x J_\nu(j_{\nu,k}x) J_\nu(j_{\nu,k+1}x) dx$$
 
 #### 1.5.1 Wronskian-Based Local Analysis Near Zeros
 
-**Total files: 1**
+[4db0af8d.md](https://github.com/igorratn/coyote-math/blob/main/4db0af8d.md) — Define $\psi_k(z) = J_\nu(z)/(z-j_{\nu,k})$.
 
-[4db0af8d.md](https://github.com/igorratn/coyote-math/blob/main/4db0af8d.md) - Let $J_\nu(z)$ be the Bessel function of the first kind, and let $0 < j_{\nu,1} < j_{\nu,2} < \cdots$ denote its positive zeros. For each $k \geq 1$, define the function
+**Claim:** $\psi_k$ has exactly one zero in $(j_{\nu,k}, j_{\nu,k+1})$.
 
-$$\psi_k(z) = \frac{J_\nu(z)}{z - j_{\nu,k}}.$$
-
-**Claim:** For all $\nu > 0$ and all $k \geq 1$, the function $\psi_k(z)$ has exactly one zero in the open interval $(j_{\nu,k}, j_{\nu,k+1})$.
-
-**Solution Methodology:** The proof uses Wronskian analysis combined with local Taylor expansion near zeros. First, observe that $\psi_k$ has a removable singularity at $z = j_{\nu,k}$ since $J_\nu(j_{\nu,k}) = 0$. By L'Hôpital's rule, $\psi_k(j_{\nu,k}) = J_\nu'(j_{\nu,k}) \neq 0$ (the derivative is nonzero because $J_\nu$ has simple zeros). The key technique is to analyze the Wronskian $W[J_\nu, Y_\nu] = \frac{2}{\pi z}$, where $Y_\nu$ is the Neumann function. Near $z = j_{\nu,k}$, write $J_\nu(z) = (z - j_{\nu,k})J_\nu'(j_{\nu,k}) + O((z-j_{\nu,k})^2)$ using Taylor expansion. Since $Y_\nu(j_{\nu,k}) \neq 0$ (as $J_\nu$ and $Y_\nu$ cannot share zeros), the Wronskian relation gives a precise connection between the signs of $J_\nu'(j_{\nu,k})$ and $Y_\nu(j_{\nu,k})$. The proof then shows that $\psi_k(z)$ changes sign exactly once in each interval $(j_{\nu,k}, j_{\nu,k+1})$ by using: (a) asymptotic formulas for large zeros showing $j_{\nu,k+1} - j_{\nu,k} \to \pi$ as $k \to \infty$, (b) the oscillatory nature of $J_\nu$ between consecutive zeros, (c) the fact that division by $(z - j_{\nu,k})$ removes one zero but preserves the oscillatory structure. The conclusion is that $\psi_k$ has precisely one zero between consecutive zeros of $J_\nu$.
+**Solution Methodology:** Removable singularity resolved by L'Hôpital; $\psi_k(j_{\nu,k}) = J_\nu'(j_{\nu,k})\neq 0$. Wronskian $W[J_\nu,Y_\nu]=2/(\pi z)$ and asymptotic zero spacing $j_{\nu,k+1}-j_{\nu,k}\to\pi$ confirm exactly one sign change per interval.
 
 **Conclusion:** True
 
@@ -182,21 +126,9 @@ $$\psi_k(z) = \frac{J_\nu(z)}{z - j_{\nu,k}}.$$
 
 #### 1.6.1 Series Analysis with Stirling's Formula
 
-**Total files: 1**
+[89e30655.md](https://github.com/igorratn/coyote-math/blob/main/89e30655.md) — For $\beta>1$ fixed and $n\to\infty$: $I_n(n\beta) = O(e^{n(\beta-\sqrt{\beta^2-1})})$.
 
-[89e30655.md](https://github.com/igorratn/coyote-math/blob/main/89e30655.md) - For $\beta > 0$ and $n \geq 1$, let $I_n(z)$ denote the modified Bessel function of the first kind, which satisfies the differential equation
-
-$$z^2 I_n''(z) + z I_n'(z) - (z^2 + n^2)I_n(z) = 0$$
-
-and has the power series representation
-
-$$I_n(z) = \sum_{k=0}^{\infty} \frac{1}{k!(k+n)!}\left(\frac{z}{2}\right)^{2k+n}.$$
-
-**Claim:** For $\beta > 1$ fixed and $n \to \infty$, the modified Bessel function satisfies
-
-$$I_n(n\beta) = O(e^{n(\beta - \sqrt{\beta^2-1})}).$$
-
-**Solution Methodology:** The proof establishes exponential growth in $n$ using the connection between Bessel and modified Bessel functions via imaginary arguments, combined with Stirling's formula for large-order asymptotics. The key steps are: (1) Use the identity $I_n(z) = i^{-n} J_n(iz)$ connecting modified Bessel functions to ordinary Bessel functions with imaginary argument. This gives $I_n(n\beta) = i^{-n} J_n(in\beta)$. (2) Apply the large-order asymptotic formula for $J_n(nz)$ (Debye's approximation): for $|z| < 1$, $J_n(nz) \sim \frac{1}{\sqrt{2\pi n}} \left(\frac{ez}{2}\right)^n (1-z^2)^{-1/4}$ as $n \to \infty$. (3) Substitute $z = i\beta$ with $|\beta| < 1$ (analytic continuation): this gives $J_n(in\beta) \sim \frac{1}{\sqrt{2\pi n}} \left(\frac{ei\beta}{2}\right)^n (1-i^2\beta^2)^{-1/4} = \frac{1}{\sqrt{2\pi n}} \left(\frac{ei\beta}{2}\right)^n (1+\beta^2)^{-1/4}$. (4) For $\beta > 1$, the appropriate asymptotic formula involves a different regime (large argument). Using the Hankel asymptotic expansion for $I_n(nz)$ with $z = \beta > 1$: $I_n(n\beta) \sim \frac{e^{n\eta}}{\sqrt{2\pi n \beta^2 - 1}}$, where $\eta = \sqrt{\beta^2 - 1} - \operatorname{arcosh}(\beta)$ is the "hyperbolic phase." (5) Simplify using $\operatorname{arcosh}(\beta) = \ln(\beta + \sqrt{\beta^2-1})$ to get $e^{n\eta} = e^{n[\sqrt{\beta^2-1} - \ln(\beta + \sqrt{\beta^2-1})]}$. Expanding the logarithm and comparing with the claimed bound shows exact agreement.
+**Solution Methodology:** Identity $I_n(z)=i^{-n}J_n(iz)$, Debye large-order approximation, and Hankel asymptotic expansion for $I_n(n\beta)$ with $\beta>1$. Hyperbolic phase $\eta=\sqrt{\beta^2-1}-\operatorname{arcosh}(\beta)$ matches the claimed bound via Stirling.
 
 **Conclusion:** True
 
@@ -204,13 +136,9 @@ $$I_n(n\beta) = O(e^{n(\beta - \sqrt{\beta^2-1})}).$$
 
 #### 1.6.2 Uniform vs Pointwise Asymptotic Agreement
 
-**Total files: 1**
+[915f73d1.md](https://github.com/igorratn/coyote-math/blob/main/915f73d1.md) — For fixed $z>0$, $z\ne 1$: do Debye and Langer uniform asymptotics for $J_\nu(\nu z)$ agree to leading order as $\nu\to\infty$?
 
-[915f73d1.md](https://github.com/igorratn/coyote-math/blob/main/915f73d1.md) - Consider the Bessel function $J_\nu(\nu z)$ for large order $\nu > 0$ and fixed $z > 0$, $z \ne 1$. Define the Olver parameter $\zeta(z)$ via the phase integrals $\Phi(z) = \int_z^1 \frac{\sqrt{1-t^2}}{t}\,dt$ for $0 < z \le 1$ and $\Psi(z) = \int_1^z \frac{\sqrt{t^2-1}}{t}\,dt$ for $z \ge 1$.
-
-**Claim:** For fixed $z > 0$ with $z \ne 1$, the standard Debye leading asymptotics for $J_\nu(\nu z)$ and the Langer uniform asymptotics based on $\operatorname{Ai}(\nu^{2/3}\zeta(z))$ agree to leading order as $\nu \to \infty$ in the sense that their ratio tends to $1$.
-
-**Solution Methodology:** The proof uses the Langer–Olver uniform asymptotic expansion (NIST DLMF Eq. 10.20.4), which represents $J_\nu(\nu z)$ uniformly across the turning point $z = 1$ in terms of the Airy function. The key technique is to substitute the large-argument asymptotics of the Airy function into the uniform formula and verify recovery of the Debye expressions in each region. For $0 < z < 1$ (exponential region): $\zeta > 0$, so $\operatorname{Ai}(\nu^{2/3}\zeta) \sim \frac{1}{2\sqrt{\pi}}X^{-1/4}e^{-\frac{2}{3}X^{3/2}}$ with $X = \nu^{2/3}\zeta$. Substituting into the Langer formula and using $\frac{2}{3}\zeta^{3/2} = \Phi(z)$ yields $J_\nu(\nu z) \sim \frac{1}{\sqrt{2\pi\nu}}(1-z^2)^{-1/4}e^{-\nu\Phi(z)}$, which is the Debye leading term. For $z > 1$ (oscillatory region): $\zeta < 0$, so $\operatorname{Ai}(-X) \sim \frac{1}{\sqrt{\pi}}X^{-1/4}\sin(\frac{2}{3}X^{3/2} + \frac{\pi}{4})$. Since $\frac{2}{3}X^{3/2} = \nu\Psi(z)$, this yields $J_\nu(\nu z) \sim \frac{1}{\sqrt{2\pi\nu}}(z^2-1)^{-1/4}\sin(\nu\Psi(z) + \frac{\pi}{4})$, again matching Debye. In both regions, the ratio of the two approximations tends to $1$.
+**Solution Methodology:** Large-argument Airy asymptotics substituted into the Langer–Olver expansion recover the Debye evanescent formula ($z<1$) and oscillatory formula ($z>1$). Ratio tends to 1 in both regions.
 
 **Conclusion:** True
 
@@ -222,21 +150,11 @@ $$I_n(n\beta) = O(e^{n(\beta - \sqrt{\beta^2-1})}).$$
 
 #### 1.7.1 Linear Independence via Sectoral Growth Analysis
 
-**Total files: 1**
+[6e8de21e.md](https://github.com/igorratn/coyote-math/blob/main/6e8de21e.md) — $u(z)$ solves Bessel's equation on $\mathbb{C}\setminus(-\infty,0]$ with $u(z)\sim C\sqrt{2/(\pi z)}\,e^{i(z-\pi\nu/2-\pi/4)}$ uniformly on closed subsectors $\delta\le\arg z\le\pi-\delta$.
 
-[6e8de21e.md](https://github.com/igorratn/coyote-math/blob/main/6e8de21e.md) - Fix a noninteger order $\nu$ with $\Re\nu > 0$. Let $u(z)$ be a solution of Bessel's equation:
+**Claim:** $u(z) = CH_\nu^{(1)}(z)$.
 
-$$z^{2}u'' + zu' + (z^{2}-\nu^{2})u = 0$$
-
-Assume $u$ is analytic in the cut plane $D = \mathbb{C} \setminus (-\infty, 0]$. Assume also that there exists a constant $C \neq 0$ such that, as $|z| \to \infty$, the asymptotic relation:
-
-$$u(z) \sim C \sqrt{\frac{2}{\pi z}} e^{i(z - \frac{\pi\nu}{2} - \frac{\pi}{4})}$$
-
-holds uniformly on every closed subsector $\delta \le \arg z \le \pi - \delta$ with fixed $\delta \in (0, \pi/2)$.
-
-**Claim:** Under these hypotheses one must have $u(z) = C H_\nu^{(1)}(z)$ for all $z \in \mathbb{C} \setminus (-\infty, 0]$.
-
-**Solution Methodology:** The proof establishes uniqueness by eliminating the Hankel function $H_\nu^{(2)}$ through exponential growth analysis in sectors. Since $D = \mathbb{C} \setminus (-\infty, 0]$ is simply connected and Bessel's equation has analytic coefficients on $D$, the solution space is two-dimensional. For noninteger $\nu$, the Hankel functions $H_\nu^{(1)}$ and $H_\nu^{(2)}$ are analytic on $D$ with nonzero Wronskian $W[H_\nu^{(1)}, H_\nu^{(2)}] \propto 1/z$, so they form a basis. Thus $u(z) = c_1 H_\nu^{(1)}(z) + c_2 H_\nu^{(2)}(z)$ for some constants $c_1, c_2$. The key is that in the upper half-plane sector $\delta \le \arg z \le \pi - \delta$, the two Hankel functions have vastly different asymptotic behaviors: $H_\nu^{(1)}(z) \sim \sqrt{\frac{2}{\pi z}} e^{i(z - \frac{\pi\nu}{2} - \frac{\pi}{4})}$ (outgoing wave) while $H_\nu^{(2)}(z) \sim \sqrt{\frac{2}{\pi z}} e^{-i(z - \frac{\pi\nu}{2} - \frac{\pi}{4})}$ (incoming wave). In this sector, $\Im z \geq |z|\sin\delta > 0$, so the ratio $|H_\nu^{(2)}/H_\nu^{(1)}| = e^{2\Im z}(1+o(1)) \to \infty$ exponentially as $|z| \to \infty$. If $c_2 \neq 0$, the function $u(z)$ would be dominated by the exponentially growing term $c_2 H_\nu^{(2)}(z)$, contradicting the given asymptotic $u(z) \sim C H_\nu^{(1)}(z)$. Therefore $c_2 = 0$, and comparing the leading terms yields $c_1 = C$. This proves $u(z) = C H_\nu^{(1)}(z)$ throughout the cut plane.
+**Solution Methodology:** Write $u=c_1H_\nu^{(1)}+c_2H_\nu^{(2)}$. In the upper half-plane, $|H_\nu^{(2)}/H_\nu^{(1)}|=e^{2\Im z}(1+o(1))\to\infty$, so $c_2\neq 0$ contradicts the given asymptotic. Hence $c_2=0$, $c_1=C$.
 
 **Conclusion:** True
 
@@ -248,47 +166,41 @@ holds uniformly on every closed subsector $\delta \le \arg z \le \pi - \delta$ w
 
 #### 1.8.1 Analytic Continuation Analysis Near Branch Cut
 
-**Total files: 1**
+[af454602.md](https://github.com/igorratn/coyote-math/blob/main/af454602.md) — Define $w(r,\theta) = H_\nu^{(1)}(re^{i\theta})\sqrt{\pi re^{i\theta}/2}\exp(-i(re^{i\theta}-\nu\pi/2-\pi/4))$ for $\theta\in(-\pi,\pi)$.
 
-[af454602.md](https://github.com/igorratn/coyote-math/blob/main/af454602.md) - Let $H_\nu^{(1)}(z)$ denote the Hankel function of the first kind of order $\nu > 0$, which satisfies the Bessel differential equation
+**Claim:** $|w(r,\theta)-1|\le C/r$ uniformly in $\theta$.
 
-$$z^2 u'' + z u' + (z^2 - \nu^2) u = 0$$
-
-and is analytic in $\mathbb{C} \setminus (-\infty, 0]$ with branch cut along the negative real axis. It satisfies the outgoing-wave asymptotic
-
-$$H_\nu^{(1)}(z) \sim \sqrt{\frac{2}{\pi z}} \exp\left(i\left(z - \frac{\nu\pi}{2} - \frac{\pi}{4}\right)\right)$$
-
-as $|z| \to \infty$ in the sector $-\pi + \delta < \arg z < 2\pi - \delta$ for any fixed $\delta > 0$.
-
-For $r > 0$ large and $\theta \in (-\pi, \pi)$, set $z = r e^{i\theta}$. Define the normalized function
-
-$$w(r,\theta) = H_\nu^{(1)}(r e^{i\theta}) \sqrt{\frac{\pi r e^{i\theta}}{2}} \exp\left( -i \left( r e^{i\theta} - \frac{\nu\pi}{2} - \frac{\pi}{4} \right) \right).$$
-
-**Claim:** There exists a constant $C = C(\nu) > 0$ independent of $r$ and $\theta$ such that for all sufficiently large $r > 0$ and all $\theta \in (-\pi, \pi)$ with $H_\nu^{(1)}(r e^{i\theta}) \neq 0$,
-
-$$|w(r,\theta) - 1| \le \frac{C}{r}.$$
-
-**Solution Methodology:** The proof disproves the claim by analyzing behavior near the branch cut using analytic continuation formulas. The key technique is to examine the limit as $\theta \to -\pi$, where the argument approaches the branch cut. Using the monodromy relation $H_\nu^{(1)}(z e^{-i\pi}) = -e^{i\pi\nu} H_\nu^{(2)}(z)$ (derived from the series representations $J_\nu(z e^{-i\pi}) = e^{-i\pi\nu} J_\nu(z)$ and the definition $H_\nu^{(1)} = \frac{J_{-\nu} - e^{-i\pi\nu} J_\nu}{i\sin(\pi\nu)}$), the proof constructs a sequence $\theta_r = -\pi + 1/r$ and $z_r = re^{i\theta_r}$. Letting $\zeta_r = z_r e^{i\pi} = re^{i/r}$ (which has $\arg\zeta_r \to 0$), the continuation formula gives $H_\nu^{(1)}(z_r) = -e^{i\pi\nu} H_\nu^{(2)}(\zeta_r)$. Substituting the asymptotic $H_\nu^{(2)}(\zeta_r) \sim \sqrt{\frac{2}{\pi\zeta_r}} e^{-i(\zeta_r - \frac{\nu\pi}{2} - \frac{\pi}{4})}(1+O(1/r))$ and using $z_r = -\zeta_r$ yields $w(r,\theta_r) \to -e^{i\pi\nu}(-i)e^{i\pi\nu + i\pi/2} = -e^{i2\pi\nu}$. Therefore $|w(r,\theta_r) - 1| \to |-e^{i2\pi\nu} - 1| = 2|\cos(\pi\nu)|$, which is a positive constant whenever $\cos(\pi\nu) \neq 0$. This contradicts any bound $|w(r,\theta) - 1| \leq C/r$ that is uniform in $\theta$ over the full range $(-\pi, \pi)$. The claim fails because the normalized function exhibits a discontinuity across the branch cut that cannot be controlled uniformly by $O(1/r)$ bounds.
+**Solution Methodology:** Monodromy relation $H_\nu^{(1)}(ze^{-i\pi})=-e^{i\pi\nu}H_\nu^{(2)}(z)$ along $\theta_r=-\pi+1/r$ gives $w(r,\theta_r)\to -e^{i2\pi\nu}$, so $|w-1|\to 2|\cos(\pi\nu)|>0$. No uniform $O(1/r)$ bound is possible.
 
 **Conclusion:** False
 
 ---
 
-### 1.9 Spherical Bessel Functions — Polynomial Representation
+### 1.9 Addition Theorems and Convergence Domain
 
-**Total files: 1**
+**Total files: 2**
 
-#### 1.9.1 Inductive Polynomial Structure via Recurrence
+#### 1.9.1 Neumann Addition Theorem — Modified Bessel Analogue and Sign Convention
 
-**Total files: 1**
+[91a25388.md](https://github.com/igorratn/coyote-math/blob/main/91a25388.md) — The Neumann addition theorem gives $J_0(\sqrt{r^2+s^2-2rs\cos\phi}) = J_0(r)J_0(s)+2\sum_{m=1}^\infty J_m(r)J_m(s)\cos(m\phi)$.
 
-[91a25388.md](https://github.com/igorratn/coyote-math/blob/main/91a25388.md) - For spherical Bessel functions $j_n(z)$ defined by $j_0=\sin z/z$, $j_1=\sin z/z^2 - \cos z/z$, and the recurrence $j_{n+1} = \frac{2n+1}{z}j_n - j_{n-1}$.
+**Claim:** The same formula holds with $J_m\to I_m$ throughout.
 
-**Claim:** For every $n\ge0$, there exist unique polynomials $p_n$, $q_n$ with $\deg p_n = n$, $\deg q_n = n-1$ such that $j_n(z) = (p_n(1/z)\sin z + q_n(1/z)\cos z)/z$.
+**Solution Methodology:** At $\phi=0$: left side is $I_0(r-s)$; right side via Fourier series $e^{t\cos\theta}=I_0(t)+2\sum I_m(t)\cos(m\theta)$ and orthogonality equals $I_0(r+s)$. Since $I_0$ is strictly increasing and $r+s>r-s$, the identity fails. The correct formula carries $(-1)^m$ factors from the substitution $r\mapsto ir$, $s\mapsto is$.
 
-**Solution Methodology:** Existence proved by induction: substituting the representation into the recurrence gives $p_{n+1}(x) = (2n+1)xp_n(x) - p_{n-1}(x)$ and similarly for $q_{n+1}$, which are polynomials of the correct degree. Uniqueness proved by evaluating the zero identity at $z = k\pi$ (killing $\sin z$, forcing $Q \equiv 0$) and at $z = (m+\tfrac12)\pi$ (killing $\cos z$, forcing $P \equiv 0$).
+**Conclusion:** False
 
-**Conclusion:** True
+---
+
+#### 1.9.2 Graf Addition Theorem — Series Continuation Across Convergence Boundary
+
+[0af97337.md](https://github.com/igorratn/coyote-math/blob/main/0af97337.md) — Graf's addition theorem: $H_\nu^{(1)}(kR)e^{i\nu\psi} = \sum_{n=-\infty}^\infty J_n(kr)H_{\nu+n}^{(1)}(kp)e^{in\theta}$ for $r<p$, where $R=\sqrt{r^2+p^2-2rp\cos\theta}$.
+
+**Claim:** The symmetric formula with $r\leftrightarrow p$ (valid for $p<r$) follows from the original by analytic continuation of the series across $r=p$.
+
+**Solution Methodology:** The Graf series converges only for $r<p$; general terms scale as $(r/p)^{|n|}$, so the series diverges for $r>p$. Analytic continuation of the underlying function $H_\nu^{(1)}(kR)e^{i\nu\psi}$ across $r=p$ is valid, but continuation of a function does not preserve a divergent series representation. The $p<r$ formula is a separate local expansion, not a term-by-term continuation of the first.
+
+**Conclusion:** False
 
 ---
 
@@ -296,106 +208,42 @@ $$|w(r,\theta) - 1| \le \frac{C}{r}.$$
 
 **Total files: 1**
 
-#### 1.9.1 Hankel Asymptotics and Dominated Convergence
+#### 1.10.1 Hankel Asymptotics and Phase Arithmetic
 
-**Total files: 1**
+[5c3333ea.md](https://github.com/igorratn/coyote-math/blob/main/5c3333ea.md) — Convergence of $\int_0^\infty J_\nu(t)J_{\nu+2}(t)\,dt$ for $\nu>0$.
 
-[5c3333ea.md](https://github.com/igorratn/coyote-math/blob/main/5c3333ea.md) - Convergence of $\int_0^\infty J_\nu(t) J_{\nu+2}(t)\,dt$ for $\nu > 0$.
-
-**Solution Methodology:** Uses large-argument Hankel asymptotics $J_\nu(z) \sim \sqrt{\frac{2}{\pi z}}\cos(z - \frac{\nu\pi}{2} - \frac{\pi}{4})$ and the phase relationship $\cos(t - \alpha - \pi) = -\cos(t-\alpha)$. The product $J_\nu(t)J_{\nu+2}(t) \sim -\frac{1}{\pi t}(1 + \cos(2(t-\alpha))) + O(t^{-2})$. The dominant $-\frac{1}{\pi t}$ term causes logarithmic divergence: $\int_T^\infty J_\nu(t)J_{\nu+2}(t)\,dt \sim -\frac{1}{\pi}\log R + O(1)$ as $R \to \infty$.
-
-**Conclusion:** False (integral diverges)
-
----
-
-### 1.10 Poisson Integral Representation
-
-**Total files: 2**
-
-#### 1.10.1 Analytic Continuation and Domain Comparison
-
-**Total files: 2**
-
-[57cd7bd6.md](https://github.com/igorratn/coyote-math/blob/main/57cd7bd6.md) - Comparison of Poisson integral $F_\nu(z) = \int_0^\pi \cos(\nu\theta) \sin\theta\,d\theta / (z - \cos\theta)$ versus Bessel function $J_\nu(z)$ for non-integer $\nu$.
-
-**Solution Methodology:** The Poisson representation converges for $\text{Re}(\nu) > -1/2$ but fails to match $J_\nu$ at the origin: $F_\nu(0) \neq 0$ by direct evaluation, while $J_\nu(0) = 0$. The failure of analytic continuation without domain adjustment indicates they are distinct functions on the extended domain.
+**Solution Methodology:** Phase relation $\cos(t-\alpha-\pi)=-\cos(t-\alpha)$ gives $J_\nu J_{\nu+2}\sim -\frac{1}{\pi t}(1+\cos(2(t-\alpha)))+O(t^{-2})$. The $-1/(\pi t)$ term causes logarithmic divergence.
 
 **Conclusion:** False
 
-**Other files:**
-- [f33dd204.md](https://github.com/igorratn/coyote-math/blob/main/f33dd204.md): Analytic continuation of the Poisson integral representation from $\text{Re}(\nu) > -1/2$ to $\text{Re}(\nu) > -1$ via beta integral regularization and dominated convergence. **True**
+---
+
+### 1.11 Poisson Integral Representation
+
+**Total files: 2**
+
+#### 1.11.1 Analytic Continuation and Domain Comparison
+
+[57cd7bd6.md](https://github.com/igorratn/coyote-math/blob/main/57cd7bd6.md) — Poisson integral $F_\nu(z)$ versus $J_\nu(z)$ for non-integer $\nu$. At $z=0$: $F_\nu(0)\neq 0$ but $J_\nu(0)=0$, so the representations are distinct on the extended domain.
+
+**Conclusion:** False
+
+[f33dd204.md](https://github.com/igorratn/coyote-math/blob/main/f33dd204.md) — Analytic continuation of the Poisson integral from $\operatorname{Re}(\nu)>-1/2$ to $\operatorname{Re}(\nu)>-1$ via beta integral regularization and dominated convergence.
+
+**Conclusion:** True
 
 ---
 
 ## Summary Statistics
 
-✓ **Total files discovered:** 13
-✓ **Total files in clustering:** 13
+✓ **Total files in clustering:** 14
 ✓ **Every file appears exactly once:** Yes
-✓ **All counts sum correctly:** Yes (1+1+1+1+1+2+1+1+1+1+2 = 13, across sub-clusters 1.1–1.10)
+✓ **All counts sum correctly:** Yes (1+1+1+1+1+2+1+1+2+1+2 = 14, across sub-clusters 1.1–1.11)
 ✓ **Methodology-based clustering (not topic-based):** Yes
-✓ **All descriptions are specific:** Yes
-✓ **All links formatted correctly:** Yes
-
----
-
-## Methodological Patterns Across Problems
-
-### Common Techniques
-1. **Asymptotic Analysis** - All seven problems involve asymptotic behavior:
-   - Problem 1cfc14a7: Large argument asymptotics ($z \to \infty$)
-   - Problem 300a11f2: Behavior near singular point ($z \to 0$)
-   - Problem 87879ef3: High-degree limit ($\ell \to \infty$)
-   - Problem 005a9124: Small argument asymptotics ($x \to 0^+$)
-   - Problem 4db0af8d: Behavior near zeros and asymptotic zero spacing
-   - Problem 89e30655: Large parameter asymptotics ($n \to \infty$) with Stirling's formula
-   - Problem 915f73d1: Large order asymptotics ($\nu \to \infty$) with Langer–Olver uniform expansion
-   - Problem 6e8de21e: Sectoral asymptotics for Hankel functions ($|z| \to \infty$)
-   - Problem af454602: Uniform asymptotics near branch cut
-
-2. **Differential Equation Theory**:
-   - Problem 1cfc14a7: Inhomogeneous ODE with particular solutions
-   - Problem 300a11f2: Homogeneous ODE with Wronskian analysis
-   - Problem 87879ef3: Connection to ODE solutions via asymptotic formulas
-   - Problem 005a9124: Sturm-Liouville eigenvalue problem
-   - Problem 4db0af8d: Differential equation structure via Wronskian
-   - Problem 89e30655: Modified Bessel equation through analytic continuation
-   - Problem 915f73d1: Bessel equation large-order regime with turning point analysis
-   - Problem 6e8de21e: Bessel equation in cut plane with analytic solutions
-   - Problem af454602: Bessel equation with branch cut analysis
-
-3. **Complex Analysis Techniques**:
-   - Problem 300a11f2: Regular singular point at $z=0$, branch selection
-   - Problem 6e8de21e: Simply connected domain, basis construction
-   - Problem af454602: Monodromy relations, branch cut discontinuities
-
-4. **Singularity/Boundary Analysis**:
-   - Problem 005a9124: Singular Sturm-Liouville endpoint at $x=0$
-   - Problem 4db0af8d: Simple zeros as singularities of Wronskian-normalized quantity
-   - Problem 6e8de21e: Cut plane topology and sectoral behavior
-   - Problem af454602: Branch cut behavior as $\theta \to -\pi$
-
-5. **Series and Growth Analysis**:
-   - Problem 89e30655: Power series expansion with factorial growth analysis
-   - Problem 6e8de21e: Exponential growth comparison in sectors
-   - Problem af454602: Leading order asymptotic expansion
-
-### Unique Aspects
-- **Problem 1cfc14a7** is the only one dealing with **inhomogeneous equations**
-- **Problem 300a11f2** is the only one using **Frobenius method** at regular singular point
-- **Problem 87879ef3** is the only one establishing **inter-function-class connections** (Legendre → Bessel)
-- **Problem 005a9124** is the only one using **Lagrange identity and orthogonality**
-- **Problem 4db0af8d** is the only one analyzing **Wronskian-normalized quantities and phase behavior**
-- **Problem 89e30655** is the only one analyzing **exponential growth regimes** via imaginary arguments and Stirling's formula
-- **Problem 915f73d1** is the only one establishing **equivalence of two asymptotic methods** (Langer uniform vs Debye pointwise) via Airy function asymptotics
-- **Problem 6e8de21e** is the only one proving **uniqueness from asymptotic data**
-- **Problem af454602** is the only one analyzing **failure of uniform bounds** due to branch cut behavior
 
 ---
 
 ## Dimensional Analysis of Problems
-
-Each problem can be characterized across multiple dimensions:
 
 | **Problem** | **Math Object** | **Domain/Region** | **Core Insight** | **Technique Combo** |
 |-------------|----------------|-------------------|------------------|---------------------|
@@ -408,38 +256,29 @@ Each problem can be characterized across multiple dimensions:
 | 915f73d1 | $J_\nu(\nu z)$ | $\nu \to \infty$, $z \ne 1$ | Uniform↔pointwise agreement | Langer–Olver + Airy asymptotics |
 | 6e8de21e | $H_\nu^{(1)}$ uniqueness | Cut plane sectors | Exponential selection | Sectoral growth + basis analysis |
 | af454602 | $H_\nu^{(1)}$ near cut | $\theta \to -\pi$ | Branch discontinuity | Monodromy + continuation |
+| 91a25388 | $J_m$, $I_m$ addition | $\phi=0$ specialization | Sign flip under $r\mapsto ir$ | Fourier orthogonality + monotonicity |
+| 0af97337 | Graf $H_\nu^{(1)}$ series | $r=p$ boundary | Series ≠ function continuation | Convergence domain + asymptotic scaling |
 | 5c3333ea | $J_\nu J_{\nu+2}$ product | $t \to \infty$ | Log divergence | Hankel asymptotics + phase |
 | 57cd7bd6 | Poisson vs $J_\nu$ | $z = 0$ | Domain mismatch | Analytic continuation |
-| f33dd204 | Poisson integral | $\text{Re}(\nu) > -1$ | Beta regularization | Dominated convergence |
-
-### Key Differences:
-- **Mathematical objects**: 10 different function types/contexts
-- **Domains**: 10 distinct regions
-- **Core insights**: 10 unique mathematical phenomena
-- **Technique combinations**: All use distinct methodology blends
+| f33dd204 | Poisson integral | $\operatorname{Re}(\nu) > -1$ | Beta regularization | Dominated convergence |
 
 ---
 
-## New Hankel Function Problems: Themes and Connections
+## Unique Aspects
 
-The two new problems (6e8de21e and af454602) both focus on **Hankel functions** and introduce important new themes:
-
-### Theme 1: Uniqueness and Characterization (6e8de21e)
-- **Question:** Can asymptotic behavior uniquely determine a Bessel function solution?
-- **Answer:** Yes! Specifying outgoing-wave asymptotics in a sector uniquely selects $H_\nu^{(1)}$.
-- **Method:** Exponential domination in sectors eliminates $H_\nu^{(2)}$ contribution.
-- **Significance:** Shows that physical boundary conditions (radiation condition) uniquely determine mathematical solutions.
-
-### Theme 2: Uniform Bounds and Branch Cuts (af454602)
-- **Question:** Do uniform asymptotic bounds hold across the full argument range $(-\pi, \pi)$?
-- **Answer:** No! Branch cut discontinuities prevent uniform $O(1/r)$ bounds.
-- **Method:** Monodromy relations reveal limiting behavior differs on opposite sides of branch cut.
-- **Significance:** Highlights fundamental limitation of single-valued asymptotic approximations near branch cuts.
-
-### Connection to Existing Problems
-- **Related to 300a11f2:** Both use analytic continuation and Wronskian analysis
-- **Related to 89e30655:** Both use exponential behavior analysis
-- **Related to 005a9124/4db0af8d:** All involve detailed local analysis (endpoints, zeros, branch cuts)
+- **1cfc14a7** — only inhomogeneous (Lommel) equation
+- **300a11f2** — only Frobenius method at regular singular point
+- **87879ef3** — only inter-function-class connection (Legendre → Bessel)
+- **005a9124** — only Lagrange identity and Sturm-Liouville orthogonality
+- **4db0af8d** — only Wronskian-normalized quantity and phase behavior near zeros
+- **89e30655** — only exponential growth regime via imaginary argument and Stirling
+- **915f73d1** — only equivalence of two asymptotic methods (Langer vs Debye) via Airy asymptotics
+- **6e8de21e** — only uniqueness from asymptotic data
+- **af454602** — only failure of uniform bounds due to branch cut
+- **91a25388** — only sign convention error under imaginary substitution in addition theorem
+- **0af97337** — only series convergence domain failure at addition theorem boundary
+- **5c3333ea** — only product integral divergence via phase arithmetic
+- **57cd7bd6 / f33dd204** — only Poisson integral representation problems
 
 ---
 
@@ -447,32 +286,14 @@ The two new problems (6e8de21e and af454602) both focus on **Hankel functions** 
 
 Based on NU Chapter III (§14-19), potential areas for new problems:
 
-1. **Addition theorems** (§18): Graf's theorem, Gegenbauer's theorem
-2. **Hankel functions - remaining topics**: Contour integral representations, Sommerfeld contours
+1. **Addition theorems** (§18): Gegenbauer's theorem — *(Neumann and Graf now covered)*
+2. **Hankel functions**: Contour integral representations, Sommerfeld contours
 3. **Recursion relations** (§15): Three-term recurrences, differentiation formulas
 4. **Spherical Bessel functions** (§17): Half-integer orders, reduction to elementary functions
-5. **Semiclassical/WKB methods** (§19): Connection formulas, turning points *(partially addressed by 915f73d1)*
-6. **Integral representations** (§16): Bessel integrals, Poisson integrals
-7. **Large order asymptotics** (§19): Langer's uniform formulas for $\nu \to \infty$
-8. **Cross-product relations**: $J_\nu Y_{\nu'} - J_{\nu'} Y_\nu$ identities
-9. **Second kind Bessel functions $Y_\nu$**: Explicit problems on Neumann functions
-10. **Kelvin functions**: $\text{ber}$, $\text{bei}$, $\text{ker}$, $\text{kei}$ functions
-
----
-
-## Physical and Mathematical Context
-
-### Coordinate Systems
-- **Spherical coordinates**: Associated Legendre functions $P_\ell^m$ (Problem 87879ef3)
-- **Cylindrical coordinates**: Bessel functions $J_\nu$, $Y_\nu$ (Problems 1cfc14a7, 005a9124, 4db0af8d, 87879ef3)
-- **Modified coordinates**: Imaginary argument transformation $z \to iz$ (Problems 300a11f2, 89e30655)
-
-### Applications
-- **Wave propagation**: Helmholtz equation in cylindrical geometry, radiation conditions (Problem 6e8de21e)
-- **Quantum mechanics**: Radial Schrödinger equation with central potential
-- **Heat conduction**: Time-dependent problems in cylindrical domains (exponential growth/decay of $I_\nu$, $K_\nu$)
-- **Vibration theory**: Drumhead modes and waveguide analysis
-- **Scattering theory**: Outgoing/incoming waves via Hankel functions (Problems 6e8de21e, af454602)
+5. **Semiclassical/WKB methods** (§19): Connection formulas, turning points — *(partially addressed by 915f73d1)*
+6. **Cross-product relations**: $J_\nu Y_{\nu'} - J_{\nu'} Y_\nu$ identities
+7. **Second kind Bessel functions $Y_\nu$**: Explicit problems on Neumann functions
+8. **Kelvin functions**: $\text{ber}$, $\text{bei}$, $\text{ker}$, $\text{kei}$ functions
 
 ---
 
@@ -480,39 +301,21 @@ Based on NU Chapter III (§14-19), potential areas for new problems:
 
 | **Problem** | **N-U Book Reference** | **Connection** |
 |-------------|------------------------|----------------|
-| 1cfc14a7 | §14 (Bessel Equation), §15 (Asymptotics) | Lommel equation is inhomogeneous Bessel; uses asymptotic formulas for $J_\nu$, $Y_\nu$ |
-| 300a11f2 | §17 (Modified Bessel), §14 (Wronskian) | Modified Bessel $I_\nu$, $K_\nu$ defined; Wronskian formula used |
-| 87879ef3 | §19 (Semiclassical/WKB), §14 (Power series) | Mehler-Heine is WKB-type asymptotic; connects polynomial to transcendental |
-| 005a9124 | §14 (Bessel equation), §15 (Zeros and asymptotics) | Sturm-Liouville form; uses small-argument asymptotics and zero properties |
-| 4db0af8d | §14 (Wronskian), §15 (Zeros, asymptotics) | Wronskian structure; uses asymptotic zero spacing and Taylor expansion near zeros |
-| 89e30655 | §17 (Modified Bessel), §19 (Large parameter) | Connection $J_n(ix) = i^n I_n(x)$; large $n$ asymptotics via Stirling |
-| 915f73d1 | §19 (Semiclassical/WKB, Langer), §15 (Debye asymptotics) | Langer–Olver uniform Airy expansion; Debye pointwise formulas; turning point at $z=1$ |
-| 6e8de21e | §15 (Hankel functions), §15 Eq.(5) (Asymptotics) | $H_\nu^{(1)}$, $H_\nu^{(2)}$ basis; sectoral asymptotics; uniqueness from radiation condition |
-| af454602 | §15 (Hankel functions), §15 Eq.(11)-(12) (Monodromy) | Analytic continuation across branch cut; monodromy relations; uniform bound failure |
-
----
-
-## Quality Control Checklist
-
-- [x] Read entire all.md file
-- [x] Extracted all problem texts for every file
-- [x] Manually verified file count (10 Bessel function files)
-- [x] Read and understood each problem's content
-- [x] Identified solution methodology for each
-- [x] Clustered by methodology, not keywords
-- [x] Provided full detailed descriptions for first file in each cluster
-- [x] Provided specific one-sentence descriptions for remaining files
-- [x] Included counts at every level
-- [x] Verified all counts sum correctly
-- [x] Formatted links correctly (no filename duplication)
-- [x] Each file appears exactly once
-- [x] Added dimensional analysis table with all 7 problems
-- [x] Noted new files and their unique contributions
-- [x] Updated methodological patterns section
-- [x] Updated N-U book connections
-- [x] Saved as markdown document
+| 1cfc14a7 | §14, §15 | Lommel inhomogeneous Bessel; asymptotic formulas for $J_\nu$, $Y_\nu$ |
+| 300a11f2 | §17, §14 | Modified Bessel $I_\nu$, $K_\nu$; Wronskian formula |
+| 87879ef3 | §19, §14 | Mehler-Heine WKB-type asymptotic; spherical→cylindrical |
+| 005a9124 | §14, §15 | Sturm-Liouville form; small-argument asymptotics and zeros |
+| 4db0af8d | §14, §15 | Wronskian structure; asymptotic zero spacing |
+| 89e30655 | §17, §19 | $J_n(ix)=i^nI_n(x)$; large $n$ asymptotics via Stirling |
+| 915f73d1 | §19, §15 | Langer–Olver uniform Airy expansion; Debye formulas; turning point |
+| 6e8de21e | §15 | $H_\nu^{(1)}$, $H_\nu^{(2)}$ basis; uniqueness from radiation condition |
+| af454602 | §15 | Monodromy relations; uniform bound failure near branch cut |
+| 91a25388 | §18 | Neumann addition theorem; sign convention under $J_m\to I_m$ |
+| 0af97337 | §18 | Graf addition theorem; series convergence domain vs analytic continuation |
+| 5c3333ea | §16 | Product integral; Hankel asymptotics and phase |
+| 57cd7bd6 | §16 | Poisson integral; analytic continuation domain |
+| f33dd204 | §16 | Poisson integral extension via beta regularization |
 
 ---
 
 **End of Clustering Document**
-> 

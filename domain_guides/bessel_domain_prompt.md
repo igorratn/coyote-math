@@ -2,7 +2,7 @@ You are working in the subdomain of Bessel and related special functions.
 
 This domain involves Bessel functions of various kinds (first and second kind J_\nu, Y_\nu, modified I_\nu, K_\nu), their representations, asymptotics, zeros, addition theorems, and differential equations. Singular endpoints, order dependence, Wronskians, and transformation between bases are typical structural features.
 
-Be aware of the existing Bessel problems already submitted, summarized in problem_clusters/bessel_13_new_problems.md in this repository. Do not duplicate their core topics or hinge points. Existing problem coverage includes integral representations, product integrals, spherical Bessel functions, uniform large-order asymptotics, and turning-point analysis.
+Be aware of the existing Bessel problems already submitted, catalogued in problem_clusters/bessel_functions.md in this repository. Do not duplicate their core topics or hinge points. Consult that file for the full list of submitted problems organized by methodology.
 
 When designing a new problem:
 - Choose a distinct mathematical phenomenon not already covered, such as:
