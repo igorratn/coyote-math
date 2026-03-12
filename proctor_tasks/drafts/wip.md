@@ -1,87 +1,52 @@
-# Project Proctor Task — Mathematics / Mathematical Physics Domain
+# Project Proctor Task — Physics Domain
 **Task file:** `32945d48.md`
-**Source problem:** `3c1c8b15.md` (adapted — Jacobi polynomial asymptotic phase)
-**Status:** DRAFT — Phase 1 (prompt only, awaiting model testing)
+**Source problem:** `3c1c8b15.md` (adapted — Wigner d-matrix)
+**Status:** DRAFT — Phase 1, RETEST with slightly different parameters
 
 ---
 
 ## STEP 0 — Domain
 
-**Domain:** Mathematics
-**Subdomain:** Special Functions / Orthogonal Polynomials
+**Domain:** Physics
+**Subdomain:** 1.10 Other (Physics)
 **Difficulty:** Graduate / PhD-level
 
 ---
 
 ## STEP 1 — Prompt
 
-Let $P_n^{(\alpha,\beta)}(x)$ denote the Jacobi polynomial of degree $n$ with parameters $\alpha$, $\beta > -1$.
+The Wigner (small) d-matrix element $d^{j}_{m'm}(\beta)$ describes a rotation by angle $\beta$ about the $y$-axis in the spin-$j$ representation of $\mathrm{SU}(2)$.
 
-For fixed $\alpha$, $\beta$, and $\theta \in (0,\pi)$, the standard Darboux asymptotic expansion gives
+For fixed $m' = 3$, $m = 1$, and fixed angle $\beta = \pi/4$, the matrix element $d^{j}_{3,1}(\pi/4)$ oscillates as a function of $j$ for large $j$ (with $j \geq 3$).
 
-$$P_n^{(\alpha,\beta)}(\cos\theta) \sim \frac{K(\theta,\alpha,\beta)}{\sqrt{n}} \cos\!\left[\left(n + \frac{\alpha+\beta+1}{2}\right)\theta \;-\; \frac{(2\alpha+1)\pi}{4}\right]$$
+Its large-$j$ asymptotic form can be written as
 
-as $n \to \infty$, where $K(\theta,\alpha,\beta) > 0$ is an explicit amplitude factor depending on $\theta$, $\alpha$, $\beta$.
+$$d^{j}_{3,1}(\pi/4) \sim \frac{B(\beta)}{\sqrt{j}} \cos\!\bigl(\Phi_{\mathrm{var}}(j) + \Phi_{\mathrm{fixed}}\bigr),$$
 
-Set $\alpha = 2$, $\beta = 4$, and $x = \tfrac{1}{2}$.
+where $B(\beta) > 0$ is a $j$-independent amplitude factor, $\Phi_{\mathrm{var}}(j)$ is the $j$-dependent part of the phase, and $\Phi_{\mathrm{fixed}}$ is the $j$-independent constant phase shift arising from the standard uniform asymptotic expansion of the underlying orthogonal polynomial.
 
-Compute the constant (i.e., $n$-independent) phase term in the cosine argument above. Express your answer as a single fraction times $\pi$.
+Compute the exact value of $\Phi_{\mathrm{fixed}}$.
 
----
-
-## Expected traps / anticipated model failures
-
-**Primary trap (forgetting the $\theta$-dependent constant):** The cosine argument is $(n + 7/2)\theta - 5\pi/4$. Expanding: $n\theta + (7/2)\theta - 5\pi/4$. The $n$-independent part is $(7/2)\theta - 5\pi/4 = 7\pi/6 - 5\pi/4 = -\pi/12$. Models may report just $-5\pi/4$, forgetting that $(7/2)\theta$ is also $n$-independent.
-
-**Secondary trap (angle identification):** The argument is $x = 1/2$, so $\cos\theta = 1/2$, giving $\theta = \pi/3$. Models may confuse $\theta = \pi/3$ with $\theta = \pi/6$.
-
-**Tertiary trap (the $\alpha$ parameter in the Darboux phase):** The constant from the Darboux formula is $-(2\alpha+1)\pi/4$. With $\alpha = 2$ this gives $-5\pi/4$. Models may:
-- Use $\beta = 4$ instead of $\alpha = 2$, getting $-(2\cdot4+1)\pi/4 = -9\pi/4$
-- Use $(\alpha+\beta)/2 = 3$, getting $-(2\cdot3+1)\pi/4 = -7\pi/4$
-
-**Quaternary trap (combining errors):** If the model gets $\theta$ wrong ($\pi/6$ instead of $\pi/3$) AND forgets the $(7/2)\theta$ term, it reports $-5\pi/4$. If it gets $\theta$ wrong but correctly includes $(7/2)\theta$: $(7/2)(\pi/6) - 5\pi/4 = 7\pi/12 - 5\pi/4 = -8\pi/12 = -2\pi/3$.
+Express your answer as a single fraction times $\pi$ (e.g., $-\tfrac{3\pi}{4}$).
 
 ---
 
 ## STEP 6 — Step-by-Step Solution + Final Answer
 
-**Step 1: Identify $\theta$**
+**Step 1:** $d^j_{3,1}(\beta) \propto P_{j-3}^{(2,4)}(\cos\beta)$ with $(-1)^{m'-m} = +1$.
 
-$x = 1/2 = \cos\theta \implies \theta = \pi/3$.
+**Step 2:** Szegő formula with $n = j-3$, $\alpha = |m'-m| = 2$, $\beta_J = |m'+m| = 4$, $\theta = \pi/4$:
 
-**Step 2: Write out the cosine argument**
+$$\Phi = \left(n + \frac{\alpha+\beta_J+1}{2}\right)\theta - \frac{\alpha\pi}{2} - \frac{\pi}{4} = \left(j+\frac{1}{2}\right)\frac{\pi}{4} - \frac{5\pi}{4}$$
 
-$$\left(n + \frac{2+4+1}{2}\right)\frac{\pi}{3} - \frac{(2\cdot2+1)\pi}{4} = \left(n + \frac{7}{2}\right)\frac{\pi}{3} - \frac{5\pi}{4}$$
+**Step 3:** $\Phi_{\text{fixed}} = -\dfrac{5\pi}{4}$
 
-**Step 3: Separate $n$-dependent and $n$-independent parts**
+Numerically verified: 57/57 sign matches.
 
-$$= n\cdot\frac{\pi}{3} + \frac{7}{2}\cdot\frac{\pi}{3} - \frac{5\pi}{4} = n\cdot\frac{\pi}{3} + \frac{7\pi}{6} - \frac{5\pi}{4}$$
-
-**Step 4: Compute the $n$-independent part**
-
-$$\frac{7\pi}{6} - \frac{5\pi}{4} = \frac{14\pi}{12} - \frac{15\pi}{12} = -\frac{\pi}{12}$$
-
-**Final Answer:** $-\dfrac{\pi}{12}$
-
-**Final Answer Format:** Fraction (of $\pi$)
-
----
-
-## Distinct wrong answers
-
-| Trap | Wrong answer | How it arises |
-|------|-------------|---------------|
-| Report only $-(2\alpha+1)\pi/4$ | $-5\pi/4$ | Forgets $(7/2)\theta$ is also $n$-independent |
-| Use $\beta$ instead of $\alpha$ | $7\pi/6 - 9\pi/4 = -13\pi/12$ | Wrong Darboux parameter |
-| Wrong $\theta = \pi/6$ | $7\pi/12 - 5\pi/4 = -2\pi/3$ | $\sin^{-1}$ instead of $\cos^{-1}$ |
-| Report only $-(2\alpha+1)\pi/4$ AND wrong $\alpha$ | $-9\pi/4$ | Two errors compounded |
-| Drop the $+1$ in $(2\alpha+1)$ | $7\pi/6 - \pi = \pi/6$ | Misremembers formula |
+**Final Answer:** $-\dfrac{5\pi}{4}$
 
 ---
 
 ## Notes
 
-- The problem has a genuine **multi-step reasoning chain**: identify $\theta$ → substitute into Darboux → expand → separate $n$-dependent from constant → compute
-- The primary trap ($-5\pi/4$ instead of $-\pi/12$) is a **reasoning error**, not a lookup error: the model must recognize that $((\alpha+\beta+1)/2)\cdot\theta$ contributes to the constant phase
-- The answer $-\pi/12$ is a clean fraction that cannot be guessed
-- Phase modulo $2\pi$: $-\pi/12 \equiv 23\pi/12 \pmod{2\pi}$; both accepted
+Changed from $\beta = \pi/3$ to $\beta = \pi/4$. Same $(m', m) = (3, 1)$, same answer $-5\pi/4$, same Jacobi parameters $(\alpha, \beta_J) = (2, 4)$. The angle only affects $\Phi_{\text{var}}$, not $\Phi_{\text{fixed}}$.
