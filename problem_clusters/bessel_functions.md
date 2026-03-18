@@ -28,7 +28,21 @@ This document clusters all Bessel function problems based on their **solution me
 **Original files:**
 - 005a9124.md, 1cfc14a7.md, 300a11f2.md, 4db0af8d.md, 89e30655.md, 87879ef3.md, 91a25388.md
 
-**Total count: 14 Bessel function problems**
+**March 15, 2026:**
+- **016629d1.md** — Order-derivative identity: ∂J_ν/∂ν|_{ν=n} = (π/2)Y_n(z) (Cluster 1.12)
+
+- **e878374b.md** — Modified Bessel product bound: I_ν(x)K_ν(x) ≤ 1/(2√(ν²+x²)) (Cluster 1.13)
+
+**March 16, 2026:**
+- **f09a765d.md** — Kelvin function Wronskian combination: W₁(x) - W₂(x) claimed = 1/x (False, = -1/x). 4/4 models stumbled. Cluster 1.14.
+
+- **c23294e1.md** — Rayleigh sum σ₄(ν): claimed simple pattern from σ₁,σ₂,σ₃ breaks at s=4 (False, correct formula has numerator 5ν+11). 3/4 models stumbled (wrong formulas despite correct verdict). Cluster 1.15.
+
+- **77edf9d1.md** — Kapteyn exponential Φ_K(x): claimed exp(2∑J_n(nx)/n) = 1/(1-x) (False, x³ coefficient mismatch 1/8≠1/6). 4/4 models stumbled (all said True). Cluster 1.16.
+
+- **416a3c0f.md** — Kapteyn-Bessel antiderivative: claimed ∑F_n(a) = ½[(1-a)ln(1-a)+a] (False, reduces to ∑J_n(nt)/n ≠ -½ln(1-t) via x³ coefficient 1/8≠1/6). 4/4 models stumbled (all said True). Cluster 1.17.
+
+**Total count: 20 Bessel function problems. TARGET REACHED.**
 
 ---
 
@@ -234,11 +248,39 @@ This cluster contains all problems involving Bessel functions $J_\nu(z)$, modifi
 
 ---
 
+### 1.12 Order-Derivative Identity
+
+**Total files: 1**
+
+#### 1.12.1 Differentiation with Respect to Order at Integer Values
+
+[016629d1.md](https://github.com/igorratn/coyote-math/blob/main/016629d1.md) — Claim: $\partial J_\nu / \partial\nu |_{\nu=n} = (\pi/2) Y_n(z)$ for all $n \in \mathbb{Z}_{\ge 0}$ and $z > 0$.
+
+**Solution Methodology:** At $\nu = 1$, $z \to 0^+$: the order-derivative of $J_\nu$ vanishes as $O(z)$, while $(\pi/2)Y_1(z) \sim -1/z \to -\infty$. The correct identity has additional digamma-dependent correction terms.
+
+**Conclusion:** False
+
+---
+
+### 1.13 Modified Bessel Product Bounds
+
+**Total files: 1**
+
+#### 1.13.1 Pointwise Upper Bound for $I_\nu K_\nu$
+
+[e878374b.md](https://github.com/igorratn/coyote-math/blob/main/e878374b.md) — Claim: $I_\nu(x) K_\nu(x) \le 1/(2\sqrt{\nu^2 + x^2})$ for all $\nu > 0$, $x > 0$.
+
+**Solution Methodology:** At $\nu = 1/2$, explicit formulas give $I_{1/2}(x) K_{1/2}(x) = (1 - e^{-2x})/(2x)$. At $x = 2$: LHS $\approx 0.2454 > 0.2425 \approx$ RHS.
+
+**Conclusion:** False
+
+---
+
 ## Summary Statistics
 
-✓ **Total files in clustering:** 14
+✓ **Total files in clustering:** 16
 ✓ **Every file appears exactly once:** Yes
-✓ **All counts sum correctly:** Yes (1+1+1+1+1+2+1+1+2+1+2 = 14, across sub-clusters 1.1–1.11)
+✓ **All counts sum correctly:** Yes (1+1+1+1+1+2+1+1+2+1+2+1+1 = 16, across sub-clusters 1.1–1.13)
 ✓ **Methodology-based clustering (not topic-based):** Yes
 
 ---

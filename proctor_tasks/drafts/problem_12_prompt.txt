@@ -1,0 +1,11 @@
+A relativistic spin-$\frac{1}{2}$ particle of rest mass $m = 938.3$ MeV/$c^2$ moves in a radial potential with Lorentz scalar part $S(r)$ and time-like vector part $V(r)$. Define $\Sigma(r) = S(r) + V(r)$ and $\Delta(r) = V(r) - S(r)$.
+
+In the exact spin symmetry limit, $\Delta(r) = 0$, so that $S(r) = V(r)$. The sum potential takes the Manning-Rosen form:
+
+$$\Sigma(r) = 2V(r) = -(\hbar c)\alpha \left[\frac{A\,e^{-\alpha r}}{1 - e^{-\alpha r}} - \frac{B\,e^{-2\alpha r}}{(1 - e^{-\alpha r})^2}\right]$$
+
+with dimensionless parameters $A = 48.0$, $B = 18.0$, and range parameter $\alpha = 0.320$ fm$^{-1}$. Use $\hbar c = 197.327$ MeV$\cdot$fm.
+
+Under spin symmetry ($\Delta = 0$), the upper component of the Dirac spinor satisfies a Schrödinger-like equation with effective potential $(E+m)\Sigma(r)$ and orbital angular momentum quantum number $\ell$.
+
+For the state with Dirac quantum number $\kappa = -2$ (i.e., $\ell = 1$, $j = 3/2$) and radial quantum number $n_r = 0$ (no nodes in the upper component), determine the particle-branch ($E > 0$) binding energy $E_b = mc^2 - E$ in MeV. Report your answer rounded to three significant figures.

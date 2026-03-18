@@ -6,13 +6,13 @@ Detailed proof analysis and clustering: [Google Doc](https://docs.google.com/doc
 ## Recent Activity
 The 5 most recently updated mathematical tasks in the repository:
 
-Let $J_\nu(z)$ denote the Bessel function of the first kind, defined for $z>0$ by $$J_\nu(z)=\sum_{k=0}^{\infty}\frac{(-1)^k}{k!\Gamma(k+\nu+1)}\left(\frac{z}{2}\right)^{2k+\nu},$$ and let $Y_\nu(z)$ denote the Bessel function of the second kind, def ... [[016629d1.md]](https://github.com/igorratn/coyote-math/blob/main/016629d1.md)
+For $n \geq 1$ and $z > 0$, define $$F_n(z) = \frac{1}{n^2} \int_0^{nz} J_n(u)\, du,$$ where $J_n$ denotes the Bessel function of the first kind of integer order $n$. The integral $\int_0^w J_n(u)\, du$ is well-defined for all $w > 0$ and $n \geq 1$. ... [[416a3c0f.md]](https://github.com/igorratn/coyote-math/blob/main/416a3c0f.md)
 
-For $\nu > 0$ and $x > 0$, let $I_\nu(x)$ and $K_\nu(x)$ denote the modified Bessel functions of the first and second kind, satisfying $$x^2 u'' + x u' - (x^2 + \nu^2)u = 0.$$ Claim: For every $\nu > 0$ and every $x > 0$,  ... [[e878374b.md]](https://github.com/igorratn/coyote-math/blob/main/e878374b.md)
+For $0 < x < 1$, the Kapteyn series identity states that $$\sum_{n=1}^{\infty} J_n(nx) = \frac{x}{2(1-x)},$$ where $J_n$ denotes the Bessel function of the first kind of integer order $n$. This identity, due to Kapteyn (1893), converges absolutely fo ... [[77edf9d1.md]](https://github.com/igorratn/coyote-math/blob/main/77edf9d1.md)
 
-Let $j_1, j_2$ be fixed half–integers with $j_1, j_2 \ge 2$ and let $m$ be an integer with $|m| \le j_1 + j_2 - 2$. For each allowed total angular momentum $j_3$ satisfying $|j_1 - j_2| \le j_3 \le j_1 + j_2$ and $m_3 = m$, define the Clebsch–Gordan  ... [[de74e827.md]](https://github.com/igorratn/coyote-math/blob/main/de74e827.md)
+For $\nu > -1$, let $0 < j_{\nu,1} < j_{\nu,2} < \cdots$ denote the positive zeros of the Bessel function of the first kind $J_\nu(x)$. The Rayleigh sums (or spectral zeta functions of the Bessel operator) are defined by $$\sigma_s(\nu) = \sum_{k=1}^ ... [[c23294e1.md]](https://github.com/igorratn/coyote-math/blob/main/c23294e1.md)
 
-The Neumann addition theorem for Bessel functions of the first kind states that for real $r, s > 0$ with $s < r$ and $\phi \in \mathbb{R}$, $$J_0\!\left(\sqrt{r^2 + s^2 - 2rs\cos\phi}\right) = J_0(r)\,J_0(s) + 2\sum_{m=1}^{\infty} J_m(r)\,J_m(s)\,\co ... [[91a25388.md]](https://github.com/igorratn/coyote-math/blob/main/91a25388.md)
+For $x > 0$, define the Kelvin functions of order zero by $$J_0\!\bigl(x\,e^{i\pi/4}\bigr) = \operatorname{ber}(x) + i\,\operatorname{bei}(x), \qquad K_0\!\bigl(x\,e^{i\pi/4}\bigr) = \operatorname{ker}(x) + i\,\operatorname{kei}(x),$$ where $J_0$ is  ... [[f09a765d.md]](https://github.com/igorratn/coyote-math/blob/main/f09a765d.md)
 
-Let $r, p > 0$, let $\theta$ be the angle between the vectors of lengths $r$ and $p$, and let $R = \sqrt{r^2 + p^2 - 2rp \cos \theta}$. For $r < p$, Graf’s addition theorem states: $$H_\nu^{(1)}(kR) e^{i\nu\psi} = \sum_{n=-\infty}^{\infty} J_n(kr) H_ ... [[0af97337.md]](https://github.com/igorratn/coyote-math/blob/main/0af97337.md)
+The Kelvin functions of order zero are defined for real $x > 0$ by $$J_0\!\bigl(x\,e^{i\pi/4}\bigr) = \operatorname{ber}(x) + i\,\operatorname{bei}(x), \qquad K_0\!\bigl(x\,e^{i\pi/4}\bigr) = \operatorname{ker}(x) + i\,\operatorname{kei}(x),$$ where  ... [[d87cec92.md]](https://github.com/igorratn/coyote-math/blob/main/d87cec92.md)
 

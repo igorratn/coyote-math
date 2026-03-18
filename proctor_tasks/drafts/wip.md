@@ -1,52 +1,56 @@
-# Project Proctor Task — Physics Domain
-**Task file:** `32945d48.md`
-**Source problem:** `3c1c8b15.md` (adapted — Wigner d-matrix)
-**Status:** DRAFT — Phase 1, RETEST with slightly different parameters
+In a cylindrically symmetric scattering model, the radial overlap between two neighboring angular-momentum channels is defined by
 
----
+$$\mathcal C_\nu(a,b)=\int_0^\infty J_\nu(at) J_{\nu+1}(bt) \, dt, \qquad \nu > -1, \quad 0 < a \le b,$$
 
-## STEP 0 — Domain
+where $J_\nu$ is the Bessel function of the first kind.
 
-**Domain:** Physics
-**Subdomain:** 1.10 Other (Physics)
-**Difficulty:** Graduate / PhD-level
+For separated radii $0 < a < b$, a standard Weber-Schafheitlin evaluation gives
 
----
+$$\mathcal C_\nu(a,b)=\frac{a^\nu}{b^{\nu+1}}.$$
 
-## STEP 1 — Prompt
+A naive continuity heuristic suggests that this formula should extend continuously to the coincident-radius case $a=b$, yielding
 
-The Wigner (small) d-matrix element $d^{j}_{m'm}(\beta)$ describes a rotation by angle $\beta$ about the $y$-axis in the spin-$j$ representation of $\mathrm{SU}(2)$.
+$$\mathcal C_\nu(b,b)=\frac{1}{b}.$$
 
-For fixed $m' = 3$, $m = 1$, and fixed angle $\beta = \pi/4$, the matrix element $d^{j}_{3,1}(\pi/4)$ oscillates as a function of $j$ for large $j$ (with $j \geq 3$).
+Determine whether this claim is True or False, and give a rigorous proof of your conclusion.
 
-Its large-$j$ asymptotic form can be written as
 
-$$d^{j}_{3,1}(\pi/4) \sim \frac{B(\beta)}{\sqrt{j}} \cos\!\bigl(\Phi_{\mathrm{var}}(j) + \Phi_{\mathrm{fixed}}\bigr),$$
+The claim is False.
 
-where $B(\beta) > 0$ is a $j$-independent amplitude factor, $\Phi_{\mathrm{var}}(j)$ is the $j$-dependent part of the phase, and $\Phi_{\mathrm{fixed}}$ is the $j$-independent constant phase shift arising from the standard uniform asymptotic expansion of the underlying orthogonal polynomial.
+It is enough to test the case $\nu=0$. Then
 
-Compute the exact value of $\Phi_{\mathrm{fixed}}$.
+$$\mathcal C_0(b,b)=\int_0^\infty J_0(bt) J_1(bt) \, dt.$$
 
-Express your answer as a single fraction times $\pi$ (e.g., $-\tfrac{3\pi}{4}$).
+With the change of variable $x=bt$, this becomes
 
----
+$$\mathcal C_0(b,b)=\frac{1}{b}\int_0^\infty J_0(x) J_1(x) \, dx.$$
 
-## STEP 6 — Step-by-Step Solution + Final Answer
+Now use the standard derivative identity
 
-**Step 1:** $d^j_{3,1}(\beta) \propto P_{j-3}^{(2,4)}(\cos\beta)$ with $(-1)^{m'-m} = +1$.
+$$J_0^\prime(x)=-J_1(x).$$
 
-**Step 2:** Szegő formula with $n = j-3$, $\alpha = |m'-m| = 2$, $\beta_J = |m'+m| = 4$, $\theta = \pi/4$:
+Hence
 
-$$\Phi = \left(n + \frac{\alpha+\beta_J+1}{2}\right)\theta - \frac{\alpha\pi}{2} - \frac{\pi}{4} = \left(j+\frac{1}{2}\right)\frac{\pi}{4} - \frac{5\pi}{4}$$
+$$\int_0^\infty J_0(x) J_1(x) \, dx = -\int_0^\infty J_0(x) J_0^\prime(x) \, dx = -\frac{1}{2}\int_0^\infty \frac{d}{dx}\bigl(J_0(x)^2\bigr) \, dx.$$
 
-**Step 3:** $\Phi_{\text{fixed}} = -\dfrac{5\pi}{4}$
+Therefore
 
-Numerically verified: 57/57 sign matches.
+$$\int_0^\infty J_0(x) J_1(x) \, dx = -\frac{1}{2}\Bigl[J_0(x)^2\Bigr]_{0}^{\infty}.$$
 
-**Final Answer:** $-\dfrac{5\pi}{4}$
+Since $J_0(0)=1$ and $J_0(x) \to 0$ as $x \to \infty$, we get
 
----
+$$\int_0^\infty J_0(x) J_1(x) \, dx = \frac{1}{2}.$$
 
-## Notes
+So
 
-Changed from $\beta = \pi/3$ to $\beta = \pi/4$. Same $(m', m) = (3, 1)$, same answer $-5\pi/4$, same Jacobi parameters $(\alpha, \beta_J) = (2, 4)$. The angle only affects $\Phi_{\text{var}}$, not $\Phi_{\text{fixed}}$.
+$$\mathcal C_0(b,b)=\frac{1}{2b}.$$
+
+But the claimed continuation predicts
+
+$$\mathcal C_0(b,b)=\frac{1}{b},$$
+
+which is different. The continuity extension fails at the boundary $a=b$.
+
+Thus the claim is False, since already for $\nu=0$ one has
+
+$$\mathcal C_0(b,b)=\frac{1}{2b}.$$

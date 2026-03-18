@@ -1,0 +1,5 @@
+An electron is confined in a symmetric GaAs/Al$_{0.3}$Ga$_{0.7}$As quantum well heterostructure. The well layer (GaAs) has thickness $L = 10.0$ nm and the barriers (Al$_{0.3}$Ga$_{0.7}$As) are semi-infinite on both sides. The conduction-band offset (barrier height) is $V_0 = 230$ meV.
+
+In these III-V semiconductors, the electron dynamics in the conduction band is described by the effective-mass Schrödinger equation, where the effective mass takes the value $m^* = 0.0670\,m_e$ inside GaAs and $m^* = 0.150\,m_e$ inside Al$_{0.3}$Ga$_{0.7}$As, with $m_e = 9.109 \times 10^{-31}$ kg.
+
+Determine the ground-state confinement energy $E_1$ (measured from the bottom of the well) in meV. Report your answer rounded to three significant figures.
