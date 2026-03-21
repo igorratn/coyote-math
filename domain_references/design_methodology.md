@@ -1,10 +1,84 @@
-# Problem Design Methodology: Gaussian Noise → TRIZ → Q1-Q4
+# Problem Design Methodology: Gaussian Noise → TRIZ → Complexity → Q1-Q4
 
-## Date: 2026-03-20
+## Date: 2026-03-20 (Updated)
 
 ## The Cardinal Rule
 
-**TRIZ works 100% of the time. If you can't find a problem in a domain, you haven't generated enough noise.** Don't conclude "this domain doesn't work" — conclude "I haven't tried enough perturbations." Every domain in mathematics has contradictions waiting to be found. Every known identity can be perturbed into a subtle break. If 30 perturbations all fail, try 30 more. The method is sound; the only failure mode is giving up too early.
+**TRIZ works 100% of the time. If you can't find a problem in a domain, you haven't generated enough noise.**
+
+---
+
+## The Design Formula (Updated 2026-03-20)
+
+**Premature confidence × No easy bypass = Stumble**
+
+NOT "hard computation." Models CAN compute. The barrier is that models believe they already have the answer and don't check. Arithmetic errors don't count as stumbles.
+
+**Premature confidence** comes from:
+- A plausible structural argument that ALMOST works (Gegenbauer: $x=1$ bound)
+- A recalled formula that ALMOST applies (8ac6e061: $dt$ vs $t\,dt$)
+- An analogy that ALMOST transfers (77edf9d1: geometric → Kapteyn)
+- A pattern that ALMOST continues (c23294e1: Rayleigh sums)
+
+**No easy bypass** means:
+- No simple substitution disproves the claim immediately
+- No alternative computation path avoids the trap
+- The problem must not have an exact closed-form solution accessible in one step (SL failure: models derived eigenvalue equation and bypassed the trap entirely)
+
+---
+
+## Complexity Theory Principle (New, 2026-03-20)
+
+**The error must live in the INTERACTION of multiple components, not in any single component alone.**
+
+Simple problems = one component = models solve instantly.
+Complex problems = multiple interacting components = models simplify away the interaction = stumble.
+
+Each component must be correct in isolation. The falsity only appears when you put them together.
+
+**Example — Gegenbauer (2/4 success):**
+- Component 1: $g_k \geq 0$ (correct)
+- Component 2: $x=1$ evaluation gives valid bound (correct)  
+- Component 3: The bound involves $(2\lambda)_m$ while actual formula has $(\lambda)_m$ (subtle difference)
+- Interaction: The factor-by-factor comparison gives $m(\lambda-1) \leq 0$, which holds for $\lambda \leq 1$ but REVERSES for $\lambda > 1$
+
+R1 and R4 each reduced to a single-component analysis and missed the interaction.
+
+**Example — CG Moment (WIP):**
+- Component 1: CG completeness (correct)
+- Component 2: CG symmetry $\mathcal{M}(M) = -\mathcal{M}(-M)$ (correct)
+- Component 3: "For all $M$" quantifier
+- Interaction: Symmetry only forces $\mathcal{M} = 0$ when $M = 0$, not for all $M$
+
+---
+
+## Reasoning Traps, Not Recall Traps (New, 2026-03-20)
+
+**Never assume models can't memorize.** A trap that relies on models NOT recalling a formula is a recall trap, not a reasoning trap. Models know everything. The trap must be in the REASONING.
+
+A good problem is one where even a model that knows everything still gets fooled because:
+- The natural reasoning path leads to the wrong answer (premature confidence)
+- The correct reasoning requires noticing a subtle interaction between components (complexity)
+- There is no easy alternative path to the correct answer (no bypass)
+
+**What failed today (recall traps):**
+- Clausen ($1/2 \to 1$): models recalled exact parameter condition → 0/4
+- SL perturbation: models derived exact eigenvalue equation → 0/4
+
+**What worked today (reasoning trap):**
+- Gegenbauer linearization: models did the factor-by-factor analysis (correct reasoning technique) but missed the sign flip at $\lambda > 1$ → 2/4
+
+---
+
+## Patterns in Successful Problems (New, 2026-03-20)
+
+From reviewing ALL problems in the repo:
+
+1. **"For all $n$" but fails at specific $n$** — most common pattern
+2. **Small perturbation of known identity** — one sign, one factor, one parameter
+3. **Concise** — readable in 2 minutes, solution in 5 lines
+4. **Mix of True and False** — roughly 50/50
+5. **Claim is TRUE for most parameter values, FALSE for specific ones** — spot-checking usually confirms the claim
 
 ---
 
@@ -16,8 +90,10 @@ Gaussian Noise (random perturbations of known identities)
 "Where does math fool you?" (the subtle break)
     ↓ classify: which contradiction type?
 TRIZ Contradiction (Framework A vs Framework B)
+    ↓ apply complexity principle
+Complexity Check (does the error live in an interaction?)
     ↓ build: embed the false argument
-Problem Design (Q1-Q4, short-circuit check)
+Problem Design (Q1-Q4, short-circuit check, bypass check)
     ↓ test
 Phoenix Submission
 ```
@@ -42,31 +118,26 @@ Take a known identity from N-U or any reference. Perturb it along one or more of
 | **Domain** | Extend from $|z|<1$ to $z=2$, or from $a>b$ to $a<b$ | Weber-Schafheitlin (failed — restriction too well-known) |
 | **Sign** | Flip a sign in a recurrence or Wronskian | f09a765d: $1/x \to -1/x$ |
 | **Framing** | Add misleading context to a trivial fact | fc18bf67: "must be evaluated by other means" for a zero integral |
-| **Composition** | Apply two transformations and claim the composite simplifies | Euler+Pfaff composition in ${}_2F_1$ |
-| **Symmetry** | Claim a function is symmetric when it's not, or vice versa | Could apply to connection formulas, addition theorems |
+| **Bound** | Claim a quantity satisfies an inequality it doesn't | 7edc37eb-v2: $g_{m+n} \leq 1$ fails for $\lambda > 1$ |
+| **Quantifier** | Claim "for all $\lambda$" when it holds only for $\lambda \leq 1$ | Gegenbauer: factor inequality reverses at $\lambda = 1$ |
 
-**The process:** Take 10-15 known identities. Apply 2-3 random perturbations to each. That gives 30-40 candidates in minutes. Most are garbage. A few have subtle breaks. Those are your signal.
+**If nothing survives: generate more noise, not less.** TRIZ works 100%.
 
-**If nothing survives: generate more noise, not less.** The problem is never the domain — it's insufficient exploration. Try different perturbation dimensions. Combine two perturbations. The contradiction is there; you just haven't found it yet.
-
-**Critical filter:** For each perturbation that produces a break, immediately ask:
+**Critical filter:** For each perturbation that produces a break, ask:
 - Is the break detectable at $n=0$? → discard
-- Is the break detectable by recalling the correct formula? → discard (unless the recall itself is the trap)
+- Is the break detectable by recalling the correct formula? → discard
 - Does the break require multi-step reasoning to detect? → KEEP
+- Does the error live in an INTERACTION of components? → STRONG KEEP
 
 ---
 
 ## Level 1: "Where Does Math Fool You?"
-
-The perturbation that survived the filter IS the answer to this question. The subtle break is where mathematics creates genuine confusion.
 
 Name the confusion. What went wrong? Why does the perturbed identity look plausible?
 
 ---
 
 ## Level 2: TRIZ Contradiction — Classify and Structure
-
-Map the confusion to one of the five contradiction types (from reverse_triz_analysis.md):
 
 | Type | What it exploits | Stumble rate | Best for |
 |---|---|---|---|
@@ -75,80 +146,65 @@ Map the confusion to one of the five contradiction types (from reverse_triz_anal
 | **INDUCTION** | Models trust finite patterns | 3/4 | Order perturbations |
 | **FRAMING** | Models follow problem framing as ground truth | 2-3/4 | Framing perturbations |
 | **GAP** | Models hand-wave past unclosable derivation gaps | 2/4 | Index range/conditional convergence |
-
-Name the two frameworks:
-- **Framework A (wrong but plausible):** What models will do
-- **Framework B (correct):** What the math actually requires
-- **Resolving detail:** The subtle perturbation that separates them
+| **INTERACTION** | Models reduce multi-component problem to single component | 2/4 | Bound/quantifier perturbations (NEW) |
 
 ---
 
 ## Level 3: Problem Design
 
-### The "Embedded False Proof" pattern (most effective)
+### Apply Complexity Principle
 
-Instead of hoping models fall into the trap naturally, GIVE them the false argument:
-
-> Here's a derivation: [uses Framework A] → [reaches wrong conclusion].
-> Claim: [wrong conclusion]. True or False?
-
-This is the meta-type that wraps any contradiction. It controls models' reasoning path and is the most reliable approach.
+Before writing the problem, identify:
+- What are the interacting components?
+- What does each component look like in isolation? (Must look correct)
+- Where does the interaction create the error?
+- Will models simplify away the interaction? (Must be YES)
 
 ### Apply Q1-Q4
 
-- **Q1:** What will a model try FIRST? → Ideally follow the provided argument
+- **Q1:** What will a model try FIRST?
 - **Q2:** Does that reveal the falsity? → Must be NO
 - **Q3:** Does the natural path confirm the false claim? → Must be YES
-- **Q4:** What non-obvious step reveals the truth? → Must require real work
+- **Q4:** What non-obvious step reveals the truth?
 
 ### Short-circuit check
 
-- **Mode A:** Can models check at $n=0$, $x=0$, small values? → DISCARD
-- **Mode B:** Can models recall the correct formula directly? → DISCARD
+- **Mode A:** Can models check at small values? → DISCARD
+- **Mode B:** Can models recall the correct formula? → DISCARD
 - **Mode C:** One-step disproof? → DISCARD
+- **Mode D:** Can models bypass the trap entirely? (e.g., derive exact solution) → DISCARD
 
 ---
 
-## How Every Successful Problem Was Actually Born (Honest Account)
+## How Every Successful Problem Was Born
 
-| Problem | Gaussian Noise | Subtle Break | Contradiction Type |
+| Problem | Noise | Contradiction | Complexity |
 |---|---|---|---|
-| 8ac6e061 | Perturb measure: $t\,dt \to dt$ | Scaling changes from $\lambda^{-2}$ to $\lambda^{-1}$ | RECALL |
-| 77edf9d1 | Perturb by analogy: $\sum x^n/n = -\ln(1-x)$ applied to Kapteyn | $x^3$ coefficient $1/8 \neq 1/6$ | ANALOGY |
-| 416a3c0f | Same as above, wrapped in integral | $a^4$ coefficient $1/32 \neq 1/24$ | ANALOGY |
-| f09a765d | Perturb argument: $z \to xe^{i\pi/4}$ (Kelvin) | Wronskian sign flips | RECALL |
-| c23294e1 | Perturb order: extend $s=1,2,3$ pattern to $s=4$ | Numerator becomes $5\nu+11$ not $1$ | INDUCTION |
-| fc18bf67 | Perturb framing: "must be evaluated by other means" | Integral is zero by parity | FRAMING |
-| adaaffa2 | Same framing perturbation, Hermite domain | Same parity argument | FRAMING |
-| 7edc37eb | Perturb weight: $[J_n(nx)]^2 \to [J_n(nx)]^2/n$ | Differentiation gap: $\sum J_nJ_n'$ vs $\sum nJ_nJ_n'$ | GAP |
-| SL draft | Perturb index range: $\sum_{-\infty}^{\infty} \to \sum_0^{\infty}$ | Asymmetric cancellation | GAP + EMBEDDED FALSE PROOF |
-
-**Every single success started with a perturbation of something known.** The noise came first. TRIZ came after.
+| 8ac6e061 | Measure: $t\,dt \to dt$ | RECALL | Scaling argument × measure confusion |
+| 77edf9d1 | Analogy: geometric → Kapteyn | ANALOGY | Series structure × coefficient algebra |
+| 416a3c0f | Same, wrapped in integral | ANALOGY | Same |
+| f09a765d | Argument: $z \to xe^{i\pi/4}$ | RECALL | Wronskian formula × rotated ODE |
+| c23294e1 | Order: extend $s=3$ to $s=4$ | INDUCTION | Pattern × Newton identity recurrence |
+| fc18bf67 | Framing: "by other means" | FRAMING | Framing × parity |
+| adaaffa2 | Same, Hermite domain | FRAMING | Same |
+| 7edc37eb-v2 | Bound: $g_{m+n} \leq 1$ | INTERACTION | $x=1$ bound × Pochhammer ratio × parameter range |
 
 ---
 
-## For CLI: Practical Workflow
+## What NOT to Design
 
-1. **Read this document + reverse_triz_analysis.md + self_reflection_20260319.md**
-2. **Pick 10-15 known identities** from the N-U book or cluster files
-3. **Apply random perturbations** from the table above (2-3 per identity = 30-40 candidates)
-4. **Filter fast:** Is the break subtle? Not detectable at small values? Not killed by formula recall? → Keep only 2-3 survivors
-5. **Classify** each survivor by contradiction type
-6. **Build the problem** using the "embedded false proof" pattern if possible
-7. **Apply Q1-Q4** and short-circuit checks
-8. **Test on Phoenix** only if all checks pass
-
-**Speed target:** Steps 1-5 should take 15-20 minutes (brainstorming). Steps 6-7 should take 10-15 minutes (writing). Don't spend hours on one idea — generate many, filter hard.
-
-**NEVER give up on a domain.** If 30 perturbations fail, try 30 more. TRIZ works 100%. The contradiction is always there.
+1. **Recall traps** — models recall too well (Clausen: 0/4, SL: 0/4)
+2. **Easy bypass problems** — alternative disproof path shorter than engaging with trap (SL: implicit differentiation)
+3. **Ill-posed problems** — integral doesn't exist, ambiguous claim (Fubini)
+4. **Well-known counterexamples** — QC will flag them (Fubini: 5+ sources)
+5. **Low-order coefficient mismatches** — models compute $z^2$ easily (Clausen: 0/4)
 
 ---
 
 ## References
 
+- **Complexity principle:** `domain_references/reasoning_pattern_analysis.md`
 - **Contradiction types:** `domain_references/reverse_triz_analysis.md`
-- **TRIZ framework:** `proctor_tasks/prompts/triz_framework.md`
-- **Q1-Q4 design test:** `domain_references/self_reflection_20260319.md`
-- **Failure modes:** `domain_references/self_reflection_20260319.md`
+- **Session lessons:** `domain_references/self_reflection_20260320.md`
 - **Pipeline rules:** `phoenix/cli_phoenix_rules.md`
 - **Playbook:** `domain_guides/playbook.md`
