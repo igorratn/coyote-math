@@ -1,9 +1,9 @@
 # Bessel Functions: Comprehensive Clustering by Solution Methodology
 
-**Total files discovered: 14**
-**Total files verified: 14**
+**Total files discovered: 22**
+**Total files verified: 22**
 **Date: March 2, 2026**
-**Last update: March 11, 2026 — Added 0af97337.md (Graf addition theorem / series convergence domain); updated 91a25388.md entry**
+**Last update: March 19, 2026 — Added 7edc37eb.md (weighted squared Kapteyn sum)**
 
 This document clusters all Bessel function problems based on their **solution methodology**, not topic keywords.
 
@@ -42,13 +42,18 @@ This document clusters all Bessel function problems based on their **solution me
 
 - **416a3c0f.md** — Kapteyn-Bessel antiderivative: claimed ∑F_n(a) = ½[(1-a)ln(1-a)+a] (False, reduces to ∑J_n(nt)/n ≠ -½ln(1-t) via x³ coefficient 1/8≠1/6). 4/4 models stumbled (all said True). Cluster 1.17.
 
-**Total count: 20 Bessel function problems. TARGET REACHED.**
+- **8ac6e061.md** — Bessel triangle functional: B(a,b,c) = 2πA·∫J₀³dt claimed = 1 (False, homogeneous degree 1; models confuse dt with t dt measure). 4/4 stumbled. Cluster 1.18.
+
+**March 19, 2026:**
+- **7edc37eb.md** — Weighted squared Kapteyn sum $\mathcal{K}(x) = \sum [J_n(nx)]^2/n$: claimed $= x^2/(4-x^2)$ (False, $x^6$ coefficient mismatch $11/384 \neq 1/64$). 2/4 models stumbled (both said True via unverified Taylor assertions). Cluster 1.16.3.
+
+**Total count: 23 Bessel function problems.**
 
 ---
 
 ## Cluster 1: Bessel Functions and Modified Bessel Functions
 
-**Total files: 14**
+**Total files: 21**
 
 This cluster contains all problems involving Bessel functions $J_\nu(z)$, modified Bessel functions $I_\nu(z)$, $K_\nu(z)$, Neumann functions $Y_\nu(z)$, Hankel functions $H_\nu^{(1)}(z)$, $H_\nu^{(2)}(z)$, and related inhomogeneous equations (Lommel). These arise from separation of variables in cylindrical coordinates, asymptotic limits of special functions, and analytic continuation.
 
@@ -276,12 +281,14 @@ This cluster contains all problems involving Bessel functions $J_\nu(z)$, modifi
 
 ---
 
-## Summary Statistics
+## Summary Statistics (Original 16)
 
-✓ **Total files in clustering:** 16
+✓ **Total files in original clustering:** 16
 ✓ **Every file appears exactly once:** Yes
 ✓ **All counts sum correctly:** Yes (1+1+1+1+1+2+1+1+2+1+2+1+1 = 16, across sub-clusters 1.1–1.13)
 ✓ **Methodology-based clustering (not topic-based):** Yes
+
+*See Updated Summary Statistics after section 1.16 for the full 21-problem count.*
 
 ---
 
@@ -303,6 +310,11 @@ This cluster contains all problems involving Bessel functions $J_\nu(z)$, modifi
 | 5c3333ea | $J_\nu J_{\nu+2}$ product | $t \to \infty$ | Log divergence | Hankel asymptotics + phase |
 | 57cd7bd6 | Poisson vs $J_\nu$ | $z = 0$ | Domain mismatch | Analytic continuation |
 | f33dd204 | Poisson integral | $\operatorname{Re}(\nu) > -1$ | Beta regularization | Dominated convergence |
+| f09a765d | Kelvin ber/bei/ker/kei | $x > 0$ | Wrong sign from ODE mismatch | Wronskian + ODE identification |
+| c23294e1 | Rayleigh sums $\sigma_s(\nu)$ | $s = 4$, $\nu > -1$ | Pattern breaks at higher order | Hadamard product + Newton's identity |
+| 77edf9d1 | Kapteyn series $\sum J_n(nx)/n$ | $0 < x < 1$ | $\div n$ doesn't transform Kapteyn like geometric | Taylor coefficient comparison |
+| 416a3c0f | Kapteyn-Bessel antiderivative | $0 < a < 1$ | Integral inherits coefficient mismatch | Integration + Taylor coefficient comparison |
+| 7edc37eb | Weighted squared Kapteyn sum | $0 < x < 1$ | Subleading corrections break pattern at $x^6$ | Taylor coefficient comparison + differentiation gap |
 
 ---
 
@@ -321,6 +333,81 @@ This cluster contains all problems involving Bessel functions $J_\nu(z)$, modifi
 - **0af97337** — only series convergence domain failure at addition theorem boundary
 - **5c3333ea** — only product integral divergence via phase arithmetic
 - **57cd7bd6 / f33dd204** — only Poisson integral representation problems
+- **f09a765d** — only Kelvin function problem; Wronskian sign from ODE structure
+- **c23294e1** — only Rayleigh sum / spectral zeta function; pattern extrapolation failure
+- **77edf9d1 / 416a3c0f / 7edc37eb** — Kapteyn series problems; Taylor coefficient mismatch trap (7edc37eb uses squared Kapteyn with $1/n$ weight, creating differentiation gap)
+
+---
+
+### 1.14 Kelvin Function Wronskian Relations
+
+**Total files: 1**
+
+#### 1.14.1 Wronskian Sign Error via ODE Mismatch
+
+[f09a765d.md](https://github.com/igorratn/coyote-math/blob/main/f09a765d.md) — Kelvin function Wronskian combination: $W_1(x) - W_2(x)$ claimed $= 1/x$.
+
+**Solution Methodology:** The Kelvin functions ber, bei, ker, kei satisfy a different ODE from $J_0, K_0$. The claimed Wronskian has the wrong sign; the correct value is $-1/x$.
+
+**Conclusion:** False (4/4 stumbled)
+
+---
+
+### 1.15 Rayleigh Sums and Spectral Zeta Functions
+
+**Total files: 1**
+
+#### 1.15.1 Pattern Extrapolation Failure at Higher Order
+
+[c23294e1.md](https://github.com/igorratn/coyote-math/blob/main/c23294e1.md) — Rayleigh sum $\sigma_4(\nu)$: claimed simple numerator-1 pattern from $\sigma_1,\sigma_2,\sigma_3$ continues to $s=4$.
+
+**Solution Methodology:** Hadamard product for $J_\nu$ gives Newton's identity recurrence. Computing the $n=4$ relation yields $\sigma_4(\nu) = (5\nu+11)/[256(\nu+1)^4(\nu+2)^2(\nu+3)(\nu+4)]$, which has nontrivial numerator $5\nu+11$, disproving the pattern.
+
+**Conclusion:** False (3/4 stumbled)
+
+---
+
+### 1.16 Kapteyn Series and Generating Functions
+
+**Total files: 3**
+
+#### 1.16.1 Kapteyn Exponential — False Closed Form via Coefficient Mismatch
+
+[77edf9d1.md](https://github.com/igorratn/coyote-math/blob/main/77edf9d1.md) — Define $\Phi_K(x) = \exp(2\sum J_n(nx)/n)$. Claimed $\Phi_K(x) = 1/(1-x)$.
+
+**Solution Methodology:** The claim reduces to $\sum J_n(nx)/n = -\frac{1}{2}\ln(1-x)$. Small-$x$ expansion: $\sum J_n(nx)/n$ has $x^3$ coefficient $1/8$, while $-\frac{1}{2}\ln(1-x)$ has $1/6$. Since $1/8 \neq 1/6$, the identity fails.
+
+**Conclusion:** False (4/4 stumbled)
+
+---
+
+#### 1.16.2 Kapteyn-Bessel Antiderivative — Integral Wrapper of Same Coefficient Mismatch
+
+[416a3c0f.md](https://github.com/igorratn/coyote-math/blob/main/416a3c0f.md) — Define $F_n(a) = \frac{1}{n^2}\int_0^{na} J_n(u)\,du$. Claimed $\sum F_n(a) = \frac{1}{2}[(1-a)\ln(1-a)+a]$.
+
+**Solution Methodology:** Substitution reduces to $\mathcal{K}(a) = \int_0^a S(t)\,dt$ where $S(t) = \sum J_n(nt)/n$. The claim requires $S(t) = -\frac{1}{2}\ln(1-t)$, which fails at $t^3$ coefficient ($1/8 \neq 1/6$). After integration, the $a^4$ coefficients differ: $1/32 \neq 1/24$.
+
+**Conclusion:** False (4/4 stumbled)
+
+---
+
+#### 1.16.3 Weighted Squared Kapteyn Sum — Subleading Correction Mismatch
+
+[7edc37eb.md](https://github.com/igorratn/coyote-math/blob/main/7edc37eb.md) — Define $\mathcal{K}(x) = \sum_{n=1}^{\infty} [J_n(nx)]^2/n$. Claimed $\mathcal{K}(x) = x^2/(4-x^2)$.
+
+**Solution Methodology:** The $1/n$ weight makes $\mathcal{K}'(x) = 2\sum J_n(nx)J_n'(nx)$, while differentiating the squared Kapteyn identity gives $\sum 2n J_n J_n'$ (with the factor $n$). These are different sums, so the derivative approach cannot close. Direct Taylor expansion to $x^6$ reveals the coefficient is $11/384$, while $x^2/(4-x^2)$ gives $1/64 = 6/384$. The mismatch arises from subleading corrections in $[J_1(x)]^2$ and $[J_2(2x)]^2/2$ contributing at order $x^6$ alongside the leading $n=3$ term.
+
+**Trap mechanism:** The problem provides matching at $x^2$ and $x^4$ (which are automatic — only the leading term from each $n$ contributes at those orders). Models that attempt a differentiation approach encounter the $\sum J_n J_n'$ vs $\sum n J_n J_n'$ gap but cannot resolve it, and fall back to asserting all Taylor coefficients match without verification.
+
+**Conclusion:** False (2/4 stumbled)
+
+---
+
+## Summary Statistics (Updated)
+
+\u2713 **Total files in clustering:** 22
+\u2713 **Every file appears exactly once:** Yes
+\u2713 **Methodology-based clustering (not topic-based):** Yes
 
 ---
 
@@ -335,7 +422,8 @@ Based on NU Chapter III (§14-19), potential areas for new problems:
 5. **Semiclassical/WKB methods** (§19): Connection formulas, turning points — *(partially addressed by 915f73d1)*
 6. **Cross-product relations**: $J_\nu Y_{\nu'} - J_{\nu'} Y_\nu$ identities
 7. **Second kind Bessel functions $Y_\nu$**: Explicit problems on Neumann functions
-8. **Kelvin functions**: $\text{ber}$, $\text{bei}$, $\text{ker}$, $\text{kei}$ functions
+8. **Kelvin functions**: $\text{ber}$, $\text{bei}$, $\text{ker}$, $\text{kei}$ functions — *(now covered by f09a765d)*
+9. **Kapteyn series**: Higher-order Kapteyn identities, convergence at boundary $x=1$ — *(partially covered by 77edf9d1, 416a3c0f)*
 
 ---
 
@@ -357,6 +445,35 @@ Based on NU Chapter III (§14-19), potential areas for new problems:
 | 5c3333ea | §16 | Product integral; Hankel asymptotics and phase |
 | 57cd7bd6 | §16 | Poisson integral; analytic continuation domain |
 | f33dd204 | §16 | Poisson integral extension via beta regularization |
+| f09a765d | §14 | Kelvin functions; Wronskian sign from ODE structure |
+| c23294e1 | §15 | Rayleigh sums; Hadamard product; Newton's identity |
+| 77edf9d1 | §14 | Kapteyn series; generating functions; Taylor coefficients |
+| 416a3c0f | §14, §16 | Kapteyn series integration; coefficient comparison |
+| 8ac6e061 | §16 | Triple Bessel product integral; measure confusion (dt vs t dt) |
+
+---
+
+### 1.18 Triple Bessel Product Integrals
+
+**Total files: 1**
+
+#### 1.18.1 Measure Confusion in Triple $J_0$ Product Integral
+
+**Total files: 1**
+
+**Typical Example: [8ac6e061.md](https://github.com/igorratn/coyote-math/blob/main/8ac6e061.md)**
+
+For $a, b, c > 0$ satisfying the strict triangle inequality, define the Bessel triangle functional
+
+$$\mathcal{B}(a, b, c) = 2\pi\, A(a,b,c) \int_0^{\infty} J_0(at)\, J_0(bt)\, J_0(ct)\, dt,$$
+
+where $J_0$ is the Bessel function of the first kind of order zero and $A(a,b,c)$ is the area of the triangle with side lengths $a, b, c$ (Heron's formula).
+
+**Claim:** $\mathcal{B}(a, b, c) = 1$ for all valid triangles.
+
+**Solution Methodology:** The key insight is a scaling/homogeneity argument. Under $(a,b,c) \to \lambda(a,b,c)$, the area scales as $\lambda^2 A$ and the unweighted integral $\int J_0^3\, dt$ scales as $\lambda^{-1}$ (by substitution $u = \lambda t$). Therefore $\mathcal{B} \to \lambda \cdot \mathcal{B}$, showing $\mathcal{B}$ is homogeneous of degree 1 and cannot equal a constant. The classical identity $\int J_0(at) J_0(bt) J_0(ct)\, t\, dt = 1/(2\pi A)$ (Watson §13.46) uses the **weighted** measure $t\, dt$, where the integral scales as $\lambda^{-2}$, exactly cancelling $\lambda^2$ from $A$. The problem's **unweighted** measure $dt$ scales differently ($\lambda^{-1}$), breaking this cancellation. All 4 models recalled the $t\, dt$ formula and applied it to the $dt$ integral without checking the measure — a "false recalled fact" error where the recalled formula is correct for a different integral.
+
+**Conclusion:** False ($\mathcal{B}$ is not a constant; it is homogeneous of degree 1). 4/4 models stumbled.
 
 ---
 

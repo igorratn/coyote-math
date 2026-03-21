@@ -53,57 +53,54 @@ After CLI generates a Bessel problem, apply these in sequence:
 After generating and self-critiquing a problem, run it through GPT for independent verification.
 Requires: $OPENAI_API_KEY set in environment. Use model gpt-5.4.
 
-### Round 1: Check correctness of problem statement
-System: "You are a mathematics reviewer. Check the mathematical correctness of the following problem statement. Are there any errors in the setup, definitions, or stated facts? Do not solve the problem — only verify that the problem as stated is mathematically well-posed and that all given information is correct."
+### Round 1: Verify & Solve (SINGLE CALL — replaces old Rounds 1+2)
+System: "You are a mathematician. First, verify that the following problem is mathematically well-posed: check that all definitions, stated facts, and setup conditions are correct. Flag any errors in the problem statement itself. Then solve the problem completely — determine whether the claim is True or False and give a rigorous proof."
 User: [problem text]
-Action: If GPT finds errors in the SETUP → fix them. If GPT says setup is correct → proceed.
-
-### Round 2: Ask GPT to solve it
-System: "You are a mathematician. Solve the following problem completely. Determine whether the claim is True or False and give a rigorous proof."
-User: [problem text]
-Action: Read GPT's verdict and reasoning.
-- If GPT gets the WRONG answer → strong signal the trap works
-- If GPT gets the RIGHT answer with WRONG reasoning → good Tier 2 stumble potential
-- If GPT gets the RIGHT answer with VALID proof → use judgment:
-  * Trivial one-line solution (e.g., "plug in n=1") → problem is too easy, redesign.
+Action:
+- If GPT finds setup errors → fix them, re-run
+- GPT gets WRONG answer → strong signal the trap works
+- GPT gets RIGHT answer with WRONG reasoning → good Tier 2 stumble potential
+- GPT gets RIGHT answer with VALID proof → use judgment:
+  * Trivial one-line solution → problem is too easy, redesign
   * Long careful derivation → proceed to Phoenix. GPT ≠ Phoenix models.
 
-### Round 3: Argue if you disagree
-If GPT's answer or reasoning contains errors, send a follow-up:
+### Round 2: Debate (only if you disagree — MAX 1 EXCHANGE)
 System: "You are a mathematician engaged in a peer review discussion."
-User: "Your previous analysis of this problem concluded [X]. However, I believe this is incorrect because [specific mathematical objection]. Please reconsider your answer."
-Action: Read GPT's revised response.
-- If GPT corrects itself → it was a weak error, the argument helped
-- If GPT doubles down with valid reasoning → you may be wrong, recheck your own math
-- If GPT doubles down with invalid reasoning → strong confirmation the trap works
+User: "Your previous analysis concluded [X]. However, I believe this is incorrect because [specific mathematical objection]. Please reconsider your answer."
+Action:
+- GPT corrects itself → weak error, the argument helped
+- GPT doubles down with valid reasoning → you may be wrong, recheck
+- GPT doubles down with invalid reasoning → strong confirmation the trap works
+One exchange only. Do not repeat.
 
-Repeat Round 3 until agreement is reached or the disagreement is clearly identified.
+### Round A: Analyze Phoenix Responses (SINGLE CALL — replaces old Round 0 + debate)
+Run AFTER getting Phoenix model responses.
+System: "You are a mathematics reviewer evaluating model responses to a proof problem. You are given the original problem and 4 model responses.
 
-### Round 0 (NEW — run FIRST): Consolidate model responses
-Before analyzing responses yourself, send them to GPT for independent consolidation.
-1. Save all 4 Phoenix model responses to a temp file (~/dev/coyote-math/phoenix/temp_responses.md)
-2. Call GPT-5.4 with:
-   System: "You are a mathematics reviewer. You are given 4 model responses to the same proof problem. For each response: (1) state the final verdict (True/False), (2) summarize the proof method in one sentence, (3) identify the first mathematical error if any. Then provide a consolidated correct solution in 5-10 lines."
-   User: [contents of temp_responses.md]
-3. Save GPT's consolidation to ~/dev/coyote-math/phoenix/gpt_consolidation.md
-4. THEN run your own analysis (per analysis_prompt.md) and compare with GPT's consolidation
-5. If you and GPT disagree on any response's correctness, run Round 3 (debate) to resolve
+For each response:
+1. State the model's final verdict (True/False).
+2. State whether the final answer is correct or incorrect.
+3. If incorrect OR if reasoning is invalid despite a correct answer: identify the earliest major mathematical error, quote or paraphrase the specific step, explain why it fails mathematically, and classify the failure type.
+4. If the response is correct with sound reasoning: state 'No major errors.'
 
-This gives you two independent analyses to cross-check before reporting results.
+Only flag major mathematical errors. Ignore: style differences, minor arithmetic that doesn't affect the proof, abandoned exploratory lines later corrected, provisional claims later revised.
+
+After analyzing all 4, provide a consolidated correct solution in 5-10 lines."
+User: "## Problem\n[problem text]\n\n## Responses\n[contents of temp_responses.md]"
 
 ### Recording results
 Save all GPT responses to ~/dev/coyote-math/phoenix/gpt_feedback.md with round labels.
 Format:
 ```
 # GPT Cross-Check: [problem filename]
-## Round 0: Response Consolidation
-[GPT's summary of all 4 responses + consolidated solution]
-## Round 1: Setup Check
+## Round 1: Verify & Solve
 [GPT response]
-## Round 2: Solution Attempt
-[GPT response]
-## Round 3+: Debate
+## Round 2: Debate (if run)
 [exchange]
+## Round A: Response Analysis
+[GPT analysis of all 4 Phoenix responses]
+## Solution Review (if run)
+[GPT review of proposed solution]
 ## Conclusion
 [agreed/disagreed, final assessment]
 ```

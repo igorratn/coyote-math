@@ -1,3 +1,0 @@
-# CLI Phoenix Test Prompt — 77edf9d1
-
-Read ~/dev/coyote-math/phoenix/cli_phoenix_rules.md and follow those rules exactly. The Phoenix task is at https://ai.joinhandshake.com/annotations/fellow/task/77edf9d1-a20c-47ec-9d88-c46f8a02c436/run. Edit the prompt, paste the new prompt from ~/dev/coyote-math/77edf9d1.md (only the problem statement up to "Determine whether this claim is True or False, and give a rigorous proof of your conclusion."), submit it, click Continue, wait for responses, then read ~/dev/coyote-math/domain_guides/analysis_prompt.md and run the analysis on all 4 responses. The correct answer is False — the actual value is 1/(2b), not 1/b. The key step is J_0'=-J_1 giving a telescoping integral equal to 1/2. Report results.

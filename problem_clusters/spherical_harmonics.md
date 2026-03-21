@@ -1,7 +1,8 @@
 # Spherical Harmonics: Comprehensive Clustering by Solution Methodology
 
-**Total files: 20**
+**Total files: 21**
 **Date: March 2, 2026**
+**Last update: March 18, 2026 — Added fc18bf67.md (parity selection rule for weighted cross-degree integral). Cluster 14.**
 **N-U Reference:** Chapter II, §10
 
 This document clusters all spherical harmonics problems based on their **solution methodology**, not topic keywords.
@@ -357,11 +358,27 @@ Cross-references to other chapters:
 
 ## Quality Control Checklist
 
-- [x] All 20 files identified and categorized
+## Cluster 14: Parity Selection Rules for Weighted Integrals
+
+**Total files: 1**
+
+### 14.1 Cross-Degree Integral Vanishing by Parity
+
+#### 14.1.1 Parity Analysis of Weighted Associated Legendre Product
+
+[fc18bf67.md](https://github.com/igorratn/coyote-math/blob/main/fc18bf67.md) — Weighted cross-degree integral $I(\ell,1) = \int_{-1}^1 (1-x^2)^{1/2} P_\ell^1(x) P_{\ell+1}^1(x)\,dx$. Claims $I(\ell,1) > 0$ for all $\ell \geq 2$.
+
+**Solution Methodology:** The parity relation $P_\ell^m(-x) = (-1)^{\ell+m} P_\ell^m(x)$ gives the product $P_\ell^1 P_{\ell+1}^1$ parity $(-1)^{2\ell+3} = -1$ (odd). Since $(1-x^2)^{1/2}$ is even, the full integrand is odd on the symmetric interval $[-1,1]$, so the integral vanishes identically. The result generalizes to all $m$: the integrand is always odd because $(-1)^{(\ell+m)+(\ell+m+1)} = -1$.
+
+**Conclusion:** False ($I(\ell,1) = 0$ for all $\ell \geq 1$). 4/4 models stumbled — all said True using elaborate Wigner 3j / Gaunt integral machinery, missing the elementary parity argument.
+
+---
+
+- [x] All 21 files identified and categorized
 - [x] Methodology-based clustering (not keyword-based)
 - [x] "Typical Example" format for first file in each cluster
 - [x] One-line descriptions for remaining files
-- [x] File counts at every level sum to 20
+- [x] File counts at every level sum to 21
 - [x] Cross-references to N-U book sections
 - [x] Summary statistics table included
 - [x] Each file appears exactly once

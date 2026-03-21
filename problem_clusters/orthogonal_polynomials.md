@@ -1,7 +1,8 @@
 # Chapter II: Classical Orthogonal Polynomials - Complete Clustering
 
-**Total files in this chapter: 43**
+**Total files in this chapter: 44**
 **Date: March 2, 2026**
+**Last update: March 18, 2026 — Added adaaffa2.md (Hermite parity misdirection). Cluster 10.1.**
 **N-U Reference:** Chapter II (§5-13)
 
 This document clusters all problems related to classical orthogonal polynomials (Jacobi, Laguerre, Hermite) and their properties, organized by solution methodology.
@@ -517,6 +518,50 @@ Function grows too rapidly at infinity, not in Hilbert space where Hermite polyn
 - [x] All 6 phantom IDs removed (37a10f76, 8c3d5e9b, b8e3f9c5, a4e8c7f3, e5b3c8f7, c8f7e3b5)
 - [x] 9 new real files added from addendum
 - [x] No phantom/hallucinated file IDs
+
+---
+
+## Cluster 10: Parity Selection Rules for Weighted Integrals
+
+**Total files: 1**
+
+### 10.1 Hermite Parity Misdirection
+
+#### 10.1.1 Absolute-Value Weighted Overlap Vanishing by Parity
+
+**Total files: 1**
+
+**Typical Example: [adaaffa2.md](https://github.com/igorratn/coyote-math/blob/main/adaaffa2.md)**
+
+For $n \geq 0$, let $H_n(x)$ denote the physicist's Hermite polynomials, satisfying the orthogonality relation
+
+$$\int_{-\infty}^{\infty} H_n(x) H_m(x) e^{-x^2} dx = \sqrt{\pi}\, 2^n\, n!\, \delta_{nm}.$$
+
+These polynomials satisfy the three-term recurrence $H_{n+1}(x) = 2x H_n(x) - 2n H_{n-1}(x)$.
+
+For $n \geq 0$, define the absolute-value weighted Hermite overlap
+
+$$\Omega(n) = \int_{-\infty}^{\infty} |x|\, H_n(x)\, H_{n+1}(x)\, e^{-x^2}\, dx.$$
+
+The factor $|x|$ is nonneg on $\mathbb{R}$, and $e^{-x^2}$ ensures convergence for all $n$. Since $|x|$ is not a polynomial and not smooth at $x = 0$, the product $H_n(x) H_{n+1}(x)$ cannot be directly reduced using standard Hermite orthogonality, so $\Omega(n)$ must be evaluated by other means.
+
+**Claim:** For all $n \geq 0$, $\Omega(n)$ is strictly positive.
+
+**Solution Methodology:** The key insight is the parity of the integrand. The physicist's Hermite polynomials satisfy $H_n(-x) = (-1)^n H_n(x)$, so the product $H_n(x) H_{n+1}(x)$ has parity $(-1)^{2n+1} = -1$ (odd). Since $|x|$ and $e^{-x^2}$ are both even functions, the full integrand $|x| H_n(x) H_{n+1}(x) e^{-x^2}$ is the product of even $\times$ odd $\times$ even = odd. The Gaussian factor ensures absolute integrability, so the integral of this odd function over the symmetric domain $(-\infty, \infty)$ vanishes identically. The problem framing ("$|x|$ not a polynomial, not smooth, must be evaluated by other means") is a deliberate misdirection that steers models toward recurrence relations and generating functions, causing them to miss the elementary 3-line parity argument. This technique is distinct from direct orthogonality or asymptotic methods because no computation is needed — only the symmetry classification of each factor.
+
+**Conclusion:** False ($\Omega(n) = 0$ for all $n \geq 0$). 2/4 models stumbled — R2 and R4 said True via parity decomposition errors (applied the even half-line rule $\int = 2\int_0^\infty$ to an odd integrand).
+
+---
+
+## Cluster 11: Gegenbauer Linearization Coefficient Bound (2026-03-20)
+
+**Problem (7edc37eb attempt 11):** The leading linearization coefficient for Gegenbauer polynomials is $g_{m+n}(m,n;\lambda) = \binom{m+n}{m}\frac{(\lambda)_m(\lambda)_n}{(2\lambda)_{m+n}} \cdot \frac{m+n+\lambda}{\lambda}$. Claim: $g_{m+n} \leq 1$ for all $\lambda > 0$, $m,n \geq 1$.
+
+**Solution:** False. At $m=n=1$, $g_2(1,1;\lambda) = (2+\lambda)/(2\lambda+1) > 1$ for $0 < \lambda < 1$. Example: $g_2(1,1;1/2) = 5/4$.
+
+**Trap mechanism (ANALOGY):** The $x=1$ evaluation gives a valid bound $g_{m+n} \leq \binom{m+n}{m}\frac{(2\lambda)_m(2\lambda)_n}{(2\lambda)_{m+n}} \leq 1$. Models follow this verification path and conclude True, not noticing that the actual $g_{m+n}$ uses $(\lambda)_m$ (not $(2\lambda)_m$) and includes the factor $(m+n+\lambda)/\lambda$.
+
+**Result: 2/4 stumbled (R3, R4).** R3 proved the $x=1$ bound ≤ 1 and confused it with $g_{m+n}$. R4 hand-waved the gap and quietly restricted to $\lambda \geq 1/2$.
 
 ---
 

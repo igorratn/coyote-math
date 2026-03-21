@@ -4,39 +4,32 @@ This directory contains the active prompt system for creating and evaluating Pro
 
 ## Active files
 
-- `core_generator.md`
-  - domain-agnostic generator prompt
-  - use this for creating new proof-based stumble problems
-
-- `bessel_domain_prompt.md`
-  - Bessel-specific domain prompt
-  - use this together with `core_generator.md` when generating Bessel problems
+- `playbook.md`
+  - master guide: trap taxonomy (A-S), tier definitions, output format, creation workflow, operational lessons
+  - v3.3 (2026-03-18)
 
 - `analysis_prompt.md`
   - evaluator prompt for model responses
-  - use this when analyzing which model response failed and why
 
 - `librechat_system_prompt.md`
   - orchestration wrapper for LibreChat
-  - tells LibreChat to use the modular prompt files in this directory
+
+## Deprecated (safe to delete)
+
+- `model_failure_prompt.md` — replaced by `analysis_prompt.md` + GPT Round A
+- `core_generator.md` — folded into `playbook.md` and CLI pipeline
+- `bessel_domain_prompt.md` — redundant with `problem_clusters/bessel_functions.md`
+- `spherical_harmonics_domain_prompt.md` — redundant with `problem_clusters/spherical_harmonics.md`
 
 ## Workflow
 
-### Generate a new Bessel problem
-Use:
-- `core_generator.md`
-- `bessel_domain_prompt.md`
+### Generate a new problem
+1. `playbook.md` (how to generate: traps, format, design principles)
+2. Cluster file (what exists: `problem_clusters/bessel_functions.md` or `problem_clusters/spherical_harmonics.md`)
 
 ### Analyze model responses
-Use:
-- `analysis_prompt.md`
+1. `analysis_prompt.md` (Claude's own analysis)
+2. GPT Round A in `phoenix/cli_phoenix_rules.md`
 
-## Notes
-
-- `domain_references/` contains mathematical background and reference material, not operational prompts
-- `domain_guides_legacy/` contains older prompt files retained only for reference
-- the active modular workflow is:
-
-  - generation = `core_generator.md` + one domain prompt
-  - evaluation = `analysis_prompt.md`
-
+### Full CLI pipeline
+See `phoenix/cli_phoenix_rules.md` — reads playbook + cluster, that's it.

@@ -10,3 +10,12 @@
 all.md
 _build/
 latex.out/
+
+# Phoenix pipeline temp files
+phoenix_tasks/temp_responses_*.md
+phoenix_tasks/gpt_feedback.md
+phoenix_tasks/gpt_consolidation_*.md
+phoenix_tasks/r1_*.png
+phoenix_tasks/r2_*.png
+phoenix_tasks/session_log.md
+phoenix_tasks/archive/

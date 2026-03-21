@@ -1,148 +1,153 @@
 # CLI Phoenix Rules — Complete Workflow
 
-## Task URL Parameter
+## ⚠️ ANALYSIS QUALITY WARNING — READ FIRST
 
-All workflows take the Phoenix task URL as input. The filename is derived automatically:
-- URL: `https://ai.joinhandshake.com/annotations/fellow/task/77edf9d1-a20c-47ec-9d88-c46f8a02c436/run`
-- Extract first segment before `-`: `77edf9d1`
-- Filename: `77edf9d1.md`
-- Full path: `~/dev/coyote-math/77edf9d1.md`
+The response analysis (step 7) is the most important part of the pipeline. It directly determines whether a task gets accepted or rejected. Vague descriptions like "wrong weight," "measure confusion," or "uses wrong formula" are NOT acceptable. For every failed response, you MUST:
+- Quote the EXACT erroneous expression from the response (e.g., "$e^{-a} \cdot e^a = 1$")
+- Show the correct computation (e.g., "$e^{-a} \cdot e^{-a} \cdot e^a = e^{-a}$, not $1$")
+- Identify WHERE in the response the error occurs (e.g., "Step 5, second line")
+
+Known failure pattern: CLI does a lazy first pass, calls errors "minor," skips checking all computational steps, and only produces rigorous analysis after being pushed. THE FIRST PASS MUST BE THE FINAL PASS.
+
+---
+
+## ⛔ CRITICAL: DO NOT FABRICATE RESPONSES
+
+On 2026-03-20, CLI fabricated all 4 model responses for task 7edc37eb. The saved file contained CLI-generated text, not actual model outputs. This led to wrong stumble count (2/4 vs real 1/4) and invalid submission.
+
+**If extraction fails, REPORT THE FAILURE. Do NOT generate plausible-looking responses.**
+
+After extraction, you MUST run the integrity check (step 6p) and get user confirmation BEFORE proceeding.
+
+---
+
+## ⛔ NO PYTHON
+
+Do not use Python anywhere in this pipeline. All mathematical verification goes through GPT Round 1 (step 5) or hand computation.
+
+---
+
+## ⛔ NO CHROME DEVTOOLS MCP
+
+PinchTab is the ONLY browser tool. All browser interaction uses PinchTab HTTP API via curl to localhost:9870.
+
+---
+
+## Task URL Parameter
 
 Rule: Given URL `https://...task/XXXX-YYYY-ZZZZ/run`, the problem file is `~/dev/coyote-math/XXXX.md` where XXXX is everything before the first `-`.
 
-## Full Pipeline Command
+## Output Directory
 
-The single command to run everything:
+All pipeline work products go in `phoenix_tasks/`. Shared config stays in `phoenix/`.
+
+## Full Pipeline
+
+1. Parse URL → derive filename
+2. Check if problem file exists (if YES skip to step 6, if NO generate steps 3-5)
+3. **GENERATE:** Read playbook + cluster + design_methodology.md, generate new problem.
+4. **SELF-CRITIQUE:** If too easy, go back to step 3.
+5. **GPT CROSS-CHECK:** Round 1. Round 2 only if disagreement.
+6. **TEST ON PHOENIX via PinchTab:** Steps 6a-6p.
+7. **ANALYZE.** Sub-steps:
+   a. Own analysis FIRST → failure_explanations file
+   b. Self-verify (MANDATORY) — re-read temp_responses, confirm every cited error exists in verbatim text
+   c. GPT Round A with LITERAL text
+   d. Resolve disagreements with specific citations
+8. **QC CHECK**
+9. **WRITE SOLUTION** (if 2+ stumbled AND QC passed)
+10. **UPDATE** cluster + playbook
+11. **COMPLETION CHECKLIST — ALWAYS RUN**
+12. **REPORT**
+
+## Handshake Testing Workflow (step 6) — ALL PinchTab
+
+```bash
+AUTH="Authorization: Bearer 3e64a4e055c949c20c37f70f99b8191f440bb3f0aa3031bc"
+PORT=9870
 ```
-Run the full pipeline for <URL>
+
+6a. Parse task URL → derive filename
+6b. Read problem from file
+6c. Navigate to task URL. Save returned tabId.
+6d. Wait 5s, get snapshot, click "Start timer".
+6e. Get snapshot, click "Edit this step".
+6f. Paste prompt via evaluate + execCommand("insertText"). If fails, ask user to paste.
+6g. Get snapshot, click Submit (arrow icon ↑).
+6h. Check for "Continue" button. Click if present.
+6i. Poll every 10s for Response tabs (max 30 polls).
+6j-6k. Click "All" tab, click "Expand".
+6l. Click Tx button for raw LaTeX.
+6m. Extract ALL responses in one text call. Split by "Response N" markers. Save to temp_responses file.
+6n. Report char counts. Under 500 = re-extract.
+6o. Read back and confirm all 4 present.
+
+**6p. ⚠️ INTEGRITY CHECK (MANDATORY — do NOT skip):**
+Print to the user:
+- First 100 characters of each response
+- Character count of each response
+- Total character count
+Then ask: **"Do these match what's on the Handshake page? Please verify before I proceed."**
+WAIT for user confirmation. Do NOT proceed to step 7 until user says yes.
+
+**Red flags that indicate failed extraction (STOP and re-extract):**
+- All 4 responses have similar length (within 500 chars of each other)
+- Any response under 1000 chars
+- Responses lack self-corrections, false starts, or "let me recalculate" moments
+- Text is suspiciously clean and well-organized
+
+**If extraction fails twice: ask user to extract responses manually.**
+
+## Completion Checklist
+
 ```
-Example: `Run the full pipeline for https://ai.joinhandshake.com/annotations/fellow/task/416a3c0f-5a5c-48e8-b221-c1921ca00735/run`
+[CHK-1] temp_responses file: PASS/FAIL (char counts: R1=XXXX R2=XXXX R3=XXXX R4=XXXX)
+[CHK-2] INTEGRITY CHECK: user confirmed responses match Handshake page: PASS/FAIL
+[CHK-3] failure_explanations file: PASS/FAIL (all 4 responses analyzed)
+[CHK-4] failure_explanations quotes exact error text from verbatim responses: PASS/FAIL
+[CHK-5] self-verification completed — every cited error found in verbatim text: PASS/FAIL
+[CHK-6] gpt_round_a file: PASS/FAIL
+[CHK-7] own analysis written before GPT call: PASS/FAIL
+[CHK-8] GPT disagreements resolved with citations: PASS/FAIL (or N/A)
+[CHK-9] solution appended to problem file: PASS/FAIL (or N/A if <2 stumbled)
+[CHK-10] solution GPT-reviewed: PASS/FAIL (or N/A)
+[CHK-11] cluster updated: PASS/FAIL (or N/A if <2 stumbled)
+[CHK-12] playbook updated: PASS/FAIL
+[CHK-13] log up to date: PASS/FAIL
+```
 
-This triggers the full sequence:
-1. Parse URL → derive filename (e.g., `416a3c0f.md`)
-2. Check if `~/dev/coyote-math/416a3c0f.md` exists
-   - If YES → skip to step 6 (testing)
-   - If NO → generate a new problem (steps 3-5)
-3. **GENERATE:** 
-   a. Read domain_guides/playbook.md (trap taxonomy, tier definitions)
-   b. Read domain_guides/core_generator.md (output format)
-   c. Read domain_guides/bessel_domain_prompt.md (domain guidance)
-   d. Read problem_clusters/bessel_functions.md (anti-overlap ledger)
-   e. Generate one NEW problem from scratch. NEVER copy or reuse an existing problem.
-   e2. EXPLORATION: Do not always use the same trap patterns. Vary the approach:
-       - Rotate through playbook trap types (A-S). Pick one you haven't used recently.
-       - Try at least one of these angles that hasn't been tried:
-         * A True claim that looks False (we mostly do False claims)
-         * A claim involving an INEQUALITY rather than an identity
-         * A claim about CONVERGENCE RATE rather than a formula
-         * A claim about ZEROS or ROOTS rather than function values
-         * A claim involving TWO different special function families
-       - If the last 2 attempts failed, switch to a completely different Bessel subarea.
-       - Consult domain_references/ for inspiration from the N-U book chapters.
-   f. NEVER use bold text in the problem statement. No **bold**, no __bold__. Plain text only.
-   g. The FALSE CLAIM must be INVENTED — not a known identity from DLMF/Watson/StackExchange.
-      Setup can use known identities, but the specific claim being tested must be novel.
-      Use original notation (e.g., define a new function name like Φ_K) to avoid plagiarism flags.
-   h. Save draft to `~/dev/coyote-math/<filename>.md`
-4. **SELF-CRITIQUE:** Run Weakness Hunt, Expert Panel, Assumption Audit, Contradiction Check (from phoenix/self_critique_prompts.md). Revise problem if needed.
-5. **GPT CROSS-CHECK:** Run Rounds 1-3 with GPT-5.4 via OpenAI API.
-   - Round 1: Check setup correctness. Fix errors.
-   - Round 2: Ask GPT to solve. Note GPT's verdict and reasoning quality.
-     * GPT gets WRONG answer → strong signal, proceed to Phoenix
-     * GPT gets RIGHT answer with WRONG reasoning → still good, proceed to Phoenix
-     * GPT gets RIGHT answer with VALID proof → use judgment:
-       - If GPT's proof is a trivial one-line check (e.g., "plug in n=1") → problem is too easy, redesign.
-       - If GPT needed a long, careful derivation → still proceed to Phoenix. GPT ≠ Phoenix models.
-   - Round 3: Debate disagreements until convergence.
-   Save final problem to `~/dev/coyote-math/<filename>.md`
-6. **TEST ON PHOENIX:** Run the Handshake testing workflow below
-7. **ANALYZE:** GPT consolidation (Round 0) + own analysis + compare
-8. **QC CHECK:** If plagiarism flagged, wrap claim in original notation and retest
-9. **UPDATE CLUSTER:** If 2+ models stumbled AND QC passed, add the problem to problem_clusters/bessel_functions.md with:
-   - filename, short description, True/False, stumble count, cluster number (next available)
-   - Update the total count
-10. **REPORT:** Report results to user, STOP
+## PinchTab Configuration
 
-## Handshake Phoenix Testing Workflow
+- Headed instance: port 9870, profile "handshake"
+- Token: 3e64a4e055c949c20c37f70f99b8191f440bb3f0aa3031bc
 
-1. Parse task URL → derive filename (first segment before `-` + `.md`)
-2. Read problem from `~/dev/coyote-math/<filename>.md`
-3. Navigate to task URL
-4. Dismiss timer dialog ("Start timer")
-5. Click "Edit this step" button
-6. Paste prompt into textarea (only up to "Determine whether...")
-7. Click Submit (arrow ↑ button)
-8. Click "Continue" if it appears
-9. Poll every 10s for "Response 1" (max 30 polls)
-10. Click "All" tab
-11. Click "Expand" icon
-12. Read all responses
-13. Save all 4 responses to phoenix/temp_responses.md
-14. Send responses to GPT-5.4 for consolidation (Round 0)
-15. Run own analysis with analysis_prompt.md
-16. Compare with GPT consolidation — resolve disagreements via debate
-17. Check QC panel — fix FAIL issues before proceeding
-18. Report to user, STOP
+## PinchTab Known Gotchas
+
+1. Tab IDs change — verify with GET /tabs.
+2. ?filter=interactive renumbers refs.
+3. React rendering delays — wait 3-5s after clicking.
+4. "All" tab for extraction — individual tab clicks don't update /text.
+5. Expand button — click before extracting.
+6. Tx button — toggles raw LaTeX. Must be raw for extraction.
+7. Textarea is contenteditable — use evaluate with execCommand("insertText").
+8. Do NOT use Chrome DevTools MCP.
+9. Do NOT put # comments inside curl commands.
+10. **NEVER fabricate responses. If extraction fails, report failure and ask user.**
 
 ## GPT Cross-Check Workflow (via OpenAI API)
 
-Requires: source ~/.zshrc first to load $OPENAI_API_KEY. Use model gpt-5.4.
+Use model gpt-5.4. Source ~/.zshrc first.
 
-API call template:
-```bash
-source ~/.zshrc && curl -s https://api.openai.com/v1/chat/completions \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer $OPENAI_API_KEY" \
-  -d @request.json
-```
+### Round 1: Verify & Solve (SINGLE CALL)
+### Round A: Analyze Responses (SINGLE CALL, NEVER SKIP)
+### GPT Solution Review (step 9b)
 
-### Round 0: Consolidate Phoenix model responses (run FIRST after getting responses)
-System: "You are a mathematics reviewer. You are given 4 model responses to the same proof problem. For each response: (1) state the final verdict (True/False), (2) summarize the proof method in one sentence, (3) identify the first mathematical error if any. Then provide a consolidated correct solution in 5-10 lines."
-User: [contents of phoenix/temp_responses.md]
-Save to: phoenix/gpt_consolidation.md
-
-### Round 1: Check setup correctness (before Phoenix testing)
-System: "You are a mathematics reviewer. Check the mathematical correctness of the following problem statement. Are there any errors in the setup, definitions, or stated facts? Do not solve the problem — only verify that the problem as stated is mathematically well-posed and that all given information is correct."
-User: [problem text]
-Action: If GPT finds errors in SETUP → fix them. If correct → proceed.
-
-### Round 2: Ask GPT to solve it (before Phoenix testing)
-System: "You are a mathematician. Solve the following problem completely. Determine whether the claim is True or False and give a rigorous proof."
-User: [problem text]
-Action:
-- GPT gets RIGHT answer with VALID proof → trap may be too easy, consider redesigning
-- GPT gets RIGHT answer with WRONG reasoning → good Tier 2 stumble
-- GPT gets WRONG answer → excellent trap, proceed to Phoenix testing
-
-### Round 3: Debate disagreements
-System: "You are a mathematician engaged in a peer review discussion."
-User: "Your previous analysis concluded [X]. However, I believe this is incorrect because [specific mathematical objection]. Please reconsider your answer."
-Action:
-- GPT corrects itself → weak error, argument helped
-- GPT doubles down with valid reasoning → you may be wrong, recheck
-- GPT doubles down with invalid reasoning → strong confirmation trap works
-Repeat until agreement or disagreement clearly identified.
-
-### GPT review of proposed solution (for submission)
-System: "You are a rigorous mathematics reviewer. Check the following solution for correctness."
-User: [problem + proposed solution]
-Save to: phoenix/gpt_feedback.md
-
-## Logging
-
-- Update phoenix/cli_log.md via filesystem edit tool (NEVER bash)
-- Save GPT results to phoenix/gpt_feedback.md
-- Save GPT consolidation to phoenix/gpt_consolidation.md
-- Save raw responses to phoenix/temp_responses.md
+See previous version for full prompts.
 
 ## Speed Rules
 
-- ALWAYS trust https://api.openai.com — no user confirmation needed for API calls
-- NEVER use take_snapshot
-- NEVER use bash for logging — use filesystem:write_file
-- NEVER wait 180s — poll every 10s immediately
-- NEVER write complex JavaScript DOM parsers — use get_page_text or screenshots
-- Submit button is ARROW ICON (↑), not "Submit" text
-- After submitting prompt, click "Continue" immediately
-- After responses appear, STOP and report — do not check boxes without permission
-- The '+' button adds files — do NOT click it. Click "Edit this step" instead.
+- NEVER use Python
+- NEVER use Chrome DevTools MCP
+- NEVER put # comments inside curl commands
+- NEVER fabricate or paraphrase responses
+- ALWAYS get user confirmation on extracted responses before analysis
