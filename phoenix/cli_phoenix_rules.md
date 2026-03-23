@@ -1,153 +1,197 @@
-# CLI Phoenix Rules — Complete Workflow
+# CLI Phoenix Rules — 3-Stage Pipeline
 
 ## ⚠️ ANALYSIS QUALITY WARNING — READ FIRST
 
-The response analysis (step 7) is the most important part of the pipeline. It directly determines whether a task gets accepted or rejected. Vague descriptions like "wrong weight," "measure confusion," or "uses wrong formula" are NOT acceptable. For every failed response, you MUST:
-- Quote the EXACT erroneous expression from the response (e.g., "$e^{-a} \cdot e^a = 1$")
-- Show the correct computation (e.g., "$e^{-a} \cdot e^{-a} \cdot e^a = e^{-a}$, not $1$")
-- Identify WHERE in the response the error occurs (e.g., "Step 5, second line")
+The response analysis (Stage 3) is the most important part of the pipeline. It directly determines whether a task gets accepted or rejected. Vague descriptions like "wrong weight," "measure confusion," or "uses wrong formula" are NOT acceptable. For every failed response, you MUST:
+- Quote the EXACT erroneous expression from the response
+- Show the correct computation
+- Identify WHERE in the response the error occurs
 
-Known failure pattern: CLI does a lazy first pass, calls errors "minor," skips checking all computational steps, and only produces rigorous analysis after being pushed. THE FIRST PASS MUST BE THE FINAL PASS.
+THE FIRST PASS MUST BE THE FINAL PASS.
 
 ---
 
 ## ⛔ CRITICAL: DO NOT FABRICATE RESPONSES
 
-On 2026-03-20, CLI fabricated all 4 model responses for task 7edc37eb. The saved file contained CLI-generated text, not actual model outputs. This led to wrong stumble count (2/4 vs real 1/4) and invalid submission.
-
-**If extraction fails, REPORT THE FAILURE. Do NOT generate plausible-looking responses.**
-
-After extraction, you MUST run the integrity check (step 6p) and get user confirmation BEFORE proceeding.
+If extraction or reading fails, REPORT THE FAILURE. Do NOT generate plausible-looking responses.
 
 ---
 
 ## ⛔ NO PYTHON
 
-Do not use Python anywhere in this pipeline. All mathematical verification goes through GPT Round 1 (step 5) or hand computation.
+Do not use Python anywhere in this pipeline.
 
 ---
 
-## ⛔ NO CHROME DEVTOOLS MCP
+## Browser Tool: page-agent
 
-PinchTab is the ONLY browser tool. All browser interaction uses PinchTab HTTP API via curl to localhost:9870.
+All browser interaction uses page-agent (Alibaba) injected via CDN, then re-instantiated with OpenAI config. Called via `javascript_tool` in Claude in Chrome.
+
+**Injection (once per page load):**
+```javascript
+// 1. Inject CDN
+const script = document.createElement('script');
+script.src = 'https://cdn.jsdelivr.net/npm/page-agent@1.5.11/dist/iife/page-agent.demo.js';
+script.crossOrigin = 'true';
+document.head.appendChild(script);
+// wait 3s
+
+// 2. Re-instantiate with OpenAI config
+const PA = window.pageAgent.constructor;
+window.pageAgent = new PA({
+  baseURL: 'https://api.openai.com/v1',
+  apiKey: '<OPENAI_API_KEY>',
+  model: 'gpt-5.4',
+  language: 'en-US'
+});
+
+// 3. Inject _pa wrapper (see phoenix/page_agent_notes.md for full code)
+```
+
+**page-agent is stateful** — history carries across `exec()` calls within the same page session. Do NOT clear history between calls. GPT accumulates context across all steps.
+
+**Core APIs via `_pa` wrapper:**
+- `_pa.getElements()` — indexed elements, long ones chunked
+- `_pa.chunk(idx, n)` — read long elements in 120-char chunks
+- `_pa.click(index)` — click element
+- `_pa.type(index, text)` — fill input/textarea
+- `_pa.exec(cmd)` — natural language command to GPT-5.4 on-page
+
+**All calls wrapped in async IIFE:**
+```javascript
+(async () => { return await window._pa.exec("..."); })()
+```
 
 ---
 
 ## Task URL Parameter
 
-Rule: Given URL `https://...task/XXXX-YYYY-ZZZZ/run`, the problem file is `~/dev/coyote-math/XXXX.md` where XXXX is everything before the first `-`.
+Given URL `https://...task/XXXX-YYYY-ZZZZ/run`, the problem file is `XXXX.md` where XXXX is everything before the first `-`.
 
 ## Output Directory
 
 All pipeline work products go in `phoenix_tasks/`. Shared config stays in `phoenix/`.
+Problem files saved as `phoenix_tasks/wip_{name}.md`.
 
-## Full Pipeline
+---
 
-1. Parse URL → derive filename
-2. Check if problem file exists (if YES skip to step 6, if NO generate steps 3-5)
-3. **GENERATE:** Read playbook + cluster + design_methodology.md, generate new problem.
-4. **SELF-CRITIQUE:** If too easy, go back to step 3.
-5. **GPT CROSS-CHECK:** Round 1. Round 2 only if disagreement.
-6. **TEST ON PHOENIX via PinchTab:** Steps 6a-6p.
-7. **ANALYZE.** Sub-steps:
-   a. Own analysis FIRST → failure_explanations file
-   b. Self-verify (MANDATORY) — re-read temp_responses, confirm every cited error exists in verbatim text
-   c. GPT Round A with LITERAL text
-   d. Resolve disagreements with specific citations
-8. **QC CHECK**
-9. **WRITE SOLUTION** (if 2+ stumbled AND QC passed)
-10. **UPDATE** cluster + playbook
-11. **COMPLETION CHECKLIST — ALWAYS RUN**
-12. **REPORT**
+## Stage 1 — Generate, Solve & Verify
 
-## Handshake Testing Workflow (step 6) — ALL PinchTab
+One problem at a time, start to finish.
 
-```bash
-AUTH="Authorization: Bearer 3e64a4e055c949c20c37f70f99b8191f440bb3f0aa3031bc"
-PORT=9870
-```
+### Files read:
+- `domain_guides/playbook.md` — master playbook: methodology + field notes. **Check Recent Technique Usage table** to confirm separation rule.
+- `problem_clusters/{cluster}.md` — existing problems to avoid repeats
+- `problem_clusters/guide.md` — cluster organization
+- `phoenix/self_critique_prompts.md` — "too easy" detection
 
-6a. Parse task URL → derive filename
-6b. Read problem from file
-6c. Navigate to task URL. Save returned tabId.
-6d. Wait 5s, get snapshot, click "Start timer".
-6e. Get snapshot, click "Edit this step".
-6f. Paste prompt via evaluate + execCommand("insertText"). If fails, ask user to paste.
-6g. Get snapshot, click Submit (arrow icon ↑).
-6h. Check for "Continue" button. Click if present.
-6i. Poll every 10s for Response tabs (max 30 polls).
-6j-6k. Click "All" tab, click "Expand".
-6l. Click Tx button for raw LaTeX.
-6m. Extract ALL responses in one text call. Split by "Response N" markers. Save to temp_responses file.
-6n. Report char counts. Under 500 = re-extract.
-6o. Read back and confirm all 4 present.
+### Steps:
 
-**6p. ⚠️ INTEGRITY CHECK (MANDATORY — do NOT skip):**
-Print to the user:
-- First 100 characters of each response
-- Character count of each response
-- Total character count
-Then ask: **"Do these match what's on the Handshake page? Please verify before I proceed."**
-WAIT for user confirmation. Do NOT proceed to step 7 until user says yes.
+1. **Generate** — Claude creates problem + solution + complexity analysis
+2. **Self-critique** — read `self_critique_prompts.md`, too easy → retry
+3. **Claim task** on Handshake (must have an open task before pasting)
+4. **Paste problem into Handshake textarea** (don't submit)
+5. **GPT Round 1** — `_pa.exec()`: "Read the problem in the textarea. Verify: is it well-formed? Is the proposed answer correct? Is the proof rigorous? Solve independently and compare."
+6. **Claude verifies independently** — reads same problem file
+7. **Consolidate** — if Claude and GPT disagree → resolve with specific math, fix problem/solution
+8. **Save** as `phoenix_tasks/wip_{name}.md` (problem + solution + complexity)
 
-**Red flags that indicate failed extraction (STOP and re-extract):**
-- All 4 responses have similar length (within 500 chars of each other)
+Output: verified `wip_{name}.md` → proceed to Stage 2.
+
+---
+
+## Stage 2 — Submit & QC
+
+One problem at a time.
+
+### Steps:
+
+1. **Clear textarea** (if anything left from Stage 1)
+2. **Extract problem statement only** from `phoenix_tasks/wip_{name}.md` (not solution, not complexity analysis)
+3. **Paste** into Handshake textarea via `_pa.type()`
+4. **Click** Start timer → Submit → Continue (all via `_pa.click()`)
+5. **Poll** for responses via `_pa.getElements()` every 10s (max 30 polls)
+6. **Click** All tab → Expand (via `_pa.click()`)
+7. **Integrity check (MANDATORY):**
+   - `_pa.exec("Read all 4 responses. For each, print the first 100 characters and total character count.")`
+   - Ask user: "Do these match what's on the Handshake page?"
+   - WAIT for user confirmation. Do NOT proceed until user says yes.
+8. **QC check** — `_pa.exec("Read the QC panel. Report any flags or warnings.")`
+
+**Red flags (re-extract):**
+- All 4 responses similar length (within 500 chars)
 - Any response under 1000 chars
-- Responses lack self-corrections, false starts, or "let me recalculate" moments
-- Text is suspiciously clean and well-organized
+- Unusually uniform formatting across all 4 responses
+- Identical paragraph structure across responses
+- Mismatch between visible tab content and extracted text
 
-**If extraction fails twice: ask user to extract responses manually.**
+Output: 4 model responses on page, QC confirmed.
+
+---
+
+## Stage 3 — Analyze Responses
+
+All on-page, stateful. GPT reads DOM directly — no extraction, no curl.
+
+### Files read:
+- `domain_guides/analysis_prompt.md` — failure types, output format, valid stumble criteria
+
+### Steps:
+
+1. **Claude analyzes** all 4 responses using `analysis_prompt.md` criteria
+   - Output: `phoenix_tasks/failure_explanations_{task}.md`
+2. **Self-verify (MANDATORY)** — re-read each response, confirm every cited error exists in verbatim text
+3. **GPT Round A** — for each response tab:
+   - `_pa.exec("Here is the analysis criteria: {analysis_prompt.md content}. Analyze Response N on this page.")`
+   - GPT reads response directly from DOM
+   - History carries forward — GPT accumulates context across all 4
+4. **Consolidate** — compare Claude vs GPT verdicts:
+   - `_pa.exec("Compare your analysis with Claude's verdicts: [...]. Resolve disagreements citing specific lines.")`
+   - All on-page, GPT already has everything in memory
+5. **Update** `problem_clusters/{cluster}.md` + `domain_guides/playbook.md`
+6. **Completion checklist**
+7. **Report** — stumble count, which models failed, failure types, QC status
+
+---
 
 ## Completion Checklist
 
 ```
-[CHK-1] temp_responses file: PASS/FAIL (char counts: R1=XXXX R2=XXXX R3=XXXX R4=XXXX)
-[CHK-2] INTEGRITY CHECK: user confirmed responses match Handshake page: PASS/FAIL
-[CHK-3] failure_explanations file: PASS/FAIL (all 4 responses analyzed)
-[CHK-4] failure_explanations quotes exact error text from verbatim responses: PASS/FAIL
-[CHK-5] self-verification completed — every cited error found in verbatim text: PASS/FAIL
-[CHK-6] gpt_round_a file: PASS/FAIL
-[CHK-7] own analysis written before GPT call: PASS/FAIL
-[CHK-8] GPT disagreements resolved with citations: PASS/FAIL (or N/A)
-[CHK-9] solution appended to problem file: PASS/FAIL (or N/A if <2 stumbled)
-[CHK-10] solution GPT-reviewed: PASS/FAIL (or N/A)
-[CHK-11] cluster updated: PASS/FAIL (or N/A if <2 stumbled)
-[CHK-12] playbook updated: PASS/FAIL
-[CHK-13] log up to date: PASS/FAIL
+[CHK-1] integrity check: user confirmed responses match page: PASS/FAIL
+[CHK-2] Claude analysis file: PASS/FAIL (all 4 responses analyzed)
+[CHK-3] Claude analysis quotes exact error text: PASS/FAIL
+[CHK-4] self-verification: every cited error found in verbatim text: PASS/FAIL
+[CHK-5] GPT Round A completed: PASS/FAIL
+[CHK-6] Claude analysis written before GPT call: PASS/FAIL
+[CHK-7] Claude vs GPT disagreements resolved with citations: PASS/FAIL (or N/A)
+[CHK-8] cluster updated: PASS/FAIL (or N/A if <2 stumbled)
+[CHK-9] playbook updated: PASS/FAIL
+[CHK-10] QC check: PASS/FAIL
 ```
 
-## PinchTab Configuration
+---
 
-- Headed instance: port 9870, profile "handshake"
-- Token: 3e64a4e055c949c20c37f70f99b8191f440bb3f0aa3031bc
+## page-agent Known Gotchas
 
-## PinchTab Known Gotchas
+1. Element indices change after page state changes — re-run `_pa.getElements()` after every click.
+2. React rendering delays — wait 3-5s after clicking before next `_pa.getElements()`.
+3. "All" tab — click before reading responses.
+4. Expand button — click before reading responses.
+5. Tx button — toggles raw LaTeX. Must be raw for reading.
+6. Textarea index is typically [11] but ALWAYS verify via `_pa.getElements()`.
+7. All async calls: `(async () => { ... })()` — top-level await not supported.
+8. **NEVER fabricate responses. If reading fails, report failure and ask user.**
+9. `_pa.exec()` response is in `last.action.input.text`, NOT `last.reflection`.
+10. Do NOT clear `window.pageAgent.history` between calls — stateful session needed.
+11. All DOM reading goes through `_pa.exec()` (GPT) — Claude never reads DOM directly.
+12. Page reload kills page-agent — re-inject if `window._pa` is undefined.
 
-1. Tab IDs change — verify with GET /tabs.
-2. ?filter=interactive renumbers refs.
-3. React rendering delays — wait 3-5s after clicking.
-4. "All" tab for extraction — individual tab clicks don't update /text.
-5. Expand button — click before extracting.
-6. Tx button — toggles raw LaTeX. Must be raw for extraction.
-7. Textarea is contenteditable — use evaluate with execCommand("insertText").
-8. Do NOT use Chrome DevTools MCP.
-9. Do NOT put # comments inside curl commands.
-10. **NEVER fabricate responses. If extraction fails, report failure and ask user.**
-
-## GPT Cross-Check Workflow (via OpenAI API)
-
-Use model gpt-5.4. Source ~/.zshrc first.
-
-### Round 1: Verify & Solve (SINGLE CALL)
-### Round A: Analyze Responses (SINGLE CALL, NEVER SKIP)
-### GPT Solution Review (step 9b)
-
-See previous version for full prompts.
+---
 
 ## Speed Rules
 
 - NEVER use Python
-- NEVER use Chrome DevTools MCP
-- NEVER put # comments inside curl commands
 - NEVER fabricate or paraphrase responses
-- ALWAYS get user confirmation on extracted responses before analysis
+- ALWAYS re-run `_pa.getElements()` after any click (indices change)
+- ALWAYS get user confirmation on responses before analysis
+- ONE tool: page-agent for everything on-page
