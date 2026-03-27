@@ -144,6 +144,7 @@ Take a known identity from N-U or any reference. Perturb it along one or more of
 | **FRAMING** | Models follow problem framing as ground truth | 2-3/4 | Framing perturbations |
 | **GAP** | Models hand-wave past unclosable derivation gaps | 2/4 | Index range/conditional convergence |
 | **INTERACTION** | Models reduce multi-component problem to single component | 2/4 | Bound/quantifier perturbations |
+| **SINGULARITY** | Models apply principle globally without checking boundary/singular case | 3-4/4 | Classical principle at singular endpoint — **strongest pattern in dataset** |
 
 ## Q1-Q4 Validation
 
@@ -160,6 +161,98 @@ If Q2=YES or Q3=NO → REDESIGN.
 - **Mode B:** Can models recall the correct formula? → DISCARD
 - **Mode C:** One-step disproof? → DISCARD
 - **Mode D:** Can models bypass the trap entirely? (e.g., derive exact solution) → DISCARD
+
+## Originality Score (before GPT verification)
+
+**Originality = rarity of the audit pattern required to catch the error.**
+
+Not "is the math exotic?" but "will the model know where to look for the mistake?"
+
+Rate each axis Low / Medium / High. **If any axis is Low → REDESIGN.**
+
+### Axis 1: Audit Novelty
+How nonstandard is the exact check needed to catch the flaw?
+- **Low:** flaw caught by standard checks (small values, endpoint, normalization, parity)
+- **Medium:** flaw requires checking something textbooks mention but don't emphasize
+- **High:** flaw lives in something textbooks leave implicit (measure, admissibility regime, branch choice, basis-inherited normalization)
+
+### Axis 2: Disproof Resistance
+How many standard verification attacks does the claim survive?
+- **Low:** first standard check kills it (plug in $n=1$, recall formula)
+- **Medium:** survives 1-2 standard checks, dies on the 3rd
+- **High:** survives small-value check, endpoint check, normalization check, parity check — disproof requires importing a check from a different regime
+
+### Axis 3: Camouflage Strength
+How strongly does the surface math lure the model into the wrong verification routine?
+- **Low:** surface presentation doesn't suggest a specific verification path
+- **Medium:** surface suggests a standard path that partially confirms the claim
+- **High:** surface strongly invites a familiar verification script that looks locally legitimate and fully confirms the false claim
+
+### Scoring against data:
+
+| Problem | Audit | Resistance | Camouflage | Result |
+|---|---|---|---|---|
+| 8ac6e061 (Bessel measure) | High | High | High | **4/4** |
+| 7edc37eb-v4 (Gegenbauer) | Medium | Medium | High | **2/4** |
+| 7edc37eb (Kapteyn) | Medium | Medium | Medium | **2/4** |
+| SL perturbation | Low | Low | Low | **0/4** |
+| CG moment | Low | Low | Low | **0/4** |
+
+### The key principle:
+
+> A problem is highly original when the visible mathematics suggests one verification script, but the true defect lives in a different script.
+
+This is why cross-domain interactions often work — not because the combination is rare, but because the model anchors on one domain's verification routine and neglects the other domain's audit.
+
+### Full-dataset analysis (122 submitted problems, all 2+/4)
+
+**Score distribution:**
+- 18 problems at score 8-9 (top tier, High on 2-3 axes)
+- 31 problems at score 7+ (excellent)
+- ~50 at score 5-6 (solid)
+
+**Dominant winning pattern: Singularity/Boundary traps (11 problems at perfect 9/9)**
+
+Template: "By [CLASSICAL PRINCIPLE], [CLAIM AT SINGULAR/BOUNDARY POINT]"
+
+The principle (S-L orthogonality, raising operators, standard identities) is correct everywhere except the singular case. Models apply mechanically without checking admissibility at the singularity.
+
+Why it scores 9/9:
+- **Audit High:** singular/boundary behavior is implicit in textbooks — models lack frameworks for analyzing it
+- **Resistance High:** interior checks all pass; small-value tests don't reveal boundary divergence
+- **Camouflage High:** classical principle invoked correctly within its domain of validity; models accept as complete proof
+
+Example (005a9124): "By S-L orthogonality on $(0,1)$, $I_k = 0$" — but integral involves $J_\nu(\alpha x)$ near $x=0$ where boundary term requires $O(x^\nu)$ asymptotic analysis. Models apply orthogonality globally without checking singular endpoint.
+
+**Second-best pattern: Asymptotic miscount (12 problems at score 7-8)**
+
+Claim wrong growth rate ($N^2$ instead of $N$). Models guess from "sum of $N$ squared terms" heuristic but miss oscillatory cancellation requiring Christoffel-Darboux kernel or Hilbert asymptotics.
+
+**Third pattern: Boundary behavior (8 problems at score 8)**
+
+Interior formula applied globally; fails at domain boundary. Correct in bulk, wrong at the edge.
+
+### Trap type effectiveness ranking (from 122-problem dataset)
+
+| Trap Pattern | Count at 8+ | Avg Score | Design Priority |
+|---|---|---|---|
+| Singularity/divergence at endpoint | 11 | 9.0 | **PRIMARY** |
+| Asymptotic growth miscount | 12 | 7.5 | HIGH |
+| Boundary behavior mismatch | 8 | 8.0 | HIGH |
+| Measure/weight confusion | 3 | 8.0 | HIGH |
+| Pattern extrapolation (induction) | 5 | 7.5 | MEDIUM |
+| Orthogonality insufficiency | 40+ | 5.8 | LOW — too many, models may learn |
+| Derivative/operator structure | 19 | 6.0 | LOW |
+
+### Design implications
+
+1. **Prioritize singularity/boundary traps** — highest score, hardest for models to audit
+2. **Classical principles at singular points** are the strongest camouflage — models trust them absolutely
+3. **Avoid orthogonality-only traps** — 40+ in the dataset, models may start checking these
+4. **Cross-domain = camouflage amplifier** — not inherently strong, but hides which audit script is needed
+5. **Two Highs needed for 3+/4** — Medium/Medium/High gives 2/4, need at least two Highs for reliable 3+
+
+---
 
 ## Self-critique (before GPT verification)
 
@@ -237,6 +330,8 @@ Known techniques that produce stumbles:
 10. **Taylor Coefficient Comparison** — expand both sides, compare low-order terms to disprove false identities
 11. **Framing Misdirection** — problem statement steers models toward elaborate machinery while the answer is a simple symmetry/parity argument they overlook.
 12. **Measure/Weight Confusion** — problem uses a different measure than the standard formula (dt vs t dt, a^n/n! vs e^{-a}a^n/n!). Models recall the standard formula and apply it without checking the measure.
+13. **Singularity/Boundary Trap** — invoke a classical principle (S-L orthogonality, raising operators) that's correct in the interior but breaks at a singular endpoint. Models apply mechanically without checking admissibility. **Strongest pattern in 122-problem dataset (11 at 9/9 score).**
+14. **Asymptotic Growth Miscount** — claim wrong growth rate for a sum/sequence. Models guess from term-counting heuristic but miss oscillatory cancellation requiring deeper analysis (Christoffel-Darboux, Hilbert asymptotics).
 
 This list is not closed. Use techniques from any area of mathematics. If it produces a stumble, add it here.
 
@@ -264,6 +359,8 @@ This list is not closed. Use techniques from any area of mathematics. If it prod
 | R | Wigner Non-Vanishing | Rotation matrix structure |
 | S | Index Boundary | Recurrence coefficient vanishing |
 | T | Measure Confusion | Standard formula for wrong measure/weight |
+| U | Singular Endpoint | Classical principle fails at singular/boundary point |
+| V | Growth Miscount | Wrong asymptotic rate from missing oscillatory cancellation |
 
 Discover a new mechanism? Assign the next letter and use it.
 
@@ -302,6 +399,9 @@ A trap that works in one domain often transfers to another:
 - Kapteyn-Bessel antiderivative (hiding false identity behind an integral layer) → try wrapping any false identity inside an integral/derivative
 - Measure confusion (dt vs t dt from 8ac6e061) → try with any domain where a standard formula uses a weighted sum/integral but the problem uses unweighted
 
+- Singularity/boundary trap (S-L orthogonality at x=0) → try with ANY classical principle at its boundary of validity: Rodrigues formula at endpoints, recurrence relations at n=0, generating functions at radius of convergence, integral representations at branch points
+- Asymptotic growth miscount → try with any sum where term-by-term estimation gives wrong order due to cancellation
+
 Always ask: could this idea work somewhere else?
 
 ## Operational Lessons
@@ -323,11 +423,12 @@ See `domain_references/operational_lessons.md` for full details. Key points:
 1. Read this playbook + the domain cluster file
 2. **Start from complexity:** "What two correct things produce a wrong conclusion?" Or use Gaussian noise if stuck.
 3. Generate problem (Tier 1 preferred). Answer Q1-Q4 BEFORE proceeding. If Q2=YES or Q3=NO, REDESIGN.
-4. Self-critique: Weakness Hunt, Expert Panel, Assumption Audit, Contradiction Check
-5. GPT cross-check (see `phoenix/cli_phoenix_rules.md`)
-6. Test on Phoenix
-7. Analyze results
-8. If successful: update cluster file, update Recent Technique Usage table. If novel technique: update this playbook.
+4. **Score originality:** rate Audit Novelty, Disproof Resistance, Camouflage Strength. If any axis is Low → REDESIGN.
+5. Self-critique: Weakness Hunt, Expert Panel, Assumption Audit, Contradiction Check
+6. GPT cross-check (see `phoenix/cli_phoenix_rules.md`)
+7. Test on Phoenix
+8. Analyze results
+9. If successful: update cluster file, update Recent Technique Usage table, update originality scoring table. If novel technique: update this playbook.
 
 ## Domains
 
