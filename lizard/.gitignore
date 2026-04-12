@@ -1,0 +1,10 @@
+# macOS
+.DS_Store
+
+# Screenshots / scratch images (not for git)
+screenshots/
+
+# Temp/scratch
+temp_*
+*.tmp
+*.bak

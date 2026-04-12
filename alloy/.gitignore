@@ -1,0 +1,19 @@
+# Ephemeral Handshake scrapes — verbatim text is already embedded
+# inline in tasks/{id}.md, so the scrape file is a disposable artifact.
+scrapes/
+
+# Stray chrome-devtools download / inspection leftovers
+tmp_handshake_*
+*_extracted_raw*.txt
+
+# Backup tarballs should live outside the repo
+*.tgz
+*.tar.gz
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/
