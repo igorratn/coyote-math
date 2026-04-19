@@ -3,19 +3,12 @@
 ## What This Is
 Visual reasoning Q&A review (SuperAnnotate). $30/hr on Handshake AI.
 
-## CRITICAL: NEVER SET TASK STATUS WITHOUT HUMAN CONFIRMATION
-MUST NOT set QC status or submit shadow tasks without human review.
+## CRITICAL: SINGLE HUMAN STOP — JOB 3 APPROVAL
+CLI runs Jobs 0-4 autonomously. **One human stop per task: Job 3 "NEED APPROVAL"** before writing to SA.
+- YES → CLI applies SA changes, stamps `SA Applied`, task exits SA queue.
+- NO  → CLI does not apply. Takes Igor's feedback, syncs changes into `tasks/<stem>.md`, task stays held, re-attempts on next approval pass.
 
-## CRITICAL: NEVER APPLY SA CHANGES WITHOUT HUMAN CONFIRMATION
-MUST NOT apply any SA changes (ratings, skill edits, feedback, prompt edits) until human has walked through `tasks/<stem>.md` and payload has been materialized. CLI writes the file via merger (Job 2). Human confirms at payload walk-through. Only then does CLI run Job 3 (SA apply).
-
-## CRITICAL: EVERY THUMBS-DOWN WALKED THROUGH
-Every thumbs-down in a queued task must be walked through with Igor before Job 3. No exceptions.
-
-## Host/Cowork Split
-- **CLI (host claude code)** = sole orchestrator. Runs Jobs 0-4. Scrape → skeleton → reviewers (parallel) → merger walk-through (cowork STOP) → payload walk-through (human STOP) → SA apply → shadow sweep. Full procedure: `HOST_SOP.md`.
-- **Cowork** = merger walk-through only. Reads `tasks/skeleton/<stem>.md` + `tasks/review1/<stem>.md` + `tasks/review2/<stem>.md` + image (model identities blind) and produces `tasks/<stem>.md` with Igor in loop. Never calls browser tools. Never drives a job.
-- Handoff = filesystem. Task file is the contract.
+No per-annotation stops. No mid-merge walk-throughs. All merger decisions made by CLI; human reviews the final plan once.
 
 ## Caveman Mode (Default)
 Terse like smart caveman. Technical substance stays, fluff dies. Fragments OK. No sycophantic openers/closers. "stop caveman" → standard English.
@@ -26,31 +19,40 @@ Terse like smart caveman. Technical substance stays, fluff dies. Fragments OK. N
 - No trailing summaries
 
 ## Reviewer / merger roles
-- **Reviewers** are model-agnostic. Pool in `config/reviewers.yaml` (opus, sonnet, gpt, external). CLI picks two distinct reviewers per task, blind to each other (filesystem sandbox enforces independence, not prompt). Model identity never surfaced to merger.
-- **Merger = cowork Opus + Igor** (default). Reads skeleton + both review files + image; produces `tasks/<stem>.md`. Escalation triggers bring Igor into specific annotations live (any thumbs-down, 3-way disagreement, image crop needed, Slack ruling referenced, cycle-2 feedback not addressed, prompt rewrite changes answer, low merger confidence).
-- **No rigid Opus=decisions split.** Any model in the pool runs reviewer Two-Part Checks; the merger call is where human-in-loop judgment lives.
+- **Two reviewers per task** — Opus 4.7 via `claude -p` subprocess (sandbox cwd) + openclaw via WebSocket gateway (`scripts/openclaw-probe.mjs`). A ≠ B by construction. Slot assignment (r1/r2) = coin flip per task. Model identity opaque downstream.
+- **Independence** enforced by filesystem sandbox (Opus) + session isolation (openclaw). Not by prompt.
+- **Merger = CLI**, deterministic:
+  - Both reviewers agree → take it.
+  - Disagree, or any thumbs-down, or any escalation trigger → flag in task file, defer to Job 3 approval.
+- **Escalation triggers** (surface for Igor at Job 3, not mid-merge):
+  1. Any thumbs-down on any annotation
+  2. Three-way disagreement (R1 ≠ R2 ≠ merger)
+  3. Image crop / pixel count disputed
+  4. Slack ruling referenced but not in `wiki/slack-rulings.md`
+  5. Cycle 2 + prior feedback not cleanly addressed
+  6. Prompt rewrite changes answer
+  7. Low merger confidence
 
-## Task Workflow (per-task serial)
+## Task Workflow (per-task serial, CLI end-to-end)
 
 CLI loops over `_manifest.json` in order. One task at a time through Jobs 0-3. Then batch shadow sweep (Job 4).
 
 Per task:
 1. **Job 0 — scrape** (CLI). `scrapes/<stem>.txt` + `screenshots/<stem>.<ext>`. Newest-mtime rule on downloads. OCR safety check on image.
-2. **Job 1 — skeleton** (CLI). Raw scrape data → `tasks/skeleton/<stem>.md`. Cycle detection (file-exists on `tasks/<stem>.md`).
+2. **Job 1 — skeleton** (CLI). Raw scrape → `tasks/skeleton/<stem>.md`. Cycle detection (file-exists on `tasks/<stem>.md`).
 3. **Source checkpoint** — n_annotations, prompt/answer/skills/qtype present. Auto-skip on fail.
-4. **Job 2 Phase A — reviewers parallel** (CLI). Build `/tmp/lizard/<stem>/r{1,2}-view/` symlink sandboxes. HTTP POST to two reviewer endpoints (pool pick, A ≠ B). Capture outputs → `tasks/review1/<stem>.md`, `tasks/review2/<stem>.md`. Independence gate (grep). Cleanup sandboxes.
-5. **Job 2 Phase B — merger walk-through** (STOP, cowork). Opus + Igor. Escalation triggers surface per-annotation issues live. Output = `tasks/<stem>.md` above `## Task Status` (no payload yet).
-6. **Job 2 Phase C — payload walk-through** (STOP, human). Igor confirms per annotation. CLI materializes `## Form-Fill Payload` YAML. Consistency check (schema gate + cross-reference auto-fix).
-7. **Job 3 — SA apply** (CLI). Dumb executor. Per-annotation skill toggles + answer + rating + feedback. Save. Stamp `SA Applied (Cycle N): ✅`. STOP for human QC-status pick.
-8. Mark `_manifest.state.json → tasks.<stem>.sa_applied:true`. Continue to next task.
+4. **Job 2 Phase A — reviewers parallel** (CLI). Build `/tmp/lizard/<stem>/{r1,r2}-view/` symlink sandbox for Opus; prepare openclaw prompt (inline skeleton + framework). Parallel launch. Capture outputs → `tasks/review1/<stem>.md`, `tasks/review2/<stem>.md`. Independence gate (grep). Cleanup sandboxes.
+5. **Job 2 Phase B — merge** (CLI, no stop). Deterministic merge with flags. Output = `tasks/<stem>.md` with per-annotation sections + escalation flags + `## Form-Fill Payload` YAML below.
+6. **Job 3 — NEED APPROVAL stop** (CLI + Igor). CLI prints per-annotation plan (rating, skill toggles, answer, feedback, derived QC status) + any flagged items. Igor: YES → apply + stamp `SA Applied (Cycle N): ✅`; NO → sync feedback, mark held.
+7. Mark `_manifest.state.json → tasks.<stem>.sa_applied:true`. Continue to next task.
 
 After all tasks `sa_applied` or `held`:
-9. **Job 4 — shadow sweep** (CLI). Per task, per annotation. HAI form-fill + 20:00 time edit. Update shadow line in task file. Mark `shadows_fired:true`.
+
+8. **Job 4 — shadow sweep** (CLI). Per task, per annotation. HAI form-fill + 20:00 time edit. Update shadow line in task file. Mark `shadows_fired:true`.
 
 **Cycle 2 locked rules:**
 - Payload includes ALL annotations (unchanged ones get `rating: unchanged` + full `hai.*` block).
 - Shadows fire for ALL payload entries (including unchanged carry-overs).
-- Every thumbs-down walked with Igor before Job 3.
 - Decision set for prior thumbs-down = approve or delete only (no QC_Return).
 
 **Crash recovery:** `_state.json` is the orchestrator pointer (atomic writes). New CLI reads it on startup; resumes per phase. Full detail: `HOST_SOP.md#crash-recovery`.

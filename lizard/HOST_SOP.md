@@ -1,6 +1,6 @@
 # Lizard Host SOP (run in host claude code)
 
-Host CLI owns every step: browser scrape (SA + HAI via `chrome-devtools` MCP), skeleton write, reviewer orchestration, merger walk-through stop, SA apply, shadow form-fill. Cowork = merger walk-through only (human-in-loop), never drives a job. Handoff between CLI and human = filesystem.
+Host CLI owns every step end-to-end: browser scrape (SA + HAI via `chrome-devtools` MCP), skeleton write, reviewer orchestration, deterministic merge, SA apply, shadow form-fill. **Single human-in-loop stop per task: Job 3 NEED APPROVAL.** No cowork in runtime. Handoff between CLI and human = filesystem + terminal prompt.
 
 Repo root: `/Users/iratnere/dev/coyote-math/lizard` (host path). Mirror in Cowork: `/sessions/<current-session>/mnt/lizard` (session ID rotates — do not hardcode).
 
@@ -20,8 +20,8 @@ for each stem in manifest (in manifest order):
   if state sidecar says sa_applied:true → skip to next
   Job 0  scrape
   Job 1  skeleton
-  Job 2  review1 + review2 parallel → independence gate → merger walk-through (STOP, cowork) → payload walk-through (STOP, human) → payload materialized
-  Job 3  SA apply (STOP for human QC-status pick)
+  Job 2  review1 + review2 parallel → independence gate → deterministic merge → payload materialized
+  Job 3  NEED APPROVAL stop → YES: SA apply + stamp SA Applied / NO: sync feedback, mark held
   mark sa_applied:true in state sidecar
   cleanup /tmp/lizard/<stem>/
 
@@ -150,8 +150,8 @@ else:
 | `job0` | Re-scrape (idempotent; newest-mtime rule on downloads). |
 | `job1` | Re-run (deterministic from scrape). |
 | `job2.reviewers` | Discard any partial `tasks/review{1,2}/<stem>.md`, delete sandbox `/tmp/lizard/<stem>/`, re-launch reviewers. |
-| `job2.merge` | Cowork task file on disk. Re-enter merger STOP, human continues. |
-| `job2.payload` | Payload written. Re-enter payload walk-through STOP. |
+| `job2.merge` | Re-run merge step (deterministic from review1/2 + skeleton). Overwrites `tasks/<stem>.md`. |
+| `job3.approval` | Re-print NEED APPROVAL plan for task; wait on human. |
 | `job3` | Use `job3_progress`. Re-scrape SA state (ground truth), diff against payload, apply only `pending`/`in_flight` annotations. If any annotation shows partial apply (rating yes, feedback no) → print diff, ask human to reconcile. |
 | `job4` | Use `job4_progress`. Skip already-fired shadows per task, resume from first `pending`. |
 
@@ -165,31 +165,22 @@ else:
 
 ## Reviewer orchestration (Job 2 core)
 
-Two reviewers run in parallel, blind to each other. Model pool is configurable; CLI picks two distinct models per task. Independence is enforced by filesystem sandbox — not by prompt.
+Two reviewers run in parallel, blind to each other. Independence is enforced by filesystem sandbox (Opus) + session isolation (openclaw) — not by prompt.
 
 ### Reviewer pool (`config/reviewers.yaml`)
 
-```yaml
-pool:
-  - id: opus
-    endpoint: http://127.0.0.1:18789/chat?session=agent:opus:r
-    enabled: true
-  - id: sonnet
-    endpoint: http://127.0.0.1:18789/chat?session=agent:sonnet:r
-    enabled: true
-  - id: gpt
-    endpoint: http://127.0.0.1:18789/chat?session=agent:main:main
-    enabled: true
-# add more as they come online
-```
+Two entries, two invocation kinds:
 
-All reviewers speak the same interface: HTTP POST prompt → text response. Model identity is never surfaced to the merger.
+- **`opus`** (kind: `cli_subprocess`) — Claude Opus 4.7 via `claude -p` subprocess. Uses host Claude Code auth (no API key setup). Runs with cwd = sandbox view dir.
+- **`openclaw`** (kind: `http_post`) — HTTP POST to local openclaw shim at `127.0.0.1:18789/chat`. Model behind openclaw is deliberately opaque. No filesystem access — CLI inlines skeleton text + framework text into the prompt.
 
-### Model-pick policy (CLI-side, per task)
+Pool is A ≠ B by construction (exactly two entries, different paths). Slot assignment (r1 vs r2) per task is random.
 
-- Random uniform from `enabled:true` pool, no replacement per task. Reviewer A ≠ Reviewer B.
-- If pool has fewer than 2 enabled models → hard-fail, log, skip task (add to hold list).
-- Override: env `LIZARD_FORCE_REVIEWERS=opus,sonnet` pins the pair for debugging. Logged.
+### Slot-assignment policy (CLI-side, per task)
+
+- Random coin flip: opus→r1, openclaw→r2 OR opus→r2, openclaw→r1.
+- If either path fails (subprocess crash / openclaw 500 / timeout) → hard-fail, log, mark task held.
+- Override: env `LIZARD_FORCE_REVIEWERS=opus,openclaw` pins the order for debugging. Logged.
 - Pair assignment written to `_manifest.state.json → tasks.<stem>.reviewers:{r1, r2}` — audit trail, not surfaced to merger.
 
 ### Per-reviewer sandbox (symlink tree)
@@ -234,9 +225,16 @@ Do not speculate about any other reviewer. Do not output your own model identity
 
 ### Parallel launch
 
-CLI fires both reviewers in one go. Two HTTP POSTs in parallel (shell `&` + `wait`, or async within CLI orchestrator). Each reviewer's session is distinct so histories don't cross.
+CLI fires both reviewers in one go via shell `&` + `wait`:
 
-Session strategy: one session ID per reviewer per task (`session=agent:<role>:<stem>-<uuid>`). Stateless across tasks — no reset round-trip needed.
+- **opus path**: `cd /tmp/lizard/<stem>/<role>-view/ && claude -p "$PROMPT" < /dev/null > opus.log 2>&1 &`
+  (Writes `review.md` into the sandbox dir.)
+- **openclaw path**: `curl -sS -X POST "http://127.0.0.1:18789/chat?session=agent:r:<stem>-<uuid>" -d "$PROMPT_WITH_INLINED_FILES" > openclaw.log 2>&1 &`
+  (Response body is the review text.)
+
+After `wait`, CLI copies each output to `tasks/review1/<stem>.md` and `tasks/review2/<stem>.md` per the slot assignment.
+
+Openclaw session ID includes `<stem>-<uuid>` so histories don't cross tasks. Stateless across tasks — no reset round-trip needed.
 
 ### Independence gate (grep — no Python)
 
@@ -249,27 +247,39 @@ grep -qi "reviewer.1\|review1\|R1" tasks/review2/<stem>.md && { echo "FAIL R2 le
 
 Any leak → abort, discard both outputs, re-launch reviewers. No merger call until gate passes.
 
-### Merger (cowork, human-in-loop by default)
+### Merger (CLI deterministic, no stop)
 
-Reviewers produce `tasks/review1/<stem>.md` + `tasks/review2/<stem>.md`. CLI stops. Human opens cowork; Opus merger reads both blind (model identity not surfaced) + `tasks/skeleton/<stem>.md` + image. Writes final `tasks/<stem>.md` per-annotation sections with Igor in loop.
+Reviewers produce `tasks/review1/<stem>.md` + `tasks/review2/<stem>.md`. CLI merges deterministically:
 
-#### Escalation triggers (merger pauses + flags explicitly for Igor)
+- **Both reviewers agree** (same rating + compatible edits) → take it. Write per-annotation section with chosen rating + merged edits + feedback.
+- **Disagree on rating, or any thumbs-down, or any escalation trigger fires** → take the more-supported reviewer as default, but **tag the annotation with a `⚠️ flag`** in the task file. Flag carries through to Job 3 approval.
 
-Merger auto-involves Igor on any of:
+No silent overrides of reviewer answers. Merger override discipline: if CLI's own pixel count or reasoning disagrees with a reviewer rewrite, flag the annotation rather than silently flipping. Any three-way disagreement is a flag — never a split-the-difference.
 
-1. **Any thumbs-down** on any annotation (LOCKED — every thumbs-down walked through before Job 3 per wiki rule).
+#### Escalation triggers (flagged, not stopped mid-merge)
+
+Annotation gets `⚠️ flag` if any of:
+
+1. **Any thumbs-down** on any annotation (always flagged).
 2. **Three-way disagreement** (R1 ≠ R2 ≠ merger on rating or answer).
 3. **Image crop / pixel-count needed** to resolve an ambiguity.
 4. **Slack ruling referenced** in R1 or R2 but not present in `wiki/slack-rulings.md`.
 5. **Cycle 2** + prior-cycle feedback not cleanly addressed by annotator.
-6. **Prompt rewrite changes the answer** (cycle-2 risk — verify the rewrite doesn't silently re-value).
+6. **Prompt rewrite changes the answer** (cycle-2 risk — rewrite silently re-values).
 7. **Merger confidence below threshold** on any annotation (explicit self-flag in merger output).
 
-If no trigger hits and reviewers agree → merger can produce the task file fast; human still reads at walk-through (see next STOP).
+All flags surface to Igor at Job 3 NEED APPROVAL stop — not mid-merge.
 
 ### Merger output
 
-Merger writes `tasks/<stem>.md` sections above `## Task Status` only. **No payload block yet** — payload is materialized only after human walk-through confirms each annotation.
+CLI writes complete `tasks/<stem>.md` including per-annotation sections AND `## Form-Fill Payload` YAML block. Payload is auto-materialized from merger verdicts — no separate walk-through phase.
+
+Per-annotation block format:
+- `Rating:` — `thumbs-up` / `thumbs-down` / `deleted` / `unchanged`
+- `⚠️ flag` lines for any escalation triggers (human reads these at Job 3)
+- `Edits Made:` — skill toggles, prompt edits, answer edits
+- `Feedback:` — annotator feedback text
+- `Merge Log:` — which reviewer dominated + reason (audit trail)
 
 ## Cycle-1 / Cycle-2 rules (LOCKED)
 
@@ -336,32 +346,29 @@ Steps:
 
 ### Job 2 — Review + merge + payload
 
-**Phases (per task, STOPs between phases):**
+**Phases (per task, no STOPs — all CLI autonomous):**
 
 #### Phase A — Reviewers parallel
 
-1. CLI picks two models from pool (A ≠ B). Writes pair to `_manifest.state.json → tasks.<stem>.reviewers`.
-2. CLI builds per-reviewer sandboxes `/tmp/lizard/<stem>/r{1,2}-view/` with symlink tree.
-3. CLI fires two HTTP POSTs in parallel to reviewer endpoints. Prompt = short instruction (`templates/review-prompt.md`).
-4. CLI captures response text → writes to `tasks/review1/<stem>.md` and `tasks/review2/<stem>.md`.
+1. CLI assigns slot (r1/r2) per reviewer (opus, openclaw). Writes pair to `_manifest.state.json → tasks.<stem>.reviewers`.
+2. CLI builds Opus sandbox at `/tmp/lizard/<stem>/<role>-view/` with symlink tree.
+3. CLI fires both reviewers in parallel (bash `&` + `wait`):
+   - Opus: `cd /tmp/lizard/<stem>/<role>-view/ && claude -p "$PROMPT" < /dev/null > opus.log 2>&1 &`
+   - Openclaw: `OPENCLAW_MSG="$PROMPT_INLINED" OPENCLAW_SESSION=agent:main:main node scripts/openclaw-probe.mjs > openclaw.log 2>&1 &`
+4. CLI captures output → writes to `tasks/review1/<stem>.md` and `tasks/review2/<stem>.md` per slot assignment.
 5. CLI runs independence gate grep. Fail → discard + retry.
-6. CLI cleans up sandboxes: `rm -rf /tmp/lizard/<stem>/`.
+6. CLI cleans up Opus sandbox: `rm -rf /tmp/lizard/<stem>/`.
 
-No human stop here. Reviewer wall-clock ~60-120 s per task.
+Reviewer wall-clock ~60-120 s per task.
 
-#### Phase B — Merger + walk-through (STOP, cowork)
+#### Phase B — Merge + payload materialize
 
-1. CLI stops. Prints: `Task <stem> ready for merger. Open cowork.`
-2. Human opens cowork. Opus reads `tasks/skeleton/<stem>.md` + `tasks/review1/<stem>.md` + `tasks/review2/<stem>.md` + image. Model identity NOT surfaced.
-3. Merger produces `tasks/<stem>.md` per-annotation sections. Escalation triggers bring Igor into specific annotations live.
-4. Merger writes merge log (which reviewer won per annotation, why) either inline in `Edits Made` or in a top-level `## Merge Log (Cycle N)` section.
-5. No payload block yet.
+1. CLI reads `tasks/skeleton/<stem>.md` + `tasks/review1/<stem>.md` + `tasks/review2/<stem>.md` + image.
+2. Per annotation: apply deterministic merge logic (see Merger section above). Write per-annotation section with `⚠️ flag` for any escalation trigger.
+3. After all annotations merged, materialize `## Form-Fill Payload` (cycle 1) or `## Form-Fill Payload (Cycle 2)` YAML block.
+4. Consistency check on materialized payload (see "Payload consistency check" below).
 
-#### Phase C — Payload walk-through (STOP, human)
-
-1. Human reads `tasks/<stem>.md`. Per annotation: confirms rating + edits + feedback.
-2. After all annotations confirmed, CLI materializes `## Form-Fill Payload` (cycle 1) or `## Form-Fill Payload (Cycle 2)` YAML block.
-3. Consistency check on freshly-materialized payload (see "Payload consistency check" below).
+All Phase B output lands in `tasks/<stem>.md` — ready for Job 3 approval.
 
 **Payload YAML fields (one entry per annotation):**
 - `sa.rating` ← `Rating:` field (`thumbs-up` / `thumbs-down` / `deleted` / `unchanged` for cycle-2 carry-over)
@@ -398,17 +405,38 @@ Step B — markdown cross-reference (auto-fix):
 
 Auto-fix mismatches silently, report `{fixes_applied, clean}`. Only then task is ready for Job 3.
 
-### Job 3 — Apply review in SA
+### Job 3 — NEED APPROVAL + Apply
 
-Per task. **STOP after each task** for human QC-status pick. Parallel SA writes corrupt state — one task at a time.
+Per task. **Single human stop: NEED APPROVAL.** One task at a time (parallel SA writes corrupt state).
 
-Input: `tasks/<stem>.md` — human-confirmed, payload present. Canonical source is the `## Form-Fill Payload` YAML block.
+Input: `tasks/<stem>.md` — CLI-merged, payload materialized. Canonical source is the `## Form-Fill Payload` YAML block.
 
-**Pre-flight (mandatory):**
-- Step A — `python3 scripts/validate_payload.py tasks/<stem>.md --cycle <N>` → non-zero = ABORT.
-- Step B — markdown cross-reference auto-fix (see above).
+**Pre-flight (mandatory, before approval stop):**
+- Step A — `python3 scripts/validate_payload.py tasks/<stem>.md --cycle <N>` → non-zero = ABORT, mark held.
+- Step B — markdown cross-reference auto-fix.
 
-Steps:
+**Approval stop:**
+
+```
+─── NEED APPROVAL: <stem> (Cycle N) ───────────────
+Annotations: <N>   Ratings: <m>👍 / <n>👎 / <d>deleted / <u>unchanged
+Flags (⚠️): <list of annotation#s with flag reasons>
+Derived QC status: <status>
+
+Per-annotation plan:
+  A1: thumbs-up, skills +TCG -WK, feedback=null
+  A2: thumbs-down ⚠️ flag:3way-disagree, skills -Enum, answer_final=<diff>, feedback=<...>
+  ...
+
+Type YES to apply, NO to reject with feedback, OPEN to open task file first.
+```
+
+Responses:
+- **YES** → proceed with apply steps below.
+- **OPEN** → CLI prints `tasks/<stem>.md` path + waits for Igor to read + return with YES/NO.
+- **NO** → CLI prompts for feedback (per-annotation edits in natural language). CLI applies edits to `tasks/<stem>.md`, re-runs pre-flight, marks `held:true`. Task stays in batch for later re-approval; loop moves to next task.
+
+**Apply steps (after YES):**
 1. Parse payload YAML. Extract `task_id` from Task Info. Locate SA editor tab at matching URL.
 2. Per annotation (in order 1..N):
    - **Skip entirely if `rating: unchanged`** (cycle-2 carry-over — no SA edit).
@@ -418,28 +446,20 @@ Steps:
    - **Verify question type set** — exactly one of {MCQ, Short answer question} must be checked. Empty = fail loud, STOP.
    - Write `answer_final` into Rewrite Answer field if present.
    - Set QC rating per `rating`.
-   - Paste `feedback` into QC Feedback field if thumbs-down OR any field changed. **Append to existing, never replace.** Readback to verify (QC textarea can fail silently).
+   - Paste `feedback` into QC Feedback field if thumbs-down OR any field changed. **Append to existing, never replace.** Readback to verify.
    - For `rating: deleted` (cycle 2): click thumbs-down + paste feedback + save — so annotator sees delete reason. CLI does NOT click delete itself (human does).
 3. After ALL annotations, click task-level **Save**. Confirm save toast.
-4. Stamp `- **SA Applied (Cycle N):** ✅` in `tasks/<stem>.md` under `## Task Status`.
-5. Mark `_manifest.state.json → tasks.<stem>.sa_applied:true`.
-6. **STOP.** Print QC-status selection form:
-   ```
-   ─── SA APPLY DONE: <stem> (Cycle N) ───────────────
-   Applied: <k> annotations, feedback_readback_ok=<bool>, saved=✅
-   Ratings: <m>👍 / <n>👎
-   Derived status: <status>   (← deterministic from cycle + ratings)
-   ───────────────────────────────────────────────────
-   Press Enter to accept derived; or type an override reason to flag.
-   ```
-   Derived status:
+4. Set task-level QC status to derived value (CLI auto-sets since human already approved):
    - cycle 2 → `QC_Complete` (terminal)
    - cycle 1 + any 👎 → `QC_Return`
    - cycle 1 + all 👍 → `QC_Complete`
-   Full numbered override menu (Hold / Skipped / Unusable) only on explicit request. Human performs the actual SA status click; CLI only logs.
-7. On confirmation → advance to next task. `_state.json` `phase: idle`, `current_task: null`.
+5. Stamp `- **SA Applied (Cycle N):** ✅` in `tasks/<stem>.md` under `## Task Status`.
+6. Mark `_manifest.state.json → tasks.<stem>.sa_applied:true`.
+7. Advance to next task. `_state.json` `phase: idle`, `current_task: null`.
 
-**Cycle-2 specifics:** Deleted annotations require human to click delete in SA (CLI applies feedback first). CLI bundles deletes + status confirm into a single action list at the STOP.
+Task is now gone from SA queue (submitted).
+
+**Cycle-2 specifics:** Deleted annotations require human to click delete in SA (CLI applies feedback first). CLI bundles deletes into the approval plan; Igor clicks deletes after YES, then CLI confirms.
 
 ### Job 4 — Shadow sweep
 
@@ -505,15 +525,16 @@ ta.dispatchEvent(new Event('change', {bubbles: true}));
 
 ## Hard rules
 
-- **NEVER set SA task status.** Human does it.
+- **Single human stop per task: Job 3 NEED APPROVAL.** No mid-merge, no mid-apply stops.
+- **CLI auto-sets SA task status** after YES approval (derived from cycle + ratings). Human can reject at NEED APPROVAL and override in feedback.
 - **CLI clicks HAI Submit + Confirm time.** Automatic.
-- **Never reinterpret payload.** Dumb executor. Values are final as-written in YAML.
-- **Never rescore during Job 3.** Eval finalized in Job 2 walk-through.
-- **Payload only after human walk-through.** Phase A/B produce markdown only. Payload is Phase C output.
-- **Job 3 never fires without payload present.**
-- **Job 4 never fires until SA status set by human (per Job 3 STOP confirmation).**
+- **Never reinterpret payload after approval.** Dumb executor post-YES. Values are final as-written in YAML.
+- **Never rescore during Job 3 apply.** Eval finalized in Job 2 merge; approval gate is yes/no on the plan, not a per-annotation re-eval.
+- **Payload auto-materialized in Phase B.** CLI emits full `tasks/<stem>.md` including payload block before the approval stop.
+- **Job 3 apply never fires without YES approval.**
+- **Job 4 never fires until task is SA-applied** (stamped `SA Applied: ✅`).
 - **Cycle 3 refused** at Job 1. Cycle 2 is terminal.
-- **Canonical task file is merger output.** `tasks/<stem>.md` is written by Job 2 Phase B (merger) + Phase C (payload tail). `tasks/review1/<stem>.md` and `tasks/review2/<stem>.md` are intermediate artifacts.
+- **Canonical task file is CLI merger output.** `tasks/<stem>.md` written by Job 2 Phase B (merge + payload). `tasks/review1/<stem>.md` and `tasks/review2/<stem>.md` are intermediate artifacts.
 - **Model identity never surfaced to merger.** Pool assignment lives in `_manifest.state.json → tasks.<stem>.reviewers` only.
 - **Reviewer independence enforced by filesystem sandbox**, not by prompt.
 - **Cycle-2 payload includes ALL annotations.** No "only changed" rule. LOCKED (2026-04-19).

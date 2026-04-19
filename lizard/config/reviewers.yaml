@@ -1,38 +1,41 @@
 # Reviewer pool config — used by CLI Job 2 Phase A.
 #
-# CLI picks two distinct entries (enabled: true) at random per task for Review 1 and Review 2.
-# If fewer than 2 entries are enabled → hard-fail, skip task, mark held.
+# Two reviewers, two invocation paths. Pool is A ≠ B by construction.
+#   - opus     : Claude Opus 4.7 via `claude -p` subprocess, cwd=sandbox.
+#   - openclaw : HTTP POST to local openclaw shim (127.0.0.1:18789).
+#                Model behind openclaw is deliberately opaque.
 #
-# All reviewers speak the same interface: HTTP POST prompt → text response.
-# `endpoint` is an openclaw-style HTTP URL. Session naming convention:
-#   session=agent:<role>:<stem>-<uuid>  (stateless per task — no reset round-trip)
+# Merger (cowork) never sees reviewer identity — outputs are labeled
+# Review 1 / Review 2 only. CLI records the pairing in
+# _manifest.state.json → tasks.<stem>.reviewers for audit.
 #
-# Model identity is NEVER surfaced to the merger. Pair assignment is logged
-# to _manifest.state.json → tasks.<stem>.reviewers for audit only.
-#
-# Override at runtime: LIZARD_FORCE_REVIEWERS=opus,sonnet (env var). Logged.
+# CLI fires both in parallel (bash & + wait). Per-reviewer timeout below.
 
-pool:
+reviewers:
   - id: opus
-    endpoint: http://127.0.0.1:18789/chat?session=agent:opus:r
-    enabled: true
-    notes: "host claude opus via openclaw"
+    kind: cli_subprocess
+    # Runs in the sandbox dir. Prompt interpolated at launch time.
+    # Sandbox composition in sandbox_root section below.
+    command: ["claude", "-p", "${prompt}"]
+    cwd: "${sandbox}"
 
-  - id: sonnet
-    endpoint: http://127.0.0.1:18789/chat?session=agent:sonnet:r
-    enabled: true
-    notes: "host claude sonnet via openclaw"
+  - id: openclaw
+    kind: http_post
+    endpoint: http://127.0.0.1:18789/chat
+    session_pattern: "agent:r:${stem}-${uuid}"
+    # Sandbox not enforceable over HTTP — openclaw receives the full prompt
+    # (skeleton text + framework text inlined by CLI). Independence is by
+    # session isolation + the fact that it never sees the other reviewer's output.
 
-  - id: gpt
-    endpoint: http://127.0.0.1:18789/chat?session=agent:main:main
-    enabled: true
-    notes: "chatgpt via openclaw"
+# Slot assignment (r1 vs r2) per task: random. Both entries always enabled.
+# If one path fails (e.g. openclaw down), CLI marks task held.
 
 # Per-reviewer timeout. On timeout CLI aborts the task, marks held.
 timeout_seconds: 180
 
 # Reviewer session sandbox — filesystem view rooted here during review.
-# CLI builds the view as a symlink tree; reviewer sees only its own view.
+# CLI builds the view as a symlink tree; Opus subprocess runs with cwd=view.
+# (openclaw has no filesystem — CLI inlines files into the prompt.)
 sandbox_root: /tmp/lizard
 
 # Exposed paths in each reviewer's view (symlinks into repo):
