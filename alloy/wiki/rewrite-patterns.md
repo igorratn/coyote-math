@@ -1,5 +1,7 @@
 # Rewrite Patterns
 
+> **DEPRECATED 2026-04-13.** Handshake removed the rewrite field from the form. No rewrite section in task files. Historical patterns preserved below for reference only.
+
 ## Triggers Encountered
 
 ### Task d6b6b1dd — Broken LaTeX (missed by CLI, caught by human)
@@ -35,6 +37,18 @@
 - ~~Double `$$` around `\begin{equation*}` with custom macros → if stripping the inner environment breaks rendering, do NOT rewrite.~~ **REVERSED 2026-04-10:** `$$\begin{equation*}...\end{equation*}$$` IS a real trigger. Custom macros (`\norm`, `\pexpecf`, etc.) are inline math commands, entirely independent of the `equation*` environment — stripping `\begin{equation*}`/`\end{equation*}` does not touch macro expansion. Minimal fix: remove the inner environment lines, keep `$$...$$` and any `\tag{N}`. The original "macros might break" excuse was unfounded. (Task 1f890578 reversal)
 - Key test: "Would the author agree this was unintentional?" If no → don't rewrite
 - When invoking "if in doubt, don't," state the specific mechanism by which the fix would break the response. Hand-wavy mechanisms ("macros might break") are usually wrong — verify by testing the minimal strip, not by vague worry.
+
+## Rewrite Rules
+- Only rewrite chosen response, never rejected
+- Rewrites fix presentation only (broken LaTeX, broken markdown, non-standard notation, structure, random tokens) — never content/facts
+- Rewrites = minimal diff. Fix ONLY the specific trigger. Do not alter surrounding delimiters, whitespace, or structure that wasn't broken.
+- If fixing `\begin{equation*}` inside `$`, strip the inner environment but keep `$` intact.
+- `\[...\]` vs `$...$` delimiter difference is NOT a rewrite trigger — just convention.
+- Redundant content / model rambling is NOT a rewrite trigger — penalize in preference scoring instead.
+- Factual errors in chosen response: LEAVE THEM IN. Note in justification.
+- Symbol reuse: if still understandable → rewrite trigger. If proof becomes unclear → preference penalty.
+- If in doubt: don't. If outside domain: abandon.
+- Rewrite-trigger decisions = raw text ONLY. Never trust rendered Handshake view. Decide from `scrapes/{id}.txt` or inline verbatim in task file.
 
 ## Corrections
 - **189da35a phantom trigger (2026-04-10):** The entry above claiming "Both responses had double `$$` delimiters around `\begin{aligned}` blocks" could not be verified against the saved verbatim text. Chosen response uses clean `$$\begin{aligned}...\end{aligned}$$`. Original trigger call was made from a mental model of what was seen on Handshake, not from the saved file. Task file corrected to Rewrite: N/A. **Lesson:** Every rewrite trigger claim must quote the exact literal text in the saved response.

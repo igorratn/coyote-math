@@ -75,3 +75,4 @@ Removed Math Reasoning tag — ranking by comparison is logical reasoning, not m
 ## Task Status
 - **Status:** QC_Complete
 - **Reason:** All 3 annotations pass with minor tag fixes only.
+- **SA Applied (Cycle 1):** ✅ (legacy backfill 2026-04-18)

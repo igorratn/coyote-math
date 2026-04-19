@@ -13,6 +13,11 @@
 - **Be specific in feedback — never use generic "too blurry."** State exactly which values can't be read and why the prompt is invalid. Lazy feedback = bad reviewing.
 - **Don't reject for exact rounding disputes.** If prompt says "rounded to 5 decimal places" and the math is deterministic (no visual ambiguity), don't flag 0.01886 vs 0.01887. Lead ruling: not a valid rejection.
 
+### Audit Dispute Routing
+- **NV Audit disagreement → fill out the rebuttal form.** Do not bring to office hours or the channel. Form: https://docs.google.com/forms/d/e/1FAIpQLSfwv4KFZp2eEaPQ_sfg8BAyjFhvAG2o5jwi6N3CpWJuxHAJEA/viewform
+- **After filing rebuttal: leave task in SA untouched.** Do NOT return to annotator. Wait for Achsah to reach out (1–2 weeks — client has to respond).
+- **Internal audit disagreement → office hours or lizard-reviewers channel.** Do not use rebuttal form.
+
 ### Reviewer Process
 - **Reviewer metrics based on audit.** If audit disagrees with your QC decision, it impacts YOUR scores. Be careful and correct.
 - **Shadow tasks for reviewing:** Same process as annotating on Handshake AI — select "reviewing" instead of "annotating." Task ID = .json filename from SuperAnnotate. 1 shadow task per annotation reviewed.

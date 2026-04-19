@@ -14,7 +14,7 @@
 - Both correct, one adds useful extras (e.g., explicit solution) → 2/6 if extras are significant
 - Both correct, minor clarity/style difference → 3/5
 - One completely wrong or off-topic → 1/7
-- Never 4. Ever.
+- Score 4 ('Equally Prefer') ONLY for exact-match identical responses. Very rare. Use "both responses" language in justification (not chosen/rejected). (Re-enabled 2026-04-10; was previously banned.)
 
 ## Bias Warnings (from onboarding meeting 2026-04-09)
 - Don't bias preference by which response needs more rewrites — rewrite triggers ≠ preference dimensions
@@ -46,5 +46,37 @@
 - **Lesson:** "Both broken → never extreme" applies at the 5/6 boundary too. When the justification has to reach for hedging words ("minor," "small gap") to describe chosen's flaw while giving rejected's flaw full detail, the score is probably one notch too strong. Drop to slight preference (5) and describe both flaws at equal resolution.
 - **Rewrite:** Yes — `$$\begin{equation*}...\end{equation*}$$` on all 16 display blocks (see rewrite-patterns.md reversal entry).
 
+### Score Gate (run before finalizing)
+Answer explicitly before locking score:
+- Is the difference **correctness**? (factual error in one, not other → strong 1/2 or 6/7)
+- Or only **completeness/clarity**? (→ 3/5 range)
+- Are responses **exact-match identical**? (only then → 4)
+- Would I defend the chosen side if asked "specifically, where does it win?"
+Prevents drift to soft 3/5 when correctness asymmetry exists, and prevents spurious 2/6 when only style differs.
+
+### Mechanical-Task Flag
+For calculator / operator-reduction / symbolic-evaluation prompts where correctness = one numeric answer: if responses don't show derivation, correctness credit is limited to shown/checkable steps. Don't award correctness on unverified assertions — penalize completeness instead.
+
+### Prompt Well-Posedness Check (BEFORE hard preference claims)
+Ask whether the prompt itself fixes the mathematical convention, definition, branch choice, or interpretation tightly enough for a unique answer. If under-specified and BOTH responses lean on the same ambiguity, record in Systematic Issues first. Do not manufacture a strong correctness split from messy algebra/sign handling when the deeper issue is prompt ambiguity.
+- **Boundary rule for ambiguous prompts:** prompt ambiguity does not erase an earlier objective error. If one response mis-sets the geometry/definition/setup before the ambiguity-dependent counting or interpretation step even begins, treat that as a real correctness asymmetry; then let the ambiguity soften 1↔2 or 6↔7, not collapse everything automatically to 3/5.
+
 ## Score Compression Warning
 Don't default to 3/5 for everything. If you see a real physics/math error, go to 1/2 or 6/7. Compressing to the middle destroys the signal that reward models need.
+
+## Task-Type Specific Rules (from official guidance, 2026-04-13)
+
+### Code Tasks
+- Correctness bugs are decisive, not stylistic. Wrong thresholds, off-by-ones, and TLE risks determine pass/fail — treat accordingly with strong scores.
+- Test code against provided sample inputs. Don't accept a response that fails the problem's own examples.
+
+### Enumeration / Counting Problems
+- Check completeness carefully. One response may miss valid cases the other catches. Count manually.
+- When both responses are wrong, keep preference mild. Strong preference between two broken answers is almost always an overstatement.
+
+### Constraint-Satisfaction Problems (Sudoku, grids, etc.)
+- Verify mechanically. Don't eyeball — check every row, column, box systematically.
+
+## Equally Prefer = Score 4 (Slack is authoritative)
+Nicolas's Slack (2026-04-10): explicitly "score of 4 ('Equally prefer')" for exact-match identical responses.
+Playbook (2026-04-13): says "Likert 3" — **this is a typo/error in the doc**. Score 4 is correct; it is the 1–7 scale midpoint. Use Score 4, ignore the playbook's "Likert 3."

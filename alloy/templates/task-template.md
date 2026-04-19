@@ -40,9 +40,3 @@ Each flag must have an explicit per-category justification. Yes = issue present,
 - **Structural issues: {Yes/No/N/A}** — {reason}
 - **Garbled text / random tokens: {Yes/No/N/A}** — {reason}
 
-### Rewrite Trigger
-- **Category:** {one of 5 triggers, or "N/A — No rewrite needed"}
-- **Explanation:** {describe specific issue and location, or confirm why no rewrite needed}
-
-### Rewrite (if applicable)
-{Only corrected version of chosen response, minimal changes only}

@@ -3,76 +3,73 @@
 ## What This Is
 Visual reasoning Q&A review (SuperAnnotate). $30/hr on Handshake AI.
 
+## CRITICAL: NEVER SET TASK STATUS WITHOUT HUMAN CONFIRMATION
+MUST NOT set QC status or submit shadow tasks without human review.
+
+## CRITICAL: NEVER APPLY SA CHANGES WITHOUT HUMAN CONFIRMATION
+MUST NOT apply any SA changes (ratings, skill edits, feedback, prompt edits) until human has walked through `tasks/<stem>.md` and payload has been materialized. CLI writes the file via merger (Job 2). Human confirms at payload walk-through. Only then does CLI run Job 3 (SA apply).
+
+## CRITICAL: EVERY THUMBS-DOWN WALKED THROUGH
+Every thumbs-down in a queued task must be walked through with Igor before Job 3. No exceptions.
+
+## Host/Cowork Split
+- **CLI (host claude code)** = sole orchestrator. Runs Jobs 0-4. Scrape → skeleton → reviewers (parallel) → merger walk-through (cowork STOP) → payload walk-through (human STOP) → SA apply → shadow sweep. Full procedure: `HOST_SOP.md`.
+- **Cowork** = merger walk-through only. Reads `tasks/skeleton/<stem>.md` + `tasks/review1/<stem>.md` + `tasks/review2/<stem>.md` + image (model identities blind) and produces `tasks/<stem>.md` with Igor in loop. Never calls browser tools. Never drives a job.
+- Handoff = filesystem. Task file is the contract.
+
 ## Caveman Mode (Default)
-Terse like smart caveman. Technical substance stays, fluff dies. Drop articles, filler, pleasantries, hedging. Fragments OK. No sycophantic openers/closers. Suspend for irreversible actions. "stop caveman" → standard English.
+Terse like smart caveman. Technical substance stays, fluff dies. Fragments OK. No sycophantic openers/closers. "stop caveman" → standard English.
 
 ## Efficiency Rules
 - Don't re-read files already read this session
 - Prefer Edit over full file rewrite
-- No trailing summaries of work just done
+- No trailing summaries
 
-## Role: Reviewer (Active)
+## Reviewer / merger roles
+- **Reviewers** are model-agnostic. Pool in `config/reviewers.yaml` (opus, sonnet, gpt, external). CLI picks two distinct reviewers per task, blind to each other (filesystem sandbox enforces independence, not prompt). Model identity never surfaced to merger.
+- **Merger = cowork Opus + Igor** (default). Reads skeleton + both review files + image; produces `tasks/<stem>.md`. Escalation triggers bring Igor into specific annotations live (any thumbs-down, 3-way disagreement, image crop needed, Slack ruling referenced, cycle-2 feedback not addressed, prompt rewrite changes answer, low merger confidence).
+- **No rigid Opus=decisions split.** Any model in the pool runs reviewer Two-Part Checks; the merger call is where human-in-loop judgment lives.
 
-### Workflow
-1. Open task in SuperAnnotate (up to 5 annotations per task)
-2. For each annotation: Two-Part Check (question vs 5 Guidelines + 12 Error Types; answer correctness)
-3. Rate each annotation thumbs-up/down
-4. Dated feedback for any thumbs-down (and edits on thumbs-up)
-5. Set task status: QC_Complete / QC_Return / Hold / Skipped / Unusable
-6. Save review notes using `templates/review-template.md`
-7. Auto-update relevant wiki pages in `wiki/`
+## Task Workflow (per-task serial)
 
-### First Pass — fix small issues yourself + approve:
-Skill tags, Question Type, Model Answer Rating, prompt text, rewrite answer. Always note edits in Feedback.
+CLI loops over `_manifest.json` in order. One task at a time through Jobs 0-3. Then batch shadow sweep (Job 4).
 
-### Second Pass — you own it:
-Make all changes to save annotation. Unsaveable (>10 min) → remove. May add net-new (<20 min). Always regenerate model answer after prompt edit.
+Per task:
+1. **Job 0 — scrape** (CLI). `scrapes/<stem>.txt` + `screenshots/<stem>.<ext>`. Newest-mtime rule on downloads. OCR safety check on image.
+2. **Job 1 — skeleton** (CLI). Raw scrape data → `tasks/skeleton/<stem>.md`. Cycle detection (file-exists on `tasks/<stem>.md`).
+3. **Source checkpoint** — n_annotations, prompt/answer/skills/qtype present. Auto-skip on fail.
+4. **Job 2 Phase A — reviewers parallel** (CLI). Build `/tmp/lizard/<stem>/r{1,2}-view/` symlink sandboxes. HTTP POST to two reviewer endpoints (pool pick, A ≠ B). Capture outputs → `tasks/review1/<stem>.md`, `tasks/review2/<stem>.md`. Independence gate (grep). Cleanup sandboxes.
+5. **Job 2 Phase B — merger walk-through** (STOP, cowork). Opus + Igor. Escalation triggers surface per-annotation issues live. Output = `tasks/<stem>.md` above `## Task Status` (no payload yet).
+6. **Job 2 Phase C — payload walk-through** (STOP, human). Igor confirms per annotation. CLI materializes `## Form-Fill Payload` YAML. Consistency check (schema gate + cross-reference auto-fix).
+7. **Job 3 — SA apply** (CLI). Dumb executor. Per-annotation skill toggles + answer + rating + feedback. Save. Stamp `SA Applied (Cycle N): ✅`. STOP for human QC-status pick.
+8. Mark `_manifest.state.json → tasks.<stem>.sa_applied:true`. Continue to next task.
 
-### Max 3 revision cycles. Shadow task per review.
+After all tasks `sa_applied` or `held`:
+9. **Job 4 — shadow sweep** (CLI). Per task, per annotation. HAI form-fill + 20:00 time edit. Update shadow line in task file. Mark `shadows_fired:true`.
 
-### Audit Returns (Returned_to_QC)
-Do NOT edit prompt/answer. Only update QC Feedback with audit feedback → send to annotator.
+**Cycle 2 locked rules:**
+- Payload includes ALL annotations (unchanged ones get `rating: unchanged` + full `hai.*` block).
+- Shadows fire for ALL payload entries (including unchanged carry-overs).
+- Every thumbs-down walked with Igor before Job 3.
+- Decision set for prior thumbs-down = approve or delete only (no QC_Return).
 
-### Regenerate after ANY prompt edit. If model now correct → revise prompt further or regenerate multiple times.
+**Crash recovery:** `_state.json` is the orchestrator pointer (atomic writes). New CLI reads it on startup; resumes per phase. Full detail: `HOST_SOP.md#crash-recovery`.
 
-## Shared Framework
+Second pass, audit returns, MCQ/SA rules, shadow task details → `wiki/workflow-procedures.md`.
 
-### Design Formula
-**Premature confidence x No easy bypass = Stumble**
-
-### Two-Part Check
-1. Check QUESTION vs 5 Guidelines + 12 Error Types
-2. Check ANSWER correctness (verify math yourself)
-- All 12 error types = QUESTION issues. Type 2 (model correct) = question too easy.
-
-### 5 Guidelines
-1. Complexity: 2+ skills (enumeration needs 3+)
-2. Single verifiable answer
-3. Self-contained in image
-4. Independence
-5. No giveaways
-
-### 7 Skills
-Enumeration, Attribute Perception, Spatial Reasoning, Math Reasoning, Logical Reasoning, Table/Chart/Graph Understanding, World Knowledge
-
-### 12 Error Types
-1=Non-verifiable format, 2=Model correct, 3=Fine-grained precision, 4=Magnitude/unit, 5=Case sensitivity, 6=Ambiguous "difference", 7=Unclear counting boundaries, 8=Decimal ambiguity, 9=Incorrect MCQ format, 10=Missing "approximation", 11=Ambiguous "average", 12=Indistinguishable colors
-
-### MCQ: "A." not "A)", no "All/None of the above", 4 options preferred, pure MCQ phrasing, plausible distractors
-### Short Answer: must include example answer
-### True/False: NOT allowed
-
-## Key Rules
-- NEVER guess values from images — read, zoom, extract exact values, compute
-- Always specify: "absolute difference" or direction, rounding rules + example format, inclusive/exclusive for ranges
-- Ambiguity = biggest issue. Two forms: ambiguous answer itself, ambiguous answer format. Fix via MCQ or explicit format spec.
-- Tag Table/Chart/Graph Understanding broadly — any visual data representation qualifies
+## Framework (quick ref — details in wiki)
+- **Two-Part Check:** question vs 5 Guidelines + 12 Error Types; then answer correctness (verify math yourself)
+- **5 Guidelines:** Complexity (2+ skills), Single answer, Self-contained, Independence, No giveaways
+- **12 Error Types:** 1-12, see `wiki/guideline-patterns.md`
+- **7 Skills:** Enumeration, Attribute Perception, Spatial Reasoning, Math Reasoning, Logical Reasoning, TCG Understanding (= Table/Chart/Graph Understanding; use full form in task files / SA tags), World Knowledge
+- Decision patterns, MCQ/SA rules, key rules → `wiki/guideline-patterns.md`
 
 ## Knowledge Base
-`references/` = immutable playbooks. `wiki/` = LLM-owned, auto-updated. `tasks/` = reviews. `templates/` = review template.
-- Slack rulings: `wiki/slack-rulings.md`
-- Full annotator playbook: `references/playbook_onboarding.md`
-- Full reviewer playbook: `references/playbook_reviewer.md`
+`references/` = immutable playbooks. `wiki/` = LLM-owned. `tasks/` = reviews. `templates/` = template. `scrapes/` = raw SA dumps (gitignored). `scripts/` = host SA scripts. `screenshots/` = images (gitignored).
+
+Key wiki files: `workflow-lessons.md`, `review-calibration.md`, `guideline-patterns.md`, `workflow-procedures.md`, `common-errors.md`, `domain-notes.md`, `sa-interface.md`, `slack-rulings.md`
+Key refs: `references/playbook_onboarding.md`, `references/playbook_reviewer.md`
+Skip list: `skip-list.md` — filenames CLI must not process. Remove entry when resolved.
 
 ## Communication
-Igor is terse and direct. Show thinking process always. If process takes long, direction is wrong — pick randomly, move.
+Igor is terse and direct. Show thinking. If stuck, pick randomly, move.

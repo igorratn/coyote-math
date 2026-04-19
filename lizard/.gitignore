@@ -4,7 +4,35 @@
 # Screenshots / scratch images (not for git)
 screenshots/
 
+# Raw SA dumps (disposable — data embedded in task files)
+scrapes/
+
 # Temp/scratch
 temp_*
 *.tmp
 *.bak
+
+# OS / editor cruft
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/
+
+# Crop/verify scratch (image scratchpads)
+.crops/
+tmp_crops/
+tmp_verify/
+work_tmp/
+
+# Retired stage3 output
+stage3/
+
+# Local user config
+.claude/settings.local.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/

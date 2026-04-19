@@ -1,0 +1,45 @@
+# Reviewer pool config — used by CLI Job 2 Phase A.
+#
+# CLI picks two distinct entries (enabled: true) at random per task for Review 1 and Review 2.
+# If fewer than 2 entries are enabled → hard-fail, skip task, mark held.
+#
+# All reviewers speak the same interface: HTTP POST prompt → text response.
+# `endpoint` is an openclaw-style HTTP URL. Session naming convention:
+#   session=agent:<role>:<stem>-<uuid>  (stateless per task — no reset round-trip)
+#
+# Model identity is NEVER surfaced to the merger. Pair assignment is logged
+# to _manifest.state.json → tasks.<stem>.reviewers for audit only.
+#
+# Override at runtime: LIZARD_FORCE_REVIEWERS=opus,sonnet (env var). Logged.
+
+pool:
+  - id: opus
+    endpoint: http://127.0.0.1:18789/chat?session=agent:opus:r
+    enabled: true
+    notes: "host claude opus via openclaw"
+
+  - id: sonnet
+    endpoint: http://127.0.0.1:18789/chat?session=agent:sonnet:r
+    enabled: true
+    notes: "host claude sonnet via openclaw"
+
+  - id: gpt
+    endpoint: http://127.0.0.1:18789/chat?session=agent:main:main
+    enabled: true
+    notes: "chatgpt via openclaw"
+
+# Per-reviewer timeout. On timeout CLI aborts the task, marks held.
+timeout_seconds: 180
+
+# Reviewer session sandbox — filesystem view rooted here during review.
+# CLI builds the view as a symlink tree; reviewer sees only its own view.
+sandbox_root: /tmp/lizard
+
+# Exposed paths in each reviewer's view (symlinks into repo):
+#   skeleton.md   -> tasks/skeleton/<stem>.md
+#   template.md   -> templates/review-template.md
+#   framework.md  -> templates/review-prompt.md
+#   wiki/         -> wiki/
+#   CLAUDE.md     -> CLAUDE.md
+# Output written to:
+#   review.md     (in view dir; CLI copies to tasks/review{1,2}/<stem>.md after)

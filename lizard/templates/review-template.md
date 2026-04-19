@@ -9,8 +9,9 @@
 ## Annotations
 
 ### Annotation {n}
+- **Shadow Task:** {⬜ not submitted / 🔄 in progress — [HAI link](url) / ✅ submitted — [HAI link](url)}
 - **Rating:** {thumbs-up / thumbs-down}
-- **Question:** {annotator's question text}
+- **Question:** {brief summary of annotator's question}
 - **Skills Tagged:** {list}
 - **Question Type:** {MCQ / Short Answer}
 - **Model Answer Rating:** {thumbs-up / thumbs-down}
@@ -22,6 +23,12 @@
 2. **Answer Check:**
    - Math verified: {yes/no — show work}
    - Answer correct: {yes/no}
+
+#### Full Prompt
+{full prompt text from SA, post-edits. Label "(revised)" if changed from original.}
+
+#### Rewrite Answer
+{final answer value, no commas}
 
 #### Edits Made (if any)
 {describe changes, or "None"}

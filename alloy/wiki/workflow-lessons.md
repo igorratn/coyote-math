@@ -1,5 +1,22 @@
 # Workflow Lessons
 
+## Policy Changes
+
+### 2026-04-15 — Auto-Eval Dispute Form (Dillon M.)
+- Automatic evaluations run by "Jordan Shapiro" (bot). If you disagree with its feedback:
+  1. Fill out dispute form: https://ai.joinhandshake.com/fellow/forms/39b3d71d-6618-42b5-8e4a-96fcdb642c68
+  2. Disagree with the task on Handshake and resubmit.
+- Dillon M. and Thomas H. are reviewing these forms.
+
+### 2026-04-13 — Stale Task Claims Auto-Removed After ~2 Hours
+- HAI now removes stale task claims after ~2 hours of inactivity.
+- Intent: prevent sitting on tasks others are waiting to claim. Abandon/Exit tasks you won't finish promptly.
+
+### 2026-04-13 — Rewrite Field Removed from Handshake Form
+- Handshake removed the rewrite step. No longer prompted for rewrite of chosen response.
+- Still required: chosen side, score, formatting flags (5 categories), justification.
+- Task template, template-lint, CLAUDE.md, HOST_SOP, handshake-selectors all updated.
+
 ## CLI Workflow Issues
 
 ### Task d6b6b1dd — CLI Submitted Without Review
@@ -112,10 +129,10 @@
 - **Fix:** Rewrote to describe chosen's gap at the same resolution ("two Cauchy–Schwarz applications bound $S_zS_2$ and $(\sum x_i^{z/2+1})^2$ from opposite sides, so the chain does not actually close").
 - **Lesson:** If you're reaching for hedging words ("minor," "small," "slight") to describe chosen's problems while giving rejected's problems full detail, the preference direction is probably holding up the framing, not the other way around. Either describe both at equal resolution or drop the preference to neutral.
 
-### Task 017bc3e5 — Prompt Ambiguity First, Response Comparison Second (2026-04-11)
-- **Problem:** Initial review got pulled into trying to separate the two derivations by sign/algebra details before foregrounding the bigger issue: the prompt does not pin down the fractional-derivative convention tightly enough for a unique reduction. That made it too easy to overstate one response's algebra sloppiness as a decisive correctness split.
-- **Fix:** Moved the ambiguity into `Systematic Issues` first: both responses rely on an unstated fractional-derivative convention and introduce extra normalization choices, so neither derivation is fully self-contained from the prompt alone. Then kept the final preference slight and based it on method alignment (Response 2 follows the requested Ritz / variational setup more explicitly).
-- **Lesson:** For fractional-PDE / operator-reduction tasks, first ask "is the prompt itself well posed under a single convention?" before comparing responses. If both answers live inside the same prompt ambiguity, do not manufacture a hard correctness split from messy sign bookkeeping. Put the shared ambiguity in `Systematic Issues`, then make at most a slight preference on clarity, completeness, or method fit.
+### Task 017bc3e5 — Prompt Ambiguity First, But Still Audit Local Bookkeeping (2026-04-11, amended 2026-04-15)
+- **Problem:** Initial review correctly noticed that the prompt does not pin down the fractional-derivative convention tightly enough for a unique reduction, but then over-weighted that shared ambiguity and under-checked the displayed formulas line by line. That missed a response-specific derivative-order inconsistency in the chosen response: after writing `u_{xxx}=k^3U'''` and then reducing to an equation with `U^{IV}`, it integrated once and dropped directly to `U''` instead of `U'''`.
+- **Fix:** Keep the prompt ambiguity in `Systematic Issues`, but after that do a literal bookkeeping audit on each response's local chain of derivatives, integrations, signs, and degree/order changes. For this task class, explicitly trace `u_{xxx}` -> reduced ODE term -> post-integration term before scoring.
+- **Lesson:** For fractional-PDE / operator-reduction tasks, first ask "is the prompt itself well posed under a single convention?" but do NOT stop there. Prompt ambiguity does not erase an earlier objective internal error. After recording the shared ambiguity, check whether one response breaks its own derivative/order bookkeeping anyway. If it does, that is a real correctness asymmetry and can overturn a slight-preference judgment.
 
 ### Slight-Preference QC — Lead With a Concrete Advantage (2026-04-11)
 - **Problem:** In close 3/5-style cases, justifications that opened with soft phrasing like "slightly easier to verify" drew QC complaints that the preference was not stated decisively enough, even when the rest of the comparison was valid.
@@ -127,10 +144,15 @@
 - **Fix:** Re-read the entire concluding discussion before locking in the preference. After the fuller read, the task was revised from a correctness-split score to a close-call slight preference, with justification based on cleaner bookkeeping rather than a supposed fatal contradiction.
 - **Lesson:** When a response seems to contradict itself near the end, read the full conclusion carefully and quote the exact logical distinction it is trying to make before labeling it wrong. Do not compress a messy but recoverable distinction into a false claim like "it ends with 25." Careful reading is the guardrail.
 
-### Task b06af938 — If Both Are Correct, Say So Explicitly (2026-04-11)
-- **Problem:** Early rewrites of the justification leaned too hard on Response 1's confusing side discussion and did not plainly say that both responses still reach the correct maximum of 24 under the stated rule. QC was happier once the justification explicitly acknowledged that both derivations used the same correct four-class parity idea.
-- **Fix:** Added an explicit sentence-level anchor that both responses are mathematically sound on the main task, then grounded the slight preference in cleaner focus and bookkeeping instead of implying a hidden correctness split.
-- **Lesson:** In close mathematical comparisons where both responses are correct, say that directly. If the preference is about clarity, organization, or scope discipline, state that after first affirming that the core derivation is sound in both responses.
+### Task b06af938 — Shared Construction Failure Is Correctness, Not Clarity (2026-04-15)
+- **Problem:** Review correctly noticed that both responses used the same sound four-class parity argument for the upper bound $N\le24$, but then undercalled the shared failure in the attainability step. The explicit 24-square constructions in both responses were treated as merely dense / hard to follow instead of being flagged as wrong.
+- **Fix:** When both responses give explicit placements, check the placements themselves, not just the invariant argument around them. If the listed construction does not realize the claimed board coverage, record that in `Systematic Issues` as a shared correctness problem.
+- **Lesson:** A shared bad construction is not a clarity issue. If both responses have a flawed proof/construction step, say so explicitly as correctness. Do not let a correct upper-bound argument hide a broken attainability example.
+
+### Task abe7a58e — Ambiguity Does Not Cancel Earlier Geometry Errors (2026-04-13)
+- **Problem:** Review kept wobbling between 5 and 6 because the prompt is genuinely ambiguous about counting convention once sides overlap along whole segments.
+- **Fix:** Separate the timeline of errors. First ask whether either response gets the geometry wrong *before* the ambiguity fork. Only then ask how much prompt ambiguity should soften the score.
+- **Lesson:** If the rejected response makes an objective setup/geometry error before any convention choice matters, that is a real correctness asymmetry and can still justify 2/6 even on an ambiguous prompt. Prompt ambiguity softens preference only when both responses are living inside the same ambiguity rather than one response breaking earlier.
 
 ## Assessment Lessons (from onboarding)
 
@@ -154,6 +176,7 @@
 - **N/A** — category doesn't apply (e.g., no LaTeX in the response, no code blocks)
 
 ### Rewrite Scope
+> **DEPRECATED 2026-04-13.** Rewrite field removed from Handshake form. Preserved for historical reference only.
 - Can't add content — note gaps in justification instead
 - Can't fix factual errors — note in justification instead
 - Can't rewrite rejected response — ever

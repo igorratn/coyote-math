@@ -12,9 +12,6 @@ Cache of selectors + accessibility-tree refs for the Handshake fellow task UI. U
   score: 1..7,
   systematicIssues: string,
   justification: string,
-  rewriteCategory: "N/A" | "Broken LaTeX" | "Broken Markdown" | "Non-standard notation" | "Structural issues" | "Garbled text",
-  rewriteExplanation: string,
-  rewriteText: string | null,   // null when rewriteCategory == "N/A"
   flags: { latex, markdown, notation, structure, garbled },  // "Yes"|"No"|"N/A"
   advance: true
 }
@@ -32,8 +29,7 @@ Cache of selectors + accessibility-tree refs for the Handshake fellow task UI. U
 2. Start at first editable section, follow the per-section macro.
 
 ### Fast paths
-- `rewriteCategory == "N/A"` → skip rewrite textarea AND any rewrite-only controls hidden downstream.
-- Flags all "No" with no trigger → still fill each flag (they are required radios), skip rewrite block.
+- Flags all "No" → still fill each flag (they are required radios).
 
 ### Bounded retry (one level, no loops)
 If a step fails (stale ref, missing control):
@@ -59,8 +55,7 @@ Section order observed (may reorder/rename across tasks):
 9. **Random Symbols flag** (maps to Garbled text / random tokens) + explanation textarea.
 10. **Structure/Layout flag** (maps to Structural issues) + explanation textarea.
 11. **Format issues summary** — Yes/No. "Yes" when any flag above is Yes.
-12. **Rewrite textarea** — corrected chosen response. Required when a formatting trigger exists.
-13. **Final review / Submit** — STOP here. Never click Submit.
+12. **Final review / Submit** — STOP here. Never click Submit.
 
 **Every flag has its own explanation textarea.** For flags set to "No", write "N/A" (do not leave empty — blocks section advance).
 
@@ -91,7 +86,6 @@ Section order observed (may reorder/rename across tasks):
 | Structure/Layout flag | "Structure/Layout" | Yes/No | radio, = Structural issues |
 | Structure/Layout explanation | below | free text or "N/A" | required |
 | Format issues summary | "Format issues summary" | Yes/No | Yes if any flag above is Yes |
-| Rewrite | "Rewrite" textarea | free text | required when trigger exists |
 | Advance (↑) | up-arrow icon, `type="submit"` | — | section advance, SAFE to click |
 | Submit | literal "Submit" button at end | — | **BLACKLIST — never click** |
 
@@ -113,7 +107,6 @@ Section order observed (may reorder/rename across tasks):
 | Expand (collapsed)   | `button[aria-expanded="false"]` | Multi-pass for nested |
 | Section advance (↑)  | TODO | Up-arrow button for form-fill agent |
 | Justification field  | TODO | Text input for justification |
-| Rewrite trigger opts | TODO | Yes/No/N/A radios per category |
 
 ## Refinement protocol (2026-04-11 confirmed working)
 Handshake uses `[role="tab"]` and `[role="tabpanel"]` for response layout. Key findings:

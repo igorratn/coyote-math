@@ -29,3 +29,11 @@
 - Always check that LaTeX renders correctly — broken LaTeX is the most common rewrite trigger in math/physics tasks
 - **CLI does not reliably catch structural LaTeX issues** — human must verify rewrite triggers against actual rendered page
 - **Always use raw view on Handshake** — the platform's LaTeX rendering is unreliable (different package versions). Toggle off formatting, copy to external renderer.
+
+## KaTeX vs LaTeX
+- **KaTeX ≠ LaTeX.** KaTeX (Handshake's renderer) is stricter than MathJax/quicklatex — notably on `&` inside inline math, certain `\begin{env}` inside `$`, and some macro edge cases.
+- A KaTeX parse error alone is NOT sufficient to flag Broken LaTeX.
+- Before flagging, paste the fragment into quicklatex.com; if it renders, the flag is No and no rewrite is warranted.
+- **Platform rendering is intentionally OFF** (Nicolas, 2026-04-10). Plain text = source of truth.
+- Verify externally via https://stackedit.io/app# or https://quicklatex.com/. Any renderer that displays it correctly is acceptable.
+- Never diagnose from Handshake's rendered output.
