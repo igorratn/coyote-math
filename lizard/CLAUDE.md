@@ -3,12 +3,13 @@
 ## What This Is
 Visual reasoning Q&A review (SuperAnnotate). $30/hr on Handshake AI.
 
-## CRITICAL: SINGLE HUMAN STOP — JOB 3 APPROVAL
-CLI runs Jobs 0-4 autonomously. **One human stop per task: Job 3 "NEED APPROVAL"** before writing to SA.
-- YES → CLI applies SA changes, stamps `SA Applied`, task exits SA queue.
-- NO  → CLI does not apply. Takes Igor's feedback, syncs changes into `tasks/<stem>.md`, task stays held, re-attempts on next approval pass.
+## CRITICAL: SINGLE HUMAN STOP — JOB 3 RESOLUTION
+CLI runs Jobs 0-4 autonomously. **One human stop per task: Job 3 per-annotation resolution** before writing to SA.
+- Igor resolves each annotation 👍/👎 individually.
+- Once all annotations resolved → task state → `resolved`.
+- CLI pushes to SA in 3b → state → `applied`, stamps `SA Applied`.
 
-No per-annotation stops. No mid-merge walk-throughs. All merger decisions made by CLI; human reviews the final plan once.
+No blanket task-level YES/NO; no `held` state. Every annotation is resolved before the task leaves Job 3.
 
 ## Caveman Mode (Default)
 Terse like smart caveman. Technical substance stays, fluff dies. Fragments OK. No sycophantic openers/closers. "stop caveman" → standard English.
@@ -33,22 +34,27 @@ Terse like smart caveman. Technical substance stays, fluff dies. Fragments OK. N
   6. Prompt rewrite changes answer
   7. Low merger confidence
 
-## Task Workflow (per-task serial, CLI end-to-end)
+## Task Workflow (batching model)
 
-CLI loops over `_manifest.json` in order. One task at a time through Jobs 0-3. Then batch shadow sweep (Job 4).
+**Batching shape:**
+- **Jobs 0-2 (automated):** parallel across all N tasks in manifest
+- **Job 3a (resolution):** serial walk-through, one Igor session for all tasks
+- **Job 3b (SA apply):** batched — one SA session pushes all `resolved` tasks
+- **Job 4 (shadow sweep):** serial per task (shadow system one-at-a-time constraint)
 
-Per task:
-1. **Job 0 — scrape** (CLI). `scrapes/<stem>.txt` + `screenshots/<stem>.<ext>`. Newest-mtime rule on downloads. OCR safety check on image.
-2. **Job 1 — skeleton** (CLI). Raw scrape → `tasks/skeleton/<stem>.md`. Cycle detection (file-exists on `tasks/<stem>.md`).
+Jobs:
+1. **Job 0 — scrape** (CLI, parallel). For each task: `scrapes/<stem>.txt` + `screenshots/<stem>.<ext>`. Newest-mtime rule. OCR safety check.
+2. **Job 1 — skeleton** (CLI, parallel). Raw scrape → `tasks/skeleton/<stem>.md`. Cycle detection (file-exists on `tasks/<stem>.md`).
 3. **Source checkpoint** — n_annotations, prompt/answer/skills/qtype present. Auto-skip on fail.
-4. **Job 2 Phase A — reviewers parallel** (CLI). Build `/tmp/lizard/<stem>/{r1,r2}-view/` symlink sandbox for Opus; prepare openclaw prompt (inline skeleton + framework). Parallel launch. Capture outputs → `tasks/review1/<stem>.md`, `tasks/review2/<stem>.md`. Independence gate (grep). Cleanup sandboxes.
-5. **Job 2 Phase B — merge** (CLI, no stop). Deterministic merge with flags. Output = `tasks/<stem>.md` with per-annotation sections + escalation flags + `## Form-Fill Payload` YAML below.
-6. **Job 3 — NEED APPROVAL stop** (CLI + Igor). CLI prints per-annotation plan (rating, skill toggles, answer, feedback, derived QC status) + any flagged items. Igor: YES → apply + stamp `SA Applied (Cycle N): ✅`; NO → sync feedback, mark held.
-7. Mark `_manifest.state.json → tasks.<stem>.sa_applied:true`. Continue to next task.
+4. **Job 2 Phase A — reviewers** (CLI, parallel across tasks; R1+R2 parallel within task). Sandbox per task; parallel R1/R2 launch. Capture → `tasks/review1/<stem>.md`, `tasks/review2/<stem>.md`. Independence gate (grep).
+5. **Job 2 Phase B — merge** (CLI, parallel). Deterministic merge. Output = `tasks/<stem>.md` with per-annotation sections + escalation flags + `## Form-Fill Payload` YAML.
+6. **Job 3 — RESOLUTION stop** (CLI + Igor). Two-step split:
+   - **3a — resolution**: CLI walks Igor through per-annotation decisions. Serial within Igor session; all tasks in one sitting. When all annotations resolved, per-task state → `resolved`.
+   - **3b — SA apply**: CLI pushes all `resolved` tasks to SuperAnnotate in one batched session. On per-task success: stamp `SA Applied (Cycle N): ✅` + flip `sa_applied:true`, state → `applied`.
 
-After all tasks `sa_applied` or `held`:
+After all tasks `applied`:
 
-8. **Job 4 — shadow sweep** (CLI). Per task, per annotation. HAI form-fill + 20:00 time edit. Update shadow line in task file. Mark `shadows_fired:true`.
+7. **Job 4 — shadow sweep** (CLI, serial per task). Shadow system supports one at a time. HAI form-fill + 20:00 time edit. Mark `shadows_fired:true`. (Parallelism worth testing but unlikely to work.)
 
 **Cycle 2 locked rules:**
 - Payload includes ALL annotations (unchanged ones get `rating: unchanged` + full `hai.*` block).

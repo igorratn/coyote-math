@@ -10,7 +10,9 @@
 
 ### Annotation {n}
 - **Shadow Task:** {⬜ not submitted / 🔄 in progress — [HAI link](url) / ✅ submitted — [HAI link](url)}
-- **Rating:** {thumbs-up / thumbs-down}
+- **Rating:** {thumbs-up / thumbs-down}  — thumbs is on the Final Rewrite Answer below (annotator's value or your correction), NOT on the prompt
+- **Final Rewrite Answer:** {exact string you endorse going to SA — annotator's value or your correction; or "N/A — prompt invalid" if thumbs-down for prompt reasons}
+- **Answer Source:** {pixel-verified / IMAGE_UNREADABLE} — every numeric/text claim in Answer Check must carry one of these tags
 - **Question:** {brief summary of annotator's question}
 - **Skills Tagged:** {list}
 - **Question Type:** {MCQ / Short Answer}

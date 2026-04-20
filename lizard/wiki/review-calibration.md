@@ -68,3 +68,47 @@ During walk-through of all queued thumbs-down annotations, **5 of 5 Type 7 calls
 - Parentheticals inside a prompt usually *resolve* scope, not introduce it. Read them as disambiguators first.
 - "The X" with a single visible referent in the image is unambiguous. Alternate readings need visible support, not imagination.
 - Ambiguity threshold (from Apr 12 lesson) still applies: alternate reading must have ~15%+ real-world probability, not just theoretical possibility.
+
+## Lesson: Logical Reasoning Over-Tagging (Apr 20, 2026)
+Framework rule: "simple counting rules (singular vs plural, case-sensitive vs not) are Enumeration, not Logical Reasoning." Codified examples previously given: case-insensitive substring count, singular/plural.
+
+**Extend to:**
+- **Threshold range counts.** "Count values in [a, b] inclusive" = Enumeration + Attribute Perception + (optional Math/TCG). NOT Logical Reasoning. The filter is a simple comparison rule, not multi-step inference.
+- **Category-filter counts.** "How many blue bars exceed X" = Enumeration + AP, not LR.
+- **Case/format filter counts.** "Contains 'agent' case-insensitive" — already codified, restated here.
+
+**LR only applies when** the prompt requires chained inference beyond a single filter: multi-step deduction, conditional "if-then" branching across multiple data views, or implicit rule derivation.
+
+**Incident:** _91 Ann 2 — threshold count [01:00, 02:00]. R1 dropped SR but kept LR. Igor flagged — LR should have been dropped same review cycle. Reviewers must check: does the prompt chain inference, or is it one filter + count? Latter = not LR.
+
+## Lesson: Image-Unreadable = Dispute, Never Plausible-Match (Apr 20, 2026)
+**Rule:** when a reviewer cannot pixel-read a value cited in the answer (image resolution, row cropped, etc.), the only permitted ratings are (a) thumbs-down with reason `IMAGE_UNREADABLE` or (b) escalate to human. Rating thumbs-up on "plausible-match" arithmetic (e.g., "if unreadable row ≈ X, annotator's answer works") is a review failure.
+
+**Why:** plausible-match reasoning backs into the annotator's answer instead of independently verifying it. Any trailing-row value that makes the arithmetic work will be asserted as "plausible" — the check is circular.
+
+**How to apply:**
+- Reviewer verdict: if ANY value needed for the answer is unreadable → thumbs-down or escalate. Never "lean 👍" on partial reads.
+- Merger: if either reviewer flags `IMAGE_UNREADABLE`, route to human for pixel-verification (Igor reads the image).
+- Do not auto-take the other reviewer's 👍 when one reviewer said `IMAGE_UNREADABLE` — that's routing around the unverifiable claim.
+
+**Incident:** _91 Ann 3 — R1 read 9 of 10 rows, couldn't read trailing row, rated 👍 on "17.6 is plausible if row ≈ 10." R2 couldn't read column at all, rated 👎. Merger rec was 👍 (R1). Igor flagged: both reviewers had unverified values in their working set; should have escalated. Igor's pixel read confirmed 17.6 — but that's because the human verified, not because R1's plausible-match was valid.
+
+## Lesson: Don't Bail to IMAGE_UNREADABLE Prematurely (Apr 20, 2026)
+**Rule:** IMAGE_UNREADABLE is a last-resort tag, not a shortcut. Before declaring unreadable, the reviewer must (a) re-examine the image at full resolution, (b) attempt the count/read explicitly, (c) report what is actually visible even if partial. Only after honest attempt fails may the reviewer use IMAGE_UNREADABLE.
+
+**Why:** bailing to unreadable defaults to the annotator's answer passing without verification OR to an unjustified 👎. On _107 Ann 1, R2 (opus) claimed "unresolvable at rendered zoom" for both the cart sizes AND accessory count — but Igor read both clearly. The reviewer skipped the work.
+
+**How to apply:**
+- Do not write IMAGE_UNREADABLE without first describing what IS visible in the relevant region. "I can see X and Y but not Z" is acceptable; "unresolvable at rendered zoom" alone is not.
+- Partial reads count: "2 out of 4 accessories visible; 2 on left-side models clearly show sunglasses" is better than blanket unreadable.
+- Tuning bias: reviewers under uncertainty tend to undercount (omit items they can't confidently identify) rather than overcount. Cross-check against annotator's answer: if undercount lands at the model answer, suspect bail-bias.
+
+**Incident:** _107 Ann 1 — R2 bailed "unresolvable at rendered zoom." R1 (openclaw) tried but missed the top round-image accessories (hat + glasses). Igor pixel-verified all accessories and confirmed annotator's 6. Both reviewers undercounted.
+
+## QC Feedback Rules (Apr 20, 2026)
+
+**Rule 1 — No names in feedback.** Never include any reviewer or approver name in QC feedback text written to SA. Feedback is annotator-facing; internal attribution belongs in task file review history only.
+
+**Rule 2 — No feedback for pure confirms.** Don't write QC feedback when: rating=thumbs-up AND skills_check=[] AND skills_uncheck=[] AND answer_final=null AND prompt_edits=null. The thumbs-up is self-explanatory; adding a "confirmed correct" note adds no value to the annotator and clutters the field. Feedback required only when thumbs-down OR any field changed.
+
+**Rule 3 — Feedback describes changes only.** When feedback IS required, write only what was changed or why thumbs-down. Never add "answer confirmed correct", "answer X is correct", "stump confirmed", or similar language — feedback is a change log, not a verification record.

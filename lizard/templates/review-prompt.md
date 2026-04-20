@@ -12,7 +12,34 @@ You will NOT see any other reviewer's output, nor the merger file. Independence 
 
 **Critical: image-first verification.** Open the screenshot image directly and verify visible text, labels, values, chart structure, colors, counts, arrows, percentages, and wording from the image itself before making any judgment. Quote exact visible text when wording matters. Never anchor on the scrape's summary text.
 
-Do a thorough independent review of every annotation. For each annotation:
+Do a thorough independent review of every annotation. Before any annotation-level work, produce the mandatory Read-First block:
+
+---
+
+**0. Read-First Observations (MANDATORY — produce this once, before any annotation)**
+
+List raw visual facts from the image only. No textbook claims, no domain theory, no priors. Only what is drawn:
+- Axis labels and every visible tick with its value (both axes; list all ticks even if unlabeled — estimate unlabeled ones from spacing)
+- Every reference line and grid line with its y-value (horizontal solid or dotted/dashed lines, excluding axis borders)
+- Curve features: every peak (local max) with approximate x-coordinate, in order left to right; every trough (local min); the highest y-value reached; the lowest y-value reached; the apparent steady-state y-value (rightmost settled value)
+- Any title, legend entries, or axis labels visible
+
+Format:
+```
+## Read-First Observations
+- X-axis: [ticks list]
+- Y-axis: [ticks list, including any unlabeled ticks estimated from spacing]
+- Reference lines: [y-value, style (solid/dashed) for each]
+- Peaks (left→right): x≈[val] y≈[val], x≈[val] y≈[val], ...
+- Troughs (left→right): x≈[val] y≈[val], ...
+- Y range: low≈[val], high≈[val]
+- Steady-state (rightmost): y≈[val]
+- Title/labels: [text]
+```
+
+**Rule:** Every numeric claim in steps 1–5 below must cite an entry from this block by name (e.g., "Steady-state: y≈0.90 [Read-First]"). If your answer check uses a value not in Read-First, add it to Read-First first. A mismatch between the Read-First entry and your answer = answer fails — "expected behavior" or domain theory is not an escape.
+
+---
 
 **1. Question Check — 5 Guidelines:**
 - G1 Complexity: requires 2+ skills (enumeration alone needs 3+)
@@ -42,6 +69,8 @@ Do a thorough independent review of every annotation. For each annotation:
 - Verify the answer independently. If it disagrees with the task file, say so and show your work.
 - **Stump rule:** model answer must differ from rewrite answer. If they match → thumbs-down (annotator failed to stump the model).
 - **Wrong rewrite answer:** if the rewrite answer is incorrect but the question itself is valid, correct the answer — do NOT thumbs-down. Still thumbs-up if model was stumped by the question. Thumbs-down only if (a) fixing the answer exposes a guideline violation, or (b) the corrected answer matches the model answer (no longer stumped).
+- **HARD RULE — No scrape-only answers.** For every numeric or text value you cite, you must have pixel-verified it from the embedded image. Phrases like "retained annotator's value", "from scrape text", or "not pixel-verified but plausible" are forbidden. If you cannot read the pixel, state "IMAGE_UNREADABLE for [field]" and rate thumbs-down with that as the reason. Silently deferring to the annotator's value on an unread pixel is a review failure.
+- **Source attribution required.** Each numeric claim in the Answer Check must end with one of: `[pixel-verified]`, `[IMAGE_UNREADABLE]`. No other source tags allowed.
 
 **4. Skill Tags Check:**
 - 7 valid skills: Enumeration, Attribute Perception, Spatial Reasoning, Math Reasoning, Logical Reasoning, Table/Chart/Graph Understanding, World Knowledge
@@ -55,7 +84,8 @@ Do a thorough independent review of every annotation. For each annotation:
 
 **6. Output:**
 Write your verdict to `review.md` in your sandbox, using the structure in `template.md`. Per annotation, fill:
-- **Rating:** thumbs-up / thumbs-down
+- **Rating:** thumbs-up / thumbs-down. **Semantics:** thumbs reflects agreement with the **Final Rewrite Answer** you are endorsing (see below), which may equal the annotator's value or your correction. If you correct the answer, your thumbs is on the corrected value.
+- **Final Rewrite Answer (REQUIRED):** the exact answer string you endorse going into SA. Either equal to annotator's or your correction — no ambiguity allowed. If thumbs-down for prompt reasons, write `N/A — prompt invalid` and explain.
 - **Two-Part Check:** (1) Question (guideline violations, error types found), (2) Answer (math verified independently, correct answer with steps, agreement with saved answer).
 - **Edits Made (if any):** skill tag corrections, prompt edits, answer corrections.
 - **Feedback:** dated line if thumbs-down or anything changed; otherwise `N/A`.
@@ -69,3 +99,4 @@ Then add a top-level **Fix List** section at the end:
 - Do NOT speculate about the other reviewer or your own model identity.
 - Do NOT modify `skeleton.md` or any file other than `review.md`.
 - If everything checks out, say so. Do not invent issues.
+- **Read-First block is required.** Output missing this block is malformed and will be discarded by the merger — your review will be re-run.

@@ -71,6 +71,17 @@ function connect() {
     console.log('[in]', JSON.stringify(frame, null, 2));
 
     // Challenge → send connect
+    // Auto-exit when agent writes review.md
+    if (frame.type === 'event' && frame.event === 'agent') {
+      const d = frame.payload?.data ?? {};
+      if (d.phase === 'end' && d.kind === 'tool' && d.name === 'write' &&
+          String(d.meta ?? '').includes('review.md')) {
+        console.log('[probe] review.md write complete — exiting');
+        ws.close();
+        process.exit(0);
+      }
+    }
+
     if (frame.type === 'event' && frame.event === 'connect.challenge') {
       const nonce = frame.payload?.nonce;
       const ts = Date.now();

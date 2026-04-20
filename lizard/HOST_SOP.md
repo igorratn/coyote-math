@@ -1,6 +1,6 @@
 # Lizard Host SOP (run in host claude code)
 
-Host CLI owns every step end-to-end: browser scrape (SA + HAI via `chrome-devtools` MCP), skeleton write, reviewer orchestration, deterministic merge, SA apply, shadow form-fill. **Single human-in-loop stop per task: Job 3 NEED APPROVAL.** No cowork in runtime. Handoff between CLI and human = filesystem + terminal prompt.
+Host CLI owns every step end-to-end: browser scrape (SA + HAI via `chrome-devtools` MCP), skeleton write, reviewer orchestration, agreement merge, SA apply (per-annotation fields only), shadow form-fill. **Human stops per task:** (1) Phase C conflict resolution — only fires if any R1/R2 disagreement or thumbs-down; skipped on all-clean tasks. (2) Job 3 NEED APPROVAL — review + YES/NO on finalized plan. (3) SA task status set in SA UI post-apply. No cowork in runtime. Handoff between CLI and human = filesystem + terminal prompt.
 
 Repo root: `/Users/iratnere/dev/coyote-math/lizard` (host path). Mirror in Cowork: `/sessions/<current-session>/mnt/lizard` (session ID rotates — do not hardcode).
 
@@ -20,9 +20,12 @@ for each stem in manifest (in manifest order):
   if state sidecar says sa_applied:true → skip to next
   Job 0  scrape
   Job 1  skeleton
-  Job 2  review1 + review2 parallel → independence gate → deterministic merge → payload materialized
-  Job 3  NEED APPROVAL stop → YES: SA apply + stamp SA Applied / NO: sync feedback, mark held
-  mark sa_applied:true in state sidecar
+  Job 2  Phase A: review1 + review2 parallel → independence gate
+         Phase B: CLI merges agreements only; disagreements + thumbs-downs marked UNRESOLVED (no default tiebreak)
+         Phase C: human resolves each UNRESOLVED annotation (R1 / R2 / custom) — SKIPPED if zero UNRESOLVED
+         payload materialized after Phase C
+  Job 3  NEED APPROVAL stop (pure review of resolved plan) → YES: SA apply + stamp / NO: feedback, hold
+  mark sa_applied:true in state sidecar (human-set SA status separately in SA UI)
   cleanup /tmp/lizard/<stem>/
 
 after all tasks sa_applied or held:
@@ -76,31 +79,76 @@ Written once at batch start. Never edited during batch.
 {
   "tasks": {
     "Report_Dashboard_X": {
+      "resolved": true,
       "sa_applied": true,
       "shadows_fired": false,
       "held": false,
-      "reviewers": {"r1": "opus", "r2": "gpt"}
+      "reviewers": {"r1": "opus", "r2": "openclaw"}
     }
   }
 }
 ```
-Updated atomically after each task's Job 3 and Job 4 completions. CLI skips already-`sa_applied` tasks on J0-J3 resume, skips already-`shadows_fired` tasks on shadow sweep.
+Flags (all boolean, default `false`):
+- `resolved` — Job 3a done; every annotation has an Igor decision. Gate for 3b.
+- `sa_applied` — Job 3b done; SA push succeeded + task file stamped `SA Applied`.
+- `shadows_fired` — Job 4 done; HAI form-fill + 20:00 time edit persisted.
+- `held` — task removed from active pipeline (cycle-2 deferred / skip-list / manual abandon). CLI skips on all subsequent passes.
+
+Updated atomically after each task's Job 3a, 3b, and Job 4 completions. CLI skips already-`sa_applied` tasks on J0-J3 resume, skips already-`shadows_fired` tasks on shadow sweep.
 
 ### `_state.json` — orchestrator pointer (crash recovery)
 ```json
 {
   "batch": "scrapes/_manifest.json",
   "current_task": "Report_Dashboard_X",
-  "phase": "idle | job0 | job1 | job2.reviewers | job2.merge | job2.payload | job3 | job4 | crashed",
+  "phase": "idle | job0 | job1 | job2.reviewers | job2.merge | job2.payload | job3.pending_resolution | job3.resolved_pending_sa_apply | job3.applying | job4 | crashed",
   "last_step": "job1.skeleton_written",
   "updated_at": "2026-04-19T14:32:00Z",
   "pid": 12345,
   "session_log": "logs/session-2026-04-19-143200.md",
-  "job3_progress": {"annotation_1": "applied", "annotation_2": "in_flight"},
+  "job3_progress": {"Report_Dashboard_X": "resolved", "Report_Dashboard_Y": "awaiting_resolution"},
   "job4_progress": {"Report_Dashboard_X": {"annotation_1": "fired"}}
 }
 ```
 **Write rule:** always `_state.json.tmp` → `rename` (atomic). Never partial reads. Updated at every phase transition + within Job 3/4 at per-annotation granularity.
+
+### CLI sidecar consumption (status derivation)
+
+State files are canonical. CLI must read them — not infer status from per-task file presence (skeleton/review1/review2/tasks).
+
+**Read order on startup / status display:**
+1. Open `scrapes/_state.json` → use `phase` as orchestrator pointer; use `job3_progress` / `job4_progress` for per-task fine-grained state.
+2. Open `scrapes/_manifest.json` → authoritative task list for this batch (frozen).
+3. Open `scrapes/_manifest.state.json` → per-task flags.
+4. For each stem in `_manifest.json.tasks[].stem`, derive status column:
+
+| Condition on `tasks.<stem>` | Status column |
+|---|---|
+| `held:true` | `HELD` |
+| `resolved:false` | `awaiting resolution` (Job 3a pending) |
+| `resolved:true, sa_applied:false` | `resolved` (Job 3b pending) |
+| `sa_applied:true, shadows_fired:false` | `applied` (Job 4 pending) |
+| `shadows_fired:true` | `complete` |
+
+**Write mechanics (any flag flip):**
+```
+state = json.load("_manifest.state.json")
+state["tasks"][stem][flag] = true       # single-field mutation
+json.dump(state, "_manifest.state.json.tmp")
+os.rename(".tmp", "_manifest.state.json")  # atomic on POSIX
+```
+Same pattern for `_state.json` (mutate `phase` + `last_step` + `updated_at` + `job3_progress[stem]` or `job4_progress[stem]`).
+
+**Concurrency:** single-writer. CLI uses `_state.json.pid` advisory lock (see crash-recovery section). No second CLI starts while pid is alive. No other process writes sidecars — Igor's 3a decisions flow through CLI prompts, task `.md` files are separate (LLM/human editable, not state).
+
+**When to flip flags (summary — full phase table below in "Update frequency"):**
+
+| Event | File + mutation |
+|---|---|
+| Job 3a: all annotations in task resolved | `_manifest.state.json`: `resolved:true` + `_state.json`: `job3_progress[stem] = "resolved"` |
+| Job 3b: SA push succeeded for task | `_manifest.state.json`: `sa_applied:true` + `_state.json`: `job3_progress[stem] = "applied"` |
+| Job 4: shadow fired + 20:00 edit persisted | `_manifest.state.json`: `shadows_fired:true` + `_state.json`: `job4_progress[stem] = "fired"` |
+| Phase boundary (every Job step) | `_state.json`: `phase`, `last_step`, `updated_at` |
 
 ## Batch lifecycle
 
@@ -111,7 +159,8 @@ Updated atomically after each task's Job 3 and Job 4 completions. CLI skips alre
 - CLI writes `_state.json` with `phase: idle`.
 
 **Update** — mid-batch:
-- After each Job 3 success on `<stem>` → set `tasks.<stem>.sa_applied:true` in state sidecar.
+- After each Job 3a success on `<stem>` → set `tasks.<stem>.resolved:true` in state sidecar.
+- After each Job 3b success on `<stem>` → set `tasks.<stem>.sa_applied:true`.
 - After each Job 4 success on `<stem>` → set `tasks.<stem>.shadows_fired:true`.
 - Task held for cycle-2 or skipped → set `held:true`, CLI skips in subsequent passes.
 
@@ -151,15 +200,38 @@ else:
 | `job1` | Re-run (deterministic from scrape). |
 | `job2.reviewers` | Discard any partial `tasks/review{1,2}/<stem>.md`, delete sandbox `/tmp/lizard/<stem>/`, re-launch reviewers. |
 | `job2.merge` | Re-run merge step (deterministic from review1/2 + skeleton). Overwrites `tasks/<stem>.md`. |
-| `job3.approval` | Re-print NEED APPROVAL plan for task; wait on human. |
-| `job3` | Use `job3_progress`. Re-scrape SA state (ground truth), diff against payload, apply only `pending`/`in_flight` annotations. If any annotation shows partial apply (rating yes, feedback no) → print diff, ask human to reconcile. |
+| `job3.pending_resolution` | Re-print per-annotation resolution walk-through for task; resume at first unresolved annotation. |
+| `job3.resolved_pending_sa_apply` | All annotations resolved; skip 3a, proceed to 3b (SA push) when triggered. |
+| `job3.applying` | Re-scrape SA state (ground truth), diff against payload, apply only tasks still in `resolved` state. If partial apply (rating yes, feedback no) → print diff, ask human to reconcile. |
 | `job4` | Use `job4_progress`. Skip already-fired shadows per task, resume from first `pending`. |
 
 ### Update frequency within `_state.json`
 
-- Before each atomic step: `phase`, `last_step` flipped.
-- Within Job 3: per annotation `pending` → `in_flight` → `applied`.
-- Within Job 4: per annotation `pending` → `fired`.
+**Rule: write _state.json at EVERY phase transition. No exceptions. Failure to advance the pointer is the #1 cause of unrecoverable crash state.**
+
+Exact writes required (use `_state.json.tmp` → rename each time):
+
+| When | `phase` | `last_step` | `current_task` |
+|------|---------|-------------|----------------|
+| Entering per-task loop for `<stem>` | `job0` | `job0.start` | `<stem>` |
+| Job 0 complete for `<stem>` | `job1` | `job0.done` | `<stem>` |
+| Job 1 skeleton written | `job2.reviewers` | `job1.skeleton_written` | `<stem>` |
+| Both reviewers launched (before `wait`) | `job2.reviewers` | `job2.reviewers.launched` | `<stem>` |
+| Both reviewers done + outputs copied | `job2.merge` | `job2.reviewers.done` | `<stem>` |
+| Independence gate passed | `job2.merge` | `job2.independence_gate.passed` | `<stem>` |
+| Phase B merge written to `tasks/<stem>.md` | `job3.approval` | `job2.merge.done` | `<stem>` |
+| Job 3a resolution started | `job3.pending_resolution` | `job3.resolution_presented` | `<stem>` |
+| Job 3a all annotations resolved | `job3.resolved_pending_sa_apply` | `job3.resolution_completed` | `<stem>` |
+| Job 3b SA push started | `job3.applying` | `job3.sa_apply_started` | `<stem>` |
+| Job 3b SA push complete + stamped | `idle` | `job3.done` | `null` |
+| Job 4 shadow sweep start for `<stem>` | `job4` | `job4.start` | `<stem>` |
+| Job 4 complete for `<stem>` | `idle` | `job4.done` | `null` |
+
+- Within Job 3: per-task `job3_progress` with values:
+    - `awaiting_resolution` — 3a pending (Igor resolving per-annotation decisions)
+    - `resolved` — 3a done (all annotations resolved); 3b (SA push) not yet done
+    - `applied` — 3b done; also flip `sa_applied:true` in `_manifest.state.json`
+- Within Job 4: per annotation `pending` → `fired` in `job4_progress`.
 - At graceful per-task boundary: `phase: idle`, `current_task: null`.
 - At normal shutdown: clear `pid`.
 
@@ -172,7 +244,7 @@ Two reviewers run in parallel, blind to each other. Independence is enforced by 
 Two entries, two invocation kinds:
 
 - **`opus`** (kind: `cli_subprocess`) — Claude Opus 4.7 via `claude -p` subprocess. Uses host Claude Code auth (no API key setup). Runs with cwd = sandbox view dir.
-- **`openclaw`** (kind: `http_post`) — HTTP POST to local openclaw shim at `127.0.0.1:18789/chat`. Model behind openclaw is deliberately opaque. No filesystem access — CLI inlines skeleton text + framework text into the prompt.
+- **`openclaw`** (kind: `http_post`) — HTTP POST to local openclaw shim at `127.0.0.1:18789/chat`. Model behind openclaw is deliberately opaque. No filesystem access — CLI uses `scripts/build-openclaw-msg.mjs` to assemble the prompt with absolute paths inlined (skeleton content + absolute paths for framework, template, screenshot, CLAUDE.md). Relative paths are never passed to openclaw; its workspace (`~/.openclaw/workspace/`) is not the lizard repo.
 
 Pool is A ≠ B by construction (exactly two entries, different paths). Slot assignment (r1 vs r2) per task is random.
 
@@ -189,7 +261,7 @@ For each task + reviewer role, CLI builds a per-reviewer view dir that exposes o
 
 ```
 /tmp/lizard/<stem>/r1-view/
-  skeleton.md      -> <repo>/tasks/skeleton/<stem>.md
+  skeleton.md      (blind copy — Rewrite Answer lines redacted; see note below)
   template.md      -> <repo>/templates/review-template.md
   framework.md     -> <repo>/templates/review-prompt.md    # Two-Part Check + 5 Guidelines + 12 Error Types + 7 Skills
   wiki/            -> <repo>/wiki/
@@ -199,7 +271,12 @@ For each task + reviewer role, CLI builds a per-reviewer view dir that exposes o
 /tmp/lizard/<stem>/r2-view/   (symmetric)
 ```
 
-Reviewer session's filesystem root = its view dir. Reviewer physically cannot read `tasks/review1/` or `tasks/review2/` — those dirs aren't exposed.
+**skeleton.md is a blind copy, not a symlink.** CLI strips `#### Rewrite Answer` lines before writing:
+```bash
+sed '/^#### Rewrite Answer$/{n;s/.*/\(redacted — verify independently from image\)/}' \
+  tasks/skeleton/<stem>.md > /tmp/lizard/<stem>/<role>-view/skeleton.md
+```
+Reviewer physically cannot read `tasks/review1/` or `tasks/review2/` — those dirs aren't exposed.
 
 ### Reviewer prompt (short)
 
@@ -229,8 +306,14 @@ CLI fires both reviewers in one go via shell `&` + `wait`:
 
 - **opus path**: `cd /tmp/lizard/<stem>/<role>-view/ && claude -p "$PROMPT" < /dev/null > opus.log 2>&1 &`
   (Writes `review.md` into the sandbox dir.)
-- **openclaw path**: `curl -sS -X POST "http://127.0.0.1:18789/chat?session=agent:r:<stem>-<uuid>" -d "$PROMPT_WITH_INLINED_FILES" > openclaw.log 2>&1 &`
-  (Response body is the review text.)
+- **openclaw path**:
+  ```bash
+  OPENCLAW_MSG=$(STEM="<stem>" LIZARD_DIR="$LIZARD" node scripts/build-openclaw-msg.mjs)
+  OPENCLAW_TOKEN="$TOKEN" OPENCLAW_MSG="$OPENCLAW_MSG" \
+    OPENCLAW_SESSION="agent:main:<stem>-<uuid>" \
+    node scripts/openclaw-probe.mjs > openclaw.log 2>&1 &
+  ```
+  `build-openclaw-msg.mjs` sanity-checks all paths with `existsSync`, prints a path check to stderr, and exits 1 if any required path is missing. Response is captured from `openclaw.log`.
 
 After `wait`, CLI copies each output to `tasks/review1/<stem>.md` and `tasks/review2/<stem>.md` per the slot assignment.
 
@@ -247,39 +330,69 @@ grep -qi "reviewer.1\|review1\|R1" tasks/review2/<stem>.md && { echo "FAIL R2 le
 
 Any leak → abort, discard both outputs, re-launch reviewers. No merger call until gate passes.
 
-### Merger (CLI deterministic, no stop)
+### Merger (CLI, agreement-only — no tiebreak)
 
-Reviewers produce `tasks/review1/<stem>.md` + `tasks/review2/<stem>.md`. CLI merges deterministically:
+Reviewers produce `tasks/review1/<stem>.md` + `tasks/review2/<stem>.md`. CLI merges conservatively:
 
-- **Both reviewers agree** (same rating + compatible edits) → take it. Write per-annotation section with chosen rating + merged edits + feedback.
-- **Disagree on rating, or any thumbs-down, or any escalation trigger fires** → take the more-supported reviewer as default, but **tag the annotation with a `⚠️ flag`** in the task file. Flag carries through to Job 3 approval.
+- **Both reviewers agree** (same rating + compatible edits + same answer) → take it. Write per-annotation section with chosen rating + merged edits + feedback. No flag.
+- **Any disagreement** (rating, answer, skills, prompt edit) **OR any thumbs-down** (even if both agree) → annotation marked `UNRESOLVED` in task file. **CLI does NOT pick a default.** Both reviewer verdicts preserved side-by-side for Phase C.
 
-No silent overrides of reviewer answers. Merger override discipline: if CLI's own pixel count or reasoning disagrees with a reviewer rewrite, flag the annotation rather than silently flipping. Any three-way disagreement is a flag — never a split-the-difference.
+Rationale: previously CLI defaulted to the "more-supported" reviewer, acting as a silent 3rd judge. That's gone. CLI cannot tiebreak; Phase C exists precisely so human resolves conflicts and thumbs-downs.
 
-#### Escalation triggers (flagged, not stopped mid-merge)
+#### UNRESOLVED triggers
 
-Annotation gets `⚠️ flag` if any of:
+Annotation marked `UNRESOLVED` (requiring Phase C human resolution) if any of:
 
-1. **Any thumbs-down** on any annotation (always flagged).
-2. **Three-way disagreement** (R1 ≠ R2 ≠ merger on rating or answer).
-3. **Image crop / pixel-count needed** to resolve an ambiguity.
-4. **Slack ruling referenced** in R1 or R2 but not present in `wiki/slack-rulings.md`.
-5. **Cycle 2** + prior-cycle feedback not cleanly addressed by annotator.
-6. **Prompt rewrite changes the answer** (cycle-2 risk — rewrite silently re-values).
-7. **Merger confidence below threshold** on any annotation (explicit self-flag in merger output).
+1. **R1 rating ≠ R2 rating.**
+2. **Any thumbs-down** from either reviewer (always UNRESOLVED, even if both agree thumbs-down — human must confirm the reject).
+3. **R1 answer ≠ R2 answer** (even if both thumbs-up).
+4. **R1 skill edits ≠ R2 skill edits.**
+5. **R1 prompt edits ≠ R2 prompt edits.**
+6. **Three-way tension**: CLI notices its own read conflicts with both reviewers.
+7. **Image crop / pixel-count needed** to resolve an ambiguity.
+8. **Slack ruling referenced** in R1 or R2 but not present in `wiki/slack-rulings.md`.
+9. **Cycle 2** + prior-cycle feedback not cleanly addressed by annotator.
+10. **Prompt rewrite changes the answer** (cycle-2 risk).
 
-All flags surface to Igor at Job 3 NEED APPROVAL stop — not mid-merge.
+### Phase B output (pre-Phase-C)
 
-### Merger output
+CLI writes `tasks/<stem>.md` with:
+- Per-annotation sections for all annotations.
+- Agreement annotations fully populated (rating, edits, feedback, payload entry).
+- UNRESOLVED annotations marked with `UNRESOLVED: <reason>` header + BOTH reviewer verdicts side-by-side. No payload entry yet.
+- `## Form-Fill Payload` block partial — only contains entries for agreement annotations.
 
-CLI writes complete `tasks/<stem>.md` including per-annotation sections AND `## Form-Fill Payload` YAML block. Payload is auto-materialized from merger verdicts — no separate walk-through phase.
+Phase B is atomic and auto — no human stop.
 
-Per-annotation block format:
+### Phase C — Human conflict resolution
+
+If `tasks/<stem>.md` contains zero `UNRESOLVED:` markers → skip Phase C, proceed to Job 3.
+
+Otherwise, CLI walks the unresolved list:
+
+```
+─── UNRESOLVED: <stem> A<n> ────────────
+Prompt: <full prompt excerpt>
+Model answer: <X>   Annotator answer: <Y>
+Image: screenshots/<stem>.<ext>
+
+R1 verdict: <rating> | answer: <Z> | edits: <...> | feedback: <...>
+R2 verdict: <rating> | answer: <W> | edits: <...> | feedback: <...>
+
+[1] take R1   [2] take R2   [C]ustom (type override)   [I]mage (print path)   [S]kip (leave UNRESOLVED, task held)
+```
+
+Human picks. CLI fills per-annotation section with chosen verdict + appends payload entry. Loops to next UNRESOLVED.
+
+After all UNRESOLVED resolved (or skipped → task held) → payload complete → Job 3.
+
+### Final task file format
+
+Per-annotation block (after Phase B+C):
 - `Rating:` — `thumbs-up` / `thumbs-down` / `deleted` / `unchanged`
-- `⚠️ flag` lines for any escalation triggers (human reads these at Job 3)
 - `Edits Made:` — skill toggles, prompt edits, answer edits
 - `Feedback:` — annotator feedback text
-- `Merge Log:` — which reviewer dominated + reason (audit trail)
+- `Resolution:` — `agreement` (both reviewers) or `human-resolved: R1` / `human-resolved: R2` / `human-resolved: custom` (audit trail for Phase C picks)
 
 ## Cycle-1 / Cycle-2 rules (LOCKED)
 
@@ -313,11 +426,11 @@ Job 4 fires one shadow per annotation in the cycle-2 payload. Including annotati
 
 ### Job 0 — Scrape
 
-Per task, as the first step inside the per-task loop.
+Per task, as the first step inside the per-task loop. **NEVER bulk-scrape all tasks up front** — content scrape for task N happens only when task N enters the loop body, not as a batch prelude. Only the one-time queue metadata read (step 2 below) fires once at batch start; content scrape (step 3+) is strictly per-task.
 
 Steps:
 1. `tabs_context_mcp` → locate/reuse tab at SA project data URL (`https://app.superannotate.com/35245/project/283665/data?sort=name&direction=asc`).
-2. If batch manifest not yet frozen (first task), read queue: `read_page(tabId, filter:"interactive")` → capture all candidate rows (Name, category, editor URL). Build manifest by filtering out: skip-list entries, `return_to_QC_by_NV`, terminal statuses (QC_Complete, Skipped, Unusable). If N > 10, confirm full list with human before proceeding. Write `_manifest.json` + initialize `_manifest.state.json` + `_state.json`.
+2. If batch manifest not yet frozen (first task), read queue: `read_page(tabId, filter:"interactive")` → capture all candidate rows (Name, category, editor URL). Build manifest by filtering out: skip-list entries, `return_to_QC_by_NV`, terminal statuses (QC_Complete, Skipped, Unusable). **Always print the filtered candidate list and confirm with human before freezing** (no N threshold). Write `_manifest.json` + initialize `_manifest.state.json` + `_state.json`.
 3. For the current task: locate/reuse tab at cached `editor_url`. Scrape via `javascript_tool` + `scripts/scrape-superannotate.js`.
 4. Download lands in `~/Downloads/sa-scrape-<task_id>*.txt`. Copy the **newest** matching file (by mtime) to `scrapes/<stem>.txt`. Browser-added `(1)`, `(2)` suffixes on re-download mean the un-suffixed file is often stale — do not assume name. Hard-fail if zero matches. Log which file was picked if multiple.
 5. **Image save:** if `screenshots/<stem>.<ext>` already exists → skip (cycle 2, image unchanged). Else `curl` the `IMAGE_URL` from the scrape directly — never right-click → save-as (captures editor viewport).
@@ -330,6 +443,7 @@ Steps:
 7. Validate scrape (consistency checks — see Job 1 step 5).
 
 On failure → log + continue (auto-skip; mark task `held:true`).
+**→ write `_state.json`: `phase: job1, last_step: job0.done, current_task: <stem>`**
 
 ### Job 1 — Skeleton
 
@@ -343,32 +457,64 @@ Steps:
    - Cycle 1 → fresh `tasks/skeleton/<stem>.md` from `templates/review-template.md` (skeleton subset — Task Info + per-annotation sections with raw fields inline). Rating / Two-Part Check / Edits / Feedback sections left empty.
    - Cycle 2 → append `## Cycle 2 Review` section with raw cycle-2 scrape data. Task Info `task_id` already populated from cycle 1 — verify match with manifest (mismatch = fail loud).
 5. **Consistency check** (raw-data only): `n_annotations >= 1`, every `prompt_len >= 50`, `answer_len > 0`, image on disk, all scrape sections populated, `task_id` in Task Info. On fail → log + auto-skip.
+**→ write `_state.json`: `phase: job2.reviewers, last_step: job1.skeleton_written, current_task: <stem>`**
 
-### Job 2 — Review + merge + payload
+### Job 2 — Review + (agreement) merge + Phase C + payload
 
-**Phases (per task, no STOPs — all CLI autonomous):**
+**Phases (per task):** A is auto. B is auto (agreement-only merge). C is human-interactive ONLY if any UNRESOLVED annotations. Payload materialized at end of C (or end of B if zero UNRESOLVED).
 
-#### Phase A — Reviewers parallel
+#### Phase A — Reviewers parallel (auto)
 
 1. CLI assigns slot (r1/r2) per reviewer (opus, openclaw). Writes pair to `_manifest.state.json → tasks.<stem>.reviewers`.
 2. CLI builds Opus sandbox at `/tmp/lizard/<stem>/<role>-view/` with symlink tree.
 3. CLI fires both reviewers in parallel (bash `&` + `wait`):
    - Opus: `cd /tmp/lizard/<stem>/<role>-view/ && claude -p "$PROMPT" < /dev/null > opus.log 2>&1 &`
-   - Openclaw: `OPENCLAW_MSG="$PROMPT_INLINED" OPENCLAW_SESSION=agent:main:main node scripts/openclaw-probe.mjs > openclaw.log 2>&1 &`
+   - Openclaw:
+     ```bash
+     OPENCLAW_MSG=$(STEM="<stem>" LIZARD_DIR="$LIZARD" node scripts/build-openclaw-msg.mjs)
+     OPENCLAW_TOKEN="$TOKEN" OPENCLAW_MSG="$OPENCLAW_MSG" \
+       OPENCLAW_SESSION="agent:main:<stem>-<uuid>" \
+       node scripts/openclaw-probe.mjs > openclaw.log 2>&1 &
+     ```
 4. CLI captures output → writes to `tasks/review1/<stem>.md` and `tasks/review2/<stem>.md` per slot assignment.
 5. CLI runs independence gate grep. Fail → discard + retry.
 6. CLI cleans up Opus sandbox: `rm -rf /tmp/lizard/<stem>/`.
+**→ write `_state.json`: `phase: job2.merge, last_step: job2.reviewers.done, current_task: <stem>`**
 
 Reviewer wall-clock ~60-120 s per task.
 
-#### Phase B — Merge + payload materialize
+#### Phase B — Agreement merge (auto)
 
 1. CLI reads `tasks/skeleton/<stem>.md` + `tasks/review1/<stem>.md` + `tasks/review2/<stem>.md` + image.
-2. Per annotation: apply deterministic merge logic (see Merger section above). Write per-annotation section with `⚠️ flag` for any escalation trigger.
-3. After all annotations merged, materialize `## Form-Fill Payload` (cycle 1) or `## Form-Fill Payload (Cycle 2)` YAML block.
-4. Consistency check on materialized payload (see "Payload consistency check" below).
+   **Read-First block check (before merge):** verify each review file contains a `## Read-First Observations` section:
+   ```bash
+   grep -q "^## Read-First Observations" tasks/review1/<stem>.md || echo "MALFORMED r1: missing Read-First block"
+   grep -q "^## Read-First Observations" tasks/review2/<stem>.md || echo "MALFORMED r2: missing Read-First block"
+   ```
+   Missing block = malformed → discard that side, re-launch that reviewer once. If still missing after retry → hard-fail, report to human.
+2. Per annotation: apply agreement-only merge (see Merger section above). Agreements fully populated; disagreements and thumbs-downs marked `UNRESOLVED: <reason>` with both reviewer verdicts preserved side-by-side.
+3. No `⚠️ flag` / no "more-supported default" picks — CLI does NOT tiebreak.
+4. Partial `## Form-Fill Payload` materialized — only agreement entries. UNRESOLVED annotations have no payload entry yet.
 
-All Phase B output lands in `tasks/<stem>.md` — ready for Job 3 approval.
+Phase B output lands in `tasks/<stem>.md`.
+**→ write `_state.json`: `phase: job3.approval, last_step: job2.merge.done, current_task: <stem>`**
+If zero UNRESOLVED → payload is complete, jump to Job 3. Else → Phase C.
+
+#### Phase C — Human conflict resolution (interactive, only if UNRESOLVED > 0)
+
+For each `UNRESOLVED:` annotation in order:
+
+1. CLI prints side-by-side comparison (see Merger section above — prompt excerpt, model/annotator answers, R1 verdict, R2 verdict, image path).
+2. Human picks `[1] R1` / `[2] R2` / `[C]ustom` / `[I]mage` / `[S]kip`.
+3. CLI fills the annotation section with chosen verdict, writes `Resolution: human-resolved: <R1|R2|custom>`, appends payload entry.
+4. `[S]kip` → annotation stays UNRESOLVED, task marked `held:true` after Phase C, skips Job 3.
+
+After all UNRESOLVED resolved → payload complete → Job 3.
+**→ write `_state.json`: `phase: job3.pending_approval, last_step: job3.approval_presented, current_task: <stem>`** (immediately after printing NEED APPROVAL plan)
+
+#### Payload consistency check (end of Phase B or C)
+
+Run mechanical + markdown cross-reference (see "Payload consistency check" below). Auto-fix drift, hard-fail schema.
 
 **Payload YAML fields (one entry per annotation):**
 - `sa.rating` ← `Rating:` field (`thumbs-up` / `thumbs-down` / `deleted` / `unchanged` for cycle-2 carry-over)
@@ -405,36 +551,40 @@ Step B — markdown cross-reference (auto-fix):
 
 Auto-fix mismatches silently, report `{fixes_applied, clean}`. Only then task is ready for Job 3.
 
-### Job 3 — NEED APPROVAL + Apply
+### Job 3 — NEED APPROVAL + Apply (pure review)
 
-Per task. **Single human stop: NEED APPROVAL.** One task at a time (parallel SA writes corrupt state).
+Per task. Human stop: NEED APPROVAL. **Pure review** — all conflicts already resolved in Phase C. No picking happens here.
 
-Input: `tasks/<stem>.md` — CLI-merged, payload materialized. Canonical source is the `## Form-Fill Payload` YAML block.
+Input: `tasks/<stem>.md` — fully resolved, payload materialized (0 `UNRESOLVED:` markers, or task was held after Phase C skip). Canonical source is the `## Form-Fill Payload` YAML block.
 
 **Pre-flight (mandatory, before approval stop):**
 - Step A — `python3 scripts/validate_payload.py tasks/<stem>.md --cycle <N>` → non-zero = ABORT, mark held.
 - Step B — markdown cross-reference auto-fix.
+- Step C — verify no `UNRESOLVED:` markers remain in `tasks/<stem>.md`. If any → Phase C incomplete, return to Phase C.
 
 **Approval stop:**
 
 ```
 ─── NEED APPROVAL: <stem> (Cycle N) ───────────────
 Annotations: <N>   Ratings: <m>👍 / <n>👎 / <d>deleted / <u>unchanged
-Flags (⚠️): <list of annotation#s with flag reasons>
-Derived QC status: <status>
+Resolution: <a> agreement / <r> human-resolved
 
 Per-annotation plan:
-  A1: thumbs-up, skills +TCG -WK, feedback=null
-  A2: thumbs-down ⚠️ flag:3way-disagree, skills -Enum, answer_final=<diff>, feedback=<...>
+  A1: thumbs-up (agreement), skills +TCG -WK, feedback=null
+  A2: thumbs-down (human-resolved: R2), skills -Enum, answer_final=<diff>, feedback=<...>
   ...
+
+Derived QC status (advisory, for human to set in SA UI post-apply): <status>
 
 Type YES to apply, NO to reject with feedback, OPEN to open task file first.
 ```
 
 Responses:
-- **YES** → proceed with apply steps below.
-- **OPEN** → CLI prints `tasks/<stem>.md` path + waits for Igor to read + return with YES/NO.
-- **NO** → CLI prompts for feedback (per-annotation edits in natural language). CLI applies edits to `tasks/<stem>.md`, re-runs pre-flight, marks `held:true`. Task stays in batch for later re-approval; loop moves to next task.
+- **DONE** → all annotations resolved; task state → `resolved`; proceed to 3b SA apply when triggered.
+- **OPEN** → CLI prints `tasks/<stem>.md` path + waits for human to read + return.
+- **(per-annotation edits)** → Igor adjusts individual annotations in the walk-through. Task remains in `awaiting_resolution` until all annotations are decided.
+
+No blanket task-level NO or held state. Every annotation gets resolved before task leaves 3a.
 
 **Apply steps (after YES):**
 1. Parse payload YAML. Extract `task_id` from Task Info. Locate SA editor tab at matching URL.
@@ -448,14 +598,12 @@ Responses:
    - Set QC rating per `rating`.
    - Paste `feedback` into QC Feedback field if thumbs-down OR any field changed. **Append to existing, never replace.** Readback to verify.
    - For `rating: deleted` (cycle 2): click thumbs-down + paste feedback + save — so annotator sees delete reason. CLI does NOT click delete itself (human does).
-3. After ALL annotations, click task-level **Save**. Confirm save toast.
-4. Set task-level QC status to derived value (CLI auto-sets since human already approved):
-   - cycle 2 → `QC_Complete` (terminal)
-   - cycle 1 + any 👎 → `QC_Return`
-   - cycle 1 + all 👍 → `QC_Complete`
+3. **Pre-save audit (mandatory before Save):** For every annotation, read back the feedback textarea value and compare against payload `feedback` field character-by-character. Mismatch = fix before Save. SA tasks lock on submit; post-save correction is impossible.
+4. After ALL annotations pass audit, click task-level **Save**. Confirm save toast.
+4. **STOP — human sets task-level SA status manually.** CLI never touches the task-level status dropdown. Human sets it in the SA UI after CLI finishes step 3.
 5. Stamp `- **SA Applied (Cycle N):** ✅` in `tasks/<stem>.md` under `## Task Status`.
 6. Mark `_manifest.state.json → tasks.<stem>.sa_applied:true`.
-7. Advance to next task. `_state.json` `phase: idle`, `current_task: null`.
+7. **→ write `_state.json`: `phase: idle, last_step: job3.done, current_task: null`**
 
 Task is now gone from SA queue (submitted).
 
@@ -525,20 +673,23 @@ ta.dispatchEvent(new Event('change', {bubbles: true}));
 
 ## Hard rules
 
-- **Single human stop per task: Job 3 NEED APPROVAL.** No mid-merge, no mid-apply stops.
-- **CLI auto-sets SA task status** after YES approval (derived from cycle + ratings). Human can reject at NEED APPROVAL and override in feedback.
+- **CLI never tiebreaks reviewers.** Disagreements + thumbs-downs → UNRESOLVED, resolved by human in Phase C. No silent 3rd-judge defaults.
+- **Job 3 is pure review.** All conflicts resolved in Phase C before Job 3. Job 3 = human YES/NO on an assembled, fully-resolved plan.
+- **Human stops per task:** Phase C (only if UNRESOLVED > 0) + Job 3 approval + SA status set in SA UI.
+- **CLI never sets SA task status.** Task-level QualityCheck dropdown is human-only. CLI applies per-annotation fields (skills, rating, answer, feedback) + saves + stamps SA Applied. Human then sets status in SA UI.
 - **CLI clicks HAI Submit + Confirm time.** Automatic.
 - **Never reinterpret payload after approval.** Dumb executor post-YES. Values are final as-written in YAML.
-- **Never rescore during Job 3 apply.** Eval finalized in Job 2 merge; approval gate is yes/no on the plan, not a per-annotation re-eval.
-- **Payload auto-materialized in Phase B.** CLI emits full `tasks/<stem>.md` including payload block before the approval stop.
+- **Never rescore during Job 3 apply.** Eval finalized in Phase B+C; approval gate is yes/no on the plan, not a per-annotation re-eval.
+- **Payload materialized after Phase C (or end of B if zero UNRESOLVED).** CLI emits full `tasks/<stem>.md` including payload block before the approval stop.
 - **Job 3 apply never fires without YES approval.**
 - **Job 4 never fires until task is SA-applied** (stamped `SA Applied: ✅`).
 - **Cycle 3 refused** at Job 1. Cycle 2 is terminal.
-- **Canonical task file is CLI merger output.** `tasks/<stem>.md` written by Job 2 Phase B (merge + payload). `tasks/review1/<stem>.md` and `tasks/review2/<stem>.md` are intermediate artifacts.
+- **Canonical task file is `tasks/<stem>.md`** — written by Phase B (agreements) + Phase C (human resolutions) + payload. `tasks/review1/<stem>.md` and `tasks/review2/<stem>.md` are intermediate artifacts.
 - **Model identity never surfaced to merger.** Pool assignment lives in `_manifest.state.json → tasks.<stem>.reviewers` only.
 - **Reviewer independence enforced by filesystem sandbox**, not by prompt.
 - **Cycle-2 payload includes ALL annotations.** No "only changed" rule. LOCKED (2026-04-19).
 - **Cycle-2 shadows fire for ALL payload entries.** Including `rating: unchanged`. LOCKED.
+- **No bulk content-scrape at batch start.** Only queue metadata read builds the manifest; content scrape is per-task inside the loop.
 - **Newest scrape file by mtime** — never assume un-suffixed name.
 - **Image save is `curl IMAGE_URL`**, never right-click save-as.
 - **Tab reuse mandatory** when matching tab exists.

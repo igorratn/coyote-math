@@ -7,6 +7,11 @@ screenshots/
 # Raw SA dumps (disposable — data embedded in task files)
 scrapes/
 
+# Intermediate reviewer + skeleton outputs (regeneratable from scrapes)
+tasks/review1/
+tasks/review2/
+tasks/skeleton/
+
 # Temp/scratch
 temp_*
 *.tmp

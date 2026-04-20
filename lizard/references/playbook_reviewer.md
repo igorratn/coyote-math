@@ -1,3 +1,40 @@
+# Read-First Observations
+
+**Mandatory first block in every review output, before any annotation-level checks.**
+
+<!-- Motivation: 2026-04-19 Plot_Control_systems_graphs_125 A2/A3/A4 — Opus substituted control-systems textbook priors for pixel reads: unit-step theory → 1.0 vs drawn 0.90; first labeled y-tick → 0.2 vs visible unlabeled line at y≈0.1; theoretical oscillation spacing → undercounted peaks. Read-First forces literal image read before any framework check so domain priors cannot override visual evidence. -->
+
+List raw visual facts only. No textbook claims, no theory, no domain priors. Only what is drawn:
+
+- **Axis labels and ticks:** both axes; list every visible tick value including unlabeled ones (estimate from spacing).
+- **Reference and grid lines:** every horizontal line (solid or dashed/dotted) with its y-value, excluding axis borders and x-axis.
+- **Curve features:** every peak (local max) with approximate x-coordinate left→right; every trough; highest y reached; lowest y reached; apparent steady-state (rightmost settled value).
+- **Title, legend, axis labels:** exact text visible.
+
+**Citation rule:** Every numeric claim in the Framework Check sections must cite an entry from this block. Mismatch between a Read-First entry and an answer = answer fails; "expected behavior" or domain theory is not a valid escape.
+
+**Example** (Plot_Control_systems_graphs_125 — "System Step Response" oscillating curves):
+
+```
+## Read-First Observations
+- X-axis: ticks at 0, 1, 2, 3, 4, 5, 6, 7
+- Y-axis: labeled ticks at 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6;
+          unlabeled tick visible below 0.2 at y≈0.1;
+          unlabeled tick visible above 0.8 at y≈0.9 (drawn convergence line)
+- Reference lines (solid horizontal): y≈0.1, y≈0.9, y≈1.0
+- Peaks (left→right): x≈0.6 y≈1.57, x≈1.9 y≈1.10, x≈3.2 y≈0.98, x≈4.4 y≈0.94
+- Troughs (left→right): x≈1.3 y≈0.43, x≈2.6 y≈0.82, x≈3.8 y≈0.87
+- Y range: low≈0.43, high≈1.57
+- Steady-state (rightmost): y≈0.90 (curves drawn settling toward the y≈0.9 reference line, NOT 1.0)
+- Title: "System Step Response"
+```
+
+*Correct reads for A2 (steady-state): y≈0.90 [Read-First "Steady-state"]. NOT 1.0 — that's textbook unit-step theory, not what is drawn.*
+*Correct reads for A3 (lowest line): y≈0.1 [Read-First "unlabeled tick below 0.2"]. NOT 0.2 — the first labeled tick, which is not the same as the lowest line.*
+*Correct reads for A4 (4th peak x-value): peaks at x≈0.6, 1.9, 3.2, 4.4 → 4th = x≈4.4 [Read-First "Peaks"]. NOT 5.8.*
+
+---
+
 # Guidelines
 
 ### **Allowed Edits**

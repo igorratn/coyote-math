@@ -16,7 +16,14 @@
 #
 # Callers:
 #   - Every job boundary in HOST_SOP (phase, last_step).
-#   - Per-annotation within Job 3 (job3_progress: pending → in_flight → applied).
+#   - Per-task within Job 3 (two-step split):
+#       awaiting_resolution — 3a pending, Igor resolving per-annotation decisions
+#       resolved            — 3a done (all annotations resolved); 3b not yet pushed to SA
+#       applied             — 3b done (SA push succeeded, sa_applied:true in manifest)
+#   - Phase values (top-level):
+#       job3.pending_resolution        — tasks awaiting Igor's per-annotation decisions
+#       job3.resolved_pending_sa_apply — all resolved tasks, 3b not yet done
+#       job3.applying                  — 3b SA push in progress
 #   - Per-annotation within Job 4 (job4_progress: pending → fired).
 #
 # Crash recovery: new CLI reads _state.json on startup; see HOST_SOP.md#crash-recovery.
