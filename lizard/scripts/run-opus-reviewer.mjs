@@ -97,12 +97,55 @@ const imgData = readFileSync(PATHS.screenshot).toString('base64');
 const mediaType = PATHS.screenshot_ext === 'jpg' || PATHS.screenshot_ext === 'jpeg'
   ? 'image/jpeg' : `image/${PATHS.screenshot_ext}`;
 
+// Generate quadrant crops via sips so Opus gets zoom-level detail on each region
+function makeQuadrantCrops(srcPath, ext) {
+  const dimsRaw = execSync(`sips -g pixelWidth -g pixelHeight ${JSON.stringify(srcPath)}`, { encoding: 'utf8' });
+  const w = parseInt(dimsRaw.match(/pixelWidth:\s*(\d+)/)[1]);
+  const h = parseInt(dimsRaw.match(/pixelHeight:\s*(\d+)/)[1]);
+  const hw = Math.floor(w / 2);
+  const hh = Math.floor(h / 2);
+  const quadrants = [
+    { label: 'top-left',     offY: 0,  offX: 0,  cropH: hh, cropW: hw },
+    { label: 'top-right',    offY: 0,  offX: hw, cropH: hh, cropW: hw },
+    { label: 'bottom-left',  offY: hh, offX: 0,  cropH: hh, cropW: hw },
+    { label: 'bottom-right', offY: hh, offX: hw, cropH: hh, cropW: hw },
+  ];
+  const crops = [];
+  for (const q of quadrants) {
+    const tmp = join(tmpdir(), `opus-crop-${STEM}-${q.label}-${Date.now()}.${ext}`);
+    try {
+      execSync(
+        `sips --cropOffset ${q.offY} ${q.offX} -c ${q.cropH} ${q.cropW} ${JSON.stringify(srcPath)} --out ${JSON.stringify(tmp)}`,
+        { encoding: 'utf8' }
+      );
+      crops.push({ label: q.label, data: readFileSync(tmp).toString('base64') });
+      try { unlinkSync(tmp); } catch {}
+    } catch (e) {
+      console.error(`[run-opus-reviewer] crop failed for ${q.label}: ${e.message}`);
+    }
+  }
+  console.error(`[run-opus-reviewer] generated ${crops.length} quadrant crops (${w}x${h} → 4x ${hw}x${hh})`);
+  return crops;
+}
+
+const quadCrops = makeQuadrantCrops(PATHS.screenshot, PATHS.screenshot_ext);
+
+// Assemble content: full image first, then quadrant crops with labels, then text
+const imageBlocks = [
+  { type: 'image', source: { type: 'base64', media_type: mediaType, data: imgData } },
+  { type: 'text', text: 'The image above is the full screenshot. Below are 4 quadrant crops (top-left, top-right, bottom-left, bottom-right) at 2x effective zoom. Use these for fine-grained element reads.' },
+  ...quadCrops.flatMap(q => [
+    { type: 'text', text: `Quadrant: ${q.label}` },
+    { type: 'image', source: { type: 'base64', media_type: mediaType, data: q.data } },
+  ]),
+];
+
 const streamMsg = JSON.stringify({
   type: 'user',
   message: {
     role: 'user',
     content: [
-      { type: 'image', source: { type: 'base64', media_type: mediaType, data: imgData } },
+      ...imageBlocks,
       { type: 'text', text: fullText },
     ],
   },

@@ -73,34 +73,40 @@ If annotator resubmits an annotation that is a near-duplicate of another annotat
 
 ## NV Audit Returns (Reviewer Disagrees)
 
-Triggered when SA task comes back with NV Audit thumbs-down on annotations you approved.
+Triggered when SA task returns with NV Audit thumbs-down on annotations you approved. Form per Slack: **NV Audit → rebuttal form** (not office hours, not the channel). Internal audit disputes → office hours or `lizard-reviewers` channel.
 
 ### Step 1: Re-scrape
-Tell host to re-scrape (no image needed). Host updates scrape script to capture NV Audit rating + feedback per annotation, saves to `scrapes/<stem>.txt`, updates `tasks/<stem>.md` with NV Audit section per annotation + summary at bottom.
+Host re-scrapes (no image needed). Captures NV Audit rating + feedback per annotation → `scrapes/<stem>.txt` → `tasks/<stem>.md`.
 
-### Step 2: Review audit feedback
-Cowork reads task file. For each flagged annotation:
-- Re-verify math independently (don't trust auditor's implicit claim)
-- Identify what value the auditor might have read differently
-- Note specific visual ambiguities if any
+### Step 2: Per-annotation review with human
+One reviewer only, walked with Igor. For each flagged annotation:
+- Re-verify math independently
+- Identify what value the auditor may have read differently
+- Note visual ambiguities
+- Draft rebuttal text: exact values, math chain, prompt language supporting the reading
+- **Igor approves or rejects before anything is filed.** Approve → rebuttal. Reject → concede, correct answer in task file.
 
-### Step 3: Decide — rebuttal or concede
-- If math holds and reading is defensible → file rebuttal
-- If auditor found a genuine error → update task file, concede, correct answer
+### Step 3: File form (approved annotations only)
+- Form URL: https://docs.google.com/forms/d/e/1FAIpQLSfwv4KFZp2eEaPQ_sfg8BAyjFhvAG2o5jwi6N3CpWJuxHAJEA/viewform
+- One submission per annotation. Igor submits.
+- After submit, update `tasks/<stem>.md` in two places:
+  1. `## Task Info` — stamp (machine-readable flag):
+     ```
+     - **NV Rebuttal Filed:** YYYY-MM-DD (A<n>, A<n>, ...)
+     ```
+  2. Per-annotation `#### NV Audit` subsection (audit trail — survives form, needed when ruling returns in ~2 weeks):
+     ```
+     #### NV Audit
+     - **Rating:** thumbs-down
+     - **Feedback:** <verbatim NV audit text>
+     - **Rebuttal filed:** YYYY-MM-DD — awaiting ruling.
+     - **Rebuttal text:**
+       > <full rebuttal letter submitted to the form>
+     ```
+- Grep target for stamp: `^- \*\*NV Rebuttal Filed:\*\*`
+- Decision on next SA queue pass: `return_to_QC_by_NV` + stamp → skip; no stamp → file; category flips → ruling came back.
 
-### Skipping tasks with pending rebuttals
-When selecting next tasks from the SA queue, skip any task whose `tasks/<stem>.md` has "NV Audit rebuttal pending" in its status line. These linger in SA untouched until ruling arrives. Check back after ~2 weeks or when Achsah/HAI reaches out.
-
-### Step 4: File rebuttal (NV Audit only)
-Per Slack: **NV Audit → rebuttal form** (not office hours, not the channel).
-- Form: https://docs.google.com/forms/d/e/1FAIpQLSfwv4KFZp2eEaPQ_sfg8BAyjFhvAG2o5jwi6N3CpWJuxHAJEA/viewform
-- Draft rebuttal text per annotation: state the exact values used, show the math chain, cite prompt language that supports your reading
-- User fills out the rebuttal form with that text
-- **After submitting: leave the task in SA untouched.** Do NOT return to annotator. Task lingers in queue until ruling.
-- Achsah/HAI will reach out once client responds. Takes **1–2 weeks**.
-
-### Step 5: Internal audit disputes
-Per Slack: **Internal audit → office hours or lizard-reviewers channel** (not rebuttal form).
+Ruling takes ~1–2 weeks. Achsah/HAI pings when client responds.
 
 ## Regeneration Rule
 Regenerate after ANY prompt edit. If model now correct → revise prompt further or regenerate multiple times.
@@ -116,6 +122,10 @@ Regenerate after ANY prompt edit. If model now correct → revise prompt further
 - **Time budget: ~3 min per prompt first pass, ~10–20 min second pass** (Slack, Apr 7). Shadow task time = source of truth for payment.
 - Second review cycle = new shadow task (new time log).
 - Upload task image via + button
+- **Approve/Reject = per-annotation rating: thumbs-up → Approve, thumbs-down → Reject**
+- **Time edit rule — one-way floor, never a ceiling:** at the "Task complete!" screen, override to 00:20:00 ONLY if session time < 20 min. If session time ≥ 20 min, SKIP Edit time and click Confirm time directly. Overwriting a time > 20 min destroys real logged work and reduces pay; 20:00 is a minimum, not a target.
+- After Confirm time, verify page advanced past the time screen before reporting done
+- Final pipeline completion summary must list each shadow: UUID, annotation #, Approve/Reject, time confirmed ✅
 
 ## First Pass Edits (what reviewer can fix)
 - Skill tags: uncheck wrong ones

@@ -1,5 +1,34 @@
 # Slack Rulings & Office Hours Decisions
 
+## V6 Launch — lizard-announcements (Apr 17–21, 2026)
+
+### V6 Quality Rules (mandatory, all tasks)
+- **≥2 skill tags required**, correctly matched to the actual reasoning in the prompt.
+- **Enumeration tasks: ≥3 skills required** (Enumeration alone is not enough complexity).
+- **Mandatory skill**: every prompt must include ≥1 of: Logical Reasoning, TCG Understanding (Table/Chart/Graph Understanding), World Knowledge. Prompts without any of these fail V6 even if they have 2+ skill tags.
+- **Meaningful reasoning required**: prompt must require multi-step inference, not just reading off a value (extraction is not a model error target).
+- **Fully image-dependent and standalone**: prompt must not require external knowledge beyond what's visible (or world knowledge if tagged).
+- **Avoid giveaways and overly precise/subjective spatial asks** (unchanged from V5, re-emphasized).
+- **Target a real model error**: annotator's goal is a prompt the model gets wrong. If model gets it right consistently, it's too easy.
+- **Correct, well-formatted final answer required**.
+- **V6 applies to ALL tasks**, including V5 tasks still in queue.
+
+### SA Submission Blockers (V6 SA UI)
+- **≥2 ontologies selected** — blocked if missing.
+- **All model answers rated thumbs down** — blocked if any unrated.
+- **All 6 CMW criteria marked agree/disagree**: `QUESTION_UNCLEAR`, `ANSWER_INCORRECT`, `AMBIGUOUS_ANSWER_FORMAT`, `FINE_GRAINED_PRECISION`, `MCQ_FORMAT`, `ROUNDING_NOT_EXPLICIT`.
+- Use **"Verify Submission"** button to surface blockers before submitting.
+
+### Office Hours Change (Apr 21, 2026)
+- Office hours moved from 6PM PST → **3PM PST, Mon–Thurs**.
+- This week (Apr 21–24): walkthrough of new V6 playbook, not normal format.
+
+### Open Questions (no firm ruling yet as of Apr 21, 2026)
+- Approximations in short answer (previously MCQ-only) — asked in #lizard-reviewers, no lead response yet.
+- Applying V6 to old backlogged tasks: community frustrated but no explicit exception granted.
+
+---
+
 ## From lizard-tasking Channel
 
 ### Annotation Rules
@@ -17,6 +46,12 @@
 - **NV Audit disagreement → fill out the rebuttal form.** Do not bring to office hours or the channel. Form: https://docs.google.com/forms/d/e/1FAIpQLSfwv4KFZp2eEaPQ_sfg8BAyjFhvAG2o5jwi6N3CpWJuxHAJEA/viewform
 - **After filing rebuttal: leave task in SA untouched.** Do NOT return to annotator. Wait for Achsah to reach out (1–2 weeks — client has to respond).
 - **Internal audit disagreement → office hours or lizard-reviewers channel.** Do not use rebuttal form.
+
+### NV Audit — Concede Path (NV is correct)
+- **Concede = copy NV feedback to QC box → send back to annotator (Returned_to_Annotator). Do NOT edit prompt or Rewrite Answer yourself.** Confirmed by Angie Z. (Mar 24: Claire B. thread; Mar 25: Jason S. "comma" thread). [Claire](https://handshakeaicommunity.slack.com/archives/C0ANPTSDQ81/p1774373224673579) · [Jason](https://handshakeaicommunity.slack.com/archives/C0ANPTSDQ81/p1774495812150749)
+- **Even if the reviewer already rewrote the prompt on first pass, NV return still goes back to the annotator — don't re-edit yourself.** Noah N. (Apr 18) relaying Daniel's reviewer-sync ruling: "it should still be returned to the annotator in this case. I would give the annotator detailed feedback on exactly what to change." [thread](https://handshakeaicommunity.slack.com/archives/C0ANPTSDQ81/p1776568920281199)
+- **Cycle 2 (after annotator's NV revision returns) = treat as second pass.** Reviewer now may edit anything to make annotations pass (≤20 min/annotation budget). Non-NV-touched annotations can be deleted if unsalvageable. Angie Z. (Mar 24, Mar 29). [Mia](https://handshakeaicommunity.slack.com/archives/C0ANPTSDQ81/p1774381082039009) · [William](https://handshakeaicommunity.slack.com/archives/C0ANPTSDQ81/p1774807803283799)
+- **NV-touched annotations cannot be deleted — ever.** If annotator's revision is worse, revert to the original annotation and edit from there. Achsah W. (Apr 17, Jason S. thread). [thread](https://handshakeaicommunity.slack.com/archives/C0ANPTSDQ81/p1776443834669079)
 
 ### Reviewer Process
 - **Reviewer metrics based on audit.** If audit disagrees with your QC decision, it impacts YOUR scores. Be careful and correct.
@@ -50,3 +85,30 @@
 - **Achsah W. [HAI] is OOO.** All questions go to Nikhil D. [HAI].
 - **SuperAnnotate model outage (Apr 7)** — model not generating answers. SA team aware and working on it. Harsha S. [HAI] will update #lizard-tasking when resolved.
 - **Incentives (Mar 30–Apr 5):** QA: $100 at 14+/21+/28+ hrs. Audit: $200 at 14+ hrs, $100 at 21+/28+ hrs.
+
+## V6 Rollout Rulings (Apr 19–20, 2026)
+
+### Retroactive Application (HAI ruling)
+- **V6 applies to ALL new QCs, including V5 queue.** Per Achsah W. (relayed by Kassandra R., 2026-04-19): new playbook rules apply to all QCs going forward, regardless of when task was originally annotated. Expect audit returns on month-old work.
+- **Playbook v1→v2 transition**: peer discussion of sending back pre-v2 prompts without rating; no formal HAI ruling yet. Joshua C. raised, 5 thumbs-up, not resolved.
+- **Metrics impact**: large backlog hit expected (Kassandra: "Metrics don't really matter for us. Not like that at least"). Peer reassurance only, not official.
+
+### V6 Anchor-Skill Rulings (peer consensus, pending lead confirmation)
+- **Arbitrary WK additions fail V6.** Multiplying by π on an image unrelated to circles = anchor-skill requirement NOT met (Jason S., confirmed by Kassandra R., 2026-04-19). Exception: "if the calculation is for a circle." → WK must be topically relevant to the image, not a stapled-on constant.
+- **Punctuation count × π = still trivial.** Core task is extraction/counting; π doesn't rescue it. Fails V6 anchor-skill (Jason S., 2026-04-19).
+- **"Esoteric WK" no longer counts.** Non-contextual world-knowledge hooks (random constants, tangential facts) don't satisfy the anchor-skill requirement.
+- **Axis-label read-off ≠ TCG.** Reading only axis labels without interacting with chart values may not qualify as TCG Understanding (Jason S., 2026-04-19, debated). Contrast: operating on chart values / segment proportions = TCG.
+- **Unlabeled bar-height comparison = Attribute, not TCG.** "Which bar is highest" on unlabeled bars is Attribute Perception per Kassandra R., 2026-04-20. TCG requires label/axis interaction.
+- **Pie chart "absolute diff of segment % and center number" = trivial.** No meaningful relationship between operated values → fails (Kassandra R., 2026-04-20). Contrast: "20% of center number" where the two quantities have a real relationship = OK.
+- **Word-soup prompts fail.** Long chains of AP operations with contrived WK framing ("complexity score") still fail V6 — giveaways + non-reasoning. "Forms of speech" / adjective / action-word counting isn't real WK (Kassandra R. feedback template, 2026-04-19).
+
+### Hard-to-Distinguish Colors (V6 status)
+- Old "indistinguishable colors" common-error section missing from V2 playbook. Peer interpretation (Jason S., Ayush A., 2026-04-19): still fails under ambiguity / single-verifiable-answer if gradients are genuinely indistinguishable. V6 hasn't loosened this — just didn't restate it. Modifiable (e.g., swap to clearly-different columns) rather than auto-fail.
+
+### Ontology Sameness (peer discussion, 2026-04-19)
+- **Different questions, same ontology**: may be OK if the questions are substantively different (not just the same trick restated). No firm lead ruling. Use best judgment.
+- **Adding prompts on 2nd pass**: annotators going from 1 → 5 prompts during revision — policy unclear, thread inconclusive.
+
+### Procedural (2026-04-19/20)
+- **Reviewer playbook V2 link**: pending; annotator playbook published in #announcements; reviewer version referenced but not yet formally released at time of channel sweep.
+- **Verify Submission on V6**: unresolved — Philippe L. asked whether reviewer or annotator presses it on V6 (2026-04-19). No reply captured.

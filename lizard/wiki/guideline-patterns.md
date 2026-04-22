@@ -2,12 +2,16 @@
 
 ## 5 Guidelines — Decision Patterns
 
-### G1: Complexity (2+ skills, enumeration needs 3+)
+### G1: Complexity (2+ skills, enumeration needs 3+, ≥1 anchor skill)
 - Simple enumeration ("how many bars") with no other reasoning = FAIL
 - Enumeration + math ("count X then divide by Y") = 2 skills, PASS
 - Enumeration + attribute perception + math = 3 skills, PASS
 - "Which color has the highest value?" = attribute perception + table/chart reading = PASS
 - When in doubt: if model could answer without reasoning about the image, too easy
+- **V6 anchor-skill rule (Apr 2026):** every prompt must include ≥1 of {Logical Reasoning, TCG Understanding, World Knowledge}. Enum+AP+Math with none of these three = FAIL even though skill count ≥2. Forces contextually driven prompts, not pure perception/counting.
+- **V6 non-contextual ban:** letter-counting / character-counting / vowel-counting on arbitrary text = FAIL (not contextually driven). Prompt must engage with meaningful image content, not treat image as a string.
+- **V6 extraction ban:** prompt that can be answered by direct read-off (single value lookup, OCR transcription) = FAIL. Must require reasoning step beyond extraction.
+- **V6 applies to all tasks** — including V5 tasks still in queue. Judge all tasks by V6 playbook.
 
 ### G2: Single Verifiable Answer
 - "What is the main takeaway?" = FAIL (subjective)
@@ -86,3 +90,5 @@
 - Colors in prompt must be clearly distinguishable in image
 - "The blue line" when there are two similar blue lines = FAIL
 - Colors as prompt references are fine when unambiguous
+- **MCQ color-name distractors on in-between hues = FAIL** (Apr 20, 2026). When options are color names (Orange / Red / Pink / Purple…) and the target pixel region is an in-between hue (coral, salmon, peach, magenta, teal, etc.), two options are both defensible → G2 + Type 12 fail. Example: stacked-area top band is coral; MCQ "C. Orange / D. Red" — model picks C, annotator picks D, same pixels → ambiguity, not stump.
+- **Fix pattern**: replace color-name options with legend-category options (e.g., "Direct traffic / Organic search / …") so the answer keys off chart semantics, not color naming. Or pick a target whose color is unambiguously one of the named options.

@@ -5,6 +5,7 @@
 - **Image:** SELLO e-commerce dashboard (Recent Customers, Weekly Sales, Store Overview, Today's Orders, Historical Sales Stat, Daily Sales Summary)
 - **Date:** 2026-04-02 (1st pass), 2026-04-04 (2nd pass)
 - **Review Cycle:** 1st → 2nd (annotations 2 and 4 returned, then revised)
+- **NV Rebuttal Filed:** 2026-04-20 (A1)
 
 ## Annotations
 
@@ -40,6 +41,26 @@ Removed Spatial Reasoning and Logical Reasoning tags.
 
 #### Feedback
 4/2: Removed Spatial Reasoning and Logical Reasoning tags — location descriptions are navigational, no deductive reasoning required.
+
+#### NV Audit
+- **Rating:** thumbs-down
+- **Feedback:** Prompt does not have a single verifiable answer. The wording allows multiple interpretations.
+- **Rebuttal filed:** 2026-04-20 — awaiting ruling.
+- **Rebuttal text:**
+  > The prompt has one deterministic reading. Step-by-step:
+  >
+  > Step 1 — bars in Daily Sales Summary (bottom-right): 11 bars. 11² = 121 (Result A).
+  >
+  > Step 2 — labeled values in Historical Sales Stat (bottom-left):
+  > - x-axis labels (12): Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec
+  > - y-axis labels (7): 0, 50k, 70k, 90k, 110k, 120k, 130k
+  > - 12 + 7 = 19; 19² = 361 (Result B).
+  >
+  > Step 3 — A × B: 121 × 361 = 43,681.
+  >
+  > "Total number of bars" and "number of labeled values along the x-axis / y-axis" are closed-count phrasings using standard chart vocabulary. Every label is explicitly printed on the axis — no gridline-vs-label ambiguity, no subset interpretation. The model's answer 17,424 = 11² × 12² reflects the model failing to add the y-axis count, not prompt ambiguity.
+  >
+  > The answer 43,681 is uniquely supported.
 
 ### Annotation 2
 - **Shadow Task:** [ab66e8ec](shadows/ab66e8ec.md) ✅

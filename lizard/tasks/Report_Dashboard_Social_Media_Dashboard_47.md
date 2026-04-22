@@ -15,7 +15,7 @@
 
 ## Annotation 1
 
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [4f53103d](shadows/4f53103d.md)
 - **Rating:** thumbs-up (Igor resolved: annotator Linked In-2.5 correct)
 - **Skills Tagged:** Math Reasoning, Table/Chart/Graph Understanding
 - **Question Type:** SAQ
@@ -49,7 +49,7 @@ None on skills (Math Reasoning + Table/Chart/Graph Understanding are correct). A
 
 ## Annotation 2
 
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [4e384720](shadows/4e384720.md)
 - **Rating:** thumbs-up
 - **Skills Tagged:** Attribute Perception, Math Reasoning, Table/Chart/Graph Understanding
 - **Question Type:** SAQ
@@ -79,7 +79,7 @@ N/A
 
 ## Annotation 3
 
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [505f32b9](shadows/505f32b9.md)
 - **Rating:** thumbs-up (Igor resolved 4/20: reads confirm Facebook valid)
 - **Skills Tagged:** Attribute Perception, Spatial Reasoning, Math Reasoning, Table/Chart/Graph Understanding
 - **Question Type:** SAQ
@@ -111,7 +111,7 @@ R1 👎 (G2/Type 1: presupposes one platform maximizes both). R2 👍 (rating er
 
 ## Annotation 4
 
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [51a5883f](shadows/51a5883f.md)
 - **Rating:** thumbs-up
 - **Skills Tagged:** Attribute Perception, Math Reasoning, Table/Chart/Graph Understanding
 - **Question Type:** MCQ
@@ -146,7 +146,7 @@ N/A
 
 ## Annotation 5
 
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [51a95527](shadows/51a95527.md)
 - **Rating:** thumbs-up
 - **Skills Tagged:** Attribute Perception, Spatial Reasoning, Math Reasoning, Table/Chart/Graph Understanding
 - **Question Type:** SAQ

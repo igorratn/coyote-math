@@ -4,16 +4,17 @@
 - **SA Task Filename:** `Report_Dashboard_Expense_Dashboard_148.json`
 - **SA Internal Task ID:** 186802295
 - **Image:** `screenshots/Report_Dashboard_Expense_Dashboard_148.png` — Expense Summary Dashboard (January — Overall Allocated Budget, Overall Expenses, Overall Current Budget; expense category table with quantities; Expense Allocated Budget bar chart; Total Expenses line chart; Current Budget chart with cross data points)
-- **Date:** 2026-04-14
-- **Review Cycle:** 1st
+- **Date:** 2026-04-14 (Cycle 1); 2026-04-21 (Cycle 2 NV return)
+- **Review Cycle:** 2nd (NV concession — returned to annotator)
+- **NV Concession Filed:** 2026-04-21 (A1)
 
 Independent image re-check completed: key KPI values, category quantity, visible cross count, and Maintenance bar are sufficiently legible to verify both answers.
 
 ## Annotations
 
 ### Annotation 1
-- **Shadow Task:** ✅ submitted — [997b3e73](shadows/997b3e73.md)
-- **Rating:** thumbs-up
+- **Shadow Task:** ✅ submitted — [997b3e73](shadows/997b3e73.md) (Cycle 1)
+- **Rating:** thumbs-down (Cycle 2, NV concession — was thumbs-up Cycle 1)
 - **Question:** Multi-step SAQ — (1) Overall Expenses ÷ Overall Allocated Budget as %; (2) highest-quantity category × that %; (3) ÷ count of fully visible crosses in Current Budget graph.
 - **Skills Tagged (revised):** Enumeration, Attribute Perception, Spatial Reasoning, Logical Reasoning, Table/Chart/Graph Understanding
 - **Skills Tagged (original):** Enumeration, Attribute Perception, Spatial Reasoning, Logical Reasoning, Table/Chart/Graph Understanding, Short answer question
@@ -36,10 +37,16 @@ Using the Expense Summary Dashboard, calculate the percentage of the Overall All
 175.84
 
 #### Edits Made
-None.
+None (Cycle 1). Cycle 2 NV concession: no edits to prompt/answer — annotator revises per playbook.
 
 #### Feedback
-N/A
+4/21 (NV concession): NV Audit: "Specify whether to multiply by the percentage number or the decimal value equivalent to the percent in the first step." Revise the prompt to explicitly state which form applies — e.g., "multiply its quantity by that percentage value (expressed as a number, not a decimal)." Also make the rounding example ("e.g. 1.34") magnitude-consistent with the intended final answer; the current answer 175.84 is ~100× the example — adjust either the example or the operation.
+
+#### NV Audit
+- **Rating:** thumbs-down
+- **Feedback:** 4/20 Specify whether to multiply by the percentage number or the decimal value equivalent to the percent in the first step.
+- **Reviewer disposition:** 2026-04-21 — concede (NV correct; prompt ambiguous on %-value vs decimal reading). No rebuttal form filed.
+- **Action:** SA status → Returned_to_Annotator; A1 rating → thumbs-down; QC feedback box updated (see Feedback above).
 
 ---
 
@@ -79,9 +86,11 @@ N/A
 ---
 
 ## Task Status
-- **Status:** QC_Complete
-- **Reason:** Both annotations structurally sound, both stumped the model, and both answers were independently verified from the image.
+- **Status:** Returned_to_Annotator (Cycle 2, NV concession on A1)
+- **Cycle 1 reason:** Both annotations structurally sound, both stumped the model, and both answers were independently verified from the image.
+- **Cycle 2 reason (2026-04-21):** NV Audit flagged A1 prompt ambiguity on percentage interpretation (number vs decimal). Reviewer concedes — prompt is ambiguous. Per playbook (reviewer_playbook L91 + slack-rulings §NV Concede Path): do NOT edit prompt/answer; update QC feedback; send back to annotator. A2 unchanged.
 - **SA Applied (Cycle 1):** ✅ (legacy backfill 2026-04-18)
+- **SA Applied (Cycle 2):** pending (after annotator revision + re-review)
 
 ---
 
@@ -91,17 +100,18 @@ Canonical payload for host jobs 2 (SA apply-review) and 3 (HAI shadow task). Hos
 ```yaml
 sa_task_filename: "Report_Dashboard_Expense_Dashboard_148.json"
 sa_internal_task_id: "186802295"
-sa_status_proposed: QC_Complete   # host STOPS before setting; human confirms
+sa_status_proposed: Returned_to_Annotator   # Cycle 2 NV concession; host STOPS before setting; human confirms
 
 annotations:
   - n: 1
     sa:
-      rating: thumbs_up
+      rating: thumbs_down   # flipped from thumbs_up in Cycle 2 per NV concession
       skills_check:   []
       skills_uncheck: []
-      prompt_edits: null
-      answer_final: null
-      feedback: null
+      prompt_edits: null    # DO NOT edit prompt — annotator revises (NV concede rule)
+      answer_final: null    # DO NOT edit answer — annotator revises
+      feedback: |
+        4/21 (NV concession): NV Audit: "Specify whether to multiply by the percentage number or the decimal value equivalent to the percent in the first step." Revise the prompt to explicitly state which form applies — e.g., "multiply its quantity by that percentage value (expressed as a number, not a decimal)." Also make the rounding example ("e.g. 1.34") magnitude-consistent with the intended final answer; the current answer 175.84 is ~100× the example — adjust either the example or the operation.
     hai:
       task_id_field: "Report_Dashboard_Expense_Dashboard_148.json"
       role: Reviewing

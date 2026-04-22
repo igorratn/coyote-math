@@ -15,7 +15,7 @@
 
 ## Annotation 1
 
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [4bfe5fea](shadows/4bfe5fea.md)
 - **Rating:** thumbs-up (Igor 4/20: image-verified — shirts ≥M = 2 (M+L), accessories = 4 (2 unique sunglasses on models + 1 hat + 1 sunglasses on top round image); sum = 6)
 - **Skills Tagged:** Enumeration, Math Reasoning, Logical Reasoning
 - **Question Type:** SAQ

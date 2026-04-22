@@ -6,6 +6,7 @@
 - **Image:** Brevo e-commerce dashboard (The Green Yoga — Revenue, Orders, New Customers, Popular Products, Live Feed, Historical Sales Stat, Daily Sales Summary)
 - **Date:** 2026-04-04
 - **Review Cycle:** 1st
+- **NV Rebuttal Filed:** 2026-04-14 (A1, A4)
 
 ## Annotations
 

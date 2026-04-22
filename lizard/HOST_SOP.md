@@ -1,6 +1,6 @@
 # Lizard Host SOP (run in host claude code)
 
-Host CLI owns every step end-to-end: browser scrape (SA + HAI via `chrome-devtools` MCP), skeleton write, reviewer orchestration, agreement merge, SA apply (per-annotation fields only), shadow form-fill. **Human stops per task:** (1) Phase C conflict resolution — only fires if any R1/R2 disagreement or thumbs-down; skipped on all-clean tasks. (2) Job 3 NEED APPROVAL — review + YES/NO on finalized plan. (3) SA task status set in SA UI post-apply. No cowork in runtime. Handoff between CLI and human = filesystem + terminal prompt.
+Host CLI owns every step end-to-end: browser scrape (SA + HAI via `chrome-devtools` MCP), skeleton write, reviewer orchestration, agreement merge, SA apply (per-annotation fields only), shadow form-fill. **Human stops per task:** (1) Phase C resolution — fires for any R1/R2 disagreement, any thumbs-down, and any delete; skipped only on all-clean thumbs-up tasks. (2) Job 3 NEED APPROVAL — review + YES/NO on finalized plan. (3) SA task status set in SA UI post-apply. No cowork in runtime. Handoff between CLI and human = filesystem + terminal prompt.
 
 Repo root: `/Users/iratnere/dev/coyote-math/lizard` (host path). Mirror in Cowork: `/sessions/<current-session>/mnt/lizard` (session ID rotates — do not hardcode).
 
@@ -21,8 +21,8 @@ for each stem in manifest (in manifest order):
   Job 0  scrape
   Job 1  skeleton
   Job 2  Phase A: review1 + review2 parallel → independence gate
-         Phase B: CLI merges agreements only; disagreements + thumbs-downs marked UNRESOLVED (no default tiebreak)
-         Phase C: human resolves each UNRESOLVED annotation (R1 / R2 / custom) — SKIPPED if zero UNRESOLVED
+         Phase B: CLI merges agreements only for clean thumbs-up accepts. Any disagreement, any thumbs-down, or any delete is marked UNRESOLVED (no default tiebreak, no auto-delete)
+         Phase C: human resolves each UNRESOLVED annotation (R1 / R2 / custom), including all deletes and thumbs-downs — SKIPPED only if every annotation is a clean thumbs-up accept
          payload materialized after Phase C
   Job 3  NEED APPROVAL stop (pure review of resolved plan) → YES: SA apply + stamp / NO: feedback, hold
   mark sa_applied:true in state sidecar (human-set SA status separately in SA UI)
@@ -32,6 +32,14 @@ after all tasks sa_applied or held:
   for each stem with sa_applied (skip held):
     Job 4  HAI shadow form-fill (per annotation in payload)
     mark shadows_fired:true
+
+after all tasks shadows_fired:
+  advance _state.json: phase→idle, last_step→job4.completed, job4_progress: all stems→fired
+  print final pipeline completion summary:
+    - per shadow: UUID | task | annotation # | Approve/Reject | time confirmed ✅
+    - Approve/Reject rule: thumbs-up→Approve, thumbs-down→Reject
+    - _state.json phase confirmed idle
+    - _manifest.state.json all shadows_fired:true confirmed
 ```
 
 **Why per-task serial (not batch-by-job):**
@@ -89,7 +97,7 @@ Written once at batch start. Never edited during batch.
 }
 ```
 Flags (all boolean, default `false`):
-- `resolved` — Job 3a done; every annotation has an Igor decision. Gate for 3b.
+- `resolved` — Job 3a done; every annotation, including all deletes and thumbs-downs, has an Igor decision. Gate for 3b.
 - `sa_applied` — Job 3b done; SA push succeeded + task file stamped `SA Applied`.
 - `shadows_fired` — Job 4 done; HAI form-fill + 20:00 time edit persisted.
 - `held` — task removed from active pipeline (cycle-2 deferred / skip-list / manual abandon). CLI skips on all subsequent passes.
@@ -125,7 +133,7 @@ State files are canonical. CLI must read them — not infer status from per-task
 | Condition on `tasks.<stem>` | Status column |
 |---|---|
 | `held:true` | `HELD` |
-| `resolved:false` | `awaiting resolution` (Job 3a pending) |
+| `resolved:false` | `awaiting resolution` (Job 3a pending, including all thumbs-down/delete decisions) |
 | `resolved:true, sa_applied:false` | `resolved` (Job 3b pending) |
 | `sa_applied:true, shadows_fired:false` | `applied` (Job 4 pending) |
 | `shadows_fired:true` | `complete` |
@@ -145,7 +153,7 @@ Same pattern for `_state.json` (mutate `phase` + `last_step` + `updated_at` + `j
 
 | Event | File + mutation |
 |---|---|
-| Job 3a: all annotations in task resolved | `_manifest.state.json`: `resolved:true` + `_state.json`: `job3_progress[stem] = "resolved"` |
+| Job 3a: all annotations in task resolved, including every thumbs-down/delete | `_manifest.state.json`: `resolved:true` + `_state.json`: `job3_progress[stem] = "resolved"` |
 | Job 3b: SA push succeeded for task | `_manifest.state.json`: `sa_applied:true` + `_state.json`: `job3_progress[stem] = "applied"` |
 | Job 4: shadow fired + 20:00 edit persisted | `_manifest.state.json`: `shadows_fired:true` + `_state.json`: `job4_progress[stem] = "fired"` |
 | Phase boundary (every Job step) | `_state.json`: `phase`, `last_step`, `updated_at` |
@@ -159,7 +167,7 @@ Same pattern for `_state.json` (mutate `phase` + `last_step` + `updated_at` + `j
 - CLI writes `_state.json` with `phase: idle`.
 
 **Update** — mid-batch:
-- After each Job 3a success on `<stem>` → set `tasks.<stem>.resolved:true` in state sidecar.
+- After each Job 3a success on `<stem>` → set `tasks.<stem>.resolved:true` in state sidecar, but only after Igor has explicitly resolved every annotation, including all thumbs-downs and deletes.
 - After each Job 3b success on `<stem>` → set `tasks.<stem>.sa_applied:true`.
 - After each Job 4 success on `<stem>` → set `tasks.<stem>.shadows_fired:true`.
 - Task held for cycle-2 or skipped → set `held:true`, CLI skips in subsequent passes.
@@ -228,7 +236,7 @@ Exact writes required (use `_state.json.tmp` → rename each time):
 | Job 4 complete for `<stem>` | `idle` | `job4.done` | `null` |
 
 - Within Job 3: per-task `job3_progress` with values:
-    - `awaiting_resolution` — 3a pending (Igor resolving per-annotation decisions)
+    - `awaiting_resolution` — 3a pending (Igor resolving every per-annotation decision, including all thumbs-down/delete outcomes)
     - `resolved` — 3a done (all annotations resolved); 3b (SA push) not yet done
     - `applied` — 3b done; also flip `sa_applied:true` in `_manifest.state.json`
 - Within Job 4: per annotation `pending` → `fired` in `job4_progress`.
@@ -364,22 +372,37 @@ CLI writes `tasks/<stem>.md` with:
 
 Phase B is atomic and auto — no human stop.
 
+**HARD RULE — No `deleted` rating in payload until Igor confirms at Phase C.**
+CLI must never write `rating: deleted` (or `rating: thumbs-down`) into the Form-Fill Payload during Phase B. Any annotation heading toward delete is UNRESOLVED by definition (trigger #2 above) and must go through Phase C. Only after Igor explicitly confirms delete at Phase C may the payload be stamped `rating: deleted`. Violation = potential loss of valid paid annotations in SA.
+
+**HARD RULE — `rating: deleted` is CYCLE 2 ONLY.**
+Cycle 1 thumbs-down = send back to annotator (QC_Return). The annotator must get a chance to fix it. `rating: deleted` is only valid in cycle 2 — when the annotation came back from the annotator and is still unfixable. CLI must reject any reviewer recommendation of `deleted` on a cycle 1 annotation and convert it to `thumbs-down` (QC_Return) automatically. Igor still confirms at Phase C, but the outcome can only be thumbs-down (return) or thumbs-up (approve) — never deleted — on cycle 1.
+
 ### Phase C — Human conflict resolution
 
 If `tasks/<stem>.md` contains zero `UNRESOLVED:` markers → skip Phase C, proceed to Job 3.
 
-Otherwise, CLI walks the unresolved list:
+Otherwise, CLI walks the unresolved list one annotation at a time:
 
 ```
 ─── UNRESOLVED: <stem> A<n> ────────────
-Prompt: <full prompt excerpt>
-Model answer: <X>   Annotator answer: <Y>
-Image: screenshots/<stem>.<ext>
+Task: <stem>
+Annotation: <n>
+Prompt: <full prompt text>
+Annotator answer: <Y>
+Image: screenshots/<stem>.<ext>   # CLI opens this before asking for decision
+Look here: <exact panel / label / region / visual evidence to inspect>
+Conflict: <exact disagreement, ambiguity, or rule question>
 
-R1 verdict: <rating> | answer: <Z> | edits: <...> | feedback: <...>
-R2 verdict: <rating> | answer: <W> | edits: <...> | feedback: <...>
+R1 reviewer: <model / system name>
+R1 verdict: <rating>
+R1 response: <reasoning, answer, edits, feedback>
 
-[1] take R1   [2] take R2   [C]ustom (type override)   [I]mage (print path)   [S]kip (leave UNRESOLVED, task held)
+R2 reviewer: <model / system name>
+R2 verdict: <rating>
+R2 response: <reasoning, answer, edits, feedback>
+
+[1] take R1   [2] take R2   [O]ther (human direct resolution)
 ```
 
 Human picks. CLI fills per-annotation section with chosen verdict + appends payload entry. Loops to next UNRESOLVED.
@@ -430,7 +453,7 @@ Per task, as the first step inside the per-task loop. **NEVER bulk-scrape all ta
 
 Steps:
 1. `tabs_context_mcp` → locate/reuse tab at SA project data URL (`https://app.superannotate.com/35245/project/283665/data?sort=name&direction=asc`).
-2. If batch manifest not yet frozen (first task), read queue: `read_page(tabId, filter:"interactive")` → capture all candidate rows (Name, category, editor URL). Build manifest by filtering out: skip-list entries, `return_to_QC_by_NV`, terminal statuses (QC_Complete, Skipped, Unusable). **Always print the filtered candidate list and confirm with human before freezing** (no N threshold). Write `_manifest.json` + initialize `_manifest.state.json` + `_state.json`.
+2. If batch manifest not yet frozen (first task), read queue: `read_page(tabId, filter:"interactive")` → capture all candidate rows (Name, category, editor URL). Build manifest by filtering out: terminal statuses (`QC_Complete`, `Skipped`, `Unusable`) and all `return_to_QC_by_NV` rows (those belong to the NV rebuttal flow — see `wiki/workflow-procedures.md` §NV Audit Returns — never mixed into a regular review batch). **Always print the filtered candidate list and confirm with Igor before freezing** (no N threshold). Write `_manifest.json` + initialize `_manifest.state.json` + `_state.json`.
 3. For the current task: locate/reuse tab at cached `editor_url`. Scrape via `javascript_tool` + `scripts/scrape-superannotate.js`.
 4. Download lands in `~/Downloads/sa-scrape-<task_id>*.txt`. Copy the **newest** matching file (by mtime) to `scrapes/<stem>.txt`. Browser-added `(1)`, `(2)` suffixes on re-download mean the un-suffixed file is often stale — do not assume name. Hard-fail if zero matches. Log which file was picked if multiple.
 5. **Image save:** if `screenshots/<stem>.<ext>` already exists → skip (cycle 2, image unchanged). Else `curl` the `IMAGE_URL` from the scrape directly — never right-click → save-as (captures editor viewport).
@@ -504,10 +527,18 @@ If zero UNRESOLVED → payload is complete, jump to Job 3. Else → Phase C.
 
 For each `UNRESOLVED:` annotation in order:
 
-1. CLI prints side-by-side comparison (see Merger section above — prompt excerpt, model/annotator answers, R1 verdict, R2 verdict, image path).
-2. Human picks `[1] R1` / `[2] R2` / `[C]ustom` / `[I]mage` / `[S]kip`.
-3. CLI fills the annotation section with chosen verdict, writes `Resolution: human-resolved: <R1|R2|custom>`, appends payload entry.
-4. `[S]kip` → annotation stays UNRESOLVED, task marked `held:true` after Phase C, skips Job 3.
+1. CLI picks the next unresolved annotation, shows task name, annotation number, and the full prompt text.
+2. CLI opens the image and shows the image path.
+3. CLI tells the human exactly where the conflict is, what evidence matters, and where in the image to look.
+4. CLI shows the annotator answer.
+5. CLI shows R1 reviewer name/model, plus R1 verdict and R1 response.
+6. CLI shows R2 reviewer name/model, plus R2 verdict and R2 response.
+7. CLI does not foreground or print the evaluated model answer during human resolution unless Igor explicitly asks for it.
+8. Human picks `[1] R1` / `[2] R2` / `[O]ther`. Image inspection is always assumed in this project, so there is no separate image option.
+9. On `[O]ther`, CLI records the human-decided rating/answer/feedback from Igor's direct image read.
+10. CLI fills the annotation section with chosen verdict, writes `Resolution: human-resolved: <R1|R2|other>`. If 3a produces feedback text, it must begin with a date stamp like `4/21:`.
+11. Feedback rules: thumbs-up annotations carry no feedback. In the annotation block, omit the `#### Feedback` section entirely for thumbs-up outcomes; in payload, use `sa.feedback: null`. Thumbs-down annotations use a dated rationale only, with no workflow instructions like `QC_Return`, `send back to annotator`, `delete`, or other internal process notes in the feedback text.
+12. CLI appends or updates the payload entry immediately. For thumbs-down outcomes, payload feedback must exactly match the annotation-block feedback text. For thumbs-up outcomes, omit annotation-block feedback and set `sa.feedback: null`.
 
 After all UNRESOLVED resolved → payload complete → Job 3.
 **→ write `_state.json`: `phase: job3.pending_approval, last_step: job3.approval_presented, current_task: <stem>`** (immediately after printing NEED APPROVAL plan)
@@ -521,7 +552,7 @@ Run mechanical + markdown cross-reference (see "Payload consistency check" below
 - `sa.skills_check` / `sa.skills_uncheck` ← skill edits from `Edits Made`
 - `sa.prompt_edits` ← prompt-text edits (null if none)
 - `sa.answer_final` ← `Rewrite Answer` if differs from model's original; else null
-- `sa.feedback` ← `Feedback` body if thumbs-down or any field changed; else null
+- `sa.feedback` ← `Feedback` body if thumbs-down or any field changed; else null. During 3a human resolution, this must exactly mirror the annotation-block `Feedback`, including any leading date stamp.
 - `hai.task_id_field` ← `<stem>.json`
 - `hai.role` ← `"Reviewing"`
 - `hai.annotation_n` ← position (1..N)
@@ -597,7 +628,7 @@ No blanket task-level NO or held state. Every annotation gets resolved before ta
    - Write `answer_final` into Rewrite Answer field if present.
    - Set QC rating per `rating`.
    - Paste `feedback` into QC Feedback field if thumbs-down OR any field changed. **Append to existing, never replace.** Readback to verify.
-   - For `rating: deleted` (cycle 2): click thumbs-down + paste feedback + save — so annotator sees delete reason. CLI does NOT click delete itself (human does).
+   - For `rating: deleted`: click thumbs-down + paste feedback + save — so annotator sees delete reason. **CLI does NOT click the SA Delete button. EVER. Annotation deletion in SA is IRREVERSIBLE — only Igor clicks Delete in the SA UI manually after reviewing the applied feedback.** Violation = permanent data loss.
 3. **Pre-save audit (mandatory before Save):** For every annotation, read back the feedback textarea value and compare against payload `feedback` field character-by-character. Mismatch = fix before Save. SA tasks lock on submit; post-save correction is impossible.
 4. After ALL annotations pass audit, click task-level **Save**. Confirm save toast.
 4. **STOP — human sets task-level SA status manually.** CLI never touches the task-level status dropdown. Human sets it in the SA UI after CLI finishes step 3.
@@ -641,14 +672,15 @@ Do NOT attempt `mcp__Claude_in_Chrome__file_upload` or `upload_image` against th
    - Rewrite Answer ← `answer`. JS native setter.
    - LLM feedback → ignore.
 3. Click Continue. Editing a submitted step resets later steps — re-fill answer if prompt/image step edited.
-4. **Submit.** On "Task complete!" screen: click **Edit time** → Hours=0, Minutes=20, Seconds=0 → Save → **Confirm time**.
-   - Always exactly 20:00, both cycles, every shadow. Regardless of actual elapsed time.
-   - **MANDATORY verification before Confirm time:** readback displayed time from DOM snapshot. Must match `00:20:00`. Mismatch → STOP, do not click Confirm time.
+4. **Submit.** On "Task complete!" screen: read current session time.
+   - **If session time < 20:00** → click **Edit time** → Hours=0, Minutes=20, Seconds=0 → Save → **Confirm time**. Floor short sessions up to 20:00.
+   - **If session time ≥ 20:00** → skip Edit time entirely. Click **Confirm time** directly. NEVER overwrite a time greater than 20:00 — real logged work determines pay; overriding it downward destroys legitimate time.
+   - **MANDATORY verification before Confirm time:** readback displayed time from DOM snapshot. Must be ≥ `00:20:00`. If < 20:00 → STOP, do not click Confirm time (re-run Edit time).
    - **Mechanical time-edit gate:**
      ```bash
      python3 scripts/check_time_log.py --last
      ```
-     Non-zero → ABORT shadow sweep. Last log line must contain `time=00:20:00`.
+     Non-zero → ABORT shadow sweep. Last log line time must be ≥ `00:20:00`.
 5. Create `tasks/shadows/{uuid-prefix}.md` from `templates/shadow-template.md` (uuid-prefix = first 8 chars of HAI task URL UUID).
 6. Update shadow line in `tasks/<stem>.md`:
    - Cycle 1 → replace `⬜ not submitted` with `✅ submitted (cycle 1) — [{uuid-prefix}](shadows/{uuid-prefix}.md)`.
@@ -670,6 +702,29 @@ ta.dispatchEvent(new Event('change', {bubbles: true}));
 - Task ID field = same `<stem>.json`.
 - Deleted annotations: file shadow with "deleted annotation" placeholder in prompt + answer. Payment event preserved.
 - `rating: unchanged` annotations: file shadow with prompt + answer from original cycle-1 data (carried forward in payload).
+
+### Job NV — Rebuttal flow (separate pipeline)
+
+Runs on demand, not on the regular batch cadence. Entry point when Igor says "do NV tasks" / "pull NV" / "process rebuttals" or when the regular SA queue read surfaces `return_to_QC_by_NV` rows that need attention.
+
+**Pull rule (replaces Job 0 step 2 for this flow):**
+1. `tabs_context_mcp` → SA project data URL.
+2. `read_page(tabId, filter:"interactive")` → filter rows where **category = `return_to_QC_by_NV`**.
+3. For each candidate stem, grep `tasks/<stem>.md` for `^- \*\*NV Rebuttal Filed:\*\*`.
+   - Stamp present → skip (awaiting ruling).
+   - Stamp absent → include in NV manifest.
+4. Print candidate list + confirm with Igor before freezing. Write a separate `_nv_manifest.json` (do NOT reuse batch manifest — this is a different pipeline).
+
+**Process per task (from manifest):**
+1. Re-scrape (Job 0 steps 3–7) — scrape must capture NV Audit rating + feedback per annotation.
+2. Single reviewer (not R1+R2; no merge) walks each flagged annotation with Igor per `wiki/workflow-procedures.md` §NV Audit Returns Step 2. Output draft rebuttal text per annotation; Igor approves/rejects.
+3. For each Igor-approved annotation: fill rebuttal form (mechanics in `## NV Audit Rebuttal Form` below); Igor submits; stamp `tasks/<stem>.md`:
+   ```
+   - **NV Rebuttal Filed:** YYYY-MM-DD (A<n>, ...)
+   ```
+4. Leave task untouched in SA. Move to next.
+
+**No Job 3 approval gate, no Job 4 shadows** for NV rebuttal flow — only the form submission + stamp. Regular pipeline resumes for these tasks if/when SA flips them out of `return_to_QC_by_NV`.
 
 ## Hard rules
 
@@ -727,7 +782,8 @@ Form URL in `wiki/workflow-procedures.md`. One submission per annotation.
   3. `click(uid)` on target option.
 - **Date field:** JS native setter on `input[type="date"]` with `'YYYY-MM-DD'` + dispatch `input`+`change`.
 - **All other fields:** `fill` MCP works.
-- Flow: navigate → fill → STOP before Submit. Human submits. Navigate to fresh form for next annotation.
+- Flow: navigate → fill → STOP before Submit. Igor submits. Navigate to fresh form for next annotation.
+- **After submit, stamp `tasks/<stem>.md`** per convention in `wiki/workflow-procedures.md` §NV Audit Returns.
 
 ## Chrome interaction stack (SA / HAI)
 

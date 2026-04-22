@@ -40,5 +40,31 @@
 - Adding unnecessary format instructions ("answer with a letter")
 - Both should be corrected during review
 
+## V6 Standard (Apr 20, 2026) — Step Change
+
+Project leads announced V6 as a quality step change. Every annotation must clear the bar below or thumbs-down on review.
+
+### V6 prompt requirements (all must hold)
+1. **Contextually driven** — no simple letter/character/vowel counting on arbitrary text. Prompt must engage with meaningful image content.
+2. **Multi-skill** — ≥2 skills correctly tagged. Enumeration prompts need ≥3 skills.
+3. **Anchor skill** — every prompt must include ≥1 of {Logical Reasoning, TCG Understanding, World Knowledge}. (NEW in V6.) Anchor skill must be **genuine**, not stapled on:
+   - WK = topically relevant external fact, not a random constant. Multiplying by π on a non-circle image = NOT WK (peer consensus, 2026-04-19, see slack-rulings).
+   - TCG = operating on chart values / proportions / structure. Pure axis-label read-off may not qualify; unlabeled bar-height comparison = Attribute, not TCG (peer consensus, 2026-04-20).
+   - LR = chained inference beyond a single filter. Threshold counts and "if A>B" comparisons are Math, not LR (see review-calibration "Logical Reasoning Over-Tagging" lesson).
+4. **Reasoning, not extraction** — direct-read / single-lookup / OCR-transcription prompts fail. Must require an inference step.
+5. **Image-dependent + standalone** — fully answerable from image alone, no external context, no reference to other annotations.
+6. **Accurate skill tags** — tags must match the actual reasoning required. Inflated tags = uncheck + send back (pre-existing rule, now strict).
+7. **Format compliance** — answer formatting, MCQ format, rounding rules followed exactly. See Type 8/9.
+8. **Clear images** — readable resolution, no clutter ambiguity.
+9. **No giveaways, no over-precise / subjective spatial asks** — see G5, Type 3.
+10. **Targets a real model error** — annotator's REWRITE_ANSWER ≠ MODEL_GENERATED_ANSWER (see review-calibration model-stump rule).
+11. **Fully correct, well-formatted final answer** — verify math yourself; correct rewrite if wrong (review-calibration rule).
+
+### Reviewer application
+- V6 anchor-skill failure (no LR/TCG/WK) = thumbs-down with feedback citing missing anchor skill.
+- Letter-counting / vowel-counting on text content = thumbs-down (non-contextual).
+- Pure extraction prompts = thumbs-down (no reasoning step).
+- Existing 5 Guidelines + 12 Error Types still primary; V6 adds the anchor-skill + non-contextual + non-extraction filters on top.
+
 ## Error Patterns Encountered
 (Auto-populated after each review task)

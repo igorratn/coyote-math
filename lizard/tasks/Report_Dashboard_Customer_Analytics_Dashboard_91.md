@@ -15,7 +15,7 @@
 
 ## Annotation 1
 
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [49a84c3c](shadows/49a84c3c.md)
 - **Rating:** thumbs-up (Igor 4/20: confirmed BACK SOON per +141.8% badge)
 - **Skills Tagged:** Attribute Perception, Spatial Reasoning, Math Reasoning, Logical Reasoning, Table/Chart/Graph Understanding
 - **Question Type:** SAQ
@@ -51,7 +51,7 @@ R1 👍 BACK SOON (read actual badge values: +141.8% max). R2 👎 ONLINE (rough
 
 ## Annotation 2
 
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [4b62536f](shadows/4b62536f.md)
 - **Rating:** thumbs-up (Igor 4/20: image read — 5 values in [01:00, 02:00] MM:SS; format is consistent MM:SS, no unit ambiguity)
 - **Skills Tagged:** Enumeration, Attribute Perception, Spatial Reasoning, Logical Reasoning, Table/Chart/Graph Understanding
 - **Question Type:** SAQ
@@ -82,7 +82,7 @@ R1 👎 read count=1 (missed values). R2 👎 couldn't read image. Igor override
 
 ## Annotation 3
 
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [4bbc5944](shadows/4bbc5944.md)
 - **Rating:** thumbs-up (Igor 4/20: image-verified — mean of 16,18,11,18,12,43,8,12,20 = 158/9 = 17.56 → 17.6)
 - **Skills Tagged:** Enumeration, Attribute Perception, Math Reasoning, Logical Reasoning, Table/Chart/Graph Understanding
 - **Question Type:** SAQ
@@ -118,7 +118,7 @@ R1 👍 (question valid; answer uncertain — best read 18.4 over 9 rows, annota
 
 ## Annotation 4
 
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [45fce4f2](shadows/45fce4f2.md)
 - **Rating:** thumbs-up (Igor 4/20: image-verified — gray/blue crossing at 03 Feb 19; R1's claim disregarded as speculation)
 - **Skills Tagged:** Attribute Perception, Spatial Reasoning, Logical Reasoning, Table/Chart/Graph Understanding
 - **Question Type:** SAQ
@@ -155,7 +155,7 @@ R1 👍 03 Feb 19 (chart read supports this; drop SR). R2 👎 (can't verify at 
 
 ## Annotation 5
 
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [4b5b9183](shadows/4b5b9183.md)
 - **Rating:** thumbs-up
 - **Skills Tagged:** Enumeration, Attribute Perception, Spatial Reasoning, Logical Reasoning, Table/Chart/Graph Understanding
 - **Question Type:** SAQ

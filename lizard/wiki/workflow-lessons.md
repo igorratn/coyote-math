@@ -146,3 +146,28 @@
 - **Detection (Job 0, OCR-based).** After capture, OCR-scan for SA UI text markers: "Annotation Question", "Ontology", "Question Type", "Answer Rating", "Skills", "Comment". Any hit = editor view, not task image. Auto-flag `image_capture: invalid` in Task Info.
 - **Enforcement (Job 2).** Job 2 refuses to start review on any task with `image_capture: invalid` in Task Info. Output: "Bad capture on <stem>, re-scrape required." Human re-captures; Job 0 re-runs OCR; flag clears. Only then does Job 2 proceed.
 - **Action item carried forward:** audit the other 10 queue tasks' screenshots before Job 3 submission. Earlier pixel-verified counts (SaaS_11 "13", Risk_90 peak counts, etc.) may have been read off squeezed editor captures.
+
+## Opus Reviewer Over-Conservatism (Apr 20, 2026)
+
+- **Opus rejects visually readable annotations as Type 3 / Type 7 when a human can clearly see them.** Root cause: two compounding factors — (1) the reviewer prompt is massive (image + full framework + CLAUDE.md + skeleton), diluting image attention; (2) framework text primes Opus to apply Type 3/7 skepticism, so it hedges ("can't verify") rather than committing to a count. Same model reading the image cold (no reviewer context) gets it right.
+- **Pattern:** Opus calls Type 3 on small icons, tiny avatars, or fine-grained UI elements that are actually readable at native resolution. openclaw is more willing to attempt the read and is correct more often on these cases.
+- **Fix options to explore:** (a) trim the reviewer prompt — remove or summarize framework sections that prime over-rejection; (b) add explicit instruction: "attempt the read before defaulting to Type 3 — only call Type 3 if genuinely ambiguous after careful inspection"; (c) pass a cropped/upscaled version of relevant image regions alongside the full image for fine-grained reads.
+- **Job 3 implication:** when R1 (Opus) rejects on Type 3 and R2 (openclaw) approves, lean toward openclaw unless the image genuinely can't be read at native resolution. Always open the screenshot at Job 3 and verify yourself.
+
+## Feedback Field Rule (Apr 21, 2026)
+
+- **Feedback is for thumbs-down annotations ONLY.** Thumbs-up annotations get `feedback: null`. Never write explanatory text in the feedback field for approved annotations.
+
+## Feedback Language Rule (Apr 21, 2026)
+
+- **Never use internal review codes (Type 1–12, G1–G5) in annotator-facing SA feedback.** These are reviewer-internal shorthand. Annotators know "single verifiable answer" from their playbook but not "G2". Codes belong in the MD file (Two-Part Check section, Igor notes) only — never in the `feedback:` payload field.
+- **Feedback must be plain English** — describe what's wrong and what to fix, without jargon.
+- Example: instead of "Type 3/G2" write "the arrow position cannot be precisely read at this image resolution, so multiple answers are plausible — there is no single verifiable answer."
+
+## Igor-Only Delete Rule (Apr 20, 2026)
+
+- **ONLY Igor can delete an annotation in SA. CLI never deletes.** Reviewer models (Opus, openclaw) can recommend delete in their review, but that recommendation MUST go to Igor at Job 3 before anything is written to SA. No automated delete, ever.
+- **Escalation trigger #1 is absolute:** ANY thumbs-down on ANY annotation — even when R1 and R2 both agree — must be surfaced to Igor at Job 3. Unanimous reviewer agreement does NOT bypass human review.
+- **Why this matters:** reviewers made wrong delete calls on Scrum_16 A3 (three-dot icons) and A5 (hexagonal icons) — both were correct annotations that Igor overrode to approve. Automated delete would have lost valid paid work.
+- **Pipeline enforcement:** Job 2 merge marks agreed-thumbs-down as `rating: deleted` in payload as a recommendation only. Job 3b CLI must not push `deleted` rating to SA without Igor confirmation at Job 3a. If a task reaches Job 3b with any `rating: deleted` that has no Igor sign-off stamp in the task MD, CLI must halt and surface it.
+- **`deleted` is CYCLE 2 ONLY.** Cycle 1 thumbs-down = QC_Return (send back to annotator to fix). Delete is only for cycle 2 when the annotation comes back and is still broken. Reviewers recommending "delete" on cycle 1 annotations are wrong — CLI must convert those to thumbs-down (QC_Return) automatically.

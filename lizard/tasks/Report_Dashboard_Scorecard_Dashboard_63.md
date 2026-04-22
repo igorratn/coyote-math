@@ -15,7 +15,7 @@
 
 ## Annotation 1
 
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [4f6efa48](shadows/4f6efa48.md)
 - **Rating:** thumbs-up (Igor 4/20: South bar exactly at 0.60% → 1 region; 1 gauge × 1 region = C)
 - **Skills Tagged:** Enumeration, Attribute Perception, Spatial Reasoning, Math Reasoning, Table/Chart/Graph Understanding
 - **Question Type:** MCQ (mislabeled as SAQ in skeleton)

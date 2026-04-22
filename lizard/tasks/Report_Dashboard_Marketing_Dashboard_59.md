@@ -2,63 +2,75 @@
 
 ## Task Info
 - **SuperAnnotate Task ID:** 187110790
-- **Image:** Stacked area chart ("Website visit traffic sources by day, IN THE LAST 30 DAYS") with 6 series (Direct traffic, Organic search, Paid search, Referrals, Organic social, Other campaigns). Also: session table (bounce rate, avg duration, page views by source), email metrics (Sent 805, Opened 248, Clicks 0, Click Rate 0%), device type section below.
-- **Date:** 2026-04-16
-- **Review Cycle:** 1st
+- **Image:** Stacked area chart ("Website visit traffic sources by day") with 6 series (Direct traffic, Organic search, Paid search, Referrals, Organic social, Other campaigns). Session table, email metrics, device type section below.
+- **Date:** 2026-04-20
+- **Review Cycle:** 2nd
 
 ## Annotations
 
-### Annotation 1
-- **Shadow Task:** ✅ submitted (cycle 1) — [0529695e](shadows/0529695e.md)
-- **Rating:** thumbs-down
-- **Question:** Which colored line consistently has higher y-axis values than all others across the chart?
-- **Skills Tagged:** Attribute Perception, Spatial Reasoning, Table/Chart/Graph Understanding
+### Annotation 1 — CYCLE 2
+- **Shadow Task (Cycle 1):** ✅ submitted (cycle 1) — [0529695e](shadows/0529695e.md)
+- **Shadow Task (Cycle 2):** ⬜ not submitted
+- **Rating:** approve (Igor: top band color = D=Red; stump valid)
+- **Question:** Which colored region forms the top boundary of the stacked values (highest cumulative y-axis position)?
+- **Skills Tagged:** Attribute Perception, Table/Chart/Graph Understanding
 - **Question Type:** MCQ
 - **Model Answer Rating:** thumbs-down
 
 #### Two-Part Check
 1. **Question Check:**
-   - Guidelines violated: none
-   - Error types found: Type 1 — prompt says "line chart" but image is a stacked area chart. In a stacked area chart, "higher y-axis values" is misleading: the top boundary has the highest cumulative y-position, but each series' individual values are the vertical thickness of its layer, not its y-position. The question conflates position with value. D (Red) is the best visual answer for position, but the prompt's framing is misleading.
+   - Guidelines violated: G2 (no single verifiable answer)
+   - Error types found: Type 12 — top band is coral/salmon/peach; MCQ options C "Orange" and D "Red" are both defensible descriptors of the same pixel color. Model selecting C is evidence of ambiguity (Apr 12 threshold: ≥15% probability alternate read = G2 fail). Type 9 secondary: B "Purple" not present in chart (implausible distractor).
 2. **Answer Check:**
-   - Math verified: yes — topmost boundary (red layer) has highest y-position. But in a stacked chart, turquoise (bottom) has the largest individual area/value. "Higher y-axis values" is ambiguous in stacked context.
-   - Answer correct: D is best available answer, but prompt is misleading
+   - Math verified: N/A
+   - Answer: D is not unambiguously correct — color ambiguity means no single verifiable answer. Stump is an artifact of color-naming, not genuine reasoning failure.
 
 #### Full Prompt
-In the line chart displayed in this image, which colored line consistently has higher y-axis values than all the other lines across the chart? A. Turquoise B. Purple C. Orange D. Red
+In the stacked area chart displayed in this image, which colored region forms the top boundary of the stacked values (i.e., represents the highest cumulative y-axis position) across the chart?
+A. Turquoise
+B. Purple
+C. Orange
+D. Red
 
 #### Rewrite Answer
 D
 
 #### Edits Made (if any)
-Prompt should say "stacked area chart" not "line chart." Clarify whether "higher y-axis values" means cumulative position (top of stack) or individual series values (layer thickness).
+Skill tags: removed Spatial Reasoning (one-step visual read, not chained inference). TCG already tagged. No LR addition.
 
 #### Feedback
-4/16: Prompt says "line chart" but image is a stacked area chart. In stacked charts, "higher y-axis values" is ambiguous — top boundary position vs individual series magnitude. D (Red) works for position, but turquoise has the largest individual area. Rewrite: identify chart type correctly and clarify what "higher values" means.
+4/20: Top band color reads as coral/salmon; both "Orange" and "Red" are defensible descriptors, so the MCQ has no single verifiable answer (G2, Type 12). The model selecting C over D reflects color-name ambiguity rather than a genuine stump. Consider using legend categories (Direct traffic / Organic search / etc.) instead of color names for the MCQ options, or pick a color that is unambiguously one of the named options.
+
+#### Resolution
+human-resolved: R1 (Opus). R2 (Openclaw) took approve; overridden per Stage 3 merge discipline (image-dependent color dispute, default to Stage 1). R2 skill-tag fix (SR→LR) also rejected — identifying top band is one-step visual read, not chained inference.
 
 ## Task Status
-- **Status:** QC_Return
-- **SA Applied:** ✅
-- **Reason:** A1 thumbs-down — prompt mislabels chart type (line vs stacked area), "higher y-axis values" ambiguous in stacked context. Stage 3 confirmed.
+- **Status:** resolved — Igor approve A1
+- **SA Applied (Cycle 2):** ✅
 
-## Form-Fill Payload
+## Form-Fill Payload (Cycle 2)
 
 ```yaml
 task_id: 187110790
 annotations:
   - n: 1
     sa:
-      rating: thumbs-down
+      rating: thumbs-up
       skills_check: []
-      skills_uncheck: []
+      skills_uncheck:
+        - Spatial Reasoning
       prompt_edits: null
       answer_final: "D"
-      feedback: "4/16: Prompt says 'line chart' but image is a stacked area chart. In stacked charts, 'higher y-axis values' is ambiguous — top boundary position vs individual series magnitude. D (Red) works for cumulative y-position, but turquoise has the largest individual area. Rewrite: identify chart type correctly ('stacked area chart') and clarify what 'higher values' means — cumulative position or individual series contribution."
+      feedback: null
     hai:
-      task_id_field: 187110790
+      task_id_field: "Report_Dashboard_Marketing_Dashboard_59.json"
       role: Reviewing
       annotation_n: 1
       prompt: |
-        In the line chart displayed in this image, which colored line consistently has higher y-axis values than all the other lines across the chart? A. Turquoise B. Purple C. Orange D. Red
+        In the stacked area chart displayed in this image, which colored region forms the top boundary of the stacked values (i.e., represents the highest cumulative y-axis position) across the chart?
+        A. Turquoise
+        B. Purple
+        C. Orange
+        D. Red
       answer: "D"
 ```

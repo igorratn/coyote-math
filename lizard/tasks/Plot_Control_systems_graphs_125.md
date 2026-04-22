@@ -15,7 +15,7 @@
 
 ## Annotation 1
 
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [4fa9a96b](shadows/4fa9a96b.md)
 - **Rating:** thumbs-up
 - **Skills Tagged:** Spatial Reasoning, Math Reasoning, Table/Chart/Graph Understanding, MCQ
 - **Question Type:** MCQ
@@ -49,7 +49,7 @@ R1 👍 C. R2 👍 C. AGREEMENT.
 
 ## Annotation 2
 
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [53a2d050](shadows/53a2d050.md)
 - **Rating:** thumbs-up
 - **Skills Tagged:** Attribute Perception, Spatial Reasoning, Table/Chart/Graph Understanding, MCQ
 - **Question Type:** MCQ
@@ -83,7 +83,7 @@ R1 👍 C / R2 👎 (D). UNRESOLVED → human resolved: R1. Igor: correct answer
 
 ## Annotation 3
 
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [5126af47](shadows/5126af47.md)
 - **Rating:** thumbs-up
 - **Skills Tagged:** Attribute Perception, Spatial Reasoning, MCQ
 - **Question Type:** MCQ
@@ -117,7 +117,7 @@ R1 👍 A / R2 👎 (B). UNRESOLVED → human resolved: R1. Igor: R1 correct, an
 
 ## Annotation 4
 
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [515678d7](shadows/515678d7.md)
 - **Rating:** thumbs-up
 - **Skills Tagged:** Attribute Perception, Spatial Reasoning, Math Reasoning, Table/Chart/Graph Understanding, MCQ
 - **Question Type:** MCQ
@@ -151,7 +151,7 @@ R1 👍 C / R2 👎 (D). UNRESOLVED → human resolved: R1. Igor: C correct.
 
 ## Annotation 5
 
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [51fe35e8](shadows/51fe35e8.md)
 - **Rating:** thumbs-up
 - **Skills Tagged:** Spatial Reasoning, Math Reasoning, Table/Chart/Graph Understanding, MCQ
 - **Question Type:** MCQ

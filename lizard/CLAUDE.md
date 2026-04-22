@@ -56,12 +56,24 @@ After all tasks `applied`:
 
 7. **Job 4 — shadow sweep** (CLI, serial per task). Shadow system supports one at a time. HAI form-fill + 20:00 time edit. Mark `shadows_fired:true`. (Parallelism worth testing but unlikely to work.)
 
+**Job NV — NV rebuttal flow** (separate pipeline, on demand). Pulls SA queue rows with category `return_to_QC_by_NV` **and** no `NV Rebuttal Filed:` stamp in `tasks/<stem>.md`. Re-scrape → single reviewer walks annotations with Igor → Igor approves each → file Google Form → stamp task file. No Job 3/4 gates. Full SOP: `HOST_SOP.md` §Job NV + `wiki/workflow-procedures.md` §NV Audit Returns.
+
 **Cycle 2 locked rules:**
 - Payload includes ALL annotations (unchanged ones get `rating: unchanged` + full `hai.*` block).
 - Shadows fire for ALL payload entries (including unchanged carry-overs).
 - Decision set for prior thumbs-down = approve or delete only (no QC_Return).
 
-**Crash recovery:** `_state.json` is the orchestrator pointer (atomic writes). New CLI reads it on startup; resumes per phase. Full detail: `HOST_SOP.md#crash-recovery`.
+**Crash recovery:** `scrapes/_state.json` is the orchestrator pointer (atomic writes). New CLI reads it on startup; resumes per phase. Full detail: `HOST_SOP.md#crash-recovery`.
+
+**State file rules (MUST follow every session):**
+- Path: `lizard/scrapes/_state.json` (NOT repo root)
+- Read on startup: glob `scrapes/_state*.json` — never hardcode root path
+- Update after EVERY task resolution in Job 3a: set `job3_progress[stem] = "resolved"` + `last_step = "job3a.partial"` + `updated_at`
+- Update after Job 3a fully done: set `phase = "job3b"`, `last_step = "job3a.completed"`
+- Update after each SA push in Job 3b: set `job3_progress[stem] = "applied"`
+- Update after each shadow in Job 4: set `job4_progress[stem] = "fired"`
+- Write atomically: write to `_state.json.tmp` then rename — never write directly
+- Failure to advance pointer = #1 cause of unrecoverable crash state
 
 Second pass, audit returns, MCQ/SA rules, shadow task details → `wiki/workflow-procedures.md`.
 
@@ -70,7 +82,9 @@ Second pass, audit returns, MCQ/SA rules, shadow task details → `wiki/workflow
 - **5 Guidelines:** Complexity (2+ skills), Single answer, Self-contained, Independence, No giveaways
 - **12 Error Types:** 1-12, see `wiki/guideline-patterns.md`
 - **7 Skills:** Enumeration, Attribute Perception, Spatial Reasoning, Math Reasoning, Logical Reasoning, TCG Understanding (= Table/Chart/Graph Understanding; use full form in task files / SA tags), World Knowledge
-- Decision patterns, MCQ/SA rules, key rules → `wiki/guideline-patterns.md`
+- **V6 anchor-skill rule:** every prompt must include ≥1 of {Logical Reasoning, TCG Understanding, World Knowledge}. No anchor skill = G1 FAIL even with 2+ skills tagged.
+- **V6 non-contextual / non-extraction bans:** letter/vowel counting = FAIL; pure read-off/OCR = FAIL.
+- Decision patterns, MCQ/SA rules, key rules → `wiki/guideline-patterns.md`; V6 full spec → `wiki/common-errors.md`
 
 ## Knowledge Base
 `references/` = immutable playbooks. `wiki/` = LLM-owned. `tasks/` = reviews. `templates/` = template. `scrapes/` = raw SA dumps (gitignored). `scripts/` = host SA scripts. `screenshots/` = images (gitignored).

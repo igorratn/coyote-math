@@ -15,7 +15,7 @@
 
 ## Annotation 1
 
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [4ccd57ac](shadows/4ccd57ac.md)
 - **Rating:** thumbs-up (Igor resolved 4/20: read 429 in SA)
 - **Skills Tagged:** Attribute Perception, Spatial Reasoning, Logical Reasoning
 - **Question Type:** SAQ
@@ -49,7 +49,7 @@ R1 👍 429 (from scrape, not image-verified). R2 👍 428 (directly from image:
 
 ## Annotation 2
 
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [4c5dd350](shadows/4c5dd350.md)
 - **Rating:** thumbs-up
 - **Skills Tagged:** Attribute Perception, Spatial Reasoning, Table/Chart/Graph Understanding, World Knowledge
 - **Question Type:** SAQ
@@ -79,7 +79,7 @@ R1 👍 Greece, Mexico (drop SR, TCG, WK). R2 👍 Greece, Mexico (drop SR, TCG,
 
 ## Annotation 3
 
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [4d10926e](shadows/4d10926e.md)
 - **Rating:** thumbs-up
 - **Skills Tagged:** Enumeration, Spatial Reasoning, Logical Reasoning, World Knowledge
 - **Question Type:** SAQ
@@ -109,7 +109,7 @@ R1 👍 4 (drop SR, LR, WK; add AP). R2 👍 4 (drop SR, LR, WK; keep Enum + AP)
 
 ## Annotation 4
 
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [498a7688](shadows/498a7688.md)
 - **Rating:** thumbs-down
 - **Skills Tagged:** Attribute Perception, Spatial Reasoning, Logical Reasoning, World Knowledge
 - **Question Type:** SAQ
@@ -139,7 +139,7 @@ R1 👎 (G2/Type 1: scope not pinned to section with ratings; Best Deals cards h
 
 ## Annotation 5
 
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [4be5a12a](shadows/4be5a12a.md)
 - **Rating:** thumbs-down (Igor 4/20: image resolution — card ratings/prices not verifiable)
 - **Skills Tagged:** Attribute Perception, Spatial Reasoning, Logical Reasoning, Table/Chart/Graph Understanding
 - **Question Type:** SAQ
