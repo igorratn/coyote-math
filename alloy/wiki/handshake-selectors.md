@@ -6,14 +6,28 @@ Cache of selectors + accessibility-tree refs for the Handshake fellow task UI. U
 
 **Key principle:** React re-renders invalidate refs. Do NOT snapshot the whole form upfront. Acquire refs one section at a time, fill the section, advance, repeat.
 
-### Payload schema (Opus → Sonnet)
+### Payload schema
 ```
 {
-  score: 1..7,
-  systematicIssues: string,
+  chosenSide: "Response 1"|"Response 2"|null,
+  strength: 0|1|2|3,
+  investigationNotes: {
+    correctness: string,
+    completeness: string,
+    clarity: string,
+    helpfulness: string,
+    evaluatorNote: string
+  },
   justification: string,
   flags: { latex, markdown, notation, structure, garbled },  // "Yes"|"No"|"N/A"
-  advance: true
+  seededRewrite: {
+    changeLog: string,
+    proposedText: string,
+    finalText: string,
+    justification: string
+  } | null,
+  advance: true,
+  stopBeforeSubmit: true
 }
 ```
 
@@ -43,18 +57,24 @@ If `read_page` exposes the Submit button, record its ref as DO-NOT-TOUCH. Never 
 ### Discovered section flow (a3aa25b8, 2026-04-11)
 Handshake fellow form is split into MANY small sections, advanced one at a time via the up-arrow ↑ button. The ↑ button reports `type="submit"` in the accessibility tree — that is misleading, it is the SECTION ADVANCE, not final Submit. Clicking it moves forward, does NOT finalize. Final Submit button appears only at the very end and is labeled literally "Submit".
 
-Section order observed (may reorder/rename across tasks):
-1. **Systematic Issues** — single textarea. Heading: "Are there any systematic issues..."
-2. **Choose Which Response You Prefer** — two buttons (Response 1 / Response 2), unlabeled other than the snippet text they display.
-3. **Select DEGREE of preference** — score widget. Values "1".."7".
-4. **Justification** — textarea. KaTeX-rendered.
-5. **LaTeX Formatting flag** — Yes/No radio.
-6. **LaTeX explanation** — textarea. Required when flag == Yes. Use "N/A" when flag == No.
-7. **Markdown flag** + explanation textarea.
-8. **Non-Standard Notation flag** + explanation textarea.
-9. **Random Symbols flag** (maps to Garbled text / random tokens) + explanation textarea.
-10. **Structure/Layout flag** (maps to Structural issues) + explanation textarea.
-11. **Format issues summary** — Yes/No. "Yes" when any flag above is Yes.
+Policy notes from latest task-flow change:
+- Old 1–7 Likert is gone. Current flow is chosen side + preference strength 0/1/2/3.
+- Systematic issues are no longer a dedicated field; fold them into the rating justification.
+- AI-generated investigation notes now appear under each response; treat them as hints, not verdicts.
+- Seeded rewrites are back: review generated rewrite + change log, then accept/modify/revert and supply a brief rewrite justification.
+
+Section order observed under the new flow (reconfirm on first live task; may reorder/rename):
+1. **Choose Which Response You Prefer** — two buttons (Response 1 / Response 2), unless rating-0 path permits no selection.
+2. **Preference Strength** — widget with values `0`, `1`, `2`, `3`.
+3. **Rating Justification** — textarea; shared/systematic issues live here now.
+4. **LaTeX Formatting flag** — Yes/No radio.
+5. **LaTeX explanation** — textarea. Required when flag == Yes. Use "N/A" when flag == No.
+6. **Markdown flag** + explanation textarea.
+7. **Non-Standard Notation flag** + explanation textarea.
+8. **Random Symbols flag** (maps to Garbled text / random tokens) + explanation textarea.
+9. **Structure/Layout flag** (maps to Structural issues) + explanation textarea.
+10. **Format issues summary** — Yes/No. "Yes" when any flag above is Yes.
+11. **Seeded rewrite review** — generated rewrite, change log, editable final rewrite text, rewrite justification.
 12. **Final review / Submit** — STOP here. Never click Submit.
 
 **Every flag has its own explanation textarea.** For flags set to "No", write "N/A" (do not leave empty — blocks section advance).

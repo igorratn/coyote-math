@@ -9,7 +9,8 @@
 ## Annotations
 
 ### Annotation 1 — CHANGED (prior thumbs-down; cycle 2 decision set = approve/delete)
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted — [e8daaabd](shadows/e8daaabd.md)
+- **Shadow Task (Cycle 2):** ✅ submitted (cycle 2) — [6d1314b1](shadows/6d1314b1.md)
 - **Rating:** thumbs-up (approve)
 - **Question:** Largest pie slice % ÷ smallest labeled pie slice % (as decimals), then ÷ total letters in image; round to 4 decimals.
 - **Skills Tagged:** Enumeration, Attribute Perception, Math Reasoning, Table/Chart/Graph Understanding
@@ -31,7 +32,8 @@ None — cycle 2 rewrite by annotator cleanly resolves cycle 1 Type 1 ambiguity.
 ---
 
 ### Annotation 2 — UNCHANGED (prior thumbs-up; carry forward)
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted — [bbd584f1](shadows/bbd584f1.md)
+- **Shadow Task (Cycle 2):** ✅ submitted (cycle 2) — [675b4142](shadows/675b4142.md)
 - **Rating:** thumbs-up
 - **Question:** Count blue data points on line graph, divide by mean of numeric x-axis values (15–20); round to 3 decimals.
 - **Skills Tagged:** Enumeration, Attribute Perception, Math Reasoning, Table/Chart/Graph Understanding
@@ -56,7 +58,7 @@ None (unchanged from cycle 1).
 - **Status:** resolved — Igor approve A1 A2
 - **SA Applied (Cycle 1):** ✅
 
-## Form-Fill Payload
+## Form-Fill Payload (Cycle 2)
 
 ```yaml
 task_id: 187111181

@@ -1,9 +1,10 @@
 # Justification Rules
 
 ## Length & Format
-- Target **<5 sentences**. Longer is not better — a focused justification beats a rambling one. (Official guidance updated 2026-04-13; previously "Max 4 sentences" from Nick 2026-04-05 — same effective limit.)
-- Do NOT mention Likert score number in justification text (Handshake QC check enforces this).
+- Target **2–5 sentences**. Longer is not better — a focused justification beats a rambling one.
+- Do NOT mention the numeric strength rating in justification text unless the platform explicitly requires it.
 - Use KaTeX in justification field on Handshake. Write math as `$...$` / `$$...$$`.
+- Shared/systematic issues now belong inside this justification when relevant; there is no separate field in the new flow.
 
 ## Five Components (official framework, 2026-04-13)
 A complete justification should hit as many of these as possible:
@@ -15,16 +16,18 @@ A complete justification should hit as many of these as possible:
 
 ## Content Rules
 - Must be specific — Dillon's test: "if you can't tell what problem this justification applies to, it's too vague."
-- Prioritize dimensions that most influenced the score. Triage — lead with the most decisive factors.
+- Prioritize dimensions that most influenced the rating. Triage — lead with the most decisive factors.
 - Use "chosen response"/"rejected response" only — no R1/R2/A/B anywhere.
-- For score 4 (exact-match only): use "both responses" language, not chosen/rejected.
+- For rating 0 (no meaningful difference): use "both responses" language, not chosen/rejected.
+- If both responses share the same ambiguity or omission, say that directly in the justification instead of inventing a separate systematic-issues block.
 
-## Score Alignment Check (official guidance, 2026-04-13)
-Before submitting, ask: **does my justification match the strength of my score?**
-- Score 1 or 7 → justification must read as a decisive, unambiguous difference.
-- Score 3 or 5 → can be shorter; name the small specific difference honestly without manufacturing a large one.
-- "Would a reader infer my score without seeing the number?" — if yes, strong justification.
-- **Direction must match**: if your score selects R2 as preferred, justification must argue R2 is better — not R1. Check which response your score actually selects before writing.
+## Strength Alignment Check
+Before submitting, ask: **does my justification match the strength of my rating?**
+- Rating 3 → justification must read as a decisive, unambiguous difference.
+- Rating 1 → can be shorter; name the small specific difference honestly without manufacturing a large one.
+- Rating 0 → justification should explain why neither response meaningfully separates from the other.
+- "Would a reader infer the strength bucket without seeing the number?" — if yes, strong justification.
+- **Direction must match**: if your chosen side is Response 2, justification must argue Response 2 is better — not Response 1. Check the selected side before writing.
 
 ## Consequence of Label Violations
 Using any label other than "chosen response" / "rejected response" (e.g., Response 1/2, A/B, "first response", "preferred answer") **triggers an automatic score cap** regardless of reasoning quality. No exceptions.

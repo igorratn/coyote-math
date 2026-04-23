@@ -122,13 +122,14 @@ Updated atomically after each task's Job 3a, 3b, and Job 4 completions. CLI skip
 
 ### CLI sidecar consumption (status derivation)
 
-State files are canonical. CLI must read them — not infer status from per-task file presence (skeleton/review1/review2/tasks).
+For Job 4, `tasks/shadows/*.md` are canonical. Sidecars mirror shadow-file truth and are used as orchestrator pointers, not as the primary record of which shadows exist.
 
 **Read order on startup / status display:**
-1. Open `scrapes/_state.json` → use `phase` as orchestrator pointer; use `job3_progress` / `job4_progress` for per-task fine-grained state.
-2. Open `scrapes/_manifest.json` → authoritative task list for this batch (frozen).
-3. Open `scrapes/_manifest.state.json` → per-task flags.
-4. For each stem in `_manifest.json.tasks[].stem`, derive status column:
+1. Open `scrapes/_manifest.json` → authoritative task list for this batch (frozen).
+2. Open `tasks/shadows/*.md` → authoritative Job 4 submission record. Match by `Review file` + annotation number (+ cycle when present).
+3. Open `scrapes/_state.json` → use `phase` as orchestrator pointer; treat `job4_progress` as derived mirror only.
+4. Open `scrapes/_manifest.state.json` → per-task flags; treat `shadows_fired` as derived mirror only.
+5. For each stem in `_manifest.json.tasks[].stem`, derive status column:
 
 | Condition on `tasks.<stem>` | Status column |
 |---|---|
@@ -155,7 +156,7 @@ Same pattern for `_state.json` (mutate `phase` + `last_step` + `updated_at` + `j
 |---|---|
 | Job 3a: all annotations in task resolved, including every thumbs-down/delete | `_manifest.state.json`: `resolved:true` + `_state.json`: `job3_progress[stem] = "resolved"` |
 | Job 3b: SA push succeeded for task | `_manifest.state.json`: `sa_applied:true` + `_state.json`: `job3_progress[stem] = "applied"` |
-| Job 4: shadow fired + 20:00 edit persisted | `_manifest.state.json`: `shadows_fired:true` + `_state.json`: `job4_progress[stem] = "fired"` |
+| Job 4: shadow fired + 20:00 edit persisted | first create `tasks/shadows/{uuid-prefix}.md` (canonical), then mirror to `_manifest.state.json`: `shadows_fired:true` and `_state.json`: `job4_progress[stem] = "fired"` |
 | Phase boundary (every Job step) | `_state.json`: `phase`, `last_step`, `updated_at` |
 
 ## Batch lifecycle
@@ -211,7 +212,7 @@ else:
 | `job3.pending_resolution` | Re-print per-annotation resolution walk-through for task; resume at first unresolved annotation. |
 | `job3.resolved_pending_sa_apply` | All annotations resolved; skip 3a, proceed to 3b (SA push) when triggered. |
 | `job3.applying` | Re-scrape SA state (ground truth), diff against payload, apply only tasks still in `resolved` state. If partial apply (rating yes, feedback no) → print diff, ask human to reconcile. |
-| `job4` | Use `job4_progress`. Skip already-fired shadows per task, resume from first `pending`. |
+| `job4` | Use `tasks/shadows/*.md` as ground truth for already-fired shadows; use `job4_progress` only as a convenience pointer. Resume from first annotation without a shadow file. |
 
 ### Update frequency within `_state.json`
 
@@ -669,6 +670,8 @@ Do NOT attempt `mcp__Claude_in_Chrome__file_upload` or `upload_image` against th
    - Annotating/Reviewing ← `role` (always "Reviewing").
    - Annotation number ← `annotation_n`.
    - Annotator Prompt + Image: upload image first via `upload_file(uid, absolute_path)`, THEN set prompt text via JS native setter. Do NOT use `fill` MCP — silently fails on this React form.
+   - **Single-image gate:** before submitting Step 3, read back uploaded file tiles. Must be exactly 1. If >1, click `Remove file` until only 1 remains.
+   - **Step-3 submit target:** click the **first visible enabled** `button[type="submit"]` (up-arrow on prompt/image card). Do not click a later role-step submit if the page still has lower steps mounted after an edit.
    - Rewrite Answer ← `answer`. JS native setter.
    - LLM feedback → ignore.
 3. Click Continue. Editing a submitted step resets later steps — re-fill answer if prompt/image step edited.
@@ -681,12 +684,12 @@ Do NOT attempt `mcp__Claude_in_Chrome__file_upload` or `upload_image` against th
      python3 scripts/check_time_log.py --last
      ```
      Non-zero → ABORT shadow sweep. Last log line time must be ≥ `00:20:00`.
-5. Create `tasks/shadows/{uuid-prefix}.md` from `templates/shadow-template.md` (uuid-prefix = first 8 chars of HAI task URL UUID).
+5. Create `tasks/shadows/{uuid-prefix}.md` from `templates/shadow-template.md` (uuid-prefix = first 8 chars of HAI task URL UUID). This file is the canonical proof that the shadow exists.
 6. Update shadow line in `tasks/<stem>.md`:
    - Cycle 1 → replace `⬜ not submitted` with `✅ submitted (cycle 1) — [{uuid-prefix}](shadows/{uuid-prefix}.md)`.
    - Cycle 2 → **append** `✅ submitted (cycle 2) — [{uuid-prefix}](shadows/{uuid-prefix}.md)` on a new line below cycle-1 link.
-7. Update `_state.json → job4_progress.<stem>.<annotation_n>: fired`.
-8. After last annotation: set `_manifest.state.json → tasks.<stem>.shadows_fired:true`.
+7. Update `_state.json → job4_progress.<stem>.<annotation_n>: fired` as a mirror of the shadow file.
+8. After last annotation: set `_manifest.state.json → tasks.<stem>.shadows_fired:true` as a mirror of the shadow files for that task.
 
 **HAI textarea fill technique** (prompt + answer):
 ```js

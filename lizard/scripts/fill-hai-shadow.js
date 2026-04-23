@@ -40,6 +40,13 @@ function waitFor(selectorFn, { timeout = 30000, interval = 150 } = {}) {
   });
 }
 
+/** Return true when element is visibly rendered on screen. */
+function isVisible(el) {
+  if (!el) return false;
+  const rect = el.getBoundingClientRect();
+  return rect.width > 0 && rect.height > 0;
+}
+
 /** Native setter for React-controlled textarea. */
 function setTextarea(ta, value) {
   const setter = Object.getOwnPropertyDescriptor(
@@ -72,6 +79,43 @@ function clickButtonByText(text) {
 /** Find submit button on current step. */
 function findSubmit() {
   return document.querySelector('button[type="submit"]:not([disabled])');
+}
+
+/** Find all visible enabled submit buttons in DOM order. */
+function findVisibleEnabledSubmits() {
+  return Array.from(document.querySelectorAll('button[type="submit"]:not([disabled])'))
+    .filter(isVisible);
+}
+
+/** Find visible uploaded-file tiles on Step 3. */
+function findUploadedFiles() {
+  return Array.from(document.querySelectorAll('button'))
+    .filter(b => {
+      const aria = (b.getAttribute('aria-label') || '').trim();
+      return (
+        isVisible(b) &&
+        (
+          aria.startsWith('Open ') ||
+          aria.startsWith('View file ')
+        )
+      );
+    });
+}
+
+/** Remove extra uploaded files until exactly one remains. */
+async function normalizeUploadedFilesToOne() {
+  for (let i = 0; i < 8; i++) {
+    const files = findUploadedFiles();
+    if (files.length <= 1) return { file_count: files.length, removed: i };
+    const removeBtns = Array.from(document.querySelectorAll('button'))
+      .filter(b => isVisible(b) && (b.getAttribute('aria-label') || '').trim() === 'Remove file');
+    if (!removeBtns.length) {
+      throw new Error(`expected Remove file button with ${files.length} uploaded files`);
+    }
+    removeBtns[removeBtns.length - 1].click();
+    await new Promise(r => setTimeout(r, 400));
+  }
+  throw new Error(`failed to normalize uploaded files to one; remaining=${findUploadedFiles().length}`);
 }
 
 // ============================================================
@@ -134,17 +178,24 @@ async function haiFillStep1And2({ taskId, annotationN }) {
 // (IMAGE UPLOAD is done via MCP upload_file call BEFORE this blob.)
 // ============================================================
 async function haiFillStep3Prompt({ prompt }) {
-  // At this point, image should already be uploaded. Textarea is still empty.
+  // At this point, image should already be uploaded. Normalize to exactly one
+  // uploaded file before typing so retries don't leave duplicate assets behind.
+  await waitFor(() => findUploadedFiles().length > 0, { timeout: 30000 });
+  const uploadInfo = await normalizeUploadedFilesToOne();
+
+  // Textarea is still empty.
   const ta = await waitFor(
     () => Array.from(document.querySelectorAll('textarea'))
       .find(t => t.value === '' && t.getBoundingClientRect().height > 0)
   );
   setTextarea(ta, prompt);
   await new Promise(r => setTimeout(r, 300));
-  // Find Submit by text (not type=submit, since the form uses text "Submit" on this step).
+
+  // Important: Step 3 has its own up-arrow submit. When later steps are
+  // already mounted after an edit, multiple enabled submits can exist in the
+  // DOM. The prompt/image step is always the first visible enabled submit.
   const submit = await waitFor(
-    () => Array.from(document.querySelectorAll('button'))
-      .find(b => b.textContent.trim() === 'Submit' && !b.disabled),
+    () => findVisibleEnabledSubmits()[0],
     { timeout: 30000 }
   );
   submit.click();
@@ -154,7 +205,7 @@ async function haiFillStep3Prompt({ prompt }) {
       .find(t => t.value === '' && t.getBoundingClientRect().height > 0),
     { timeout: 30000 }
   );
-  return { step: 'step4_ready' };
+  return { step: 'step4_ready', upload_info: uploadInfo };
 }
 
 // ============================================================
@@ -171,8 +222,7 @@ async function haiFillStep4ToComplete({ answer }) {
   setTextarea(ta, answer);
   await new Promise(r => setTimeout(r, 300));
   const step4Submit = await waitFor(
-    () => Array.from(document.querySelectorAll('button'))
-      .find(b => b.textContent.trim() === 'Submit' && !b.disabled),
+    () => findVisibleEnabledSubmits()[0],
     { timeout: 30000 }
   );
   step4Submit.click();

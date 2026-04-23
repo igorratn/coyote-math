@@ -54,7 +54,7 @@ Jobs:
 
 After all tasks `applied`:
 
-7. **Job 4 — shadow sweep** (CLI, serial per task). Shadow system supports one at a time. HAI form-fill + 20:00 time edit. Mark `shadows_fired:true`. (Parallelism worth testing but unlikely to work.)
+7. **Job 4 — shadow sweep** (CLI, serial per task). Shadow system supports one at a time. HAI form-fill + 20:00 time edit. `tasks/shadows/*.md` are the canonical submission record; `shadows_fired:true` is a derived mirror. (Parallelism worth testing but unlikely to work.)
 
 **Job NV — NV rebuttal flow** (separate pipeline, on demand). Pulls SA queue rows with category `return_to_QC_by_NV` **and** no `NV Rebuttal Filed:` stamp in `tasks/<stem>.md`. Re-scrape → single reviewer walks annotations with Igor → Igor approves each → file Google Form → stamp task file. No Job 3/4 gates. Full SOP: `HOST_SOP.md` §Job NV + `wiki/workflow-procedures.md` §NV Audit Returns.
 
@@ -71,7 +71,7 @@ After all tasks `applied`:
 - Update after EVERY task resolution in Job 3a: set `job3_progress[stem] = "resolved"` + `last_step = "job3a.partial"` + `updated_at`
 - Update after Job 3a fully done: set `phase = "job3b"`, `last_step = "job3a.completed"`
 - Update after each SA push in Job 3b: set `job3_progress[stem] = "applied"`
-- Update after each shadow in Job 4: set `job4_progress[stem] = "fired"`
+- Update after each shadow in Job 4: create/update `tasks/shadows/*.md` first, then mirror into `job4_progress`
 - Write atomically: write to `_state.json.tmp` then rename — never write directly
 - Failure to advance pointer = #1 cause of unrecoverable crash state
 

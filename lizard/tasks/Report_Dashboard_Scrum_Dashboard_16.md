@@ -9,7 +9,7 @@
 ## Annotations
 
 ### Annotation 1
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [3f05164b](shadows/3f05164b.md)
 - **Rating:** approve (Igor 4/20: 2 correct — Kimberly + Prasannah; openclaw correct)
 - **Question:** Count profile photos showing long hair reaching at least to shoulders
 - **Skills Tagged:** Enumeration, Attribute Perception, World Knowledge
@@ -28,7 +28,7 @@ Annotation 1 disagreement: R1 rejects (Type 3 thumbnail precision + V6 WK mis-ta
 ---
 
 ### Annotation 2
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [41e5483e](shadows/41e5483e.md)
 - **Rating:** approve (Igor 4/20: 8 correct — non-checkmark blue circles; openclaw correct)
 - **Question:** Count blue circles with a lighter inner circle across entire table
 - **Skills Tagged:** Math Reasoning, Logical Reasoning, Table/Chart/Graph Understanding
@@ -47,7 +47,7 @@ Annotation 2 disagreement: R1 rejects (checkmark circles also have inner structu
 ---
 
 ### Annotation 3
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [3f001647](shadows/3f001647.md)
 - **Rating:** approve (Igor 4/20: overrides R1+R2 — 3 ●●● UI icons confirmed; both reviewers wrong)
 - **Question:** Count small three-dot icon (..) across entire visible image including both windows
 - **Skills Tagged:** Enumeration, Attribute Perception, Spatial Reasoning
@@ -70,7 +70,7 @@ Skills: add Table/Chart/Graph Understanding (V6 anchor-skill).
 ---
 
 ### Annotation 4
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [41ca9b7b](shadows/41ca9b7b.md)
 - **Rating:** thumbs-up
 - **Question:** Absolute difference between total grey circles and total red circles
 - **Skills Tagged:** Math Reasoning, Logical Reasoning, Table/Chart/Graph Understanding
@@ -92,7 +92,7 @@ None.
 ---
 
 ### Annotation 5
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [4054e178](shadows/4054e178.md)
 - **Rating:** approve (Igor 4/20: D=Orange on top confirmed; both Opus+openclaw wrong — rule violation, should have been Igor-reviewed)
 - **Question:** Which overlapping hexagonal icon is visually "on top" of the other two? (MCQ: Purple/Black/Blue/Orange)
 - **Skills Tagged:** Attribute Perception, Spatial Reasoning, Logical Reasoning

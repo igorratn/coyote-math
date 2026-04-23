@@ -32,7 +32,7 @@ Skills: drop Spatial Reasoning (navigational, not relative-position reasoning); 
 ---
 
 ### Annotation 2
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [b93de78c](shadows/b93de78c.md)
 - **Rating:** thumbs-up
 - **Question:** Minimum arrow traversals to return to Sprint Planning Meeting (directed graph)
 - **Skills Tagged:** Math Reasoning, Logical Reasoning, Table/Chart/Graph Understanding
@@ -54,7 +54,7 @@ None.
 ---
 
 ### Annotation 3
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [8262eedd](shadows/8262eedd.md)
 - **Rating:** thumbs-down
 - **Question:** Count arrowheads crossed by a vertical line through center of Daily Scrum
 - **Skills Tagged:** Enumeration, Attribute Perception, Spatial Reasoning
@@ -79,7 +79,7 @@ N/A
 ---
 
 ### Annotation 4
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [82510592](shadows/82510592.md)
 - **Rating:** thumbs-up
 - **Question:** Count solid-bordered boxes within vertical span of large curved feedback loop
 - **Skills Tagged:** Enumeration, Attribute Perception, Spatial Reasoning
@@ -102,7 +102,7 @@ Skills: add Table/Chart/Graph Understanding (V6 anchor-skill rule — ≥1 of {L
 ---
 
 ### Annotation 5
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [827f3ec7](shadows/827f3ec7.md)
 - **Rating:** thumbs-up
 - **Question:** Total boxes passed through in one complete cycle (from above Sprint Planning back to start via large curved arrow)
 - **Skills Tagged:** Math Reasoning, Logical Reasoning, Table/Chart/Graph Understanding

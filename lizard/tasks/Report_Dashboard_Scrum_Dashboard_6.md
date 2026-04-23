@@ -9,7 +9,7 @@
 ## Annotations
 
 ### Annotation 1
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [cc7ff723](shadows/cc7ff723.md)
 - **Rating:** thumbs-up
 - **Question:** (To do cards − Done cards) × Testing column story points
 - **Skills Tagged:** Enumeration, Attribute Perception, Math Reasoning, Table/Chart/Graph Understanding
@@ -31,7 +31,7 @@ None.
 ---
 
 ### Annotation 2
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [d3dae1f2](shadows/d3dae1f2.md)
 - **Rating:** thumbs-down (Igor 4/20: QC_Return — letter counting violates V6 spirit; no delete, cycle 1)
 - **Question:** Done-column tag count × Sprint-name letter count ÷ completely visible task cards
 - **Skills Tagged:** Enumeration, Attribute Perception, Math Reasoning, Table/Chart/Graph Understanding
@@ -55,7 +55,7 @@ N/A
 ---
 
 ### Annotation 3
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [f88138f4](shadows/f88138f4.md)
 - **Rating:** thumbs-up (Igor 4/20: 3 entries clearly crossed × 3 in-progress = 9 = B; R2 Type 7 overruled)
 - **Question:** Count PROJECTS obstructed by zigzag arrow × In progress card count
 - **Skills Tagged:** Enumeration, Attribute Perception, Math Reasoning, Table/Chart/Graph Understanding
@@ -71,7 +71,7 @@ N/A
 ---
 
 ### Annotation 4
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [351d7562](shadows/351d7562.md)
 - **Rating:** thumbs-down (Igor 4/20: stump fails — model B=3 correct; 7 toolbar − 4 plain = 3)
 - **Question:** Top toolbar menu option count − sidebar PROJECTS with plain checkmark count
 - **Skills Tagged:** Enumeration, Attribute Perception, Math Reasoning, Table/Chart/Graph Understanding
@@ -87,7 +87,7 @@ N/A
 ---
 
 ### Annotation 5
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [3e2c4aff](shadows/3e2c4aff.md)
 - **Rating:** approve (Igor 4/20: D=10, 12 assigned − 2 unassigned; openclaw correct)
 - **Question:** Assigned cards − unassigned cards (portrait in top-right corner)
 - **Skills Tagged:** Enumeration, Attribute Perception, Math Reasoning, Table/Chart/Graph Understanding
@@ -137,7 +137,7 @@ annotations:
       skills_uncheck: []
       prompt_edits: null
       answer_final: null
-      feedback: null
+      feedback: "4/20: Counting letters in the sprint name violates V6 spirit because it turns the task into text manipulation rather than visual reasoning."
     hai:
       task_id_field: "Report_Dashboard_Scrum_Dashboard_6.json"
       role: Reviewing
@@ -170,7 +170,7 @@ annotations:
       skills_uncheck: []
       prompt_edits: null
       answer_final: "C"
-      feedback: null
+      feedback: "4/20: Model answer is correct here. There are 7 top toolbar options and 4 qualifying plain checkmarks in the sidebar, so the result is 3, not 4."
     hai:
       task_id_field: "Report_Dashboard_Scrum_Dashboard_6.json"
       role: Reviewing

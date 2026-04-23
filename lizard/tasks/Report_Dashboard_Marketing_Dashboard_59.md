@@ -10,7 +10,7 @@
 
 ### Annotation 1 — CYCLE 2
 - **Shadow Task (Cycle 1):** ✅ submitted (cycle 1) — [0529695e](shadows/0529695e.md)
-- **Shadow Task (Cycle 2):** ⬜ not submitted
+- **Shadow Task (Cycle 2):** ✅ submitted (cycle 2) — [cca0e0b4](shadows/cca0e0b4.md)
 - **Rating:** approve (Igor: top band color = D=Red; stump valid)
 - **Question:** Which colored region forms the top boundary of the stacked values (highest cumulative y-axis position)?
 - **Skills Tagged:** Attribute Perception, Table/Chart/Graph Understanding

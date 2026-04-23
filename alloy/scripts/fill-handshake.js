@@ -3,28 +3,11 @@
 // Fills all non-Submit fields in the fellow task form, advances through sections,
 // STOPS before final Submit. Never clicks Submit.
 //
-// Payload schema (all fields required unless noted):
-//   {
-//     preference: "Response 1" | "Response 2",
-//     score: 1..7,
-//     systematicIssues: string,
-//     justification: string,
-//     flags: {
-//       latex:     "Yes"|"No",
-//       markdown:  "Yes"|"No",
-//       notation:  "Yes"|"No",
-//       garbled:   "Yes"|"No",    // Handshake label: "Random Symbols"
-//       structure: "Yes"|"No"     // Handshake label: "Structure/Layout"
-//     },
-//     flagExplanations: {
-//       latex: string, markdown: string, notation: string,
-//       garbled: string, structure: string
-//     },
-//     formatIssuesSummary: "Yes"|"No",   // "Yes" if any flag is "Yes"
-//     rewriteText: string | null,        // null = no rewrite (all flags "No")
-//     advance: true,                     // advance through sections
-//     stopBeforeSubmit: true             // hard stop at final Submit button
-//   }
+// Payload schema below is STALE as of 2026-04-23 and must be updated before use.
+// New task flow uses chosen side + strength 0..3, no separate systematic-issues
+// field, plus seeded rewrite review/change-log handling.
+// Do NOT run this script against the new UI until the implementation matches the
+// current form. Kept here only as a reference skeleton for the old flow.
 //
 // Return value: { ok, filled:[...], skipped:[...], errors:[...],
 //                 stoppedBeforeSubmit, finalSection }
@@ -33,6 +16,12 @@
 (async function fillHandshake() {
   const P = window.__fillPayload;
   if (!P) return { ok: false, error: "window.__fillPayload not set" };
+  if (P.strength !== undefined || P.seededRewrite !== undefined) {
+    return {
+      ok: false,
+      error: "fill-handshake.js is stale for the 2026-04-23 Handshake flow (0-3 strength / seeded rewrite). Update script before use."
+    };
+  }
 
   const filled = [], skipped = [], errors = [];
   let stoppedBeforeSubmit = false;

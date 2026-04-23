@@ -19,9 +19,14 @@ Terse like smart caveman. Technical substance stays, fluff dies. Fragments OK. N
 
 ## Hard Rules
 - Save VERBATIM response text INLINE — never summarize, never reference external files
-- "chosen response"/"rejected response" only — never R1/R2/A/B anywhere in eval text
-- Factual errors in chosen: LEAVE THEM IN. Note in justification.
-- Math domain only (2026-04-10). Other domains pending.
+- "chosen response"/"rejected response" only — never R1/R2/A/B anywhere in eval text; rating-0 case uses "both responses"
+- Factual errors in chosen: LEAVE THEM IN unless the seeded rewrite is explicitly for a presentation-only fix. Note substantive issues in justification.
+- New scoring flow: pick chosen side + rate strength 0/1/2/3 (0=no meaningful difference, 3=strong preference).
+- Systematic/shared issues no longer get their own field; fold them into the justification when relevant.
+- AI investigation notes are hints, not verdicts. Verify them against the actual response text.
+- Seeded rewrites are live again. Review generated rewrite + change log; accept/modify/revert as needed, then write a brief rewrite justification.
+- Math / math-adjacent physics only (2026-04-10). Other domains pending.
+- Before editing instructions or evaluating tasks, check the latest announcement/thread update first. Local docs are not authoritative if newer platform guidance exists.
 
 ## Quick Ref (details in wiki)
 - **Scoring:** `wiki/scoring-calibration.md` — score gate, calibration rules, bias warnings

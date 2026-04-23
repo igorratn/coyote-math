@@ -52,7 +52,8 @@ ta.dispatchEvent(new Event('change', { bubbles: true }));
 
 **Textarea:** unnamed (`name=""`), same class prefix as Step 1, `placeholder="Start typing..."`  
 **Upload button:** `button "Upload assets"` — `mcp__chrome-devtools__upload_file` works with this uid and a local `filePath`  
-**Submit button:** `button "Submit"` (no `disableable` attribute at this step — enabled after both textarea and image are filled)  
+**Submit button:** up-arrow `button[type="submit"]` on the prompt/image card. Important after edits: later-step submit buttons can also exist in the DOM, so use the **first visible enabled** `button[type="submit"]`, not an arbitrary enabled submit.  
+**Uploaded-file controls:** uploaded image tile appears as `button[aria-label^="Open "]` or `button[aria-label^="View file "]`; each tile exposes a sibling `button[aria-label="Remove file"]` while Step 3 is active. Keep exactly 1 image before advancing.
 
 **Fill method:** JS native setter for textarea. `upload_file` MCP for image.  
 **Note:** Prior memory said `upload_file` was broken — confirmed working as of 2026-04-18.
@@ -115,3 +116,5 @@ ta.dispatchEvent(new Event('change', { bubbles: true }));
 - Steps 3 and 4 textareas have `name=""` — select by `document.querySelector('textarea')`.
 - All textareas require JS native setter (React-controlled). Spinbutton and dialog inputs use `fill` MCP directly.
 - `upload_file` MCP works on the `button "Upload assets"` uid — tested and confirmed 2026-04-18.
+- If Step 3 is re-entered via `Edit this step`, later steps may remain mounted below it. In that state, the correct submit is still the **first visible enabled** `button[type="submit"]`.
+- Before Step 3 submit, assert exactly one uploaded image tile; remove extras via `button[aria-label="Remove file"]`.

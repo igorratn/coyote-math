@@ -9,7 +9,7 @@
 ## Annotations
 
 ### Annotation 1
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [3bce046e](shadows/3bce046e.md)
 - **Rating:** approve (Igor 4/20: B=WSW correct — needle at NW/NNW, CCW hits WSW before SW; Opus correct)
 - **Question:** Top-left gauge turns CCW — which compass direction does needle first point toward?
 - **Skills Tagged:** Attribute Perception, Logical Reasoning, World Knowledge
@@ -28,7 +28,7 @@ Annotation 1: Both thumbs-up but answers conflict — R1 says B=WSW (first at 11
 ---
 
 ### Annotation 2
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [438979c5](shadows/438979c5.md)
 - **Rating:** approve (Igor 4/20: B=top-right correct — dashed line in BR, CCW 90° maps BR→TR; Opus correct)
 - **Question:** Entire image divided into 4 quadrants, rotated CCW 90°; which quadrant has the longest dashed line segment?
 - **Skills Tagged:** Attribute Perception, Spatial Reasoning
@@ -47,7 +47,7 @@ Annotation 2: R1 says B=top-right (CCW BR→TR), R2 analysis says C=bottom-left 
 ---
 
 ### Annotation 3
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [44fb646c](shadows/44fb646c.md)
 - **Rating:** approve (Igor 4/20: A=90 correct — 5 ticks × 19 dashes = 95 → nearest 90; openclaw correct)
 - **Question:** Approximate product of tick marks on measurement line × dashes in dashed trajectory
 - **Skills Tagged:** Enumeration, Attribute Perception, Math Reasoning, Table/Chart/Graph Understanding
@@ -66,7 +66,7 @@ Annotation 3: R1 rejects (Type 3, option bins too tight vs counting uncertainty)
 ---
 
 ### Annotation 4
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [64238067](shadows/64238067.md)
 - **Rating:** thumbs-down (Igor 4/20: QC_Return — Type 7 direction ambiguity; no delete, cycle 1)
 - **Question:** Outermost white dot on radar, extended in SE direction — which object does it next touch?
 - **Skills Tagged:** Spatial Reasoning, World Knowledge

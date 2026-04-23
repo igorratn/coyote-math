@@ -28,6 +28,7 @@ Input: Handshake task URL (e.g. `https://ai.joinhandshake.com/annotations/fellow
 - Read `wiki/workflow-lessons.md`
 - Read `wiki/scoring-calibration.md`
 - Read `templates/task-template.md`
+- Check latest announcement / thread delta before trusting local docs. If platform flow changed, update instructions first.
 - Flag any relevant lessons for this task type (if URL or domain known from input).
 
 ### Eval Proper (after Track A completes)
@@ -42,15 +43,16 @@ Input: `scrapes/<short_id>.txt`
 
 **Write `tasks/<short_id>.md` using `templates/task-template.md`:**
 1. Paste raw verbatim prompt + both responses inline. Never summarize.
-2. **Systematic Issues** — shared across BOTH responses on 4 dims only (correctness, completeness, clarity, helpfulness). ≤5 sentences or N/A. Before preference.
-3. **Score gate** — answer before locking:
-   - Correctness diff (one errs, other doesn't)? → 1/2 or 6/7
-   - Both have major issues? → stay 3/5
-   - Completeness/clarity only? → 3/5
-   - Exact-match identical? → 4
-4. **Evaluate** — Correctness > Completeness > Clarity > Domain appropriateness.
-5. **Justification** — ≤4 sentences, "chosen response"/"rejected response" only, no Likert number, cite specific formulas/steps.
+2. Copy the platform's AI investigation notes (Correctness / Completeness / Clarity / Helpfulness), then explicitly mark what you agree/disagree with.
+3. **Preference gate** — choose side first, then strength:
+   - 0 = no meaningful difference
+   - 1 = slight preference
+   - 2 = moderate preference
+   - 3 = strong preference
+4. **Evaluate** — Correctness > Completeness > Clarity > Helpfulness / domain appropriateness.
+5. **Rating justification** — 2–5 sentences, "chosen response"/"rejected response" only, no stale Likert language, cite specific formulas/steps. Shared/systematic issues now live here.
 6. **Formatting Flags** — all 5 per-category with Yes/No/N/A + reason.
+7. **Seeded rewrite review** — inspect generated rewrite + change log, keep/modify/revert, then write brief rewrite justification.
 
 **Self-review pass (MANDATORY before stopping):**
 
@@ -60,21 +62,23 @@ Input: `scrapes/<short_id>.txt`
 - Phantom claims (asserting something not in the text) = #1 error. Fix any found.
 
 *Template lint (checklist from `wiki/template-lint.md`):*
-- [ ] Section order: Systematic Issues BEFORE Score
 - [ ] No R1/R2/A/B anywhere in eval text
-- [ ] Justification ≤4 sentences, no Likert number
+- [ ] Rating uses current 0–3 flow, not stale 1–7/Likert language
+- [ ] Justification 2–5 sentences and includes shared/systematic issues when relevant
 - [ ] Verbatim responses inline
 - [ ] All 5 formatting flags with per-category justification
+- [ ] Seeded rewrite review completed when present
 - [ ] LaTeX: broken only if fails "any renderer counts" test (not KaTeX-only)
 
 **STOP. Print summary:**
 ```
 Evaluation saved: tasks/<short_id>.md
 Chosen: {chosen side}
-Score: {1-7}
-Systematic issues: {one-line summary or N/A}
+Strength: {0-3}
+Shared issues in justification: {one-line summary or N/A}
 Justification: {first sentence}
 Flags: Broken LaTeX={}, Broken Markdown={}, Non-standard notation={}, Structural issues={}, Garbled text={}
+Rewrite review: {accepted/modified/reverted/N/A}
 Review tasks/<short_id>.md. Run "host fill <short_id>" when ready.
 ```
 Human reviews. Human triggers Job 3.
@@ -105,7 +109,7 @@ Input: `tasks/<short_id>.md` — `## Form-Fill Payload` section.
 - **Tab reuse mandatory** when matching tab exists.
 - **Fail loud** on validation errors — don't proceed with partial scrape or ambiguous refs.
 - **VERBATIM always** — no summaries, no paraphrases in task file.
-- **"chosen response"/"rejected response" only** — no R1/R2/A/B anywhere in eval text.
+- **"chosen response"/"rejected response" only** — no R1/R2/A/B anywhere in eval text. Rating-0 case may use "both responses".
 
 ---
 

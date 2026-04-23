@@ -9,7 +9,7 @@
 ## Annotations
 
 ### Annotation 1
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [6139c039](shadows/6139c039.md)
 - **Rating:** thumbs-up
 - **Question:** Velocity Trend arrow rotates CCW — which compass direction does it first point toward?
 - **Skills Tagged:** Attribute Perception, Spatial Reasoning, Logical Reasoning, World Knowledge
@@ -31,7 +31,7 @@ None.
 ---
 
 ### Annotation 2
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [66637de0](shadows/66637de0.md)
 - **Rating:** approve (Igor 4/20: B=top-right correct — donut in BR, CCW maps BR→TR; Opus correct)
 - **Question:** Image divided into 4 quadrants, rotated CCW 90°; which quadrant has the donut chart?
 - **Skills Tagged:** Attribute Perception, Spatial Reasoning, Logical Reasoning
@@ -50,7 +50,7 @@ Annotation 2: R1 maps BR→TR (CCW), R2 maps BR→BL. Standard CCW 90° rotation
 ---
 
 ### Annotation 3
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [67142575](shadows/67142575.md)
 - **Rating:** reject (Igor 4/20: intersection not deterministic — delete; openclaw correct)
 - **Question:** CDI Trend arrow top extended upward — which letter does it first intersect?
 - **Skills Tagged:** Attribute Perception, Spatial Reasoning, Logical Reasoning
@@ -69,7 +69,7 @@ Annotation 3: R1 accepts (B=T, CDI arrow under "Time"), R2 rejects (first letter
 ---
 
 ### Annotation 4
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [5e5cab69](shadows/5e5cab69.md)
 - **Rating:** thumbs-up
 - **Question:** What color combined with blue makes the color with the highest y-value on "Story Point Cycle Work Time Dist" graph?
 - **Skills Tagged:** Attribute Perception, Spatial Reasoning, Table/Chart/Graph Understanding, World Knowledge
@@ -91,7 +91,7 @@ None.
 ---
 
 ### Annotation 5
-- **Shadow Task:** ⬜ not submitted
+- **Shadow Task:** ✅ submitted (cycle 1) — [63f5b49c](shadows/63f5b49c.md)
 - **Rating:** approve (Igor 4/20: 125 correct — y-axis 0–25 pts, highest bar≈25, 5 size labels, 25×5=125; Opus correct)
 - **Question:** Nearest y-axis tick to highest bar in "Story Points 100% In Sprint" × size label count in "Story Point Cycle Time Dist." legend
 - **Skills Tagged:** Enumeration, Spatial Reasoning, Math Reasoning, Table/Chart/Graph Understanding

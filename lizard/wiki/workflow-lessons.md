@@ -138,7 +138,9 @@
 ## Shadow Task Lessons (Apr 15, 2026)
 
 - **Deleted annotation shadow = "deleted annotation" in both prompt + answer, reviewer action = approve.** Task is QC_Complete (reviewer finished), not rejected. Don't copy the original prompt/answer into a deleted-annotation shadow.
-- **Re-editing a submitted shadow = `/reclaim` endpoint, not `/run`.** `/run` is for first-time submission. If shadow already submitted and needs correction, use `https://ai.joinhandshake.com/annotations/fellow/task/{uuid}/reclaim`. Update HOST_SOP and shadow md links accordingly.
+- **Duplicate HAI UUIDs are for pending shadows only.** If a shadow task is still `⬜ not submitted`, you may reuse the duplicate UUID for that pending shadow. If the shadow is already submitted, leave it alone. `/run` is for the live task page once the pending shadow is selected; start the timer only after the page opens.
+- **Job 4 must check the shadow slot first.** Before running a pending shadow, verify that the `(stem, cycle, annotation)` slot has no existing shadow file. If a shadow file already exists, skip that slot entirely.
+- **After clicking Submit, wait for HAI to advance.** The page can sit on the submitted state briefly before the next role-selection / completion state appears. Do not treat the page as stuck immediately after `Submit task`; wait a bit longer before retrying.
 
 ## Bad Image Capture Lesson (Apr 17, 2026)
 

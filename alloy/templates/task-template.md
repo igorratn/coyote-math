@@ -23,14 +23,19 @@
 ### Domain Check
 - [ ] This task is within my domain of expertise
 
-### Systematic Issues
-{Issues shared across BOTH responses on the 4 evaluation dimensions ONLY: correctness, completeness, clarity, helpfulness. <5 sentences or "N/A". Do NOT include shared formatting/presentation issues here — those belong in Rewrite Trigger. This section is completed BEFORE choosing a preference.}
+### AI Investigation Notes
+- **Correctness:** {Paste/quote platform note or `N/A`}
+- **Completeness:** {Paste/quote platform note or `N/A`}
+- **Clarity:** {Paste/quote platform note or `N/A`}
+- **Helpfulness:** {Paste/quote platform note or `N/A`}
+- **Evaluator note:** {What the notes got right/wrong; keep separate from the notes themselves}
 
-### Score: {1-7}
-{Brief explanation of score choice}
+### Preference Strength: {0-3}
+- **Chosen side:** {Response 1 / Response 2 / Neither if rating 0 flow truly allows it}
+- **Meaning:** {0=no meaningful difference, 1=slight, 2=moderate, 3=strong}
 
-### Justification
-{2-4 sentences using "chosen response" / "rejected response" language. Reference specific content. Do NOT mention Likert score number. Do NOT cite rewrite triggers as preference reasons.}
+### Rating Justification
+{2-5 sentences. Use "chosen response" / "rejected response" language; use "both responses" when rating is 0. Reference specific content. If there are shared/systematic issues, include them here instead of a separate section. Do NOT cite formatting-only rewrite issues as preference reasons.}
 
 ### Formatting Flags (chosen response)
 Each flag must have an explicit per-category justification. Yes = issue present, No = category applies but no issue, N/A = category doesn't apply.
@@ -39,4 +44,10 @@ Each flag must have an explicit per-category justification. Yes = issue present,
 - **Non-standard notation: {Yes/No/N/A}** — {reason}
 - **Structural issues: {Yes/No/N/A}** — {reason}
 - **Garbled text / random tokens: {Yes/No/N/A}** — {reason}
+
+### Seeded Rewrite Review
+- **Seeded rewrite summary:** {What the platform-generated rewrite changed / `N/A`}
+- **Change log review:** {Anything to keep, modify, or revert}
+- **Final rewrite text:** {Final rewritten chosen response, or `N/A` if no rewrite needed}
+- **Rewrite justification:** {Brief note on what changed between original and finalized rewrite}
 
