@@ -1,181 +1,236 @@
 # Review: Report_Dashboard_Scrum_Dashboard_53
 
 ## Task Info
-- **SuperAnnotate Task ID:** 187111251
-- **Image:** "Lean Scrum Analytics Dashboard" — 4-quadrant layout (Productivity/Quality/Responsiveness/Process) with bar charts, distribution curves, donut chart (Sprint Goal Met 69.2%/30.8%), trend arrows (Velocity, CDI, etc.).
-- **Date:** 2026-04-20
-- **Review Cycle:** 1st
+- **task_id:** 187111251
+- **SA_TASK_FILENAME:** Report_Dashboard_Scrum_Dashboard_53.json
+- **Image:** screenshots/Report_Dashboard_Scrum_Dashboard_53.png — Scrum velocity/CDI trend dashboard
+- **Date:** 2026-04-25
+- **Review Cycle:** 2nd
 
-## Annotations
+## Task Status
+- **Status:** ALL-AUTO-RESOLVED
+- **Reviewers fired:** gpt, opus, gemini, grok
+- **Summary:** 0 pending Igor, 1 auto-resolved, 0 no-reviewer-output, 4 unchanged-carry-forward (of 5 total)
+- **SA Applied (Cycle 2):** ✅
 
-### Annotation 1
-- **Shadow Task:** ✅ submitted (cycle 1) — [6139c039](shadows/6139c039.md)
-- **Rating:** thumbs-up
-- **Question:** Velocity Trend arrow rotates CCW — which compass direction does it first point toward?
+---
+
+## Annotation 1
+
+- **Shadow Task:** ✅ submitted (cycle 2) — [5d8ab5df](shadows/5d8ab5df.md)
+- **Rating:** unchanged (thumbs-up carry-forward from prior cycle)
+- **Flags:** []
 - **Skills Tagged:** Attribute Perception, Spatial Reasoning, Logical Reasoning, World Knowledge
 - **Question Type:** MCQ
 - **Model Answer:** A
 - **Annotator Answer:** B
 
-#### Two-Part Check (Merged)
-- R1 (Opus): thumbs-up. Answer B=WSW ✓ — Velocity Trend arrow points N (0°); CCW rotation: first option hit = WSW (112.5° CCW). Model A=SW is second hit at 135°. Stump valid.
-- R2 (openclaw): thumbs-up. Answer B=WSW ✓. Same derivation.
-- **Merger: AGREE thumbs-up.** Answer B.
+#### Full Prompt
+If the topmost "Velocity Trend" green arrow were to turn in a counter-clockwise direction, which of the following compass directions would the point of the arrow next reach in relation to the rest of the arrow? Answer with a single capital letter (e.g., A).
+A. SW
+B. WSW
+C. S
+D. SSE
 
 #### Rewrite Answer
 B
 
-#### Edits Made
-None.
-
 ---
+## Annotation 2
 
-### Annotation 2
-- **Shadow Task:** ✅ submitted (cycle 1) — [66637de0](shadows/66637de0.md)
-- **Rating:** approve (Igor 4/20: B=top-right correct — donut in BR, CCW maps BR→TR; Opus correct)
-- **Question:** Image divided into 4 quadrants, rotated CCW 90°; which quadrant has the donut chart?
+- **Shadow Task:** ✅ submitted (cycle 2) — [60247872](shadows/60247872.md)
+- **Rating:** unchanged (thumbs-up carry-forward from prior cycle)
+- **Flags:** []
 - **Skills Tagged:** Attribute Perception, Spatial Reasoning, Logical Reasoning
 - **Question Type:** MCQ
 - **Model Answer:** C
 - **Annotator Answer:** B
 
-#### Two-Part Check (Merger Conflict)
-- R1 (Opus): thumbs-up. Answer B=top-right ✓ — donut chart (Sprint Goal Met) is in bottom-right quadrant; CCW 90° maps BR→TR. Model C (BL) = wrong. Stump valid.
-- R2 (openclaw): thumbs-down. Derives donut in bottom-right → CCW 90° → bottom-left = C, matching model. Stump fails.
-- **CONFLICT (quadrant mapping disagreement) — defer to Job 3.**
+#### Full Prompt
+If the entire image were to be divided into four equal quadrants and rotated counter-clockwise 90 degrees, in which quadrant would there be a donut chart? Answer with a single capital letter (e.g., A).
+A. Top left
+B. Top right
+C. Bottom left
+D. Bottom right
 
-#### Escalation
-Annotation 2: R1 maps BR→TR (CCW), R2 maps BR→BL. Standard CCW 90° rotation: top-right→top-left, top-left→bottom-left, bottom-left→bottom-right, bottom-right→top-right. So BR→TR = B is correct per standard mapping. R2's derivation appears to be a rotation error. Igor to confirm: correct answer should be B=top-right.
+#### Rewrite Answer
+B
 
 ---
+## Annotation 3
 
-### Annotation 3
-- **Shadow Task:** ✅ submitted (cycle 1) — [67142575](shadows/67142575.md)
-- **Rating:** reject (Igor 4/20: intersection not deterministic — delete; openclaw correct)
-- **Question:** CDI Trend arrow top extended upward — which letter does it first intersect?
-- **Skills Tagged:** Attribute Perception, Spatial Reasoning, Logical Reasoning
+- **Shadow Task:** ✅ submitted (cycle 2) — [664535f7](shadows/664535f7.md)
+- **Reviewer:** gpt
+- **Rating:** thumbs-up
+- **All Verdicts:** gpt: 👍 (picked), opus: 👎, gemini: 👎, grok: 👎
+- **Flags:** []
+- **Final Answer (reviewer):** A
+- **Skills Tagged:** Attribute Perception, Spatial Reasoning, Table/Chart/Graph Understanding
 - **Question Type:** MCQ
 - **Model Answer:** D
-- **Annotator Answer:** B
+- **Annotator Answer:** A
 
-#### Two-Part Check (Merger Conflict)
-- R1 (Opus): thumbs-up. Answer B=T ✓ — CDI Trend x-position aligns under "Time" in "Story Point Cycle Time Dist." title above; first letter hit = T. Model D=C is wrong. Stump valid. Notes mild Type 3 but "most likely" qualifier mitigates it.
-- R2 (openclaw): thumbs-down. CDI Trend arrow appears roughly under left side of label text; upward extension first intersection not deterministic at image resolution. G2 fails.
-- **CONFLICT — defer to Job 3.**
+#### Full Prompt
+If the entire image were to be flipped horizontally and divided into four equal quadrants, in which quadrant would there be a solid green line that reaches a y-value strictly greater than "4" on any chart? Answer with an uppercase letter (e.g., A).
+A. Top left
+B. Top right
+C. Bottom left
+D. Bottom right
 
-#### Escalation
-Annotation 3: R1 accepts (B=T, CDI arrow under "Time"), R2 rejects (first letter not deterministic). Igor to verify CDI Trend horizontal position relative to "Story Point Cycle Time Dist." title.
+#### Rewrite Answer (annotator)
+A
+
+#### Reviewer Body (gpt) (picked)
+- **Rating:** thumbs-up
+- **Final Rewrite Answer:** A
+- **Flags:** []
+- **Two-Part Check:**
+  1. Question: Valid. Requires chart reading (identify a solid green curve exceeding a given y-threshold), and spatial reasoning about a horizontal flip to map quadrants. Single deterministic answer; self-contained; colors distinguishable.
+  2. Answer: The only solid green line clearly exceeding y=4 is the green density curve (“Size 5”) in the “Story Point Cycle Work Time Dist.” chart, peaking at y≈4.2 (>4) [Read-First]. This chart originally sits in the top-right quadrant. After a horizontal flip, it moves to the top-left quadrant. Therefore, the correct quadrant is A (Top left). [pixel-verified]
+- **Edits Made:** None
+- **Feedback:** N/A
+
+#### Reviewer Body (opus)
+- **Rating:** thumbs-down
+- **Final Rewrite Answer:** N/A — prompt invalid (delete)
+- **Flags:** [G2, Type 3]
+- **Two-Part Check:**
+  1. Question: Type 3 fail — fine-grained precision beyond what image supports. The CDI Trend arrow's column is a narrow trend strip; extending its vertical axis upward, the path passes through trend-strip whitespace and through inter-chart regions. No chart title is unambiguously crossed by the arrow's exact vertical axis at the image's rendered resolution; pinning the crossing to a single letter from {n, T, I, C} requires sub-pixel column alignment that the image does not support [pixel-verified at quadrant zoom]. G2 also fails — multiple letters are defensible depending on small horizontal offset. Cycle 1 reject was on this exact ground; prompt unchanged in Cycle 2 → same defect persists. Per Cycle 2 rule (approve/delete only on prior thumbs-down), DELETE.
+  2. Answer: cannot answer [IMAGE_UNREADABLE]. Annotator B (T) and model D (C) are both consistent with plausible small horizontal-offset readings; neither is deterministic.
+- **Edits Made:** Recommend delete annotation (Cycle 2 approve/delete only).
+- **Feedback:** 2026-04-25 — Prompt unchanged from Cycle 1; Type 3 ambiguity not resolved. The CDI Trend arrow's vertical extension does not cleanly intersect any single letter from the option set at image resolution; multiple letters are defensible. Delete annotation. Avoid "extend arrow upward, which letter does it intersect" prompts unless the column is unambiguously aligned with a clearly readable target letter.
 
 ---
 
-### Annotation 4
-- **Shadow Task:** ✅ submitted (cycle 1) — [5e5cab69](shadows/5e5cab69.md)
-- **Rating:** thumbs-up
-- **Question:** What color combined with blue makes the color with the highest y-value on "Story Point Cycle Work Time Dist" graph?
+#### Reviewer Body (gemini)
+- **Rating:** thumbs-down
+- **Final Rewrite Answer:** N/A — prompt invalid
+- **Flags:** [G2, Type 3]
+- **Two-Part Check:**
+  1. Question: The question asks which letter a vertical projection from the "CDI Trend" arrow would intersect. The answer to this question depends on a pixel-perfect alignment that cannot be determined with certainty from the provided image. Slight variations in interpreting the exact center of the arrow's tip lead to different conclusions about which letter (or space between letters) would be intersected. This makes the question ambiguous and not singly verifiable. This is a prior thumbs-down that was not corrected.
+  2. Answer: Because the question is invalid due to ambiguity, there is no single correct answer.
+- **Edits Made:** None
+- **Feedback:** This question was previously rejected for being ambiguous (violating G2/Type 3), and the prompt remains unchanged. The answer is not verifiable due to reliance on fine-grained visual alignment. The annotation should be deleted.
+
+#### Reviewer Body (grok)
+- **Rating:** thumbs-down
+- **Final Rewrite Answer:** N/A — prompt invalid
+- **Flags:** [Type 3, IMAGE_UNREADABLE]
+- **Two-Part Check:**
+  1. Question: Cycle 2 prior thumbs-down not addressed (prompt/answer unchanged per skeleton). Fails Type 3 (fine-grained precision beyond image: exact alignment of extended arrow to letters requires sub-pixel precision; in bottom-right crop, green ↑ is left-aligned under "CDI Trend," extension upward passes near "Continuous" but exact intersection with n/T/I/C ambiguous at resolution — cannot distinguish if it hits 'T' in "Continuous" or 'I' in "Index" vs others). Image region (bottom-right crop) inspected: arrow tip ~under left of chart title, but blurry pixels prevent deterministic path. Passes G1 (Logical Reasoning for extension/projection), but unverifiable. 
+  2. Answer: Cannot verify due to Type 3/IMAGE_UNREADABLE; no single letter deterministically "next" intersected [pixel-verified, but alignment unreadable].
+- **Edits Made:** None (suggest delete per Cycle 2 rule)
+- **Feedback:** 2026-04-25 — Prior resolution issue not fixed; extension not deterministic at image zoom.
+
+**Auto-resolved at Job 2 (👍).** gpt 👍 (matches annotator). SA action at Job 3b: approve annotator's answer `A` (cycle 2). Skipped at Job 3a.
+
+#### Edits Made
+(to be filled at Job 3a if needed)
+
+#### Feedback
+2026-04-25: thumbs-up (gpt) — auto-resolved
+
+---
+## Annotation 4
+
+- **Shadow Task:** ✅ submitted (cycle 2) — [7466896e](shadows/7466896e.md)
+- **Rating:** unchanged (thumbs-up carry-forward from prior cycle)
+- **Flags:** []
 - **Skills Tagged:** Attribute Perception, Spatial Reasoning, Table/Chart/Graph Understanding, World Knowledge
 - **Question Type:** SAQ
 - **Model Answer:** green
 - **Annotator Answer:** yellow
 
-#### Two-Part Check (Merged)
-- R1 (Opus): thumbs-up. Answer yellow ✓ — green (Size 3) peaks highest ≈ y=4; blue+yellow=green. Model answered "green" (the displayed color, not the mixing partner). Stump valid.
-- R2 (openclaw): thumbs-up. Answer yellow ✓. Same.
-- **Merger: AGREE thumbs-up.** Answer yellow.
+#### Full Prompt
+What color do you combine with blue to create the color that reaches the highest y-value on the "Story Point Cycle Work Time Dist" graph? Answer with a color in lowercase (e.g., red).
 
 #### Rewrite Answer
 yellow
 
-#### Edits Made
-None.
-
 ---
+## Annotation 5
 
-### Annotation 5
-- **Shadow Task:** ✅ submitted (cycle 1) — [63f5b49c](shadows/63f5b49c.md)
-- **Rating:** approve (Igor 4/20: 125 correct — y-axis 0–25 pts, highest bar≈25, 5 size labels, 25×5=125; Opus correct)
-- **Question:** Nearest y-axis tick to highest bar in "Story Points 100% In Sprint" × size label count in "Story Point Cycle Time Dist." legend
+- **Shadow Task:** ✅ submitted (cycle 2) — [8e8c53d6](shadows/8e8c53d6.md)
+- **Rating:** unchanged (thumbs-up carry-forward from prior cycle)
+- **Flags:** []
 - **Skills Tagged:** Enumeration, Spatial Reasoning, Math Reasoning, Table/Chart/Graph Understanding
 - **Question Type:** SAQ
 - **Model Answer:** 150
 - **Annotator Answer:** 125
 
-#### Two-Part Check (Merger Conflict)
-- R1 (Opus): thumbs-up. Answer 125 ✓ — highest bar ≈ 24–25 → nearest tick = 25; 5 size labels; 25×5=125. Model 150 = wrong (likely used 30 instead of 25). Stump valid.
-- R2 (openclaw): thumbs-up but corrects to 500 — "Story Points 100% In Sprint" y-axis goes 0%/25%/50%/75%/100%; tallest bar reaches nearest the 100% tick = 100. 100×5=500. Annotator and model both wrong under this reading.
-- **CONFLICT (same thumbs-up, different answers: 125 vs 500) — defer to Job 3.**
+#### Full Prompt
+What is the product of the nearest y-axis value to the highest bar on the "Story Points 100% in Sprint" graph and the total number of size labels there are in the "Story Point Cycle Time Dist." graph? Answer with a simple integer (e.g., 100).
 
-#### Escalation
-Annotation 5: Both thumbs-up but R1 gets 125 (y-axis 0–25 pts, nearest tick 25) and R2 gets 500 (y-axis 0–100%, nearest tick 100). The two reviewers are reading different panels — R1 reads "Story Points 100% In Sprint" as a raw points panel (y=25), R2 reads it as a percentage panel (y=100%). Igor must confirm which panel is which and which y-axis scale is correct.
+#### Rewrite Answer
+125
 
 ---
-
-## Task Status
-- **Status:** resolved — Igor A1 approve, A2 approve, A3 delete, A4 approve, A5 approve
-- **SA Applied (Cycle 1):** ✅
-
 ## Form-Fill Payload
 
 ```yaml
-task_id: 187111251
+task:
+  stem: Report_Dashboard_Scrum_Dashboard_53
+  sa_task_filename: Report_Dashboard_Scrum_Dashboard_53.json
+  cycle: 2
+
 annotations:
+
   - n: 1
+    resolution: carry-forward
     sa:
-      rating: thumbs-up
-      skills_check: []
-      skills_uncheck: []
-      prompt_edits: null
-      answer_final: "B"
-      feedback: null
+      rating: unchanged
     hai:
-      task_id_field: "Report_Dashboard_Scrum_Dashboard_53.json"
+      task_id_field: Report_Dashboard_Scrum_Dashboard_53.json
       role: Reviewing
       annotation_n: 1
       prompt: |
-        If the topmost "Velocity Trend" green arrow were to turn in a counter-clockwise direction, which of the following compass directions would the point of the arrow next reach in relation to the rest of the arrow? Answer with a single capital letter (e.g., A). A. SW B. WSW C. S D. SSE
+        If the topmost "Velocity Trend" green arrow were to turn in a counter-clockwise direction, which of the following compass directions would the point of the arrow next reach in relation to the rest of the arrow? Answer with a single capital letter (e.g., A).
+        A. SW
+        B. WSW
+        C. S
+        D. SSE
       answer: "B"
 
   - n: 2
+    resolution: carry-forward
     sa:
-      rating: thumbs-up
-      skills_check: []
-      skills_uncheck: []
-      prompt_edits: null
-      answer_final: "B"
-      feedback: null
+      rating: unchanged
     hai:
-      task_id_field: "Report_Dashboard_Scrum_Dashboard_53.json"
+      task_id_field: Report_Dashboard_Scrum_Dashboard_53.json
       role: Reviewing
       annotation_n: 2
       prompt: |
-        If the entire image were to be divided into four equal quadrants and rotated counter-clockwise 90 degrees, in which quadrant would there be a donut chart? Answer with a single capital letter (e.g., A). A. Top left B. Top right C. Bottom left D. Bottom right
+        If the entire image were to be divided into four equal quadrants and rotated counter-clockwise 90 degrees, in which quadrant would there be a donut chart? Answer with a single capital letter (e.g., A).
+        A. Top left
+        B. Top right
+        C. Bottom left
+        D. Bottom right
       answer: "B"
 
   - n: 3
+    resolution: auto-resolved
     sa:
-      rating: thumbs-down
-      skills_check: []
-      skills_uncheck: []
-      prompt_edits: null
-      answer_final: null
-      feedback: "4/21: The CDI Trend arrow position cannot be precisely read at this image resolution, multiple letters are plausible depending on the exact x-position of the arrow, so there is no single verifiable answer."
+      rating: thumbs-up
+      answer_final: "A"
+      flags: []
     hai:
-      task_id_field: "Report_Dashboard_Scrum_Dashboard_53.json"
+      task_id_field: Report_Dashboard_Scrum_Dashboard_53.json
       role: Reviewing
       annotation_n: 3
       prompt: |
-        If the top of the green "CDI Trend" arrow were to extend upward, which of the following letters would it most likely next intersect with? Answer with the correct option letter (e.g., A). A. n B. T C. I D. C
-      answer: "B"
+        If the entire image were to be flipped horizontally and divided into four equal quadrants, in which quadrant would there be a solid green line that reaches a y-value strictly greater than "4" on any chart? Answer with an uppercase letter (e.g., A).
+        A. Top left
+        B. Top right
+        C. Bottom left
+        D. Bottom right
+      answer: "A"
 
   - n: 4
+    resolution: carry-forward
     sa:
-      rating: thumbs-up
-      skills_check: []
-      skills_uncheck: []
-      prompt_edits: null
-      answer_final: "yellow"
-      feedback: null
+      rating: unchanged
     hai:
-      task_id_field: "Report_Dashboard_Scrum_Dashboard_53.json"
+      task_id_field: Report_Dashboard_Scrum_Dashboard_53.json
       role: Reviewing
       annotation_n: 4
       prompt: |
@@ -183,15 +238,11 @@ annotations:
       answer: "yellow"
 
   - n: 5
+    resolution: carry-forward
     sa:
-      rating: thumbs-up
-      skills_check: []
-      skills_uncheck: []
-      prompt_edits: null
-      answer_final: "125"
-      feedback: null
+      rating: unchanged
     hai:
-      task_id_field: "Report_Dashboard_Scrum_Dashboard_53.json"
+      task_id_field: Report_Dashboard_Scrum_Dashboard_53.json
       role: Reviewing
       annotation_n: 5
       prompt: |

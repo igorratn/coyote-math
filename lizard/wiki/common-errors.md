@@ -63,6 +63,7 @@ Project leads announced V6 as a quality step change. Every annotation must clear
 ### Reviewer application
 - V6 anchor-skill failure (no LR/TCG/WK) = thumbs-down with feedback citing missing anchor skill.
 - Letter-counting / vowel-counting on text content = thumbs-down (non-contextual).
+  - **Visual-qualifier exception (2026-04-25, ratified on Server_132 A2):** if the prompt restricts the count by a visual qualifier the model must first detect from the image (color, position, font, size, region), the prompt IS contextually driven and the V6 ban does NOT apply. E.g. "vowels in the *blue* portion of the logo" requires color-region detection before counting → PASS. Plain "vowels in the logo" = FAIL. The qualifier must demand actual visual reasoning, not be a meaningless decoration.
 - Pure extraction prompts = thumbs-down (no reasoning step).
 - Existing 5 Guidelines + 12 Error Types still primary; V6 adds the anchor-skill + non-contextual + non-extraction filters on top.
 

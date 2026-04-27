@@ -151,20 +151,121 @@ def write_json(path: Path, data) -> None:
     write_text(path, json.dumps(data, indent=2) + "\n")
 
 
-def chrome_js(js: str) -> str:
+DISMISS_REMOTE_DEBUG_PROMPT = """
+tell application "Google Chrome" to activate
+delay 0.3
+tell application "System Events"
+  tell process "Google Chrome"
+    repeat with w in windows
+      try
+        set els to entire contents of w
+        set foundDialog to false
+        set dialogBtns to {}
+        repeat with e in els
+          try
+            if role of e is "AXStaticText" then
+              if value of e as string contains "external app wants full control" then
+                set foundDialog to true
+              end if
+            end if
+            if foundDialog and role of e is "AXButton" then
+              set end of dialogBtns to e
+            end if
+          end try
+        end repeat
+        if (count of dialogBtns) >= 3 then
+          set rightmostX to -1
+          set rightmostBtn to missing value
+          repeat with b in dialogBtns
+            try
+              set p to position of b
+              if (item 1 of p) > rightmostX then
+                set rightmostX to (item 1 of p)
+                set rightmostBtn to b
+              end if
+            end try
+          end repeat
+          if rightmostBtn is not missing value then
+            click rightmostBtn
+            return "clicked-x=" & rightmostX
+          end if
+        end if
+      end try
+    end repeat
+    return "no-dialog"
+  end tell
+end tell
+"""
+
+
+def _dismiss_chrome_debug_prompt() -> str:
+    """Click the 'Allow' button on Chrome 144+'s remote-debugging consent dialog.
+
+    Triggered when chrome_js times out or returns empty (typical symptom: the dialog
+    blocks osascript JS execution mid-batch, often after screen saver wake invalidates
+    the prior session's grant).
+
+    Approach: detect the dialog by its unique static-text phrase, collect every AXButton
+    appearing after that text (these are the dialog's 3 buttons: Turn off / Cancel /
+    Allow), and click the rightmost (Allow). We can't dismiss with a Return keystroke
+    because `activate` doesn't move Chrome's internal keyboard focus to the modal —
+    Return goes to whatever web element was previously focused. Click bypasses focus.
+
+    Requires Accessibility permission for the parent shell (Terminal/iTerm) in
+    System Settings → Privacy & Security → Accessibility. Without it, the click is
+    silently dropped and the retry will fail again.
+    """
+    try:
+        result = subprocess.run(
+            ["osascript", "-e", DISMISS_REMOTE_DEBUG_PROMPT],
+            capture_output=True,
+            text=True,
+            timeout=3,
+        )
+        return (result.stdout or result.stderr).strip() or "ok"
+    except subprocess.TimeoutExpired:
+        return "dismiss-timeout"
+
+
+def chrome_js(js: str, _retried: bool = False) -> str:
     with tempfile.NamedTemporaryFile("w", suffix=".applescript", delete=False) as f:
         f.write(APPLE_SCRIPT)
         script_path = f.name
     try:
-        proc = subprocess.run(
-            ["osascript", script_path, js],
-            check=True,
-            capture_output=True,
-            text=True,
-        )
+        try:
+            proc = subprocess.run(
+                ["osascript", script_path, js],
+                check=True,
+                capture_output=True,
+                text=True,
+                timeout=15,
+            )
+        except subprocess.TimeoutExpired as exc:
+            if _retried:
+                raise RuntimeError(
+                    "osascript timed out twice — Chrome remote-debug prompt likely "
+                    "still blocking, or Accessibility permission missing for parent shell"
+                ) from exc
+            dismiss_result = _dismiss_chrome_debug_prompt()
+            print(
+                f"  [chrome_js] osascript timed out — dismissed remote-debug prompt "
+                f"(result={dismiss_result}); retrying once",
+                flush=True,
+            )
+            time.sleep(0.5)
+            return chrome_js(js, _retried=True)
         out = proc.stdout.strip()
         if out == "":
-            raise RuntimeError("empty response from Chrome execute javascript")
+            if _retried:
+                raise RuntimeError("empty response from Chrome execute javascript (after retry)")
+            dismiss_result = _dismiss_chrome_debug_prompt()
+            print(
+                f"  [chrome_js] empty osascript response — dismissed remote-debug prompt "
+                f"(result={dismiss_result}); retrying once",
+                flush=True,
+            )
+            time.sleep(0.5)
+            return chrome_js(js, _retried=True)
         return out
     finally:
         try:

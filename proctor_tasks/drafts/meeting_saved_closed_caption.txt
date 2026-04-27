@@ -1,0 +1,2142 @@
+[Matt Olmstead] 08:11:40
+does not apply here, it should not have used it.
+
+[Matt Olmstead] 08:11:44
+Hey, that's the trickery we don't want.
+
+[Matt Olmstead] 08:11:47
+Again, if you tell it to use something…
+
+[Matt Olmstead] 08:11:51
+And it uses it, that cannot be a failure.
+
+[Matt Olmstead] 08:11:55
+Right? Even though maybe you'd say,
+
+[Matt Olmstead] 08:11:58
+It should reason that that thing is not useful here.
+
+[Matt Olmstead] 08:12:02
+That's not what we want.
+
+[Matt Olmstead] 08:12:05
+So, if you tell it to use a technique…
+
+[Matt Olmstead] 08:12:09
+And it uses that technique, again, cannot be an error. So maybe you do tell it to try this
+
+[Matt Olmstead] 08:12:15
+Wantum technique in a classical situation.
+
+[Matt Olmstead] 08:12:18
+Right? Maybe, maybe there's something there, because we do that sometimes.
+
+[Matt Olmstead] 08:12:22
+often will go the other way. What happens if you take this classical one?
+
+[Matt Olmstead] 08:12:27
+and expand it in… er, sorry, take this quantum one, expand into classical. So there are some ways you can do that.
+
+[Matt Olmstead] 08:12:34
+But we don't want the trick types of questions.
+
+[Matt Olmstead] 08:12:39
+And again, same thing here, but we don't want contradictions, right? So don't tell it in the prompt too contradictory things.
+
+[Matt Olmstead] 08:12:47
+And then be like, oh, it did that, right, again.
+
+[Matt Olmstead] 08:12:50
+Those do get the answer wrong.
+
+[Matt Olmstead] 08:12:52
+Not the types of stumps we're looking for.
+
+[Matt Olmstead] 08:12:55
+Okay? Again, it's these… these first two that we really like to think are going to work.
+
+[Matt Olmstead] 08:13:02
+We just ask it something computationally intensive.
+
+[Matt Olmstead] 08:13:06
+Or we ask it some standard type of question we like.
+
+[Matt Olmstead] 08:13:10
+And again, many of you have now been seeing as well.
+
+[Matt Olmstead] 08:13:15
+that…
+
+[Matt Olmstead] 08:13:17
+they're good, right? So we can't just ask it questions you've seen. Like, I can read a lot of the questions, and I can be like, it's not gonna fail here.
+
+[Matt Olmstead] 08:13:27
+Where you're getting the failures are…
+
+[Matt Olmstead] 08:13:30
+in the assumptions, right? You haven't clearly…
+
+[Matt Olmstead] 08:13:33
+constrained your situation enough.
+
+[Matt Olmstead] 08:13:35
+And so, again, the advice there is to look at the…
+
+[Matt Olmstead] 08:13:40
+Model responses.
+
+[Matt Olmstead] 08:13:42
+and see where are they failing.
+
+[Matt Olmstead] 08:13:45
+If they are failing because there's something not clearly stated, they will say, like,
+
+[Matt Olmstead] 08:13:51
+I don't know what this value of this… this constant, this…
+
+[Matt Olmstead] 08:13:55
+This volume, this whatever, was not mentioned, so now it's not constrained. This normalization factor, this…
+
+[Matt Olmstead] 08:14:02
+These constraints were not clear, so they'll model responses will try different things.
+
+[Matt Olmstead] 08:14:08
+Again, those are not the failures we want.
+
+[Matt Olmstead] 08:14:11
+So that technique of just…
+
+[Matt Olmstead] 08:14:13
+being not constrained enough, it's not what we want.
+
+[Matt Olmstead] 08:14:18
+So instead, some things that do work.
+
+[Matt Olmstead] 08:14:22
+Again, use these niche areas. Use the areas
+
+[Matt Olmstead] 08:14:26
+that there's just not a lot of training on.
+
+[Matt Olmstead] 08:14:28
+Well, that happens to be a lot of your research specialties.
+
+[Matt Olmstead] 08:14:32
+Right? There are things that only 5, 10, 20 people in the world know. You're one of those people.
+
+[Matt Olmstead] 08:14:37
+That's a good area to probe. There's not a lot that exists out there.
+
+[Matt Olmstead] 08:14:42
+Okay? Again, we've mentioned the frameworks out of context. As long as they still apply.
+
+[Matt Olmstead] 08:14:50
+So, tractable but novel derivations.
+
+[Matt Olmstead] 08:14:52
+So you can use papers.
+
+[Matt Olmstead] 08:14:57
+But you can't just do a derivation that's already in an existing paper.
+
+[Matt Olmstead] 08:15:03
+But you can try to come up with things from there.
+
+[Matt Olmstead] 08:15:07
+Or again, start somewhere…
+
+[Matt Olmstead] 08:15:09
+say, I have these conditions…
+
+[Matt Olmstead] 08:15:12
+This is my starting point.
+
+[Matt Olmstead] 08:15:13
+Now we can solve this. So again, maybe your equation never existed before that you wanted to derive.
+
+[Matt Olmstead] 08:15:21
+But the physics is well-grounded, we can do that.
+
+[Matt Olmstead] 08:15:25
+Again, these broken approximations…
+
+[Matt Olmstead] 08:15:30
+And again, I mentioned small angle because that's something we all understand, right? There's some situations where we do binomial approximations,
+
+[Matt Olmstead] 08:15:38
+Or maybe you set up a situation that's normally a quadrupole.
+
+[Matt Olmstead] 08:15:44
+But because of whatever situation you've set up,
+
+[Matt Olmstead] 08:15:50
+You know, maybe… maybe you set it up in such a way that the dipole actually shows up in this constrained situation.
+
+[Matt Olmstead] 08:15:56
+Where normally it doesn't. Or maybe the quadruple doesn't exist, so you need to go octopole.
+
+[Matt Olmstead] 08:16:02
+Right? So again, you're taking something that normally is done one way,
+
+[Matt Olmstead] 08:16:08
+And doing it a differently.
+
+[Matt Olmstead] 08:16:12
+Again…
+
+[Matt Olmstead] 08:16:15
+instead of just giving values for things,
+
+[Matt Olmstead] 08:16:18
+Maybe set it in more of a…
+
+[Matt Olmstead] 08:16:21
+lab-structured environment, right? So if you wanted to do…
+
+[Matt Olmstead] 08:16:26
+this quantum mechanical system, and you say, here's my starting ket, you know, here's whatever I have, where do I end up?
+
+[Matt Olmstead] 08:16:33
+Well, instead of doing that…
+
+[Matt Olmstead] 08:16:36
+set up in the lab,
+
+[Matt Olmstead] 08:16:38
+I set up my thing like this…
+
+[Matt Olmstead] 08:16:41
+And so then you've set up what it is, so…
+
+[Matt Olmstead] 08:16:44
+Right? You're taking a standard-ish problem,
+
+[Matt Olmstead] 08:16:47
+But setting it somewhere else, and requiring different reasoning. And I'm going to show us these different reasoning things in a little bit.
+
+[Matt Olmstead] 08:16:54
+And so again, the experimental setups help with that.
+
+[Matt Olmstead] 08:17:00
+Maybe you're possible to add some boundary conditions that are…
+
+[Matt Olmstead] 08:17:05
+Not the normal ones.
+
+[Matt Olmstead] 08:17:07
+And again, all of these are coming back to do something different.
+
+[Matt Olmstead] 08:17:12
+do something that is not as well trained on.
+
+[Matt Olmstead] 08:17:15
+I see… sorry, I missed the questions earlier, let me just check those before I go to the next slide.
+
+[Matt Olmstead] 08:17:25
+Not the question we're looking for, okay.
+
+[Matt Olmstead] 08:17:29
+Hey.
+
+[Matt Olmstead] 08:17:30
+I've got a couple more. So now…
+
+[Matt Olmstead] 08:17:33
+Because these models are really good,
+
+[Matt Olmstead] 08:17:35
+People have been asking, can I just do, like, one or two layers?
+
+[Matt Olmstead] 08:17:38
+No. You need a lot of reasoning layers for these, right? It's good at this, it's good at this, it's good at this.
+
+[Matt Olmstead] 08:17:45
+If you can layer these problems, so multiple concepts into the same task,
+
+[Matt Olmstead] 08:17:51
+That's really what we're going to want to do.
+
+[Matt Olmstead] 08:17:54
+And the more varied layers we can have.
+
+[Matt Olmstead] 08:17:57
+Right, so not just… again, we're gonna go do a simple situation.
+
+[Matt Olmstead] 08:18:00
+throw a ball where it's energy conservation, you know, then a different type of energy conservation, and another type.
+
+[Matt Olmstead] 08:18:07
+Right. Not that.
+
+[Matt Olmstead] 08:18:09
+That's not what we mean by adding more layers, it's really adding different types of reasoning.
+
+[Matt Olmstead] 08:18:15
+Right? Use noise, use probability, use these different things. Again, just making it do
+
+[Matt Olmstead] 08:18:21
+additional reasoning layers.
+
+[Matt Olmstead] 08:18:26
+And again, going back on this…
+
+[Matt Olmstead] 08:18:29
+Combine topics that aren't often combined.
+
+[Matt Olmstead] 08:18:33
+Right? And so, like, in astrophysics,
+
+[Matt Olmstead] 08:18:37
+We can combine lots of different topics, and again,
+
+[Matt Olmstead] 08:18:40
+In astrophysics, those topics that might sound different.
+
+[Matt Olmstead] 08:18:43
+are often combined.
+
+[Matt Olmstead] 08:18:46
+But think about ways you can take different topics, or topics that aren't as well combined.
+
+[Matt Olmstead] 08:18:51
+Okay, good.
+
+[Matt Olmstead] 08:18:54
+I want to emphasize this one again, because this is a good approach.
+
+[Matt Olmstead] 08:18:58
+Start standard, make your big change, and that's gonna cause something fundamentally different.
+
+[Matt Olmstead] 08:19:03
+And again, make it so it's a big change that just doesn't happen very often.
+
+[Matt Olmstead] 08:19:08
+Okay.
+
+[Matt Olmstead] 08:19:11
+So, when I'm talking about different layers…
+
+[Matt Olmstead] 08:19:14
+And all of this…
+
+[Matt Olmstead] 08:19:16
+Here are a bunch of different types of reasoning.
+
+[Matt Olmstead] 08:19:19
+The more different types of reasoning you can make the models do…
+
+[Matt Olmstead] 08:19:25
+That's where we have success.
+
+[Matt Olmstead] 08:19:29
+Like, biology…
+
+[Matt Olmstead] 08:19:31
+they're always like, oh yeah, the models are really bad at spatial reasoning.
+
+[Matt Olmstead] 08:19:36
+Okay? That's true, we just have to be careful when they say spatial reasoning.
+
+[Matt Olmstead] 08:19:41
+it's different than some of our spatial reasons.
+
+[Matt Olmstead] 08:19:44
+Right, so the models are bad.
+
+[Matt Olmstead] 08:19:47
+Like, if I say, I hurt my…
+
+[Matt Olmstead] 08:19:49
+elbow, what happens at my knee?
+
+[Matt Olmstead] 08:19:52
+Right? That is a lot of the biology spatial reasoning that it's not gonna…
+
+[Matt Olmstead] 08:19:56
+a lot of physics-spatial reasoning, we just have equations for.
+
+[Matt Olmstead] 08:20:00
+Right? We have equations that tell us positions.
+
+[Matt Olmstead] 08:20:03
+And so then you're like, oh…
+
+[Matt Olmstead] 08:20:06
+That's what they mean by spatial regions. That's not really what we want.
+
+[Matt Olmstead] 08:20:09
+But where we can have success in this,
+
+[Matt Olmstead] 08:20:11
+is it has a rougher time with structures and orientations and symmetries.
+
+[Matt Olmstead] 08:20:16
+Right? Or symmetry-breaking situations.
+
+[Matt Olmstead] 08:20:21
+So, if it has to visualize things,
+
+[Matt Olmstead] 08:20:24
+That's where it struggles.
+
+[Matt Olmstead] 08:20:26
+So there was one task somebody was looking at where…
+
+[Matt Olmstead] 08:20:30
+If you just try to brute force it…
+
+[Matt Olmstead] 08:20:33
+That, in principle, would eventually work.
+
+[Matt Olmstead] 08:20:36
+But I can look at the situation and apply some topological…
+
+[Matt Olmstead] 08:20:40
+idea, and be like, oh…
+
+[Matt Olmstead] 08:20:42
+We just do this and this and this, and then we're done.
+
+[Matt Olmstead] 08:20:45
+Right, so if you can do approaches like that…
+
+[Matt Olmstead] 08:20:50
+And again, combining spatial and causal, just make sure it's not the type of stuff we normally do with that.
+
+[Matt Olmstead] 08:20:57
+And again, temporal reasoning with times this, and then this, and this.
+
+[Matt Olmstead] 08:21:02
+Well, this is what our equations often are, right? We know things in time.
+
+[Matt Olmstead] 08:21:06
+So we just need to be a little bit more careful.
+
+[Matt Olmstead] 08:21:09
+And how we utilize these.
+
+[Matt Olmstead] 08:21:11
+This is, of course, not all of them.
+
+[Matt Olmstead] 08:21:13
+But if you can write a task that requires, you know, 3 or 4 of these,
+
+[Matt Olmstead] 08:21:19
+You're often in good luck.
+
+[Matt Olmstead] 08:21:21
+Okay.
+
+[Matt Olmstead] 08:21:26
+So, for a little bit, I'm gonna put up a couple…
+
+[Matt Olmstead] 08:21:29
+ways that different specialists have built tasks that I've talked to.
+
+[Matt Olmstead] 08:21:34
+So, one of them…
+
+[Matt Olmstead] 08:21:36
+And they're mostly gonna sit down, and they're gonna think. They're like, okay.
+
+[Matt Olmstead] 08:21:40
+What am I good at?
+
+[Matt Olmstead] 08:21:41
+Well, I'm good at all of these things,
+
+[Matt Olmstead] 08:21:45
+what am I really, really good at?
+
+[Matt Olmstead] 08:21:47
+Well, now I can narrow it down, so I'm really good at this.
+
+[Matt Olmstead] 08:21:51
+And so for this specialist…
+
+[Matt Olmstead] 08:21:54
+They're like, okay, I'm really good at this specific fluid mechanic thing, not very many people know this.
+
+[Matt Olmstead] 08:22:01
+So now…
+
+[Matt Olmstead] 08:22:03
+I've got something I'm good at, so I've identified my area of expertise, and it happens to be something that not a lot of people do, which means not a lot of books, not a lot of training data,
+
+[Matt Olmstead] 08:22:14
+And it's very specific.
+
+[Matt Olmstead] 08:22:16
+And then this specialist is like, okay.
+
+[Matt Olmstead] 08:22:20
+Where in this process…
+
+[Matt Olmstead] 08:22:22
+Where do I think the models are gonna be bad at?
+
+[Matt Olmstead] 08:22:25
+Okay. Models are probably good at coming up with the equations.
+
+[Matt Olmstead] 08:22:31
+You know, it's fluid mechanics, there's always that Stokes number.
+
+[Matt Olmstead] 08:22:36
+What do you do when you're in the laminar flow?
+
+[Matt Olmstead] 08:22:41
+The other one…
+
+[Matt Olmstead] 08:22:42
+So what do you do in those situations?
+
+[Matt Olmstead] 08:22:45
+Maybe, you know, maybe… I think there's gonna be some sort of issue there.
+
+[Matt Olmstead] 08:22:49
+And maybe I'm gonna set up my problem so this situation…
+
+[Matt Olmstead] 08:22:54
+would normally be laminar flow, but I'm gonna set it up in such a way…
+
+[Matt Olmstead] 08:22:57
+that it's actually not in this situation. Maybe I've changed the density of my things enough, or I change some parameter.
+
+[Matt Olmstead] 08:23:05
+So that this thing that is normally…
+
+[Matt Olmstead] 08:23:07
+Laminar flow is now not.
+
+[Matt Olmstead] 08:23:11
+that's where I think it is going to fail.
+
+[Matt Olmstead] 08:23:14
+Okay? And then I ask that.
+
+[Matt Olmstead] 08:23:18
+Or sometimes, they're just like…
+
+[Matt Olmstead] 08:23:20
+This is something I've thought about.
+
+[Matt Olmstead] 08:23:22
+But I've never actually done. Maybe that's interesting.
+
+[Matt Olmstead] 08:23:27
+I have had some success.
+
+[Matt Olmstead] 08:23:29
+With these models?
+
+[Matt Olmstead] 08:23:31
+And if you just take a standard sort of question that…
+
+[Matt Olmstead] 08:23:37
+Is this kind of just always assume, or they'll be like, oh,
+
+[Matt Olmstead] 08:23:41
+You know, often we do this in a frictionless situation. If we apply friction,
+
+[Matt Olmstead] 08:23:47
+we can do that, it's just gonna go slower, it's not gonna go as high, things like that.
+
+[Matt Olmstead] 08:23:52
+But maybe it's such a situation that nobody's actually ever done that before.
+
+[Matt Olmstead] 08:23:56
+Right, because everybody's like, oh, you would just do this.
+
+[Matt Olmstead] 08:23:59
+But we're not going to.
+
+[Matt Olmstead] 08:24:01
+Right, or everybody, when they do mirrors,
+
+[Matt Olmstead] 08:24:05
+Like, uh, sorry, image charges, right? They're gonna set up an infinite grounded plane, or maybe they'll set them up at 90 degrees,
+
+[Matt Olmstead] 08:24:13
+Or maybe they'll set them at 60 degrees, so I get these symmetries.
+
+[Matt Olmstead] 08:24:19
+And then there's just numbers that always show up, they're like, when we do this…
+
+[Matt Olmstead] 08:24:23
+Right, if I have my plane situation, the energy is always half.
+
+[Matt Olmstead] 08:24:27
+Well, that's for a single plane, not for a double plane.
+
+[Matt Olmstead] 08:24:30
+Right? So it's just the things that show up in textbooks that are almost taken for granted.
+
+[Matt Olmstead] 08:24:36
+if you set it up differently than maybe what you have to do is different.
+
+[Matt Olmstead] 08:24:41
+Okay, so the specialist will do things like that.
+
+[Matt Olmstead] 08:24:46
+Right? And again, just something I've thought about and never done, do that.
+
+[Matt Olmstead] 08:24:50
+Or they'll take two different topics and see, how can I smash these two things together?
+
+[Matt Olmstead] 08:24:55
+to come up with a question. But they're really…
+
+[Matt Olmstead] 08:24:58
+trying to structurally build a solid question.
+
+[Matt Olmstead] 08:25:02
+Okay? So that's how one of them does it. Come up…
+
+[Matt Olmstead] 08:25:05
+you know, spend some time thinking about, here's my question.
+
+[Matt Olmstead] 08:25:09
+These are the parts I think are gonna stump the model.
+
+[Matt Olmstead] 08:25:12
+And then let's ask it.
+
+[Matt Olmstead] 08:25:15
+This specialist takes 30 to 45 minutes, at least, to come up with each of their questions.
+
+[Matt Olmstead] 08:25:20
+a different type.
+
+[Matt Olmstead] 08:25:22
+a different way of specialist things, is we're just gonna be like, let's probe the model and see what happens.
+
+[Matt Olmstead] 08:25:28
+So, first, they just pick an area that interests them.
+
+[Matt Olmstead] 08:25:31
+Okay? And then they really will ask an open-ended question to the model.
+
+[Matt Olmstead] 08:25:36
+You know, sometimes they even do, like, an undergrad level, even for this project.
+
+[Matt Olmstead] 08:25:40
+But they'll just start open-ended, so it does not meet the project guidelines.
+
+[Matt Olmstead] 08:25:44
+And they just look at the results. Like, how did the models respond to this?
+
+[Matt Olmstead] 08:25:49
+Right? Maybe there's areas that it's model's more focused on, maybe there's areas that Les focuses on.
+
+[Matt Olmstead] 08:25:56
+After doing that,
+
+[Matt Olmstead] 08:25:58
+Then we're going to look at all these responses, and we're going to come up with
+
+[Matt Olmstead] 08:26:02
+Another probing question, but much more focused. So now maybe I've taken it from an undergrad level to a grad level.
+
+[Matt Olmstead] 08:26:09
+Maybe I still haven't seen any weaknesses.
+
+[Matt Olmstead] 08:26:11
+So I'm still gonna ask some sort of open-ended-ish question.
+
+[Matt Olmstead] 08:26:15
+Right? Not exact. Let's see what it's doing.
+
+[Matt Olmstead] 08:26:18
+But you're probing to see…
+
+[Matt Olmstead] 08:26:20
+Where is the model weak? What does it know?
+
+[Matt Olmstead] 08:26:24
+Right? And that's the big one. We're saying. What does the model know? What can it do? And maybe there's things you see that
+
+[Matt Olmstead] 08:26:29
+it didn't talk about this thing.
+
+[Matt Olmstead] 08:26:31
+And so, again, you're probing.
+
+[Matt Olmstead] 08:26:34
+You're continually making your questions more focused.
+
+[Matt Olmstead] 08:26:37
+And now, after you've done it a couple iterations, maybe you say, like, okay, the model clearly is good at these parts,
+
+[Matt Olmstead] 08:26:43
+It's not good at this thing, or it's ignoring this thing.
+
+[Matt Olmstead] 08:26:47
+And now I'm gonna take… I'm going to write my question.
+
+[Matt Olmstead] 08:26:51
+focused on that.
+
+[Matt Olmstead] 08:26:55
+Okay?
+
+[Matt Olmstead] 08:26:58
+So, any questions there?
+
+[Matt Olmstead] 08:27:06
+And so I had initially planned this for about 30 minutes.
+
+[Matt Olmstead] 08:27:10
+So, telling you, here are some of the strategies we found that worked.
+
+[Matt Olmstead] 08:27:14
+Again, we are continuing to…
+
+[Matt Olmstead] 08:27:18
+use these models and figure out
+
+[Matt Olmstead] 08:27:20
+Some strategies I'm gonna spend some time next week just…
+
+[Matt Olmstead] 08:27:23
+attacking the model.
+
+[Matt Olmstead] 08:27:25
+in this probing sort of situation, and just trying to give you lots of ideas that maybe here's something that happens to be a little bit weaker at.
+
+[Matt Olmstead] 08:27:34
+Okay, and again, another thing you can do is if you go really, really hard…
+
+[Matt Olmstead] 08:27:40
+in… an area that's not as common.
+
+[Matt Olmstead] 08:27:42
+often you're gonna get a stumped there as well.
+
+[Matt Olmstead] 08:27:46
+It looks like a couple questions showed up… nope.
+
+[Matt Olmstead] 08:27:56
+So, has anybody started a question?
+
+[Matt Olmstead] 08:28:01
+that would like to maybe… we'll try to, as a group,
+
+[Matt Olmstead] 08:28:04
+come up with some ideas.
+
+[Matt Olmstead] 08:28:17
+And in that slideshow I have, I just had some more…
+
+[Matt Olmstead] 08:28:21
+specifics for each of them, you know.
+
+[Matt Olmstead] 08:28:22
+But I will post those, I don't think we need to go through all the text.
+
+[Gaige Riggs] 08:28:31
+I mean, if no one has any, I have that.
+
+[Matt Olmstead] 08:28:32
+Okay…
+
+[Gaige Riggs] 08:28:34
+quantum error correction task I was working on that didn't work out.
+
+[Gaige Riggs] 08:28:37
+that I gave up on, like, 3 days ago.
+
+[Matt Olmstead] 08:28:40
+Now, sure, let's bring it up, at least so people can see what you were looking at.
+
+[Gaige Riggs] 08:28:45
+Sure.
+
+[Matt Olmstead] 08:28:50
+But again, we are here for questions, so that's what the rest of this time will be.
+
+[Gaige Riggs] 08:29:03
+Alright, can you see my screen?
+
+[Matt Olmstead] 08:29:04
+Yes.
+
+[Matt Olmstead] 08:29:06
+Let me move it over so it at least looks like I'm looking at you.
+
+[Gaige Riggs] 08:29:13
+Yeah, so I… my goal was to, uh…
+
+[Gaige Riggs] 08:29:16
+I always try and learn something whenever I write new tasks.
+
+[Gaige Riggs] 08:29:19
+So I was looking into a surface codes with quantum error correction, and they have this fun kind of topological
+
+[Gaige Riggs] 08:29:26
+been to him.
+
+[Gaige Riggs] 08:29:28
+And essentially, it's easier to see with an image, but I described it with words.
+
+[Gaige Riggs] 08:29:33
+Essentially, you have these, like, ideal, or maybe sub-ideal paths
+
+[Gaige Riggs] 08:29:38
+like, you see this blue line that follows through?
+
+[Matt Olmstead] 08:29:42
+Yeah.
+
+[Gaige Riggs] 08:29:42
+And you need to pass through…
+
+[Gaige Riggs] 08:29:44
+and only hit, for example, uh, 2,
+
+[Gaige Riggs] 08:29:48
+adjacent qubits to these, uh, blue lines.
+
+[Gaige Riggs] 08:29:53
+is probably the most…
+
+[Gaige Riggs] 08:29:55
+simple way to say it. And if you do that, then you meet the…
+
+[Gaige Riggs] 08:30:00
+Question, or the category for the question. So I started by trying out with, like, a small one that was actually really complex, and finding the paths.
+
+[Gaige Riggs] 08:30:08
+And what it did was the models just enumerated every possible path and manually checked to see
+
+[Gaige Riggs] 08:30:15
+if there are these adjacencies in place,
+
+[Gaige Riggs] 08:30:17
+that there should or shouldn't be?
+
+[Gaige Riggs] 08:30:21
+So I said, okay, I'll generalize it and make it a little more simple.
+
+[Gaige Riggs] 08:30:25
+And I described it using…
+
+[Gaige Riggs] 08:30:28
+I mean, just mod 2, mod 1, so it's just even at odds, so it just swaps.
+
+[Gaige Riggs] 08:30:33
+at each position.
+
+[Gaige Riggs] 08:30:35
+And so there are these specific paths that you can kind of generalize through the whole thing.
+
+[Gaige Riggs] 08:30:41
+And I asked it to find out how many paths could go from the top
+
+[Gaige Riggs] 08:30:45
+of this grid that's mapped to a cylinder to anywhere on the bottom of it that follows these rules.
+
+[Gaige Riggs] 08:30:52
+taking, I said 51, 52, and 53 steps.
+
+[Gaige Riggs] 08:30:56
+So there's way too many to enumerate.
+
+[Matt Olmstead] 08:30:58
+Yeah.
+
+[Gaige Riggs] 08:30:59
+And then after that, I just said,
+
+[Gaige Riggs] 08:31:02
+the ratio of change in entropy of unit… unity weight, right, just…
+
+[Gaige Riggs] 08:31:07
+Essentially, something to do a calculation with to justify it.
+
+[Gaige Riggs] 08:31:11
+finding these values?
+
+[Gaige Riggs] 08:31:14
+And it did manage to…
+
+[Gaige Riggs] 08:31:16
+figure out, kind of, the general strategy for going through this.
+
+[Gaige Riggs] 08:31:21
+And getting, uh, all of the paths.
+
+[Gaige Riggs] 08:31:24
+So, for 53, there's 40 or 5,000 paths, and 52, there's 151, there's only one.
+
+[Gaige Riggs] 08:31:32
+And I managed to nail it every time.
+
+[Gaige Riggs] 08:31:37
+But that's… yeah, essentially what I was trying to do was make something like this, where it has to…
+
+[Gaige Riggs] 08:31:42
+path out this kind of, like, spatial reasoning problem.
+
+[Gaige Riggs] 08:31:46
+And then just extrapolate the spatial reasoning to some weird topology.
+
+[Gaige Riggs] 08:31:51
+on a large system, that it nailed it.
+
+[Matt Olmstead] 08:31:55
+Interesting.
+
+[Matt Olmstead] 08:31:58
+I'm actually a little surprised that it did all the calculations right.
+
+[Matt Olmstead] 08:32:02
+Which would not have been an error in itself.
+
+[Matt Olmstead] 08:32:04
+But…
+
+[Gaige Riggs] 08:32:06
+Yeah, it was just… the calculations are, like, log of 5,000 minus log of 100 over log of 100.
+
+[Matt Olmstead] 08:32:12
+Sorry, but even the counting?
+
+[Gaige Riggs] 08:32:14
+Oh, yeah.
+
+[Matt Olmstead] 08:32:15
+Right. Because, because you could… because you did not…
+
+[Matt Olmstead] 08:32:21
+We want to be clear that we're not just asking a super long brute force question.
+
+[Gaige Riggs] 08:32:26
+No, you…
+
+[Matt Olmstead] 08:32:26
+But this one was not.
+
+[Gaige Riggs] 08:32:28
+Yeah, yeah, you can solve it through a bunch of symmetry arguments of what paths are possible.
+
+[Matt Olmstead] 08:32:30
+Right.
+
+[Gaige Riggs] 08:32:36
+And yeah, I killed it.
+
+[Matt Olmstead] 08:32:38
+Did you try?
+
+[Matt Olmstead] 08:32:41
+giving it so you… so it can do these symmetries.
+
+[Matt Olmstead] 08:32:46
+if there were some symmetries that were not allowed to make it now a little bit more complex.
+
+[Matt Olmstead] 08:32:53
+I don't know how you would do that, but…
+
+[Gaige Riggs] 08:32:53
+Well, the… yeah, at a very large scale, right, it would be…
+
+[Gaige Riggs] 08:32:57
+too complex, right? It'd have to… it'd be brute force even by me, doing it by hand.
+
+[Matt Olmstead] 08:33:02
+Right.
+
+[Gaige Riggs] 08:33:03
+And then at a small scale, the models actually did just brute force it,
+
+[Gaige Riggs] 08:33:09
+and find out everything.
+
+[Matt Olmstead] 08:33:11
+Right. So we want…
+
+[Gaige Riggs] 08:33:13
+So that's why I tried to go to a higher…
+
+[Gaige Riggs] 08:33:16
+more symmetric system that it couldn't brute force, but it's still… they figured it out pretty well.
+
+[Matt Olmstead] 08:33:23
+could you do mod 3 instead of mod 2? I don't even know what that would mean, but…
+
+[Gaige Riggs] 08:33:30
+No, these are just…
+
+[Matt Olmstead] 08:33:31
+Again, I'm not… I'm just trying to come up with things that…
+
+[Matt Olmstead] 08:33:35
+maybe would work, but again, I don't know what…
+
+[Matt Olmstead] 08:33:38
+you're doing here?
+
+[Gaige Riggs] 08:33:41
+Yeah, no, the mod 2 is just even and odd, because it has these, like, sensing qubits next to the data qubits.
+
+[Matt Olmstead] 08:33:41
+But…
+
+[Gaige Riggs] 08:33:48
+So that's just kind of a standard way to explain what's going on here.
+
+[Matt Olmstead] 08:33:53
+And…
+
+[Matt Olmstead] 08:33:55
+Could you set up a way where, instead of being next to one, it could be next to two?
+
+[Matt Olmstead] 08:33:59
+We're two in a row…
+
+[Gaige Riggs] 08:34:02
+Yeah, that's what I was saying, like, I had a small one that was very specific, kind of like this figure 2 here.
+
+[Matt Olmstead] 08:34:09
+Yeah.
+
+[Gaige Riggs] 08:34:09
+And then that didn't work, so I made this one right here.
+
+[Gaige Riggs] 08:34:13
+Which is a larger one, and then just expanded it out to be very large, and then wrapped it.
+
+[Matt Olmstead] 08:34:18
+Yeah.
+
+[Gaige Riggs] 08:34:20
+But neither of those worked.
+
+[Gaige Riggs] 08:34:22
+I could try and make a very large one.
+
+[Gaige Riggs] 08:34:25
+But then my problem would be 3 essays long explaining how everything's positioned.
+
+[Matt Olmstead] 08:34:29
+Right, right.
+
+[Gaige Riggs] 08:34:35
+So I was a bit stumped on where to go on this one. I figured I'd just try something else.
+
+[Matt Olmstead] 08:34:40
+Yeah, no, I… right, because like you, I feel like there should be something here.
+
+[Matt Olmstead] 08:34:46
+I don't even…
+
+[Gaige Riggs] 08:34:46
+I mean, usually they're absolutely terrible at these kind of, like, spatial puzzles.
+
+[Matt Olmstead] 08:34:50
+Right.
+
+[Gaige Riggs] 08:34:51
+At least in the past, maybe not so much anymore.
+
+[Matt Olmstead] 08:34:57
+Right.
+
+[Matt Olmstead] 08:35:00
+No, no, that, that, again, I would have thought there was something here as well.
+
+[Fedor Kuzminov] 08:35:07
+Yeah, for the spatial one, Matt, I tried a couple of things that, uh, similar things that I know models failed in the past, but, um, yeah, they nailed it, like, very easily.
+
+[Fedor Kuzminov] 08:35:17
+some of the spatial reasoning that failed in the past.
+
+[Fedor Kuzminov] 08:35:23
+Uh, so I gave up on that, and I focused on different strategies.
+
+[Matt Olmstead] 08:35:27
+Have you had some success yet, then?
+
+[Matt Olmstead] 08:35:30
+I mean, you… yeah.
+
+[Fedor Kuzminov] 08:35:31
+Oh, with tasks in general?
+
+[Fedor Kuzminov] 08:35:33
+Yeah, yeah, yeah, I had some. Uh, I submitted two…
+
+[Matt Olmstead] 08:35:34
+Okay.
+
+[Fedor Kuzminov] 08:35:37
+And I'm working on another one.
+
+[Fedor Kuzminov] 08:35:41
+And I think this one is, um…
+
+[Fedor Kuzminov] 08:35:43
+The only problem is, like, you submit something, and then you just, like, double-check, triple check that it's not ambiguous, and then you find some, like, little things, and…
+
+[Fedor Kuzminov] 08:35:51
+Uh, you have to run it a couple more times, just to make sure that you're fair.
+
+[Fedor Kuzminov] 08:35:55
+to the model.
+
+[Matt Olmstead] 08:35:55
+Yep.
+
+[Fedor Kuzminov] 08:35:58
+Um…
+
+[Matt Olmstead] 08:35:59
+And so, again, I'm just gonna interrupt real quick. So, again, my advice there is you write your prompt,
+
+[Matt Olmstead] 08:36:05
+you push the up arrow, you look at it in latex,
+
+[Matt Olmstead] 08:36:08
+You read through it one more time.
+
+[Matt Olmstead] 08:36:11
+And then, you know, read through it again.
+
+[Matt Olmstead] 08:36:14
+And just really looking for it.
+
+[Matt Olmstead] 08:36:16
+And again, once you have found the…
+
+[Matt Olmstead] 08:36:21
+the model response is, as you've done,
+
+[Matt Olmstead] 08:36:24
+That's when you go look and see where are they failing.
+
+[Matt Olmstead] 08:36:27
+Is it an ambiguity thing or not?
+
+[Matt Olmstead] 08:36:32
+Okay.
+
+[Fedor Kuzminov] 08:36:33
+Yeah, and a lot of the times, you think it's not ambiguous, but then you look at the model reasoning, and it's like, oh, okay, I haven't thought about that angle of it, so… and you don't want to… and then if you…
+
+[Fedor Kuzminov] 08:36:44
+if you leave it, you're tricking the model, essentially, because you didn't give it a fair chance to, um…
+
+[Matt Olmstead] 08:36:50
+Exactly. So we need to look at those model responses and see, is it because of some ambiguity? Maybe I didn't think about?
+
+[Fedor Kuzminov] 08:36:51
+All of it, yes.
+
+[Matt Olmstead] 08:36:58
+Or could you say, it's claiming ambiguity,
+
+[Matt Olmstead] 08:37:02
+But based on my prompt,
+
+[Matt Olmstead] 08:37:04
+this should not be ambiguous. It should know…
+
+[Matt Olmstead] 08:37:08
+to make this choice based on the prompt.
+
+[Matt Olmstead] 08:37:10
+And if you can do that, then you're fine.
+
+[Matt Olmstead] 08:37:14
+So, any assumptions they're made, you need to be able to tie them back to the prompt.
+
+[Matt Olmstead] 08:37:19
+Whether explicitly stated,
+
+[Matt Olmstead] 08:37:22
+or some connection we can make to the pump, though.
+
+[Fedor Kuzminov] 08:37:30
+Uh, yeah, and I usually work on the, like, I'm doing a lot of biophysics tasks, so I can, uh, I can draw from, like, you know, laser physics,
+
+[Fedor Kuzminov] 08:37:38
+some spectroscopy, some biophysics contacts, and usually that's… that's when it helps.
+
+[Fedor Kuzminov] 08:37:44
+Or… or you combine, let's say, um…
+
+[Fedor Kuzminov] 08:37:46
+the one… the first task that failed
+
+[Fedor Kuzminov] 08:37:49
+Uh, you combine things, let's say, like harvesting of excitation and excitation transfer, and then electron transfer.
+
+[Fedor Kuzminov] 08:37:56
+And then sometimes it just gets confused because you combine areas that are not usually combined.
+
+[Fedor Kuzminov] 08:38:03
+Uh, it can get confused.
+
+[Fedor Kuzminov] 08:38:05
+Uh, with that.
+
+[Fedor Kuzminov] 08:38:07
+or apply their own principles, not what we expected.
+
+[Matt Olmstead] 08:38:10
+Exactly, yep. So, again, he's having success by combining different areas.
+
+[Gaige Riggs] 08:38:16
+One thing I'm…
+
+[Matt Olmstead] 08:38:16
+By taking these different topics, so…
+
+[Gaige Riggs] 08:38:19
+One thing I'm curious about that you mentioned biophysics, is something like the Nernst equation.
+
+[Gaige Riggs] 08:38:25
+Which appears in, like, a simplified form instead of its differential form.
+
+[Gaige Riggs] 08:38:30
+in a bajillion biology texts.
+
+[Gaige Riggs] 08:38:33
+But only in a few, like, kind of… like, I covered in my Thermodynamics of materials course.
+
+[Gaige Riggs] 08:38:38
+But in my neurobiology class, we had, like, just a log equation.
+
+[Gaige Riggs] 08:38:43
+for a simple case, so I wonder if the model gets stumped up if you set up a problem
+
+[Gaige Riggs] 08:38:47
+like that, or if that would be a trick question.
+
+[Matt Olmstead] 08:38:51
+So you're saying set up a…
+
+[Matt Olmstead] 08:38:54
+neuro-type question, where normally they use some version of it.
+
+[Gaige Riggs] 08:38:58
+Yeah, yeah, they have, like…
+
+[Matt Olmstead] 08:38:58
+But you want the full version?
+
+[Gaige Riggs] 08:39:00
+Yeah.
+
+[Matt Olmstead] 08:39:03
+I think that that would be fine, assuming you're setting up a situation where that
+
+[Matt Olmstead] 08:39:08
+Where the…
+
+[Matt Olmstead] 08:39:10
+simplified version doesn't apply.
+
+[Matt Olmstead] 08:39:12
+But you're setting your question in a context where it usually does.
+
+[Gaige Riggs] 08:39:18
+Yeah, it's been a while since I…
+
+[Matt Olmstead] 08:39:19
+Is that what you're suggesting?
+
+[Gaige Riggs] 08:39:20
+covered that stuff, but…
+
+[Gaige Riggs] 08:39:23
+I'm sure you could…
+
+[Gaige Riggs] 08:39:25
+do just fine.
+
+[Matt Olmstead] 08:39:27
+Right, no, no, I think that's a good idea. Again, that's the taking…
+
+[Matt Olmstead] 08:39:30
+something where…
+
+[Matt Olmstead] 08:39:32
+normally it's done one way, but you're doing it a different way, but I think that's a great idea in that…
+
+[Matt Olmstead] 08:39:39
+and I'm gonna say the neural context that it's been trained on.
+
+[Matt Olmstead] 08:39:43
+It's likely only going to do the simplified version.
+
+[Matt Olmstead] 08:39:47
+Like, that's all that…
+
+[Matt Olmstead] 08:39:49
+a lot of them do.
+
+[Matt Olmstead] 08:39:53
+And so, so maybe then making it where that
+
+[Matt Olmstead] 08:39:57
+assumption doesn't apply would be good.
+
+[Matt Olmstead] 08:39:59
+And again, it's not tricking it.
+
+[Matt Olmstead] 08:40:02
+It's just… it's almost always done one way, and all of the training data.
+
+[Matt Olmstead] 08:40:07
+So that's when it says, this is what I do next.
+
+[Matt Olmstead] 08:40:11
+That's interesting.
+
+[Gaige Riggs] 08:40:13
+Yeah, maybe, Fedor knows more.
+
+[Gaige Riggs] 08:40:16
+I think the Nernst equation is a…
+
+[Gaige Riggs] 08:40:19
+first-order differential equation that has to do with the diffusion of charged particles.
+
+[Gaige Riggs] 08:40:24
+And then, in biology, I think they just say it's the natural log of something times the charge.
+
+[Gaige Riggs] 08:40:30
+Which is just the simplest case.
+
+[Gaige Riggs] 08:40:33
+And so they ignore all the other particles.
+
+[Gaige Riggs] 08:40:35
+And the environment.
+
+[Gaige Riggs] 08:40:39
+something like that.
+
+[Matt Olmstead] 08:40:40
+No.
+
+[Fedor Kuzminov] 08:40:42
+Um, I think… I think, yes, it's, it's, it's, it's like Matt said, it's context-driven, so, uh, if you… if it follows the path, like, LLMs are like trees, right? You just follow a path, and then when it selects a path, it just follows down that path. It's really…
+
+[Fedor Kuzminov] 08:40:57
+difficult for it to jump the branch.
+
+[Fedor Kuzminov] 08:40:59
+So if you provided context, that it chooses the wrong branch initially,
+
+[Fedor Kuzminov] 08:41:05
+Uh, then this is when you hook it up.
+
+[Fedor Kuzminov] 08:41:06
+So that's… that's how the LAMs usually work. So you have to… you have to provide context, not tricking it, but provide contacts.
+
+[Fedor Kuzminov] 08:41:14
+Um, that will essentially force it to pick the wrong branch of reasoning.
+
+[Fedor Kuzminov] 08:41:19
+Um, and, um, and then go with it. So yeah, if you give it context of oversimplify that, you know, it will most likely choose a simplified version, or a wrong version.
+
+[Fedor Kuzminov] 08:41:29
+Even though the context is correct, and any trained person would take the right.
+
+[Fedor Kuzminov] 08:41:33
+equation or approach.
+
+[Fedor Kuzminov] 08:41:36
+Um, that's… I think that that's what we're looking for.
+
+[Gaige Riggs] 08:41:39
+Yeah, maybe I'll try that.
+
+[Matt Olmstead] 08:41:42
+No, I think that's a great…
+
+[Matt Olmstead] 08:41:44
+idea, and again, it's the combining different areas.
+
+[Matt Olmstead] 08:41:49
+And as you said, right, you don't know this stuff, but you're like, yeah, that sounds interesting.
+
+[Matt Olmstead] 08:41:53
+Right? Some of this sounds interesting to me.
+
+[Matt Olmstead] 08:41:55
+And that's… that's the good way to do it, is…
+
+[Matt Olmstead] 08:41:58
+Let's write a question that…
+
+[Matt Olmstead] 08:42:00
+I find interesting, so I have to learn some stuff, but other people…
+
+[Matt Olmstead] 08:42:03
+probably haven't asked this question.
+
+[Matt Olmstead] 08:42:12
+So again, any…
+
+[Fedor Kuzminov] 08:42:12
+I think… I think another great strategy, like, is it okay, Matt, if I… I just had an…
+
+[Matt Olmstead] 08:42:17
+Yep, if you have a good strategy, go for it.
+
+[Fedor Kuzminov] 08:42:17
+Yes, and another good strategy that I've seen on the past projects is
+
+[Fedor Kuzminov] 08:42:22
+If something, uh, is, let's say, you have an acceleration on something that has multiple definitions, or has different types of something, there's different types of acceleration.
+
+[Fedor Kuzminov] 08:42:32
+Um, and, uh, you, uh, the model can get confused which one to pick.
+
+[Fedor Kuzminov] 08:42:39
+given all the right context, so the human would not… the right trained human will not get, but the model would, because it sounds similar.
+
+[Fedor Kuzminov] 08:42:46
+So I think that's another thing. So when you have…
+
+[Fedor Kuzminov] 08:42:49
+a definition of similar processes.
+
+[Fedor Kuzminov] 08:42:53
+Um, that are not exactly the same, and if you provide the right context, and the model still doesn't choose the right.
+
+[Fedor Kuzminov] 08:43:01
+acceleration that, uh, that also… or whatever the physical process is, that also a good example of how to start the model.
+
+[Matt Olmstead] 08:43:13
+No, thank you. And so, for the last little bit,
+
+[Matt Olmstead] 08:43:15
+if anybody else has one of their tasks they want to talk about,
+
+[Matt Olmstead] 08:43:18
+one of your topics, one of the things you were looking at.
+
+[Matt Olmstead] 08:43:22
+maybe we could help try to complexify it here.
+
+[Matt Olmstead] 08:43:26
+And we often can't do that on the fly, but we can maybe give some suggestions.
+
+[Matt Olmstead] 08:43:32
+So either post it in chat, throw up a screen…
+
+[Matt Olmstead] 08:43:38
+Hopefully this was somewhat useful.
+
+[Matt Olmstead] 08:43:40
+Well, hopefully it was you.
+
+[Vaibhav Chauhan] 08:43:44
+Hello?
+
+[Matt Olmstead] 08:43:46
+Hello?
+
+[Vaibhav Chauhan] 08:43:47
+Uh, so I'm… I'm fairly new to this group.
+
+[Matt Olmstead] 08:43:51
+Yep.
+
+[Vaibhav Chauhan] 08:43:51
+And I'm… I'm only on the…
+
+[Vaibhav Chauhan] 08:43:53
+Project PHEN right now.
+
+[Vaibhav Chauhan] 08:43:55
+unable to get it, but I have a… I have a question regarding the prompt.
+
+[Matt Olmstead] 08:44:00
+Yeah.
+
+[Vaibhav Chauhan] 08:44:00
+Uh, so I come from a…
+
+[Vaibhav Chauhan] 08:44:03
+I come… I also come from a PhD background.
+
+[Vaibhav Chauhan] 08:44:06
+But I have, uh, we all have done research in a very niche
+
+[Vaibhav Chauhan] 08:44:10
+topic, very specific topic.
+
+[Vaibhav Chauhan] 08:44:13
+So, my research background comes from a very instrumentation kind of a…
+
+[Vaibhav Chauhan] 08:44:18
+Uh, kind of a subject, means a cluster science subject which has a very typical, very complex instrumentation. So, if I… if I write a prompt regarding that instrumentation,
+
+[Vaibhav Chauhan] 08:44:29
+So, do I, like, uh, you know, in that particular… in that particular environment, do I have to…
+
+[Vaibhav Chauhan] 08:44:35
+Completely…
+
+[Vaibhav Chauhan] 08:44:38
+means in a very detailed way, I have to…
+
+[Vaibhav Chauhan] 08:44:40
+Uh, get, uh, prompt very clear about the instrumentation, what is happening,
+
+[Vaibhav Chauhan] 08:44:46
+there, and then pose a question.
+
+[Vaibhav Chauhan] 08:44:49
+to it.
+
+[Matt Olmstead] 08:44:50
+Yeah, so this might be a great one where you just start with that probing…
+
+[Matt Olmstead] 08:44:54
+approach, and see what does it know about this.
+
+[Matt Olmstead] 08:44:57
+Right, so if the models know a lot about it already, you don't have to provide all that in the setup. You still will need to provide some.
+
+[Vaibhav Chauhan] 08:44:57
+Okay.
+
+[Vaibhav Chauhan] 08:45:05
+Okay.
+
+[Matt Olmstead] 08:45:05
+But, right, if you…
+
+[Matt Olmstead] 08:45:07
+I don't want to even try to make it up, but if you're saying,
+
+[Matt Olmstead] 08:45:12
+you know, I have my instrument for this…
+
+[Matt Olmstead] 08:45:13
+Standard experiment, right, so like I did at one point 20 years ago in undergrad.
+
+[Matt Olmstead] 08:45:20
+I did like the Quantum Eraser.
+
+[Matt Olmstead] 08:45:21
+Right, so there's… there's some fairly standard setup for that.
+
+[Vaibhav Chauhan] 08:45:22
+Okay.
+
+[Matt Olmstead] 08:45:25
+If the models… so I ask a probing question on there, if the models all know what this is…
+
+[Matt Olmstead] 08:45:31
+then it's not trickery, it's not… right, then it's an assumption.
+
+[Matt Olmstead] 08:45:35
+that you don't have to further clarify, because…
+
+[Matt Olmstead] 08:45:38
+It knows this.
+
+[Vaibhav Chauhan] 08:45:40
+Okay, so if I, uh, I should pause…
+
+[Vaibhav Chauhan] 08:45:43
+Question first, that, uh,
+
+[Vaibhav Chauhan] 08:45:45
+Do you, like, uh…
+
+[Vaibhav Chauhan] 08:45:48
+Do you have any idea about the cluster development process?
+
+[Vaibhav Chauhan] 08:45:53
+Or was the experiment… experimentation… was the instrumentation required for that?
+
+[Vaibhav Chauhan] 08:45:58
+And if it gives me the relevant answers…
+
+[Vaibhav Chauhan] 08:46:01
+then I could probe deeper into it.
+
+[Matt Olmstead] 08:46:04
+Yeah, yeah, that might be a great application of that technique.
+
+[Vaibhav Chauhan] 08:46:09
+Okay.
+
+[Matt Olmstead] 08:46:10
+So you can see where it knows first.
+
+[Matt Olmstead] 08:46:13
+And then… and if it knows that, then you can just write your question based on that, because again, when we say all assumptions must be stated,
+
+[Vaibhav Chauhan] 08:46:14
+Okay.
+
+[Matt Olmstead] 08:46:22
+There's a couple caveats there. First of all, we're assuming…
+
+[Matt Olmstead] 08:46:27
+that has PhD-level background.
+
+[Matt Olmstead] 08:46:28
+So anything… a PhD would know?
+
+[Matt Olmstead] 08:46:32
+We don't have to tell it, right? So, like, I don't have to give it all the equations.
+
+[Matt Olmstead] 08:46:37
+I don't have to clearly state these things.
+
+[Matt Olmstead] 08:46:39
+What we're really talking about when it says, all assumptions must be stated are…
+
+[Matt Olmstead] 08:46:44
+as you're solving this problem,
+
+[Matt Olmstead] 08:46:46
+If an assumption comes up and I choose this one again.
+
+[Matt Olmstead] 08:46:49
+Maybe I only want to take it to second order. That's an assumption I'm making.
+
+[Matt Olmstead] 08:46:54
+That needs to be stated wide.
+
+[Vaibhav Chauhan] 08:46:57
+Okay.
+
+[Matt Olmstead] 08:46:58
+Right, and so…
+
+[Matt Olmstead] 08:47:01
+So, so on yours, it…
+
+[Matt Olmstead] 08:47:03
+Again, if you figure out what it knows about these techniques you're using,
+
+[Matt Olmstead] 08:47:09
+Then you can assume, okay, it knows this. This is baseline for it, and that's something, again, an expert, you know, PhD in your area would know.
+
+[Matt Olmstead] 08:47:17
+more than 10 of them in the world, right? If it's a general technique, general instrumentation.
+
+[Vaibhav Chauhan] 08:47:18
+Hmm.
+
+[Matt Olmstead] 08:47:23
+for anybody doing this?
+
+[Matt Olmstead] 08:47:25
+then that is okay, right? It's like…
+
+[Matt Olmstead] 08:47:27
+I'm gonna say the chemists, they could just say, using a mass spectrometer. We don't have to get more specific than that, it knows what that is. And I know chemists have much more complicated things than that.
+
+[Matt Olmstead] 08:47:37
+I know that's what I have.
+
+[Vaibhav Chauhan] 08:47:41
+Okay, thank you.
+
+[Matt Olmstead] 08:47:43
+You're welcome, hopefully that helps and clarifies, but yeah, no, I think, I think…
+
+[Matt Olmstead] 08:47:48
+instrumentation types of questions, I think, can have success. I think they might be a very good route for success, actually.
+
+[Vaibhav Chauhan] 08:47:55
+But will the… will the AI build on that?
+
+[Vaibhav Chauhan] 08:48:00
+Uh, means if I suppose if I ask a question and it fails to answer,
+
+[Vaibhav Chauhan] 08:48:05
+Uh, it doesn't understand it, and then…
+
+[Vaibhav Chauhan] 08:48:07
+I gave it to answer that this is the way it is.
+
+[Vaibhav Chauhan] 08:48:11
+Like, this is the laser we are using, and that's why we are using that particular kind of laser.
+
+[Vaibhav Chauhan] 08:48:16
+Now, if I, uh, import… if I get to the second question,
+
+[Vaibhav Chauhan] 08:48:23
+that, uh, now this is the target. What layer should I use?
+
+[Matt Olmstead] 08:48:27
+Right. And…
+
+[Vaibhav Chauhan] 08:48:27
+So…
+
+[Matt Olmstead] 08:48:29
+In principle, these are all supposed to be independent runs.
+
+[Matt Olmstead] 08:48:34
+I don't know if we actually hadn't answered yet, because, uh…
+
+[Matt Olmstead] 08:48:39
+somebody was looking at it, and they had success where they actually just restarted it with the same prompt, so the models are not supposed to be building on themselves.
+
+[Matt Olmstead] 08:48:50
+And they're not supposed to have your prior prompts in there when you run a new prompt?
+
+[Vaibhav Chauhan] 08:48:56
+Okay.
+
+[Matt Olmstead] 08:48:56
+But they are supposed to be independent.
+
+[Matt Olmstead] 08:48:59
+Now, I think there might…
+
+[Matt Olmstead] 08:49:02
+be an issue where if you stop the prompt while it's running…
+
+[Matt Olmstead] 08:49:07
+And then change it, it might have some of that built in. I know that's something we have seen before.
+
+[Vaibhav Chauhan] 08:49:13
+Okay.
+
+[Matt Olmstead] 08:49:13
+But… but each run…
+
+[Matt Olmstead] 08:49:16
+again, in principle, as we're told, they really are independent runs.
+
+[Vaibhav Chauhan] 08:49:23
+So it basically does not have a prior…
+
+[Vaibhav Chauhan] 08:49:25
+memory kind of a thing, like in other models, like in ChatGPT or in Gemini, if you have a particular chat,
+
+[Vaibhav Chauhan] 08:49:32
+And if you are chatting in that particular thing,
+
+[Vaibhav Chauhan] 08:49:35
+It will… it will have that particular memory of its…
+
+[Matt Olmstead] 08:49:38
+Right. These are supposed to be independent chats.
+
+[Matt Olmstead] 08:49:42
+each time you submit a new prompt.
+
+[Vaibhav Chauhan] 08:49:45
+Okay.
+
+[Matt Olmstead] 08:49:46
+So if you change the prompt and rerun it, again, that's what I was trying to say.
+
+[Matt Olmstead] 08:49:50
+I know sometimes there's an issue with that logic.
+
+[Matt Olmstead] 08:49:54
+If you start running the prompt and stop it in the middle,
+
+[Matt Olmstead] 08:49:56
+Push the stop button, that it might not clear it.
+
+[Matt Olmstead] 08:50:00
+But, again, we are always told by engineering that they are each independent.
+
+[Matt Olmstead] 08:50:06
+runs. So there is no chance… should not be a chat history.
+
+[Vaibhav Chauhan] 08:50:12
+Okay.
+
+[Ryan Brosch] 08:50:18
+I have a problem I can share that I've been working on for a while.
+
+[Matt Olmstead] 08:50:21
+Yeah, we got a few minutes. Go ahead.
+
+[Ryan Brosch] 08:50:23
+Okay, great. I'm going to share my screen.
+
+[Ryan Brosch] 08:50:29
+Uh, let's see, where is it?
+
+[Ryan Brosch] 08:50:33
+Share screen.
+
+[Ryan Brosch] 08:50:37
+Okay.
+
+[Ryan Brosch] 08:50:39
+Alright, so this is in the platform.
+
+[Ryan Brosch] 08:50:42
+And it's… it is probably… it's crushing this, even though I keep making it more complicated. I know you said not to…
+
+[Matt Olmstead] 08:50:43
+Okay.
+
+[Ryan Brosch] 08:50:49
+you know, do that, but I'm…
+
+[Ryan Brosch] 08:50:51
+what it is, is this thing starts off with a, um…
+
+[Ryan Brosch] 08:50:55
+it's a particle beam, it has a straggling distribution, so some of the particles have more collisions than the other ones do.
+
+[Ryan Brosch] 08:51:02
+It ends up with this, uh…
+
+[Ryan Brosch] 08:51:04
+energy distribution.
+
+[Ryan Brosch] 08:51:06
+And I have it going through 3 different materials, actually. I have it going… starting off with a Gaussian distribution, and then going through one unknown material. So, first of all,
+
+[Ryan Brosch] 08:51:15
+Typically, with a problem like this,
+
+[Ryan Brosch] 08:51:17
+You would know exactly what sort of particle it is, and I figured out a way to get that to cancel out, so
+
+[Ryan Brosch] 08:51:23
+You have no idea what particle it is,
+
+[Ryan Brosch] 08:51:25
+I had no idea what the material is.
+
+[Ryan Brosch] 08:51:27
+And I did that through some trickery with canceling out certain constants, and it still figured it out.
+
+[Ryan Brosch] 08:51:33
+Um, so for example, all these leading constants here with this D sigma D, D epsilon,
+
+[Ryan Brosch] 08:51:38
+all this crap goes away. Um…
+
+[Matt Olmstead] 08:51:39
+Okay.
+
+[Ryan Brosch] 08:51:41
+Yeah, and… and I… and it also, for each step here, it has to solve for a different parameter. Uh, sometimes it's given, and sometimes it has to solve for
+
+[Ryan Brosch] 08:51:51
+Um, and I know for the unknown parameter, and it's… it manages to string all three of these things together really, really well.
+
+[Ryan Brosch] 08:51:57
+Um, if I had… somebody had handed me this problem while I was in graduate school,
+
+[Ryan Brosch] 08:52:01
+I would have been like, oh, please.
+
+[Ryan Brosch] 08:52:04
+Um, go home.
+
+[Matt Olmstead] 08:52:05
+Right.
+
+[Ryan Brosch] 08:52:06
+So…
+
+[Matt Olmstead] 08:52:09
+And…
+
+[Ryan Brosch] 08:52:11
+Um, yeah.
+
+[Matt Olmstead] 08:52:13
+And you're saying it just destroys it. Um…
+
+[Ryan Brosch] 08:52:16
+Yeah, it crushes it. There's a lot of different steps, and there's a lot of things that you're solving for here that you would not normally solve for.
+
+[Ryan Brosch] 08:52:22
+Um, I mean, I've never seen a problem like this.
+
+[Ryan Brosch] 08:52:25
+when I was… when I was, um…
+
+[Ryan Brosch] 08:52:27
+you know, from a particle physics textbook, or rather from an accelerator physics textbook.
+
+[Ryan Brosch] 08:52:36
+I mean, I realize there's a lot of noise in here with defining parameters and stuff.
+
+[Ryan Brosch] 08:52:40
+Uh, but I'm just…
+
+[Ryan Brosch] 08:52:42
+I guess… I guess if I have to criticize my own problem, it's maybe the… maybe the problem is that it's…
+
+[Ryan Brosch] 08:52:48
+It is to… even though it has to solve for very… for strange quantities that you would not normally try to solve for, at the end of the day, the mathematics is the same sort of thing you would do from a textbook.
+
+[Ryan Brosch] 08:52:59
+So, should I pick a weird differential cross-section? Because the differential cross-section I have is
+
+[Ryan Brosch] 08:53:04
+is a fair… is a typical out-of-the-book cross-section. Should I just make it, like, a fractional…
+
+[Ryan Brosch] 08:53:09
+Epsilon here, there's this 1 over epsilon squared, which is typical and physical.
+
+[Ryan Brosch] 08:53:14
+should I make Epsilon 2.5?
+
+[Matt Olmstead] 08:53:14
+Right.
+
+[Ryan Brosch] 08:53:17
+Um, I mean, I think I could do that, but it would be non-physical. I mean, do I make it non-physical? Is that allowed?
+
+[Matt Olmstead] 08:53:23
+Uh, we want to try to keep our questions physical.
+
+[Matt Olmstead] 08:53:27
+Um…
+
+[Matt Olmstead] 08:53:29
+And so you said you're going through different materials…
+
+[Matt Olmstead] 08:53:33
+And I…
+
+[Ryan Brosch] 08:53:33
+Yeah, two unknown materials, yeah.
+
+[Matt Olmstead] 08:53:36
+And are they all… I'm gonna say head-on collisions? Does that matter?
+
+[Matt Olmstead] 08:53:39
+The type of collisions, could you…
+
+[Matt Olmstead] 08:53:42
+put some spatial element there.
+
+[Ryan Brosch] 08:53:45
+Um, normally you would assume that the beam is incident on the material,
+
+[Matt Olmstead] 08:53:49
+Right.
+
+[Ryan Brosch] 08:53:50
+Um, oh, sorry, uh, normally incident on the material, um, but it's a narrow beam, so in effect, it doesn't really matter, because the beam is so narrow.
+
+[Ryan Brosch] 08:53:58
+If I… if I give it a, um…
+
+[Ryan Brosch] 08:54:00
+a lateral distribution, like, if the meme has a spread,
+
+[Matt Olmstead] 08:54:04
+Yeah.
+
+[Ryan Brosch] 08:54:05
+Um, and then it… and it comes in at an angle.
+
+[Ryan Brosch] 08:54:08
+The problem with that is it becomes, uh, analytically untractable from my end, so the solution would be…
+
+[Ryan Brosch] 08:54:15
+an approximation, and I'd have to make all sorts of assumptions, and it would… two different people would get to… would get a different answer.
+
+[Matt Olmstead] 08:54:22
+Right, I mean, so in that situation, you would have to state what assumptions to make in the prompt.
+
+[Matt Olmstead] 08:54:29
+Um…
+
+[Ryan Brosch] 08:54:30
+Yeah, you would, um…
+
+[Matt Olmstead] 08:54:34
+And then maybe…
+
+[Ryan Brosch] 08:54:34
+It would be really… it would be… it wouldn't be the sort of thing you could calculate in a… in a concise problem like this. It'd be something you would run
+
+[Matt Olmstead] 08:54:38
+Right.
+
+[Ryan Brosch] 08:54:41
+a Monte Carlo simulation.
+
+[Matt Olmstead] 08:54:42
+Right.
+
+[Ryan Brosch] 08:54:45
+So I can't get rid of that. I was thinking…
+
+[Ryan Brosch] 08:54:48
+Um, maybe I can have it run through an accelerator, and there's, like, a, uh, like a…
+
+[Ryan Brosch] 08:54:52
+Or maybe, like, maybe these particles can be escaping from a hot room or something? Like, I've got, like, a box of gas,
+
+[Ryan Brosch] 08:55:00
+And it's really hot, like a box of plasma or something.
+
+[Ryan Brosch] 08:55:03
+And then there's a probability of one of them escaping, and it has to figure out what the most likely particle to escape.
+
+[Ryan Brosch] 08:55:08
+And that's going to be the starting
+
+[Ryan Brosch] 08:55:10
+point for this particle beam, right? So it starts as a step-meg problem, and then ends up as a…
+
+[Ryan Brosch] 08:55:16
+accelerator physics problem? I mean, that's sort of my next step, thinking about that, right?
+
+[Matt Olmstead] 08:55:20
+I mean, I think that uses some of the techniques I was suggesting. I think that's probably a good idea. And again, it's instead of giving a starting point, you're giving it something else, and you said, now we're doing StatMec as well.
+
+[Matt Olmstead] 08:55:32
+And again, it's not that it's bad at those, it's just now it's having to reason differently in these different things.
+
+[Ryan Brosch] 08:55:41
+Okay.
+
+[Matt Olmstead] 08:55:41
+So… so I think that might be worth trying.
+
+[Matt Olmstead] 08:55:45
+And again,
+
+[Ryan Brosch] 08:55:46
+All right.
+
+[Matt Olmstead] 08:55:46
+That's gonna take a lot more work for you to actually solve it, but you could just ask the question,
+
+[Matt Olmstead] 08:55:51
+and see what the responses are.
+
+[Matt Olmstead] 08:55:54
+Without you actually coming up with an answer first.
+
+[Matt Olmstead] 08:55:57
+Because I want to remind of that technique.
+
+[Matt Olmstead] 08:56:00
+is to write your question,
+
+[Matt Olmstead] 08:56:02
+Our problems take a long time to solve, but I can see…
+
+[Matt Olmstead] 08:56:05
+you know what steps, you just described what steps you would do to do this.
+
+[Matt Olmstead] 08:56:11
+You can see, are the models doing those steps, right? If they all get the same answer, they're probably doing them.
+
+[Matt Olmstead] 08:56:16
+then you just double-check that they are, in fact, doing them correctly.
+
+[Ryan Brosch] 08:56:21
+Hey, maybe what I should do is, um, instead of asking it to calculate the straggling distributions, because I'm having it calculate the, the, um…
+
+[Ryan Brosch] 08:56:29
+minimum collision energy, and what are the materials, and so I'm inferring a property about the material. Maybe I can, like, ask it, what's the temperature of the gas or something.
+
+[Ryan Brosch] 08:56:36
+If it does this after it leaves.
+
+[Matt Olmstead] 08:56:39
+Right, yeah.
+
+[Matt Olmstead] 08:56:41
+So, so we've seen… it's really good at just doing the calculations, even if it's combining them again and again.
+
+[Ryan Brosch] 08:56:42
+Okay.
+
+[Matt Olmstead] 08:56:47
+So we want to ask something different. And that was also some success some people have had. They've actually…
+
+[Ryan Brosch] 08:56:48
+Yeah.
+
+[Matt Olmstead] 08:56:54
+step their problem down in difficulty.
+
+[Matt Olmstead] 08:56:58
+But they've added some complexity, or taken something that's not…
+
+[Matt Olmstead] 08:57:03
+not asked as much, not thought about.
+
+[Matt Olmstead] 08:57:07
+not a calculation that's normally done.
+
+[Matt Olmstead] 08:57:10
+So I said, going super deep sometimes works, but sometimes bringing it down a little bit.
+
+[Matt Olmstead] 08:57:15
+to the side helps as well.
+
+[Ryan Brosch] 08:57:19
+Okay, yeah, I have a sim… I keep adding layers to this thing, and it keeps crushing it, uh, and my solution is getting really long, and I'm not eager to keep extending it, you know.
+
+[Matt Olmstead] 08:57:28
+Right. Yeah, now, when we add layers, we gotta make sure that they're, again, these different types of layers.
+
+[Ryan Brosch] 08:57:29
+So…
+
+[Matt Olmstead] 08:57:35
+And again, right, like, we want to… we like, it's gotta fail at some point.
+
+[Matt Olmstead] 08:57:40
+But… I'm not.
+
+[Ryan Brosch] 08:57:41
+Hmm, okay.
+
+[Matt Olmstead] 08:57:44
+It's a very good model.
+
+[Ryan Brosch] 08:57:48
+Okay, great. Yeah, it is. It's very impressive.
+
+[Matt Olmstead] 08:57:53
+Okay…
+
+[Ryan Brosch] 08:57:54
+Is it… do you think it's better than it was on, uh, Project Proctor?
+
+[Matt Olmstead] 08:58:01
+Um, yeah, I think I can say that.
+
+[Ryan Brosch] 08:58:03
+Okay, well, Proctor was… it was pretty tough in Proctor, too.
+
+[Matt Olmstead] 08:58:06
+Yeah, Proctor was tough with the two different models.
+
+[Matt Olmstead] 08:58:10
+But yeah, this is a…
+
+[Ryan Brosch] 08:58:12
+In Darwin? Is it better than Darwin, or is it the same, do you think?
+
+[Matt Olmstead] 08:58:15
+Uh, no one… it's similar.
+
+[Ryan Brosch] 08:58:19
+Similar, okay.
+
+[Matt Olmstead] 08:58:19
+Um, but…
+
+[Matt Olmstead] 08:58:21
+So, it looks like we're out of time
+

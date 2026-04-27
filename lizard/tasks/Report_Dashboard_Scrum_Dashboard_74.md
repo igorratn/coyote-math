@@ -1,238 +1,281 @@
 # Review: Report_Dashboard_Scrum_Dashboard_74
 
 ## Task Info
-- **SuperAnnotate Task ID:** 187111257
-- **Image:** "Sprint Management Template" kanban board — columns: Backlog, New, To Do (2 cards each), In Progress, Done, Blocked (1 card each). Cards have priority (High/Medium/Low), type (User Story/Task/Bug), points, progress fields. Ref 10 (To Do bottom) and Ref 3 (To Do top) have IMAGE_UNREADABLE fields per R1.
-- **Date:** 2026-04-20
-- **Review Cycle:** 1st
+- **task_id:** 187111257
+- **SA_TASK_FILENAME:** Report_Dashboard_Scrum_Dashboard_74.json
+- **Image:** screenshots/Report_Dashboard_Scrum_Dashboard_74.png — Scrum kanban board with status columns and priority cards
+- **Date:** 2026-04-25
+- **Review Cycle:** 2nd
 
-## Annotations
-
-### Annotation 1
-- **Shadow Task:** ✅ submitted (cycle 1) — [bb16c140](shadows/bb16c140.md)
-- **Rating:** thumbs-down
-- **Question:** Lower cards in 3 two-card columns: sum points − distinct priority count
-- **Skills Tagged:** Enumeration, Spatial Reasoning, Logical Reasoning
-- **Question Type:** MCQ
-- **Model Answer:** C
-- **Annotator Answer:** B
-
-#### Two-Part Check (Human Resolved)
-- R1 reviewer: Opus
-- R1 verdict: thumbs-down. IMAGE_UNREADABLE for Ref 10 (To Do bottom) points, and B/C are separated by exactly the unresolved 1-point difference.
-- R2 reviewer: openclaw
-- R2 verdict: thumbs-down. Got a result not present in the options, but human resolution adopts the unreadability basis.
-
-#### Rewrite Answer
-N/A — prompt invalid
-
-#### Edits Made
-N/A
-
-#### Feedback
-4/21: IMAGE_UNREADABLE for Ref 10 points on the To Do bottom card. The answer turns on an unreadable 1-point difference, so the prompt cannot be verified safely.
-
-#### Resolution
-human-resolved: R1
+## Task Status
+- **Status:** ALL-AUTO-RESOLVED
+- **Reviewers fired:** gpt, opus
+- **Summary:** 0 pending Igor, 2 auto-resolved, 0 no-reviewer-output, 3 unchanged-carry-forward (of 5 total)
+- **SA Applied (Cycle 2):** ✅
 
 ---
 
-### Annotation 2
-- **Shadow Task:** ✅ submitted (cycle 1) — [bbdc78a0](shadows/bbdc78a0.md)
+## Annotation 1
+
+- **Shadow Task:** ✅ submitted (cycle 2) — [9dbb1edf](shadows/9dbb1edf.md)
+- **Reviewer:** opus
 - **Rating:** thumbs-up
-- **Question:** Single-card columns with non-Medium priority: sum their points
+- **All Verdicts:** gpt: 👎, opus: 👍 (picked)
+- **Flags:** []
+- **Final Answer (reviewer):** C
+- **Skills Tagged:** Attribute Perception, Spatial Reasoning, Math Reasoning, Logical Reasoning
+- **Question Type:** MCQ
+- **Model Answer:** D
+- **Annotator Answer:** C
+
+#### Full Prompt
+Use only Backlog, New, and To Do, the three status columns with two visible cards. Read the legend in the order High -> Medium -> Low. Keep only the columns where the lower visible card is exactly one step lower than the upper visible card in that legend order. Add the reference numbers of the kept lower cards, then subtract the number of status columns that contain only one visible card. Which option is correct?
+
+A. 12
+B. 13
+C. 14
+D. 15
+
+#### Rewrite Answer (annotator)
+C
+
+#### Reviewer Body (gpt)
+- **Rating:** thumbs-down
+- **Final Rewrite Answer:** N/A — prompt invalid
+- **Flags:** [G2]
+- **Two-Part Check:**
+  1. Question: The prompt restricts to Backlog, New, and To Do, then keeps only columns where the lower card’s priority is exactly one step lower than the upper (using the legend High → Medium → Low). From the image: Backlog upper=High and lower=Medium (kept); New upper=Low and lower=Low (not one step lower → not kept); To Do upper=Low and lower=High (direction is higher, not lower → not kept) [Read-First]. It then asks to add the reference numbers of the kept lower cards and subtract the count of columns with only one visible card (0 per Read-First). The computed result (8) is not among options A–D, so there is no single correct choice → G2 fail.
+  2. Answer: Kept columns = {Backlog only} [Read-First]. Sum of kept lower-card references = 8 (Backlog lower Reference: 8) [pixel-verified; Read-First]. Columns with only one visible card = 0 [Read-First]. Result = 8 − 0 = 8 [pixel-verified]. Not present in choices (12, 13, 14, 15) → cannot select a correct option.
+- **Edits Made:** None
+- **Feedback:** The image yields 8, which isn’t in the options. Either (a) include 8 among choices, or (b) clarify a different keep-rule (e.g., “one step higher”) or a different column subset so one option matches.
+
+#### Reviewer Body (opus) (picked)
+- **Rating:** thumbs-up
+- **Final Rewrite Answer:** C
+- **Flags:** []
+- **Two-Part Check:**
+  1. Question: Cycle 2 rewrite — five-guideline pass. G1: 4 skills tagged (Attribute Perception, Spatial Reasoning, Math Reasoning, Logical Reasoning), includes Logical Reasoning anchor (V6 ✓). G2: deterministic single value via MCQ. G3: self-contained — all data on the board. G4: standalone. G5: rule is non-trivial — model must (i) identify two-card columns, (ii) read priority on each pair, (iii) apply legend-order step rule, (iv) sum reference numbers, (v) subtract one-card-column count. No giveaway. No Type 3/6/8/10/11/12 issues — colors are unambiguous and labels are spelled "High/Medium/Low" on each card. Cycle-2 rewrite cleanly addresses prior IMAGE_UNREADABLE objection by switching from points (1-pt visual difference) to reference numbers (large, legible) and priority categories (3 distinct legend colors).
+  2. Answer: Two-card columns = Backlog, New, To Do [pixel-verified]. Legend order High→Medium→Low (one step = High→Medium or Medium→Low) [pixel-verified]. Backlog: upper Ref 1 High, lower Ref 8 Medium → one step lower ✓ KEEP, lower ref = 8 [pixel-verified]. New: upper Ref 2 Medium, lower Ref 9 Low → one step lower ✓ KEEP, lower ref = 9 [pixel-verified]. To Do: upper Ref 3 High, lower Ref 10 High → not lower ✗ SKIP [pixel-verified]. Sum of kept lower refs = 8 + 9 = 17. One-card columns = In Progress, Done, Blocked = 3 [pixel-verified]. 17 − 3 = 14 → C. Model answered D (88-equivalent slot) — stumped successfully. Annotator answer C matches.
+- **Edits Made:** None
+- **Feedback:** N/A
+
+**Auto-resolved at Job 2 (👍).** opus 👍 (matches annotator). SA action at Job 3b: approve annotator's answer `C` (cycle 2). Skipped at Job 3a.
+
+#### Edits Made
+(to be filled at Job 3a if needed)
+
+#### Feedback
+2026-04-25: thumbs-up (opus) — auto-resolved
+
+---
+## Annotation 2
+
+- **Shadow Task:** ✅ submitted (cycle 2) — [9ffcd758](shadows/9ffcd758.md)
+- **Rating:** unchanged (thumbs-up carry-forward from prior cycle)
+- **Flags:** []
 - **Skills Tagged:** Enumeration, Spatial Reasoning, Math Reasoning, Logical Reasoning
 - **Question Type:** MCQ
 - **Model Answer:** C
 - **Annotator Answer:** B
 
-#### Two-Part Check (Human Resolved)
-- R1 reviewer: Opus
-- R1 verdict: thumbs-down. Treated model answer C=21 as correct.
-- R2 reviewer: openclaw
-- R2 verdict: thumbs-down. Got a non-option total and rejected the prompt.
-- Human direct read: 18 is the correct answer, so annotator answer B is correct.
+#### Full Prompt
+Among the status columns with exactly one visible card, keep only those whose card priority is not Medium. What is the sum of their points?
+
+A. 13
+B. 18
+C. 21
+D. 26
 
 #### Rewrite Answer
 B
 
-#### Edits Made
-N/A
-
-#### Resolution
-human-resolved: other
-
 ---
+## Annotation 3
 
-### Annotation 3
-- **Shadow Task:** ✅ submitted (cycle 1) — [ba97db4c](shadows/ba97db4c.md)
-- **Rating:** thumbs-up
-- **Question:** Among High-priority cards, which column's card has progress > average of other two High-priority cards?
+- **Shadow Task:** ✅ submitted (cycle 2) — [a11c6e60](shadows/a11c6e60.md)
+- **Rating:** unchanged (thumbs-up carry-forward from prior cycle)
+- **Flags:** []
 - **Skills Tagged:** Enumeration, Attribute Perception, Math Reasoning, Logical Reasoning
 - **Question Type:** MCQ
 - **Model Answer:** A
 - **Annotator Answer:** C
 
-#### Two-Part Check (Human Resolved)
-- R1 reviewer: Opus
-- R1 verdict: thumbs-down. Treated the needed progress value as unreadable.
-- R2 reviewer: openclaw
-- R2 verdict: thumbs-down. Treated the High-priority card set as unreadable.
-- Human direct read: C is the correct answer, so the annotator answer is correct.
+#### Full Prompt
+Consider only the High-priority cards. Which status column contains the one whose progress is greater than the average progress of the other two High-priority cards?
+
+A. Backlog
+B. To Do
+C. In Progress
+D. Blocked
 
 #### Rewrite Answer
 C
 
-#### Edits Made
-N/A
-
-#### Resolution
-human-resolved: other
-
 ---
+## Annotation 4
 
-### Annotation 4
-- **Shadow Task:** ✅ submitted (cycle 1) — [bd4b1d25](shadows/bd4b1d25.md)
-- **Rating:** thumbs-up
-- **Question:** Reading top-row cards left to right, accumulating points — under which column header does running total first exceed 10?
+- **Shadow Task:** ✅ submitted (cycle 2) — [a05f9a0d](shadows/a05f9a0d.md)
+- **Rating:** unchanged (thumbs-up carry-forward from prior cycle)
+- **Flags:** []
 - **Skills Tagged:** Spatial Reasoning, Logical Reasoning, Table/Chart/Graph Understanding
 - **Question Type:** MCQ
 - **Model Answer:** A
 - **Annotator Answer:** B
 
-#### Two-Part Check (Human Resolved)
-- R1 reviewer: Opus
-- R1 verdict: thumbs-down. Treated model answer A as correct and stump-failing.
-- R2 reviewer: openclaw
-- R2 verdict: thumbs-down. Same overall conclusion as R1.
-- Human direct read: annotator answer B is correct.
+#### Full Prompt
+Read only the top row of cards from left to right. As you accumulate their points, under which status header does the running total first exceed 10?
+
+A. To Do
+B. In Progress
+C. Done
+D. Blocked
 
 #### Rewrite Answer
 B
 
-#### Edits Made
-N/A
-
-#### Resolution
-human-resolved: other
-
 ---
+## Annotation 5
 
-### Annotation 5
-- **Shadow Task:** ✅ submitted (cycle 1) — [be5fe728](shadows/be5fe728.md)
-- **Rating:** thumbs-down
-- **Question:** Which column shows top card = Low+Bug, lower card = High+User Story?
+- **Shadow Task:** ✅ submitted (cycle 2) — [a48d7e79](shadows/a48d7e79.md)
+- **Reviewer:** gpt
+- **Rating:** thumbs-up
+- **All Verdicts:** gpt: 👍 (picked)
+- **Flags:** []
+- **Final Answer (reviewer):** C
 - **Skills Tagged:** Attribute Perception, Spatial Reasoning, Logical Reasoning
 - **Question Type:** MCQ
-- **Model Answer:** B
+- **Model Answer:** D
 - **Annotator Answer:** C
 
-#### Two-Part Check (Human Resolved)
-- R1 reviewer: Opus
-- R1 verdict: thumbs-down. IMAGE_UNREADABLE for Ref 3 (To Do top) type. If Ref 3 type is Bug, C could work; if not, no column satisfies. Cannot safely endorse a unique answer.
-- R2 reviewer: openclaw
-- R2 verdict: thumbs-up B, but R2's own described card reads do not support B=New, so human resolution rejects that path.
+#### Full Prompt
+Which status column contains an upper card labeled Priority: Low and a lower card labeled Priority: High?
 
-#### Rewrite Answer
-N/A — prompt invalid
+A. Backlog
+B. New
+C. To Do
+D. Blocked
+
+#### Rewrite Answer (annotator)
+C
+
+#### Reviewer Body (gpt) (picked)
+- **Rating:** thumbs-up
+- **Final Rewrite Answer:** C
+- **Flags:** []
+- **Two-Part Check:**
+  1. Question: Clear and self-contained. Requires checking each status column for the conjunction “upper card Priority: Low” and “lower card Priority: High,” using the legend colors (green=Low, red=High) [Read-First]. No ambiguity.
+  2. Answer: To Do column: upper card is green (Priority: Low) with Reference: 3; lower card is red (Priority: High) with Reference: 10 [pixel-verified; Read-First]. Therefore the correct column is To Do → option C.
+- **Edits Made:** None
+- **Feedback:** N/A
+
+Fix List
+- Annotation 1 — No correct option matches the computed result (8) — Fix by adding 8 to the options or revising the keep-rule/column set so one listed option is correct.
+
+**Auto-resolved at Job 2 (👍).** gpt 👍 (matches annotator). SA action at Job 3b: approve annotator's answer `C` (cycle 2). Skipped at Job 3a.
 
 #### Edits Made
-N/A
+(to be filled at Job 3a if needed)
 
 #### Feedback
-4/21: IMAGE_UNREADABLE — card type in To Do column unreadable; cannot confirm which column uniquely satisfies Low+Bug top / High+User Story bottom.
-
-#### Resolution
-human-resolved: R1
+2026-04-25: thumbs-up (gpt) — auto-resolved
 
 ---
-
-## Task Status
-- **Status:** APPLIED
-- **SA Applied (Cycle 1):** ✅
-
 ## Form-Fill Payload
 
 ```yaml
-task_id: 187111257
+task:
+  stem: Report_Dashboard_Scrum_Dashboard_74
+  sa_task_filename: Report_Dashboard_Scrum_Dashboard_74.json
+  cycle: 2
+
 annotations:
+
   - n: 1
+    resolution: auto-resolved
     sa:
-      rating: thumbs-down
-      skills_check: []
-      skills_uncheck: []
-      prompt_edits: null
-      answer_final: null
-      feedback: "4/21: IMAGE_UNREADABLE for Ref 10 points on the To Do bottom card. The answer turns on an unreadable 1-point difference, so the prompt cannot be verified safely."
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
     hai:
-      task_id_field: "Report_Dashboard_Scrum_Dashboard_74.json"
+      task_id_field: Report_Dashboard_Scrum_Dashboard_74.json
       role: Reviewing
       annotation_n: 1
       prompt: |
-        Use only the three status columns that contain two visible cards. Add the points of the lower card in each of those columns, then subtract the number of distinct priority levels among those same lower cards. What is the result? A. 86 B. 87 C. 88 D. 90
-      answer: "B"
+        Use only Backlog, New, and To Do, the three status columns with two visible cards. Read the legend in the order High -> Medium -> Low. Keep only the columns where the lower visible card is exactly one step lower than the upper visible card in that legend order. Add the reference numbers of the kept lower cards, then subtract the number of status columns that contain only one visible card. Which option is correct?
+        
+        A. 12
+        B. 13
+        C. 14
+        D. 15
+      answer: "C"
 
   - n: 2
+    resolution: carry-forward
     sa:
-      rating: thumbs-up
-      skills_check: []
-      skills_uncheck: []
-      prompt_edits: null
-      answer_final: "B"
-      feedback: null
+      rating: unchanged
     hai:
-      task_id_field: "Report_Dashboard_Scrum_Dashboard_74.json"
+      task_id_field: Report_Dashboard_Scrum_Dashboard_74.json
       role: Reviewing
       annotation_n: 2
       prompt: |
-        Among the status columns with exactly one visible card, keep only those whose card priority is not Medium. What is the sum of their points? A. 13 B. 18 C. 21 D. 26
+        Among the status columns with exactly one visible card, keep only those whose card priority is not Medium. What is the sum of their points?
+        
+        A. 13
+        B. 18
+        C. 21
+        D. 26
       answer: "B"
 
   - n: 3
+    resolution: carry-forward
     sa:
-      rating: thumbs-up
-      skills_check: []
-      skills_uncheck: []
-      prompt_edits: null
-      answer_final: "C"
-      feedback: null
+      rating: unchanged
     hai:
-      task_id_field: "Report_Dashboard_Scrum_Dashboard_74.json"
+      task_id_field: Report_Dashboard_Scrum_Dashboard_74.json
       role: Reviewing
       annotation_n: 3
       prompt: |
-        Consider only the High-priority cards. Which status column contains the one whose progress is greater than the average progress of the other two High-priority cards? A. Backlog B. To Do C. In Progress D. Blocked
+        Consider only the High-priority cards. Which status column contains the one whose progress is greater than the average progress of the other two High-priority cards?
+        
+        A. Backlog
+        B. To Do
+        C. In Progress
+        D. Blocked
       answer: "C"
 
   - n: 4
+    resolution: carry-forward
     sa:
-      rating: thumbs-up
-      skills_check: []
-      skills_uncheck: []
-      prompt_edits: null
-      answer_final: "B"
-      feedback: null
+      rating: unchanged
     hai:
-      task_id_field: "Report_Dashboard_Scrum_Dashboard_74.json"
+      task_id_field: Report_Dashboard_Scrum_Dashboard_74.json
       role: Reviewing
       annotation_n: 4
       prompt: |
-        Read only the top row of cards from left to right. As you accumulate their points, under which status header does the running total first exceed 10? A. To Do B. In Progress C. Done D. Blocked
+        Read only the top row of cards from left to right. As you accumulate their points, under which status header does the running total first exceed 10?
+        
+        A. To Do
+        B. In Progress
+        C. Done
+        D. Blocked
       answer: "B"
 
   - n: 5
+    resolution: auto-resolved
     sa:
-      rating: thumbs-down
-      skills_check: []
-      skills_uncheck: []
-      prompt_edits: null
-      answer_final: null
-      feedback: "4/21: IMAGE_UNREADABLE — card type in To Do column unreadable; cannot confirm which column uniquely satisfies Low+Bug top / High+User Story bottom."
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
     hai:
-      task_id_field: "Report_Dashboard_Scrum_Dashboard_74.json"
+      task_id_field: Report_Dashboard_Scrum_Dashboard_74.json
       role: Reviewing
       annotation_n: 5
       prompt: |
-        Which status column shows a top card and a lower card where the upper card is Low priority with type Bug, but the lower card is High priority with type User Story? A. Backlog B. New C. To Do D. Blocked
+        Which status column contains an upper card labeled Priority: Low and a lower card labeled Priority: High?
+        
+        A. Backlog
+        B. New
+        C. To Do
+        D. Blocked
       answer: "C"
 ```

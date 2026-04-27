@@ -60,10 +60,10 @@ Lessons from SA_Applied tasks may still be logged to wiki/memory as calibration 
 - Read prior feedback before reviewing — check if annotator addressed it.
 - If addressed adequately → thumbs-up. If not → delete (not thumbs-down).
 
-### Deleted Annotation (near-duplicate case)
-If annotator resubmits an annotation that is a near-duplicate of another annotation in the same task (same question, same threshold, same answer — just reworded), treat as **deleted annotation**, NOT thumbs-down:
-- SA: skip the annotation (no rating, no feedback). Human deletes it manually.
-- HAI shadow task: file with "deleted annotation" in both prompt and rewrite answer fields.
+### Deleted Annotation (any cycle-2 delete)
+Any annotation with `sa_action: delete` (cycle 2 thumbs-down, OR near-duplicate) follows the same shadow rule:
+- SA: set thumbs-down + delete the annotation. For near-duplicates: skip rating, human deletes manually.
+- **HAI shadow task: file with `"deleted annotation"` in both prompt AND rewrite answer fields.**
 - Task status: advance to QC_Complete if remaining annotations all pass (deleted annotation doesn't block completion).
 - Near-duplicate test: if question type, filtering criterion, and final answer are identical to another annotation, it's a duplicate regardless of surface wording ("x-values less than 5" = "orders less than 5" on a chart with x=order).
 
@@ -121,7 +121,7 @@ Regenerate after ANY prompt edit. If model now correct → revise prompt further
 - Copy full prompt text from SA (after your edits)
 - **Time budget: ~3 min per prompt first pass, ~10–20 min second pass** (Slack, Apr 7). Shadow task time = source of truth for payment.
 - Second review cycle = new shadow task (new time log).
-- Upload task image via + button
+- Upload task image: CLI uses `mcp__chrome-devtools__upload_file` on the "Upload assets" button with the screenshot path from `lizard/screenshots/<stem>.<ext>`. Never ask Igor to upload manually.
 - **Approve/Reject = per-annotation rating: thumbs-up → Approve, thumbs-down → Reject**
 - **Time edit rule — one-way floor, never a ceiling:** at the "Task complete!" screen, override to 00:20:00 ONLY if session time < 20 min. If session time ≥ 20 min, SKIP Edit time and click Confirm time directly. Overwriting a time > 20 min destroys real logged work and reduces pay; 20:00 is a minimum, not a target.
 - After Confirm time, verify page advanced past the time screen before reporting done

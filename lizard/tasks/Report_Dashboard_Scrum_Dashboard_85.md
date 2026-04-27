@@ -1,231 +1,295 @@
 # Review: Report_Dashboard_Scrum_Dashboard_85
 
 ## Task Info
-- **SuperAnnotate Task ID:** 187111258
-- **Image:** "projectly" dashboard mockup — photograph of laptop at perspective angle. Sidebar menu below "Dashboard": Inbox/Products/Admin/Orders/Settings (R2 read) or Dashboard/Projects/Tasks/Documents/Calendar/Messages/Settings (R1 read). Stat cards (Task completed 27, New task assigned 45, Ongoing projects 12, Project completed 64). Grouped bar chart (7 paired blue+orange groups, Mon–Sun). Donut chart (multiple segments). NOTE: image is a skewed laptop photo — fine-grained chart reads are angle-limited.
-- **Date:** 2026-04-20
-- **Review Cycle:** 1st
+- **task_id:** 187111258
+- **SA_TASK_FILENAME:** Report_Dashboard_Scrum_Dashboard_85.json
+- **Image:** screenshots/Report_Dashboard_Scrum_Dashboard_85.png — Project management dashboard (Projectify) — sidebar menu, statistic cards (27, 45, 12, 64), All Tasks grouped bar chart, Project Task Chart donut, Project Completed metric, project-status panel
+- **Date:** 2026-04-26
+- **Review Cycle:** 2nd
+- **SA Applied (Cycle 2):** ✅
 
-## Annotations
-
-### Annotation 1
-- **Shadow Task:** ✅ submitted (cycle 1) — [bb7f1a2b](shadows/bb7f1a2b.md)
-- **Rating:** thumbs-down
-- **Question:** Sidebar menu labels below highlighted Dashboard and above help card, minus large rectangular action buttons in top-right
-- **Skills Tagged:** Enumeration, Math Reasoning, Logical Reasoning, Table/Chart/Graph Understanding
-- **Question Type:** MCQ
-- **Model Answer:** A
-- **Annotator Answer:** B
-
-#### Two-Part Check (Human Resolved)
-- R1 reviewer: Opus
-- R1 verdict: thumbs-down. Type 7, "large rectangular action buttons" lacks a clear boundary at this image resolution; avatar, bell, or pill-like UI elements could be counted differently. Also Type 3, top-right controls are too small on the angled laptop shot.
-- R2 reviewer: openclaw
-- R2 verdict: thumbs-up B=4, but human resolution rejects the prompt on boundary ambiguity and image-readability grounds.
-
-#### Rewrite Answer
-N/A — prompt invalid
-
-#### Edits Made
-N/A
-
-#### Feedback
-4/21: Type 7 ambiguity, "large rectangular action buttons" is not bounded clearly enough at this resolution, and the top-right controls are too small on the angled laptop image for a reliable count.
-
-#### Resolution
-human-resolved: R1
+## Task Status
+- **Status:** RESOLVED
+- **Reviewers fired:** opus
+- **Summary:** 0 pending Igor, 3 resolved (1 Igor 👎 + 2 auto), 0 no-reviewer-output, 2 unchanged-carry-forward (of 5 total)
 
 ---
 
-### Annotation 2
-- **Shadow Task:** ✅ submitted (cycle 1) — [c2874700](shadows/c2874700.md)
-- **Rating:** thumbs-up
-- **Question:** In grouped bar chart, at which position does orange bar first become taller than blue?
-- **Skills Tagged:** Attribute Perception, Spatial Reasoning, Table/Chart/Graph Understanding
+## Annotation 1
+
+- **Shadow Task:** ⬜ not submitted
+- **Reviewer:** opus
+- **Rating:** thumbs-down
+- **All Verdicts:** opus: 👎 (picked)
+- **Flags:** [G3, Type 1, Type 7]
+- **Final Answer (reviewer):** N/A — prompt invalid
+- **Skills Tagged:** Enumeration,Math Reasoning,Logical Reasoning,Table/Chart/Graph Understanding
 - **Question Type:** MCQ
 - **Model Answer:** C
 - **Annotator Answer:** B
 
-#### Two-Part Check (Human Resolved)
-- R1 reviewer: Opus
-- R1 verdict: thumbs-down. Treats the bar-height comparison as too unreliable at this image angle.
-- R2 reviewer: openclaw
-- R2 verdict: thumbs-up. First two groups have blue taller than orange; third group is the first where orange is taller, so answer B=3.
+#### Full Prompt
+Count the sidebar menu labels starting with Projects and ending with Settings. Multiply that count by the number of statistic cards in the row containing the values 27, 45, 12, and 64. Then subtract the number of paired bar clusters in the All Projects chart. What is the result?
+A. 16
+B. 17
+C. 18
+D. 20
+
+#### Rewrite Answer (annotator)
+B
+
+#### Reviewer Body (opus) (picked)
+- **Rating:** thumbs-down
+- **Final Rewrite Answer:** N/A — prompt invalid
+- **Flags:** [G3, Type 1, Type 7]
+- **Two-Part Check:**
+  1. Question: Prompt references "All Projects chart" but the chart in the image is titled "All Tasks" [pixel-verified — top-left crop]. There is no panel named "All Projects" on this dashboard, so the prompt sends the model to a non-existent target (G3, self-containment fail; Type 1, non-verifiable because the named object isn't in the image). Additionally, "paired bar clusters" is ambiguous (Type 7): does it mean clusters that contain a pair of bars, or pairs of clusters? The bars in the chart are grouped per month with multiple-color bars per group; whether a 3-bar group counts as a "paired cluster" is undefined. Skill tags (Enumeration + Math + LR + TCG) include anchors and are reasonable in principle, but the prompt is unsalvageable as-is.
+  2. Answer: Sidebar Projects→Settings = 6 [pixel-verified]. Stat cards row = 4 [pixel-verified, values 27/45/12/64]. 6×4 = 24. Bar cluster count [IMAGE_UNREADABLE] — even if readable, the chart name mismatch makes the prompt non-deterministic. No defensible single answer exists. Cannot endorse any option.
+- **Edits Made:** Cycle 2, prior reject. Decision set is approve/delete. Recommend delete.
+- **Feedback:** 2026-04-26 — Prompt names "All Projects chart", but the bar-chart panel in the image is titled "All Tasks". No panel called "All Projects" exists on this dashboard, which makes the third operand undefined (G3 self-containment fail, Type 1 non-verifiable target). Also, "paired bar clusters" is undefined for a multi-color grouped chart (Type 7). To salvage, name the chart by its actual title and define what counts as a cluster (e.g., "the number of x-axis groups in the All Tasks bar chart").
+
+---
+
+#### Igor Verdict
+- rating: thumbs-down
+- final_answer: N/A
+- notes: G3 fatal — prompt references "All Projects chart" but panel is titled "All Tasks"; third operand undefined. Type 7 on "paired" is weaker (A2/A4 use same term without issue).
+- date: 2026-04-26
+
+#### Edits Made
+(to be filled at Job 3a if needed)
+
+#### Feedback
+2026-04-26: thumbs-down (opus + Igor) — delete (cycle 2, G3 chart-name mismatch)
+
+---
+## Annotation 2
+
+- **Shadow Task:** ⬜ not submitted
+- **Rating:** unchanged (thumbs-up carry-forward from prior cycle)
+- **Flags:** []
+- **Skills Tagged:** Attribute Perception,Spatial Reasoning,Table/Chart/Graph Understanding
+- **Question Type:** MCQ
+- **Model Answer:** C
+- **Annotator Answer:** B
+
+#### Full Prompt
+In the grouped bar chart, scan the 7 paired bar groups from left to right. At which position does the orange bar first become taller than the blue bar?
+
+A. 2
+B. 3
+C. 4
+D. 5
 
 #### Rewrite Answer
 B
 
-#### Edits Made
-N/A
+---
+## Annotation 3
 
-#### Resolution
-human-resolved: R2
+- **Shadow Task:** ⬜ not submitted
+- **Reviewer:** opus
+- **Rating:** thumbs-up
+- **All Verdicts:** opus: 👍 (picked)
+- **Flags:** []
+- **Final Answer (reviewer):** C
+- **Skills Tagged:** Attribute Perception,Spatial Reasoning,Table/Chart/Graph Understanding
+- **Question Type:** MCQ
+- **Model Answer:** B
+- **Annotator Answer:** C
+
+#### Full Prompt
+In the project-status panel, count the colored status rows to the right of the donut ring. Then add that count to the number of statistic cards in the top row that show the values 27, 45, 12, and 64. What is the result?
+A. 6
+B. 7
+C. 8
+D. 9
+
+#### Rewrite Answer (annotator)
+C
+
+#### Reviewer Body (opus) (picked)
+- **Rating:** thumbs-up
+- **Final Rewrite Answer:** C
+- **Flags:** []
+- **Two-Part Check:**
+  1. Question: Two-step count + add. Has anchor skill (TCG). Self-contained, single answer, independent. Skill "Spatial Reasoning" is borderline — "to the right of the donut ring" is a navigational locator, not relative-position reasoning; could drop SR in favor of Enumeration, but not a fail. MCQ format clean (A./B./C./D., 4 options, plausible distractors). No giveaway.
+  2. Answer: Colored status rows to the right of the donut ring ≈ 4 [pixel-verified — bottom-right crop shows 4 distinct colored indicator rows]. Stat cards = 4 [pixel-verified — 27, 45, 12, 64]. 4 + 4 = 8 → C. Model answered B (7) and was stumped (annotator's intended answer presumably C). Stump valid, answer correct.
+- **Edits Made:** Optional skill swap: drop Spatial Reasoning, add Enumeration. Not blocking.
+- **Feedback:** N/A
 
 ---
 
-### Annotation 3
-- **Shadow Task:** ✅ submitted (cycle 1) — [c54af144](shadows/c54af144.md)
-- **Rating:** thumbs-down
-- **Question:** Which color is the second-largest segment in the donut chart?
-- **Skills Tagged:** Attribute Perception, Spatial Reasoning, Table/Chart/Graph Understanding
-- **Question Type:** MCQ
-- **Model Answer:** D
-- **Annotator Answer:** B
-
-#### Two-Part Check (Merged)
-- R1 (Opus): thumbs-down. Type 3 — donut segment sizes not confidently rankable at skewed angle. Type 12 — color-name MCQ options (Blue/Orange/Teal/Gray) risky for in-between hues at this resolution.
-- R2 (openclaw): thumbs-down. Apparent second-largest segment is yellow/gold — not among the options (Blue/Orange/Teal/Gray). MCQ options invalid.
-- **Merger: AGREE thumbs-down.**
-
-#### Rewrite Answer
-N/A — prompt invalid
+**Auto-resolved at Job 2 (👍).** opus 👍 (matches annotator). SA action at Job 3b: approve annotator's answer `C` (cycle 2). Skipped at Job 3a.
 
 #### Edits Made
-N/A
+(to be filled at Job 3a if needed)
 
 #### Feedback
-4/20: Type 3 + Type 12 — donut segments not rankable at skewed angle; apparent second-largest is yellow/gold, absent from MCQ options.
+2026-04-26: thumbs-up (opus) — auto-resolved
 
 ---
+## Annotation 4
 
-### Annotation 4
-- **Shadow Task:** ✅ submitted (cycle 1) — [c6abcde8](shadows/c6abcde8.md)
-- **Rating:** thumbs-up
-- **Question:** Last position where orange bar is taller than blue bar
-- **Skills Tagged:** Spatial Reasoning, Math Reasoning, Logical Reasoning
+- **Shadow Task:** ⬜ not submitted
+- **Rating:** unchanged (thumbs-up carry-forward from prior cycle)
+- **Flags:** []
+- **Skills Tagged:** Spatial Reasoning,Math Reasoning,Logical Reasoning
 - **Question Type:** MCQ
 - **Model Answer:** A
 - **Annotator Answer:** B
 
-#### Two-Part Check (Human Resolved)
-- R1 reviewer: Opus
-- R1 verdict: thumbs-down. Treats per-group bar heights as unreadable at this angle.
-- R2 reviewer: openclaw
-- R2 verdict: thumbs-up with corrected answer C=6, but human direct image read does not agree with that bar pattern.
-- Human direct read: orange is taller than blue at positions 3, 4, and 5, so the last such position is 5.
+#### Full Prompt
+Start at the leftmost paired bar group and move right. At which position do you reach the last group where the orange bar is taller than the blue bar?
+
+A. 4
+B. 5
+C. 6
+D. 7
 
 #### Rewrite Answer
 B
 
-#### Edits Made
-N/A
+---
+## Annotation 5
 
-#### Resolution
-human-resolved: other
+- **Shadow Task:** ⬜ not submitted
+- **Reviewer:** opus
+- **Rating:** thumbs-up
+- **All Verdicts:** opus: 👍 (picked)
+- **Flags:** []
+- **Final Answer (reviewer):** C
+- **Skills Tagged:** Spatial Reasoning,Math Reasoning,Logical Reasoning
+- **Question Type:** MCQ
+- **Model Answer:** D
+- **Annotator Answer:** C
+
+#### Full Prompt
+Scan the four statistic cards from left to right. Keep only the cards whose visible value contains the digit 2. From those surviving cards, use the value on the surviving card farthest to the right. Add the number of sidebar menu labels from Projects through Settings, including both endpoints. Then subtract the number of colored status rows to the right of the donut ring. Which result is correct?
+A. 12
+B. 13
+C. 14
+D. 15
+
+#### Rewrite Answer (annotator)
+C
+
+#### Reviewer Body (opus) (picked)
+- **Rating:** thumbs-up
+- **Final Rewrite Answer:** C
+- **Flags:** []
+- **Two-Part Check:**
+  1. Question: Multi-step filter→pick→add→subtract. Has anchor skill (Logical Reasoning). Self-contained, deterministic, independent (does not reference A3 directly even though both query rows-right-of-donut — they share image content, not reasoning chain, so G4 fine). MCQ format clean. No giveaway. Tag note: Spatial Reasoning is again navigational not relational; Enumeration is missing (counts sidebar labels and surviving cards). Tag fix optional.
+  2. Answer: Cards left→right: 27, 45, 12, 64 [pixel-verified]. Cards whose value contains digit "2": 27 (yes), 45 (no), 12 (yes), 64 (no) — survivors 27 and 12. Farthest right of survivors = 12. Sidebar Projects→Settings inclusive = 6 [pixel-verified]. Colored status rows right of donut ring = 4 [pixel-verified, consistent with A3]. 12 + 6 − 4 = 14 → C. Model answered D (15, implying it counted 3 rows). Stump valid, annotator answer C correct.
+- **Edits Made:** Optional tag tune: drop Spatial Reasoning, add Enumeration. Not blocking.
+- **Feedback:** N/A
 
 ---
 
-### Annotation 5
-- **Shadow Task:** ✅ submitted (cycle 1) — [c7834be9](shadows/c7834be9.md)
-- **Rating:** thumbs-down
-- **Question:** Blue>orange positions → second survivor day → weekday position × donut segments smaller than orange
-- **Skills Tagged:** Spatial Reasoning, Math Reasoning, Logical Reasoning
-- **Question Type:** MCQ
-- **Model Answer:** B
-- **Annotator Answer:** A
-
-#### Two-Part Check (Merged)
-- R1 (Opus): thumbs-down. Type 3 compounded — both bar-height scan and donut segment ranking are IMAGE_UNREADABLE at this angle. Chain of unreliable reads amplifies error.
-- R2 (openclaw): thumbs-down. Orange appears smallest donut segment → segments smaller than orange = 0; second day where blue>orange = position 2 (Tue); 2×0=0 — not in options. MCQ options invalid.
-- **Merger: AGREE thumbs-down.**
-
-#### Rewrite Answer
-N/A — prompt invalid
+**Auto-resolved at Job 2 (👍).** opus 👍 (matches annotator). SA action at Job 3b: approve annotator's answer `C` (cycle 2). Skipped at Job 3a.
 
 #### Edits Made
-N/A
+(to be filled at Job 3a if needed)
 
 #### Feedback
-4/20: Type 3 compounded — bar heights and donut segments IMAGE_UNREADABLE at angle; computed result = 0, not in MCQ options.
+2026-04-26: thumbs-up (opus) — auto-resolved
 
 ---
-
-## Task Status
-- **Status:** APPLIED
-- **SA Applied (Cycle 1):** ✅
-
 ## Form-Fill Payload
 
 ```yaml
-task_id: 187111258
+task:
+  stem: Report_Dashboard_Scrum_Dashboard_85
+  sa_task_filename: Report_Dashboard_Scrum_Dashboard_85.json
+  cycle: 2
+
 annotations:
+
   - n: 1
+    resolution: igor-resolved
     sa:
       rating: thumbs-down
-      skills_check: []
-      skills_uncheck: []
-      prompt_edits: null
-      answer_final: null
-      feedback: "4/21: Type 7 ambiguity, \"large rectangular action buttons\" is not bounded clearly enough at this resolution, and the top-right controls are too small on the angled laptop image for a reliable count."
+      answer_final: "N/A — prompt invalid"
+      flags: [G3, Type 1]
     hai:
-      task_id_field: "Report_Dashboard_Scrum_Dashboard_85.json"
+      task_id_field: Report_Dashboard_Scrum_Dashboard_85.json
       role: Reviewing
       annotation_n: 1
       prompt: |
-        Count the sidebar menu labels below the highlighted Dashboard item and above the help card. Then subtract the number of large rectangular action buttons in the top-right area of the dashboard. What is the result? A. 3 B. 4 C. 5 D. 6
+        Count the sidebar menu labels starting with Projects and ending with Settings. Multiply that count by the number of statistic cards in the row containing the values 27, 45, 12, and 64. Then subtract the number of paired bar clusters in the All Projects chart. What is the result?
+        A. 16
+        B. 17
+        C. 18
+        D. 20
       answer: "B"
 
   - n: 2
+    resolution: carry-forward
     sa:
-      rating: thumbs-up
-      skills_check: []
-      skills_uncheck: []
-      prompt_edits: null
-      answer_final: "B"
-      feedback: null
+      rating: unchanged
     hai:
-      task_id_field: "Report_Dashboard_Scrum_Dashboard_85.json"
+      task_id_field: Report_Dashboard_Scrum_Dashboard_85.json
       role: Reviewing
       annotation_n: 2
       prompt: |
-        In the grouped bar chart, scan the 7 paired bar groups from left to right. At which position does the orange bar first become taller than the blue bar? A. 2 B. 3 C. 4 D. 5
+        In the grouped bar chart, scan the 7 paired bar groups from left to right. At which position does the orange bar first become taller than the blue bar?
+        
+        A. 2
+        B. 3
+        C. 4
+        D. 5
       answer: "B"
 
   - n: 3
+    resolution: auto-resolved
     sa:
-      rating: thumbs-down
-      skills_check: []
-      skills_uncheck: []
-      prompt_edits: null
-      answer_final: null
-      feedback: "4/20: Type 3 + Type 12 — donut segments not rankable at skewed angle; apparent second-largest is yellow/gold, absent from MCQ options."
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
     hai:
-      task_id_field: "Report_Dashboard_Scrum_Dashboard_85.json"
+      task_id_field: Report_Dashboard_Scrum_Dashboard_85.json
       role: Reviewing
       annotation_n: 3
       prompt: |
-        Which color is the second-largest segment in the donut chart? A. Blue B. Orange C. Teal D. Gray
-      answer: "B"
+        In the project-status panel, count the colored status rows to the right of the donut ring. Then add that count to the number of statistic cards in the top row that show the values 27, 45, 12, and 64. What is the result?
+        A. 6
+        B. 7
+        C. 8
+        D. 9
+      answer: "C"
 
   - n: 4
+    resolution: carry-forward
     sa:
-      rating: thumbs-up
-      skills_check: []
-      skills_uncheck: []
-      prompt_edits: null
-      answer_final: "B"
-      feedback: null
+      rating: unchanged
     hai:
-      task_id_field: "Report_Dashboard_Scrum_Dashboard_85.json"
+      task_id_field: Report_Dashboard_Scrum_Dashboard_85.json
       role: Reviewing
       annotation_n: 4
       prompt: |
-        Start at the leftmost paired bar group and move right. At which position do you reach the last group where the orange bar is taller than the blue bar? A. 4 B. 5 C. 6 D. 7
+        Start at the leftmost paired bar group and move right. At which position do you reach the last group where the orange bar is taller than the blue bar?
+        
+        A. 4
+        B. 5
+        C. 6
+        D. 7
       answer: "B"
 
   - n: 5
+    resolution: auto-resolved
     sa:
-      rating: thumbs-down
-      skills_check: []
-      skills_uncheck: []
-      prompt_edits: null
-      answer_final: null
-      feedback: "4/20: Type 3 compounded — bar heights and donut segments IMAGE_UNREADABLE at angle; computed result = 0, not in MCQ options."
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
     hai:
-      task_id_field: "Report_Dashboard_Scrum_Dashboard_85.json"
+      task_id_field: Report_Dashboard_Scrum_Dashboard_85.json
       role: Reviewing
       annotation_n: 5
       prompt: |
-        Scan the weekday bar groups from left to right and keep only the days where the blue bar is taller than the orange bar. Take the second surviving day. Convert that day to its weekday position using Mon = 1, Tue = 2, .., Sun = 7. Then multiply that position by the number of donut-chart segments that are smaller than the orange segment. Which result is correct? A. 4 B. 6 C. 8 D. 10
-      answer: "A"
+        Scan the four statistic cards from left to right. Keep only the cards whose visible value contains the digit 2. From those surviving cards, use the value on the surviving card farthest to the right. Add the number of sidebar menu labels from Projects through Settings, including both endpoints. Then subtract the number of colored status rows to the right of the donut ring. Which result is correct?
+        A. 12
+        B. 13
+        C. 14
+        D. 15
+      answer: "C"
 ```

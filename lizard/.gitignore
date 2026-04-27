@@ -36,6 +36,11 @@ stage3/
 # Local user config
 .claude/settings.local.json
 
+# Secrets / env
+.env
+.env.*
+!.env.example
+
 # Python
 __pycache__/
 *.pyc

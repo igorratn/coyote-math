@@ -10,6 +10,7 @@
 - When in doubt: if model could answer without reasoning about the image, too easy
 - **V6 anchor-skill rule (Apr 2026):** every prompt must include ≥1 of {Logical Reasoning, TCG Understanding, World Knowledge}. Enum+AP+Math with none of these three = FAIL even though skill count ≥2. Forces contextually driven prompts, not pure perception/counting.
 - **V6 non-contextual ban:** letter-counting / character-counting / vowel-counting on arbitrary text = FAIL (not contextually driven). Prompt must engage with meaningful image content, not treat image as a string.
+  - **Visual-qualifier exception (2026-04-25, ratified on Server_132 A2):** if the count is restricted by a visual qualifier the model must first detect from the image (color, position, font, size, region), the prompt IS contextually driven and the V6 ban does NOT apply. E.g. "vowels in the *blue* portion of the logo" requires color-region detection before counting → PASS. Plain "vowels in the logo" = FAIL.
 - **V6 extraction ban:** prompt that can be answered by direct read-off (single value lookup, OCR transcription) = FAIL. Must require reasoning step beyond extraction.
 - **V6 applies to all tasks** — including V5 tasks still in queue. Judge all tasks by V6 playbook.
 

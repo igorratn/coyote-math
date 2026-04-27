@@ -3,7 +3,7 @@
 - **SA Task ID:** Report_Dashboard_Scrum_Dashboard_85.json
 - **Annotation:** 1
 - **HAI Link:** https://ai.joinhandshake.com/annotations/fellow/task/bb7f1a2b-465a-4b60-b4fb-10ef01e679f1/run
-- **Status:** ✅ submitted
+- **Status:** ✅ submitted ⚠️ filed with real prompt+answer; should have been "deleted annotation" per rule codified 2026-04-27
 - **Review file:** [Report_Dashboard_Scrum_Dashboard_85.md](../Report_Dashboard_Scrum_Dashboard_85.md) → Annotation 1
 
 ## Prompt

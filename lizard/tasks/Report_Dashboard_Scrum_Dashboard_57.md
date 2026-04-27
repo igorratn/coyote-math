@@ -1,235 +1,309 @@
 # Review: Report_Dashboard_Scrum_Dashboard_57
 
 ## Task Info
-- **SuperAnnotate Task ID:** 187111252
-- **Image:** "ActionableAgile™" dashboard — 6 panels: Cycle Time (15 days/85%), WIP (8 items), Monte Carlo: How Many (16 items/30 days/85%), Stability table (Arrival Rate/Throughput/WIP Age × Today/Last Week/Last Month), Monte Carlo: Remaining (12 items/24 days/85%). Green funnel icon top bar. One trademark symbol.
-- **Date:** 2026-04-20
-- **Review Cycle:** 1st
+- **task_id:** 187111252
+- **SA_TASK_FILENAME:** Report_Dashboard_Scrum_Dashboard_57.json
+- **Image:** screenshots/Report_Dashboard_Scrum_Dashboard_57.png — Scrum WIP/Arrival dashboard
+- **Date:** 2026-04-25
+- **Review Cycle:** 2nd
 
-## Annotations
-
-### Annotation 1
-- **Shadow Task:** ✅ submitted (cycle 1) — [b398221a](shadows/b398221a.md)
-- **Rating:** thumbs-down
-- **Question:** WIP items in progress × count of ":" characters in image
-- **Skills Tagged:** Enumeration, Attribute Perception, Math Reasoning
-- **Question Type:** SAQ
-- **Model Answer:** 32
-- **Annotator Answer:** 16
-
-#### Two-Part Check (Human Resolved)
-- R1 reviewer: Opus
-- R1 verdict: thumbs-down. V6 anchor-skill fail (Enum+AP+Math, no LR/TCG/WK). V6 non-contextual ban — counting ":" is character-counting on arbitrary text, not contextually-driven reasoning.
-- R2 reviewer: openclaw
-- R2 verdict: thumbs-up. Answer 16 ✓ — WIP=8, colons=2 ("Monte Carlo: How Many" + "Monte Carlo: Remaining"), 8×2=16. Tag fix needed (add anchor skill). Model 32 implies 4 colons (hallucination).
-
-#### Rewrite Answer
-N/A — prompt invalid
-
-#### Edits Made
-N/A
-
-#### Feedback
-4/21: V6 anchor-skill fail (Enumeration + Attribute Perception + Math Reasoning only, no LR/TCG/WK anchor skill). Non-contextual character counting, the prompt depends on counting ":" in arbitrary text rather than context-driven reasoning.
-
-#### Resolution
-human-resolved: R1
+## Task Status
+- **Status:** ALL-AUTO-RESOLVED
+- **Reviewers fired:** gpt, opus
+- **Summary:** 0 pending Igor, 3 auto-resolved, 0 no-reviewer-output, 2 unchanged-carry-forward (of 5 total)
+- **SA Applied (Cycle 2):** ✅
 
 ---
 
-### Annotation 2
-- **Shadow Task:** ✅ submitted (cycle 1) — [b47698e1](shadows/b47698e1.md)
+## Annotation 1
+
+- **Shadow Task:** ✅ submitted (cycle 2) — [91a38ebd](shadows/91a38ebd.md)
+- **Reviewer:** gpt
 - **Rating:** thumbs-up
-- **Question:** Image rotated CCW 90° then divided into 4 quadrants; which quadrant has the trademarked term?
+- **All Verdicts:** gpt: 👍 (picked), opus: 👎
+- **Flags:** []
+- **Final Answer (reviewer):** B
+- **Skills Tagged:** Spatial Reasoning, Math Reasoning, Logical Reasoning, Table/Chart/Graph Understanding
+- **Question Type:** SAQ
+- **Model Answer:** C
+- **Annotator Answer:** B
+
+#### Full Prompt
+If the entire image were to be divided into four quadrants and be rotated in a counter-clockwise direction by a number of degrees equal to three times the number of days that 16 items or more Monte Carlo items can be complete in with a certainty of 85%, in which quadrant would there be information regarding remaining Monte Carlo items? Answer with an uppercase letter (e.g., A).
+A. Top left
+B. Top right
+C. Bottom left
+D. Bottom right
+
+#### Rewrite Answer (annotator)
+B
+
+#### Reviewer Body (gpt) (picked)
+- **Rating:** thumbs-up
+- **Final Rewrite Answer:** B
+- **Flags:** []
+- **Two-Part Check:**
+  1. Question: Valid and self-contained. Requires reading the Monte Carlo: How Many panel (30 days) [Read-First], computing 3×days, applying a 90° counter-clockwise rotation, then identifying where the Monte Carlo: Remaining panel ends up. Clear single answer; involves Table/Chart reading + spatial reasoning.
+  2. Answer: Monte Carlo: How Many shows 30 days [pixel-verified; Read-First]. 3×30 = 90°. A 90° CCW rotation maps the original bottom-right panel (Monte Carlo: Remaining) to the top-right quadrant. Therefore answer = B (Top right).
+- **Edits Made:** None
+- **Feedback:** N/A
+
+#### Reviewer Body (opus)
+- **Rating:** thumbs-down
+- **Final Rewrite Answer:** N/A — prompt invalid (delete)
+- **Flags:** [G1]
+- **Two-Part Check:**
+  1. Question: V6 anchor-skill FAIL — tagged skills are Enumeration, Attribute Perception, Math Reasoning; none of {Logical Reasoning, TCG Understanding, World Knowledge} present. Also V6 non-contextual character-counting ban: counting ":" occurrences across arbitrary header/card text is exactly the kind of "treat image as a string" prompt V6 forbids. Cycle 2 decision set on prior thumbs-down = approve or delete; prompt unchanged → delete.
+  2. Answer: WIP = 8 items [pixel-verified]. Colons ":" visible only in "Monte Carlo: How Many" and "Monte Carlo: Remaining" → 2 [pixel-verified]. 8 × 2 = 16. Annotator's 16 is arithmetically correct, model's 32 is wrong, but the prompt itself fails V6 → delete regardless.
+- **Edits Made:** None — delete.
+- **Feedback:** 2026-04-25: Cycle 2 — prompt unchanged from cycle 1; same V6 G1 anchor-skill failure (no Logical Reasoning / TCG / World Knowledge) and same non-contextual character-counting violation. Decision set is approve/delete only. Delete.
+
+**Auto-resolved at Job 2 (👍).** gpt 👍 (matches annotator). SA action at Job 3b: approve annotator's answer `B` (cycle 2). Skipped at Job 3a.
+
+#### Edits Made
+(to be filled at Job 3a if needed)
+
+#### Feedback
+2026-04-25: thumbs-up (gpt) — auto-resolved
+
+---
+## Annotation 2
+
+- **Shadow Task:** ✅ submitted (cycle 2) — [914100c7](shadows/914100c7.md)
+- **Rating:** unchanged (thumbs-up carry-forward from prior cycle)
+- **Flags:** []
 - **Skills Tagged:** Spatial Reasoning, World Knowledge
 - **Question Type:** MCQ
 - **Model Answer:** A
 - **Annotator Answer:** C
 
-#### Two-Part Check (Human Resolved)
-- R1 reviewer: Opus
-- R1 verdict: thumbs-up. Answer C=bottom-left ✓ — "ActionableAgile™" is in top-left; CCW 90° maps TL→BL; correct=C. Stump valid.
-- R2 reviewer: openclaw
-- R2 verdict: internally inconsistent header, but analysis supports C and accepts the stump.
+#### Full Prompt
+If the entire image were to be rotated 90 degrees counter-clockwise and divided into four equal quadrants, in which quadrant would there be a trademarked term? Answer with an uppercase letter (e.g., A).
+A. Top left
+B. Top right
+C. Bottom left
+D. Bottom right
 
 #### Rewrite Answer
 C
 
-#### Edits Made
-N/A
-
-#### Resolution
-human-resolved: R1
-
 ---
+## Annotation 3
 
-### Annotation 3
-- **Shadow Task:** ✅ submitted (cycle 1) — [b5d5aed7](shadows/b5d5aed7.md)
-- **Rating:** thumbs-up
-- **Question:** "A" in "Arrival" rotates CCW — which compass direction does apex first point toward?
+- **Shadow Task:** ✅ submitted (cycle 2) — [9a8d9d68](shadows/9a8d9d68.md)
+- **Rating:** unchanged (thumbs-up carry-forward from prior cycle)
+- **Flags:** []
 - **Skills Tagged:** Logical Reasoning, World Knowledge
 - **Question Type:** MCQ
 - **Model Answer:** B
 - **Annotator Answer:** A
 
-#### Two-Part Check (Human Resolved)
-- R1 reviewer: Opus
-- R1 verdict: thumbs-up. Answer A=WSW ✓ — apex starts pointing N (up); CCW rotation: first listed option reached = WSW. Annotator answer is correct.
-- R2 reviewer: openclaw
-- R2 verdict: thumbs-down. Treats "next point toward" as underspecified, but human resolution accepts the natural reading that the apex starts upward and reaches WSW first among the listed options.
+#### Full Prompt
+If the "A" in the word "Arrival" were to rotate in a counter-clockwise direction, out of the following options, which compass coordinate would the apex of the letter next point toward as it rotates? Answer with an uppercase letter (e.g., A).
+A. WSW
+B. SW
+C. ESE
+D. NNE
 
 #### Rewrite Answer
 A
 
-#### Edits Made
-N/A
-
-#### Resolution
-human-resolved: R1
-
 ---
+## Annotation 4
 
-### Annotation 4
-- **Shadow Task:** ✅ submitted (cycle 1) — [b3944175](shadows/b3944175.md)
-- **Rating:** thumbs-down
-- **Question:** Funnel icon bottom extends directly downward — which character does it first intersect?
+- **Shadow Task:** ✅ submitted (cycle 2) — [9ef67e00](shadows/9ef67e00.md)
+- **Reviewer:** gpt
+- **Rating:** thumbs-up
+- **All Verdicts:** gpt: 👍 (picked), opus: 👎
+- **Flags:** []
+- **Final Answer (reviewer):** 30
 - **Skills Tagged:** Attribute Perception, Spatial Reasoning
 - **Question Type:** MCQ
-- **Model Answer:** C
-- **Annotator Answer:** D
+- **Model Answer:** 2
+- **Annotator Answer:** 30
 
-#### Two-Part Check (Merged)
-- R1 (Opus): thumbs-down. V6 anchor-skill fail (AP+SR, no LR/TCG/WK). Type 3 — funnel tip pixel column cannot uniquely resolve to one character; rendering aliasing makes exact character hit unverifiable.
-- R2 (openclaw): thumbs-down. No clearly visible character directly below funnel tip. Target is IMAGE_UNREADABLE.
-- **Merger: AGREE thumbs-down.**
+#### Full Prompt
+Hypothetically, with a certainty of 85%, how many more days would it take to complete 240 remaining Monte Carlo items than it would take to complete 240 "items" as shown in the top right chart? Answer with an integer (e.g., 10).
 
-#### Rewrite Answer
-N/A — prompt invalid
+#### Rewrite Answer (annotator)
+30
+
+#### Reviewer Body (gpt) (picked)
+- **Rating:** thumbs-up
+- **Final Rewrite Answer:** 30
+- **Flags:** []
+- **Two-Part Check:**
+  1. Question: Uses values at 85% certainty from two panels and asks for the extra days for 240 items vs 240 remaining items, hypothetically (implies proportional scaling). Deterministic with clear unit (days). Reads two panels → math reasoning.
+  2. Answer: From Monte Carlo: Remaining: 12 items → 24 days [pixel-verified; Read-First] → 24/12 = 2 days/item. From Monte Carlo: How Many: 16 items → 30 days [pixel-verified; Read-First] → 30/16 = 1.875 days/item. Difference per item = 2 − 1.875 = 0.125 days. For 240 items: 0.125 × 240 = 30 days. Final: 30.
+- **Edits Made:** None
+- **Feedback:** N/A
+
+#### Reviewer Body (opus)
+- **Rating:** thumbs-down
+- **Final Rewrite Answer:** N/A — prompt invalid (delete)
+- **Flags:** [G1, Type 3, IMAGE_UNREADABLE]
+- **Two-Part Check:**
+  1. Question: V6 anchor-skill FAIL — tagged Attribute Perception + Spatial Reasoning; none of {Logical Reasoning, TCG, World Knowledge}. Type 3 / IMAGE_UNREADABLE: the funnel icon is small (~10–15px wide) in the header and a strict vertical drop from "the bottom of the funnel" to "first character intersected" requires sub-pixel x-alignment between funnel tip and individual letters in the Cycle Time card; the candidates (l, r, p, s) all appear in nearby words ("Cycle", "required", "complete", "less") and the column is not resolvable [IMAGE_UNREADABLE]. Cycle 2 decision set = approve or delete; prompt unchanged from cycle 1's IMAGE_UNREADABLE thumbs-down → delete.
+  2. Answer: Funnel x-position lands roughly over right portion of Cycle Time card content; cannot pixel-resolve which of l/r/p/s is first intersected. Cannot answer. [IMAGE_UNREADABLE]
+- **Edits Made:** None — delete.
+- **Feedback:** 2026-04-25: Cycle 2 — prompt unchanged; same V6 G1 anchor-skill failure and same image-unreadability for funnel-tip vertical-drop targeting. Delete.
+
+**Auto-resolved at Job 2 (👍).** gpt 👍 (matches annotator). SA action at Job 3b: approve annotator's answer `30` (cycle 2). Skipped at Job 3a.
 
 #### Edits Made
-N/A
+(to be filled at Job 3a if needed)
 
 #### Feedback
-4/21: V6 anchor-skill fail (AP+SR only, no LR/TCG/WK). Type 3 / IMAGE_UNREADABLE — funnel tip pixel column cannot resolve to a unique character at this resolution.
+2026-04-25: thumbs-up (gpt) — auto-resolved
 
 ---
+## Annotation 5
 
-### Annotation 5
-- **Shadow Task:** ✅ submitted (cycle 1) — [b45de07f](shadows/b45de07f.md)
-- **Rating:** thumbs-down
-- **Question:** Image flipped vertically and divided into 4 quadrants; which quadrant has an "x"?
-- **Skills Tagged:** Attribute Perception, Spatial Reasoning
+- **Shadow Task:** ✅ submitted (cycle 2) — [9d3156b6](shadows/9d3156b6.md)
+- **Reviewer:** gpt
+- **Rating:** thumbs-up
+- **All Verdicts:** gpt: 👍 (picked), opus: 👎
+- **Flags:** []
+- **Final Answer (reviewer):** A
+- **Skills Tagged:** Spatial Reasoning, Table/Chart/Graph Understanding
 - **Question Type:** MCQ
 - **Model Answer:** C
-- **Annotator Answer:** D
+- **Annotator Answer:** A
 
-#### Two-Part Check (Human Resolved)
-- R1 reviewer: Opus
-- R1 verdict: thumbs-down. V6 anchor-skill fail (AP+SR only). V6 non-contextual ban, this is arbitrary character search rather than meaningful visual reasoning.
-- R2 reviewer: openclaw
-- R2 verdict: thumbs-down, but the "no x exists" rationale is not the basis adopted in human review.
-- Human decision: even if an "x" is visually present in the image text, the prompt is still invalid under V6 because its core task is letter search in arbitrary text.
+#### Full Prompt
+If the entire image were to be flipped vertically and divided into four equal quadrants, in which quadrant would there be at least two statistics that decreased in value from Last Week to Today? Answer with an uppercase letter (e.g., A).
+A. Top left
+B. Top right
+C. Bottom left
+D. Bottom right
 
-#### Rewrite Answer
-N/A — prompt invalid
+#### Rewrite Answer (annotator)
+A
 
-#### Edits Made
-N/A
+#### Reviewer Body (gpt) (picked)
+- **Rating:** thumbs-up
+- **Final Rewrite Answer:** A
+- **Flags:** []
+- **Two-Part Check:**
+  1. Question: Requires identifying decreases from Last Week to Today in the Stability table and then applying a vertical flip to locate the quadrant. Deterministic and image-based.
+  2. Answer: Decreases from Last Week to Today: 
+     - Arrival Rate: 0.75 → 0.72 (decrease) [pixel-verified; Read-First]
+     - Throughput: 0.65 → 0.65 (no change) [pixel-verified; Read-First]
+     - WIP Age: 11.27 → 10.50 (decrease) [pixel-verified; Read-First]
+     Thus, at least two stats decreased in the Stability panel. That panel is in the bottom-left half of the original image; a vertical flip moves it to the top-left quadrant. Answer: A.
+- **Edits Made:** None
+- **Feedback:** N/A
 
-#### Feedback
-4/21: V6 anchor-skill fail (AP+SR only). Non-contextual character search, locating a specific letter in arbitrary text is extraction rather than meaningful visual reasoning under V6.
-
-#### Resolution
-human-resolved: R1
+#### Reviewer Body (opus)
+- **Rating:** thumbs-down
+- **Final Rewrite Answer:** N/A — prompt invalid (delete)
+- **Flags:** [G1]
+- **Two-Part Check:**
+  1. Question: V6 anchor-skill FAIL — tagged Attribute Perception + Spatial Reasoning; none of {Logical Reasoning, TCG, World Knowledge}. Also V6 non-contextual character-search ban: hunting for an "x" anywhere in dashboard text is treating the image as a string, not contextually-driven reasoning. Cycle 2 decision set = approve or delete; prompt unchanged → delete.
+  2. Answer: Only "x" visible is in "Example" of "Example Data" header, top-right [pixel-verified]. Vertical flip (mirror over horizontal axis): top-right → bottom-right → D. Annotator D arithmetically correct, model C wrong, but prompt fails V6 → delete regardless.
+- **Edits Made:** None — delete.
+- **Feedback:** 2026-04-25: Cycle 2 — prompt unchanged; same V6 G1 anchor-skill failure and same non-contextual character-search violation. Delete.
 
 ---
 
-## Task Status
-- **Status:** APPLIED
-- **SA Applied (Cycle 1):** ✅
+**Auto-resolved at Job 2 (👍).** gpt 👍 (matches annotator). SA action at Job 3b: approve annotator's answer `A` (cycle 2). Skipped at Job 3a.
 
+#### Edits Made
+(to be filled at Job 3a if needed)
+
+#### Feedback
+2026-04-25: thumbs-up (gpt) — auto-resolved
+
+---
 ## Form-Fill Payload
 
 ```yaml
-task_id: 187111252
+task:
+  stem: Report_Dashboard_Scrum_Dashboard_57
+  sa_task_filename: Report_Dashboard_Scrum_Dashboard_57.json
+  cycle: 2
+
 annotations:
+
   - n: 1
+    resolution: auto-resolved
     sa:
-      rating: thumbs-down
-      skills_check: []
-      skills_uncheck: []
-      prompt_edits: null
-      answer_final: null
-      feedback: "4/21: V6 anchor-skill fail (Enumeration + Attribute Perception + Math Reasoning only, no LR/TCG/WK anchor skill). Non-contextual character counting, the prompt depends on counting \":\" in arbitrary text rather than context-driven reasoning."
+      rating: thumbs-up
+      answer_final: "B"
+      flags: []
     hai:
-      task_id_field: "Report_Dashboard_Scrum_Dashboard_57.json"
+      task_id_field: Report_Dashboard_Scrum_Dashboard_57.json
       role: Reviewing
       annotation_n: 1
       prompt: |
-        What is the product of the number of "WIP" items that are currently in progress and the total number of times there is a ":" on the image? Answer with a simple integer (e.g., 10).
-      answer: "16"
+        If the entire image were to be divided into four quadrants and be rotated in a counter-clockwise direction by a number of degrees equal to three times the number of days that 16 items or more Monte Carlo items can be complete in with a certainty of 85%, in which quadrant would there be information regarding remaining Monte Carlo items? Answer with an uppercase letter (e.g., A).
+        A. Top left
+        B. Top right
+        C. Bottom left
+        D. Bottom right
+      answer: "B"
 
   - n: 2
+    resolution: carry-forward
     sa:
-      rating: thumbs-up
-      skills_check: []
-      skills_uncheck: []
-      prompt_edits: null
-      answer_final: "C"
-      feedback: null
+      rating: unchanged
     hai:
-      task_id_field: "Report_Dashboard_Scrum_Dashboard_57.json"
+      task_id_field: Report_Dashboard_Scrum_Dashboard_57.json
       role: Reviewing
       annotation_n: 2
       prompt: |
-        If the entire image were to be rotated 90 degrees counter-clockwise and divided into four equal quadrants, in which quadrant would there be a trademarked term? Answer with an uppercase letter (e.g., A). A. Top left B. Top right C. Bottom left D. Bottom right
+        If the entire image were to be rotated 90 degrees counter-clockwise and divided into four equal quadrants, in which quadrant would there be a trademarked term? Answer with an uppercase letter (e.g., A).
+        A. Top left
+        B. Top right
+        C. Bottom left
+        D. Bottom right
       answer: "C"
 
   - n: 3
+    resolution: carry-forward
     sa:
-      rating: thumbs-up
-      skills_check: []
-      skills_uncheck: []
-      prompt_edits: null
-      answer_final: "A"
-      feedback: null
+      rating: unchanged
     hai:
-      task_id_field: "Report_Dashboard_Scrum_Dashboard_57.json"
+      task_id_field: Report_Dashboard_Scrum_Dashboard_57.json
       role: Reviewing
       annotation_n: 3
       prompt: |
-        If the "A" in the word "Arrival" were to rotate in a counter-clockwise direction, out of the following options, which compass coordinate would the apex of the letter next point toward as it rotates? Answer with an uppercase letter (e.g., A). A. WSW B. SW C. ESE D. NNE
+        If the "A" in the word "Arrival" were to rotate in a counter-clockwise direction, out of the following options, which compass coordinate would the apex of the letter next point toward as it rotates? Answer with an uppercase letter (e.g., A).
+        A. WSW
+        B. SW
+        C. ESE
+        D. NNE
       answer: "A"
 
   - n: 4
+    resolution: auto-resolved
     sa:
-      rating: thumbs-down
-      skills_check: []
-      skills_uncheck: []
-      prompt_edits: null
-      answer_final: null
-      feedback: "4/21: V6 anchor-skill fail (AP+SR only, no LR/TCG/WK). Type 3 / IMAGE_UNREADABLE — funnel tip pixel column cannot resolve to a unique character at this resolution."
+      rating: thumbs-up
+      answer_final: "30"
+      flags: []
     hai:
-      task_id_field: "Report_Dashboard_Scrum_Dashboard_57.json"
+      task_id_field: Report_Dashboard_Scrum_Dashboard_57.json
       role: Reviewing
       annotation_n: 4
       prompt: |
-        If the bottom of the funnel icon were to extend directly downward, which of the following characters would it first intersect with? Answer with an uppercase letter (e.g., A). A. l B. r C. p D. s
-      answer: "D"
+        Hypothetically, with a certainty of 85%, how many more days would it take to complete 240 remaining Monte Carlo items than it would take to complete 240 "items" as shown in the top right chart? Answer with an integer (e.g., 10).
+      answer: "30"
 
   - n: 5
+    resolution: auto-resolved
     sa:
-      rating: thumbs-down
-      skills_check: []
-      skills_uncheck: []
-      prompt_edits: null
-      answer_final: null
-      feedback: "4/21: V6 anchor-skill fail (AP+SR only). Non-contextual character search, locating a specific letter in arbitrary text is extraction rather than meaningful visual reasoning under V6."
+      rating: thumbs-up
+      answer_final: "A"
+      flags: []
     hai:
-      task_id_field: "Report_Dashboard_Scrum_Dashboard_57.json"
+      task_id_field: Report_Dashboard_Scrum_Dashboard_57.json
       role: Reviewing
       annotation_n: 5
       prompt: |
-        If the entire image were to be flipped vertically and divided into four equal quadrants, in which quadrant would there be an "x"? Answer with an uppercase letter (e.g., A). A. Top left B. Top right C. Bottom left D. Bottom right
-      answer: "D"
+        If the entire image were to be flipped vertically and divided into four equal quadrants, in which quadrant would there be at least two statistics that decreased in value from Last Week to Today? Answer with an uppercase letter (e.g., A).
+        A. Top left
+        B. Top right
+        C. Bottom left
+        D. Bottom right
+      answer: "A"
 ```

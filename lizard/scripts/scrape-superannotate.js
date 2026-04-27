@@ -184,7 +184,25 @@
   const content = lines.join('\n');
   const missing = annotations.filter(a => a.prompt_len < 50 || a.answer_len === 0).length;
 
-  // Trigger download
+  // ---------- Pre-download completeness check (added 2026-04-25) ----------
+  // 5 of 6 Scrum cycle-2 scrapes silently shipped broken on 2026-04-23: empty
+  // STATUS_LOG_TEXT or only cycle-1 events. Reviewers ran on stale prompts;
+  // verdicts were invalid. Refuse the download if the scrape is broken so
+  // CLI immediately knows to retry instead of poisoning downstream.
+  const fail = (reason) => ({ ok: false, error: reason, task_id: TASK_ID,
+    n_annotations: n, missing,
+    status_log_len: (statusLogText || '').length,
+    status_log_submissions: ((statusLogText || '').match(/to:\s*(Submit_to_QC|QC_Complete)/g) || []).length });
+
+  if (n < 1) return fail('n_annotations < 1');
+  if (!statusLogText || statusLogText.trim().length === 0) {
+    return fail('STATUS_LOG_TEXT is empty — DOM not fully loaded? retry after page settles');
+  }
+  if (missing > 0) {
+    return fail(`${missing} annotation(s) have prompt_len<50 or empty answer — DOM not fully loaded`);
+  }
+
+  // Trigger download (only after passing checks)
   const blob = new Blob([content], { type: 'text/plain' });
   const url = URL.createObjectURL(blob);
   const a = doc.createElement('a');

@@ -1,6 +1,6 @@
 # Lizard Host SOP (run in host claude code)
 
-Host CLI owns every step end-to-end: browser scrape (SA + HAI via `chrome-devtools` MCP), skeleton write, reviewer orchestration, agreement merge, SA apply (per-annotation fields only), shadow form-fill. **Human stops per task:** (1) Phase C resolution — fires for any R1/R2 disagreement, any thumbs-down, and any delete; skipped only on all-clean thumbs-up tasks. (2) Job 3 NEED APPROVAL — review + YES/NO on finalized plan. (3) SA task status set in SA UI post-apply. No cowork in runtime. Handoff between CLI and human = filesystem + terminal prompt.
+Host CLI owns every step end-to-end: browser scrape (SA + HAI via `chrome-devtools` MCP), skeleton write, reviewer orchestration, agreement merge, SA apply (per-annotation fields only), shadow form-fill. **Human stops per task:** (1) Phase C resolution — fires for any reviewer disagreement, any thumbs-down, and any delete; skipped only on all-clean thumbs-up tasks. (2) Job 3 NEED APPROVAL — review + YES/NO on finalized plan. (3) SA task status set in SA UI post-apply. No cowork in runtime. Handoff between CLI and human = filesystem + terminal prompt.
 
 Repo root: `/Users/iratnere/dev/coyote-math/lizard` (host path). Mirror in Cowork: `/sessions/<current-session>/mnt/lizard` (session ID rotates — do not hardcode).
 
@@ -20,9 +20,9 @@ for each stem in manifest (in manifest order):
   if state sidecar says sa_applied:true → skip to next
   Job 0  scrape
   Job 1  skeleton
-  Job 2  Phase A: review1 + review2 parallel → independence gate
+  Job 2  Phase A: all reviewers fire (sequential w/ early-stop, or PARALLEL=1) → independence gate
          Phase B: CLI merges agreements only for clean thumbs-up accepts. Any disagreement, any thumbs-down, or any delete is marked UNRESOLVED (no default tiebreak, no auto-delete)
-         Phase C: human resolves each UNRESOLVED annotation (R1 / R2 / custom), including all deletes and thumbs-downs — SKIPPED only if every annotation is a clean thumbs-up accept
+         Phase C: human resolves each UNRESOLVED annotation (pick a reviewer's verdict or custom), including all deletes and thumbs-downs — SKIPPED only if every annotation is a clean thumbs-up accept
          payload materialized after Phase C
   Job 3  NEED APPROVAL stop (pure review of resolved plan) → YES: SA apply + stamp / NO: feedback, hold
   mark sa_applied:true in state sidecar (human-set SA status separately in SA UI)
@@ -91,7 +91,7 @@ Written once at batch start. Never edited during batch.
       "sa_applied": true,
       "shadows_fired": false,
       "held": false,
-      "reviewers": {"r1": "opus", "r2": "openclaw"}
+      "reviewers": ["gpt", "grok", "gemini", "opus"]
     }
   }
 }
@@ -207,8 +207,8 @@ else:
 | `idle` | Nothing to do. Pick next task. |
 | `job0` | Re-scrape (idempotent; newest-mtime rule on downloads). |
 | `job1` | Re-run (deterministic from scrape). |
-| `job2.reviewers` | Discard any partial `tasks/review{1,2}/<stem>.md`, delete sandbox `/tmp/lizard/<stem>/`, re-launch reviewers. |
-| `job2.merge` | Re-run merge step (deterministic from review1/2 + skeleton). Overwrites `tasks/<stem>.md`. |
+| `job2.reviewers` | Discard any partial `/tmp/lizard/<stem>/*-review.md` files, delete sandbox `/tmp/lizard/<stem>/`, re-launch reviewers. |
+| `job2.merge` | Re-run merge step (deterministic from `/tmp/lizard/<stem>/*-review.md` + skeleton). Overwrites `tasks/<stem>.md`. |
 | `job3.pending_resolution` | Re-print per-annotation resolution walk-through for task; resume at first unresolved annotation. |
 | `job3.resolved_pending_sa_apply` | All annotations resolved; skip 3a, proceed to 3b (SA push) when triggered. |
 | `job3.applying` | Re-scrape SA state (ground truth), diff against payload, apply only tasks still in `resolved` state. If partial apply (rating yes, feedback no) → print diff, ask human to reconcile. |
@@ -225,8 +225,8 @@ Exact writes required (use `_state.json.tmp` → rename each time):
 | Entering per-task loop for `<stem>` | `job0` | `job0.start` | `<stem>` |
 | Job 0 complete for `<stem>` | `job1` | `job0.done` | `<stem>` |
 | Job 1 skeleton written | `job2.reviewers` | `job1.skeleton_written` | `<stem>` |
-| Both reviewers launched (before `wait`) | `job2.reviewers` | `job2.reviewers.launched` | `<stem>` |
-| Both reviewers done + outputs copied | `job2.merge` | `job2.reviewers.done` | `<stem>` |
+| All reviewers launched (parallel) or first reviewer launched (sequential) | `job2.reviewers` | `job2.reviewers.launched` | `<stem>` |
+| All required reviewers done (early-stop satisfied or full set) + outputs validated | `job2.merge` | `job2.reviewers.done` | `<stem>` |
 | Independence gate passed | `job2.merge` | `job2.independence_gate.passed` | `<stem>` |
 | Phase B merge written to `tasks/<stem>.md` | `job3.approval` | `job2.merge.done` | `<stem>` |
 | Job 3a resolution started | `job3.pending_resolution` | `job3.resolution_presented` | `<stem>` |
@@ -246,46 +246,52 @@ Exact writes required (use `_state.json.tmp` → rename each time):
 
 ## Reviewer orchestration (Job 2 core)
 
-Two reviewers run in parallel, blind to each other. Independence is enforced by filesystem sandbox (Opus) + session isolation (openclaw) — not by prompt.
+N reviewers run blind to each other (current N=4: gpt, grok, gemini, opus — count not hardcoded; pool is whatever is registered in `scripts/run-job2.mjs` REGISTRY). Independence enforced by per-model subprocess isolation + per-task sandbox cwd — not by prompt. Fire mode is sequential by default with early-stop after each reviewer (cheapest path: stop as soon as the merger can resolve every annotation), or all-concurrent via `PARALLEL=1`.
 
-### Reviewer pool (`config/reviewers.yaml`)
+### Reviewer pool (`scripts/run-job2.mjs` REGISTRY + `scripts/reviewer-stats.json`)
 
-Two entries, two invocation kinds:
+Each entry maps a reviewer name to its runner script and output filename:
 
-- **`opus`** (kind: `cli_subprocess`) — Claude Opus 4.7 via `claude -p` subprocess. Uses host Claude Code auth (no API key setup). Runs with cwd = sandbox view dir.
-- **`openclaw`** (kind: `http_post`) — HTTP POST to local openclaw shim at `127.0.0.1:18789/chat`. Model behind openclaw is deliberately opaque. No filesystem access — CLI uses `scripts/build-openclaw-msg.mjs` to assemble the prompt with absolute paths inlined (skeleton content + absolute paths for framework, template, screenshot, CLAUDE.md). Relative paths are never passed to openclaw; its workspace (`~/.openclaw/workspace/`) is not the lizard repo.
+- **`opus`** — Claude Opus via `claude -p` subprocess. Host Claude Code auth.
+- **`gpt`** — OpenAI API (`run-gpt-reviewer.mjs`).
+- **`grok`** — xAI API (`run-grok-reviewer.mjs`).
+- **`gemini`** — Google API (`run-gemini-reviewer.mjs`).
 
-Pool is A ≠ B by construction (exactly two entries, different paths). Slot assignment (r1 vs r2) per task is random.
+To add or remove a reviewer: edit REGISTRY in `run-job2.mjs` and DEFAULT_ORDER (or override per run via `REVIEWERS=a,b,c` env). No other doc/code changes required — every downstream step iterates the dynamic pool.
 
-### Slot-assignment policy (CLI-side, per task)
+Outputs land at `/tmp/lizard/<stem>/<reviewer>-review.md` (e.g., `gpt-review.md`, `opus-review.md`).
 
-- Random coin flip: opus→r1, openclaw→r2 OR opus→r2, openclaw→r1.
-- If either path fails (subprocess crash / openclaw 500 / timeout) → hard-fail, log, mark task held.
-- Override: env `LIZARD_FORCE_REVIEWERS=opus,openclaw` pins the order for debugging. Logged.
-- Pair assignment written to `_manifest.state.json → tasks.<stem>.reviewers:{r1, r2}` — audit trail, not surfaced to merger.
+### Fire policy (CLI-side, per task)
+
+- **Default order** comes from `DEFAULT_ORDER` in `run-job2.mjs` (FN-dominant: cheap/agreeable models first, Opus last as safety net). `scripts/reviewer-stats.json` is observability only — does NOT re-sort fire order.
+- **Sequential mode** (default): fire reviewer 1, dry-merge, if all annotations auto-resolve → stop. Else fire reviewer 2, repeat. Continue until resolved or pool exhausted.
+- **Parallel mode** (`PARALLEL=1`): fire all reviewers concurrently. Skip early-stop. Useful for benchmarking / when latency matters more than cost.
+- **Per-reviewer failure** (subprocess crash / API error / timeout / `bad_output` validation fail): drop that reviewer, continue with the rest. Merger handles a partial pool. If <2 reviewers succeed → mark task held.
+- **Override**: `REVIEWERS=opus,grok` env pins fire order (and pool subset) for debugging. Logged.
+- **Reviewer list written to `_manifest.state.json → tasks.<stem>.reviewers`** as an array (the order they fired). Audit trail; not surfaced to merger.
 
 ### Per-reviewer sandbox (symlink tree)
 
-For each task + reviewer role, CLI builds a per-reviewer view dir that exposes only what the reviewer needs. The other reviewer's output path does NOT exist in the view.
+For each task + reviewer, CLI builds a per-reviewer view dir that exposes only what the reviewer needs. No reviewer can see another reviewer's output path.
 
 ```
-/tmp/lizard/<stem>/r1-view/
+/tmp/lizard/<stem>/<reviewer>-view/
   skeleton.md      (blind copy — Rewrite Answer lines redacted; see note below)
   template.md      -> <repo>/templates/review-template.md
   framework.md     -> <repo>/templates/review-prompt.md    # Two-Part Check + 5 Guidelines + 12 Error Types + 7 Skills
   wiki/            -> <repo>/wiki/
   CLAUDE.md        -> <repo>/CLAUDE.md
-  review.md        (reviewer writes here; CLI copies out after)
-
-/tmp/lizard/<stem>/r2-view/   (symmetric)
+  review.md        (reviewer writes here; CLI copies out to /tmp/lizard/<stem>/<reviewer>-review.md after)
 ```
+
+One `<reviewer>-view/` dir per registered reviewer (e.g., `opus-view/`, `gpt-view/`, `grok-view/`, `gemini-view/`).
 
 **skeleton.md is a blind copy, not a symlink.** CLI strips `#### Rewrite Answer` lines before writing:
 ```bash
 sed '/^#### Rewrite Answer$/{n;s/.*/\(redacted — verify independently from image\)/}' \
-  tasks/skeleton/<stem>.md > /tmp/lizard/<stem>/<role>-view/skeleton.md
+  tasks/skeleton/<stem>.md > /tmp/lizard/<stem>/<reviewer>-view/skeleton.md
 ```
-Reviewer physically cannot read `tasks/review1/` or `tasks/review2/` — those dirs aren't exposed.
+No reviewer can read other reviewers' output dirs — the view is scoped to its own subdir.
 
 ### Reviewer prompt (short)
 
@@ -309,59 +315,64 @@ Write verdict to review.md using template.md structure.
 Do not speculate about any other reviewer. Do not output your own model identity.
 ```
 
-### Parallel launch
+### Launch (sequential w/ early-stop, or `PARALLEL=1`)
 
-CLI fires both reviewers in one go via shell `&` + `wait`:
+`scripts/run-job2.mjs` orchestrates the fire. Each reviewer is a child subprocess invoking its runner (`scripts/run-<name>-reviewer.mjs`) with env `STEM`, `LIZARD_DIR`, and `OUT=/tmp/lizard/<stem>/<name>-review.md`.
 
-- **opus path**: `cd /tmp/lizard/<stem>/<role>-view/ && claude -p "$PROMPT" < /dev/null > opus.log 2>&1 &`
-  (Writes `review.md` into the sandbox dir.)
-- **openclaw path**:
-  ```bash
-  OPENCLAW_MSG=$(STEM="<stem>" LIZARD_DIR="$LIZARD" node scripts/build-openclaw-msg.mjs)
-  OPENCLAW_TOKEN="$TOKEN" OPENCLAW_MSG="$OPENCLAW_MSG" \
-    OPENCLAW_SESSION="agent:main:<stem>-<uuid>" \
-    node scripts/openclaw-probe.mjs > openclaw.log 2>&1 &
-  ```
-  `build-openclaw-msg.mjs` sanity-checks all paths with `existsSync`, prints a path check to stderr, and exits 1 if any required path is missing. Response is captured from `openclaw.log`.
+Sequential (default):
+```
+for name in FIRE_ORDER:
+  spawn run-<name>-reviewer.mjs
+  validate output (must contain ≥ EXPECTED_ANNOTS `## Annotation N` blocks; else `bad_output`)
+  if SKIP_EARLY_STOP unset:
+    dry-merge with reviewers-ran-so-far → if all annotations auto-resolve, break
+```
 
-After `wait`, CLI copies each output to `tasks/review1/<stem>.md` and `tasks/review2/<stem>.md` per the slot assignment.
+Parallel (`PARALLEL=1`):
+```
+spawn all FIRE_ORDER concurrently → wait for all → validate each output
+```
 
-Openclaw session ID includes `<stem>-<uuid>` so histories don't cross tasks. Stateless across tasks — no reset round-trip needed.
+Output validation (every reviewer, every mode): the file MUST parse to ≥ `EXPECTED_ANNOTS` annotation blocks (one `## Annotation N` per skeleton annotation). Silent drops or malformed output → reviewer marked `bad_output` and dropped from merger pool. This is the guard that the 2026-04-23 silent-drop bug should never recur without being caught.
 
 ### Independence gate (grep — no Python)
 
-After both `tasks/review1/<stem>.md` and `tasks/review2/<stem>.md` are written, CLI runs:
+After all reviewer outputs are written to `/tmp/lizard/<stem>/<reviewer>-review.md`, CLI grep-checks each one for cross-reviewer leakage (mention of any other reviewer's name or "reviewer 2/3/4" patterns):
 
 ```bash
-grep -qi "reviewer.2\|review2\|R2" tasks/review1/<stem>.md && { echo "FAIL R1 leaked"; exit 1; }
-grep -qi "reviewer.1\|review1\|R1" tasks/review2/<stem>.md && { echo "FAIL R2 leaked"; exit 1; }
+for r in /tmp/lizard/<stem>/*-review.md; do
+  this=$(basename "$r" -review.md)
+  for other_pattern in <names of all OTHER reviewers> "reviewer.[2-9]" "review[2-9]"; do
+    grep -qi "$other_pattern" "$r" && { echo "FAIL $this leaked"; exit 1; }
+  done
+done
 ```
 
-Any leak → abort, discard both outputs, re-launch reviewers. No merger call until gate passes.
+Any leak → abort, discard the leaked output, re-launch that reviewer. Merger is not called until gate passes for every output.
 
 ### Merger (CLI, agreement-only — no tiebreak)
 
-Reviewers produce `tasks/review1/<stem>.md` + `tasks/review2/<stem>.md`. CLI merges conservatively:
+Reviewers produce `/tmp/lizard/<stem>/<reviewer>-review.md`. `scripts/job2-merge.mjs` merges conservatively over whatever subset ran successfully (sequential early-stop may yield only a subset of the pool; parallel yields the full pool):
 
-- **Both reviewers agree** (same rating + compatible edits + same answer) → take it. Write per-annotation section with chosen rating + merged edits + feedback. No flag.
-- **Any disagreement** (rating, answer, skills, prompt edit) **OR any thumbs-down** (even if both agree) → annotation marked `UNRESOLVED` in task file. **CLI does NOT pick a default.** Both reviewer verdicts preserved side-by-side for Phase C.
+- **All ran reviewers agree** (same rating + compatible edits + same final answer) → take it. Write per-annotation section with chosen rating + merged edits + feedback. No flag.
+- **Any disagreement among ran reviewers** (rating, answer, skills, prompt edit) **OR any thumbs-down** (even if all agree) → annotation marked `UNRESOLVED` in task file. **CLI does NOT pick a default.** All reviewer verdicts preserved side-by-side for Phase C.
 
-Rationale: previously CLI defaulted to the "more-supported" reviewer, acting as a silent 3rd judge. That's gone. CLI cannot tiebreak; Phase C exists precisely so human resolves conflicts and thumbs-downs.
+Rationale: previously CLI defaulted to the "more-supported" reviewer, acting as a silent extra judge. That's gone. CLI cannot tiebreak; Phase C exists precisely so human resolves conflicts and thumbs-downs.
 
 #### UNRESOLVED triggers
 
 Annotation marked `UNRESOLVED` (requiring Phase C human resolution) if any of:
 
-1. **R1 rating ≠ R2 rating.**
-2. **Any thumbs-down** from either reviewer (always UNRESOLVED, even if both agree thumbs-down — human must confirm the reject).
-3. **R1 answer ≠ R2 answer** (even if both thumbs-up).
-4. **R1 skill edits ≠ R2 skill edits.**
-5. **R1 prompt edits ≠ R2 prompt edits.**
-6. **Three-way tension**: CLI notices its own read conflicts with both reviewers.
-7. **Image crop / pixel-count needed** to resolve an ambiguity.
-8. **Slack ruling referenced** in R1 or R2 but not present in `wiki/slack-rulings.md`.
-9. **Cycle 2** + prior-cycle feedback not cleanly addressed by annotator.
-10. **Prompt rewrite changes the answer** (cycle-2 risk).
+1. **Reviewer rating disagreement** (any two ran reviewers differ).
+2. **Any thumbs-down** from any reviewer (always UNRESOLVED, even if all agree thumbs-down — human must confirm the reject).
+3. **Reviewer answer disagreement** (any two differ on `final_answer`, even if all thumbs-up).
+4. **Reviewer skill-edit disagreement** (skills_check / skills_uncheck mismatch).
+5. **Reviewer prompt-edit disagreement** (any reviewer proposes prompt edits that conflict with another's).
+6. **Image crop / pixel-count needed** to resolve an ambiguity.
+7. **Slack ruling referenced** in any reviewer's output but not present in `wiki/slack-rulings.md`.
+8. **Cycle 2** + prior-cycle feedback not cleanly addressed by annotator.
+9. **Prompt rewrite changes the answer** (cycle-2 risk).
+10. **`bad_output` reviewer** dropped from merger leaves <2 surviving reviewers — escalate by definition.
 
 ### Phase B output (pre-Phase-C)
 
@@ -395,18 +406,19 @@ Image: screenshots/<stem>.<ext>   # CLI opens this before asking for decision
 Look here: <exact panel / label / region / visual evidence to inspect>
 Conflict: <exact disagreement, ambiguity, or rule question>
 
-R1 reviewer: <model / system name>
-R1 verdict: <rating>
-R1 response: <reasoning, answer, edits, feedback>
+# One block per ran reviewer (count varies — only those that produced valid output):
+[1] <reviewer-name-1>: <verdict> — <final_answer>
+    <reasoning, edits, feedback>
+[2] <reviewer-name-2>: <verdict> — <final_answer>
+    <reasoning, edits, feedback>
+...
+[N] <reviewer-name-N>: <verdict> — <final_answer>
+    <reasoning, edits, feedback>
 
-R2 reviewer: <model / system name>
-R2 verdict: <rating>
-R2 response: <reasoning, answer, edits, feedback>
-
-[1] take R1   [2] take R2   [O]ther (human direct resolution)
+[1..N] take that reviewer's verdict   [O]ther (human direct resolution)
 ```
 
-Human picks. CLI fills per-annotation section with chosen verdict + appends payload entry. Loops to next UNRESOLVED.
+Human picks a numbered reviewer to adopt their verdict, or `O` to enter a custom resolution. CLI fills per-annotation section with chosen verdict + appends payload entry. Loops to next UNRESOLVED.
 
 After all UNRESOLVED resolved (or skipped → task held) → payload complete → Job 3.
 
@@ -416,7 +428,7 @@ Per-annotation block (after Phase B+C):
 - `Rating:` — `thumbs-up` / `thumbs-down` / `deleted` / `unchanged`
 - `Edits Made:` — skill toggles, prompt edits, answer edits
 - `Feedback:` — annotator feedback text
-- `Resolution:` — `agreement` (both reviewers) or `human-resolved: R1` / `human-resolved: R2` / `human-resolved: custom` (audit trail for Phase C picks)
+- `Resolution:` — `agreement` (all ran reviewers) or `human-resolved: <reviewer-name>` (e.g., `human-resolved: opus`) / `human-resolved: custom` (audit trail for Phase C picks)
 
 ## Cycle-1 / Cycle-2 rules (LOCKED)
 
@@ -428,7 +440,7 @@ Per-annotation block (after Phase B+C):
 
 ### Cycle-2 reviewer symmetry
 
-Both Review 1 and Review 2 get the same treatment in cycle 2 — no blanket skip:
+Every reviewer in the pool gets the same treatment in cycle 2 — no blanket skip:
 - Prior thumbs-up annotation, byte-diff `Full Prompt` + `Rewrite Answer` unchanged → mark `unchanged`, skip full review (carry thumbs-up forward).
 - Prior thumbs-up annotation, byte-diff shows change → flag `CHANGED`, run full review.
 - Prior thumbs-down annotation → full review. Decision set = **approve or delete** only (no QC_Return path).
@@ -487,35 +499,31 @@ Steps:
 
 **Phases (per task):** A is auto. B is auto (agreement-only merge). C is human-interactive ONLY if any UNRESOLVED annotations. Payload materialized at end of C (or end of B if zero UNRESOLVED).
 
-#### Phase A — Reviewers parallel (auto)
+#### Phase A — Reviewers fire (auto)
 
-1. CLI assigns slot (r1/r2) per reviewer (opus, openclaw). Writes pair to `_manifest.state.json → tasks.<stem>.reviewers`.
-2. CLI builds Opus sandbox at `/tmp/lizard/<stem>/<role>-view/` with symlink tree.
-3. CLI fires both reviewers in parallel (bash `&` + `wait`):
-   - Opus: `cd /tmp/lizard/<stem>/<role>-view/ && claude -p "$PROMPT" < /dev/null > opus.log 2>&1 &`
-   - Openclaw:
-     ```bash
-     OPENCLAW_MSG=$(STEM="<stem>" LIZARD_DIR="$LIZARD" node scripts/build-openclaw-msg.mjs)
-     OPENCLAW_TOKEN="$TOKEN" OPENCLAW_MSG="$OPENCLAW_MSG" \
-       OPENCLAW_SESSION="agent:main:<stem>-<uuid>" \
-       node scripts/openclaw-probe.mjs > openclaw.log 2>&1 &
-     ```
-4. CLI captures output → writes to `tasks/review1/<stem>.md` and `tasks/review2/<stem>.md` per slot assignment.
-5. CLI runs independence gate grep. Fail → discard + retry.
-6. CLI cleans up Opus sandbox: `rm -rf /tmp/lizard/<stem>/`.
+1. CLI resolves fire order from `DEFAULT_ORDER` in `run-job2.mjs` (or `REVIEWERS=` env override). Writes the array to `_manifest.state.json → tasks.<stem>.reviewers`.
+2. CLI builds per-reviewer sandbox at `/tmp/lizard/<stem>/<reviewer>-view/` with symlink tree (one dir per registered reviewer).
+3. CLI fires reviewers via `node scripts/run-job2.mjs`:
+   - **Sequential (default)**: spawn next reviewer's runner, validate output (≥ EXPECTED_ANNOTS blocks), dry-merge, stop early if all annotations resolve.
+   - **Parallel (`PARALLEL=1`)**: spawn all reviewers concurrently, wait, validate each output.
+   - Per-reviewer invocation: `STEM=<stem> LIZARD_DIR=<lizard> OUT=/tmp/lizard/<stem>/<reviewer>-review.md node scripts/run-<reviewer>-reviewer.mjs`
+4. Each reviewer writes its output directly to `/tmp/lizard/<stem>/<reviewer>-review.md` (no separate copy step).
+5. CLI runs independence gate grep across all `*-review.md` files. Leak on any → discard that file, re-launch that reviewer.
+6. After merge (Phase B) is complete and committed, CLI cleans up sandbox view dirs: `rm -rf /tmp/lizard/<stem>/*-view/`. The `*-review.md` files are kept for the merger and for audit.
 **→ write `_state.json`: `phase: job2.merge, last_step: job2.reviewers.done, current_task: <stem>`**
 
-Reviewer wall-clock ~60-120 s per task.
+Reviewer wall-clock varies by mode and pool size (~30-90 s per reviewer; sequential w/ early-stop often finishes after 1-2; full parallel runs in the time of the slowest).
 
 #### Phase B — Agreement merge (auto)
 
-1. CLI reads `tasks/skeleton/<stem>.md` + `tasks/review1/<stem>.md` + `tasks/review2/<stem>.md` + image.
+1. CLI reads `tasks/skeleton/<stem>.md` + every `/tmp/lizard/<stem>/<reviewer>-review.md` + image.
    **Read-First block check (before merge):** verify each review file contains a `## Read-First Observations` section:
    ```bash
-   grep -q "^## Read-First Observations" tasks/review1/<stem>.md || echo "MALFORMED r1: missing Read-First block"
-   grep -q "^## Read-First Observations" tasks/review2/<stem>.md || echo "MALFORMED r2: missing Read-First block"
+   for r in /tmp/lizard/<stem>/*-review.md; do
+     grep -q "^## Read-First Observations" "$r" || echo "MALFORMED $(basename $r): missing Read-First block"
+   done
    ```
-   Missing block = malformed → discard that side, re-launch that reviewer once. If still missing after retry → hard-fail, report to human.
+   Missing block = malformed → discard that file, re-launch that reviewer once. If still missing after retry → drop that reviewer from the merger pool. If <2 surviving reviewers → hard-fail, report to human.
 2. Per annotation: apply agreement-only merge (see Merger section above). Agreements fully populated; disagreements and thumbs-downs marked `UNRESOLVED: <reason>` with both reviewer verdicts preserved side-by-side.
 3. No `⚠️ flag` / no "more-supported default" picks — CLI does NOT tiebreak.
 4. Partial `## Form-Fill Payload` materialized — only agreement entries. UNRESOLVED annotations have no payload entry yet.
@@ -532,14 +540,13 @@ For each `UNRESOLVED:` annotation in order:
 2. CLI opens the image and shows the image path.
 3. CLI tells the human exactly where the conflict is, what evidence matters, and where in the image to look.
 4. CLI shows the annotator answer.
-5. CLI shows R1 reviewer name/model, plus R1 verdict and R1 response.
-6. CLI shows R2 reviewer name/model, plus R2 verdict and R2 response.
-7. CLI does not foreground or print the evaluated model answer during human resolution unless Igor explicitly asks for it.
-8. Human picks `[1] R1` / `[2] R2` / `[O]ther`. Image inspection is always assumed in this project, so there is no separate image option.
-9. On `[O]ther`, CLI records the human-decided rating/answer/feedback from Igor's direct image read.
-10. CLI fills the annotation section with chosen verdict, writes `Resolution: human-resolved: <R1|R2|other>`. If 3a produces feedback text, it must begin with a date stamp like `4/21:`.
-11. Feedback rules: thumbs-up annotations carry no feedback. In the annotation block, omit the `#### Feedback` section entirely for thumbs-up outcomes; in payload, use `sa.feedback: null`. Thumbs-down annotations use a dated rationale only, with no workflow instructions like `QC_Return`, `send back to annotator`, `delete`, or other internal process notes in the feedback text.
-12. CLI appends or updates the payload entry immediately. For thumbs-down outcomes, payload feedback must exactly match the annotation-block feedback text. For thumbs-up outcomes, omit annotation-block feedback and set `sa.feedback: null`.
+5. CLI shows each ran reviewer's name (e.g., `gpt`, `grok`, `gemini`, `opus`) plus its verdict and full response. One block per reviewer; numbered `[1..N]` for selection.
+6. CLI does not foreground or print the evaluated model answer during human resolution unless Igor explicitly asks for it.
+7. Human picks a number `[1..N]` to adopt that reviewer's verdict, or `[O]ther` to record a custom resolution. Image inspection is always assumed in this project, so there is no separate image option.
+8. On `[O]ther`, CLI records the human-decided rating/answer/feedback from Igor's direct image read.
+9. CLI fills the annotation section with chosen verdict, writes `Resolution: human-resolved: <reviewer-name|custom>`. If 3a produces feedback text, it must begin with a date stamp like `4/21:`.
+10. Feedback rules: thumbs-up annotations carry no feedback. In the annotation block, omit the `#### Feedback` section entirely for thumbs-up outcomes; in payload, use `sa.feedback: null`. Thumbs-down annotations use a dated rationale only, with no workflow instructions like `QC_Return`, `send back to annotator`, `delete`, or other internal process notes in the feedback text.
+11. CLI appends or updates the payload entry immediately. For thumbs-down outcomes, payload feedback must exactly match the annotation-block feedback text. For thumbs-up outcomes, omit annotation-block feedback and set `sa.feedback: null`.
 
 After all UNRESOLVED resolved → payload complete → Job 3.
 **→ write `_state.json`: `phase: job3.pending_approval, last_step: job3.approval_presented, current_task: <stem>`** (immediately after printing NEED APPROVAL plan)
@@ -603,7 +610,7 @@ Resolution: <a> agreement / <r> human-resolved
 
 Per-annotation plan:
   A1: thumbs-up (agreement), skills +TCG -WK, feedback=null
-  A2: thumbs-down (human-resolved: R2), skills -Enum, answer_final=<diff>, feedback=<...>
+  A2: thumbs-down (human-resolved: gpt), skills -Enum, answer_final=<diff>, feedback=<...>
   ...
 
 Derived QC status (advisory, for human to set in SA UI post-apply): <status>
@@ -720,7 +727,7 @@ Runs on demand, not on the regular batch cadence. Entry point when Igor says "do
 
 **Process per task (from manifest):**
 1. Re-scrape (Job 0 steps 3–7) — scrape must capture NV Audit rating + feedback per annotation.
-2. Single reviewer (not R1+R2; no merge) walks each flagged annotation with Igor per `wiki/workflow-procedures.md` §NV Audit Returns Step 2. Output draft rebuttal text per annotation; Igor approves/rejects.
+2. Single reviewer (not the full pool; no merge) walks each flagged annotation with Igor per `wiki/workflow-procedures.md` §NV Audit Returns Step 2. Output draft rebuttal text per annotation; Igor approves/rejects.
 3. For each Igor-approved annotation: fill rebuttal form (mechanics in `## NV Audit Rebuttal Form` below); Igor submits; stamp `tasks/<stem>.md`:
    ```
    - **NV Rebuttal Filed:** YYYY-MM-DD (A<n>, ...)
@@ -742,7 +749,7 @@ Runs on demand, not on the regular batch cadence. Entry point when Igor says "do
 - **Job 3 apply never fires without YES approval.**
 - **Job 4 never fires until task is SA-applied** (stamped `SA Applied: ✅`).
 - **Cycle 3 refused** at Job 1. Cycle 2 is terminal.
-- **Canonical task file is `tasks/<stem>.md`** — written by Phase B (agreements) + Phase C (human resolutions) + payload. `tasks/review1/<stem>.md` and `tasks/review2/<stem>.md` are intermediate artifacts.
+- **Canonical task file is `tasks/<stem>.md`** — written by Phase B (agreements) + Phase C (human resolutions) + payload. `/tmp/lizard/<stem>/<reviewer>-review.md` files are intermediate artifacts (one per ran reviewer).
 - **Model identity never surfaced to merger.** Pool assignment lives in `_manifest.state.json → tasks.<stem>.reviewers` only.
 - **Reviewer independence enforced by filesystem sandbox**, not by prompt.
 - **Cycle-2 payload includes ALL annotations.** No "only changed" rule. LOCKED (2026-04-19).
@@ -761,19 +768,19 @@ Runs on demand, not on the regular batch cadence. Entry point when Igor says "do
 - Scrape output: `lizard/scrapes/<stem>.txt`
 - Image: `lizard/screenshots/<stem>.<ext>` (gitignored)
 - Skeleton: `lizard/tasks/skeleton/<stem>.md` — raw data, no reviewer verdicts
-- Reviewer outputs: `lizard/tasks/review1/<stem>.md`, `lizard/tasks/review2/<stem>.md` — blind intermediate artifacts
+- Reviewer outputs: `/tmp/lizard/<stem>/<reviewer>-review.md` (one per ran reviewer; e.g., `gpt-review.md`, `grok-review.md`, `gemini-review.md`, `opus-review.md`) — blind intermediate artifacts
 - Final / payload source: `lizard/tasks/<stem>.md` — merger output + payload (canonical)
 - Shadow tasks: `lizard/tasks/shadows/<uuid-prefix>.md`
 - Batch manifest: `lizard/scrapes/_manifest.json`
 - Batch state sidecar: `lizard/scrapes/_manifest.state.json`
 - Orchestrator pointer: `lizard/scrapes/_state.json`
 - Session log: `lizard/logs/session-<ts>.md`
-- Reviewer pool config: `lizard/config/reviewers.yaml`
+- Reviewer pool: `lizard/scripts/run-job2.mjs` (REGISTRY + DEFAULT_ORDER) + `lizard/scripts/run-<reviewer>-reviewer.mjs` per model
 - Review framework prompt: `lizard/templates/review-prompt.md`
 - Review template: `lizard/templates/review-template.md`
 - Shadow template: `lizard/templates/shadow-template.md`
 - Skip list: `lizard/skip-list.md`
-- Per-reviewer sandbox: `/tmp/lizard/<stem>/r{1,2}-view/`
+- Per-reviewer sandbox: `/tmp/lizard/<stem>/<reviewer>-view/` (one per registered reviewer)
 
 ## NV Audit Rebuttal Form (Google Forms)
 
