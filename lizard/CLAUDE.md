@@ -37,21 +37,15 @@ Terse like smart caveman. Technical substance stays, fluff dies. Fragments OK. N
 - Prefer Edit over full file rewrite
 - No trailing summaries
 
+## Doc structure & per-job SOP loading
+CLAUDE.md is the always-loaded thin layer: dispatch graph + recently-codified guardrails (incidents-not-yet-graduated-into-procedure). HOST_SOP.md is the on-demand deep playbook: procedures, file structures, formats, edge cases, file locations.
+
+**Before entering any Job N, agent MUST read `HOST_SOP.md §<JobN>` once.** Skipping this → agent invents conventions → drift (root cause: 2026-04-27 chrome-devtools shadow path used stem-based filenames because it never read `HOST_SOP.md:694`'s UUID-prefix rule). HOST_SOP.md is canonical for: reviewer pool / fire policy / sandbox / merger, state file structures + crash recovery, cycle-1/2 rules, Phase A/B/C, Job NV, file locations, hard rules.
+
+**When codifying a new rule from an incident:** decide upfront — dispatch guardrail (CLAUDE.md) or procedure detail (HOST_SOP.md). Default to HOST_SOP.md unless the rule must be in always-loaded context. Search both files first; never duplicate. Tag CLAUDE.md rules with `(codified <date>)` so they can graduate out once the underlying fix has a regression test.
+
 ## Reviewer / merger roles
-- **Four reviewers per task** — `claude-opus-4-7`, `gpt-5`, `grok-4`, `gemini-2.5-pro`. Each runs in its own subprocess via `scripts/run-{opus,gpt,grok,gemini}-reviewer.mjs`. Outputs land in `/tmp/lizard/<stem>/<model>-review.md` (not under `tasks/review*/` — those dirs are legacy 2-reviewer stubs).
-- **Fire order** = best agree-rate first, sourced from `scripts/reviewer-stats.json` (`default_order`). Sequential by default with early-stop: after each reviewer the merger does a dry run; if all annotations are auto-resolved, remaining reviewers are skipped. `PARALLEL=1` env fires all 4 concurrently (skips early-stop).
-- **Independence** enforced by subprocess isolation per model + per-task sandbox cwd. Not by prompt.
-- **Merger = CLI** (`scripts/job2-merge.mjs`), deterministic:
-  - All ran reviewers agree (thumbs-up + same final answer) → take it.
-  - Any thumbs-down, any disagreement, or any escalation trigger → flag in task file, defer to Job 3 approval.
-- **Escalation triggers** (surface for Igor at Job 3, not mid-merge):
-  1. Any thumbs-down on any annotation
-  2. Reviewer disagreement (any two of the 4 disagree on rating or final answer)
-  3. Image crop / pixel count disputed
-  4. Slack ruling referenced but not in `wiki/slack-rulings.md`
-  5. Cycle 2 + prior feedback not cleanly addressed
-  6. Prompt rewrite changes answer
-  7. Low merger confidence
+Canonical in `HOST_SOP.md §"Reviewer orchestration (Job 2 core)"` — pool, fire policy, sandbox, prompt, merger, UNRESOLVED triggers (10 — supersedes the prior 7-trigger summary that lived here). Read on Job 2 entry.
 
 ## Task Workflow (batching model)
 
@@ -71,13 +65,19 @@ Jobs:
 3. **Source checkpoint** — n_annotations, prompt/answer/skills/qtype present. Auto-skip on fail.
 3.25. **Cycle-2 identical-prompt auto-reject (codified 2026-04-26):** Before firing any reviewer on a cycle-2 task, CLI MUST compare each `[CHANGED]` annotation's current prompt against the cycle-1 prompt (from the archived task file or prior scrape). If prompt is byte-for-byte identical AND the cycle-1 verdict was 👎 → **auto-reject without running reviewers**: rating=thumbs-down, sa_action=delete (cycle 2), flags carry forward from cycle 1. CLI surfaces to Igor: "A{N}: prompt unchanged from cycle 1, prior verdict 👎 → auto-reject (delete)" and proceeds without asking 👍/👎. **SKIP_FRESHNESS_CHECK=1 does NOT bypass this rule** — fresh scrape + identical prompt + prior 👎 = auto-reject regardless. Root cause: bypassing Guard D on Server_22 (2026-04-26) burned reviewer API calls on a no-op resubmission.
 
-3.5. **Job 2 pre-flight gate (MANDATORY)** — before starting any batched Job 2 run, CLI MUST execute `node scripts/tests/run-all.mjs`. This runs (1) `test-expected-annots.mjs` — unit test for EXPECTED_ANNOTS Cycle-2 dedupe fix, <1s; then (2) `test-pipeline.mjs` — full 4-reviewer e2e on fixture, ~3 min. Stops and surfaces failure verbatim if either fails. If the gate FAILS, CLI MUST NOT start Job 2. This gate exists because the 2026-04-23 silent-drop bug corrupted an entire 16-task batch; the pre-flight is cheap insurance (~3 min wall) against burning 16×. Skip rule: if Igor explicitly says "skip pipeline test" for this run (e.g., known-good code, urgent re-run), proceed without it and note `(pre-flight skipped)` in the run log.
+3.5. **Job 2 pre-flight gate (MANDATORY)** — before starting any batched Job 2 run, CLI MUST execute `node scripts/tests/run-all.mjs`. Suite includes unit tests (<1s each) plus `test-pipeline.mjs` — Job 1 + Job 2 e2e on a 1-annot fixture with single reviewer (~30-60s, opus only, free on Max plan). Stops and surfaces failure verbatim on any test fail. If the gate FAILS, CLI MUST NOT start Job 2. This gate exists because the 2026-04-23 silent-drop bug corrupted an entire 16-task batch; the pre-flight is cheap insurance against burning the whole batch.
+
+  **Sentinel — once per batch, not per task (codified 2026-04-27):** `run-all.mjs` self-manages a sentinel in `scrapes/_state.json.preflight` (`{ passed_at: ISO, batch: <manifest_path> }`). On entry, if the sentinel exists AND its `batch` matches `_state.json.batch` AND it's within 6h, the script exits 0 immediately ("SKIP — pre-flight already green for this batch"). After a green run it stamps the sentinel atomically (write to `_state.json.tmp` then rename). Batch change (new manifest path in `_state.json.batch`) auto-invalidates. Force a re-run with `FORCE_PREFLIGHT=1`. Override TTL with `SENTINEL_TTL_MS=<ms>`. Skip stamping (dev runs) with `STAMP=0`. Override state path (tests) with `STATE_PATH=<abs>`. CLI may call `run-all.mjs` per task in the batch — the sentinel makes that cheap (instant skip after the first green run). Root cause this addresses: 2026-04-27 batch resumed from compaction with no sentinel awareness, re-ran the full suite mid-batch, and per-task concurrency caused fixture-collision on `/tmp/lizard/<stem>/` between overlapping pre-flights → false `grok missing from reviewers_used` assertion.
+
+  Skip rule: if Igor explicitly says "skip pipeline test" for this run (e.g., known-good code, urgent re-run), proceed without it and note `(pre-flight skipped)` in the run log.
 4. **Job 2 Phase A — reviewers** (CLI, parallel across tasks; sequential 4-reviewer fire within task with early-stop, or `PARALLEL=1` for full concurrent fire). Sandbox per task. Capture → `/tmp/lizard/<stem>/{opus,gpt,grok,gemini}-review.md`. Each reviewer's output is validated against `EXPECTED_ANNOTS` (must emit one `## Annotation N` block per skeleton annotation; silent drops are rejected as `bad_output`). Independence gate (grep).
 5. **Job 2 Phase B — merge** (CLI, parallel). Deterministic merge. Output = `tasks/<stem>.md` with per-annotation sections + escalation flags + `## Form-Fill Payload` YAML.
 6. **Job 3 — RESOLUTION stop** (CLI + Igor). Two-step split:
    - **3a — resolution**: CLI walks Igor through per-annotation decisions. Serial within Igor session; all tasks in one sitting. For each annotation, CLI appends an `#### Igor Verdict` block to `tasks/<stem>.md` (see format below). **Cycle ≥2 annots being re-reviewed (not `carry-forward`): CLI MUST surface the prior-cycle `QC_FEEDBACK` block from `scrapes/<stem>.txt` before asking for verdict — shows Igor what he told the annotator last cycle so he can judge whether rewrite addresses it.** **Per-annot presentation format — CLI MUST show, in order:** (1) task stem + annot # + resolution bucket + reviewer verdicts summary; (2) prior-cycle QC_FEEDBACK verbatim (cycle ≥2 only); (3) full current prompt verbatim; (4) plain-English breakdown of what the prompt asks (step-by-step); (5) where to focus in the image (UI region, column, icon type); (6) skills / qtype / annotator answer / model answer / reviewer final answers + tags; (7) rewrite-addresses-prior-objection judgment (cycle ≥2 only); then ask 👍/👎. When all annotations resolved, per-task state → `resolved`. At end of 3a sitting, run `node scripts/reconcile-stats.mjs` to update `scripts/reviewer-stats.json` with Igor-vs-reviewer match rates (overall + per-skill + per-qtype).
    - **3b — SA apply**: CLI pushes all `resolved` tasks to SuperAnnotate one at a time. **Push order: all `QC_Return` tasks first, then all `QC_Complete` tasks** (QC_Return needs annotator attention sooner; surface failures while attention is fresh). **MANDATORY human confirmation between tasks:** after completing each task's SA edits, CLI MUST (1) print the task QC status that was applied (e.g. "Server_134: QC_Return — A1 👎 A2 👍 A3 👎"); for QC_Return tasks, EXPLICITLY TELL Igor: "Set this task to QC_Return in the SA task list now (task list → click row → Status dropdown → QC_Return → Save) before confirming"; (2) stop and wait for explicit Igor confirmation ("ok", "next", "confirmed", etc.) before opening the next task. Never auto-advance. On per-task success: stamp `SA Applied (Cycle N): ✅` + flip `sa_applied:true`, state → `applied`.
    - **CRITICAL — SA feedback append rule (codified 2026-04-26):** when writing to any QC Feedback textarea in SA, ALWAYS read the existing value first. If non-empty, set the new value to `existing_value + "\n" + new_feedback`. NEVER overwrite existing feedback. Prior cycle feedback must be preserved. Violation = data loss in locked tasks.
+   - **CRITICAL — SA feedback date stamp rule (codified 2026-04-27):** every feedback line written to a QC Feedback textarea MUST be prefixed with the current date in `M/DD:` format (e.g. `4/27:`). Format: `"M/DD: <feedback text>"`. No date stamp = feedback is untraceable. Always apply, no exceptions.
+   - **Job 3b SA apply is a MANUAL action by Igor (codified 2026-04-27):** CLI navigates to the task URL in SA and stops. Igor manually: (1) sets per-annotation QC rating (Disapprove/Approve thumbs buttons) + fills QC Feedback + clicks Save; (2) sets the task-level QC status via the **selection box** (dropdown) in the SA task list — currently using QC_Complete and QC_Return, but more options exist — this is what removes the task from the queue. CLI does NOT click any buttons or dropdowns in SA. After Igor completes both steps and says "next"/"ok", CLI stamps `SA Applied (Cycle N): ✅` and navigates to the next task. Canonical completion signal: task absent from SA queue = applied.
    - **MANDATORY pre-push gate (codified 2026-04-25):** before any SA push, CLI MUST run `node scripts/prepare-job3b-summary.mjs`. The script (a) prints the per-task summary report (filename, cycle, QC status, 👍/👎/unchanged counts, full annotator-facing feedback for every 👎) and (b) validates payload sync — every annot must have a definitive `sa_action`, every `pending-igor` must have an `#### Igor Verdict` block, and Igor Verdicts must be parseable. Exit code 2 = sync errors, push BLOCKED. Exit code 0 = report clean — CLI MUST surface to Igor and **wait for explicit confirmation** before firing the actual SA push.
 
 **Igor Verdict format** (required — parsed by `reconcile-stats.mjs`):
@@ -93,6 +93,8 @@ Without this block the annotation is invisible to the learning loop.
 After all tasks `applied`:
 
 7. **Job 4 — shadow sweep** (CLI, serial per task). Shadow system supports one at a time. HAI form-fill + 20:00 time edit. `tasks/shadows/*.md` are the canonical submission record; `shadows_fired:true` is a derived mirror. (Parallelism worth testing but unlikely to work.) **After each shadow task completes ("Task complete!" screen + time confirm): click "Next task" ONLY if more shadows remain in the batch. If this was the LAST shadow, click "Go home" (or dismiss) — do NOT click "Next task" when the batch is exhausted; doing so opens an empty HAI task that must be abandoned. Root cause: Server_22 batch (2026-04-27) had only 1 shadow; clicking "Next task" created a spurious empty task. Check `_state.json.job4_progress` against manifest annotation count before clicking.** After all shadows in a batch: run `node scripts/reconcile-shadows.mjs` to sync `_state.json.job4_progress`.
+
+  **CRITICAL — state-update is part of shadow success (codified 2026-04-27):** A shadow is NOT counted complete until `_state.json.job4_progress` reflects it. After every successful HAI submission ("Task complete!" + 20:00 time confirm), CLI MUST, in order: (1) write `tasks/shadows/<shadow-id>.md`; (2) update `_state.json.job4_progress[stem]` (set per-annotation key to `"fired"` if more annots remain in this stem, or set the stem value to `"fired"` if this was the last annot); (3) write `_state.json.tmp` then atomic rename to `_state.json`. CLI MAY NOT click "Next task" / "Go home" / advance to the next shadow until step 3 is persisted. If state-update fails (disk full, permissions, JSON parse error), CLI MUST stop and surface the failure to Igor — DO NOT continue firing shadows on stale state. The python helper `submit_pending_hai_shadows.py::sync_state_after_submission` is the canonical implementation when running the localhost-server path; the chrome-devtools-MCP path MUST replicate the same writes inline. `reconcile-shadows.mjs` exists as a backstop for crash recovery, NOT as a primary "do it all at the end" mechanism — using it that way means state is unreliable in-flight, which defeats the purpose of having a state file. Root cause this rule addresses: 2026-04-27 NPS batch fired 9 shadows via chrome-devtools MCP; `tasks/shadows/*.md` were written but `_state.json.job4_progress` stayed `{}` because the MCP path never updated state, requiring an out-of-band reconcile pass.
 
 **Job 4 React textarea fill rule (codified 2026-04-27):** The `fill` MCP tool silently fails to register text in React-controlled textareas (sets DOM value but doesn't fire React's synthetic events — field submits empty). Use `evaluate_script` with the native setter + input event dispatch. Then verify programmatically (read back value) before clicking Submit — no human visual inspection:
 ```javascript
@@ -124,22 +126,9 @@ This is a hard gate — no exceptions. Root cause: `fill` MCP + React synthetic 
 
 **Job NV — NV rebuttal flow** (separate pipeline, on demand). Pulls SA queue rows with category `return_to_QC_by_NV` **and** no `NV Rebuttal Filed:` stamp in `tasks/<stem>.md`. Re-scrape → single reviewer walks annotations with Igor → Igor approves each → file Google Form → stamp task file. No Job 3/4 gates. Full SOP: `HOST_SOP.md` §Job NV + `wiki/workflow-procedures.md` §NV Audit Returns.
 
-**Cycle 2 locked rules:**
-- Payload includes ALL annotations (unchanged ones get `rating: unchanged` + full `hai.*` block).
-- Shadows fire for ALL payload entries (including unchanged carry-overs).
-- Decision set for prior thumbs-down = approve or delete only (no QC_Return).
+**Cycle 2 locked rules:** see `HOST_SOP.md §"Cycle-1 / Cycle-2 rules (LOCKED)"` — reviewer symmetry, payload scope (ALL annots), shadow rule (fires for ALL payload entries), decision set for prior 👎 (approve or delete only).
 
-**Crash recovery:** `scrapes/_state.json` is the orchestrator pointer (atomic writes). New CLI reads it on startup; resumes per phase. Full detail: `HOST_SOP.md#crash-recovery`.
-
-**State file rules (MUST follow every session):**
-- Path: `lizard/scrapes/_state.json` (NOT repo root)
-- Read on startup: glob `scrapes/_state*.json` — never hardcode root path
-- Update after EVERY task resolution in Job 3a: set `job3_progress[stem] = "resolved"` + `last_step = "job3a.partial"` + `updated_at`
-- Update after Job 3a fully done: set `phase = "job3b"`, `last_step = "job3a.completed"`
-- Update after each SA push in Job 3b: set `job3_progress[stem] = "applied"`
-- Update after each shadow in Job 4: create/update `tasks/shadows/*.md` first, then mirror into `job4_progress`
-- Write atomically: write to `_state.json.tmp` then rename — never write directly
-- Failure to advance pointer = #1 cause of unrecoverable crash state
+**Crash recovery + state file structures:** see `HOST_SOP.md §"Batch + state files"` + `§"Crash recovery"` + `§"Update frequency within _state.json"`. Atomic writes only (`_state.json.tmp` → rename). The Job 4 shadow-success state-update rule (above) is the recently-codified addition; everything else is in HOST_SOP.md.
 
 Second pass, audit returns, MCQ/SA rules, shadow task details → `wiki/workflow-procedures.md`.
 
@@ -162,22 +151,26 @@ Skip list: `skip-list.md` — filenames CLI must not process. Remove entry when 
 ## Communication
 Igor is terse and direct. Show thinking. If stuck, pick randomly, move.
 
-## Chrome Remote-Debug Popup (codified 2026-04-26)
+## Chrome Remote-Debug Popup (codified 2026-04-26, updated 2026-04-27 for Chrome 145+)
 Chrome 144+ shows "Allow remote debugging?" mid-batch (often after screen-saver wake invalidates the prior session's grant). Blocks Job 4 / any chrome_js path.
 
-**REQUIRED Chrome launch flag.** Chrome MUST be launched with `--force-renderer-accessibility` so its web-content AX tree is exposed reliably. Without this flag, the watchdog's AX-based detection is silently flaky (Chrome enables web-content AX lazily and the popup is sometimes invisible to System Events). Standard startup:
+**REQUIRED Chrome launch flag.** Chrome MUST be launched with `--force-renderer-accessibility` so the modal sheet's `position` and `size` are queryable. Standard startup:
 ```bash
 pkill -f "Google Chrome"
 open -a "Google Chrome" --args --force-renderer-accessibility
 # then re-login to HAI
 ```
-If Chrome was launched without this flag, the watchdog will see no popup-text in AX even when one is up — symptom is `[detect] none` with `WIN: <title>` only, no AXStaticText entries. Fix: relaunch with the flag.
 
-**REQUIRED watchdog.** `bash scripts/chrome_debug_watchdog.sh` runs as a background daemon in its own terminal (separate from CLI). Uses osascript/System Events (NOT CDP) so it dismisses popups while CDP is blocked. Detects dialog by the unique static-text phrase "external app wants full control", clicks the rightmost AXButton (Allow) — keystroke Return doesn't work because `activate` doesn't move Chrome's internal keyboard focus to the modal. Igor starts the watchdog once at login; CLI never invokes it directly.
+**REQUIRED watchdog.** `bash scripts/chrome_debug_watchdog.sh` runs as a background daemon in its own terminal (separate from CLI). Uses osascript/System Events (NOT CDP) so it dismisses popups while CDP is blocked. Igor starts the watchdog once at login; CLI never invokes it directly.
+
+**REQUIRED tool: `cliclick`.** `brew install cliclick` once. Watchdog uses it for coordinate-based clicks since Chrome 145+ no longer exposes the sheet's button AX tree.
+
+**Detection + dismiss strategy (Chrome 145+, codified 2026-04-27):** Earlier strategy walked the sheet's AX subtree for the static-text phrase "external app wants full control" and clicked the rightmost AXButton. Worked on Chrome 144. Chrome 145+ strips the modal sheet's entire AX subtree — empty contents, no AXStaticText, no AXButton accessible from the sheet (verified 2026-04-27 with `count of entire contents of sheet 1 = 0`). Window-level button query only returns the macOS titlebar controls (close/min/zoom). Surviving signal: front Chrome window's `count of sheets > 0` plus the sheet's `position` and `size` are still queryable. Watchdog now: detects sheet whose size matches popup signature (~448×240, tolerance 350-600 × 180-320), computes Allow center as `(sheet_x + sheet_w - 60, sheet_y + sheet_h - 30)`, dismisses via `cliclick c:<x>,<y>`. Verified working 2026-04-27 (single cliclick at `(3058, 565)` on a `pos=(2670,355) size=(448,240)` sheet dismissed the popup).
 
 **Prereqs to verify on first setup:**
 1. Chrome launched with `--force-renderer-accessibility` (see above).
 2. Watchdog's launching shell (Terminal/iTerm) has Accessibility permission: `open "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility"` → add Terminal/iTerm.
+3. `cliclick` installed and granted Accessibility permission. `which cliclick || brew install cliclick`. After install, may need to add cliclick to Accessibility list manually.
 
 **CRITICAL — CLI cannot dismiss this popup itself.** The popup blocks Chrome's debugging protocol; CDP / chrome-devtools / chrome_js calls are dead until it's dismissed. Dismiss must come from OUTSIDE the CDP channel (the watchdog, or human click). Do NOT attempt to dismiss via chrome_js, chrome-devtools MCP, or anything routed through Chrome's debugging port — that path is blocked. Retrying just compounds failures.
 
@@ -189,7 +182,7 @@ If Chrome was launched without this flag, the watchdog will see no popup-text in
 CLI MUST NOT ask Igor to confirm routine actions. The ONLY allowed human stops are the codified gates above:
 - Job 3a per-annotation 👍/👎 resolution
 - Job 3b pre-push gate (`prepare-job3b-summary.mjs` report + explicit confirmation before SA push)
-- Job 3b per-task confirmation between SA edits (one explicit "ok"/"next"/"confirmed" per task)
+- Job 3b per-task confirmation between SA edits (one explicit "ok"/"next"/"confirmed" per task) — **MANDATORY: after completing each task's SA push (Save clicked, stamp written), STOP and wait for Igor's explicit "next"/"ok" before navigating to the next task. Never auto-navigate. This applies for the remainder of all Job 3b runs until Igor explicitly says otherwise.**
 - Job NV per-annotation Igor approval before filing the Google Form
 - **Job 4 pre-submit verification** — snapshot + field summary before clicking role button; wait for "ok"/"looks good"
 

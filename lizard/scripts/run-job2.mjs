@@ -47,12 +47,11 @@ const REGISTRY = {
   gemini: { script: 'run-gemini-reviewer.mjs', out: 'gemini-review.md' },
 };
 
-// 2-reviewer mode (2026-04-24): faster iteration. gpt is FN-dominant (catches
-// most thumbs-downs first) so it leads; opus is the safety-net second opinion.
-// Override per run with REVIEWERS=a,b,c env. The 4-reviewer pool (gpt,grok,
-// gemini,opus) is still wired — re-enable by setting REVIEWERS=gpt,grok,gemini,opus
-// or editing this constant back.
-const DEFAULT_ORDER = ['gpt', 'opus'];
+// 4-reviewer sequential mode (2026-04-27): gpt fires first (FN-dominant, drops most
+// thumbs-downs early). Remaining annots flow to opus → gemini → grok. Any 👍 along
+// the way auto-resolves (first-👍-wins). All-4-👎-G1 auto-resolves down. Residual
+// (mixed 👎 or non-G1) escalates to Igor at Job 3a.
+const DEFAULT_ORDER = ['gpt', 'opus', 'gemini', 'grok'];
 
 function loadStats() {
   if (!existsSync(STATS_PATH)) {
