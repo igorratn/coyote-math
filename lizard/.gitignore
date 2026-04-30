@@ -7,6 +7,9 @@ screenshots/
 # Raw SA dumps (disposable — data embedded in task files)
 scrapes/
 
+# Job 0 inbound queue (operational state, drained by Job 0 actor)
+queue/
+
 # Intermediate reviewer + skeleton outputs (regeneratable from scrapes)
 tasks/review1/
 tasks/review2/
