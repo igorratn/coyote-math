@@ -22,7 +22,7 @@
 // Header (task_id, SA_TASK_FILENAME, Image, Date, Review Cycle) preserved
 // verbatim — reviewer needs context.
 //
-// Pure function — no fs, no env. Easy to unit test (see scripts/tests/test-reviewer-view.mjs).
+// Pure function — no fs, no env.
 //
 // Companion: `defaultReviewAnnots(skeletonText)` returns the canonical
 // annot-number list a reviewer should review when ANNOTS env isn't set.

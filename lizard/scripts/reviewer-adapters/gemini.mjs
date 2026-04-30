@@ -5,6 +5,12 @@
 //   { contents: [{ role, parts: [{ inline_data | text }, ...] }],
 //     generationConfig: { maxOutputTokens } }
 //   → { candidates: [{ content: { parts: [{text}] }, finishReason }], usageMetadata: {...} }
+//
+// Output-cap retry: if gemini returns finishReason='MAX_TOKENS', the response is
+// truncated. _retry.mjs's withCapRetry doubles maxOutputTokens and retries
+// (max 2 doublings). 8192 → 16384 → 32768.
+
+import { withCapRetry } from './_retry.mjs';
 
 const TIMEOUT_MS = 300_000;
 const MAX_RETRIES = 3;
@@ -38,35 +44,38 @@ export async function review({ mainImageBase64, mediaType, quadCrops, promptText
     process.exit(1);
   }
   const model = process.env[profile.modelEnv] ?? profile.defaultModel;
-  const maxOut = parseInt(process.env[profile.maxOutEnv] ?? profile.defaultMaxOut, 10);
+  const initialMaxOut = parseInt(process.env[profile.maxOutEnv] ?? profile.defaultMaxOut, 10);
 
   const parts = buildParts({ mainImageBase64, mediaType, quadCrops, promptText });
-  const payload = {
-    contents: [{ role: 'user', parts }],
-    generationConfig: { maxOutputTokens: maxOut },
-  };
 
-  console.error(`[gemini] model: ${model} (maxOut=${maxOut})`);
+  console.error(`[gemini] model: ${model} (maxOut=${initialMaxOut})`);
   console.error(`[gemini] image size: ${Math.round(mainImageBase64.length/1024)}KB base64`);
   console.error(`[gemini] prompt length: ${promptText.length} chars`);
 
-  const result = await callWithRetry(model, apiKey, payload, 1);
-  const partsOut = result?.candidates?.[0]?.content?.parts ?? [];
-  const reviewText = partsOut.map(p => p.text ?? '').join('');
-  const finish = result?.candidates?.[0]?.finishReason;
-  if (!reviewText) {
-    console.error(`[gemini] ERROR: empty response (finishReason=${finish})`);
-    console.error('raw:', JSON.stringify(result).slice(0, 800));
-    process.exit(1);
-  }
-  if (finish === 'MAX_TOKENS') {
-    console.error(`[gemini] WARNING: hit MAX_TOKENS — increase GEMINI_MAX_OUT (current ${maxOut})`);
-  }
-  if (result.usageMetadata) {
-    const u = result.usageMetadata;
-    console.error(`[gemini] tokens: in=${u.promptTokenCount} out=${u.candidatesTokenCount} thoughts=${u.thoughtsTokenCount ?? 'n/a'} total=${u.totalTokenCount}`);
-  }
-  return reviewText;
+  // Single-shot call factory — runs once with the supplied cap, returns
+  // { text, hitCap }. _retry.mjs handles doubling on MAX_TOKENS.
+  const once = async (maxOut) => {
+    const payload = {
+      contents: [{ role: 'user', parts }],
+      generationConfig: { maxOutputTokens: maxOut },
+    };
+    const result = await callWithRetry(model, apiKey, payload, 1);
+    const partsOut = result?.candidates?.[0]?.content?.parts ?? [];
+    const text = partsOut.map(p => p.text ?? '').join('');
+    const finish = result?.candidates?.[0]?.finishReason;
+    if (!text) {
+      console.error(`[gemini] ERROR: empty response (finishReason=${finish})`);
+      console.error('raw:', JSON.stringify(result).slice(0, 800));
+      process.exit(1);
+    }
+    if (result.usageMetadata) {
+      const u = result.usageMetadata;
+      console.error(`[gemini] tokens: in=${u.promptTokenCount} out=${u.candidatesTokenCount} thoughts=${u.thoughtsTokenCount ?? 'n/a'} total=${u.totalTokenCount}`);
+    }
+    return { text, hitCap: finish === 'MAX_TOKENS' };
+  };
+
+  return withCapRetry(once, { initial: initialMaxOut, maxRetries: 2, label: '[gemini]' });
 }
 
 async function callWithRetry(model, apiKey, payload, attempt) {

@@ -13,7 +13,7 @@
 //   curl -fsSL -o lizard/screenshots/<stem>.$EXT "$IMG_URL"
 // NEVER right-click → save-as. That path captured the editor viewport (1650×738
 // with SA chrome — Annotator Question/Ontology panel visible) on Risk_40, Risk_93,
-// and SaaS_106 original (Apr 17, 2026), breaking pixel inspection. See HOST_SOP.md
+// and SaaS_106 original (Apr 17, 2026), breaking pixel inspection. See HOST_SOP.legacy.md
 // "Image save rule" + wiki/workflow-lessons.md "Bad Image Capture Lesson".
 
 () => {

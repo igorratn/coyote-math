@@ -78,6 +78,16 @@
 - **Interval/boundary language needs explicit endpoint spec.** "Intervals 1–2, 2–3..." is ambiguous when data points sit exactly on the boundary values. Specify "including" or "strictly between." Type 7.
 - **HAI LLM feedback is often wrong but worth reading.** SOP says follow playbook, not LLM opinion — but the LLM correctly identified Type 1 + Type 7 on A1 of Plot_Spectral_analysis_charts_80. Treat it as a second opinion: read it, check against playbook, override if it contradicts guidelines.
 
+### 2026-04-28 — NV Return on Report_Dashboard_Metrics_Dashboard_74 (3 annots, all 4 reviewers missed)
+
+NV audit caught issues our entire reviewer pool (opus, gpt, gemini, grok) approved on first pass. Three new/tightened rules codified into `templates/review-prompt.md` and `wiki/review-calibration.md`:
+
+- **G5 — Format-example leakage:** A1 had format `(e.g., all chart types [number] times)`. The template + "all chart types" implicitly tells the answerer every category ties → format example IS the answer hint. Reviewer must read format examples as prompt body text.
+- **Type 12 — Chart-type classification ambiguity:** A1/A2 hinged on distinguishing line charts from bar-charts-with-many-narrow-bars. Reviewers accepted the enumeration "(bar / line / pie / donut)" without pixel-verifying the actual rendered shapes. If either reading plausible at zoom → premise broken, fail Type 12.
+- **G2 — Multi-step prompt output spec:** A3 chained operations ("...round the ratio? Add that to the number of bars...") with `(e.g. 40)` appended. NV: "doesn't properly ask for any specific result output." Bare parens-hint insufficient with multi-clause prompts; require explicit `What is the result? Answer with [format] (e.g., [example]).`
+
+Concede path applied: NV feedback pasted verbatim with "Per NV Audit —" prefix into SA QC Feedback box (appended per `references/playbook_reviewer.md:76`), task → Returned_to_Annotator, no prompt edits.
+
 ## V6 + Submission Changes (Apr 15, 2026)
 
 ### 2026-04-15 — V6 Launched + New Submission Blockers (Nikhil, #lizard-announcements)
@@ -93,7 +103,7 @@
 ### 2026-04-15 — Shadow Task Changes (Nikhil, #lizard-reviewers)
 - Updated internal system prompt — flag hallucinated/incorrect model responses
 - New shadow task flow: at end of task, asked if you're a reviewer → if yes, indicate approve or reject
-- **Format strictness confirmed by client**: if model answer doesn't match exact format specified by annotator (e.g. "1,000" vs "1000") → mark **incorrect**. Intent is not to make annotators hyper-focus on formatting, but rule stands.
+- ~~**Format strictness confirmed by client**: if model answer doesn't match exact format specified by annotator (e.g. "1,000" vs "1000") → mark **incorrect**.~~ **SUPERSEDED 2026-04-28 by V6 playbook §Step 4:** *"Questions that return a model response with correct answer **(independent of format)** are too easy and considered invalid."* Under V6, format-mismatched but numerically-correct model answers count as model-correct → annotation is Type 2 stump fail → thumbs-down. Discovered when 4 reviewers all called Type 2 on `Plot_Box_plot_statistical_data_4` A1 (model `0.7` vs rewrite `0.7%`); the reviewers were correct per V6.
 
 ## Second Pass Lessons (Apr 14, 2026)
 

@@ -22,6 +22,7 @@ SHADOWS_DIR = TASKS_DIR / "shadows"
 SCRAPES_DIR = ROOT / "scrapes"
 SCREENSHOTS_DIR = ROOT / "screenshots"
 PORT = 9877
+LAST_TIME_LOGGED = None
 
 APPLE_SCRIPT = """
 on run argv
@@ -29,12 +30,12 @@ on run argv
   tell application "Google Chrome"
     -- Prefer an in-progress task tab (/annotations/fellow/task/.../run|reclaim)
     repeat with w_i from 1 to count of windows
-      set w to window w_i
-      repeat with t_i from 1 to count of tabs of w
-        set t to tab t_i of w
-        set u to URL of t
-        if u contains "https://ai.joinhandshake.com/annotations/fellow/task/" then
-          tell t
+      set win_ref to window w_i
+      repeat with t_i from 1 to count of tabs of win_ref
+        set tab_ref to item t_i of tabs of win_ref
+        set page_url to URL of tab_ref
+        if page_url contains "https://ai.joinhandshake.com/annotations/fellow/task/" then
+          tell tab_ref
             return execute javascript jsCode
           end tell
         end if
@@ -42,25 +43,27 @@ on run argv
     end repeat
     -- Fall back to the project tasks list (/fellow/<uuid>/tasks)
     repeat with w_i from 1 to count of windows
-      set w to window w_i
-      repeat with t_i from 1 to count of tabs of w
-        set t to tab t_i of w
-        set u to URL of t
-        if u contains "https://ai.joinhandshake.com/fellow/" and u ends with "/tasks" then
-          tell t
-            return execute javascript jsCode
-          end tell
+      set win_ref to window w_i
+      repeat with t_i from 1 to count of tabs of win_ref
+        set tab_ref to item t_i of tabs of win_ref
+        set page_url to URL of tab_ref
+        if page_url contains "https://ai.joinhandshake.com/fellow/" then
+          if page_url contains "/tasks" then
+            tell tab_ref
+              return execute javascript jsCode
+            end tell
+          end if
         end if
       end repeat
     end repeat
     -- Last resort: any HAI tab
     repeat with w_i from 1 to count of windows
-      set w to window w_i
-      repeat with t_i from 1 to count of tabs of w
-        set t to tab t_i of w
-        set u to URL of t
-        if u contains "https://ai.joinhandshake.com/" then
-          tell t
+      set win_ref to window w_i
+      repeat with t_i from 1 to count of tabs of win_ref
+        set tab_ref to item t_i of tabs of win_ref
+        set page_url to URL of tab_ref
+        if page_url contains "https://ai.joinhandshake.com/" then
+          tell tab_ref
             return execute javascript jsCode
           end tell
         end if
@@ -73,38 +76,40 @@ end run
 
 FOCUS_HAI_TAB_SCRIPT = """
 tell application "Google Chrome"
-  set activeUrl to ""
+  set page_url to ""
   try
-    set activeUrl to URL of active tab of front window
+    set page_url to URL of active tab of front window
   end try
-  if activeUrl contains "https://ai.joinhandshake.com/" then
-    return activeUrl
+  if page_url contains "https://ai.joinhandshake.com/" then
+    return page_url
   end if
 
   repeat with w_i from 1 to count of windows
-    set w to window w_i
-    repeat with t_i from 1 to count of tabs of w
-      set t to tab t_i of w
-      set u to URL of t
-      if u contains "https://ai.joinhandshake.com/fellow/" and u ends with "/tasks" then
-        set index of w to 1
-        set active tab index of w to t_i
-        activate
-        return u
+    set win_ref to window w_i
+    repeat with t_i from 1 to count of tabs of win_ref
+      set tab_ref to item t_i of tabs of win_ref
+      set page_url to URL of tab_ref
+      if page_url contains "https://ai.joinhandshake.com/fellow/" then
+        if page_url contains "/tasks" then
+          set index of win_ref to 1
+          set active tab index of win_ref to t_i
+          activate
+          return page_url
+        end if
       end if
     end repeat
   end repeat
 
   repeat with w_i from 1 to count of windows
-    set w to window w_i
-    repeat with t_i from 1 to count of tabs of w
-      set t to tab t_i of w
-      set u to URL of t
-      if u contains "https://ai.joinhandshake.com/annotations/fellow/task/" then
-        set index of w to 1
-        set active tab index of w to t_i
+    set win_ref to window w_i
+    repeat with t_i from 1 to count of tabs of win_ref
+      set tab_ref to item t_i of tabs of win_ref
+      set page_url to URL of tab_ref
+      if page_url contains "https://ai.joinhandshake.com/annotations/fellow/task/" then
+        set index of win_ref to 1
+        set active tab index of win_ref to t_i
         activate
-        return u
+        return page_url
       end if
     end repeat
   end repeat
@@ -121,6 +126,7 @@ class PendingAnnotation:
     prompt: str
     answer: str
     image_name: str
+    hai_rating: str = "Approve"
 
 
 @dataclass(frozen=True)
@@ -320,22 +326,31 @@ def get_active_page():
 
 
 def focus_hai_task_tab() -> None:
-    subprocess.run(["osascript", "-e", FOCUS_HAI_TAB_SCRIPT], check=True, capture_output=True, text=True)
+    # If no HAI tab exists yet, osascript exits non-zero after returning no value.
+    # That is not fatal: open_hai_task_list will navigate the active tab to HAI.
+    subprocess.run(["osascript", "-e", FOCUS_HAI_TAB_SCRIPT], check=False, capture_output=True, text=True)
 
 
 def set_active_hai_url(url: str) -> None:
-    subprocess.run(
-        [
-            "osascript",
-            "-e",
-            'tell application "Google Chrome" to activate',
-            "-e",
-            f'tell application "Google Chrome" to set URL of active tab of front window to "{url}"',
-        ],
-        check=True,
-        capture_output=True,
-        text=True,
-    )
+    script = """
+on run argv
+  set targetUrl to item 1 of argv
+  tell application "Google Chrome" to activate
+  open location targetUrl
+end run
+"""
+    with tempfile.NamedTemporaryFile("w", suffix=".applescript", delete=False) as f:
+        f.write(script)
+        script_path = f.name
+    try:
+        proc = subprocess.run(["osascript", script_path, url], capture_output=True, text=True)
+        if proc.returncode != 0:
+            raise RuntimeError((proc.stderr or proc.stdout or "set_active_hai_url failed").strip())
+    finally:
+        try:
+            os.unlink(script_path)
+        except FileNotFoundError:
+            pass
 
 
 def has_visible_textarea() -> bool:
@@ -721,7 +736,34 @@ def _dbg(msg: str) -> None:
     print(f"  [debug] {msg}", flush=True)
 
 
+def extract_qc_feedback() -> str:
+    """Extract LLM QC feedback text shown above role-selection buttons."""
+    result = chrome_json(
+        """
+(() => {
+  // The QC block appears between the answer card and the role buttons.
+  // It has no stable class — grab all visible non-button, non-header text
+  // blocks that appear above the "Are you annotating or reviewing" question.
+  const body = document.body.innerText;
+  const marker = "Are you annotating or reviewing this task?";
+  const idx = body.indexOf(marker);
+  if (idx === -1) return JSON.stringify({text: "(role screen not found)"});
+  // Slice the text between the answer submission and the role question.
+  // Walk backwards from the marker to find the feedback block.
+  const before = body.slice(0, idx).trim();
+  // The feedback is typically the last paragraph(s) before the role question.
+  const lines = before.split("\\n").map(l => l.trim()).filter(l => l.length > 0);
+  // Take last up to 5 lines as the QC feedback block.
+  const feedback = lines.slice(-5).join(" | ");
+  return JSON.stringify({text: feedback || "(empty)"});
+})()
+"""
+    )
+    return result.get("text", "(parse error)")
+
+
 def submit_annotation(item: PendingAnnotation) -> str:
+    global LAST_TIME_LOGGED
     body = current_body()
     _dbg(f"start: ta={has_visible_textarea()} num={has_visible_number_input()} upload={has_button_aria('Upload assets')} review={has_button_text('Reviewing')} approve={has_button_text('Approve')} done={'Task complete!' in body}")
     if not (
@@ -730,7 +772,6 @@ def submit_annotation(item: PendingAnnotation) -> str:
         or has_button_aria("Upload assets")
         or has_button_text("Reviewing")
         or has_button_text("Approve")
-        or body_contains("Task complete!")
     ):
         _dbg("calling ensure_task_ready")
         ensure_task_ready()
@@ -771,19 +812,25 @@ def submit_annotation(item: PendingAnnotation) -> str:
             wait_until("role selection", lambda: body_contains("Are you annotating or reviewing this task?"), timeout=150, interval=1.0)
             continue
         if has_button_text("Reviewing"):
+            qc_text = extract_qc_feedback()
+            print(f"  [QC] {item.stem} A{item.annotation_n}: {qc_text}", flush=True)
+            _qc_lower = qc_text.lower()
+            _qc_ok = any(phrase in _qc_lower for phrase in ("looks good", "may continue", "no issues", "no problem", "annotation looks good"))
+            if not _qc_ok:
+                raise RuntimeError(f"STOP: QC warning detected for {item.stem} A{item.annotation_n}: {qc_text!r} — review before proceeding")
             _dbg(f"  loop {loop_i}: click Reviewing")
             click_button_by_text("Reviewing")
             click_first_visible_submit()
-            wait_until("approve/reject step", lambda: body_contains("Did you approve or reject this annotation?"), timeout=30, interval=0.5)
+            wait_until("approve/reject step", lambda: body_contains("Did you approve or reject this annotation?"), timeout=60, interval=0.5)
             continue
-        if has_button_text("Approve"):
-            _dbg(f"  loop {loop_i}: click Approve → Continue → Submit task")
-            click_button_by_text("Approve")
+        if has_button_text("Approve") or has_button_text("Reject"):
+            _dbg(f"  loop {loop_i}: click {item.hai_rating} → Continue → Submit task")
+            click_button_by_text(item.hai_rating)
             click_first_visible_submit()
             wait_until(
                 "enabled Continue button",
                 lambda: any(b["text"] == "Continue" and not b["disabled"] for b in get_active_page()["buttons"]),
-                timeout=30,
+                timeout=60,
                 interval=0.5,
             )
             click_button_by_text("Continue")
@@ -810,6 +857,11 @@ def submit_annotation(item: PendingAnnotation) -> str:
     _dbg(f"post-task: session_time={session_time!r} secs={hhmmss_to_seconds(session_time)}")
     if hhmmss_to_seconds(session_time) < 20 * 60:
         set_time_to_twenty()
+        session_time = read_session_time()
+    # Hard stop: never confirm a session < 20:00
+    if hhmmss_to_seconds(session_time) < 20 * 60:
+        raise RuntimeError(f"STOP: session time {session_time} < 20:00 after set attempt — time edit failed, refusing to confirm")
+    LAST_TIME_LOGGED = session_time
     _dbg("clicking Confirm time")
     click_button_by_text("Confirm time")
     wait_until("post-confirm modal", lambda: body_contains("Great job! Ready for another task?"), timeout=30, interval=0.5)
@@ -973,6 +1025,8 @@ def open_hai_task_list() -> None:
     # Skip navigation if already on a running task — set URL would fire beforeunload "Leave site?".
     if "/annotations/fellow/task/" in current and "/run" in current:
         return
+    if current.startswith("https://ai.joinhandshake.com/"):
+        return
     set_active_hai_url("https://ai.joinhandshake.com/fellow/tasks")
 
 
@@ -1051,6 +1105,79 @@ def load_annotation_item(stem: str, annotation_n: int) -> PendingAnnotation:
     )
 
 
+def review_cycle_for_stem(stem: str) -> int:
+    task_path = TASKS_DIR / f"{stem}.md"
+    if task_path.exists():
+        text = task_path.read_text()
+        cycle_match = re.search(r"^\- \*\*Review Cycle:\*\* (\d+)", text, flags=re.M)
+        if cycle_match:
+            return int(cycle_match.group(1))
+    return 2 if (TASKS_DIR / f"{stem}.cycle1.md").exists() else 1
+
+
+def load_job5_payload(path: Path) -> dict:
+    payload = yaml.safe_load(path.read_text())
+    if not isinstance(payload, dict) or "task" not in payload or "annotations" not in payload:
+        raise RuntimeError(f"invalid Job 5 payload: {path}")
+    return payload
+
+
+def parse_job5_sa_applied(stems: list[str] | None = None) -> list[PendingAnnotation]:
+    payload_dir = ROOT / "payloads" / "sa_applied"
+    candidates = sorted(payload_dir.glob("*.yaml"))
+    candidates = [p for p in candidates if not p.name.endswith(".shadows.yaml")]
+    if stems:
+        wanted = set(stems)
+        candidates = [p for p in candidates if p.stem in wanted]
+
+    items: list[PendingAnnotation] = []
+    for path in candidates:
+        payload = load_job5_payload(path)
+        task = payload["task"]
+        stem = str(task["stem"])
+        if task.get("qc_disposition") in {"Skipped", "Hold", "Unusable"}:
+            continue
+        image_name = Path(str(task["image"])).name if task.get("image") else find_image_name(stem)
+        if not (SCREENSHOTS_DIR / image_name).exists():
+            image_name = find_image_name(stem)
+        review_cycle = review_cycle_for_stem(stem)
+        for ann in payload["annotations"]:
+            n = int(ann["n"])
+            if load_job5_sidecar_annots(stem).get(n):
+                continue
+            sa = ann.get("sa", {})
+            hai = ann.get("hai", {})
+            action = sa.get("action")
+            rating = sa.get("rating")
+            is_delete = action == "delete"
+            hai_rating = "Approve" if rating == "thumbs-up" else "Reject"
+            items.append(PendingAnnotation(
+                stem=stem,
+                review_cycle=review_cycle,
+                annotation_n=n,
+                task_id_field=str(hai.get("task_id_field") or task.get("sa_task_filename")),
+                prompt="annotation deleted" if is_delete else str(hai.get("prompt", "")).rstrip(),
+                answer="annotation deleted" if is_delete else str(hai.get("answer", "")).rstrip(),
+                image_name=image_name,
+                hai_rating=hai_rating,
+            ))
+    return items
+
+
+def load_job5_sidecar_annots(stem: str) -> dict[int, str]:
+    sidecar_path = ROOT / "payloads" / "sa_applied" / f"{stem}.shadows.yaml"
+    if not sidecar_path.exists():
+        return {}
+    sidecar = yaml.safe_load(sidecar_path.read_text()) or {}
+    result = {}
+    for shadow in sidecar.get("shadows", []) or []:
+        try:
+            result[int(shadow["n"])] = str(shadow.get("uuid") or "")
+        except Exception:
+            continue
+    return result
+
+
 def ensure_annotation_pending(item: PendingAnnotation) -> None:
     task_path = TASKS_DIR / f"{item.stem}.md"
     text = task_path.read_text()
@@ -1066,6 +1193,9 @@ def create_shadow_file(item: PendingAnnotation, full_uuid: str) -> None:
         f"# Shadow Task: {prefix}\n\n"
         f"- **SA Task ID:** {item.task_id_field}\n"
         f"- **Annotation:** {item.annotation_n}\n"
+        f"- **Cycle:** {item.review_cycle}\n"
+        f"- **Rating:** {item.hai_rating}\n"
+        f"- **Fired at:** {now_iso()}\n"
         f"- **HAI Link:** https://ai.joinhandshake.com/annotations/fellow/task/{full_uuid}/run\n"
         f"- **Status:** ✅ submitted\n"
         f"- **Review file:** [{item.stem}.md](../{item.stem}.md) → Annotation {item.annotation_n} (cycle {item.review_cycle})\n\n"
@@ -1104,40 +1234,42 @@ def count_pending_shadows(stem: str, review_cycle: int) -> int:
     return len(expected - submitted)
 
 
-def sync_state_after_submission(item: PendingAnnotation) -> None:
-    state_path = SCRAPES_DIR / "_state.json"
-    manifest_path = SCRAPES_DIR / "_manifest.state.json"
-    state = json.loads(state_path.read_text())
-    manifest = json.loads(manifest_path.read_text())
 
-    stem = item.stem
-    pending = count_pending_shadows(stem, item.review_cycle)
-    progress = state.setdefault("job4_progress", {})
-    if pending == 0:
-        progress[stem] = "fired"
-        manifest["tasks"][stem]["shadows_fired"] = True
-    else:
-        existing = progress.get(stem)
-        if not isinstance(existing, dict):
-            existing = {}
-        existing[f"annotation_{item.annotation_n}"] = "fired"
-        progress[stem] = existing
-        manifest["tasks"][stem]["shadows_fired"] = False
-    state["phase"] = "job4"
-    state["last_step"] = f"job4.{stem}.annotation_{item.annotation_n}_fired"
-    state["updated_at"] = now_iso()
-    state["current_task"] = None
-
-    write_json(state_path, state)
-    write_json(manifest_path, manifest)
+def record_job5_shadow(item: PendingAnnotation, full_uuid: str, time_logged: str) -> None:
+    subprocess.run(
+        [
+            "node",
+            "scripts/run-job5.mjs",
+            "--record-shadow",
+        ],
+        cwd=ROOT,
+        env={
+            **os.environ,
+            "STEM": item.stem,
+            "ANNOT_N": str(item.annotation_n),
+            "SHADOW_UUID": full_uuid[:8],
+            "RATING": item.hai_rating,
+            "TIME_LOGGED": time_logged,
+        },
+        check=True,
+    )
 
 
-def set_current_task(item: PendingAnnotation) -> None:
-    state_path = SCRAPES_DIR / "_state.json"
-    state = json.loads(state_path.read_text())
-    state["current_task"] = {"stem": item.stem, "annotation_n": item.annotation_n}
-    state["updated_at"] = now_iso()
-    write_json(state_path, state)
+def finalize_job5_if_complete(stem: str) -> None:
+    result = subprocess.run(
+        ["node", "scripts/run-job5.mjs", "--finalize"],
+        cwd=ROOT,
+        env={**os.environ, "STEM": stem},
+        text=True,
+        capture_output=True,
+    )
+    if result.returncode == 0:
+        sys.stderr.write(result.stderr)
+        return
+    # Leave partially covered stems in sa_applied; run-job5 already explains missing annots.
+    if result.returncode not in {2, 3}:
+        raise RuntimeError(result.stderr.strip() or f"finalize failed for {stem}")
+
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -1184,23 +1316,23 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--all", action="store_true", help="submit all pending shadow tasks")
     parser.add_argument("--limit", type=int, default=None, help="submit at most N pending shadow tasks")
+    parser.add_argument("--job5-sa-applied", action="store_true", help="submit current Job 5 payloads from payloads/sa_applied without legacy state files")
     parser.add_argument("--reuse-uuid", type=str, default=None, help="reuse a duplicate HAI task UUID for a pending shadow task")
-    parser.add_argument("--stem", type=str, default=None, help="task stem to submit when using --reuse-uuid")
+    parser.add_argument("--stem", action="append", default=None, help="task stem to submit (repeatable for --job5-sa-applied; required for --reuse-uuid)")
     parser.add_argument("--annotation", type=int, default=None, help="annotation number to submit when using --reuse-uuid")
     args = parser.parse_args()
 
     if args.reuse_uuid:
         if not args.stem or args.annotation is None:
             raise RuntimeError("--reuse-uuid requires --stem and --annotation")
-        if args.all or args.limit is not None:
+        if args.all or args.limit is not None or args.job5_sa_applied:
             raise RuntimeError("--reuse-uuid cannot be combined with --all/--limit")
-        item = load_annotation_item(args.stem, args.annotation)
+        item = load_annotation_item(args.stem[0], args.annotation)
         ensure_annotation_pending(item)
         ensure_shadow_slot_open(item)
         server = start_server()
         try:
             print(f"Reusing {args.reuse_uuid[:8]} for {item.stem} A{item.annotation_n}...", flush=True)
-            set_current_task(item)
             set_active_hai_url(f"https://ai.joinhandshake.com/annotations/fellow/task/{args.reuse_uuid}/run")
             wait_until(
                 "HAI task page",
@@ -1219,14 +1351,16 @@ def main():
                 raise RuntimeError(f"expected reclaimed uuid {args.reuse_uuid}, got {full_uuid}")
             create_shadow_file(item, full_uuid)
             update_task_markdown(item, full_uuid)
-            sync_state_after_submission(item)
             print(f"Reused {full_uuid[:8]} for {item.stem} A{item.annotation_n}", flush=True)
             return
         finally:
             server.shutdown()
             server.server_close()
 
-    items = parse_pending_annotations()
+    if args.job5_sa_applied:
+        items = parse_job5_sa_applied(args.stem)
+    else:
+        items = parse_pending_annotations()
     if not items:
         print("No pending shadow submissions.")
         return
@@ -1253,7 +1387,6 @@ def main():
             # advancing by clicking Next task here, then wait for a fresh /run URL.
             if prior_uuid is not None:
                 advance_to_next_task(prior_uuid)
-            set_current_task(item)
             full_uuid = submit_annotation(item)
             if full_uuid == prior_uuid:
                 raise RuntimeError(
@@ -1261,8 +1394,11 @@ def main():
                     "advance_to_next_task did not load a new HAI task"
                 )
             create_shadow_file(item, full_uuid)
-            update_task_markdown(item, full_uuid)
-            sync_state_after_submission(item)
+            if args.job5_sa_applied:
+                record_job5_shadow(item, full_uuid, LAST_TIME_LOGGED or "00:20:00")
+                finalize_job5_if_complete(item.stem)
+            else:
+                update_task_markdown(item, full_uuid)
             print(f"[{idx}/{len(items)}] {item.stem} A{item.annotation_n} submitted -> {full_uuid[:8]}", flush=True)
             prior_uuid = full_uuid
     finally:
@@ -1313,10 +1449,5 @@ if __name__ == "__main__":
     try:
         main()
     except Exception as exc:
-        state_path = SCRAPES_DIR / "_state.json"
-        state = json.loads(state_path.read_text())
-        state["current_task"] = None
-        state["updated_at"] = now_iso()
-        write_json(state_path, state)
         print(f"ERROR: {exc}", file=sys.stderr)
         sys.exit(1)

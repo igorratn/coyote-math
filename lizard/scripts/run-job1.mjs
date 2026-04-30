@@ -8,7 +8,7 @@
 // Writes: tasks/skeleton/<stem>.md
 // Fails (exit 1) if: scrape not found, parse error, consistency check fails, verdict guard
 
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync, renameSync } from 'fs';
 import { resolve, join } from 'path';
 
 const LIZARD_DIR = process.env.LIZARD_DIR || process.cwd();
@@ -21,34 +21,35 @@ if (!stem) {
 
 const scrapePath = join(LIZARD_DIR, 'scrapes', `${stem}.txt`);
 const skeletonPath = join(LIZARD_DIR, 'tasks', 'skeleton', `${stem}.md`);
-const manifestPath = join(LIZARD_DIR, 'scrapes', '_manifest.json');
+const priorTaskPath = join(LIZARD_DIR, 'tasks', `${stem}.md`);
 
 if (!existsSync(scrapePath)) {
   console.error(`[run-job1] scrape not found: ${scrapePath}`);
   process.exit(1);
 }
 
-// Read manifest for cycle + task_id
-let cycle = 1;
-let taskId = '?';
-let saTaskFilename = stem + '.json';
-try {
-  const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
-  const entry = manifest.tasks?.find(t => t.stem === stem);
-  if (entry) {
-    cycle = entry.cycle ?? 1;
-    taskId = String(entry.task_id ?? '?');
-    saTaskFilename = entry.SA_TASK_FILENAME ?? saTaskFilename;
-  }
-} catch { /* manifest optional */ }
+// Cycle detection by filesystem convention (not manifest):
+//   tasks/<stem>.md absent + no archive  → cycle 1
+//   tasks/<stem>.md present              → cycle 2 (archive cycle 1 first)
+//   tasks/<stem>.cycle1.md exists        → cycle 2 (already archived)
+// task_id + SA_TASK_FILENAME come from scrape headers below — no manifest read needed.
+const archivePath = priorTaskPath.replace(/\.md$/, '.cycle1.md');
+const cycle = (existsSync(priorTaskPath) || existsSync(archivePath)) ? 2 : 1;
+const taskId = '?';            // overridden by scrape header below
+const saTaskFilename = stem + '.json';  // overridden by scrape header below
 
-// Verdict guard: refuse to overwrite if existing skeleton has Igor Verdict blocks
-if (existsSync(skeletonPath)) {
-  const existing = readFileSync(skeletonPath, 'utf8');
-  if (existing.includes('#### Igor Verdict')) {
-    console.error(`[run-job1] ABORT: ${skeletonPath} already contains Igor Verdict block(s). Delete verdicts or move file aside before re-running Job 1.`);
+// Cycle-2 archive: move tasks/<stem>.md → tasks/<stem>.cycle1.md before Job 2
+// rebuilds the task file fresh. Makes tasks/<stem>.md effectively write-once
+// per cycle — no need for a content-inspection guard against verdict wipe.
+// If the archive already exists, this is a re-run; refuse to clobber it.
+if (cycle === 2 && existsSync(priorTaskPath)) {
+  if (existsSync(archivePath)) {
+    console.error(`[run-job1] ABORT: both ${priorTaskPath} and ${archivePath} exist — archive collision.`);
+    console.error(`  Move/rename one aside and re-run.`);
     process.exit(1);
   }
+  renameSync(priorTaskPath, archivePath);
+  console.error(`[run-job1] cycle 2 detected — archived ${stem}.md → ${stem}.cycle1.md`);
 }
 
 // ---------- Parse scrape ----------
@@ -123,7 +124,6 @@ for (let i = 1; i <= nAnnotations; i++) {
   const workRating = getSectionField('WORK_RATING');
   const qcRating = getSectionField('QC_RATING');
   const prompt = getSectionBlock('PROMPT');
-  const qcFeedback = getSectionBlock('QC_FEEDBACK');
   const promptLen = parseInt(getSectionField('PROMPT_LEN') || '0', 10);
 
   if (promptLen < 50) {
@@ -134,13 +134,23 @@ for (let i = 1; i <= nAnnotations; i++) {
     console.error(`[run-job1] A${i}: empty answer — aborting`);
     process.exit(1);
   }
+  // Model answer must be non-empty AND not an API-failure placeholder.
+  // Codified 2026-04-29 after Report_Dashboard_Churn_Dashboard_154 A4 had
+  // `(empty — API failure)` and slipped through to downstream review.
+  // Empty model answer breaks the stump check (no answer to compare to rewrite).
+  const ma = (modelAnswer ?? '').trim();
+  const apiFailureRe = /^\(?\s*(empty|none|null|n\/a|api\s*(failure|error|timeout))/i;
+  if (!ma || apiFailureRe.test(ma)) {
+    console.error(`[run-job1] A${i}: empty / API-failure model answer (${JSON.stringify(modelAnswer)}) — aborting. Re-scrape after model regenerates.`);
+    process.exit(1);
+  }
 
   // Strip question-type tokens from skills list (MCQ/Short answer question are qtype, not skills)
   const skillsClean = skills.split(',').map(s => s.trim())
     .filter(s => s !== 'MCQ' && s !== 'Short answer question' && s.length > 0)
     .join(', ');
 
-  annotations.push({ n: i, skills: skillsClean, qtype, modelAnswer, annotatorAnswer, stumped, workRating, qcRating, prompt, qcFeedback });
+  annotations.push({ n: i, skills: skillsClean, qtype, modelAnswer, annotatorAnswer, stumped, workRating, qcRating, prompt });
 }
 
 // ---------- Build skeleton markdown ----------
@@ -174,11 +184,6 @@ for (const a of annotations) {
   lines_out.push('');
   lines_out.push('#### Rewrite Answer');
   lines_out.push(a.annotatorAnswer);
-  if (a.qcFeedback) {
-    lines_out.push('');
-    lines_out.push('#### QC_FEEDBACK');
-    lines_out.push(a.qcFeedback);
-  }
   lines_out.push('');
   lines_out.push('#### Two-Part Check');
   lines_out.push('(to be filled by reviewer)');

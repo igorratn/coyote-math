@@ -23,7 +23,7 @@
 import { readFileSync, existsSync } from 'fs';
 import { join, dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
-import { parseIgorVerdicts, getReviewerFeedback } from './prepare-job3b-helpers.mjs';
+import { parseIgorVerdicts, parseAutoVerdicts, getReviewerFeedback } from './prepare-job3b-helpers.mjs';
 
 const __dir = dirname(fileURLToPath(import.meta.url));
 const LIZARD_DIR = process.env.LIZARD_DIR ?? resolve(__dir, '..');
@@ -36,7 +36,10 @@ if (!existsSync(MANIFEST_PATH)) {
 }
 const manifest = JSON.parse(readFileSync(MANIFEST_PATH, 'utf8'));
 
-// Pull per-stem data
+// Pull per-stem data. merge-summary.json is an EPHEMERAL CACHE — we prefer it
+// when present (richer fields) but fall back to deriving per-annot data from
+// tasks/<stem>.md alone when missing. State IS the filesystem; tmpfs loss
+// must not block the gate.
 function readSummary(stem) {
   const p = join(TMP_DIR_BASE, stem, 'merge-summary.json');
   if (!existsSync(p)) return null;
@@ -49,8 +52,46 @@ function readTaskFile(stem) {
   return readFileSync(p, 'utf8');
 }
 
+// Synthesize a {total, per_annotation:[{n, decision, rating}]} shape from
+// tasks/<stem>.md when merge-summary.json is unavailable.
+//   - Iterate `## Annotation N` headers (stop at `## Form-Fill Payload`).
+//   - decision derived from block contents:
+//       `- **Rating:** unchanged ...`              → unchanged
+//       `#### Auto Verdict\n` present              → auto-resolved
+//       `UNRESOLVED — no reviewer produced...`     → no_reviewer_output
+//       else                                       → pending-igor
+//   - rating left null on synthesis path; the main loop pulls it from
+//     Auto/Igor Verdict blocks anyway.
+function synthesizePerAnnotation(taskTxt) {
+  const re = /^## Annotation (\d+)/gm;
+  const heads = [];
+  let m;
+  while ((m = re.exec(taskTxt)) !== null) heads.push({ n: parseInt(m[1], 10), idx: m.index });
+  // Cut off at Form-Fill Payload (annot blocks only live before it)
+  const payloadIdx = taskTxt.indexOf('\n## Form-Fill Payload');
+  const annotEnd = payloadIdx >= 0 ? payloadIdx : taskTxt.length;
+  const inAnnots = heads.filter(h => h.idx < annotEnd);
+
+  const out = [];
+  for (let i = 0; i < inAnnots.length; i++) {
+    const start = inAnnots[i].idx;
+    const end = (i + 1 < inAnnots.length) ? inAnnots[i + 1].idx : annotEnd;
+    const block = taskTxt.slice(start, end);
+    const ratingM = /^- \*\*Rating:\*\*\s*(.+?)$/m.exec(block);
+    const ratingTxt = ratingM ? ratingM[1].toLowerCase() : '';
+    let decision;
+    if (ratingTxt.includes('unchanged')) decision = 'unchanged';
+    else if (/#### Auto Verdict\n/.test(block)) decision = 'auto-resolved';
+    else if (/UNRESOLVED — no reviewer/.test(block)) decision = 'no_reviewer_output';
+    else decision = 'pending-igor';
+    out.push({ n: inAnnots[i].n, decision, rating: null });
+  }
+  return { total: out.length, per_annotation: out, _synthesized: true };
+}
+
 // ---------- Build report + run sync validation ----------
 const errors = [];
+const warnings = [];
 const rows = [];
 const fb_dump = [];
 const totals = { annots: 0, up: 0, down: 0, unchg: 0 };
@@ -58,32 +99,44 @@ const totals = { annots: 0, up: 0, down: 0, unchg: 0 };
 for (const t of manifest.tasks) {
   const stem = t.stem;
   const cycle = t.cycle;
-  const d = readSummary(stem);
   const taskTxt = readTaskFile(stem);
-  if (!d) { errors.push(`${stem}: merge-summary.json missing`); continue; }
   if (!taskTxt) { errors.push(`${stem}: tasks/${stem}.md missing`); continue; }
+  let d = readSummary(stem);
+  if (!d) {
+    d = synthesizePerAnnotation(taskTxt);
+    warnings.push(`${stem}: merge-summary.json missing — derived per-annot from task file (${d.total} annots)`);
+  }
   const igor = parseIgorVerdicts(taskTxt);
+  const auto = parseAutoVerdicts(taskTxt);
   let up = 0, down = 0, unchg = 0;
   const fbForStem = [];
   for (const a of d.per_annotation || []) {
     const n = a.n;
     if (a.decision === 'unchanged') { unchg += 1; continue; }
-    // Determine final rating: Igor Verdict overrides merger pick
-    let rating = a.rating;
+    // Determine final rating in priority order:
+    //   1. Igor Verdict (manual override)         — highest precedence
+    //   2. Auto Verdict (Job 2 carve-out stamp)
+    //   3. merge-summary's recorded rating         — lowest, only if present
+    let rating;
     if (n in igor) {
       rating = igor[n].rating;
-      // Sanity: Igor verdict must have a rating
       if (!rating) errors.push(`${stem} A${n}: Igor Verdict block present but no rating parsed`);
-    }
-    // Pending-igor without an Igor Verdict = unresolved
-    if (a.decision === 'pending-igor' && !(n in igor)) {
-      errors.push(`${stem} A${n}: pending-igor but no Igor Verdict block in task file`);
+    } else if (n in auto) {
+      rating = auto[n].rating;
+      if (!rating) errors.push(`${stem} A${n}: Auto Verdict block present but no rating parsed`);
+    } else if (a.decision === 'pending-igor') {
+      errors.push(`${stem} A${n}: pending-igor but no Igor or Auto Verdict block in task file`);
       continue;
-    }
-    // No reviewer output = explicit escalate
-    if (a.decision === 'no_reviewer_output' && !(n in igor)) {
+    } else if (a.decision === 'no_reviewer_output') {
       errors.push(`${stem} A${n}: no_reviewer_output and no Igor Verdict — needs manual escalation`);
       continue;
+    } else if (a.decision === 'auto-resolved') {
+      // merge-summary says auto-resolved but no Auto Verdict in task file —
+      // means Job 2 was run before the carve-out-stamping fix landed.
+      errors.push(`${stem} A${n}: auto-resolved per merge-summary but no Auto Verdict block — re-run Job 2 to stamp`);
+      continue;
+    } else {
+      rating = a.rating;
     }
     if (rating === 'thumbs-up') up += 1;
     else if (rating === 'thumbs-down') {
@@ -141,6 +194,13 @@ if (fb_dump.length) {
       console.log();
     }
   }
+}
+
+// ---------- Warnings (non-blocking) ----------
+if (warnings.length) {
+  console.error('=== Warnings (non-blocking) ===');
+  for (const w of warnings) console.error(`  ⚠ ${w}`);
+  console.error();
 }
 
 // ---------- Payload sync result ----------

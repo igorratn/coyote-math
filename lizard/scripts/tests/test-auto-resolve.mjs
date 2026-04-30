@@ -46,10 +46,10 @@ function makeSkeleton(stem) {
     `- **Annotator Answer:** A`,
     ``,
     `#### Full Prompt`,
-    `What is 2+2?`,
+    `What is the letter?`,
     ``,
     `#### Rewrite Answer`,
-    `4`,
+    `A`,
     ``,
     `---`,
   ].join('\n');
@@ -125,7 +125,11 @@ step('one 👍 matching annotator → auto-resolved (single reviewer is enough)'
   assert(/Auto-resolved at Job 2/.test(taskFile));
 });
 
-step('one 👍 NOT matching annotator → STILL auto-resolved (v2: any 👍 wins)', () => {
+step('one 👍 with big-diff answer → pending-igor (probe-model divergence escalation, codified 2026-04-27)', () => {
+  // Updated from v2 ("any 👍 wins"). Rule: 👍 stops the probe chain, but if the
+  // reviewer's Final Answer diverges from annotator's rewrite (non-numeric
+  // mismatch here: "B" vs "A"), the annotation lands as pending-igor — sloppy
+  // 👍 vs corrective 👍 needs Igor's eye.
   const { summary } = runMerger({
     stem: 'autoSingleNoMatch',
     reviewers: ['gpt'],
@@ -133,7 +137,7 @@ step('one 👍 NOT matching annotator → STILL auto-resolved (v2: any 👍 wins
       gpt: makeReview({ rating: 'thumbs-up', finalAnswer: 'B' }),
     },
   });
-  assert(summary.per_annotation[0].decision === 'auto-resolved',
+  assert(summary.per_annotation[0].decision === 'pending-igor',
     `decision=${summary.per_annotation[0].decision}`);
 });
 
@@ -181,7 +185,9 @@ step('gpt 👎, opus 👍 matches → auto-resolved (opus vouches)', () => {
   assert(summary.per_annotation[0].reviewer === 'opus');
 });
 
-step('gpt 👍 NOT matching, opus 👍 NOT matching → STILL auto-resolved (v2: any 👍 wins)', () => {
+step('first 👍 with big-diff stops chain → pending-igor, regardless of later reviewers (probe model)', () => {
+  // First 👍 stops the chain (probe model). gpt fires first with "B" — big-diff
+  // vs annotator's "A" → pending-igor. opus's verdict never gets read.
   const { summary } = runMerger({
     stem: 'autoNoMatch',
     reviewers: ['gpt', 'opus'],
@@ -190,7 +196,7 @@ step('gpt 👍 NOT matching, opus 👍 NOT matching → STILL auto-resolved (v2:
       opus: makeReview({ rating: 'thumbs-up', finalAnswer: 'C' }),
     },
   });
-  assert(summary.per_annotation[0].decision === 'auto-resolved',
+  assert(summary.per_annotation[0].decision === 'pending-igor',
     `decision=${summary.per_annotation[0].decision}`);
 });
 

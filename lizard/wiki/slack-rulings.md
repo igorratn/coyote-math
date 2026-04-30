@@ -1,5 +1,16 @@
 # Slack Rulings & Office Hours Decisions
 
+> **Primary channel for Lizard rulings:** `#lizard-reviewers` — Slack channel ID `C0ANPTSDQ81` in the `handshakeaicommunity` workspace. Search this channel first for any policy / workflow / edge-case question. Thread URLs follow the pattern `https://handshakeaicommunity.slack.com/archives/C0ANPTSDQ81/p<timestamp>`.
+
+## Unusable / Skipped tasks → no shadow tasks (Apr 28, 2026)
+
+Confirmed by Angie Z. ([thread](https://handshakeaicommunity.slack.com/archives/C0ANPTSDQ81/p1777422361003609)): for Unusable (and by extension Skipped — same "image is the problem, not the prompts" disposition):
+- **Do not record any shadow tasks** for the annotations.
+- Skip individual thumbs-down on annots — task-level dropdown alone is sufficient.
+- Optional: skim prompts + leave feedback per `references/playbook_reviewer.md` ("please ensure to review annotations attempted on this image prior to marking Unusable") — but no shadow firing.
+
+**Implication for our pipeline:** when a task's `Task-level Disposition` is `Skipped` / `Unusable`, Job 5 (shadow sweep) MUST skip that stem entirely. No HAI shadows fire.
+
 ## V6 Launch — lizard-announcements (Apr 17–21, 2026)
 
 ### V6 Quality Rules (mandatory, all tasks)

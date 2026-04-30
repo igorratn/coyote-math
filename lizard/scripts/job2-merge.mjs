@@ -2,8 +2,10 @@
 // job2-merge.mjs (v2 — minimal, first-verdict-wins)
 //
 // Per annot, walks REVIEWERS in fire order. First reviewer that emits a parseable
-// Rating wins. Records verdict; every annot defers to Igor at 3a. No annotator-
-// answer matching, no quorum, no prefilter integration, no flag aggregation.
+// Rating wins. Records verdict; non-carve-out annots defer to Igor at Job 3. No
+// annotator-answer matching, no quorum, no prefilter integration, no flag
+// aggregation. Carve-out cases (👍-close, 👎-unanimous-G1) get an Auto Verdict
+// block embedded per annot — readable from the task file alone.
 //
 // Reviewers MUST emit structured `**Flags:** [...]` field per annot (closed enum,
 // 18 codes). See templates/review-prompt.md.
@@ -13,12 +15,15 @@
 //   [LIZARD_DIR=<path>] [REVIEW_DIR=<path>] node scripts/job2-merge.mjs
 //
 // Output:
-//   tasks/<stem>.md           — Igor reads this at Job 3a
-//   <REVIEW_DIR>/merge-summary.json
+//   tasks/<stem>.md           — Igor reads this at Job 3 (no payload block; Job 3
+//                               fan-out emits payloads/<stem>.yaml separately)
+//   <REVIEW_DIR>/merge-summary.json   — ephemeral cache (not load-bearing)
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
 import { resolve, join, dirname as pathDirname } from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
+import { detectBigDiff } from './job2-prefilter-rules.mjs';
+import { parseEditsMade } from './parse-edits-made.mjs';
 
 const __dir = pathDirname(fileURLToPath(import.meta.url));
 
@@ -140,11 +145,18 @@ export function parseReviewerOutput(text) {
       // Drop any out-of-enum entries silently (validator catches malformed file at run-job2 layer).
     }
 
+    // Edits Made — free-form text the reviewer used to recommend skill / qtype
+    // tweaks. Captured here so the merger can derive skills_check / skills_uncheck
+    // deltas at Auto Verdict emission time (HOST_SOP.legacy.md line 560).
+    const editsM = /^\s*-?\s*\*\*Edits Made:\*\*\s*([\s\S]*?)(?=^\s*-?\s*\*\*[A-Z]|^####|^---|(?![\s\S]))/mi.exec(block);
+    const editsMadeText = editsM ? editsM[1].trim() : '';
+
     out.annotations.set(locs[i].n, {
       rating,
       finalAnswer,
       flags,
       flagsMissing,
+      editsMadeText,
       body: block,
     });
   }
@@ -271,26 +283,14 @@ for (const skel of skelAnnots) {
     const a = pr.annotations.get(skel.n);
     if (a) allViews.push({ name, ...a });
   }
-  // Auto-resolve up gate (2026-04-25, Igor revision 2):
-  //   ANY reviewer rated 👍 → auto-resolved. Accept the annotator's answer at
-  //   SA push regardless of whether the reviewer's own Final Answer matches.
-  //   The first 👍 reviewer in fire order becomes the pick (already handled
-  //   by pickBestVerdict's thumbs-up preference). Other reviewers' opinions
-  //   still get embedded in the task file for audit but don't gate.
-  //
-  // Rationale: a single reviewer 👍 means at least one model considers the
-  // annotator's rewrite acceptable. Igor decided this is enough to skip
-  // human review — the SA action is "approve annotator's answer" anyway,
-  // and the reviewer's own computed answer doesn't change that downstream.
-  //
-  // Evolution of the rule:
-  //   2026-04-24: all reviewers fired + all 👍 + all same answer (too strict).
-  //   2026-04-25 v1: any 👍 + reviewer's answer matches annotator's.
-  //   2026-04-25 v2 (current): any 👍 (drop the answer-match requirement).
-  //
-  // Tradeoff: more auto-resolves, but no self-consistency check on the 👍
-  // reviewer. A misjudged 👍 will pass through. Igor accepts this risk —
-  // says always accept annotator's answer when any reviewer 👍s.
+  // Auto-resolve up gate (probe model — codified 2026-04-27):
+  //   Reviewers fire sequentially as binary probes. 👎 → fire next probe;
+  //   👍 → stop the chain. Disposition of the 👍 depends on whether the
+  //   reviewer's own Final Answer matches the annotator's rewrite:
+  //     · close (numeric diff ≤ 10%, non-numeric exact-norm match) → auto-resolved
+  //     · big-diff → pending-igor (sloppy 👍, or corrective 👍 — Igor decides)
+  //   Either way the chain stops; the run-job2 loop drops the annot from
+  //   pending whenever rating === 'thumbs-up' regardless of decision.
   let decision;
   let finalPick = pick;
   if (!pick) {
@@ -298,8 +298,9 @@ for (const skel of skelAnnots) {
   } else {
     const anyUp = allViews.find(v => v.rating === 'thumbs-up');
     if (anyUp) {
-      decision = 'auto-resolved';
-      finalPick = anyUp;  // first 👍 reviewer in fire order
+      const bigDiff = detectBigDiff(anyUp.finalAnswer, skel.rewriteAnswer);
+      decision = bigDiff ? 'pending-igor' : 'auto-resolved';
+      finalPick = anyUp;
     } else {
       // Auto-resolve down gate (2026-04-25, Igor codification):
       //   ALL configured reviewers fired (≥2) AND ALL rated 👎 AND ALL flagged G1
@@ -315,7 +316,7 @@ for (const skel of skelAnnots) {
       //
       //   The verdict here is just thumbs-down. Whether SA action becomes
       //   delete (cycle 2) or QC_Return (cycle 1) is decided downstream at
-      //   Job 3b per HOST_SOP.md §"Cycle 1 thumbs-down = QC_Return".
+      //   Job 3 fan-out (run-job3.mjs) per CLAUDE.md cycle/action mapping.
       const fullCoverage = REVIEWERS.length >= 2 && allViews.length === REVIEWERS.length;
       const allDown = allViews.length > 0 && allViews.every(v => v.rating === 'thumbs-down');
       const allG1 = allViews.length > 0 && allViews.every(v => (v.flags || []).includes('G1'));
@@ -378,7 +379,7 @@ function renderAnnotation(entry) {
     for (const v of allViews) {
       lines.push(`#### Reviewer Body (${v.name}) — no parseable rating\n${stripHeader(v.body)}\n`);
     }
-    lines.push(`**ESCALATE — Igor resolve at Job 3a.** No reviewer produced a verdict. Re-run reviewers or escalate manually.\n`);
+    lines.push(`**ESCALATE — Igor resolve at Job 3.** No reviewer produced a verdict. Re-run reviewers or escalate manually.\n`);
     lines.push(`---\n`);
     return lines.join('\n');
   }
@@ -425,70 +426,81 @@ function renderAnnotation(entry) {
   const downAction = isCycle2 ? 'delete' : 'QC_Return';
   const cycleLabel = isCycle2 ? 'cycle 2' : 'cycle 1';
 
+  // Skill-edit deltas parsed from picked reviewer's `Edits Made` text. The
+  // merger emits these inline in the Auto Verdict block so Job 3b can read
+  // them without re-parsing reviewer prose. Empty arrays = no edits.
+  // Igor can override at 3a by appending his own skills_check: / skills_uncheck:
+  // lines in the Igor Verdict block (Igor wins).
+  const editsDelta = parseEditsMade(pick.editsMadeText ?? '');
+  const checkStr   = `[${editsDelta.skills_check.join(', ')}]`;
+  const uncheckStr = `[${editsDelta.skills_uncheck.join(', ')}]`;
+  const hasSkillEdit = editsDelta.skills_check.length > 0 || editsDelta.skills_uncheck.length > 0;
+
   if (entry.decision === 'auto-resolved') {
     if (pick.rating === 'thumbs-up') {
-      const matchNote = pick.finalAnswer && skel.annotatorAnswer
-        && pick.finalAnswer.trim().toLowerCase() === skel.annotatorAnswer.trim().toLowerCase()
+      const matchNote = pick.finalAnswer && skel.rewriteAnswer
+        && pick.finalAnswer.trim().toLowerCase() === skel.rewriteAnswer.trim().toLowerCase()
         ? '(matches annotator)'
         : `(reviewer's own answer was \`${pick.finalAnswer ?? '?'}\`, but rule = accept annotator's answer)`;
-      lines.push(`**Auto-resolved at Job 2 (👍).** ${pick.name} 👍 ${matchNote}. SA action at Job 3b: approve annotator's answer \`${skel.annotatorAnswer}\` (${cycleLabel}). Skipped at Job 3a.\n`);
+      lines.push(`**Auto-resolved at Job 2 (👍).** ${pick.name} 👍 ${matchNote}. SA action at Job 4: approve annotator's answer \`${skel.rewriteAnswer}\` (${cycleLabel}). Skipped at Job 3 walkthrough.\n`);
+      // Auto Verdict block — makes carve-out classification readable from the
+      // task file alone (state IS the filesystem). prepare-job3b-summary.mjs
+      // counts an annot as 3a-done if it has Auto Verdict OR Igor Verdict.
+      lines.push(`#### Auto Verdict`);
+      lines.push(`carve_out: 👍-close`);
+      lines.push(`rating: thumbs-up`);
+      lines.push(`final_answer: ${skel.rewriteAnswer}`);
+      lines.push(`source: ${pick.name}`);
+      lines.push(`sa_action: approve`);
+      lines.push(`skills_check: ${checkStr}`);
+      lines.push(`skills_uncheck: ${uncheckStr}`);
+      const skillNote = hasSkillEdit ? ` Skill edits: check=${checkStr}, uncheck=${uncheckStr}.` : '';
+      lines.push(`notes: ${pick.name} 👍 close to annotator; SA approves annotator's answer.${skillNote}\n`);
     } else {
-      lines.push(`**Auto-resolved at Job 2 (👎).** All ${allViews.length} reviewers 👎 with G1 (V6 anchor-skill fail). SA action at Job 3b: **${downAction}** (${cycleLabel}). Skipped at Job 3a.\n`);
+      lines.push(`**Auto-resolved at Job 2 (👎).** All ${allViews.length} reviewers 👎 with G1 (V6 anchor-skill fail). SA action at Job 4: **${downAction}** (${cycleLabel}). Skipped at Job 3 walkthrough.\n`);
+      lines.push(`#### Auto Verdict`);
+      lines.push(`carve_out: 👎-unanimous-G1`);
+      lines.push(`rating: thumbs-down`);
+      lines.push(`final_answer: ${pick.finalAnswer ?? 'N/A'}`);
+      lines.push(`source: ${pick.name}`);
+      lines.push(`sa_action: ${downAction}`);
+      lines.push(`skills_check: ${checkStr}`);
+      lines.push(`skills_uncheck: ${uncheckStr}`);
+      lines.push(`notes: All ${allViews.length} reviewers 👎 with G1 (V6 anchor-skill fail). ${cycleLabel}.\n`);
     }
   } else {
     const igorDownAction = `(${cycleLabel}: 👎 → ${downAction}; 👍 → approve)`;
-    lines.push(`**Pending Igor at Job 3a.** Reviewer verdicts above are advisory; Igor decides 👍/👎. ${igorDownAction}\n`);
+    lines.push(`**Pending Igor at Job 3.** Reviewer verdicts above are advisory; Igor decides 👍/👎. ${igorDownAction}\n`);
   }
 
-  lines.push(`#### Edits Made\n(to be filled at Job 3a if needed)\n`);
-  const feedbackTag = entry.decision === 'auto-resolved' ? 'auto-resolved' : 'pending Igor verdict';
-  lines.push(`#### Feedback\n${today}: ${pick.rating} (${pick.name}) — ${feedbackTag}\n`);
+  lines.push(`#### Edits Made\n(to be filled at Job 3 if needed)\n`);
+  // Feedback block: legacy V6 rule (HOST_SOP.legacy.md line 583) requires a
+  // dated rationale whenever any field changed. For auto-resolved 👍 with
+  // skill deltas, emit an edit-explaining feedback so payload sa.feedback
+  // mirrors something useful (Job 3b verifier requires non-null when edits).
+  // Format: M/D: short-date.
+  const mdToday = `${new Date().getMonth() + 1}/${new Date().getDate()}`;
+  let feedbackBody;
+  if (entry.decision === 'auto-resolved' && pick.rating === 'thumbs-up' && hasSkillEdit) {
+    // Legacy format (HOST_SOP era): preserve the reviewer's reasoning text but
+    // NEVER name the reviewer model. RLHF integrity — annotator reads QC
+    // feedback; LLM identity must not leak. See CLAUDE.md §Hard rules.
+    const editsText = (pick.editsMadeText ?? '').trim();
+    feedbackBody = editsText
+      ? `${mdToday}: Skill tag corrected: ${editsText}`
+      : `${mdToday}: Skill tag corrected (no rationale captured).`;
+  } else {
+    const feedbackTag = entry.decision === 'auto-resolved' ? 'auto-resolved' : 'pending Igor verdict';
+    feedbackBody = `${today}: ${pick.rating} (${pick.name}) — ${feedbackTag}`;
+  }
+  lines.push(`#### Feedback\n${feedbackBody}\n`);
   lines.push(`---\n`);
   return lines.join('\n');
 }
 
-function renderFormFillPayload() {
-  const lines = [];
-  lines.push(`## Form-Fill Payload\n`);
-  lines.push('```yaml');
-  lines.push(`task:`);
-  lines.push(`  stem: ${STEM}`);
-  lines.push(`  sa_task_filename: ${saFile}`);
-  lines.push(`  cycle: ${isCycle2 ? 2 : 1}`);
-  if (!isCycle2) {
-    const hasPending = merged.some(m => m.decision === 'pending-igor' || m.decision === 'no_reviewer_output');
-    const hasDown    = merged.some(m => m.decision !== 'unchanged' && m.pick?.rating === 'thumbs-down');
-    const qcStatus   = hasPending ? 'TBD' : hasDown ? 'QC_Return' : 'QC_Complete';
-    lines.push(`  qc_status: ${qcStatus}  # cycle-1 only; set in SA task list after per-annot push`);
-  }
-  lines.push(``);
-  lines.push(`annotations:`);
-  for (const entry of merged) {
-    const { n, skel, pick } = entry;
-    lines.push(``);
-    lines.push(`  - n: ${n}`);
-    if (entry.decision === 'unchanged') {
-      lines.push(`    resolution: carry-forward`);
-      lines.push(`    sa:`);
-      lines.push(`      rating: unchanged`);
-    } else {
-      lines.push(`    resolution: ${entry.decision}`);  // 'auto-resolved' | 'pending-igor' | 'no_reviewer_output'
-      lines.push(`    sa:`);
-      lines.push(`      rating: ${pick?.rating ?? 'unresolved'}`);
-      lines.push(`      answer_final: ${pick?.finalAnswer ? JSON.stringify(pick.finalAnswer) : 'null'}`);
-      lines.push(`      flags: ${pick?.flags?.length ? `[${pick.flags.join(', ')}]` : '[]'}`);
-    }
-    lines.push(`    hai:`);
-    lines.push(`      task_id_field: ${saFile}`);
-    lines.push(`      role: Reviewing`);
-    lines.push(`      annotation_n: ${n}`);
-    lines.push(`      prompt: |`);
-    for (const pline of skel.prompt.split('\n')) lines.push(`        ${pline}`);
-    lines.push(`      answer: ${JSON.stringify(skel.rewriteAnswer)}`);
-  }
-  lines.push('```\n');
-  return lines.join('\n');
-}
+// renderFormFillPayload was removed 2026-04-28: payload now lives in
+// payloads/<stem>.yaml, written by Job 3's run-job3.mjs fan-out. The task
+// file is the human-readable review record only — no embedded YAML.
 
 const totalAnnots    = merged.length;
 const pendingCount    = merged.filter(m => m.decision === 'pending-igor').length;
@@ -522,18 +534,24 @@ doc += `- **Summary:** ${pendingCount} pending Igor, ${autoResolvedCount} auto-r
 doc += `---\n\n`;
 
 for (const entry of merged) doc += renderAnnotation(entry);
-doc += renderFormFillPayload();
 
-// Guard: refuse to clobber existing Igor Verdict blocks (Job 3a output).
-// Re-merge after Job 3a would silently wipe verdicts; require human to delete
-// or move the file first. See CLAUDE.md "Known issue (2026-04-25)".
-if (existsSync(OUT_TASK) && readFileSync(OUT_TASK, 'utf8').includes('#### Igor Verdict')) {
-  console.error(`[job2-merge] REFUSE: ${OUT_TASK} contains Igor Verdict blocks.`);
-  console.error(`[job2-merge] Re-merge would wipe Job 3a work. Delete the verdict blocks (or move the file aside) and re-run.`);
-  process.exit(1);
+// DRY_RUN mode: skip the immutable task-file write. run-job2 calls the merger
+// repeatedly during the reviewer loop (to update the pending list), but only
+// the FINAL pass should commit tasks/<stem>.md. Loop iterations pass
+// DRY_RUN=1; the final commit call does not.
+const DRY_RUN = process.env.DRY_RUN === '1';
+
+if (!DRY_RUN) {
+  // Immutability guard: tasks/<stem>.md is write-once. Job 1 archives any
+  // prior-cycle file to <stem>.cycle1.md before this point. If <stem>.md
+  // still exists, refuse to clobber.
+  if (existsSync(OUT_TASK)) {
+    console.error(`[job2-merge] REFUSE: ${OUT_TASK} already exists. tasks/<stem>.md is write-once.`);
+    console.error(`[job2-merge] Move it aside or delete it before re-merging.`);
+    process.exit(1);
+  }
+  writeFileSync(OUT_TASK, doc, 'utf8');
 }
-
-writeFileSync(OUT_TASK, doc, 'utf8');
 
 // Summary JSON — kept lean for run-job2 stats consumer
 const summary = {

@@ -19,6 +19,16 @@
 - Scores visible in same place as annotator scores in SuperAnnotate
 - Quality > quantity is the project philosophy (per Nikhil D., Apr 7)
 
+## Lesson: NV Return on Report_Dashboard_Metrics_Dashboard_74 (Apr 28, 2026)
+
+Three NV-flagged annotations our 4-reviewer pool (opus, gpt, gemini, grok) all approved on first pass. Tightening rules:
+
+- **A1 — Format-example leakage as G5 (new):** prompt asked "which chart type appears most frequently?" with format `(e.g., all chart types [number] times)`. The "[number] times" template combined with "all chart types" telegraphs that every category ties at the same count → answer structure leaks via the format example. Reviewer must treat format hints as prompt body text, not neutral instructions; if format pre-structures the answer, fail G5.
+- **A1/A2 — Chart-type classification ambiguity as Type 12 (extended):** prompts hinging on classifying visually-similar chart types (line vs bar-with-many-narrow-bars in this case) require pixel-verification of BOTH legend/axis cues AND rendered shapes at zoom. The 4 reviewers accepted the prompt's "(bar charts, line charts, pie charts, donut charts)" premise without checking whether the second-from-left charts in each row were actually distinguishable as line vs bar. If either reading is plausible, fail Type 12 — premise itself is broken.
+- **A3 — Multi-step prompt missing output spec as G2 (new):** prompt chained "estimate the ratio... and round? Add that to the number of bars..." with `(e.g. 40)` at the end. NV called "doesn't properly ask for any specific result output". A bare parens-format-hint isn't sufficient when the prompt has multiple imperative clauses; reviewer must require an explicit closing like `What is the result? Answer with a single integer (e.g., 40).` Otherwise the output specification is incomplete → G2 fail.
+
+All three rules baked into `templates/review-prompt.md` (G2 / G5 / Type 12 sections). Reviewers will see them on next fire.
+
 ## Lesson: Ambiguity Caught Too Late (Apr 12, 2026)
 - Task 36 annot 2: "tool tabs" was ambiguous (9 top-level vs 15 total items) — HAI QC flagged it, too late to fix in SA
 - **At review time**: if the rewrite answer cannot be pinned to a single unambiguous value, the prompt fails the single-verifiable guideline — thumbs down and flag the specific ambiguity

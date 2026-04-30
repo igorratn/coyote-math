@@ -2,9 +2,6 @@
 // Pure rules + helpers for the Job 2 prefilter. Importable from tests
 // without triggering CLI side-effects.
 //
-// The CLI entrypoint (job2-prefilter.mjs) imports from this module.
-// Unit tests in scripts/tests/test-prefilter-*.mjs also import from here.
-//
 // Keep this module side-effect free: no fs, no process.exit, no env reads.
 
 export const VALID_SKILLS = new Set([
@@ -84,6 +81,77 @@ export function extractRewriteAnswer(block) {
   return m ? m[1].trim() : '';
 }
 
+// G3_NEAR_MISS heuristic (codified 2026-04-27 from NV return on
+// Plot_Statistical_significance_graphs_60 A1): a model answer that differs
+// from the rewrite by only a deterministic rounding / arithmetic-precision
+// artifact is NOT a meaningful stump. Soft-flag for reviewer attention.
+//   - Numeric: relative diff < 0.1% (e.g. 2.32666 vs 2.32715)
+//   - Integer: single-digit edit distance on the same length
+// Returns null if not a near-miss, or a {reason} object if flagged.
+//
+// detectBigDiff: used by the merger's auto-resolve gate. When a reviewer 👍s
+// but their own Final Answer diverges from the annotator's rewrite, that's
+// a divergence signal — escalate to Igor. Reason can be either:
+//   (a) sloppy 👍 (reviewer didn't verify), or
+//   (b) corrective 👍 (reviewer fixed the annotator's wrong answer per
+//       review-prompt.md "Wrong rewrite answer" rule).
+// Both deserve Igor's eye to choose the right SA-push answer.
+// Threshold: numeric > 10% relative diff; non-numeric any case+whitespace
+// normalized mismatch.
+export function detectNearMiss(modelAns, rewriteAns) {
+  const ma = String(modelAns ?? '').trim();
+  const ra = String(rewriteAns ?? '').trim();
+  if (!ma || !ra || ma === ra) return null;
+
+  const m = parseFloat(ma);
+  const r = parseFloat(ra);
+  if (!Number.isFinite(m) || !Number.isFinite(r)) return null;
+
+  // Numeric near-miss: relative diff < 0.1%
+  const denom = Math.abs(r) || 1;
+  const relDiff = Math.abs(m - r) / denom;
+  if (relDiff > 0 && relDiff < 0.001) {
+    return { reason: `Model ${ma} differs from rewrite ${ra} by ${(relDiff * 100).toFixed(3)}% — likely rounding/precision artifact, not a meaningful stump` };
+  }
+
+  // Integer single-digit edit (same length, exactly one position differs)
+  if (/^-?\d+$/.test(ma) && /^-?\d+$/.test(ra) && ma.length === ra.length) {
+    let diffs = 0;
+    for (let i = 0; i < ma.length; i++) if (ma[i] !== ra[i]) diffs++;
+    if (diffs === 1) {
+      return { reason: `Model ${ma} differs from rewrite ${ra} by single digit — likely arithmetic near-miss, not a meaningful stump` };
+    }
+  }
+
+  return null;
+}
+
+export function detectBigDiff(reviewerAns, annotAns) {
+  const ra = String(reviewerAns ?? '').trim();
+  const aa = String(annotAns ?? '').trim();
+  if (!ra || !aa) return null;
+
+  const r = parseFloat(ra);
+  const a = parseFloat(aa);
+  if (Number.isFinite(r) && Number.isFinite(a)) {
+    if (r === a) return null;
+    const denom = Math.abs(a) || 1;
+    const relDiff = Math.abs(r - a) / denom;
+    if (relDiff > 0.10) {
+      return { reason: `Reviewer answer ${ra} differs from annotator's ${aa} by ${(relDiff * 100).toFixed(1)}% (>10% threshold)` };
+    }
+    return null;
+  }
+
+  // Non-numeric: any case + whitespace normalized mismatch
+  const norm = s => s.toLowerCase().replace(/\s+/g, ' ').trim();
+  if (norm(ra) !== norm(aa)) {
+    return { reason: `Reviewer answer "${ra}" differs from annotator's "${aa}"` };
+  }
+  return null;
+}
+
+
 // Run all flag checks on a single annotation entry.
 // Returns { n, status, skills_tagged, qtype, flags, skip_review }.
 export function flagAnnotation(ann) {
@@ -99,6 +167,12 @@ export function flagAnnotation(ann) {
 
   if (V6_LETTER_BAN.test(prompt)) {
     flags.push({ code: 'V6_LETTER_COUNT', severity: 'hard', note: 'Prompt counts letters/vowels/consonants/characters (V6 ban)' });
+  }
+  const modelAns   = extractField(ann.block, 'Model Answer') ?? '';
+  const rewriteAns = extractRewriteAnswer(ann.block);
+  const nearMiss   = detectNearMiss(modelAns, rewriteAns);
+  if (nearMiss) {
+    flags.push({ code: 'G3_NEAR_MISS', severity: 'soft', note: nearMiss.reason });
   }
   if (G4_CROSS_REF.test(prompt)) {
     flags.push({ code: 'G4_CROSS_REF', severity: 'soft', note: 'Prompt references previous/next/above annotation' });

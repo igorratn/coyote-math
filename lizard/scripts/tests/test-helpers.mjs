@@ -19,13 +19,6 @@ export const LIZARD_DIR = resolve(__dir, '..', '..');
 // 4-reviewer validation on Scrum_6 passed.
 export const FIXTURE_STEM = 'Report_Dashboard_Server_Dashboard_43';
 
-// Pipeline e2e fixture: 1 annotation, cycle-1, has scrape + screenshot in repo.
-// Used by test-pipeline.mjs to exercise the FULL Job 1 → Job 2 contract on a
-// minimal task (one reviewer, one annot) — keeps the pre-flight gate fast
-// (~30-60s vs ~3min for the multi-reviewer/multi-annot variant).
-// Picked 2026-04-27 to close the gap that let the _52 zero-annotation merger
-// failure through pre-flight (the old test ran Job 2 only on a hand-made
-// skeleton, never exercising the Job 1 → Job 2 emit/parse contract).
 export const PIPELINE_FIXTURE_STEM = 'Report_Dashboard_Server_Dashboard_38';
 
 export const TESTS_TMP = '/tmp/lizard-tests';
