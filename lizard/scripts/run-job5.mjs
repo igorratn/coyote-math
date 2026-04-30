@@ -27,7 +27,7 @@
 //   2 = precondition violated
 //   3 = state inconsistency
 
-import { readFileSync, writeFileSync, existsSync, renameSync, mkdirSync } from 'fs';
+import { readFileSync, writeFileSync, existsSync, renameSync, mkdirSync, unlinkSync } from 'fs';
 import { join, resolve, dirname as pathDirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -49,10 +49,25 @@ const PAYLOAD_DONE_DIR  = join(LIZARD_DIR, 'payloads', 'done');
 const PAYLOAD_DONE      = join(PAYLOAD_DONE_DIR, `${STEM}.yaml`);
 const SIDECAR_LIVE      = join(LIZARD_DIR, 'payloads', 'sa_applied', `${STEM}.shadows.yaml`);
 const SIDECAR_DONE      = join(PAYLOAD_DONE_DIR, `${STEM}.shadows.yaml`);
+const QUEUE_FILE        = join(LIZARD_DIR, 'queue', `${STEM}.json`);
+
+// ---------- per-stem orphan self-heal ----------
+// If queue entry exists alongside an already-finalized done payload, this is
+// an orphan from a crash between the atomic mv and rm queue/<S>.json. Clean
+// up and exit; idempotent self-heal (codified 2026-04-29).
+if (existsSync(QUEUE_FILE) && existsSync(PAYLOAD_DONE)) {
+  unlinkSync(QUEUE_FILE);
+  console.error(`[run-job5] ${STEM}: orphan queue entry detected (done/ already present) — cleaned up`);
+  process.exit(0);
+}
 
 // ---------- precondition (all modes) ----------
 if (existsSync(PAYLOAD_DONE)) {
   console.error(`[run-job5] REFUSE: ${PAYLOAD_DONE} already exists. Stem is past Job 5 (binary write-once gate).`);
+  process.exit(2);
+}
+if (!existsSync(QUEUE_FILE)) {
+  console.error(`[run-job5] REFUSE: ${QUEUE_FILE} missing. Stem is not in the active-work queue.`);
   process.exit(2);
 }
 if (!existsSync(PAYLOAD_LIVE)) {
@@ -104,7 +119,9 @@ if (MODE === 'skip-finalize') {
   mkdirSync(PAYLOAD_DONE_DIR, { recursive: true });
   renameSync(PAYLOAD_LIVE, PAYLOAD_DONE);
   // No sidecar; no shadows fired.
-  console.error(`[run-job5] ✓ ${STEM}: skip-disposition (${qcDisp}) — payload archived → ${PAYLOAD_DONE}, zero shadows fired (per Slack ruling)`);
+  // Pipeline exit gate: rm queue/<S>.json — stem leaves active-work set.
+  unlinkSync(QUEUE_FILE);
+  console.error(`[run-job5] ✓ ${STEM}: skip-disposition (${qcDisp}) — payload archived → ${PAYLOAD_DONE}, queue entry cleared, zero shadows fired (per Slack ruling)`);
   process.exit(0);
 }
 
@@ -171,7 +188,12 @@ if (MODE === 'finalize') {
   mkdirSync(PAYLOAD_DONE_DIR, { recursive: true });
   renameSync(PAYLOAD_LIVE, PAYLOAD_DONE);
   renameSync(SIDECAR_LIVE, SIDECAR_DONE);
-  console.error(`[run-job5] ✓ ${STEM}: ${sidecar.shadows.length} shadows fired, payload + sidecar archived → ${PAYLOAD_DONE_DIR}/`);
+  // Pipeline exit gate: rm queue/<S>.json — stem leaves active-work set.
+  // Crash between the renames and this rm leaves an orphan queue file; the
+  // per-stem self-heal at the top of this script (or the session-start bash
+  // sweep) will clean it up on the next invocation.
+  unlinkSync(QUEUE_FILE);
+  console.error(`[run-job5] ✓ ${STEM}: ${sidecar.shadows.length} shadows fired, payload + sidecar archived → ${PAYLOAD_DONE_DIR}/, queue entry cleared`);
   process.exit(0);
 }
 

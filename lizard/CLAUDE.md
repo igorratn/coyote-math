@@ -433,8 +433,8 @@ Run Job 5 on stem `<S>` when:
 - `payloads/sa_applied/<S>.yaml` exists
 - `payloads/done/<S>.yaml` does NOT exist (binary write-once gate)
 
-### Session-start orphan sweep (runs before any Job 5 work)
-Scan `queue/*.json`. For each, if `payloads/done/<S>.yaml` already exists → that's an orphan from a crash between Job 5's atomic mv and queue-rm. Delete the queue file. Idempotent self-heal; no manual cleanup ever needed.
+### Per-stem orphan self-heal (built into run-job5.mjs)
+Top of `scripts/run-job5.mjs`: if `queue/<S>.json` + `payloads/done/<S>.yaml` are both present, that's an orphan from a crash between the atomic mv and `rm queue/`. Script deletes the queue file and exits 0. Idempotent; runs on every Job 5 invocation, so any orphan is cleaned up the next time you touch that stem. No session-wide sweep needed — `in-flight.mjs` surfaces orphans by labeling them `stage=done` in the in-flight list.
 
 ### Pre-flight: skip-disposition check
 Read `task.qc_disposition` from payload. If `∈ {Skipped, Hold, Unusable}` → atomic mv payload to `payloads/done/`, then `rm queue/<S>.json`, exit. Zero shadows fired (Slack ruling, Angie Z. Apr 28).
@@ -463,7 +463,7 @@ For each annot in payload:
 1. Atomic mv BOTH payload files:
    - `payloads/sa_applied/<S>.yaml` → `payloads/done/<S>.yaml`
    - `payloads/sa_applied/<S>.shadows.yaml` → `payloads/done/<S>.shadows.yaml`
-2. **Remove queue entry:** `rm queue/<S>.json`. This is the pipeline's exit gate — once gone, the stem is no longer "active". A crash between step 1 and step 2 leaves an orphan queue file; the next Job 5 session's orphan sweep cleans it up.
+2. **Remove queue entry:** `rm queue/<S>.json`. This is the pipeline's exit gate — once gone, the stem is no longer "active". A crash between step 1 and step 2 leaves an orphan queue file; the next time `run-job5.mjs` is invoked on any stem, the per-stem self-heal at the top of the script picks it up.
 
 Sidecar absent in done = "no shadows fired" (skip-disposition path); present = "all annots shadowed."
 
