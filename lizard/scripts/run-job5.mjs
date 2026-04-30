@@ -7,8 +7,9 @@
 //   --precheck (default): validate filesystem precondition, parse payload,
 //     emit per-annot fire plan + sidecar state. Skip-disposition path: refuse
 //     here so caller knows to invoke --skip-finalize directly.
-//   --skip-finalize: for stems with task.qc_disposition in {Skipped, Hold,
-//     Unusable}: atomic mv payload sa_applied/ → done/ without firing shadows.
+//   --skip-finalize: for stems with task.qc_disposition in {Valid Skipped to
+//     Hold, Valid Skipped to Skipped, Valid Skip to Unusable}: atomic mv
+//     payload sa_applied/ → done/ without firing shadows.
 //   --record-shadow: append a single shadow entry to the sidecar after the
 //     agent confirms the shadow URL + time. Idempotent on duplicate {stem, n}.
 //   --finalize: after all annots covered (sidecar count == payload annot count),
@@ -80,12 +81,14 @@ const yaml = readFileSync(PAYLOAD_LIVE, 'utf8');
 const stem    = /^\s*stem:\s*(\S+)/m.exec(yaml)?.[1];
 const taskId  = /^\s*task_id:\s*(\d+)/m.exec(yaml)?.[1];
 const saFile  = /^\s*sa_task_filename:\s*(\S+)/m.exec(yaml)?.[1];
-const qcDisp  = /^\s*qc_disposition:\s*(\S+)/m.exec(yaml)?.[1];
+const qcDisp  = /^\s*qc_disposition:\s*"?([^"\n]+?)"?\s*$/m.exec(yaml)?.[1];
 if (!stem || stem !== STEM) {
   console.error(`[run-job5] ERROR: payload stem '${stem}' != env STEM '${STEM}'`);
   process.exit(1);
 }
-const isSkipDisposition = ['Skipped', 'Hold', 'Unusable'].includes(qcDisp);
+// V6 dropdown strings per Nikhil pinned 2026-04-29 in #lizard-reviewers.
+const SKIP_DISPOSITIONS = ['Valid Skipped to Hold', 'Valid Skipped to Skipped', 'Valid Skip to Unusable'];
+const isSkipDisposition = SKIP_DISPOSITIONS.includes(qcDisp);
 
 // ---------- parse annotations ----------
 function parseAnnots(yamlText) {
@@ -113,7 +116,7 @@ const annots = parseAnnots(yaml);
 // ---------- skip-disposition: short-circuit to done ----------
 if (MODE === 'skip-finalize') {
   if (!isSkipDisposition) {
-    console.error(`[run-job5] ERROR: --skip-finalize requires task.qc_disposition in {Skipped, Hold, Unusable}; got '${qcDisp ?? '(unset)'}'`);
+    console.error(`[run-job5] ERROR: --skip-finalize requires task.qc_disposition in {${SKIP_DISPOSITIONS.join(', ')}}; got '${qcDisp ?? '(unset)'}'`);
     process.exit(2);
   }
   mkdirSync(PAYLOAD_DONE_DIR, { recursive: true });

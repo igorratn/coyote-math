@@ -342,7 +342,6 @@ function renderUnchanged(entry) {
   const { skel } = entry;
   const lines = [];
   lines.push(`## Annotation ${entry.n}\n`);
-  lines.push(`- **Shadow Task:** ⬜ not submitted`);
   lines.push(`- **Rating:** unchanged (thumbs-up carry-forward from prior cycle)`);
   lines.push(`- **Flags:** []`);
   lines.push(`- **Skills Tagged:** ${skel.skills}`);
@@ -363,7 +362,6 @@ function renderAnnotation(entry) {
   lines.push(`## Annotation ${n}\n`);
 
   if (!pick) {
-    lines.push(`- **Shadow Task:** ⬜ not submitted`);
     lines.push(`- **Rating:** UNRESOLVED — no reviewer produced a verdict`);
     lines.push(`- **Flags:** []`);
     lines.push(`- **Skills Tagged:** ${skel.skills}`);
@@ -393,7 +391,6 @@ function renderAnnotation(entry) {
     `${v.name}: ${ratingIcon(v.rating)}${v.name === pick.name ? ' (picked)' : ''}`
   ).join(', ');
 
-  lines.push(`- **Shadow Task:** ⬜ not submitted`);
   lines.push(`- **Reviewer:** ${pick.name}`);
   lines.push(`- **Rating:** ${pick.rating}`);
   lines.push(`- **All Verdicts:** ${verdictSummary}`);

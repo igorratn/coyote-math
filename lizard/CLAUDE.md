@@ -52,7 +52,7 @@ The queue file is the active-work marker for the whole pipeline. Every Job's pre
 ### Queue intake (run on demand)
 1. Acquire concurrency lock: `flock -n scrapes/.lock` for the duration of the intake session (serializes SA queue-tab access). Fail loud if another CLI holds it.
 2. Open / refresh log: `logs/session-$(date +%s).md`. Newest-mtime under `logs/` is the active session.
-3. Open SA queue tab: `https://app.superannotate.com/35245/project/283665/data?sort=name&direction=asc`
+3. Open SA queue tab: `https://app.superannotate.com/35245/project/290044/data?sort=name&direction=asc` (V6 project)
 4. `read_page(tabId, filter:"interactive")` → JSON of candidate rows (Name, category, editor_url, task_id, status).
 5. Filter NV rows: `node scripts/filter-queue-rows.mjs` (excludes `category === "return_to_QC_by_NV"`; SA's `status=6` URL filter handles terminal statuses server-side).
 6. Pipe to `node scripts/queue-intake.mjs` — interactive picker by default. Igor selects which to queue. CLI writes `queue/<stem>.json` per selection (atomic `.tmp` → rename). Refuses to clobber existing queue files unless `--force`. Re-queueing a stem whose `scrapes/<stem>.txt` already exists is allowed (cycle-2 re-scrape) and reported as `queued-rescrape`.
@@ -225,6 +225,13 @@ The loop already iterates `queue/*.json` — in-flight by definition. No further
 
    **[1..N]** adopt that reviewer's verdict · **[O]** other (custom)
 
+   **Skill audit (CLI, before presenting to Igor — codified 2026-04-30):** Cross-check the tagged skills against the prompt text. Flag and correct obvious mismatches without prompting Igor:
+   - Prompt contains "count", "how many", "number of" → `Enumeration` must be checked.
+   - Prompt requires reading a chart/graph/table → `Table/Chart/Graph Understanding` must be checked.
+   - Prompt requires spatial containment/position judgment → `Spatial Reasoning` defensible; flag if borderline.
+   - Prompt is MCQ → `MCQ` must be checked, `Short answer question` unchecked.
+   - Any mismatch → add `skills_check`/`skills_uncheck` to Igor Verdict block and note in `#### Feedback`.
+
 4. **Igor responds:**
    - `1..N` → adopt that reviewer's pick verbatim (rating + final_answer + feedback). `source: <reviewer-name>`.
    - `O` → Igor provides a custom rating, final_answer, and (if 👎) feedback inline. `source: custom`.
@@ -332,9 +339,14 @@ annotations:
 - Cycle 2 payload contains only the cycle-1 thumbs-down returnees (filtered at Job 1). No `unchanged` carry-forwards.
 - All string values UTF-8; multiline via YAML `|` block scalar.
 
-**Optional `task.qc_disposition` field** (added 2026-04-29): when Igor sets the task-level SA dropdown to a non-default value (`Skipped` / `Hold` / `Unusable`), record it in `task.qc_disposition`. Default unset = `QC_Complete` or `QC_Return` (derivable from per-annot `sa.action`). Job 5 (shadow sweep) **MUST skip** stems with `qc_disposition ∈ {Skipped, Unusable, Hold}` — no HAI shadows fire (Slack ruling, Angie Z. Apr 28, see `wiki/slack-rulings.md`).
+**Optional `task.qc_disposition` field** (V6 naming, codified 2026-04-29): when Igor sets the task-level SA dropdown to a non-default value, record the **literal SA dropdown string** in `task.qc_disposition`. V6 values (per Nikhil pinned 2026-04-29 in #lizard-reviewers):
+- `Valid Skipped to Hold` — image issue (blurry, unusable per playbook)
+- `Valid Skipped to Skipped` — usable image, will reassign to another annotator
+- `Valid Skip to Unusable` — toxic content
 
-**Per-annot fields when `task.qc_disposition ∈ {Skipped, Hold, Unusable}`** (codified 2026-04-29): per-annot review doesn't apply when the task is dropped at task level. Schema MUST emit:
+Default unset = `QC_Complete` or `QC_Return` (derivable from per-annot `sa.action`). Job 5 (shadow sweep) **MUST skip** stems with `qc_disposition ∈ {Valid Skipped to Hold, Valid Skipped to Skipped, Valid Skip to Unusable}` — no HAI shadows fire (Slack ruling, Angie Z. Apr 28, see `wiki/slack-rulings.md`).
+
+**Per-annot fields when `task.qc_disposition` is a skip-set value** (codified 2026-04-29): per-annot review doesn't apply when the task is dropped at task level. Schema MUST emit:
 - `sa.rating: null`
 - `sa.action: none`
 - `sa.answer_final: null`
@@ -363,7 +375,7 @@ Verifier permits these null/none values only when `task.qc_disposition` is in th
 - `payloads/<S>.yaml` already exists → 3b refuses (write-once). Move/delete to re-fan.
 
 ### Hard rules
-- 👍/👎 = agree/disagree with annotator's Rewrite Answer, not prompt quality.
+- 👍/👎 = agree/disagree with the **Final Rewrite Answer** going to SA (post reviewer edits), NOT the annotator's original. Per playbook (`references/playbook_reviewer.md` lines 40–72): reviewer is allowed to edit Skill Ontology, QType, Annotator Question (prompt), and Rewrite Answer. **Cycle 1** = minor edits OK; if fix is small, edit and 👍 (don't QC_Return for trivia like a count of 5→7). **Cycle 2** = any edits to save; if unsalvageable (>10min reviewer effort), 👎 → delete. **👎 + QC_Return (cycle 1)** when: model not stumped (giveaway), or substantive rework needed (>10min annotator effort), or prompt is fundamentally broken. Stump rule still applies as a necessary condition for 👍: `model_answer ≠ final ground truth`. (Codified 2026-04-29 to resolve thumb-on-original vs thumb-on-final ambiguity surfaced in Job 3a walkthrough.)
 - Cycle 1 + 👎 → `sa.action: QC_Return`. Cycle 2 + 👎 → `sa.action: delete`. Never abbreviate.
 - Igor Verdict overrides Auto Verdict. Fan-out reads Igor first; falls back to Auto.
 - Payload is immutable once written. Job 4 and Job 5 are dumb executors.
@@ -437,7 +449,7 @@ Run Job 5 on stem `<S>` when:
 Top of `scripts/run-job5.mjs`: if `queue/<S>.json` + `payloads/done/<S>.yaml` are both present, that's an orphan from a crash between the atomic mv and `rm queue/`. Script deletes the queue file and exits 0. Idempotent; runs on every Job 5 invocation, so any orphan is cleaned up the next time you touch that stem. No session-wide sweep needed — `in-flight.mjs` surfaces orphans by labeling them `stage=done` in the in-flight list.
 
 ### Pre-flight: skip-disposition check
-Read `task.qc_disposition` from payload. If `∈ {Skipped, Hold, Unusable}` → atomic mv payload to `payloads/done/`, then `rm queue/<S>.json`, exit. Zero shadows fired (Slack ruling, Angie Z. Apr 28).
+Read `task.qc_disposition` from payload. If `∈ {Valid Skipped to Hold, Valid Skipped to Skipped, Valid Skip to Unusable}` → atomic mv payload to `payloads/done/`, then `rm queue/<S>.json`, exit. Zero shadows fired (Slack ruling, Angie Z. Apr 28; V6 dropdown strings per Nikhil pinned 2026-04-29).
 
 ### Per-annotation steps (in order 1..N)
 For each annot in payload:
@@ -480,7 +492,7 @@ Sidecar absent in done = "no shadows fired" (skip-disposition path); present = "
 - **1 shadow per annot reviewed.** No exceptions for non-delete annots in non-skipped tasks.
 - **Time edit is ONE-WAY FLOOR.** Never overwrite a session time `> 20:00` — destroys real logged work.
 - **Verify page advanced after Confirm time.** Silent rollback = no payment recorded.
-- **Skipped / Hold / Unusable stems → ZERO shadows.** Task-level skip dispositions skip the whole stem.
+- **`Valid Skipped to Hold` / `Valid Skipped to Skipped` / `Valid Skip to Unusable` stems → ZERO shadows.** Task-level skip dispositions skip the whole stem.
 - **Shadow file is canonical proof.** Sidecar is forward index for fast lookup; not a replacement.
 - **QC feedback check is mandatory before role click (codified 2026-04-30).** After LLM validation, before clicking "Reviewing": extract the QC feedback text from the page body (text above "Are you annotating or reviewing this task?"). Print it. If it contains anything other than "looks good" / "may continue" / "no issues" — STOP. Do not click "Reviewing". Surface the warning to Igor and wait for explicit go-ahead. Silently passing QC errors into submissions corrupts the annotation record.
 

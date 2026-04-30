@@ -170,7 +170,6 @@ lines_out.push(`- **Review Cycle:** ${cycleLabel}`);
 for (const a of annotations) {
   lines_out.push('');
   lines_out.push(`## Annotation ${a.n}`);
-  lines_out.push('- **Shadow Task:** ⬜ not submitted');
   lines_out.push(`- **Skills Tagged:** ${a.skills}`);
   lines_out.push(`- **Question Type:** ${a.qtype}`);
   lines_out.push(`- **Model Answer:** ${a.modelAnswer}`);

@@ -189,7 +189,8 @@ for (const [n, ann] of annots) {
   // qtype delta, the annotator needs feedback explaining the change.
   // Empty deltas + 👍 → null. Non-empty deltas OR 👎 → pull curated text
   // from annotation's `#### Feedback` block.
-  const hasEdits = skillsCheck.length > 0 || skillsUncheck.length > 0;
+  const answerCorrected = finalAnswer != null && finalAnswer !== ann.rewriteAnswer;
+  const hasEdits = skillsCheck.length > 0 || skillsUncheck.length > 0 || answerCorrected;
   const feedback = (rating === 'thumbs-up' && !hasEdits)
     ? null
     : (getAnnotationFeedback(taskTxt, n) ?? null);
@@ -343,9 +344,10 @@ function verifyPayload(path, builtArr, cycle, annotMap) {
 
   // Task-level disposition: when skip-set, per-annot rating/action MAY be null/none
   // (task is dropped at task level — per-annot review doesn't apply).
-  const qcDispositionM = /^\s*qc_disposition:\s*(\S+)/m.exec(txt);
+  const qcDispositionM = /^\s*qc_disposition:\s*"?([^"\n]+?)"?\s*$/m.exec(txt);
   const qcDisposition = qcDispositionM?.[1]?.trim();
-  const isSkipDisposition = ['Skipped', 'Hold', 'Unusable'].includes(qcDisposition);
+  // V6 dropdown strings per Nikhil pinned 2026-04-29 in #lizard-reviewers.
+  const isSkipDisposition = ['Valid Skipped to Hold', 'Valid Skipped to Skipped', 'Valid Skip to Unusable'].includes(qcDisposition);
 
   // 2. Per-annot rules.
   for (const a of builtArr) {
@@ -396,7 +398,8 @@ function verifyPayload(path, builtArr, cycle, annotMap) {
     // 2c. Feedback rule (legacy, HOST_SOP.legacy.md line 583):
     //   feedback present iff thumbs-down OR any field changed (skills, qtype,
     //   prompt, answer). Empty edits + 👍 → null; non-empty edits OR 👎 → required.
-    const hasFieldEdit = (sa.skills_check?.length ?? 0) > 0 || (sa.skills_uncheck?.length ?? 0) > 0;
+    const answerCorrected = sa.answer_final != null && ann && sa.answer_final !== ann.rewriteAnswer;
+    const hasFieldEdit = (sa.skills_check?.length ?? 0) > 0 || (sa.skills_uncheck?.length ?? 0) > 0 || answerCorrected;
     if (sa.rating === 'thumbs-up' && !hasFieldEdit) {
       if (sa.feedback != null) {
         errs.push(`A${a.n}: thumbs-up with no edits must have feedback=null, got ${JSON.stringify(sa.feedback?.slice?.(0, 60))}`);
@@ -453,9 +456,14 @@ function verifyPayload(path, builtArr, cycle, annotMap) {
       }
     }
 
-    // 2d. HAI side: answer = annotator's original rewrite.
-    if (ann && hai.answer !== ann.rewriteAnswer) {
-      errs.push(`A${a.n}: hai.answer (${JSON.stringify(hai.answer)}) != annotator's rewrite (${JSON.stringify(ann.rewriteAnswer)})`);
+    // 2d. HAI side: answer must mirror SA's Rewrite Answer field after Job 4.
+    // Approve-with-correction: hai.answer == sa.answer_final (corrected value).
+    // Approve-no-correction / QC_Return / delete: hai.answer == annotator's original.
+    if (ann) {
+      const expectedHaiAnswer = sa.answer_final ?? ann.rewriteAnswer;
+      if (hai.answer !== expectedHaiAnswer) {
+        errs.push(`A${a.n}: hai.answer (${JSON.stringify(hai.answer)}) != expected (${JSON.stringify(expectedHaiAnswer)})`);
+      }
     }
 
     // 2e. Sanity: serialized rating/action match the in-memory built record.

@@ -83,9 +83,10 @@ for (const stem of stems) {
   const qcReturn = annots.filter(a => a.action === 'QC_Return').length;
   const del = annots.filter(a => a.action === 'delete').length;
   // Task-level QC: explicit `task.qc_disposition` field wins (Igor's manual
-  // override at 3a for Skipped / Hold / Unusable). Fall back to derivation
+  // override at 3a for V6 skip-set values: "Valid Skipped to Hold" / "Valid
+  // Skipped to Skipped" / "Valid Skip to Unusable"). Fall back to derivation
   // from per-annot actions when absent.
-  const explicitQc = /^\s*qc_disposition:\s*(\S+)/m.exec(txt)?.[1]?.trim();
+  const explicitQc = /^\s*qc_disposition:\s*"?([^"\n]+?)"?\s*$/m.exec(txt)?.[1]?.trim();
   const qcStatus = explicitQc
     ?? ((cycle === 2) ? 'QC_Complete' : (qcReturn > 0 ? 'QC_Return' : 'QC_Complete'));
   const phase = (qcReturn + del) > 0 ? 2 : 1;
