@@ -482,7 +482,30 @@ function renderAnnotation(entry) {
     // Legacy format (HOST_SOP era): preserve the reviewer's reasoning text but
     // NEVER name the reviewer model. RLHF integrity — annotator reads QC
     // feedback; LLM identity must not leak. See CLAUDE.md §Hard rules.
-    const editsText = (pick.editsMadeText ?? '').trim();
+    let editsText = (pick.editsMadeText ?? '').trim();
+    // False-correction guard (codified 2026-04-30 from OKR_117 A2): when the
+    // picked reviewer's Final Answer equals the annotator's rewrite, the SA
+    // action is `approve annotator's answer` — no answer edit happens. But
+    // reviewers (esp. gemini) sometimes write "Corrected the final rewrite
+    // answer" in their Edits Made because they computed a value the model got
+    // wrong. That prose, pasted verbatim into the annotator-facing QC
+    // feedback, falsely claims a correction. Strip such claims when there's
+    // no actual answer edit, leaving any genuine skill/qtype/prompt edit prose
+    // intact.
+    const finalEqAnnotator = pick.finalAnswer && skel.rewriteAnswer
+      && pick.finalAnswer.trim().toLowerCase() === skel.rewriteAnswer.trim().toLowerCase();
+    if (finalEqAnnotator && editsText) {
+      // Match "Corrected the final (rewrite )?answer..." up to a sentence
+      // boundary (period + space, or end of string). Case-insensitive.
+      // Variants caught: "Corrected the final answer", "Corrected the rewrite
+      // answer", "Corrected the final rewrite answer", "Final answer
+      // corrected", "Answer corrected", "Fixed the rewrite answer".
+      editsText = editsText
+        .replace(/(?:^|(?<=\.\s))(?:Corrected|Fixed|Updated)\s+(?:the\s+)?(?:final\s+)?(?:rewrite\s+)?answer[^.]*\.\s*/gi, '')
+        .replace(/(?:^|(?<=\.\s))(?:Final\s+)?(?:rewrite\s+)?answer\s+(?:was\s+)?corrected[^.]*\.\s*/gi, '')
+        .replace(/^\s*\.\s*/, '')   // tidy leading orphan period
+        .trim();
+    }
     feedbackBody = editsText
       ? `${mdToday}: Skill tag corrected: ${editsText}`
       : `${mdToday}: Skill tag corrected (no rationale captured).`;

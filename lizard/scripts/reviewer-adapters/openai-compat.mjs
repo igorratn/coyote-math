@@ -14,6 +14,11 @@
 const TIMEOUT_MS = 600_000;  // 10 min per request (gpt-5 with images can take 5-8 min)
 const MAX_RETRIES = 3;
 
+// Undici's default headersTimeout is 300s — grok-4 can exceed that on large prompts.
+// Use undici's own fetch + Agent (same package) — Node's built-in fetch rejects cross-version dispatchers.
+import { fetch as undiciFetch, Agent } from 'undici';
+const dispatcher = new Agent({ headersTimeout: TIMEOUT_MS, bodyTimeout: TIMEOUT_MS });
+
 export const profiles = {
   gpt: {
     name: 'gpt',
@@ -83,7 +88,7 @@ async function callWithRetry(profile, payload, apiKey, attempt) {
   const ctrl = new AbortController();
   const t = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
   try {
-    const resp = await fetch(`${profile.baseUrl}/v1/chat/completions`, {
+    const resp = await undiciFetch(`${profile.baseUrl}/v1/chat/completions`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${apiKey}`,
@@ -91,6 +96,7 @@ async function callWithRetry(profile, payload, apiKey, attempt) {
       },
       body: JSON.stringify(payload),
       signal: ctrl.signal,
+      dispatcher,
     });
     clearTimeout(t);
     if (resp.status >= 500 && attempt < MAX_RETRIES) {

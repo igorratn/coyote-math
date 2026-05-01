@@ -74,9 +74,9 @@ function setTextareaNative(ta, value) {
 }
 
 function setCheckboxNative(cb, checked) {
-  const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'checked').set;
-  setter.call(cb, checked);
-  cb.dispatchEvent(new Event('change', { bubbles: true }));
+  // Angular ignores native-setter+change; cb.click() toggles and triggers
+  // all framework handlers. Only click if state needs to change.
+  if (cb.checked !== checked) cb.click();
 }
 
 const SKILL_INDEX = {
@@ -116,16 +116,17 @@ function getQcTextarea(doc, annotIndex) {
 
 function getQcRatingButton(doc, annotIndex, kind /* 'approve' | 'reject' */) {
   const container = findQcSectionContainer(doc, annotIndex);
-  const icon = (kind === 'approve') ? 'approve-action' : 'reject-action';
+  // approve = approve-action; reject = disapprove-action (not reject-action)
+  const icon = (kind === 'approve') ? 'approve-action' : 'disapprove-action';
   const btn = container.querySelector(`button[ng-reflect-svg-icon="${icon}"]`);
   if (!btn) throw new Error(`QC ${kind} button not found for annot ${annotIndex + 1}`);
   return btn;
 }
 
 function isRatingActive(btn) {
-  // Active = inline style contains rgb(0, 205, 108) (green). ng-reflect-color
-  // stays "gray" even when active — ignore that attribute.
-  return /rgb\(\s*0\s*,\s*205\s*,\s*108\s*\)/.test(btn.getAttribute('style') || '');
+  const style = btn.getAttribute('style') || '';
+  // approve active = green rgb(0,205,108); disapprove active = red rgb(245,34,45)
+  return /rgb\(\s*0\s*,\s*205\s*,\s*108\s*\)/.test(style) || /rgb\(\s*245\s*,\s*34\s*,\s*45\s*\)/.test(style);
 }
 
 // ============================================================

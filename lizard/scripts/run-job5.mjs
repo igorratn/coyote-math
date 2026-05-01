@@ -18,7 +18,7 @@
 // Usage:
 //   STEM=<stem> node scripts/run-job5.mjs --precheck
 //   STEM=<stem> node scripts/run-job5.mjs --skip-finalize
-//   STEM=<stem> ANNOT_N=<n> SHADOW_UUID=<8> RATING=<Approve|Reject> TIME_LOGGED=<HH:MM:SS> \
+//   STEM=<stem> ANNOT_N=<n> SHADOW_UUID=<8> SHADOW_FULL_UUID=<full-uuid> RATING=<Approve|Reject> TIME_LOGGED=<HH:MM:SS> \
 //     node scripts/run-job5.mjs --record-shadow
 //   STEM=<stem> node scripts/run-job5.mjs --finalize
 //
@@ -29,7 +29,7 @@
 //   3 = state inconsistency
 
 import { readFileSync, writeFileSync, existsSync, renameSync, mkdirSync, unlinkSync } from 'fs';
-import { join, resolve, dirname as pathDirname } from 'path';
+import { join, resolve, dirname as pathDirname, basename } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dir = pathDirname(fileURLToPath(import.meta.url));
@@ -45,6 +45,7 @@ const MODE = process.argv.includes('--finalize')      ? 'finalize'
            : process.argv.includes('--record-shadow') ? 'record-shadow'
            : 'precheck';
 
+const SHADOWS_DIR       = join(LIZARD_DIR, 'tasks', 'shadows');
 const PAYLOAD_LIVE      = join(LIZARD_DIR, 'payloads', 'sa_applied', `${STEM}.yaml`);
 const PAYLOAD_DONE_DIR  = join(LIZARD_DIR, 'payloads', 'done');
 const PAYLOAD_DONE      = join(PAYLOAD_DONE_DIR, `${STEM}.yaml`);
@@ -167,6 +168,42 @@ if (MODE === 'record-shadow') {
   const tmp = SIDECAR_LIVE + '.tmp';
   writeFileSync(tmp, serializeSidecar(sidecar), 'utf8');
   renameSync(tmp, SIDECAR_LIVE);
+
+  // Write proof file tasks/shadows/<uuid>.md (idempotent).
+  mkdirSync(SHADOWS_DIR, { recursive: true });
+  const proofPath = join(SHADOWS_DIR, `${uuid}.md`);
+  if (!existsSync(proofPath)) {
+    const saFilename = /^\s*sa_task_filename:\s*(\S+)/m.exec(yaml)?.[1] ?? `${STEM}.json`;
+    const annotData = annots.find(a => a.n === annotN);
+    const prompt = annotData?.prompt ?? '(prompt not found in payload)';
+    const answer = annotData?.answer ?? '(answer not found in payload)';
+    const fullUuid = process.env.SHADOW_FULL_UUID ?? '';
+    const haiLink = fullUuid
+      ? `https://ai.joinhandshake.com/annotations/fellow/task/${fullUuid}/run`
+      : `(full UUID not captured — prefix: ${uuid} — retrieve from HAI submission history)`;
+    const proofContent = [
+      `# Shadow Task: ${uuid}`,
+      '',
+      `- **SA Task ID:** ${saFilename}`,
+      `- **Annotation:** ${annotN}`,
+      `- **Cycle:** 1`,
+      `- **Rating:** ${rating}`,
+      `- **Fired at:** ${new Date().toISOString()}`,
+      `- **HAI Link:** ${haiLink}`,
+      `- **Status:** ✅ submitted`,
+      `- **Review file:** [${STEM}.md](../${STEM}.md) → Annotation ${annotN} (cycle 1)`,
+      '',
+      '## Prompt',
+      prompt,
+      '',
+      '## Rewrite Answer',
+      answer,
+      '',
+    ].join('\n');
+    writeFileSync(proofPath, proofContent, 'utf8');
+    console.error(`[run-job5] ✓ proof file written: tasks/shadows/${uuid}.md`);
+  }
+
   console.error(`[run-job5] ✓ ${STEM} A${annotN}: shadow ${uuid} recorded (${rating}, ${timeLogged}). ${sidecar.shadows.length}/${annots.length} annots covered.`);
   process.exit(0);
 }
@@ -186,6 +223,13 @@ if (MODE === 'finalize') {
   const missing = annots.map(a => a.n).filter(n => !sidecar.shadows.some(s => s.n === n));
   if (missing.length) {
     console.error(`[run-job5] ERROR: missing shadows for annots: ${JSON.stringify(missing)}`);
+    process.exit(3);
+  }
+  // Verify every shadow has a proof file (catches proof-write regressions).
+  const missingProof = sidecar.shadows.filter(s => !existsSync(join(SHADOWS_DIR, `${s.uuid}.md`)));
+  if (missingProof.length) {
+    console.error(`[run-job5] ERROR: missing proof files for shadows: ${JSON.stringify(missingProof.map(s => s.uuid))}`);
+    console.error(`[run-job5] Run backfill or re-run --record-shadow with correct env vars to produce proof files.`);
     process.exit(3);
   }
   mkdirSync(PAYLOAD_DONE_DIR, { recursive: true });
@@ -252,7 +296,7 @@ console.log(JSON.stringify({
 
 console.error(`\n[run-job5] ${STEM}: ${remaining.length} shadows to fire (of ${annots.length} total; ${alreadyFired.length} already covered).`);
 console.error(`[run-job5] Agent: follow CLAUDE.md §Job 5 to fire each via Chrome MCP + scripts/fill-hai-shadow.js.`);
-console.error(`[run-job5] Per fire, run: STEM=${STEM} ANNOT_N=<n> SHADOW_UUID=<8> RATING=<Approve|Reject> TIME_LOGGED=<HH:MM:SS> node scripts/run-job5.mjs --record-shadow`);
+console.error(`[run-job5] Per fire, run: STEM=${STEM} ANNOT_N=<n> SHADOW_UUID=<8> SHADOW_FULL_UUID=<full-uuid> RATING=<Approve|Reject> TIME_LOGGED=<HH:MM:SS> node scripts/run-job5.mjs --record-shadow`);
 console.error(`[run-job5] When all annots covered: STEM=${STEM} node scripts/run-job5.mjs --finalize`);
 
 // ---------- helpers ----------

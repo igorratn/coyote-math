@@ -14,10 +14,10 @@ Terse like smart caveman. Technical substance stays, fluff dies. Fragments OK. N
 
 ## Design principles
 - **Choreography over orchestration.** Each script is an actor that checks its preconditions on the filesystem, runs if satisfied, exits idempotent. No central conductor, no phase enum, no JSON state file. Files on disk ARE the state.
-- **Convention over configuration.** Filesystem layout encodes intent. Reviewer pool = files in `scripts/reviewers/`. Cycle detection = `tasks/<stem>.md` (or `tasks/<stem>.cycle1.md`) file presence. Naming patterns (`<stem>.md`, `<stem>.yaml`, `<uuid8>.md`, `<stem>.txt`) replace explicit config.
-- **Per-cycle artifacts are write-once.** Once a Job writes its output (`scrapes/<stem>.txt`, `tasks/skeleton/<stem>.md`, `tasks/<stem>.md`, `payloads/<stem>.yaml`), no later Job overwrites it within the same cycle. Job 3 appends `#### Igor Verdict` blocks to `tasks/<stem>.md` (manual walkthrough); Job 4 appends `SA Applied` stamp. Cycle 2 archives BOTH `tasks/<stem>.md` → `tasks/<stem>.cycle1.md` AND `payloads/<stem>.yaml` → `payloads/<stem>.cycle1.yaml` before starting fresh. **Symmetry:** cycle 2 is a fresh cycle on a smaller annot set (only cycle-1 thumbs-down returnees); cycle 1 lives on as audit record. No cycle-aware special-cases in Jobs 2–5.
+- **Convention over configuration.** Filesystem layout encodes intent. Reviewer pool = `scripts/reviewers/`. Cycle detection = `tasks/<stem>.cycle1.md` presence. Naming patterns (`<stem>.md`, `<stem>.yaml`, `<uuid8>.md`, `<stem>.txt`) replace explicit config.
+- **Per-cycle artifacts are write-once.** Once a Job writes its output, no later Job overwrites it within the same cycle. Job 3 appends `#### Igor Verdict` blocks to `tasks/<stem>.md`. Cycle 2 archives BOTH `tasks/<stem>.md` → `tasks/<stem>.cycle1.md` AND `payloads/<stem>.yaml` → `payloads/<stem>.cycle1.yaml` before starting fresh. Cycle 1 lives on as audit record. No cycle-aware special-cases in Jobs 2–5.
 - **State is the filesystem.** No central state file. The artifact files each Job produces ARE the state:
-  - Active work for `<stem>`: `queue/<stem>.json` exists. The queue file is the single source of truth for "in flight" — written at intake (Igor-curated), persists across Jobs 0–5, deleted at Job 5 finalize. While it exists, the stem is being processed; while it's absent, Lizard does nothing for that stem (and intake refuses to clobber it). One file = one active stem. **Pipeline-wide invariant: every Actor precondition starts with `queue/<stem>.json exists ∧ ...`.**
+  - Active work for `<stem>`: `queue/<stem>.json` exists — single source of truth for "in flight". Written at intake (Igor-curated), persists across Jobs 0–5, deleted at Job 5 finalize. Intake refuses to clobber a live queue file. **Pipeline-wide invariant: every Actor precondition starts with `queue/<stem>.json exists ∧ ...`.**
   - Job 0 done for `<stem>`: `scrapes/<stem>.txt` + `screenshots/<stem>.<ext>` exist (queue file untouched)
   - Job 1 done for `<stem>`: `tasks/skeleton/<stem>.md` exists
   - Job 2 done for `<stem>`: `tasks/<stem>.md` exists
@@ -44,10 +44,8 @@ Igor is terse and direct. Show thinking. If stuck, pick randomly, move.
 
 Two phases — both file-based, no manifest, no batch concept (codified 2026-04-29):
 
-- **Queue intake** (manual, on demand): Igor decides which SA queue rows to scrape next. Writes one `queue/<stem>.json` per chosen row.
-- **Scrape actor**: per stem in `queue/`, opens editor, scrapes, writes `scrapes/<stem>.txt` + `screenshots/<stem>.<ext>`. **Queue file is NOT deleted here** — it persists through the entire pipeline and is removed only at Job 5 finalize.
-
-The queue file is the active-work marker for the whole pipeline. Every Job's precondition gates on `queue/<stem>.json` existing. New tasks interleave with in-flight ones; cycle-2 re-entry is impossible until cycle 1 reaches Job 5 finalize (intake refuses to clobber a live queue file).
+- **Queue intake** (manual, on demand): Igor decides which SA queue rows to scrape. Writes one `queue/<stem>.json` per chosen row.
+- **Scrape actor**: per stem in `queue/`, opens editor, scrapes, writes `scrapes/<stem>.txt` + `screenshots/<stem>.<ext>`. **Queue file persists** through entire pipeline, removed only at Job 5 finalize.
 
 ### Queue intake (run on demand)
 1. Acquire concurrency lock: `flock -n scrapes/.lock` for the duration of the intake session (serializes SA queue-tab access). Fail loud if another CLI holds it.
@@ -142,6 +140,7 @@ For stem `<S>`, run Job 2 when:
 ### Failure modes
 - All reviewers fail (no valid output) → mark stem `held`, continue
 - `tasks/<S>.md` already exists → merger refuses (write-once). Move/delete the file to re-merge.
+- **Single reviewer fails (e.g. grok timeout on A1/A2/A4) (codified 2026-04-30):** don't delete `tasks/<S>.md` + re-run whole job — re-fires ALL reviewers, wastes compute. Re-run only failed reviewer on failed annots: `REVIEWER=grok STEM=<S> ANNOTS=1,2,4 node scripts/run-reviewer.mjs` → output to `/tmp/lizard/<S>/grok-review.md`. Then delete `tasks/<S>.md` and re-run `run-job2.mjs` with `REVIEWERS=grok` to re-merge from `/tmp`.
 
 ### Auto-resolve carve-outs (codified 2026-04-25 v2)
 
@@ -161,14 +160,12 @@ Other reviewers' opinions embedded in task file for audit but don't gate the dec
 Job 3 splits into **Job 3a** (Igor walkthrough — append manual verdicts) and **Job 3b** (CLI fan-out — write payload). Both are filesystem-derived; both read state from `tasks/<S>.md` only.
 
 ### In-flight status report (emit at Job 3 start)
-First action of every Job 3 session: render a per-stem table for the **in-flight set** (`node scripts/in-flight.mjs` — every stem with an artifact and no `payloads/done/<S>.yaml`). One row per stem. Per row, classify each `## Annotation N`:
-- `#### Auto Verdict` present → `auto ✅` (note `carve_out:` value if non-trivial: 👍-close vs 👎-G1)
-- `#### Igor Verdict` present (and no Auto, OR Igor is overriding Auto) → `igor done`
-- Neither present → `Igor needed` (mention reviewer fire chain from `**All Verdicts:**` line)
+First action of every Job 3 session: `node scripts/in-flight.mjs` (every stem with an artifact and no `payloads/done/<S>.yaml`). Per row, classify each `## Annotation N`:
+- `#### Auto Verdict` present → `auto ✅` (note `carve_out:` if non-trivial: 👍-close vs 👎-G1)
+- `#### Igor Verdict` present → `igor done` (Igor wins on conflict with Auto)
+- Neither → `Igor needed` (mention reviewer fire chain from `**All Verdicts:**` line)
 
-Also emit a tail summary listing which stems are 3b-ready (every annot stamped) vs still gated on 3a (and which annots).
-
-This is a re-render of Job 2's finish summary, derived purely from filesystem state. No state file. Required so Igor sees the landscape before walking annots.
+Also emit a tail summary: which stems are 3b-ready vs still gated on 3a (and which annots). Derived purely from filesystem; no state file.
 
 ---
 
@@ -264,20 +261,17 @@ The `Look here:` line is the highest-leverage line in the walkthrough. Igor read
 
 Anchors: chart name (`bottom normal-distribution curve`), axis values (`-2.698σ`, `+2.698σ`), labeled regions (`green tail regions`). Igor's eye lands in <2 seconds.
 
-**Bad — vague:**
-> Verify the math the reviewers did.
-
-**Bad — paraphrases the prompt:**
-> Look at the percentage of data outside the whiskers.
-
-**Bad — too long:**
-> Examine the bottom panel which shows a normal distribution curve with several labeled regions; specifically, focus on the leftmost green tail region and the rightmost green tail region, each of which has a percentage label that should be summed to derive the total outside the whiskers.
+**Bad:**
+> Verify the math the reviewers did. _(vague)_
+> Look at the percentage of data outside the whiskers. _(paraphrases prompt)_
 
 #### Feedback formatting rules
 - **`sa.feedback` present iff thumbs-down OR any field changed (skills, qtype, prompt, answer).** Edits and feedback are coupled: any non-empty `skills_check` / `skills_uncheck` / `prompt_edits` / `answer_final` requires a date-stamped feedback line explaining the edit, even on 👍 outcomes. Empty edits + 👍 → `sa.feedback: null` and `#### Feedback` body is `(none — thumbs-up)`.
 - Date-stamp the leading line: `M/D: <rationale>` (e.g., `4/28: Prompt premise false — no unlabeled gridline above 33.0%.` or `4/13: Skill tag corrected: dropped Spatial Reasoning (chart-reading, not relational layout).`).
 - No workflow instructions in feedback text — never write `QC_Return`, `send back`, `delete`, etc. The action is encoded in `sa_action` (cycle 1: 👎 → `QC_Return`; cycle 2: 👎 → `delete`), not the prose.
 - Payload `sa.feedback` must exactly mirror the annotation-block `#### Feedback` text (including date stamp). Job 3b verifier enforces this round-trip.
+- **Specify FROM → TO on every edit (codified 2026-04-30):** every answer correction, skill change, prompt edit, or qtype flip in feedback MUST cite before-and-after values verbatim. Forbidden generics: "corrected the answer", "fixed the rewrite", "adjusted the skills", "updated the prompt". Required forms: `corrected final answer from 36 to 24`, `dropped Spatial Reasoning, added Enumeration`, `qtype flipped from MCQ to Short answer question`, `prompt edited: replaced "approximate" with "exact"`. Values may also live in verdict-block `notes:` for audit; feedback prose must be self-explanatory to the annotator.
+- **No positive narration on 👍 (codified 2026-04-30):** when feedback exists only because of skill/qtype/prompt edits on a 👍 verdict, the line is limited to the edit itself with FROM → TO values. Do NOT recap prompt, restate annotator's answer, walk through math, or congratulate. Step-by-step reasoning belongs in verdict-block `notes:` (audit trail, never sent to SA). Annotator-facing feedback reads as a one-line edit log: `4/30: Skill tag corrected: dropped Spatial Reasoning (zone ID is navigational, not relational). Added Enumeration (Steps 2–4 all count).`
 
 #### Job 3a done signal
 Every `## Annotation N` block in `tasks/<S>.md` carries `#### Auto Verdict` or `#### Igor Verdict` (or both — Igor wins). No state-file write. Job 3b actor sees coverage and picks up.
@@ -356,6 +350,8 @@ Default unset = `QC_Complete` or `QC_Return` (derivable from per-annot `sa.actio
 
 Verifier permits these null/none values only when `task.qc_disposition` is in the skip-set; otherwise per-annot rating required as before.
 
+**Task-level skip-disposition exit path (codified 2026-04-30):** when Igor sets the SA task-level dropdown to a skip-set value (V5 `Unusable`/`Skipped` or V6 `Valid Skipped to Hold`/`Valid Skipped to Skipped`/`Valid Skip to Unusable`), the stem **exits the pipeline without writing a payload** via `STEM=<S> DISPOSITION="<dropdown string>" [REASON="..."] node scripts/run-task-skip.mjs`. Script stamps `tasks/<S>.md` with a top-of-file disposition note (audit only; idempotent) and atomically removes `queue/<S>.json`. Subsequent Jobs never fire (their preconditions on queue/payload existence fail). Re-run on already-skipped stem → no-op. Refuses if any payload file exists (clean up first). Keep V5 dropdown string verbatim in audit notes (traceability to what Igor set in SA); do not rewrite to V6. The legacy Plot_Dim_156 path of writing a skip-payload + atomic-mv-to-done is **deprecated**.
+
 **Field-source mapping:**
 - `sa.rating` ← `rating:` from picked Auto / Igor Verdict block
 - `sa.skills_check` / `sa.skills_uncheck` ← skill edits parsed from picked reviewer's `Edits Made` (Igor overrides at 3a if needed)
@@ -375,11 +371,11 @@ Verifier permits these null/none values only when `task.qc_disposition` is in th
 - `payloads/<S>.yaml` already exists → 3b refuses (write-once). Move/delete to re-fan.
 
 ### Hard rules
-- 👍/👎 = agree/disagree with the **Final Rewrite Answer** going to SA (post reviewer edits), NOT the annotator's original. Per playbook (`references/playbook_reviewer.md` lines 40–72): reviewer is allowed to edit Skill Ontology, QType, Annotator Question (prompt), and Rewrite Answer. **Cycle 1** = minor edits OK; if fix is small, edit and 👍 (don't QC_Return for trivia like a count of 5→7). **Cycle 2** = any edits to save; if unsalvageable (>10min reviewer effort), 👎 → delete. **👎 + QC_Return (cycle 1)** when: model not stumped (giveaway), or substantive rework needed (>10min annotator effort), or prompt is fundamentally broken. Stump rule still applies as a necessary condition for 👍: `model_answer ≠ final ground truth`. (Codified 2026-04-29 to resolve thumb-on-original vs thumb-on-final ambiguity surfaced in Job 3a walkthrough.)
+- 👍/👎 = agree/disagree with the **Final Rewrite Answer** going to SA (post reviewer edits), NOT annotator's original (codified 2026-04-29). Reviewer can edit Skill Ontology, QType, Prompt, Rewrite Answer (`references/playbook_reviewer.md` lines 40–72). **Cycle 1**: minor edits OK → edit and 👍 (don't QC_Return for trivia like 5→7 count). **Cycle 2**: any edits to save; unsalvageable (>10min reviewer effort) → 👎 delete. **👎 + QC_Return (cycle 1)** when: model not stumped (giveaway), or substantive rework needed (>10min annotator effort), or prompt fundamentally broken. Stump rule (`model_answer ≠ final ground truth`) is a necessary condition for 👍.
 - Cycle 1 + 👎 → `sa.action: QC_Return`. Cycle 2 + 👎 → `sa.action: delete`. Never abbreviate.
 - Igor Verdict overrides Auto Verdict. Fan-out reads Igor first; falls back to Auto.
 - Payload is immutable once written. Job 4 and Job 5 are dumb executors.
-- **NEVER leak reviewer model identity into annotator-facing text.** Payload `sa.feedback` and the `#### Feedback` block in `tasks/<S>.md` are pasted verbatim into SA's QC Feedback box — annotator reads them. Strings like "per opus audit", "gpt suggests", "gemini found", "grok flagged" are forbidden. RLHF integrity depends on annotator not seeing AI scaffolding. Use neutral phrasing: `Skill tag corrected: drop X. <reason>.` (codified 2026-04-29 after Box_4 / Geo_79 audit feedback exposed model name in QC text). Note: model name CAN appear in `notes:` fields of Auto/Igor Verdict blocks (audit trail, never sent to SA).
+- **NEVER leak reviewer model identity into annotator-facing text** (codified 2026-04-29). Payload `sa.feedback` + `#### Feedback` block are pasted verbatim into SA's QC Feedback — annotator reads them. Forbidden strings: "per opus audit", "gpt suggests", "gemini found", "grok flagged". RLHF integrity depends on annotator not seeing AI scaffolding. Use neutral phrasing: `Skill tag corrected: drop X. <reason>.` Model name CAN appear in verdict-block `notes:` (audit trail, never sent to SA).
 
 ---
 
@@ -423,15 +419,14 @@ Run Job 4 on stem `<S>` when:
 - `payloads/sa_applied/<S>.yaml` already exists → refuse (binary write-once gate). Move/delete to re-apply.
 
 ### Hard rules
-- **CLI never clicks SA Delete.** Cycle-2 `action: delete` annots: CLI applies feedback + thumbs-down rating, then STOPS. Igor manually clicks SA Delete in the UI. Annotation deletion in SA is **IRREVERSIBLE** — only Igor's hands.
-- **CLI never sets task-level QC status dropdown.** That's a human-only field in SA. CLI applies per-annot fields (skills, rating, answer, feedback) + Save. Igor sets task status manually in SA UI after Job 4.
-- **Feedback writes are append, never replace.** Per `references/playbook_reviewer.md` line 76: "Add your feedback in chronological order." Existing reviewer feedback stays at top; new payload `sa.feedback` goes below.
-- **Pre-save audit is mandatory before clicking Save.** SA tasks lock on submit; post-save correction is impossible.
-- **Never reinterpret payload after Save.** CLI is a dumb executor post-fan-out. Values are final as-written in YAML.
-- **Move payload AFTER Save, not before.** Save success → mv. If Save fails, payload stays in `payloads/`, Igor can re-run after fixing root cause.
+- **CLI never clicks SA Delete.** Cycle-2 `action: delete` annots: CLI applies feedback + thumbs-down, STOPS. Igor manually clicks SA Delete (deletion is **IRREVERSIBLE** — only Igor's hands).
+- **CLI never sets task-level QC status dropdown.** Human-only field. Igor sets it manually after Job 4.
+- **Feedback writes are append, never replace.** Per playbook line 76: "Add your feedback in chronological order."
+- **Pre-save audit is mandatory.** SA tasks lock on submit; post-save correction impossible.
+- **Move payload AFTER Save, not before.** Save fails → payload stays in `payloads/`, re-runnable.
 
 ### DOM mechanics
-SA UI write helpers live in `scripts/sa-apply.js` (browser-side blobs invoked via Chrome MCP `evaluate_script`, mirroring the `scripts/fill-hai-shadow.js` pattern for HAI). DOM specifics (selectors, native-setter pattern, checkbox layout) are inline comments there + `wiki/sa-interface.md`. CLAUDE.md describes the actor; the helper script owns the technicalities.
+SA UI write helpers in `scripts/sa-apply.js` (browser-side blobs via Chrome MCP `evaluate_script`). DOM specifics in inline comments + `wiki/sa-interface.md`.
 
 ---
 
@@ -446,13 +441,14 @@ Run Job 5 on stem `<S>` when:
 - `payloads/done/<S>.yaml` does NOT exist (binary write-once gate)
 
 ### Per-stem orphan self-heal (built into run-job5.mjs)
-Top of `scripts/run-job5.mjs`: if `queue/<S>.json` + `payloads/done/<S>.yaml` are both present, that's an orphan from a crash between the atomic mv and `rm queue/`. Script deletes the queue file and exits 0. Idempotent; runs on every Job 5 invocation, so any orphan is cleaned up the next time you touch that stem. No session-wide sweep needed — `in-flight.mjs` surfaces orphans by labeling them `stage=done` in the in-flight list.
+If `queue/<S>.json` + `payloads/done/<S>.yaml` both exist → orphan from a crash between mv and `rm queue/`. Script deletes queue file, exits 0. Idempotent; runs on every Job 5 invocation. `in-flight.mjs` surfaces orphans as `stage=done`.
 
 ### Pre-flight: skip-disposition check
 Read `task.qc_disposition` from payload. If `∈ {Valid Skipped to Hold, Valid Skipped to Skipped, Valid Skip to Unusable}` → atomic mv payload to `payloads/done/`, then `rm queue/<S>.json`, exit. Zero shadows fired (Slack ruling, Angie Z. Apr 28; V6 dropdown strings per Nikhil pinned 2026-04-29).
 
 ### Per-annotation steps (in order 1..N)
 For each annot in payload:
+0. **Start a new HAI task** (codified 2026-04-30): navigate to `https://ai.joinhandshake.com/fellow/projects`, scroll to Project Lizard, click **"Start task"**. Do NOT use "Available tasks" tab or "Claim task" — those are for annotators. Click **"Start timer"** on the timer dialog before filling any fields.
 1. **Idempotency:** scan `tasks/shadows/*.md` for one with matching `**stem:** <S>` AND `**annotation_n:** <n>`. If found → skip (already fired).
 2. **Determine HAI form content:**
    - `action: delete` → prompt = `annotation deleted`, answer = `annotation deleted`, HAI rating = Reject
@@ -461,7 +457,7 @@ For each annot in payload:
 3. **Fill via `scripts/fill-hai-shadow.js` blobs** (~6 round-trips):
    - `haiPassThroughReminders()` → step1 ready
    - `haiFillStep1And2({task_id_field, annotation_n})` → step3 ready
-   - `mcp__chrome-devtools__upload_file(uid, screenshots/<stem>.<ext>)` → image attached
+   - `mcp__chrome-devtools__upload_file(uid="Upload assets" button uid, filePath="screenshots/<stem>.<ext>")` → image attached. CLI does this — NOT Igor (codified 2026-04-30).
    - `haiFillStep3Prompt({prompt})` → step4 ready
    - `haiFillStep4ToComplete({answer})` → "Task complete!" page
 4. **Time edit (ONE-WAY FLOOR):**
@@ -494,7 +490,7 @@ Sidecar absent in done = "no shadows fired" (skip-disposition path); present = "
 - **Verify page advanced after Confirm time.** Silent rollback = no payment recorded.
 - **`Valid Skipped to Hold` / `Valid Skipped to Skipped` / `Valid Skip to Unusable` stems → ZERO shadows.** Task-level skip dispositions skip the whole stem.
 - **Shadow file is canonical proof.** Sidecar is forward index for fast lookup; not a replacement.
-- **QC feedback check is mandatory before role click (codified 2026-04-30).** After LLM validation, before clicking "Reviewing": extract the QC feedback text from the page body (text above "Are you annotating or reviewing this task?"). Print it. If it contains anything other than "looks good" / "may continue" / "no issues" — STOP. Do not click "Reviewing". Surface the warning to Igor and wait for explicit go-ahead. Silently passing QC errors into submissions corrupts the annotation record.
+- **QC feedback check before role click (codified 2026-04-30).** After LLM validation, before clicking "Reviewing": extract QC feedback text (above "Are you annotating or reviewing this task?"). Print it. If it contains anything other than "looks good"/"may continue"/"no issues" — STOP, surface to Igor, wait for go-ahead. Silently passing QC errors corrupts the annotation record.
 
 ### DOM mechanics
-HAI form-fill helpers live in `scripts/fill-hai-shadow.js` (browser-side blobs invoked via Chrome MCP `evaluate_script`). Selectors + native-setter patterns + step-flow logic are inline comments there + `wiki/hai-selectors.md`. CLAUDE.md describes the actor; the helper script owns the technicalities.
+HAI form-fill helpers in `scripts/fill-hai-shadow.js` (browser-side blobs via Chrome MCP `evaluate_script`). Selectors + native-setter patterns in inline comments + `wiki/hai-selectors.md`.
