@@ -1,0 +1,102 @@
+task:
+  stem: Plot_Chi-square_test_plots_137
+  sa_task_filename: Plot_Chi-square_test_plots_137.json
+  task_id: 186800520
+  image: screenshots/Plot_Chi-square_test_plots_137.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "2"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Chi-square_test_plots_137.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Including both graphs, how many circles are strictly above 10 on the y-axis and strictly to the right of 10 on the x-axis? Answer as a whole number. (e.g., 5)
+      answer: "2"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "12.5"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Chi-square_test_plots_137.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        In the uniform graph, which vertical grid line corresponds most closely to the x-coordinate of the furthest right circle? Answer as a decimal rounded to the nearest tenth. (e.g., 10.6)
+      answer: "12.5"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "Uniform"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Chi-square_test_plots_137.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Strictly between the 0.0 and 2.5 x-coordinates, which of the graphs has more blue circles strictly above the data line? Answer as one word. (e.g., MVN)
+      answer: "Uniform"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "15"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Chi-square_test_plots_137.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        What is the absolute difference between the highest horizontal grid line that is strictly below the right-most blue circle in the MVN graph and the lowest horizontal grid line that is strictly below the right-most blue circle in the Uniform graph? Answer as a whole number. (e.g., 7)
+      answer: "15"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "3"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Chi-square_test_plots_137.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        What is the absolute difference between the number of blue circles that are strictly above 10 on the y-axis in the MVN graph and the number of blue circles that are strictly above 10 on the y-axis in the Uniform graph? Answer as a whole number. (e.g., 4)
+      answer: "3"

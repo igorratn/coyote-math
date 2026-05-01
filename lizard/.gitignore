@@ -53,9 +53,6 @@ venv/
 # Node
 node_modules/
 
-# Operational pipeline outputs (regenerable, large, churn fast)
-payloads/
-tasks/shadows/
 
 # Claude Code worktree state
 .claude/worktrees/

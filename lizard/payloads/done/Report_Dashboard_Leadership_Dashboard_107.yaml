@@ -1,0 +1,65 @@
+task:
+  stem: Report_Dashboard_Leadership_Dashboard_107
+  sa_task_filename: Report_Dashboard_Leadership_Dashboard_107.json
+  task_id: 185561260
+  image: screenshots/Report_Dashboard_Leadership_Dashboard_107.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "34.21%"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Leadership_Dashboard_107.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Consider the donut chart shown in the tasks section of the dashboard. Find the number of tasks in the project titled "WILLOWD" in the Health section of the dashboard and create a new section of the donut chart with this value. After inserting this value to create the new section of the donut chart, find the section of the donut chart with the smallest value. Calculate the percentage of the donut chart that this section encompasses. Then, multiply this percentage by the number of sections of the dashboard that did not aid in creating the new donut chart. What is the final result? Answer as a percentage to two decimal places (e.g., 5.21%).
+      answer: "34.21%"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "15%"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Leadership_Dashboard_107.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Find the project that has the largest budget shown in the Cost section of the dashboard. Then, find the project that has the most completed workload in the Workload section of the dashboard. Then, based on the Health section of the dashboard find the amount of progress for the two projects. Calculate the absolute difference between the progress of the project that has the greatest shown budget and the progress of the project that has the greatest completed workload. What is the final result? Answer as a percentage (e.g., 5%).
+      answer: "15%"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "9"
+      flags: []
+      feedback: "4/30: Skill tag corrected: dropped Spatial Reasoning (chart-reading and counting, not relational/positional layout)."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+      retro_correction: "5/1 — original payload had action=QC_Return / rating=thumbs-down / final=null based on Igor miscount of Time values <30.30% (10, should be 9). Recount: annotator=9 correct; model=10 stumped. HAI shadow flipped Reject→Approve manually (uuid 5fa5a11a). Task-level QC status: QC_Complete (was QC_Return)."
+    hai:
+      task_id_field: Report_Dashboard_Leadership_Dashboard_107.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Consider the legend of the graph shown in the Time section of the dashboard. If this legend is also applied to the Health section of the dashboard, count how many total status indicators in the Health table are considered as behind. Then, find what percent of all the status indicators shown in the Health table are considered as behind. After finding this percentage, count the number of fully visible percent values shown in the Time section of the dashboard that are strictly less than the percentage of status indicators in the Health table that are considered behind. What is the final result? Provide your answer as a single whole number (e.g., 5).
+      answer: "9"

@@ -1,0 +1,27 @@
+stem: Plot_Chi-square_test_plots_137
+shadows:
+  - n: 1
+    uuid: 630d67e9
+    fired_at: 2026-05-01T02:59:52.588Z
+    rating: Approve
+    time_logged: "00:20:00"
+  - n: 2
+    uuid: 6912181d
+    fired_at: 2026-05-01T03:03:07.005Z
+    rating: Approve
+    time_logged: "00:20:00"
+  - n: 3
+    uuid: 691a2a40
+    fired_at: 2026-05-01T03:08:27.526Z
+    rating: Approve
+    time_logged: "00:20:00"
+  - n: 4
+    uuid: 6568bc94
+    fired_at: 2026-05-01T03:11:34.810Z
+    rating: Approve
+    time_logged: "00:20:00"
+  - n: 5
+    uuid: 672d0691
+    fired_at: 2026-05-01T03:13:23.657Z
+    rating: Approve
+    time_logged: "00:20:00"

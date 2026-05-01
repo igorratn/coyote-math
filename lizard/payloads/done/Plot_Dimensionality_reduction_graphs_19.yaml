@@ -1,0 +1,45 @@
+# POST-HOC SYNC (2026-04-29):
+# CLI applied this payload at Job 4 with answer_final="C" and skills_uncheck=[Logical Reasoning].
+# Igor reviewed image post-Job-4 and determined the correct answer is D (Cannot be determined),
+# not C — the terminal upturn in the curve is too small to reliably count as a derivative sign
+# change (Type 3 precision; opus also flagged borderline). Per wiki/review-calibration.md
+# "Wrong rewrite answer → fix, don't thumbs-down", reviewer corrects answer_final and the SA
+# Rewrite Answer field. Verdict stays 👍 (approve) because the model was stumped (answered B).
+#
+# Manual SA UI fix needed: change Rewrite Answer field from "C" to "D"; append the corrected
+# feedback to the QC Feedback box.
+#
+# This file synced to reflect the corrected truth (answer_final: D, feedback updated). Skill
+# delta (drop Logical Reasoning) was correctly applied at Job 4 — kept as-is.
+
+task:
+  stem: Plot_Dimensionality_reduction_graphs_19
+  sa_task_filename: Plot_Dimensionality_reduction_graphs_19.json
+  task_id: 187108955
+  image: screenshots/Plot_Dimensionality_reduction_graphs_19.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "D"
+      flags: ["Type 3"]
+      feedback: "4/29: Answer corrected from C to D (Cannot be determined). The terminal upturn in the curve is too small to reliably count as a derivative sign change — Type 3 precision; option D exists for exactly this case. Model was stumped (answered B). Skill tag also corrected: drop `Logical Reasoning` (counting sign changes is chart-reading + math, not chained conditional inference)."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: [Logical Reasoning]
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_Dimensionality_reduction_graphs_19.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        How many times does the first derivative change sign? Provide your answer as a single letter (e.g.,A).
+
+        A. 0
+        B. 1
+        C. 2
+        D. Cannot be determined
+      answer: "D"   # synced with sa.answer_final (corrected from annotator's original "C")

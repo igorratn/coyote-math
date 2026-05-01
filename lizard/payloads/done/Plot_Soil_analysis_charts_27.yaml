@@ -1,0 +1,26 @@
+task:
+  stem: Plot_Soil_analysis_charts_27
+  sa_task_filename: Plot_Soil_analysis_charts_27.json
+  task_id: 187109763
+  image: screenshots/Plot_Soil_analysis_charts_27.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "1"
+      flags: []
+      feedback: "4/28: Skill tag corrected: drop `Spatial Reasoning`, `Attribute Perception`; add `Table/Chart/Graph Understanding`, `Short answer question`. Task is chart-reading + counting (words in pie slices, classical-element soil components) with World Knowledge anchor present; Spatial Reasoning (left/right is region-locate-then-count, not relational) and Attribute Perception (no color/shape recognition) drop, Table/Chart/Graph Understanding required as chart-reading anchor, and SAQ qtype must be checked."
+      verdict_source: auto
+      skills_check: [Table/Chart/Graph Understanding, Short answer question]
+      skills_uncheck: [Spatial Reasoning, Attribute Perception]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Soil_analysis_charts_27.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Find the absolute difference between the number of words  inside of the pie slices on the left-hand side of the pie chart and the number of words inside of the pie slices on the right-hand side of the pie chart. What is the absolute difference between that number and the number of Soil Components in the image that are one of the 4 classical elements? Provide your answer as a whole number (e.g., 30).
+      answer: "1"

@@ -1,0 +1,27 @@
+stem: Plot_Geographical_data_plots_79
+shadows:
+  - n: 1
+    uuid: ccb46b0d
+    fired_at: 2026-04-30T02:24:30.401Z
+    rating: Approve
+    time_logged: "00:20:00"
+  - n: 2
+    uuid: d4262b18
+    fired_at: 2026-04-30T02:25:05.831Z
+    rating: Approve
+    time_logged: "00:20:00"
+  - n: 3
+    uuid: d1d86ac4
+    fired_at: 2026-04-30T02:27:58.731Z
+    rating: Reject
+    time_logged: "00:20:00"
+  - n: 4
+    uuid: d58de1df
+    fired_at: 2026-04-30T02:33:14.882Z
+    rating: Approve
+    time_logged: "00:20:00"
+  - n: 5
+    uuid: d2f637e9
+    fired_at: 2026-04-30T02:34:14.192Z
+    rating: Reject
+    time_logged: "00:20:00"

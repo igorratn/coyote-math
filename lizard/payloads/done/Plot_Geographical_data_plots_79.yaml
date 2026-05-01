@@ -1,0 +1,112 @@
+task:
+  stem: Plot_Geographical_data_plots_79
+  sa_task_filename: Plot_Geographical_data_plots_79.json
+  task_id: 187109146
+  image: screenshots/Plot_Geographical_data_plots_79.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: ["G2", "Type 3", "IMAGE_UNREADABLE"]
+      feedback: "4/28: Skill tag corrected: drop `Spatial Reasoning`, `Attribute Perception`; add `Table/Chart/Graph Understanding`. Task is quadrant-locate-then-count loops on a chart — chart-reading anchor required; 'between Clinton.IA and Jones.IA' is axis-range filtering not relational spatial reasoning, and counting closed loops is enumeration not attribute perception."
+      verdict_source: igor
+      skills_check: [Table/Chart/Graph Understanding]
+      skills_uncheck: [Spatial Reasoning, Attribute Perception]
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_Geographical_data_plots_79.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        In the top-right quadrant of the image, how many closed contour loops are there strictly between the y-axis values Clinton.IA and Jones.IA? A shape with 4 sides counts as one closed contour loop.
+        
+        A. 1
+        B. 5
+        C. 3
+        D. 0
+      answer: "C"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "100"
+      flags: ["G2", "Type 3", "Type 1", "IMAGE_UNREADABLE"]
+      feedback: "4/28: Skill tag corrected: drop `Spatial Reasoning`, `Attribute Perception`; add `Table/Chart/Graph Understanding`, `Short answer question`. Task is chart value-reading + subtraction in a quadrant region (locate-then-extract-then-subtract), not relational positioning or attribute perception; needs G1 anchor (Table/Chart/Graph Understanding) and SAQ qtype."
+      verdict_source: igor
+      skills_check: [Table/Chart/Graph Understanding, Short answer question]
+      skills_uncheck: [Spatial Reasoning, Attribute Perception]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Geographical_data_plots_79.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        What is the absolute difference between the numbers in the upper left-hand quadrant that are approximately in line with the y-axis value Grant.NE? Provide your answer as a whole number (e.g., 52).
+      answer: "100"
+
+  - n: 3
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: ["G2", "Type 3", "IMAGE_UNREADABLE"]
+      feedback: "4/28: Type 1 + Type 7 — Non-verifiable answer format and unclear counting boundaries. \"Strictly to the left of Clinton-IA\" doesn't define whether on-axis labels count, nor how to handle labels straddling the boundary line. Also unspecified whether to sum distinct contour values once or every visible occurrence. Reformulate with an explicit boundary inclusion rule and pick one counting convention (distinct vs every occurrence)."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_Geographical_data_plots_79.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        What is the sum of the contour label values strictly to the left of the x-axis value Clinton-IA? Values of 500 do not count toward your answer.
+        
+        A. 500
+        B. 800
+        C. 17
+        D. 2100
+      answer: "D"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "7"
+      flags: ["G2", "Type 7", "Type 3", "IMAGE_UNREADABLE"]
+      feedback: "4/28: Skill tag corrected: drop `Attribute Perception`; add `Table/Chart/Graph Understanding`, `Short answer question`. Task is chart-reading + counting tick marks and '500' instances — needs the chart anchor and qtype; Attribute Perception doesn't apply to value/element counting."
+      verdict_source: igor
+      skills_check: [Table/Chart/Graph Understanding, Short answer question]
+      skills_uncheck: [Attribute Perception]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Geographical_data_plots_79.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        Sum the number of tick marks on the x-axis and y-axis. What is the absolute difference between that sum and the number of times the value of 500 appears in the image? Each instance of 500 counts as one. Provide your answer as a whole number (e.g., '77').
+      answer: "7"
+
+  - n: 5
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: ["G2", "Type 1", "Type 3", "IMAGE_UNREADABLE"]
+      feedback: "4/28: Type 6 + Type 7 — \"the number(s) strictly in the bottom left-hand quadrant\" has ambiguous cardinality (the parenthetical `(s)` concedes plural). If multiple numbers exist, the calculation rule (single value? sum? pick which one?) is undefined. Pixel reads of additional BL numbers are blurred so cardinality cannot be settled from the image. Reformulate to specify a single deterministic target (e.g., \"the contour label closest to the bottom-left corner\") or convert to MCQ with marked location."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_Geographical_data_plots_79.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        On the y-axis, count the number of times the last name of a former U.S. president appears. What is the absolute difference between that number and the number(s) strictly in the bottom left-hand quadrant of the data? Provide your answer as a whole number (e.g., 7).
+      answer: "98"

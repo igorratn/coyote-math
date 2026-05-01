@@ -1,0 +1,45 @@
+task:
+  stem: Report_Dashboard_OKR_Dashboard_117
+  sa_task_filename: Report_Dashboard_OKR_Dashboard_117.json
+  task_id: 185561437
+  image: screenshots/Report_Dashboard_OKR_Dashboard_117.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "717"
+      flags: []
+      feedback: "4/30: Skill tag corrected: Drop Spatial Reasoning (navigating across cards is layout/reading, not relational spatial inference per V6 over-tag patterns). Add Table/Chart/Graph Understanding (the task is structured-record reads from a tabular dashboard view)."
+      verdict_source: auto
+      skills_check: [Table/Chart/Graph Understanding]
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_OKR_Dashboard_117.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Find the project that has the latest due date. Assuming there are only 30 days in every month, calculate how many days away the due date is. Then, find the absolute difference between the calculated number and the number of letters in the first name of the person that is shown on the project tab. What is the final result? Provide your answer as a single whole number (e.g., 5).
+      answer: "717"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "94%"
+      flags: []
+      feedback: "4/30: Skill tag corrected: Corrected the final rewrite answer. Removed the \"Spatial Reasoning\" skill tag as the task involves reading data from different locations, not reasoning about their spatial relationships."
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_OKR_Dashboard_117.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Find the two projects that share the same start date. Then, calculate the ratio of progress to due date in days, for example, 10:120 would be 10 percent progress to 120 days. Out of the two projects, focus on the one that has the greater progress to due date in days ratio, and calculate the remaining progress in percent. For example, if the project has 5 percent progress there is 95 percent of progress remaining. What is the final result? Provide your answer as a percentage (e.g., 5%).
+      answer: "94%"

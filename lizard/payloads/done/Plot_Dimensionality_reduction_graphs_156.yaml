@@ -1,0 +1,85 @@
+# POST-HOC SYNC (2026-04-29):
+# Task-level disposition is Skipped (image is RBF Kernel PCA / two-moons —
+# requires ML-specialized knowledge per V6 playbook §3 + reviewer playbook Q1).
+# Per the Apr-29 schema rule for skipped tasks, per-annot review fields are
+# unset (rating: null, action: none) — task-level Skipped supersedes per-annot
+# evaluation. Feedback retained as audit trail (per Angie Z. Apr 28: "Can't
+# hurt to leave feedback though"). Skill deltas + answer_final null.
+# Job 5 (shadow sweep) MUST skip this stem entirely (zero shadows, payload
+# moves directly to payloads/done/).
+
+task:
+  stem: Plot_Dimensionality_reduction_graphs_156
+  sa_task_filename: Plot_Dimensionality_reduction_graphs_156.json
+  task_id: 187108953
+  image: screenshots/Plot_Dimensionality_reduction_graphs_156.png — (description)
+  qc_disposition: Skipped     # task-level — Igor manually set in SA UI dropdown after revert
+
+annotations:
+
+  - n: 1
+    sa:
+      action: none
+      rating: null
+      answer_final: null
+      flags: []
+      feedback: "4/29: G3 fail — prompt requires specialized ML knowledge (\"transformed feature representations\" = kernel PCA terminology). Per V6 playbook §3, no specialized knowledge required."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Dimensionality_reduction_graphs_156.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        How many panels display transformed (not original) feature representations? Give your answer as an integer (e.g., 4).
+      answer: "1"
+
+  - n: 2
+    sa:
+      action: none
+      rating: null
+      answer_final: null
+      flags: []
+      feedback: "4/29: G3 fail — prompt requires understanding \"RBF kernel bandwidth (γ)\" and its asymptotic behavior. Per V6 playbook §3, no specialized knowledge required."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_Dimensionality_reduction_graphs_156.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        If the RBF kernel bandwidth (γ) becomes extremely large, what is the most likely visual outcome in the transformed (right) panel?
+
+        A. Clusters become more separated
+        B. All points collapse toward a single region
+        C. Points spread infinitely apart
+        D. Classes swap positions
+      answer: "B"
+
+  - n: 3
+    sa:
+      action: none
+      rating: null
+      answer_final: null
+      flags: []
+      feedback: "4/29: G3 fail — prompt depends on understanding \"convex,\" \"non-convex,\" and \"linearly separable\" (math/ML terms). Per V6 playbook §3, no specialized knowledge required."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_Dimensionality_reduction_graphs_156.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Which description best characterizes the change in cluster geometry from the left panel to the right panel? Answer with the correct letter (e.g., A)
+
+        A. Convex → Non-convex
+        B. Non-convex → Convex
+        C. Convex → Linear
+        D. Not linearly separable → Linearly separable
+      answer: "D"

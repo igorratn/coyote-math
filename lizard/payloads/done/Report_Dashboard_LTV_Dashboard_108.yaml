@@ -1,0 +1,98 @@
+task:
+  stem: Report_Dashboard_LTV_Dashboard_108
+  sa_task_filename: Report_Dashboard_LTV_Dashboard_108.json
+  task_id: 186802450
+  image: screenshots/Report_Dashboard_LTV_Dashboard_108.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "60"
+      flags: []
+      feedback: "4/30: Annotator answered 60, which is correct. Step-by-step: A=6 (sum of integers 1+2+3 in CLV labels below x-axis), C=2 (capital V's in \"Very Active Very Profitable Customers\" above the yellow segment), D=8 (2 axis-tip arrowheads + 6 leader-line arrowheads on the three percentage labels); final = (D+C)×A = (8+2)×6 = 60. B=3 (capital P's in title) is computed but does not appear in the Step 5 formula — pure misdirection. Model answered 36, so the prompt successfully stumps. Skill tags adjusted: added Enumeration (Steps 2/3/4 all count); dropped Spatial Reasoning (zone identification is navigational, not relative-position reasoning)."
+      verdict_source: igor
+      skills_check: [Enumeration]
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_LTV_Dashboard_108.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        You are executing a Level 43 Sub-Lexical Matrix Audit on this PowerPoint slide. This test targets your ability to perform case-sensitive sub-token extraction, granular geometric enumeration, and localized spatial summation. You must rely exclusively on explicitly rendered textual and visual elements and avoid all latent semantic assumptions. Follow this exact sequence and provide your final calculated integer:
+        
+        Step 1: Locate the three distinct text labels positioned strictly below the main horizontal x-axis line, but above the mathematical formula at the very bottom. Extract the three explicitly printed numerical integers from these specific labels. Calculate the mathematical sum of these three integers. (Let this be Value A).
+        
+        Step 2: Read the main title text explicitly printed at the absolute top of the slide ("Customer Lifetime Value Process Curve PowerPoint Shapes"). Count the exact total number of times the uppercase letter 'P' (case-sensitive) explicitly appears within this specific text string. (Let this be Value B).
+        
+        Step 3: Focus exclusively on the descriptive text block floating directly above the right-most, yellow-colored segment of the curve. Count the exact total number of times the uppercase letter 'V' (case-sensitive) explicitly appears within this specific text block. (Let this be Value C).
+        
+        Step 4: Scan the entire slide for explicitly rendered arrowheads (the solid triangular pointers at the ends of lines or shafts). Count the exact total number of physical arrowheads present in the entire image. (Let this be Value D).
+        
+        Step 5: Execute the following mathematical formula using standard order of operations: Add Value D and Value C together. Multiply that resulting sum by Value A.
+        
+        What is your final calculated number? Answer with a single integer (e.g.,17)
+      answer: "60"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "20"
+      flags: []
+      feedback: "4/30: Skill tag corrected: Skill tag correction — add Enumeration (prompt has multiple explicit counting steps: dashed lines, words in label, words in parentheses)."
+      verdict_source: auto
+      skills_check: [Enumeration]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_LTV_Dashboard_108.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        You are executing a Level 44 Structural Topology Audit on this PowerPoint slide. This test measures your ability to perform zoned spatial extraction, structural line enumeration, and constrained array parsing. You must rely exclusively on explicitly rendered elements and strict spatial definitions. Follow this exact sequence and provide your final calculated integer:
+        
+        Step 1: Locate the right-most, yellow-colored segment of the bell curve. Look explicitly below the horizontal x-axis line directly beneath this specific segment. Extract the single numerical digit from the label explicitly printed in that zone. (Let this be Value A).
+        
+        Step 2: Examine the internal physical structure of the bell curve chart. Count the exact total number of vertical dotted/dashed lines explicitly rendered to separate the colored segments of the curve. (Let this be Value B).
+        
+        Step 3: Focus on the central, red-colored segment of the bell curve. Count the exact total number of words explicitly printed in the descriptive text label located directly above it, completely ignoring the percentage value. (Let this be Value C).
+        
+        Step 4: Look at the mathematical formula explicitly printed at the absolute bottom of the slide. This formula contains three distinct groups of words enclosed within parentheses. Count the exact total number of individual words contained strictly inside all three sets of parentheses combined. (Do not count the 'X' multipliers, the equals sign, or the preceding "Lifetime Value" text). (Let this be Value D).
+        
+        Step 5: Execute the following mathematical formula using standard order of operations: First, multiply Value D by Value C. Second, multiply that resulting product by Value B. Finally, divide your new product by Value A.
+        
+        What is your final calculated number? Answer with a single integer (e.g.,15)
+      answer: "20"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "60"
+      flags: []
+      feedback: "4/30: Annotator answered 60, which is correct (Step 1 baselines aligned → A=10; Step 2 alignment of blue-segment text block reads as Center across the slide → B=6; Step 3 no y-axis digits → C=0; final 10×6+0 = 60). Model answered 40 (read alignment as Left), so the prompt successfully stumps the model. Skill tag corrected: added Enumeration (prompt counts letters in the alignment word)."
+      verdict_source: igor
+      skills_check: [Enumeration]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_LTV_Dashboard_108.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        You are executing a Level 45 Typographical Null-State Audit on this PowerPoint slide. This test abandons standard data extraction and measures your ability to evaluate formatting rules, baseline rendering, and explicit absence of data. You must rely exclusively on the pixels rendered in the image. Do not infer standard chart conventions. Follow this exact sequence and provide your final calculated integer:
+        
+        Step 1: Locate the three alphanumeric labels strictly below the solid horizontal x-axis line ("CLV 1", "CLV 2", "CLV 3"). Evaluate their vertical placement. Are the bottom edges of these three specific text blocks rendered on the exact same horizontal baseline? If True, your Value A is 10. If False, your Value A is 5.
+        
+        Step 2: Focus on the three-line descriptive text block floating directly above the blue segment on the far left ("Inactive / Nonprofit / Able Customer"). Evaluate the typographical alignment of these three lines of text relative to each other. Are they explicitly "Left", "Right", or "Center" aligned? Extract that single correct alignment word. Count the exact number of letters in that specific word. (Let this be Value B).
+        
+        Step 3: Examine the vertical axis line (y-axis) on the far left side of the chart structure (terminating in an upward-pointing arrow). Scan this entire vertical line from bottom to top. Extract the highest numerical digit explicitly printed alongside this specific y-axis line. If there are absolutely zero numbers explicitly printed on this y-axis, your Value C is 0.
+        
+        Step 4: Execute the following mathematical formula using standard order of operations: Multiply Value A by Value B. Finally, add Value C to that resulting product.
+        
+        What is your final calculated number? Answer with a single integer (e.g.,5)
+      answer: "60"

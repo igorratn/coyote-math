@@ -1,0 +1,22 @@
+stem: Report_Dashboard_NPS_Dashboard_14
+shadows:
+  - n: 1
+    uuid: d250e2e3
+    fired_at: 2026-04-30T02:35:42.185Z
+    rating: Approve
+    time_logged: "00:20:00"
+  - n: 2
+    uuid: d568fa8f
+    fired_at: 2026-04-30T02:36:24.836Z
+    rating: Approve
+    time_logged: "00:20:00"
+  - n: 3
+    uuid: d3c18553
+    fired_at: 2026-04-30T02:36:58.816Z
+    rating: Approve
+    time_logged: "00:20:00"
+  - n: 4
+    uuid: d5dc69c6
+    fired_at: 2026-04-30T02:40:48.083Z
+    rating: Approve
+    time_logged: "00:20:00"

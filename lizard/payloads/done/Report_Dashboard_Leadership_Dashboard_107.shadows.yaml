@@ -1,0 +1,18 @@
+stem: Report_Dashboard_Leadership_Dashboard_107
+shadows:
+  - n: 1
+    uuid: 692bb819
+    fired_at: 2026-05-01T03:15:48.567Z
+    rating: Approve
+    time_logged: "00:20:00"
+  - n: 2
+    uuid: 660bbfcf
+    fired_at: 2026-05-01T03:20:27.176Z
+    rating: Approve
+    time_logged: "00:20:00"
+  - n: 3
+    uuid: 5fa5a11a
+    fired_at: 2026-05-01T03:55:07.097Z
+    rating: Approve
+    time_logged: "00:20:00"
+    retro_correction: "5/1 — flipped Reject→Approve in HAI UI (manual). Original Reject was based on Igor verdict miscount; recount confirms annotator's 9 is correct, model 10 stumped."

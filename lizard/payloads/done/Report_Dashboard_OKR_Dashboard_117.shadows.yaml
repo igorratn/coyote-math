@@ -1,0 +1,12 @@
+stem: Report_Dashboard_OKR_Dashboard_117
+shadows:
+  - n: 1
+    uuid: 6a637c4c
+    fired_at: 2026-05-01T04:11:17.298Z
+    rating: Approve
+    time_logged: "00:20:00"
+  - n: 2
+    uuid: 67183fcf
+    fired_at: 2026-05-01T04:14:47.925Z
+    rating: Approve
+    time_logged: "00:20:00"

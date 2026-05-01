@@ -1,0 +1,88 @@
+task:
+  stem: Report_Dashboard_NPS_Dashboard_14
+  sa_task_filename: Report_Dashboard_NPS_Dashboard_14.json
+  task_id: 185555610
+  image: screenshots/Report_Dashboard_NPS_Dashboard_14.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "102.7"
+      flags: []
+      feedback: "4/28: Skill tag corrected: drop `Spatial Reasoning`. Task is axis-value extraction and arithmetic on a chart, not relational position reasoning; Table/Chart/Graph Understanding already anchors V6 G1 and SAQ qtype is correct."
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_NPS_Dashboard_14.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Examine the "Responses and Average Rating by Month" combo chart. Locate the vertical axis on the far left (labeled "# Responses") and extract the explicitly printed numerical label that sits perfectly in the middle of this axis. Next, follow the blue line and extract the explicitly printed number of responses plotted for "Nov 2013". Subtract this "Nov 2013" response count from your extracted middle axis label value. Finally, multiply this difference by the average "Rating" value explicitly printed above the yellow bar for "Nov 2013". Provide your answer as a precise decimal (e.g., 10.5).
+      answer: "102.7"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "54.4"
+      flags: []
+      feedback: "4/28: Skill tag corrected: drop `Spatial Reasoning`; add `Enumeration`, `Short answer question`. Task is chart value-reading + counting bars + arithmetic — no relational position reasoning; Enumeration needed for bar count and SAQ qtype must be tagged."
+      verdict_source: auto
+      skills_check: [Enumeration, Short answer question]
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_NPS_Dashboard_14.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Locate the "Responses and Average Rating by Month" chart. Calculate the exact theoretical sum of all rating points awarded specifically in Dec 2013 by multiplying its explicitly printed "# Responses" by its explicitly printed average "Rating". Next, examine the "Rating Frequency this Month" chart. Count the exact number of explicitly printed numerical labels on its horizontal axis that visually possess a plotted blue vertical bar directly above them. Divide your calculated Dec 2013 rating sum by this exact horizontal bar count. What is the resulting quotient? Provide your final answer as a precise decimal (e.g., 10.5).
+      answer: "54.4"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "1624"
+      flags: []
+      feedback: "4/28: Skill tag corrected: drop `Spatial Reasoning`. Task is chart value-reading and arithmetic, not relational position reasoning; 'bottom right' locates the panel but the work is extract-and-multiply."
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_NPS_Dashboard_14.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Examine the "Responses and Average Rating by Month" combo chart in the bottom right. Determine the total aggregate "rating points" awarded by users in "Oct 2013" by multiplying its explicitly plotted "# Responses" value by its explicit average "Rating" value. Perform the exact same mathematical operation to determine the total aggregate rating points for "Dec 2013". What is the absolute numerical difference between the total rating points of these two months? Provide your final answer as a single integer (e.g., 500).
+      answer: "1624"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: "4/28: Skill tag corrected: drop `Spatial Reasoning`; add `Math Reasoning`. Task is comparing labeled gridline distances (value-reading + arithmetic comparison), not relational layout; Table/Chart/Graph Understanding already anchors V6 G1."
+      verdict_source: auto
+      skills_check: [Math Reasoning]
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "MCQ"
+    hai:
+      task_id_field: Report_Dashboard_NPS_Dashboard_14.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        Evaluate the horizontal grey bullet chart located within the "NPS this Month" panel in the top left. The thin red vertical indicator line represents the current NPS score of 36.0%. Based strictly on the visual positioning of this red line relative to the explicitly labeled gridlines beneath it, which of the following statements is strictly true?
+        
+        A. The red line is perfectly centered horizontally between the "0%" and "50%" gridline labels.
+        B. The visual distance between the "0%" gridline and the red line is exactly equal to the visual distance between the "-50%" gridline and the "0%" gridline.
+        C. The visual distance between the "0%" gridline and the red line is greater than the visual distance between the red line and the "50%" gridline.
+        D. The rightmost edge of the shaded grey rectangle terminates exactly at the 50% gridline.
+      answer: "C"

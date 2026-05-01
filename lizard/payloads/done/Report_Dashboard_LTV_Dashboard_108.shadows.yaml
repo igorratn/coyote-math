@@ -1,0 +1,17 @@
+stem: Report_Dashboard_LTV_Dashboard_108
+shadows:
+  - n: 1
+    uuid: 63c2de41
+    fired_at: 2026-05-01T03:59:02.137Z
+    rating: Approve
+    time_logged: "00:20:00"
+  - n: 2
+    uuid: 6d63b45a
+    fired_at: 2026-05-01T04:02:34.482Z
+    rating: Approve
+    time_logged: "00:20:00"
+  - n: 3
+    uuid: 6893abab
+    fired_at: 2026-05-01T04:06:13.279Z
+    rating: Approve
+    time_logged: "00:20:00"

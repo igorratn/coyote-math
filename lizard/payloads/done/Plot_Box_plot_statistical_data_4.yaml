@@ -1,0 +1,64 @@
+task:
+  stem: Plot_Box_plot_statistical_data_4
+  sa_task_filename: Plot_Box_plot_statistical_data_4.json
+  task_id: 187108729
+  image: screenshots/Plot_Box_plot_statistical_data_4.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: ["Type 2"]
+      feedback: "4/28: Model answer `0.7` numerically equals rewrite `0.7%` (Type 2 stump fail). Per V6 playbook §Step 4, a correct answer independent of format is too easy and invalid. Rework prompt to require reasoning the model genuinely fails — e.g. avoid prompts where labeled tail percentages directly sum to the answer."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Box_plot_statistical_data_4.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        According to the normal distribution curve, what is the approximate total percentage that falls strictly outside of the box plot's whiskers (e.g., in the outlier regions beyond Q1-1.5xIQR and Q3 + 1.5xIQR combined)? Provide the answer as a percentage rounded to the nearest tenth (1.4%).
+      answer: "0.7%"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "23.65%"
+      flags: []
+      feedback: "4/28: Skill tag corrected: drop `Attribute Perception`. Task is value-reading from labeled percentages plus arithmetic, not color/shape perception; chart-reading anchor (Table/Chart/Graph Understanding) already present."
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: [Attribute Perception]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Box_plot_statistical_data_4.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        According to the percentage labels on the normal distribution, what percentage of data falls strictly between Q1 and the left whisker endpoint? Then subtract the percentage that falls strictly outside both whisker endpoints combined from that value. Provide the answer as a percentage rounded to two decimal places (e.g., 10.50%).
+      answer: "23.65%"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "2"
+      flags: []
+      feedback: "4/29: Skill tag corrected: Optional tag cleanup — drop `Spatial Reasoning` (still ≥3 skills with Enum + Math + Logical + TCG anchors)."
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Box_plot_statistical_data_4.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Count the number of outlier dots in the top boxplot and the number of labeled percentage regions strictly between 20% and 30%. If the counts are equal, return the number of labeled σ-values. Otherwise, return the absolute difference between the two counts. Provide the answer with a single integer (e.g. , 9).
+      answer: "2"
