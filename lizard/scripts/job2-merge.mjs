@@ -461,7 +461,7 @@ function renderAnnotation(entry) {
       const feedbackText = isTie
         ? `Model answered correctly — not stumped (model answer equals annotator's rewrite). Annotator must design a harder prompt that the model cannot answer.`
         : `Model did not generate an answer for this annotation — treated as not stumped. Annotator must regenerate model response before resubmitting.`;
-      lines.push(`**Auto-resolved at Job 2 (👎 stump-fail).** ${sf.code}: ${sf.reason}. SA action at Job 4: **${downAction}** (${cycleLabel}). Skipped at Job 3 walkthrough.\n`);
+      lines.push(`**Auto-resolved at Job 2 (👎 stump-fail).** ${sf.code}: ${sf.reason}. SA action at Job 5: **${downAction}** (${cycleLabel}). Skipped at Job 3 walkthrough.\n`);
       lines.push(`#### Auto Verdict`);
       lines.push(`carve_out: ${sf.code}`);
       lines.push(`rating: thumbs-down`);
@@ -481,7 +481,7 @@ function renderAnnotation(entry) {
         && pick.finalAnswer.trim().toLowerCase() === skel.rewriteAnswer.trim().toLowerCase()
         ? '(matches annotator)'
         : `(reviewer's own answer was \`${pick.finalAnswer ?? '?'}\`, but rule = accept annotator's answer)`;
-      lines.push(`**Auto-resolved at Job 2 (👍).** ${pick.name} 👍 ${matchNote}. SA action at Job 4: approve annotator's answer \`${skel.rewriteAnswer}\` (${cycleLabel}). Skipped at Job 3 walkthrough.\n`);
+      lines.push(`**Auto-resolved at Job 2 (👍).** ${pick.name} 👍 ${matchNote}. SA action at Job 5: approve annotator's answer \`${skel.rewriteAnswer}\` (${cycleLabel}). Skipped at Job 3 walkthrough.\n`);
       // Auto Verdict block — makes carve-out classification readable from the
       // task file alone (state IS the filesystem). prepare-job3b-summary.mjs
       // counts an annot as 3a-done if it has Auto Verdict OR Igor Verdict.
@@ -496,7 +496,7 @@ function renderAnnotation(entry) {
       const skillNote = hasSkillEdit ? ` Skill edits: check=${checkStr}, uncheck=${uncheckStr}.` : '';
       lines.push(`notes: ${pick.name} 👍 close to annotator; SA approves annotator's answer.${skillNote}\n`);
     } else {
-      lines.push(`**Auto-resolved at Job 2 (👎).** All ${allViews.length} reviewers 👎 with G1 (V6 anchor-skill fail). SA action at Job 4: **${downAction}** (${cycleLabel}). Skipped at Job 3 walkthrough.\n`);
+      lines.push(`**Auto-resolved at Job 2 (👎).** All ${allViews.length} reviewers 👎 with G1 (V6 anchor-skill fail). SA action at Job 5: **${downAction}** (${cycleLabel}). Skipped at Job 3 walkthrough.\n`);
       lines.push(`#### Auto Verdict`);
       lines.push(`carve_out: 👎-unanimous-G1`);
       lines.push(`rating: thumbs-down`);

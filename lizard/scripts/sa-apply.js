@@ -4,7 +4,7 @@
 // self-contained blob the CLI/agent invokes via `mcp__chrome-devtools__evaluate_script`.
 // Replaces ~25-30 round-trips per stem with ~4-6.
 //
-// Call sequence per stem (Job 4 actor):
+// Call sequence per stem (Job 5 actor — SA push, terminal step post-2026-05-02 swap):
 //   1. saContext()                              → {iframe_ok, annot_count, qc_textareas}
 //   2. saApplyAnnots({annots})                  → {writes:[...], errors:[...]}
 //   3. saPreSaveAudit({annots})                 → {mismatches:[...]} (must be empty before Save)

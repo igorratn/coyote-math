@@ -1,6 +1,13 @@
+stem: Transportation_00000_1_jCHmcvddmqdnLzGL--nFwg_f5c2456e
+igor_resolved: false
 shadows:
   - n: 1
-    uuid: 02cb212c-9f65-4950-bf03-a438891ae40b
-    fired_at: "2026-05-01"
-    rating: Reject
+    uuid: 73d9700b
+    fired_at: 2026-05-02T15:24:16.366Z
+    rating: Approve
     time_logged: "00:20:00"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

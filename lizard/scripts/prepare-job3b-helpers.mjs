@@ -87,7 +87,7 @@ export function getAnnotationFeedback(taskTxt, n) {
   // Pull the curated `#### Feedback` block under `## Annotation N` — the one
   // produced at Job 3a (Igor walkthrough) or stamped by Job 2. This is the
   // text that goes into payload sa.feedback for 👎 cases (and gets pasted into
-  // the SA QC Feedback box at Job 4).
+  // the SA QC Feedback box at Job 5).
   //
   // For 👍 the curated body is "(none — thumbs-up)" or empty — null policy is
   // enforced by the caller (run-job3.mjs forces feedback=null on rating==='thumbs-up').

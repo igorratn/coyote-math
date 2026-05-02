@@ -10,7 +10,7 @@ Terse like smart caveman. Technical substance stays, fluff dies. Fragments OK. N
 - Don't re-read files already read this session
 - Prefer Edit over full file rewrite
 - No trailing summaries
-- Pre-batch `caffeinate -d -i &` keeps display awake (Job 4 watchdog needs lit screen for cliclick)
+- Pre-batch `caffeinate -d -i &` keeps display awake (Job 5 watchdog needs lit screen for cliclick during SA push)
 
 ## Design principles
 - **Choreography over orchestration.** Each script is an actor that checks its preconditions on the filesystem, runs if satisfied, exits idempotent. No central conductor, no phase enum, no JSON state file. Files on disk ARE the state.
@@ -23,8 +23,9 @@ Terse like smart caveman. Technical substance stays, fluff dies. Fragments OK. N
   - Job 2 done for `<stem>`: `tasks/<stem>.md` exists
   - Job 3a done for `<stem>`: every `## Annotation N` block in `tasks/<stem>.md` carries either `#### Auto Verdict` (Job 2 carve-out) or `#### Igor Verdict` (Igor walkthrough)
   - Job 3b done for `<stem>`: `payloads/<stem>.yaml` exists (fan-out reads task file, validates verdict coverage, writes payload)
-  - Job 4 done for `<stem>`: `payloads/sa_applied/<stem>.yaml` exists (atomic mv from `payloads/<stem>.yaml`)
-  - Job 5 done for `<stem>`: `payloads/done/<stem>.yaml` exists AND `queue/<stem>.json` deleted (Job 5 finalize). Per-annot proof: `tasks/shadows/<uuid8>.md` files (sidecar `payloads/done/<stem>.shadows.yaml` indexes them).
+  - Job 4 done for `<stem>`: `payloads/shadow_applied/<stem>.yaml` exists (atomic mv from `payloads/<stem>.yaml`). Sidecar `payloads/shadow_applied/<stem>.shadows.yaml` indexes shadows with per-annot fields (`verdict_source`, `hai_llm_eval`, `hai_llm_comment`, `reclaimed`, `reclaim_diff`) plus top-level `igor_resolved`. Per-annot proof: `tasks/shadows/<uuid8>.md` files.
+  - **Resolution gate** (between Job 4 done and Job 5 fire): Job 5 refuses to fire if any annot has `verdict_source == 'auto' AND hai_llm_eval != 'clean'` AND sidecar `igor_resolved != true`. Igor-verdict annots are gate-immune (codified 2026-05-02 — Igor's 3a adjudication already weighed equivalent reviewer-LLM opinions, HAI's post-submit LLM is no more authoritative). Resolution: `STEM=<S> node scripts/mark-resolved.mjs` (no flip) or `STEM=<S> ANNOT=<n> NEW_ANSWER="<text>" node scripts/run-reclaim.mjs` (flip + /reclaim shadow record + sidecar/proof update).
+  - Job 5 done for `<stem>`: `payloads/done/<stem>.yaml` exists AND `queue/<stem>.json` deleted (Job 5 finalize, atomic mv from `payloads/shadow_applied/` + queue removal). Sidecar moved to `payloads/done/<stem>.shadows.yaml`.
   - Cycle 2 enforcement is automatic: `queue/<stem>.json` lives the entire cycle. Re-queueing while in flight is impossible (intake refuses overwrite). Cycle 2 starts only after cycle 1's Job 5 finalize removes the queue entry.
   - Concurrency: `scrapes/.lock` flock held by current CLI process during SA queue intake
   - Session log: `logs/session-<unix-ts>.md` (newest mtime = active session)
@@ -331,7 +332,7 @@ annotations:
 
 **Schema rules:**
 - `sa.action` is the per-annot SA action (NOT task-level QC status). Already encodes the cycle-dependent choice: `QC_Return` is cycle-1-only, `delete` is cycle-2-only. Cycle field itself is filesystem-derived (presence of `payloads/<S>.cycle1.yaml`) and not in the YAML.
-- Task-level QC status (QC_Complete / QC_Return) derives from per-annot `sa.action`. Igor sets it manually in SA UI after Job 4 push.
+- Task-level QC status (QC_Complete / QC_Return) derives from per-annot `sa.action`. Igor sets it manually in SA UI after Job 5 push.
 - Cycle 2 payload contains only the cycle-1 thumbs-down returnees (filtered at Job 1). No `unchanged` carry-forwards.
 - All string values UTF-8; multiline via YAML `|` block scalar.
 
@@ -340,7 +341,7 @@ annotations:
 - `Valid Skipped to Skipped` — usable image, will reassign to another annotator
 - `Valid Skip to Unusable` — toxic content
 
-Default unset = `QC_Complete` or `QC_Return` (derivable from per-annot `sa.action`). Job 5 (shadow sweep) **MUST skip** stems with `qc_disposition ∈ {Valid Skipped to Hold, Valid Skipped to Skipped, Valid Skip to Unusable}` — no HAI shadows fire (Slack ruling, Angie Z. Apr 28, see `wiki/slack-rulings.md`).
+Default unset = `QC_Complete` or `QC_Return` (derivable from per-annot `sa.action`). Job 4 (HAI shadow fire) **MUST skip** stems with `qc_disposition ∈ {Valid Skipped to Hold, Valid Skipped to Skipped, Valid Skip to Unusable}` — no HAI shadows fire AND no SA push (skip-disposition exit goes straight to `payloads/done/`, Slack ruling, Angie Z. Apr 28, see `wiki/slack-rulings.md`).
 
 **Per-annot fields when `task.qc_disposition` is a skip-set value** (codified 2026-04-29): per-annot review doesn't apply when the task is dropped at task level. Schema MUST emit:
 - `sa.rating: null`
@@ -348,7 +349,7 @@ Default unset = `QC_Complete` or `QC_Return` (derivable from per-annot `sa.actio
 - `sa.answer_final: null`
 - `sa.skills_check: []` and `sa.skills_uncheck: []`
 - `sa.feedback`: optional (per Angie Z. Apr 28 — "Can't hurt to leave feedback though")
-- `hai.answer`: annotator's original (unused by Job 5 anyway since stem is skipped)
+- `hai.answer`: annotator's original (unused by Job 4 anyway since stem is skipped via skip-disposition exit)
 
 Verifier permits these null/none values only when `task.qc_disposition` is in the skip-set; otherwise per-annot rating required as before.
 
@@ -381,76 +382,18 @@ Verifier permits these null/none values only when `task.qc_disposition` is in th
 
 ---
 
-## Job 4 — SA push (CLI, per-stem actor)
+## Job 4 — HAI shadow fire (CLI, per-stem actor)
 
-Reads `payloads/<S>.yaml` (immutable), navigates to the SA editor for the stem's `task_id`, applies per-annotation edits, clicks Save, then atomically moves the payload to `payloads/sa_applied/<S>.yaml`. Binary state — payload is either "live" (in `payloads/`) or "applied" (in `payloads/sa_applied/`). No intermediate stamp; tasks/ is sealed at end of Job 3.
-
-### In-flight status report (emit at Job 4 start)
-First action of every Job 4 session: render `node scripts/job4-batch-status.mjs`. Per stem (sorted alpha across `payloads/*.yaml`): cycle, derived QC status, per-annot rating + skill deltas + full feedback. Output split into Phase 1 (clean approves — no human Delete needed) and Phase 2 (any rejection — pause/warning between phases). This is the canonical pre-Job-4 view; re-derived from `payloads/*.yaml` each invocation, no state file. Re-runnable any time.
+Reads `payloads/<S>.yaml` (Job 3b output, write-once). Fires one HAI shadow per annotation via Chrome MCP + `scripts/fill-hai-shadow.js`. Captures HAI's post-submit LLM verdict per annotation (capture-don't-stop). On finalize, atomically moves payload + sidecar to `payloads/shadow_applied/`. Queue file stays — Job 5 (SA push, terminal) is responsible for queue removal.
 
 ### Actor precondition (filesystem-derived)
 Run Job 4 on stem `<S>` when:
 - `queue/<S>.json` exists (active work)
 - `payloads/<S>.yaml` exists
-- `payloads/sa_applied/<S>.yaml` does NOT exist (binary write-once gate)
-
-### Steps
-1. Read `payloads/<S>.yaml`. Extract `task_id`, derive SA editor URL.
-2. Locate / reuse SA editor tab via Chrome MCP (`tabs_context_mcp` + `navigate`). Tab reuse is mandatory if a matching tab exists.
-3. **Per annotation (in order 1..N):**
-   - Apply skill checkbox deltas: toggle off skills in `skills_uncheck`, toggle on skills in `skills_check`. Idempotent — skip if both lists empty. Use the per-annot 9-checkbox group (positions 0-6 = the 7 skills, 7 = MCQ, 8 = Short answer question; QType flips share this same group).
-   - **Verify skill toggles via readback** — re-query checkbox state, retry on mismatch.
-   - **Verify question type set** — exactly one of `MCQ` / `Short answer question` must be checked. Empty = fail loud, STOP (do not Save).
-   - **NEVER write to the Rewrite Answer textarea for thumbs-down annotations (codified 2026-05-01).** If `sa.action ∈ {QC_Return, delete}`: skip the rewrite textarea entirely — do not read it, do not write it, do not include it in any DOM selection. Incident: Violin_163 A1 rewrite accidentally overwritten from "2" to "4" because the `rewriteTAs` filter was too broad and included offset textareas, causing A4's `answer_final` to land on A1's rewrite field.
-   - If `sa.answer_final` non-null AND `sa.action == approve`: write into Rewrite Answer textarea (native setter + `input` + `change` events). If already matches current value: skip (no-op).
-   - Set QC rating per `sa.rating` — click thumbs-up or thumbs-down button in the QC section (active state = inline `style` contains `rgb(0, 205, 108)`).
-   - If `sa.feedback` non-null: append to existing QC Feedback textarea — never replace. Readback to verify char-by-char match against payload `sa.feedback`.
-4. **Pre-save audit (mandatory, codified 2026-05-01):** for every annot, readback ALL written fields against the payload before clicking Save:
-   - **Rewrite Answer readback:** for every annotation, read the current Rewrite Answer textarea value. If `sa.answer_final` is non-null: must match exactly. If `sa.answer_final` is null: must NOT have changed from the value at page-load (compare against pre-apply snapshot). Any mismatch = STOP, do not Save — a rewrite was written to the wrong textarea. Reason: the `rewriteTAs` filter can include extra empty textareas at offsets that shift annotation indices, causing `answer_final` from one annotation to land on another (incident: Violin_163 A1 rewrite accidentally set to "4" due to 2-textarea offset shift, 2026-05-01).
-   - **Feedback readback:** for every annot, readback the feedback textarea value and compare against payload `sa.feedback` character-by-character. Mismatch = STOP, do not Save (SA tasks lock on submit; post-save correction impossible).
-5. Click task-level **Save**. Confirm save toast.
-6. **Atomic move:** `mv payloads/<S>.yaml → payloads/sa_applied/<S>.yaml`. This is the filesystem signal that Job 4 succeeded for this stem.
-7. Exit. Print human-bridge instructions: "SA-applied for `<S>`. Set task-level QC status dropdown manually in SA UI. Click SA Delete button manually for any cycle-2 `action: delete` annots."
-8. **STOP. Wait for Igor's explicit go-ahead ("next", "ok", "go") before navigating to the next stem.** (codified 2026-04-29 — Igor needs screen to set task-level QC status and handle any Deletes before next stem loads.)
-
-### Job 4 done for `<S>` is signaled by `payloads/sa_applied/<S>.yaml` existing. Job 5 actor sees it and picks up.
-
-### Failure modes
-- Tab not found / Chrome MCP unreachable → exit 1, no SA mutation.
-- Skill readback mismatch → retry once, then exit 1 with the offending annot.
-- QType empty after toggles → exit 1 (annotator's qtype field unfilled — payload bug; refuse to Save).
-- Pre-save audit mismatch → exit 1 (do NOT click Save).
-- Save toast absent within timeout → exit 1 (SA may have rejected; manual recovery needed).
-- `payloads/sa_applied/<S>.yaml` already exists → refuse (binary write-once gate). Move/delete to re-apply.
-
-### Hard rules
-- **NEVER write Rewrite Answer on thumbs-down (codified 2026-05-01).** `sa.action ∈ {QC_Return, delete}` → skip the rewrite textarea entirely. No read, no write, no DOM selection. This is an absolute rule — the Slack Concede ruling and the offset-bug incident both require it.
-- **CLI never clicks SA Delete.** Cycle-2 `action: delete` annots: CLI applies feedback + thumbs-down, STOPS. Igor manually clicks SA Delete (deletion is **IRREVERSIBLE** — only Igor's hands).
-- **CLI never sets task-level QC status dropdown.** Human-only field. Igor sets it manually after Job 4.
-- **Feedback writes are append, never replace.** Per playbook line 76: "Add your feedback in chronological order."
-- **Pre-save audit is mandatory.** SA tasks lock on submit; post-save correction impossible.
-- **Move payload AFTER Save, not before.** Save fails → payload stays in `payloads/`, re-runnable.
-
-### DOM mechanics
-SA UI write helpers in `scripts/sa-apply.js` (browser-side blobs via Chrome MCP `evaluate_script`). DOM specifics in inline comments + `wiki/sa-interface.md`.
-
----
-
-## Job 5 — Shadow sweep (CLI, per-stem actor)
-
-Reads `payloads/sa_applied/<S>.yaml`, fires one HAI shadow task per annotation (or zero if task is skip-disposition), writes proof file `tasks/shadows/<uuid8>.md` per shadow, atomically moves payload to `payloads/done/<S>.yaml`. Binary state: SA-applied → done.
-
-### Actor precondition (filesystem-derived)
-Run Job 5 on stem `<S>` when:
-- `queue/<S>.json` exists (active work)
-- `payloads/sa_applied/<S>.yaml` exists
-- `payloads/done/<S>.yaml` does NOT exist (binary write-once gate)
-
-### Per-stem orphan self-heal (built into run-job5.mjs)
-If `queue/<S>.json` + `payloads/done/<S>.yaml` both exist → orphan from a crash between mv and `rm queue/`. Script deletes queue file, exits 0. Idempotent; runs on every Job 5 invocation. `in-flight.mjs` surfaces orphans as `stage=done`.
+- `payloads/shadow_applied/<S>.yaml` does NOT exist (write-once gate)
 
 ### Pre-flight: skip-disposition check
-Read `task.qc_disposition` from payload. If `∈ {Valid Skipped to Hold, Valid Skipped to Skipped, Valid Skip to Unusable}` → atomic mv payload to `payloads/done/`, then `rm queue/<S>.json`, exit. Zero shadows fired (Slack ruling, Angie Z. Apr 28; V6 dropdown strings per Nikhil pinned 2026-04-29).
+Read `task.qc_disposition` from payload. If `∈ {Valid Skipped to Hold, Valid Skipped to Skipped, Valid Skip to Unusable}` → atomic mv `payloads/<S>.yaml → payloads/done/<S>.yaml`, then `rm queue/<S>.json`, exit. Zero shadows fired (Slack ruling, Angie Z. Apr 28; V6 dropdown strings per Nikhil pinned 2026-04-29). This is a full pipeline exit (bypasses both shadow and SA push). Run via `STEM=<S> node scripts/run-job4.mjs --skip-finalize`.
 
 ### Per-annotation steps (in order 1..N)
 For each annot in payload:
@@ -466,37 +409,99 @@ For each annot in payload:
    - `mcp__chrome-devtools__upload_file(uid="Upload assets" button uid, filePath="screenshots/<stem>.<ext>")` → image attached. CLI does this — NOT Igor (codified 2026-04-30).
    - `haiFillStep3Prompt({prompt})` → step4 ready
    - `haiFillStep4ToComplete({answer})` → "Task complete!" page
-4. **Time edit (ONE-WAY FLOOR):**
+4. **Capture HAI post-submit LLM verdict (codified 2026-05-02 — capture-don't-stop).** After Submit, HAI's automated LLM evaluates the prompt+answer pair and may surface a warning modal/inline element. NEVER halt: if the warning appears, read its verdict (`approve|reject|warning`) + comment text via `evaluate_script`, click any override button to advance the form, capture the data into the next step. Default `hai_llm_eval='clean'` if no warning element appears. Reason: HAI's post-submit LLM is no more authoritative than the four reviewer LLMs already considered at 3a — captured as data for the resolution gate, not enforced as a halt. Codified rule from `wiki/slack-rulings.md`: "HAI shadow task LLM feedback ≠ ground truth."
+5. **Time edit (ONE-WAY FLOOR):**
    - Read displayed time. If `< 20:00` → `haiSetTimeAndConfirm({minutes: 20})`. If `≥ 20:00` → skip Edit time, click Confirm time directly.
    - Verify page advanced past time screen.
-5. **Capture shadow UUID** from final URL (first 8 chars of UUID = filename slug).
-6. **Write proof file** `tasks/shadows/<uuid8>.md` from `templates/shadow-template.md` with `**stem:**`, `**annotation_n:**`, `**cycle:**`, `**rating:** Approve|Reject`, `**fired_at:**`, HAI link, prompt + answer (frozen snapshot).
-7. **Append entry to sidecar** `payloads/sa_applied/<S>.shadows.yaml` (atomic .tmp → rename): `{n, uuid, fired_at, rating, time_logged}`.
+6. **Capture shadow UUID** from final URL (first 8 chars of UUID = filename slug).
+7. **Record shadow** via `STEM=<S> ANNOT_N=<n> SHADOW_UUID=<8> SHADOW_FULL_UUID=<full-uuid> RATING=<Approve|Reject> TIME_LOGGED=<HH:MM:SS> [HAI_LLM_EVAL=<clean|warning|reject> HAI_LLM_COMMENT=<text>] node scripts/run-job4.mjs --record-shadow`. Script appends to sidecar `payloads/shadow_applied/<S>.shadows.yaml` (atomic .tmp → rename) with fields `{n, uuid, fired_at, rating, time_logged, verdict_source, hai_llm_eval, hai_llm_comment, reclaimed, reclaim_diff}`, and writes proof file `tasks/shadows/<uuid8>.md`.
 
 ### Finalize (after all annots covered)
-1. Atomic mv BOTH payload files:
-   - `payloads/sa_applied/<S>.yaml` → `payloads/done/<S>.yaml`
-   - `payloads/sa_applied/<S>.shadows.yaml` → `payloads/done/<S>.shadows.yaml`
-2. **Remove queue entry:** `rm queue/<S>.json`. This is the pipeline's exit gate — once gone, the stem is no longer "active". A crash between step 1 and step 2 leaves an orphan queue file; the next time `run-job5.mjs` is invoked on any stem, the per-stem self-heal at the top of the script picks it up.
+Run `STEM=<S> node scripts/run-job4.mjs --finalize`. Steps:
+1. Verify sidecar covers every payload annot + every shadow has a proof file.
+2. Atomic mv `payloads/<S>.yaml → payloads/shadow_applied/<S>.yaml`. Sidecar already lives there.
+3. **NO queue removal** — Job 5 (SA push, terminal) is the pipeline's exit gate.
+4. Print resolution-gate state advisory: clean = Job 5 auto-eligible; engaged = Igor must run `mark-resolved.mjs` or `run-reclaim.mjs` first.
 
-Sidecar absent in done = "no shadows fired" (skip-disposition path); present = "all annots shadowed."
-
-### Job 5 done for `<S>` is signaled by `payloads/done/<S>.yaml` existing AND `queue/<S>.json` removed.
+### Job 4 done for `<S>` is signaled by `payloads/shadow_applied/<S>.yaml` existing. Resolution gate then guards Job 5 entry.
 
 ### Failure modes
 - Chrome MCP unreachable → exit 1, no mutation.
 - HAI image upload returns >1 file with no Remove button → exit 1.
 - Time-edit verification fails (`< 20:00` after attempted set) → STOP, do not Confirm time.
-- Shadow file write fails after Submit → SA submitted but no proof file; manual recovery needed.
-- `payloads/done/<S>.yaml` already exists → refuse (binary write-once gate).
+- Shadow file write fails after Submit → submission recorded but no proof file; manual recovery needed.
+- `payloads/shadow_applied/<S>.yaml` already exists → refuse (write-once gate).
 
 ### Hard rules
 - **1 shadow per annot reviewed.** No exceptions for non-delete annots in non-skipped tasks.
 - **Time edit is ONE-WAY FLOOR.** Never overwrite a session time `> 20:00` — destroys real logged work.
 - **Verify page advanced after Confirm time.** Silent rollback = no payment recorded.
-- **`Valid Skipped to Hold` / `Valid Skipped to Skipped` / `Valid Skip to Unusable` stems → ZERO shadows.** Task-level skip dispositions skip the whole stem.
+- **`Valid Skipped to Hold` / `Valid Skipped to Skipped` / `Valid Skip to Unusable` stems → ZERO shadows.** Task-level skip dispositions exit the pipeline directly to `payloads/done/`.
 - **Shadow file is canonical proof.** Sidecar is forward index for fast lookup; not a replacement.
-- **QC feedback check before role click (codified 2026-04-30).** After LLM validation, before clicking "Reviewing": extract QC feedback text (above "Are you annotating or reviewing this task?"). Print it. If it contains anything other than "looks good"/"may continue"/"no issues" — STOP, surface to Igor, wait for go-ahead. Silently passing QC errors corrupts the annotation record.
+- **QC feedback check before role click (codified 2026-04-30).** After LLM validation, before clicking "Reviewing": extract QC feedback text (above "Are you annotating or reviewing this task?"). Print it. If it contains anything other than "looks good"/"may continue"/"no issues" — STOP, surface to Igor, wait for go-ahead. Silently passing QC errors corrupts the annotation record. (Distinct from step 4 above — that's HAI's automated LLM eval; this is the prior human reviewer's QC feedback.)
+- **HAI post-submit LLM eval is captured, never halts (codified 2026-05-02).** Verdict + comment recorded to sidecar + proof file. The resolution gate (between Job 4 done and Job 5 fire) reads these; Igor adjudicates only auto-verdict warnings (Igor-verdict warnings are gate-immune).
 
 ### DOM mechanics
-HAI form-fill helpers in `scripts/fill-hai-shadow.js` (browser-side blobs via Chrome MCP `evaluate_script`). Selectors + native-setter patterns in inline comments + `wiki/hai-selectors.md`.
+HAI form-fill helpers in `scripts/fill-hai-shadow.js` (browser-side blobs via Chrome MCP `evaluate_script`). Selectors + native-setter patterns in inline comments + `wiki/hai-selectors.md`. Post-submit LLM verdict capture: TODO — DOM probe details to be added when warning modal selector is identified.
+
+---
+
+## Job 5 — SA push (CLI, per-stem actor; terminal step)
+
+Reads `payloads/shadow_applied/<S>.yaml` (Job 4 output). Applies the **resolution gate** — refuses if any annot has `verdict_source=auto AND hai_llm_eval≠clean AND igor_resolved!=true`. If gate clears, navigates to SA editor, applies per-annotation edits, clicks Save, then atomically moves payload + sidecar to `payloads/done/` AND removes `queue/<S>.json` (pipeline exit gate). Pipeline-final stage.
+
+### In-flight status report (emit at Job 5 start)
+First action of every Job 5 session: render `node scripts/job5-batch-status.mjs`. Per stem (sorted alpha across `payloads/shadow_applied/*.yaml`): cycle, derived QC status, per-annot rating + skill deltas + full feedback + `verdict_source` tag, plus the resolution gate state (clean / engaged / resolved). Output split into Phase 1 (clean approves — no human Delete needed) and Phase 2 (any rejection — pause/warning between phases). Re-derived from filesystem each invocation, no state file. Re-runnable any time.
+
+### Per-stem orphan self-heal (built into run-job5.mjs)
+If `queue/<S>.json` + `payloads/done/<S>.yaml` both exist → orphan from a crash between mv and `rm queue/`. Script deletes queue file, exits 0. Idempotent; runs on every Job 5 invocation. `in-flight.mjs` surfaces orphans as `stage=done`.
+
+### Actor precondition (filesystem-derived)
+Run Job 5 on stem `<S>` when:
+- `queue/<S>.json` exists (active work)
+- `payloads/shadow_applied/<S>.yaml` exists (Job 4 done)
+- `payloads/shadow_applied/<S>.shadows.yaml` exists (Job 4 finalize wrote sidecar)
+- `payloads/done/<S>.yaml` does NOT exist (terminal write-once gate)
+- **Resolution gate clear**: no annot has `verdict_source=auto AND hai_llm_eval≠clean` OR sidecar `igor_resolved=true`. Gate-engaged stems get exit code 4 from `run-job5.mjs`; Igor must run `mark-resolved.mjs` (no flip) or `run-reclaim.mjs` (flip + /reclaim shadow record) first.
+
+### Steps
+1. Read `payloads/shadow_applied/<S>.yaml`. Extract `task_id`, derive SA editor URL.
+2. Locate / reuse SA editor tab via Chrome MCP (`tabs_context_mcp` + `navigate`). Tab reuse is mandatory if a matching tab exists.
+3. **Per annotation (in order 1..N):**
+   - Apply skill checkbox deltas: toggle off skills in `skills_uncheck`, toggle on skills in `skills_check`. Idempotent — skip if both lists empty. Use the per-annot 9-checkbox group (positions 0-6 = the 7 skills, 7 = MCQ, 8 = Short answer question; QType flips share this same group).
+   - **Verify skill toggles via readback** — re-query checkbox state, retry on mismatch.
+   - **Verify question type set** — exactly one of `MCQ` / `Short answer question` must be checked. Empty = fail loud, STOP (do not Save).
+   - **NEVER write to the Rewrite Answer textarea for thumbs-down annotations (codified 2026-05-01).** If `sa.action ∈ {QC_Return, delete}`: skip the rewrite textarea entirely — do not read it, do not write it, do not include it in any DOM selection. Incident: Violin_163 A1 rewrite accidentally overwritten from "2" to "4" because the `rewriteTAs` filter was too broad and included offset textareas, causing A4's `answer_final` to land on A1's rewrite field.
+   - If `sa.answer_final` non-null AND `sa.action == approve`: write into Rewrite Answer textarea (native setter + `input` + `change` events). If already matches current value: skip (no-op).
+   - Set QC rating per `sa.rating` — click thumbs-up or thumbs-down button in the QC section (active state = inline `style` contains `rgb(0, 205, 108)`).
+   - If `sa.feedback` non-null: append to existing QC Feedback textarea — never replace. Readback to verify char-by-char match against payload `sa.feedback`.
+4. **Pre-save audit (mandatory, codified 2026-05-01):** for every annot, readback ALL written fields against the payload before clicking Save:
+   - **Rewrite Answer readback:** for every annotation, read the current Rewrite Answer textarea value. If `sa.answer_final` is non-null: must match exactly. If `sa.answer_final` is null: must NOT have changed from the value at page-load (compare against pre-apply snapshot). Any mismatch = STOP, do not Save — a rewrite was written to the wrong textarea. Reason: the `rewriteTAs` filter can include extra empty textareas at offsets that shift annotation indices, causing `answer_final` from one annotation to land on another (incident: Violin_163 A1 rewrite accidentally set to "4" due to 2-textarea offset shift, 2026-05-01).
+   - **Feedback readback:** for every annot, readback the feedback textarea value and compare against payload `sa.feedback` character-by-character. Mismatch = STOP, do not Save (SA tasks lock on submit; post-save correction impossible).
+5. Click task-level **Save**. Confirm save toast.
+6. **Finalize:** run `STEM=<S> node scripts/run-job5.mjs --finalize`. Atomic mv `payloads/shadow_applied/<S>.yaml → payloads/done/<S>.yaml` AND `payloads/shadow_applied/<S>.shadows.yaml → payloads/done/<S>.shadows.yaml`. Then `rm queue/<S>.json` (pipeline exit gate). Crash between mvs and rm leaves an orphan queue file; the per-stem self-heal at the top of the script picks it up on the next invocation.
+7. Exit. Print human-bridge instructions: "SA-applied for `<S>`. Set task-level QC status dropdown manually in SA UI. Click SA Delete button manually for any cycle-2 `action: delete` annots."
+8. **STOP. Wait for Igor's explicit go-ahead ("next", "ok", "go") before navigating to the next stem.** (codified 2026-04-29 — Igor needs screen to set task-level QC status and handle any Deletes before next stem loads.)
+
+### Job 5 done for `<S>` is signaled by `payloads/done/<S>.yaml` existing AND `queue/<S>.json` removed.
+
+### Failure modes
+- Resolution gate engaged → exit 4 with offending annots listed; Igor runs `mark-resolved.mjs` or `run-reclaim.mjs` to clear.
+- Tab not found / Chrome MCP unreachable → exit 1, no SA mutation.
+- Skill readback mismatch → retry once, then exit 1 with the offending annot.
+- QType empty after toggles → exit 1 (annotator's qtype field unfilled — payload bug; refuse to Save).
+- Pre-save audit mismatch → exit 1 (do NOT click Save).
+- Save toast absent within timeout → exit 1 (SA may have rejected; manual recovery needed).
+- `payloads/done/<S>.yaml` already exists → refuse (terminal write-once gate).
+
+### Hard rules
+- **NEVER write Rewrite Answer on thumbs-down (codified 2026-05-01).** `sa.action ∈ {QC_Return, delete}` → skip the rewrite textarea entirely. No read, no write, no DOM selection. This is an absolute rule — the Slack Concede ruling and the offset-bug incident both require it.
+- **CLI never clicks SA Delete.** Cycle-2 `action: delete` annots: CLI applies feedback + thumbs-down, STOPS. Igor manually clicks SA Delete (deletion is **IRREVERSIBLE** — only Igor's hands).
+- **CLI never sets task-level QC status dropdown.** Human-only field. Igor sets it manually after Job 5.
+- **Feedback writes are append, never replace.** Per playbook line 76: "Add your feedback in chronological order."
+- **Pre-save audit is mandatory.** SA tasks lock on submit; post-save correction impossible.
+- **Move payload AFTER Save, not before.** Save fails → payload stays in `shadow_applied/`, re-runnable.
+- **Resolution gate is only override-able by Igor (codified 2026-05-02).** `mark-resolved.mjs` (no flip — Igor disagrees with HAI warning) or `run-reclaim.mjs` (flip — Igor agrees with HAI, updates answer + /reclaim shadow record). The gate exists to surface HAI LLM warnings on auto-verdict annots that Igor never personally walked at 3a.
+
+### DOM mechanics
+SA UI write helpers in `scripts/sa-apply.js` (browser-side blobs via Chrome MCP `evaluate_script`). DOM specifics in inline comments + `wiki/sa-interface.md`.

@@ -8,19 +8,20 @@ annotations:
 
   - n: 1
     sa:
-      action: QC_Return
+      action: delete
       rating: thumbs-down
       answer_final: null
-      flags: []
-      feedback: "5/1: Prompt is ambiguous. \"> 10°C category\" reads two ways: (a) the green legend bin specifically (10–20°C → Mar and Nov, ~10 days each) or (b) any day with max temperature > 10°C, which sweeps in the > 20°C / > 30°C / > 35°C bins and makes May–Aug tie at ~30 days each. The legend uses nested intervals (the green band labeled \"> 10°C\" really means 10–20°C; \"> 20°C\" yellow means 20–30; etc.), and the prompt inherits the ambiguity. Rewrite using disjoint phrasing — e.g., \"days where the maximum temperature is between 10°C and 20°C\" — to scope the question to the green band only."
+      flags: [G2, Type1, Type3]
+      feedback: |
+        5/2: Prompt ambiguous — "> 10°C category, compared to the other categories" admits cross-month vs. within-month dominance readings yielding different answers. Annotator ignored cycle 1 rewrite instruction (use disjoint phrasing, e.g., "between 10°C and 20°C"). Cycle 2 + 👎 → delete.
       verdict_source: igor
       skills_check: []
-      skills_uncheck: []
+      skills_uncheck: [Spatial Reasoning]
       qtype: "SAQ"
     hai:
       task_id_field: Plot_Weather_pattern_charts_53.json
       role: Reviewing
       annotation_n: 1
       prompt: |
-        Name the two months in the 'maximum temperatures for Oklahoma City' that contain the most temperatures that are in the > 10°C category. Name two months (e.g., Sep and Oct).
-      answer: "Jan and Dec"
+        Name the two months in the 'maximum temperatures for Oklahoma City' that have the largest amounts of the > 10°C category, compared to the other categories. Name two months (e.g., Sep and Oct).
+      answer: null

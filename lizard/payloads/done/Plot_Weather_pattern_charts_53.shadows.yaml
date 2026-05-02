@@ -1,6 +1,13 @@
+stem: Plot_Weather_pattern_charts_53
+igor_resolved: true
 shadows:
   - n: 1
-    uuid: 02cbb23c-7058-4964-91e9-86f46c158387
-    fired_at: "2026-05-01"
-    rating: Reject
+    uuid: 7200e594
+    fired_at: 2026-05-02T15:18:55.326Z
+    rating: Approve
     time_logged: "00:20:00"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "The provided Rewrite Answer is incorrect based on the image, and the prompt contains ambiguous phrasing."
+    reclaimed: true
+    reclaim_diff: "answer: Jan and Dec → annotation deleted"

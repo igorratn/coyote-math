@@ -66,11 +66,11 @@ if (!SKIP_SET.includes(DISPOSITION)) {
   process.exit(2);
 }
 
-const QUEUE_PATH    = join(LIZARD_DIR, 'queue',    `${STEM}.json`);
-const TASK_PATH     = join(LIZARD_DIR, 'tasks',    `${STEM}.md`);
-const PAYLOAD_PATH  = join(LIZARD_DIR, 'payloads', `${STEM}.yaml`);
-const APPLIED_PATH  = join(LIZARD_DIR, 'payloads', 'sa_applied', `${STEM}.yaml`);
-const DONE_PATH     = join(LIZARD_DIR, 'payloads', 'done',       `${STEM}.yaml`);
+const QUEUE_PATH         = join(LIZARD_DIR, 'queue',    `${STEM}.json`);
+const TASK_PATH          = join(LIZARD_DIR, 'tasks',    `${STEM}.md`);
+const PAYLOAD_PATH       = join(LIZARD_DIR, 'payloads', `${STEM}.yaml`);
+const SHADOW_APPLIED_PATH= join(LIZARD_DIR, 'payloads', 'shadow_applied', `${STEM}.yaml`);
+const DONE_PATH          = join(LIZARD_DIR, 'payloads', 'done',           `${STEM}.yaml`);
 
 // Idempotency: queue gone AND any of the downstream stages absent → already
 // skipped (or stem never existed). Exit 0 silently.
@@ -82,7 +82,7 @@ if (!existsSync(QUEUE_PATH)) {
 // Refuse if a payload was already produced — that's a different exit path
 // (Job 3b → Job 4 → Job 5) and overlapping with task-skip would orphan the
 // payload. Caller must clean up first.
-for (const p of [PAYLOAD_PATH, APPLIED_PATH, DONE_PATH]) {
+for (const p of [PAYLOAD_PATH, SHADOW_APPLIED_PATH, DONE_PATH]) {
   if (existsSync(p)) {
     console.error(`[run-task-skip] ERROR: ${STEM}: payload exists at ${p}`);
     console.error(`  task-skip exit path is for stems with NO payload. Resolve payload first.`);

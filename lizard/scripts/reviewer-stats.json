@@ -2,7 +2,7 @@
   "generated_at": null,
   "per_reviewer": {
     "gpt": {
-      "fires": 98,
+      "fires": 100,
       "first_agree": 65,
       "any_agree": 0,
       "escalates": 3,
@@ -59,7 +59,7 @@
       }
     },
     "opus": {
-      "fires": 99,
+      "fires": 102,
       "first_agree": 46,
       "any_agree": 0,
       "escalates": 9,
@@ -84,7 +84,7 @@
     "gemini",
     "grok"
   ],
-  "updated_at": "2026-05-02T05:25:11.806Z",
+  "updated_at": "2026-05-02T14:24:50.675Z",
   "igor_reconcile": {
     "task_files_scanned": 83,
     "tasks_with_igor_verdicts": 7,

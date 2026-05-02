@@ -18,14 +18,17 @@ import { join } from 'path';
 
 // Stage detection — applied per queued stem in pipeline order. Furthest
 // reached wins. Cycle-1 archive files are audit, not stage markers.
+//
+// Pipeline order (post-2026-05-02 swap):
+//   queue → scrape → skeleton → task → payload → shadow_applied (Job 4 done) → done (Job 5 done)
 const STAGE_RULES = [
-  ['queued',     (D, s) => existsSync(join(D, 'queue',                `${s}.json`))],
-  ['scraped',    (D, s) => existsSync(join(D, 'scrapes',              `${s}.txt`))],
-  ['skeleton',   (D, s) => existsSync(join(D, 'tasks/skeleton',       `${s}.md`))],
-  ['task',       (D, s) => existsSync(join(D, 'tasks',                `${s}.md`))],
-  ['payload',    (D, s) => existsSync(join(D, 'payloads',             `${s}.yaml`))],
-  ['sa_applied', (D, s) => existsSync(join(D, 'payloads/sa_applied',  `${s}.yaml`))],
-  ['done',       (D, s) => existsSync(join(D, 'payloads/done',        `${s}.yaml`))],
+  ['queued',          (D, s) => existsSync(join(D, 'queue',                    `${s}.json`))],
+  ['scraped',         (D, s) => existsSync(join(D, 'scrapes',                  `${s}.txt`))],
+  ['skeleton',        (D, s) => existsSync(join(D, 'tasks/skeleton',           `${s}.md`))],
+  ['task',            (D, s) => existsSync(join(D, 'tasks',                    `${s}.md`))],
+  ['payload',         (D, s) => existsSync(join(D, 'payloads',                 `${s}.yaml`))],
+  ['shadow_applied',  (D, s) => existsSync(join(D, 'payloads/shadow_applied',  `${s}.yaml`))],
+  ['done',            (D, s) => existsSync(join(D, 'payloads/done',            `${s}.yaml`))],
 ];
 
 function listQueuedStems(LIZARD_DIR) {

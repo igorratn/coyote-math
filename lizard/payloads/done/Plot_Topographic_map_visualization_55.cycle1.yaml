@@ -1,0 +1,26 @@
+task:
+  stem: Plot_Topographic_map_visualization_55
+  sa_task_filename: Plot_Topographic_map_visualization_55.json
+  task_id: 187833742
+  image: screenshots/Plot_Topographic_map_visualization_55.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: []
+      feedback: "5/1: Prompt is not single-verifiable. The image uses a continuous color gradient, making boundaries between \"red,\" \"yellow,\" and \"blue\" regions subjective. Rewrite to specify a clearly bounded region or use discrete labeled zones."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Topographic_map_visualization_55.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Out of the 3 primary colors shown in the image, red, yellow, and blue, which color generally takes up the least amount of space in the image? Answer with a color mentioned (e.g., Blue)
+      answer: "red"

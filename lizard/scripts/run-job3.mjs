@@ -198,7 +198,7 @@ for (const [n, ann] of annots) {
   // Per Slack ruling (`wiki/slack-rulings.md` Concede): for QC_Return cases,
   // do NOT edit the annotator's Rewrite Answer. Annotator gets the QC
   // Feedback and revises themselves. Payload sa.answer_final = null leaves
-  // the SA Rewrite Answer field untouched at Job 4 push.
+  // the SA Rewrite Answer field untouched at Job 5 push.
   // For 👍 (approve): write annotator's value (= rewriteAnswer).
   // For 👎 (cycle 2 → delete): also leave alone (annotator can't fix; Igor
   // clicks Delete in SA UI).
@@ -224,8 +224,12 @@ for (const [n, ann] of annots) {
       role:          'Reviewing',
       annotation_n:  n,
       prompt:        ann.prompt,
-      // hai.answer must mirror what's in SA's Rewrite Answer field after Job 4
+      // hai.answer must mirror what's in SA's Rewrite Answer field after Job 5
       // push (audit-trail consistency: shadow's Rewrite Answer = SA truth).
+      // Note: under the post-2026-05-02 swap, shadow fires (Job 4) BEFORE SA
+      // push (Job 5). Audit-trail invariant is maintained via /reclaim if
+      // Igor flips a verdict post-shadow. Default path (no flip): shadow's
+      // value matches what Job 5 will write to SA.
       // - approve with correction: sa.answer_final ≠ annotator's → use corrected value
       // - approve without correction: sa.answer_final = annotator's → same value
       // - QC_Return / delete: sa.answer_final null → annotator's original (SA untouched)
@@ -456,7 +460,7 @@ function verifyPayload(path, builtArr, cycle, annotMap) {
       }
     }
 
-    // 2d. HAI side: answer must mirror SA's Rewrite Answer field after Job 4.
+    // 2d. HAI side: answer must mirror SA's Rewrite Answer field after Job 5 (SA push).
     // Approve-with-correction: hai.answer == sa.answer_final (corrected value).
     // Approve-no-correction / QC_Return / delete: hai.answer == annotator's original.
     if (ann) {

@@ -8,13 +8,13 @@ annotations:
 
   - n: 1
     sa:
-      action: QC_Return
-      rating: thumbs-down
-      answer_final: null
-      flags: ["G2", "Type 7"]
-      feedback: "5/1: Prompt is ambiguous on whether \"stops\" includes Perth as a destination stop or counts intermediates only — three defensible readings (10 intermediate stations, 11 hops including arrival at Perth, or 12 total stations). Rephrase to disambiguate, e.g., \"How many stations does the train pass through between Butler and Perth (exclusive of both)?\" or \"Counting Perth as the final stop, how many stops does the train make from Butler to Perth?\". Skill tags corrected: dropped Logical Reasoning (no chained inference, just a count along a single line); added Enumeration (core task is counting stations)."
-      verdict_source: igor
-      skills_check: []
+      action: approve
+      rating: thumbs-up
+      answer_final: "10"
+      flags: []
+      feedback: "5/2: Skill tag corrected: Add Enumeration skill tag (counting prompt — must be checked per V6 skill audit rule)."
+      verdict_source: auto
+      skills_check: [Enumeration]
       skills_uncheck: []
       qtype: "SAQ"
     hai:
@@ -22,5 +22,5 @@ annotations:
       role: Reviewing
       annotation_n: 1
       prompt: |
-        How many stops would it take to get from Butler to Perth? Answer with a numerical value (e.g., 2).
-      answer: "11"
+        How many stops would it take to get from Butler to Perth, not including starting and stopping points? Answer with a numerical value (e.g., 2).
+      answer: "10"
