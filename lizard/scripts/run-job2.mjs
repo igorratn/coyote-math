@@ -16,6 +16,11 @@
 //   STEM       — required
 //   REVIEWERS  — override fire order (comma-separated). Default: filesystem
 //                pool in DEFAULT_ORDER policy.
+//   REVIEWER_FAIL_POLICY — abort (default) | drop. On reviewer failure
+//                (exit_nonzero / no_output / bad_output), default is exit 4
+//                with details so Igor can inspect before silently dropping a
+//                model. Re-invoke with REVIEWER_FAIL_POLICY=drop to keep
+//                going past failures (codified 2026-05-01).
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
 import { resolve, join, dirname as pathDirname } from 'path';
@@ -239,6 +244,35 @@ function runMerger({ commit }) {
 let pending = defaultReviewAnnots(SKELETON_TEXT);
 console.error(`[run-job2] initial pending = ${pending.join(',') || '(none)'} (${pending.length} annot(s))`);
 
+// Stump pre-filter (codified 2026-05-01): drop annots whose prefilter detected
+// no model answer or model == annotator. Auto Verdict 👎 emitted by the merger
+// via stumpfail.json — no reviewers fire on these (deterministic fact, not
+// guideline interpretation). stumpFailSet stays in outer scope so the pending
+// recalculation never re-adds stump-failed annots via no_reviewer_output.
+// (codified 2026-05-01: prior bug — stump-failed annots leaked back into
+// pending as no_reviewer_output, causing reviewers to fire on them anyway.)
+let stumpFailSet = new Set();
+{
+  const prefilterPath = join(TMP_DIR, 'prefilter.json');
+  if (existsSync(prefilterPath)) {
+    const pf = JSON.parse(readFileSync(prefilterPath, 'utf8'));
+    const stumpFails = pf.annotations
+      .filter(a => a.prefilter_verdict)
+      .map(a => ({ n: a.n, code: a.prefilter_verdict.carve_out, reason: a.prefilter_verdict.reason }));
+    if (stumpFails.length) {
+      stumpFailSet = new Set(stumpFails.map(s => s.n));
+      pending = pending.filter(n => !stumpFailSet.has(n));
+      for (const sf of stumpFails) {
+        console.error(`[run-job2] stump pre-filter: A${sf.n} → 👎 (${sf.code}) — ${sf.reason}`);
+      }
+      console.error(`[run-job2] pending after stump pre-filter = ${pending.join(',') || '(none)'} (${pending.length} annot(s))`);
+      // Write stumpfail.json so merger can emit Auto Verdict 👎 blocks without
+      // needing reviewer output for these annotations.
+      writeFileSync(join(TMP_DIR, 'stumpfail.json'), JSON.stringify({ stump_fails: stumpFails }, null, 2), 'utf8');
+    }
+  }
+}
+
 const runResults = [];
 let lastSummary = null;
 
@@ -252,15 +286,26 @@ for (const name of FIRE_ORDER) {
   }
   const res = runReviewer(name, pending);
   runResults.push(res);
-  if (!res.ok) continue;
+  if (!res.ok) {
+    // Reviewer failure gate (codified 2026-05-01). Default: abort with details
+    // so Igor can inspect the failure before dropping a model. Silent drops
+    // hide gemini API errors, validation failures, etc. — Igor wants confirmation.
+    const policy = (process.env.REVIEWER_FAIL_POLICY ?? 'abort').toLowerCase();
+    if (policy === 'drop') {
+      console.error(`[run-job2] ${name} failed (${res.err}) — REVIEWER_FAIL_POLICY=drop, continuing`);
+      continue;
+    }
+    console.error(`[run-job2] ABORT: ${name} failed (${res.err}). Output (if any) at /tmp/lizard/${STEM}/${name}-review.md.`);
+    console.error(`[run-job2] Inspect, then re-invoke with REVIEWER_FAIL_POLICY=drop to skip ${name}, or fix and retry.`);
+    process.exit(4);
+  }
   lastSummary = runMerger({ commit: false });
   if (lastSummary) {
-    // Chain stops on first 👍 (probe model) regardless of merger disposition.
-    // Annot drops from pending whenever rating === 'thumbs-up' (auto-resolved
-    // OR pending-igor-from-divergent-👍). Stays in pending only if no 👍 yet.
+    // Chain stops only on auto-resolved (close-match 👍). Big-diff 👍 → decision
+    // stays 'pending-igor' → annot stays in pending → next reviewer probes for
+    // a matching 👍. Chain exits when pending is empty or FIRE_ORDER exhausted.
     const stillPending = lastSummary.per_annotation
-      .filter(a => a.rating !== 'thumbs-up' &&
-                   (a.decision === 'pending-igor' || a.decision === 'no_reviewer_output'))
+      .filter(a => (a.decision === 'pending-igor' || a.decision === 'no_reviewer_output') && !stumpFailSet.has(a.n))
       .map(a => a.n);
     const dropped = pending.filter(n => !stillPending.includes(n));
     if (dropped.length) {

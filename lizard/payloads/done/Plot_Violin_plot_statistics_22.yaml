@@ -1,0 +1,102 @@
+task:
+  stem: Plot_Violin_plot_statistics_22
+  sa_task_filename: Plot_Violin_plot_statistics_22.json
+  task_id: 187833744
+  image: screenshots/Plot_Violin_plot_statistics_22.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "4"
+      flags: []
+      feedback: "5/1: Skill tag corrected: Skill tags corrected: added Enumeration; dropped Spatial Reasoning."
+      verdict_source: auto
+      skills_check: [Enumeration]
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Violin_plot_statistics_22.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        If you count the category labels shown along the x-axis in both panels, how many distinct categories are being compared? Provide the answer as a single number (e.g., 8).
+      answer: "4"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "2"
+      flags: []
+      feedback: "5/1: Skill tag corrected: Skill tags corrected: added Enumeration; dropped Spatial Reasoning."
+      verdict_source: auto
+      skills_check: [Enumeration]
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Violin_plot_statistics_22.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Across the entire figure, how many main plotting panels are displayed side by side? Provide the answer as a single number (e.g., 8).
+      answer: "2"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "4"
+      flags: []
+      feedback: "5/1: Skill tag corrected: Skill tags corrected: added Enumeration; dropped Spatial Reasoning."
+      verdict_source: auto
+      skills_check: [Enumeration]
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Violin_plot_statistics_22.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        In the right-hand panel, how many separate boxplots are shown? Provide the answer as a single number (e.g., 8).
+      answer: "4"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "4"
+      flags: []
+      feedback: "5/1: Skill tag corrected: Skill tags corrected: added Enumeration; dropped Spatial Reasoning."
+      verdict_source: auto
+      skills_check: [Enumeration]
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Violin_plot_statistics_22.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        In the left-hand panel, how many violin shapes are displayed? Provide the answer as a single number (e.g., 8).
+      answer: "4"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "8"
+      flags: []
+      feedback: "5/1: Skill tag corrected: Skill tags corrected: added Enumeration; dropped Spatial Reasoning."
+      verdict_source: auto
+      skills_check: [Enumeration]
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Violin_plot_statistics_22.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        If you combine the number of violin shapes and boxplots across both panels, what total do you get? Provide the answer as a single number (e.g., 8).
+      answer: "8"

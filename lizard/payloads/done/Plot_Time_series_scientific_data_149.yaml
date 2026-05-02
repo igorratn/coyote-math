@@ -1,0 +1,30 @@
+task:
+  stem: Plot_Time_series_scientific_data_149
+  sa_task_filename: Plot_Time_series_scientific_data_149.json
+  task_id: 187833737
+  image: screenshots/Plot_Time_series_scientific_data_149.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "B"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_Time_series_scientific_data_149.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Locate the search term displayed in the exact middle of the bottom legend (the third item from the left). Identify its corresponding color and trace that specific line to the extreme right edge of the graph. At this final endpoint, what is the vertical ranking of this line compared to the other four, counting from the highest point (1st) to the lowest (5th)?
+        A. 1st
+        B. 2nd
+        C. 3rd
+        D. 5th
+      answer: "B"

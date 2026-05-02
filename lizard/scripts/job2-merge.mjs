@@ -264,6 +264,19 @@ const saFilenameM = /\*\*SA_TASK_FILENAME:\*\*\s*(\S+)/.exec(skeleton);
 const imageM      = /\*\*Image:\*\*\s*(.+?)$/m.exec(skeleton);
 const isCycle2    = /## Cycle 2 Review/.test(skeleton);
 
+// ---------- stump-fail map (codified 2026-05-01) ----------
+// Pre-determined 👎 annots from the prefilter (no model answer or model==annotator).
+// Loaded from stumpfail.json written by run-job2.mjs stump pre-filter block.
+// These never reach reviewers; merger emits Auto Verdict 👎 directly.
+const stumpFailMap = new Map();
+{
+  const sfPath = join(REVIEW_DIR, 'stumpfail.json');
+  if (existsSync(sfPath)) {
+    const sf = JSON.parse(readFileSync(sfPath, 'utf8'));
+    for (const s of (sf.stump_fails ?? [])) stumpFailMap.set(s.n, s);
+  }
+}
+
 // ---------- per-annot pick: delegate to the pure exported helper ----------
 const pickBestVerdict = (skelN) => pickBestVerdictFromParsed(parsedReviewers, REVIEWERS, skelN);
 
@@ -271,6 +284,14 @@ const merged = [];
 for (const skel of skelAnnots) {
   if (isCycle2 && skel.status === 'unchanged') {
     merged.push({ n: skel.n, decision: 'unchanged', skel });
+    continue;
+  }
+  // Stump-fail short-circuit: no reviewers fire on these.
+  if (stumpFailMap.has(skel.n)) {
+    const sf = stumpFailMap.get(skel.n);
+    merged.push({ n: skel.n, decision: 'auto-resolved', stumpFail: sf, allViews: [],
+      pick: { name: 'prefilter', rating: 'thumbs-down', finalAnswer: 'N/A', flags: [], editsMadeText: '' },
+      skel });
     continue;
   }
   const pick = pickBestVerdict(skel.n);
@@ -283,24 +304,23 @@ for (const skel of skelAnnots) {
     const a = pr.annotations.get(skel.n);
     if (a) allViews.push({ name, ...a });
   }
-  // Auto-resolve up gate (probe model — codified 2026-04-27):
-  //   Reviewers fire sequentially as binary probes. 👎 → fire next probe;
-  //   👍 → stop the chain. Disposition of the 👍 depends on whether the
-  //   reviewer's own Final Answer matches the annotator's rewrite:
-  //     · close (numeric diff ≤ 10%, non-numeric exact-norm match) → auto-resolved
-  //     · big-diff → pending-igor (sloppy 👍, or corrective 👍 — Igor decides)
-  //   Either way the chain stops; the run-job2 loop drops the annot from
-  //   pending whenever rating === 'thumbs-up' regardless of decision.
+  // Auto-resolve up gate (probe model — codified 2026-04-27, updated 2026-05-01):
+  //   Reviewers fire sequentially as binary probes. 👎 → fire next probe.
+  //   👍 disposition depends on whether reviewer's Final Answer matches annotator's rewrite:
+  //     · close (numeric diff ≤ 10%, non-numeric exact-norm match) → auto-resolved; chain stops
+  //     · big-diff → pending-igor; chain CONTINUES (next reviewer probes for matching 👍)
+  //   Chain stops only on auto-resolved (close-match 👍) or all reviewers exhausted.
+  //   When multiple 👍s exist, prefer the first close-match over any big-diff 👍.
   let decision;
   let finalPick = pick;
   if (!pick) {
     decision = 'no_reviewer_output';
   } else {
-    const anyUp = allViews.find(v => v.rating === 'thumbs-up');
-    if (anyUp) {
-      const bigDiff = detectBigDiff(anyUp.finalAnswer, skel.rewriteAnswer);
-      decision = bigDiff ? 'pending-igor' : 'auto-resolved';
-      finalPick = anyUp;
+    const allUp = allViews.filter(v => v.rating === 'thumbs-up');
+    if (allUp.length > 0) {
+      const closeUp = allUp.find(v => !detectBigDiff(v.finalAnswer, skel.rewriteAnswer));
+      finalPick = closeUp ?? allUp[0];
+      decision = closeUp ? 'auto-resolved' : 'pending-igor';
     } else {
       // Auto-resolve down gate (2026-04-25, Igor codification):
       //   ALL configured reviewers fired (≥2) AND ALL rated 👎 AND ALL flagged G1
@@ -434,6 +454,28 @@ function renderAnnotation(entry) {
   const hasSkillEdit = editsDelta.skills_check.length > 0 || editsDelta.skills_uncheck.length > 0;
 
   if (entry.decision === 'auto-resolved') {
+    // Stump-fail: no model answer or model==annotator — auto-down, no reviewers fired.
+    if (entry.stumpFail) {
+      const sf = entry.stumpFail;
+      const isTie = sf.code === 'stump_fail_tie';
+      const feedbackText = isTie
+        ? `Model answered correctly — not stumped (model answer equals annotator's rewrite). Annotator must design a harder prompt that the model cannot answer.`
+        : `Model did not generate an answer for this annotation — treated as not stumped. Annotator must regenerate model response before resubmitting.`;
+      lines.push(`**Auto-resolved at Job 2 (👎 stump-fail).** ${sf.code}: ${sf.reason}. SA action at Job 4: **${downAction}** (${cycleLabel}). Skipped at Job 3 walkthrough.\n`);
+      lines.push(`#### Auto Verdict`);
+      lines.push(`carve_out: ${sf.code}`);
+      lines.push(`rating: thumbs-down`);
+      lines.push(`final_answer: null`);
+      lines.push(`source: prefilter`);
+      lines.push(`sa_action: ${downAction}`);
+      lines.push(`skills_check: []`);
+      lines.push(`skills_uncheck: []`);
+      lines.push(`notes: ${sf.reason}\n`);
+      lines.push(`#### Edits Made\n(none — stump-fail auto-down)\n`);
+      lines.push(`#### Feedback\n${today}: ${feedbackText}\n`);
+      if (skel.n < skelAnnots.length) lines.push('\n---\n');
+      return lines.join('\n');
+    }
     if (pick.rating === 'thumbs-up') {
       const matchNote = pick.finalAnswer && skel.rewriteAnswer
         && pick.finalAnswer.trim().toLowerCase() === skel.rewriteAnswer.trim().toLowerCase()

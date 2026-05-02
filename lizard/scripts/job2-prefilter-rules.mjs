@@ -151,6 +151,31 @@ export function detectBigDiff(reviewerAns, annotAns) {
   return null;
 }
 
+// detectStumpFail: deterministic stump-rule checks at prefilter time.
+// Two cases produce an automatic 👎 carve-out without firing reviewers:
+//   (a) NO_MODEL — model_answer empty or placeholder text. Model wasn't tested
+//       (or response wasn't captured) → no stump assessment possible →
+//       prompt failed task objective.
+//   (b) MODEL_TIE — normalized(model_answer) === normalized(annotator_answer).
+//       Model produced the annotator's exact rewrite → not stumped (Type 2).
+// Both are objective filesystem-deterministic facts, not interpretive
+// guideline calls; safe to auto-down without reviewer confirmation.
+// Codified 2026-05-01 — saves reviewer compute on guaranteed-thumbs-down annots.
+export function detectStumpFail(modelAns, rewriteAns) {
+  const ma = String(modelAns ?? '').trim();
+  const ra = String(rewriteAns ?? '').trim();
+  // (a) NO_MODEL — empty or skeleton's "(no model answer ...)" placeholder
+  if (!ma || /^\(no\s+model\s+answer/i.test(ma)) {
+    return { code: 'STUMP_FAIL_NO_MODEL', reason: 'No model answer captured — stump cannot be assessed; prompt failed task objective' };
+  }
+  // (b) MODEL_TIE — identical after case+whitespace normalize
+  const norm = s => s.toLowerCase().replace(/\s+/g, ' ').trim();
+  if (ra && norm(ma) === norm(ra)) {
+    return { code: 'STUMP_FAIL_TIE', reason: `Model answer "${ma}" equals annotator's rewrite "${ra}" — not stumped (Type 2)` };
+  }
+  return null;
+}
+
 
 // Run all flag checks on a single annotation entry.
 // Returns { n, status, skills_tagged, qtype, flags, skip_review }.
@@ -173,6 +198,19 @@ export function flagAnnotation(ann) {
   const nearMiss   = detectNearMiss(modelAns, rewriteAns);
   if (nearMiss) {
     flags.push({ code: 'G3_NEAR_MISS', severity: 'soft', note: nearMiss.reason });
+  }
+  // Stump-rule pre-filter (codified 2026-05-01): if no model answer or
+  // model == annotator, emit prefilter_verdict so the merger auto-downs
+  // without firing reviewers.
+  const stumpFail = detectStumpFail(modelAns, rewriteAns);
+  let prefilterVerdict = null;
+  if (stumpFail) {
+    flags.push({ code: stumpFail.code, severity: 'hard', note: stumpFail.reason });
+    prefilterVerdict = {
+      rating: 'thumbs-down',
+      carve_out: stumpFail.code === 'STUMP_FAIL_NO_MODEL' ? 'stump_fail_no_model' : 'stump_fail_tie',
+      reason: stumpFail.reason,
+    };
   }
   if (G4_CROSS_REF.test(prompt)) {
     flags.push({ code: 'G4_CROSS_REF', severity: 'soft', note: 'Prompt references previous/next/above annotation' });
@@ -207,7 +245,8 @@ export function flagAnnotation(ann) {
     skills_tagged: skills,
     qtype,
     flags,
-    skip_review: ann.status === 'unchanged',
+    skip_review: ann.status === 'unchanged' || prefilterVerdict !== null,
+    prefilter_verdict: prefilterVerdict,
   };
 }
 

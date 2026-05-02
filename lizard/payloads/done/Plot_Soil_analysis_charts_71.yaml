@@ -1,0 +1,31 @@
+task:
+  stem: Plot_Soil_analysis_charts_71
+  sa_task_filename: Plot_Soil_analysis_charts_71.json
+  task_id: 187833708
+  image: screenshots/Plot_Soil_analysis_charts_71.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_Soil_analysis_charts_71.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        First calculate the water weight for every tare based on the wet and dry measurements. Then calculate the soil weight for every tare using the dry measurement and the tare weight. Which tare has the smallest absolute difference between its water weight and soil weight? 
+        
+        A. H15
+        B. F8
+        C. H13
+        D. H16
+      answer: "C"

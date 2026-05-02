@@ -1,0 +1,68 @@
+task:
+  stem: Plot_Spectral_analysis_charts_117
+  sa_task_filename: Plot_Spectral_analysis_charts_117.json
+  task_id: 187833710
+  image: screenshots/Plot_Spectral_analysis_charts_117.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_Spectral_analysis_charts_117.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        In the spectrogram, focus on the pink "Select Playback Range" box (with dashed borders) and the bright (yellow/red) diagonal chirp line. Within the x-axis time range covered by the pink box, where is the chirp's bright center positioned relative to the pink box?
+        A. Inside the pink box
+        B. Above the pink box (at higher y-axis values)
+        C. Below the pink box (at lower y-axis values)
+        D. Entirely to the right of the pink box
+      answer: "C"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "2"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Spectral_analysis_charts_117.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        In the spectrogram, focus on the pink "Select Playback Range" box with dashed borders. Step 1: Identify the labeled y-axis tick value closest to the top edge of the pink box. Step 2: Identify the labeled y-axis tick value closest to the bottom edge of the pink box. Step 3: How many labeled y-axis tick values lie strictly between these two values (not inclusive of the top tick or the bottom tick)? Answer with a single number (e.g., 3)
+      answer: "2"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "200"
+      flags: []
+      feedback: "5/1: Skill tag corrected: Dropped Spatial Reasoning."
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Spectral_analysis_charts_117.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        In the Waterfall Analysis plot (Impulse Response), focus on the bottom horizontal frequency axis. Step 1: Identify the smallest labeled tick value (leftmost). Step 2: Identify the largest labeled tick value (rightmost). Step 3: Treating 1k=1000, 10k=10000, and 20k=20000, compute the ratio of the rightmost value to the leftmost value. Answer with a single number (e.g., 100)
+      answer: "200"

@@ -1,0 +1,50 @@
+task:
+  stem: Plot_ROC_curve_analysis_54
+  sa_task_filename: Plot_ROC_curve_analysis_54.json
+  task_id: 187833675
+  image: screenshots/Plot_ROC_curve_analysis_54.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "B"
+      flags: []
+      feedback: "5/1: Skill tag corrected: Dropped Spatial Reasoning."
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_ROC_curve_analysis_54.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        What does the red dot on the predictive model located on the left side of the graphic indicate?
+        
+        A. 0% sensitivity, 0% specificity
+        B. 80% sensitivity, 80% specificity
+        C. 8% sensitivity, 8% specificity
+        D. 2% sensitivity, 2% specificity
+      answer: "B"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "1.5"
+      flags: []
+      feedback: "5/1: Skill tag corrected: Dropped Spatial Reasoning. Dropped Logical Reasoning."
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: [Spatial Reasoning, Logical Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_ROC_curve_analysis_54.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Looking at the box plot on the right side of the graphic, focus on the yellow diamond represented in the cachexic and control groups. What is the approximate value of the yellow diamond in the green box plot? Answer with the y axis value closest to the tick mark rounded to the nearest tenths place (e.g., 0.0).
+      answer: "1.5"

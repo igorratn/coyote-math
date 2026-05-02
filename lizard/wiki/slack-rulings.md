@@ -2,6 +2,27 @@
 
 > **Primary channel for Lizard rulings:** `#lizard-reviewers` — Slack channel ID `C0ANPTSDQ81` in the `handshakeaicommunity` workspace. Search this channel first for any policy / workflow / edge-case question. Thread URLs follow the pattern `https://handshakeaicommunity.slack.com/archives/C0ANPTSDQ81/p<timestamp>`.
 
+## May 1, 2026 Rulings
+
+### TCG Understanding — litmus test (Nikhil D. [HAI], Apr 30 thread)
+**Pretend the image isn't a graph. Can you still answer the question?** If yes → not TCG. If no → TCG. Borderline cases (e.g. "count candlesticks between leftmost and highest wick" on a candlestick chart) lean TCG but are on the line. ([thread](https://handshakeaicommunity.slack.com/archives/C0ANPTSDQ81/p1777611522008989))
+
+### Misspelled-word prompts are fair (Nikhil D. [HAI], May 1)
+A prompt asking the model to find a misspelled word in a table or labeled element is fair game. Example accepted: "What is the sum of the percentages for last year's and this year's values of the only ratio type in the Income Statement Breakdown ratios table that is misspelled?" ([thread](https://handshakeaicommunity.slack.com/archives/C0ANPTSDQ81/p1777657526204049))
+
+### Annotator-skipped image with 1 failed-model annotation (Nikhil D. [HAI], May 1)
+If the annotator skipped the image but left 1 annotation that failed the model: **if the image is suitable, delete the annotation and move the task to Skipped.** Reviewer judgment on image suitability comes first; the lone failed annot doesn't keep the task alive. ([thread](https://handshakeaicommunity.slack.com/archives/C0ANPTSDQ81/p1777667034341339))
+
+**Implication for our pipeline:** this is a partial-skip path — task ends up in a Skipped disposition (no shadows per Apr 28 ruling), but only after the partial annotation is explicitly deleted in SA. Igor handles deletion manually (CLI never clicks SA Delete).
+
+### Multi-annot image with all-bad prompts → Unusable (Angie Z., Apr 30)
+Confirms existing pattern: skim the prompts; if none are good, send to Unusable. No per-annot thumbs-down required, no shadows. ([thread](https://handshakeaicommunity.slack.com/archives/C0ANPTSDQ81/p1777579051525659))
+
+### NV-touched annotations stay un-deletable on cycle 2 (Angie Z., Apr 30)
+Re-confirms existing rule (line 65 below): "we can't delete prompts once they have NV Audit feedback. You would need to try your best to come up with new prompts to replace the bad ones." Even if the cycle-2 revision is *worse* than the original and unsalvageable, deletion is not allowed — replace the prompt instead. ([thread](https://handshakeaicommunity.slack.com/archives/C0ANPTSDQ81/p1777591157630099))
+
+---
+
 ## Unusable / Skipped tasks → no shadow tasks (Apr 28, 2026)
 
 Confirmed by Angie Z. ([thread](https://handshakeaicommunity.slack.com/archives/C0ANPTSDQ81/p1777422361003609)): for Unusable (and by extension Skipped — same "image is the problem, not the prompts" disposition):

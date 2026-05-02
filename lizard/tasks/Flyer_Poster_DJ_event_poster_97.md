@@ -4,66 +4,106 @@
 - **task_id:** 187832381
 - **SA_TASK_FILENAME:** Flyer_Poster_DJ_event_poster_97.json
 - **Image:** screenshots/Flyer_Poster_DJ_event_poster_97.png — (description)
-- **Date:** 2026-04-29
+- **Date:** 2026-05-01
 - **Review Cycle:** 1st
-- **Task QC Status:** QC_Complete
+- **Task QC Status:** QC_Return
 
 ## Task Status
 - **Status:** ALL-AUTO-RESOLVED
 - **Reviewers fired:** opus
-- **Summary:** 0 pending Igor, 1 auto-resolved, 0 no-reviewer-output, 0 unchanged-carry-forward (of 1 total)
+- **Summary:** 0 pending Igor, 2 auto-resolved, 0 no-reviewer-output, 0 unchanged-carry-forward (of 2 total)
 
 ---
 
 ## Annotation 1
 
-- **Shadow Task:** ⬜ not submitted
 - **Reviewer:** opus
 - **Rating:** thumbs-up
 - **All Verdicts:** opus: 👍 (picked)
-- **Flags:** []
-- **Final Answer (reviewer):** B
-- **Skills Tagged:** Attribute Perception, Spatial Reasoning, Logical Reasoning
+- **Flags:** [G5]
+- **Final Answer (reviewer):** C
+- **Skills Tagged:** Attribute Perception, Spatial Reasoning, Math Reasoning, Logical Reasoning
 - **Question Type:** MCQ
 - **Model Answer:** A
-- **Annotator Answer:** B
+- **Annotator Answer:** C
 
 #### Full Prompt
-In the perks row, treat each phrase between vertical bars as one item. Scan the three perk items from viewer-right to viewer-left, counting only the first occurrence of each distinct phrase. Take the second survivor. If that survivor appears exactly once in the original perks row, choose the viewer-left contact heading; if it appears more than once, choose the viewer-right contact heading. Then flip to the detail in the opposite contact column. Which detail is selected?
-A. +123 455 7890-7890
-B. WWW.PSDFREEBIES.COM
-C. FREE DRINK
-D. FREE PARKING
+Consider only the date ribbon and the freebies line. Reverse-scan those two blocks from bottom to top. The second surviving block is the date ribbon. Count its three calendar components: month label, day number, and weekday. Add that count to the number of white corner markers and the number of named special guests. Which result is correct?
+
+A. 7
+B. 8
+C. 9
+D. 10
 
 #### Rewrite Answer (annotator)
-B
+C
 
 #### Reviewer Body (opus) (picked)
 - **Rating:** thumbs-up
-- **Final Rewrite Answer:** B
-- **Flags:** []
+- **Final Rewrite Answer:** C
+- **Flags:** [G5]
 - **Two-Part Check:**
-  1. Question: G1 — multi-skill (Logical Reasoning chain + Attribute Perception to read the text + viewer-left/right navigation). Has Logical Reasoning anchor, V6-compliant. G2 — deterministic MCQ with single answer. G3 — fully self-contained in image. G4 — standalone. G5 — no giveaway. Prompt is dense but unambiguous; each step has a single defined output. No error type triggered (no precision read, no ambiguous diff, no Type 9 issues — options A./B./C./D. with period, plausible distractors, no all/none of the above).
-  2. Answer: Perks row left→right = `FREE DRINK | FREE PARKING | FREE PARKING` [pixel-verified]. Scan right→left = `FREE PARKING, FREE PARKING, FREE DRINK`. First-occurrence survivors in scan order: 1st = FREE PARKING (pos 3), pos 2 already seen → skip, 2nd survivor = FREE DRINK (pos 1). FREE DRINK appears exactly once in original perks row → choose viewer-LEFT contact heading = `CALL FOR BOOKING` [pixel-verified]. Flip to detail in opposite (viewer-right) contact column = `WWW.PSDFREEBIES.COM` [pixel-verified] = option B. Model answered A (left-column phone detail), suggesting it failed the final flip step — valid stump.
-- **Edits Made:** skills_uncheck: Spatial Reasoning (viewer-left/right is navigational positioning, not relational spatial reasoning per V6 calibration).
-- **Feedback:** 4/30: Skill tag corrected: dropped Spatial Reasoning (viewer-left/right is navigational, not relational spatial reasoning).
+  1. Question: G1 OK — Enumeration + Attribute Perception + Math + Logical (reverse-scan filter) → 4 skills, anchor skill Logical Reasoning present. G2 OK — MCQ with deterministic single answer. G3 OK — fully image-readable, no specialized knowledge. G4 OK — standalone. **G5 borderline-fail**: the prompt explicitly states "**three** calendar components" — this hands the model the count of the first addend, reducing the actual reasoning to (corner markers) + (named guests) + 3. Mild giveaway but the stump still works. Type 7 OK — "white corner markers" = the 4 L-brackets, unambiguous; "named special guests" = the 2 DJ names, unambiguous. The "reverse-scan those two blocks from bottom to top" wrapper is decorative — both candidate blocks are named and "the date ribbon" is then identified verbatim, so the filter step is empty motion. Not fatal but adds noise.
+  2. Answer: Date ribbon components: AUG + 28 + FRIDAY = **3** [pixel-verified]. White corner markers framing title block: top-left + top-right + bottom-left + bottom-right = **4** [pixel-verified — visible as L-brackets in all four corners around the "HIPHOP Party" title]. Named special guests: DJ SAM, DJ SNOW = **2** [pixel-verified]. Total = 3 + 4 + 2 = **9** → **C**. Model answered A=7 (off by 2 — likely missed 2 of the 4 corner markers, or counted 0 guests + 4 markers). Stump valid (A ≠ C).
+- **Edits Made:** Add Enumeration skill (prompt contains "Count" and "number of" — required tag, currently missing). Drop Spatial Reasoning (counting markers/guests/components is enumeration + attribute perception, not relational position reasoning).
+- **Feedback:** 5/2: Skill tags corrected: added Enumeration (prompt explicitly says "Count" and "number of"); dropped Spatial Reasoning (this is enumeration of named features, not relational position reasoning).
 
-**Auto-resolved at Job 2 (👍).** opus 👍 (matches annotator). SA action at Job 4: approve annotator's answer `B` (cycle 1). Skipped at Job 3 walkthrough.
+**Auto-resolved at Job 2 (👍).** opus 👍 (matches annotator). SA action at Job 4: approve annotator's answer `C` (cycle 1). Skipped at Job 3 walkthrough.
 
 #### Auto Verdict
 carve_out: 👍-close
 rating: thumbs-up
-final_answer: B
+final_answer: C
 source: opus
 sa_action: approve
-skills_check: []
+skills_check: [Enumeration]
 skills_uncheck: [Spatial Reasoning]
-notes: opus 👍 close to annotator; SA approves annotator's answer.
+notes: opus 👍 close to annotator; SA approves annotator's answer. Skill edits: check=[Enumeration], uncheck=[Spatial Reasoning]. Fixed from auto-parse bug (Enumeration was misplaced into uncheck).
 
 #### Edits Made
-skills_uncheck: Spatial Reasoning (viewer-left/right is navigational positioning, not relational spatial reasoning per V6 calibration)
+(to be filled at Job 3 if needed)
 
 #### Feedback
-4/30: Skill tag corrected: dropped Spatial Reasoning (viewer-left/right is navigational, not relational spatial reasoning).
+5/1: Skill tag corrected: Add Enumeration skill (prompt contains "Count" and "number of" — required tag, currently missing). Drop Spatial Reasoning (counting markers/guests/components is enumeration + attribute perception, not relational position reasoning).
 
 ---
+## Annotation 2
+
+- **Reviewer:** prefilter
+- **Rating:** thumbs-down
+- **All Verdicts:** 
+- **Flags:** []
+- **Final Answer (reviewer):** N/A
+- **Skills Tagged:** Attribute Perception, Spatial Reasoning, Logical Reasoning
+- **Question Type:** MCQ
+- **Model Answer:** B
+- **Annotator Answer:** B
+
+#### Full Prompt
+Consider these four carriers only: the freebies line, the two-name special-guest line, the five-person image cluster, and the title block "HIPHOP Party". Eliminate the perk-bearing carrier first. Then eliminate the named-text performer carrier. Reverse-scan the remaining carriers from bottom to top. Which surviving carrier is encountered second?
+
+A. the title block "HIPHOP Party"
+B. the five-person image cluster
+C. the freebies line
+D. the special-guest line "DJ SAM & DJ SNOW"
+
+#### Rewrite Answer (annotator)
+B
+
+**Auto-resolved at Job 2 (👎 stump-fail).** stump_fail_tie: Model answer "B" equals annotator's rewrite "B" — not stumped (Type 2). SA action at Job 4: **QC_Return** (cycle 1). Skipped at Job 3 walkthrough.
+
+#### Auto Verdict
+carve_out: stump_fail_tie
+rating: thumbs-down
+final_answer: null
+source: prefilter
+sa_action: QC_Return
+skills_check: []
+skills_uncheck: []
+notes: Model answer "B" equals annotator's rewrite "B" — not stumped (Type 2)
+
+#### Edits Made
+(none — stump-fail auto-down)
+
+#### Feedback
+2026-05-01: Model answered correctly — not stumped (model answer equals annotator's rewrite). Annotator must design a harder prompt that the model cannot answer.

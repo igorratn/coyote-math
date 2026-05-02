@@ -8,13 +8,13 @@ annotations:
 
   - n: 1
     sa:
-      action: QC_Return
-      rating: thumbs-down
-      answer_final: null
-      flags: [G2]
-      feedback: "4/30: Skill tag corrected: dropped Spatial Reasoning (viewer-left/right is navigational, not relational spatial reasoning). Prompt boundary-ambiguous — \"more than once\" needs explicit inclusivity (e.g., \"appears two or more times\"). Distractor A typo: prompt reads +123 455 7890-7890, image reads +123 456 7890 ,7890."
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: ["G5"]
+      feedback: "5/1: Skill tag corrected: Add Enumeration skill (prompt contains \"Count\" and \"number of\" — required tag, currently missing). Drop Spatial Reasoning (counting markers/guests/components is enumeration + attribute perception, not relational position reasoning)."
       verdict_source: auto
-      skills_check: []
+      skills_check: [Enumeration]
       skills_uncheck: [Spatial Reasoning]
       qtype: "MCQ"
     hai:
@@ -22,9 +22,34 @@ annotations:
       role: Reviewing
       annotation_n: 1
       prompt: |
-        In the perks row, treat each phrase between vertical bars as one item. Scan the three perk items from viewer-right to viewer-left, counting only the first occurrence of each distinct phrase. Take the second survivor. If that survivor appears exactly once in the original perks row, choose the viewer-left contact heading; if it appears more than once, choose the viewer-right contact heading. Then flip to the detail in the opposite contact column. Which detail is selected?
-        A. +123 455 7890-7890
-        B. WWW.PSDFREEBIES.COM
-        C. FREE DRINK
-        D. FREE PARKING
+        Consider only the date ribbon and the freebies line. Reverse-scan those two blocks from bottom to top. The second surviving block is the date ribbon. Count its three calendar components: month label, day number, and weekday. Add that count to the number of white corner markers and the number of named special guests. Which result is correct?
+        
+        A. 7
+        B. 8
+        C. 9
+        D. 10
+      answer: "C"
+
+  - n: 2
+    sa:
+      action: delete
+      rating: thumbs-down
+      answer_final: null
+      flags: []
+      feedback: "2026-05-01: Model answered correctly — not stumped (model answer equals annotator's rewrite). Annotator must design a harder prompt that the model cannot answer."
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Flyer_Poster_DJ_event_poster_97.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Consider these four carriers only: the freebies line, the two-name special-guest line, the five-person image cluster, and the title block "HIPHOP Party". Eliminate the perk-bearing carrier first. Then eliminate the named-text performer carrier. Reverse-scan the remaining carriers from bottom to top. Which surviving carrier is encountered second?
+        
+        A. the title block "HIPHOP Party"
+        B. the five-person image cluster
+        C. the freebies line
+        D. the special-guest line "DJ SAM & DJ SNOW"
       answer: "B"

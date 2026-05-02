@@ -1,0 +1,16 @@
+shadows:
+  - n: 1
+    uuid: 2e9fbcf0-a087-453b-bd41-316276d3d9d9
+    fired_at: "2026-05-01"
+    rating: Approve
+    time_logged: "00:20:00"
+  - n: 2
+    uuid: 444a534f-18d9-41bd-9326-b043a935b868
+    fired_at: "2026-05-01"
+    rating: Approve
+    time_logged: "00:28:56"
+  - n: 3
+    uuid: 48b7dd2c-21fc-4fdb-8fe6-838cc2f9d89d
+    fired_at: "2026-05-01"
+    rating: Approve
+    time_logged: "00:20:00"

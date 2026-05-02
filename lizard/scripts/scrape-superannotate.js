@@ -30,8 +30,8 @@
   const checkboxes = Array.from(doc.querySelectorAll('input[type="checkbox"]'));
 
   // --- DOM layout (verified 2026-04-14) ---
-  // textareas[0..1]: header/empty (skip)
-  // Per annotation i (0-indexed), base = 2 + i*10:
+  // textareas[0..2]: header (ta[1] = "Automated Check Results" field added 2026-05-01; skip all 3)
+  // Per annotation i (0-indexed), base = 3 + i*10:
   //   base+0  PROMPT                  (placeholder: "write your own question...")
   //   base+1  MODEL_GENERATED_ANSWER  (raw model output; e.g. "77.8%", "C")
   //   base+2  empty
@@ -42,7 +42,7 @@
   //   base+7  QC_FEEDBACK             (placeholder: "Placeholder", may be empty)
   //   base+8  AUDIT_FEEDBACK          (placeholder: "Placeholder", usually empty)
   //   base+9  NV_AUDIT_FEEDBACK       (placeholder: "Placeholder", may be empty)
-  // After n annotations (base = 2 + n*10):
+  // After n annotations (base = 3 + n*10):
   //   statusBase+0: SCORING_JSON      (schema_version, timestamp)
   //   statusBase+1: STATUS_LOG_TEXT   (human-readable status change log)
   //   statusBase+2: STATUS_LOG_JSON   (full metric/scoring JSON, large)
@@ -90,14 +90,17 @@
   } catch (e) { /* leave blank */ }
 
   const N = 5; // SA tasks always have up to 5 annotations; detect actual count
-  const actualN = Math.round((textareas.length - 4) / 10); // rough count
+  // HDR=3: ta[0] empty, ta[1] "Automated Check Results", ta[2] empty (added 2026-05-01)
+  // Tail=5: SCORING_JSON, STATUS_LOG_TEXT, STATUS_LOG_JSON, extra JSON, empty
+  const HDR = 3;
+  const actualN = Math.round((textareas.length - HDR - 5) / 10);
   const n = Math.min(N, actualN > 0 ? actualN : N);
 
   const annotations = [];
   const lines = [];
 
   // Status log: dynamic index based on annotation count
-  const statusBase = 2 + n * 10;
+  const statusBase = HDR + n * 10;
   const statusLogText = textareas[statusBase + 1]?.value || '';
   const statusLogJson = textareas[statusBase + 2]?.value || '';
 
@@ -110,7 +113,7 @@
   lines.push('');
 
   for (let i = 0; i < n; i++) {
-    const base = 2 + i * 10;
+    const base = HDR + i * 10;
     const prompt               = textareas[base]?.value     || '';
     const modelGeneratedAnswer = textareas[base + 1]?.value || '';
     const answer               = textareas[base + 3]?.value || '';

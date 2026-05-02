@@ -134,23 +134,21 @@ for (let i = 1; i <= nAnnotations; i++) {
     console.error(`[run-job1] A${i}: empty answer — aborting`);
     process.exit(1);
   }
-  // Model answer must be non-empty AND not an API-failure placeholder.
-  // Codified 2026-04-29 after Report_Dashboard_Churn_Dashboard_154 A4 had
-  // `(empty — API failure)` and slipped through to downstream review.
-  // Empty model answer breaks the stump check (no answer to compare to rewrite).
+  // Empty/API-failure model answer → treat as not stumped (model = annotator).
+  // Codified 2026-04-29: original rule was to abort; updated 2026-05-01 per ruling:
+  // no model answer is treated identically to model answering correctly (not stumped).
+  // Feedback to annotator: regenerate model answer before resubmitting.
   const ma = (modelAnswer ?? '').trim();
   const apiFailureRe = /^\(?\s*(empty|none|null|n\/a|api\s*(failure|error|timeout))/i;
-  if (!ma || apiFailureRe.test(ma)) {
-    console.error(`[run-job1] A${i}: empty / API-failure model answer (${JSON.stringify(modelAnswer)}) — aborting. Re-scrape after model regenerates.`);
-    process.exit(1);
-  }
+  const modelAnswerEffective = (!ma || apiFailureRe.test(ma)) ? annotatorAnswer : modelAnswer;
 
   // Strip question-type tokens from skills list (MCQ/Short answer question are qtype, not skills)
   const skillsClean = skills.split(',').map(s => s.trim())
     .filter(s => s !== 'MCQ' && s !== 'Short answer question' && s.length > 0)
     .join(', ');
 
-  annotations.push({ n: i, skills: skillsClean, qtype, modelAnswer, annotatorAnswer, stumped, workRating, qcRating, prompt });
+  const modelAnswerMissing = (!ma || apiFailureRe.test(ma));
+  annotations.push({ n: i, skills: skillsClean, qtype, modelAnswer: modelAnswerEffective, modelAnswerMissing, annotatorAnswer, stumped, workRating, qcRating, prompt });
 }
 
 // ---------- Build skeleton markdown ----------
@@ -172,7 +170,7 @@ for (const a of annotations) {
   lines_out.push(`## Annotation ${a.n}`);
   lines_out.push(`- **Skills Tagged:** ${a.skills}`);
   lines_out.push(`- **Question Type:** ${a.qtype}`);
-  lines_out.push(`- **Model Answer:** ${a.modelAnswer}`);
+  lines_out.push(`- **Model Answer:** ${a.modelAnswerMissing ? '(no model answer — treat as not stumped)' : a.modelAnswer}`);
   lines_out.push(`- **Annotator Answer:** ${a.annotatorAnswer}`);
   lines_out.push(`- **STUMPED:** ${a.stumped}`);
   lines_out.push(`- **WORK_RATING:** ${a.workRating}`);
@@ -191,7 +189,11 @@ for (const a of annotations) {
   lines_out.push('(to be filled by reviewer)');
   lines_out.push('');
   lines_out.push('#### Feedback');
-  lines_out.push('(to be filled by reviewer)');
+  if (a.modelAnswerMissing) {
+    lines_out.push('(pre-flight) Model did not generate an answer for this annotation — treated as not stumped. Annotator must regenerate model response before resubmitting.');
+  } else {
+    lines_out.push('(to be filled by reviewer)');
+  }
   if (a.n < annotations.length) {
     lines_out.push('');
     lines_out.push('---');

@@ -1,0 +1,26 @@
+task:
+  stem: Plot_Topographic_map_visualization_45
+  sa_task_filename: Plot_Topographic_map_visualization_45.json
+  task_id: 187833741
+  image: screenshots/Plot_Topographic_map_visualization_45.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "-1200"
+      flags: ["Type 6"]
+      feedback: "5/1: Skill tags corrected: dropped Spatial Reasoning (label reading is navigational, not relational) and Logical Reasoning (subtraction is Math, not chained inference); added Math Reasoning."
+      verdict_source: igor
+      skills_check: [Math Reasoning]
+      skills_uncheck: [Spatial Reasoning, Logical Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Topographic_map_visualization_45.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        According to all of the elevation marking point values, subtract the highest elevation from the lowest elevation, what is the solution value? Answer with a numerical value (e.g., 1200).
+      answer: "-1200"

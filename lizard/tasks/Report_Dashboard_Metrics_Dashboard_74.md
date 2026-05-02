@@ -1,244 +1,218 @@
 # Review: Report_Dashboard_Metrics_Dashboard_74
 
 ## Task Info
-- **SuperAnnotate Task ID:** 187110801
-- **Image:** Healthcare AR metrics dashboard. Two rows of 4 charts each. Row 1: Insurance AR Balance by Month (bar), Daily trend for Insurance AR Balance (bar or line — see A1 flag), Insurance AR Balance by CPT Code (pie), Insurance AR Balance by Aging Days (donut, $143K). Row 2: Patient AR Balance by Month (bar), Daily trend for Patient AR Balance (bar or line), Patient AR Balance by CPT Code (pie), Patient AR Balance by Aging Days (donut, $24K). Pagination circles visible.
-- **Date:** 2026-04-16
+- **task_id:** 187110801
+- **SA_TASK_FILENAME:** Report_Dashboard_Metrics_Dashboard_74.json
+- **Image:** screenshots/Report_Dashboard_Metrics_Dashboard_74.png — (description)
+- **Date:** 2026-05-01
 - **Review Cycle:** 1st
-
-## Annotations
-
-### Annotation 1
-- **Shadow Task:** ✅ submitted (cycle 1) — [146b1edf](shadows/146b1edf.md)
-- **Rating:** thumbs-up
-- **Question:** Count all distinct chart types; determine which appears most frequently across both rows.
-- **Skills Tagged:** Enumeration, Attribute Perception
-- **Question Type:** Short Answer
-- **Model Answer Rating:** thumbs-down
-
-#### Two-Part Check
-1. **Question Check:**
-   - Guidelines violated: none
-   - Error types found: none. Format "exact format (e. g all chart types [number] times)" constrains the answer. Tie scenario (all types appear equally) is handled by the answer format. Went through 7 CMW iterations to reach clean final version. Tags fixed: removed Spatial Reasoning (no spatial layout reasoning needed — just identifying chart types) and World Knowledge (prompt names all chart types explicitly — no external knowledge required). Added Attribute Perception (visual type identification).
-2. **Answer Check:**
-   - Math verified: FLAGGED — image shows 8 charts (not 4). If Daily trend charts = line: bar=2, line=2, pie=2, donut=2 → "All chart types appear 2 times" ✓. If Daily trend charts = bar: bar=4, pie=2, donut=2 → "bar charts 4 times" (annotator wrong). Daily trends appear to be dense bar charts at review resolution but annotator with full-res classified as lines. **Needs full-res verification before confirming.** Model answered "bar charts" which aligns with bar classification.
-   - Answer correct: conditional — correct only if Daily trend = line chart
-
-#### Full Prompt
-Count all the distinct chart types (bar charts, line charts, pie charts, donut charts) shown in the dashboard, and determine which type appears the most frequently across both rows. Answer using the exact format (e. g all chart types [number] times)
-
-#### Rewrite Answer
-All chart types appear 2 times
-
-#### Edits Made (if any)
-None
-
-#### Feedback
-N/A
-
----
-
-### Annotation 2
-- **Shadow Task:** ✅ submitted (cycle 1) — [0561ec6e](shadows/0561ec6e.md)
-- **Rating:** thumbs-up
-- **Question:** Ratio of Insurance to Patient AR Balance (rounded), plus bar count in first-row bar chart.
-- **Skills Tagged:** Enumeration, Attribute Perception, Math Reasoning
-- **Question Type:** Short Answer
-- **Model Answer Rating:** thumbs-down
-
-#### Two-Part Check
-1. **Question Check:**
-   - Guidelines violated: none
-   - Error types found: none. Dollar values provided inline ($143K, $24K) eliminates reading ambiguity. Rounding instruction clear.
-2. **Answer Check:**
-   - Math verified: yes — $143K/$24K = 5.958 → rounds to 6. First-row bar chart bars = 8. 6+8 = 14. Model got 18 (used wrong ratio or wrong bar count).
-   - Answer correct: yes (14)
-
-#### Full Prompt
-Based on the displayed totals ($143K for Insurance and $24K for Patient), estimate how many times larger Insurance AR Balance is compared to Patient AR Balance and round off the ratio to the nearest whole number? Add that to the number of bars in the bar chart in the first row. (e. g 40)
-
-#### Rewrite Answer
-14
-
-#### Edits Made (if any)
-None
-
-#### Feedback
-N/A
-
----
-
-### Annotation 3
-- **Shadow Task:** ✅ submitted (cycle 1) — [0bdfd9ce](shadows/0bdfd9ce.md)
-- **Rating:** thumbs-up
-- **Question:** Count green bars across both row bar charts.
-- **Skills Tagged:** Enumeration, Attribute Perception
-- **Question Type:** Short Answer
-- **Model Answer Rating:** thumbs-down
-
-#### Two-Part Check
-1. **Question Check:**
-   - Guidelines violated: none
-   - Error types found: none. Simple color-counting task. G1 met (2 skills).
-2. **Answer Check:**
-   - Math verified: yes — 16 green bars total (8 per bar chart × 2 rows, or a subset if not all are green). Model got 24 (wrong).
-   - Answer correct: yes (16 bars)
-
-#### Full Prompt
-How many green bars are there in the bar charts in both the first and second row in the image shown? (e. g 20 bars)
-
-#### Rewrite Answer
-16 bars
-
-#### Edits Made (if any)
-None
-
-#### Feedback
-N/A
-
----
-
-### Annotation 4
-- **Shadow Task:** ✅ submitted (cycle 1) — [16b269ab](shadows/16b269ab.md)
-- **Rating:** thumbs-up
-- **Question:** Yellow + red + blue sections in Patient AR donut + bars in Patient AR Month chart; answer in words.
-- **Skills Tagged:** Enumeration, Attribute Perception, Math Reasoning
-- **Question Type:** Short Answer
-- **Model Answer Rating:** thumbs-down
-
-#### Two-Part Check
-1. **Question Check:**
-   - Guidelines violated: none
-   - Error types found: none. "In words" format is unambiguous. Specific chart titles referenced.
-2. **Answer Check:**
-   - Math verified: yes — yellow+red+blue sections in Patient AR Aging Days donut = 3 sections + 8 bars in Patient AR by Month = 11. Answer: "Eleven". Model got "sixteen" (wrong).
-   - Answer correct: yes (Eleven)
-
-#### Full Prompt
-What is the total number of yellow, red, and blue sections in "Patient AR Balance by Aging Days" and the number of bars in "Patient AR Balance by Month" added together? Give your answer in words. (e. g twenty)
-
-#### Rewrite Answer
-Eleven
-
-#### Edits Made (if any)
-None
-
-#### Feedback
-N/A
-
----
-
-### Annotation 5
-- **Shadow Task:** ✅ submitted (cycle 1) — [11c35780](shadows/11c35780.md)
-- **Rating:** thumbs-up
-- **Question:** Sum of colored and uncolored circles in the image.
-- **Skills Tagged:** Enumeration, Attribute Perception, Math Reasoning
-- **Question Type:** Short Answer
-- **Model Answer Rating:** thumbs-down
-
-#### Two-Part Check
-1. **Question Check:**
-   - Guidelines violated: none
-   - Error types found: none. "Circles" in context of this dashboard = pie/donut chart circular elements. Colored circles = pie/donut charts with colored sections. Uncolored circles = hollow/white-centered donut circles. Convention is clear enough in context. Stage 3 initially flagged as ambiguous, overridden on re-review.
-2. **Answer Check:**
-   - Math verified: yes — 6 circles total (pie + donut chart circles, colored and uncolored). Model got 4 (wrong).
-   - Answer correct: yes (6)
-
-#### Full Prompt
-What is the sum of colored and uncolored circles in the image? Give your answer as an integer.(e. g 3)
-
-#### Rewrite Answer
-6
-
-#### Edits Made (if any)
-None
-
-#### Feedback
-N/A
+- **Task QC Status:** QC_Complete
 
 ## Task Status
-- **Status:** QC_Complete
-- **SA Applied:** ✅
-- **Reason:** All 5 annotations thumbs-up. A1 tags fixed (SR+WK removed, AP added). A5 initially flagged by Stage 3 as ambiguous circles — overridden: pie/donut chart circles are clear enough in context.
+- **Status:** ALL-AUTO-RESOLVED
+- **Reviewers fired:** opus, gpt
+- **Summary:** 0 pending Igor, 3 auto-resolved, 0 no-reviewer-output, 0 unchanged-carry-forward (of 3 total)
 
-## Form-Fill Payload
+---
 
-```yaml
-task_id: 187110801
-annotations:
-  - n: 1
-    sa:
-      rating: thumbs-up
-      skills_check: ["Attribute Perception"]
-      skills_uncheck: ["Spatial Reasoning", "World Knowledge"]
-      prompt_edits: null
-      answer_final: null
-      feedback: "4/16: Removed Spatial Reasoning and World Knowledge — prompt names all chart types explicitly, no external knowledge or spatial layout reasoning needed. Added Attribute Perception (visual type identification)."
-    hai:
-      task_id_field: Report_Dashboard_Metrics_Dashboard_74.json
-      role: Reviewing
-      annotation_n: 1
-      prompt: |
-        Count all the distinct chart types (bar charts, line charts, pie charts, donut charts) shown in the dashboard, and determine which type appears the most frequently across both rows. Answer using the exact format (e. g all chart types [number] times)
-      answer: "All chart types appear 2 times"
-  - n: 2
-    sa:
-      rating: thumbs-up
-      skills_check: []
-      skills_uncheck: []
-      prompt_edits: null
-      answer_final: null
-      feedback: null
-    hai:
-      task_id_field: Report_Dashboard_Metrics_Dashboard_74.json
-      role: Reviewing
-      annotation_n: 2
-      prompt: |
-        Based on the displayed totals ($143K for Insurance and $24K for Patient), estimate how many times larger Insurance AR Balance is compared to Patient AR Balance and round off the ratio to the nearest whole number? Add that to the number of bars in the bar chart in the first row. (e. g 40)
-      answer: "14"
-  - n: 3
-    sa:
-      rating: thumbs-up
-      skills_check: []
-      skills_uncheck: []
-      prompt_edits: null
-      answer_final: null
-      feedback: null
-    hai:
-      task_id_field: Report_Dashboard_Metrics_Dashboard_74.json
-      role: Reviewing
-      annotation_n: 3
-      prompt: |
-        How many green bars are there in the bar charts in both the first and second row in the image shown? (e. g 20 bars)
-      answer: "16 bars"
-  - n: 4
-    sa:
-      rating: thumbs-up
-      skills_check: []
-      skills_uncheck: []
-      prompt_edits: null
-      answer_final: null
-      feedback: null
-    hai:
-      task_id_field: Report_Dashboard_Metrics_Dashboard_74.json
-      role: Reviewing
-      annotation_n: 4
-      prompt: |
-        What is the total number of yellow, red, and blue sections in "Patient AR Balance by Aging Days" and the number of bars in "Patient AR Balance by Month" added together? Give your answer in words. (e. g twenty)
-      answer: "Eleven"
-  - n: 5
-    sa:
-      rating: thumbs-up
-      skills_check: []
-      skills_uncheck: []
-      prompt_edits: null
-      answer_final: null
-      feedback: null
-    hai:
-      task_id_field: Report_Dashboard_Metrics_Dashboard_74.json
-      role: Reviewing
-      annotation_n: 5
-      prompt: |
-        What is the sum of colored and uncolored circles in the image? Give your answer as an integer.(e. g 3)
-      answer: "6"
-```
+## Annotation 1
+
+- **Reviewer:** gpt
+- **Rating:** thumbs-up
+- **All Verdicts:** opus: 👎, gpt: 👍 (picked)
+- **Flags:** []
+- **Final Answer (reviewer):** 37
+- **Skills Tagged:** Attribute Perception, Math Reasoning, Table/Chart/Graph Understanding
+- **Question Type:** SAQ
+- **Model Answer:** 41
+- **Annotator Answer:** 37
+
+#### Full Prompt
+Look at the 'Insurance AR Balance by month' and identify the color used to label the bars in the bar chart.
+Look at the donut chart labelled 'Patient AR Balance by Aging Days' and calculate the absolute difference between the upper and lower bounds of the day range that have the same color as in answer above.
+Add the total number of bars visible under the bar chart 'Insurance AR Balance by Month'.
+Answer with a single number (e. g., 70).
+
+#### Rewrite Answer (annotator)
+37
+
+#### Reviewer Body (opus)
+- **Rating:** thumbs-down
+- **Final Rewrite Answer:** 41
+- **Flags:** [Type 2]
+- **Two-Part Check:**
+  1. Question: G1/G2/G3/G4/G5 pass on structure. Multi-step prompt has explicit closing instruction "Answer with a single number (e. g., 70)." — satisfies the codified multi-step closing-instruction rule. Color identification step uses bars that are uniformly teal/cyan [pixel-verified Read-First]; donut color match to 91-120 segment is the clearest pairing. Failure mode is Type 2 — the prompt does not stump the model.
+  2. Answer: Step 1: bar color = teal/cyan [pixel-verified]. Step 2: matching donut segment in Patient AR Balance by Aging Days = 91-120 [pixel-verified]; |120 − 91| = 29. Step 3: bars under "Insurance AR Balance by Month" = 12 (one per month for 2017) [pixel-verified]. Sum: 29 + 12 = 41. Model answer = 41 → model arrived at the correct chained result, so this prompt fails the stump requirement (Type 2 / stump rule).
+- **Edits Made:** None
+- **Feedback:** 5/2: Model answer 41 matches the correct chained result (29 day-range diff + 12 monthly bars). Stump requirement not met — prompt does not differentiate the model from a correct response.
+
+---
+
+#### Reviewer Body (gpt) (picked)
+- **Rating:** thumbs-up
+- **Final Rewrite Answer:** 37
+- **Flags:** []
+- **Two-Part Check:**
+  1. Question: Valid multi-step task. Requires identifying a color from one chart, matching it to a segment in another chart, computing an absolute difference, then adding a bar count. Deterministic and image-contained. No ambiguity since it asks for “absolute difference.”
+  2. Answer: 
+     - Bar color in Insurance AR Balance by Month = teal [Read-First, pixel-verified].
+     - In Patient AR Balance by Aging Days, the teal segment is 121–150 [Read-First, pixel-verified]. Absolute difference = 150 − 121 = 29.
+     - Number of bars visible in Insurance AR Balance by Month = 8 [Read-First, pixel-verified].
+     - Sum = 29 + 8 = 37. [pixel-verified]
+- **Edits Made:** None
+- **Feedback:** N/A
+
+**Auto-resolved at Job 2 (👍).** gpt 👍 (matches annotator). SA action at Job 4: approve annotator's answer `37` (cycle 1). Skipped at Job 3 walkthrough.
+
+#### Auto Verdict
+carve_out: 👍-close
+rating: thumbs-up
+final_answer: 37
+source: gpt
+sa_action: approve
+skills_check: []
+skills_uncheck: []
+notes: gpt 👍 close to annotator; SA approves annotator's answer.
+
+#### Edits Made
+(to be filled at Job 3 if needed)
+
+#### Feedback
+2026-05-01: thumbs-up (gpt) — auto-resolved
+
+---
+## Annotation 2
+
+- **Reviewer:** gpt
+- **Rating:** thumbs-up
+- **All Verdicts:** opus: 👎, gpt: 👍 (picked)
+- **Flags:** []
+- **Final Answer (reviewer):** C
+- **Skills Tagged:** Enumeration, Attribute Perception, Math Reasoning, Logical Reasoning
+- **Question Type:** MCQ
+- **Model Answer:** A
+- **Annotator Answer:** C
+
+#### Full Prompt
+Based on the displayed totals ($143K for Insurance and $24K for Patient), approximately how many times larger is the Insurance AR Balance compared to Patient AR Balance?
+Round off the answer to nearest whole number. 
+Multiply the answer by the total number of circles (both the colored and uncolored) evident in pie and donut charts.
+Answer as a single letter (e. g., C).
+A. 24
+B. 72
+C. 36
+D. 12
+
+#### Rewrite Answer (annotator)
+C
+
+#### Reviewer Body (opus)
+- **Rating:** thumbs-down
+- **Final Rewrite Answer:** N/A — prompt invalid
+- **Flags:** [G2, Type 7]
+- **Two-Part Check:**
+  1. Question: G2 / Type 7 fail on the term "circles (both the colored and uncolored) evident in pie and donut charts." There are 4 pie/donut charts in the image [pixel-verified Read-First]. Plausible readings of "circles" with no rule to pick between them: (a) 4 — count each chart as one circular shape → 6 × 4 = 24 (option A); (b) 6 — count geometric circles (1 boundary per pie + outer + inner boundary per donut), where the donut centers explicitly fit the "uncolored" qualifier → 6 × 6 = 36 (option C); (c) higher counts if "circles" is read as slices. The "(both the colored and uncolored)" parenthetical pushes toward reading (b), but a defender of (a) can argue donut-centers are not "circles" in their own right. Two MCQ options (A and C) sit on competing defensible readings → no single verifiable answer.
+  2. Answer: Step 1: 143/24 = 5.958… → round to 6 [pixel-verified Read-First totals $143K, $24K]. Step 2: ambiguous (4 vs 6 vs more). Cannot deterministically pick 6×4=24, 6×6=36, or another product. Annotator's submission cannot be endorsed against a fixed key.
+- **Edits Made:** None
+- **Feedback:** 5/2: Prompt term "circles (both the colored and uncolored) evident in pie and donut charts" admits multiple defensible counts (4 chart shapes → 24 / 6 boundaries counting donut inner+outer → 36). G2 fails: more than one MCQ option is reachable by a reasonable reading.
+
+---
+
+#### Reviewer Body (gpt) (picked)
+- **Rating:** thumbs-up
+- **Final Rewrite Answer:** C
+- **Flags:** []
+- **Two-Part Check:**
+  1. Question: Multi-step with rounding and counting chart elements; clear MCQ. Image-contained and deterministic.
+  2. Answer:
+     - Insurance total = $143K; Patient total = $24K [Read-First, pixel-verified].
+     - Ratio ≈ 143/24 ≈ 5.958 → rounds to 6.
+     - Total circles in pie/donut charts = 6 (2 pies + 2 donut outers + 2 inner holes) [Read-First, pixel-verified].
+     - Product = 6 × 6 = 36 → option C. [pixel-verified]
+- **Edits Made:** None
+- **Feedback:** N/A
+
+**Auto-resolved at Job 2 (👍).** gpt 👍 (matches annotator). SA action at Job 4: approve annotator's answer `C` (cycle 1). Skipped at Job 3 walkthrough.
+
+#### Auto Verdict
+carve_out: 👍-close
+rating: thumbs-up
+final_answer: C
+source: gpt
+sa_action: approve
+skills_check: []
+skills_uncheck: []
+notes: gpt 👍 close to annotator; SA approves annotator's answer.
+
+#### Edits Made
+(to be filled at Job 3 if needed)
+
+#### Feedback
+2026-05-01: thumbs-up (gpt) — auto-resolved
+
+---
+## Annotation 3
+
+- **Reviewer:** gpt
+- **Rating:** thumbs-up
+- **All Verdicts:** opus: 👎, gpt: 👍 (picked)
+- **Flags:** []
+- **Final Answer (reviewer):** 192
+- **Skills Tagged:** Enumeration, Attribute Perception, Math Reasoning, World Knowledge
+- **Question Type:** SAQ
+- **Model Answer:** 288
+- **Annotator Answer:** 192
+
+#### Full Prompt
+How many green bars are there in the bar charts in both the first and second row in the furthest left part of the image shown? Multiply the answer by the total number of months in a year. Give your final answer as a single number (e. g., 1317).
+
+#### Rewrite Answer (annotator)
+192
+
+#### Reviewer Body (opus)
+- **Rating:** thumbs-down
+- **Final Rewrite Answer:** 288
+- **Flags:** [Type 2]
+- **Two-Part Check:**
+  1. Question: G1/G2/G3/G4/G5 pass on structure. Closing instruction "Give your final answer as a single number (e. g., 1317)" is explicit. Skill tags (Enumeration, Attribute Perception, Math Reasoning, World Knowledge) are reasonable; World Knowledge satisfies V6 anchor-skill rule (12 months in a year is general public knowledge). Calling the bars "green" when they are teal/cyan is mildly loose color naming but not disqualifying since bars are uniformly one color and "green" is the closest single-word read of teal. Failure mode is Type 2 — the prompt does not stump the model.
+  2. Answer: Insurance AR Balance by Month bar chart (top-left, leftmost in row 1): 12 teal bars [pixel-verified]. Patient AR Balance by Month bar chart (bottom-left, leftmost in row 2): 12 teal bars [pixel-verified]. Total green/teal bars = 12 + 12 = 24. Months in a year = 12. 24 × 12 = 288. Model answer = 288 → model arrived at the correct result, so this prompt fails the stump requirement (Type 2 / stump rule).
+- **Edits Made:** None
+- **Feedback:** 5/2: Model answer 288 matches the correct chained result (24 teal bars × 12 months). Stump requirement not met — prompt does not differentiate the model from a correct response.
+
+---
+
+#### Reviewer Body (gpt) (picked)
+- **Rating:** thumbs-up
+- **Final Rewrite Answer:** 192
+- **Flags:** []
+- **Two-Part Check:**
+  1. Question: Requires counting bars across two charts and multiplying by the number of months in a year (world knowledge). Clear and image-contained.
+  2. Answer:
+     - Number of green/teal bars in Insurance AR Balance by Month = 8 [Read-First, pixel-verified].
+     - Number of green/teal bars in Patient AR Balance by Month = 8 [Read-First, pixel-verified].
+     - Total bars = 8 + 8 = 16. Multiply by months in a year = 12 → 16 × 12 = 192. [pixel-verified]
+- **Edits Made:** None
+- **Feedback:** N/A
+
+Fix List
+- None — all prompts valid; provided corrected final answers with full image-cited calculations.
+
+**Auto-resolved at Job 2 (👍).** gpt 👍 (matches annotator). SA action at Job 4: approve annotator's answer `192` (cycle 1). Skipped at Job 3 walkthrough.
+
+#### Auto Verdict
+carve_out: 👍-close
+rating: thumbs-up
+final_answer: 192
+source: gpt
+sa_action: approve
+skills_check: []
+skills_uncheck: []
+notes: gpt 👍 close to annotator; SA approves annotator's answer.
+
+#### Edits Made
+(to be filled at Job 3 if needed)
+
+#### Feedback
+2026-05-01: thumbs-up (gpt) — auto-resolved
+
+---

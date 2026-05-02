@@ -1,7 +1,11 @@
-stem: Flyer_Poster_DJ_event_poster_97
 shadows:
   - n: 1
-    uuid: f23e0434
-    fired_at: 2026-04-30T23:07:13.955Z
+    uuid: 2eae4494-08e7-456c-8469-5fed44d87575
+    fired_at: 2026-05-01
+    rating: Approve
+    time_logged: "00:20:00"
+  - n: 2
+    uuid: 2e268c82-d05d-4d8c-b477-cb68b08d2b83
+    fired_at: 2026-05-01
     rating: Reject
-    time_logged: "04:24:52"
+    time_logged: "00:20:00"

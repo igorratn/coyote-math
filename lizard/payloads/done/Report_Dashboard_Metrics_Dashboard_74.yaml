@@ -1,0 +1,74 @@
+task:
+  stem: Report_Dashboard_Metrics_Dashboard_74
+  sa_task_filename: Report_Dashboard_Metrics_Dashboard_74.json
+  task_id: 187110801
+  image: screenshots/Report_Dashboard_Metrics_Dashboard_74.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "37"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Metrics_Dashboard_74.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Look at the 'Insurance AR Balance by month' and identify the color used to label the bars in the bar chart.
+        Look at the donut chart labelled 'Patient AR Balance by Aging Days' and calculate the absolute difference between the upper and lower bounds of the day range that have the same color as in answer above.
+        Add the total number of bars visible under the bar chart 'Insurance AR Balance by Month'.
+        Answer with a single number (e. g., 70).
+      answer: "37"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Report_Dashboard_Metrics_Dashboard_74.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Based on the displayed totals ($143K for Insurance and $24K for Patient), approximately how many times larger is the Insurance AR Balance compared to Patient AR Balance?
+        Round off the answer to nearest whole number. 
+        Multiply the answer by the total number of circles (both the colored and uncolored) evident in pie and donut charts.
+        Answer as a single letter (e. g., C).
+        A. 24
+        B. 72
+        C. 36
+        D. 12
+      answer: "C"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "192"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Metrics_Dashboard_74.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        How many green bars are there in the bar charts in both the first and second row in the furthest left part of the image shown? Multiply the answer by the total number of months in a year. Give your final answer as a single number (e. g., 1317).
+      answer: "192"

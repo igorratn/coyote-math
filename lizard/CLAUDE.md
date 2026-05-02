@@ -105,9 +105,10 @@ For stem `<S>`, run Job 1 when:
 2. Reads `scrapes/<S>.txt` headers (`TASK_ID`, `SA_TASK_FILENAME`, `IMAGE_URL`, `N_ANNOTATIONS`) + per-annotation sections.
 3. Cycle detection by file presence: `tasks/<S>.md` AND `payloads/<S>.yaml` absent → cycle 1; either present → cycle 2. **No manifest read for cycle.**
 4. **Cycle-2 archive (symmetric):** if cycle 2 AND `tasks/<S>.md` exists, rename to `tasks/<S>.cycle1.md`. If `payloads/<S>.yaml` exists, rename to `payloads/<S>.cycle1.yaml`. Refuses if any cycle-1 archive already exists (collision = cycle 3, not supported). Both cycle-2 slots empty before Jobs proceed.
-5. **Cycle-2 scope filter:** at cycle 2, parse `scrapes/<S>.txt` per-annotation sections; emit skeleton only for annots with `QC_RATING: thumbs-down` (returnees from cycle 1). Cycle 1: include all annots.
-6. Consistency check: post-filter `N_ANNOTATIONS ≥ 1`, every `prompt_len ≥ 50`, every annotator answer non-empty. Any failure → exit 1.
-7. Write `tasks/skeleton/<S>.md` with: Task Info (task_id, SA_TASK_FILENAME, image path, date, review cycle) + per-annotation sections (skills, qtype, model answer, annotator answer, prompt, QC feedback, empty Two-Part Check / Edits / Feedback placeholders).
+5. **Cycle-2 model-answer change check (codified 2026-05-01):** at cycle 2, before any other processing, compare each annotation's `MODEL_GENERATED_ANSWER` in the new scrape against the value recorded in `tasks/<S>.cycle1.md` (the cycle 1 task file, archived in step 4). If any model answer differs → **STOP, report incident to Igor** with the before/after values per annotation. Do not proceed until Igor gives explicit go-ahead. Reason: model answers are set by the platform at annotation time and must not change between cycles — a change indicates either a DOM misread in cycle 1, a platform data issue, or the annotator manipulated the model response field.
+6. **Cycle-2 scope filter:** at cycle 2, parse `scrapes/<S>.txt` per-annotation sections; emit skeleton only for annots with `QC_RATING: thumbs-down` (returnees from cycle 1). Cycle 1: include all annots.
+7. Consistency check: post-filter `N_ANNOTATIONS ≥ 1`, every `prompt_len ≥ 50`, every annotator answer non-empty. Any failure → exit 1.
+8. Write `tasks/skeleton/<S>.md` with: Task Info (task_id, SA_TASK_FILENAME, image path, date, review cycle) + per-annotation sections (skills, qtype, model answer, annotator answer, prompt, QC feedback, empty Two-Part Check / Edits / Feedback placeholders).
 
 ### Output contract
 Skeleton MUST have parseable headers `## Annotation N` (one per annotation). Job 2 merger relies on this regex; misparsing here = downstream silent drop.
@@ -141,6 +142,7 @@ For stem `<S>`, run Job 2 when:
 - All reviewers fail (no valid output) → mark stem `held`, continue
 - `tasks/<S>.md` already exists → merger refuses (write-once). Move/delete the file to re-merge.
 - **Single reviewer fails (e.g. grok timeout on A1/A2/A4) (codified 2026-04-30):** don't delete `tasks/<S>.md` + re-run whole job — re-fires ALL reviewers, wastes compute. Re-run only failed reviewer on failed annots: `REVIEWER=grok STEM=<S> ANNOTS=1,2,4 node scripts/run-reviewer.mjs` → output to `/tmp/lizard/<S>/grok-review.md`. Then delete `tasks/<S>.md` and re-run `run-job2.mjs` with `REVIEWERS=grok` to re-merge from `/tmp`.
+- **Reviewer failure gate (codified 2026-05-01):** `run-job2.mjs` no longer silently drops a reviewer on `exit_nonzero` / `no_output` / `bad_output`. Default `REVIEWER_FAIL_POLICY=abort` exits 4 with the failed reviewer name + reason + path to its bad output (`/tmp/lizard/<S>/<name>-review.md`). Igor inspects the failure (API error vs malformed output vs transient) and re-invokes with `REVIEWER_FAIL_POLICY=drop` to skip and continue, or fixes and retries that one reviewer. Reason: silent drops hid gemini API errors and turned the merge header into a lie ("Reviewers fired: opus, gpt, grok" when gemini was attempted but dropped).
 
 ### Auto-resolve carve-outs (codified 2026-04-25 v2)
 
@@ -151,7 +153,7 @@ Other reviewers' opinions embedded in task file for audit but don't gate the dec
 
 **Carve-out stamping:** Job 2 emits a `#### Auto Verdict` block per carve-out annot with fields `carve_out`, `rating`, `final_answer`, `source`, `sa_action`, `skills_check`, `skills_uncheck`, `notes`. State IS the filesystem; `merge-summary.json` is ephemeral cache.
 
-**👍 + big-diff escalation:** if the picked 👍 reviewer's Final Answer diverges from annotator's (numeric > 10% relative, or non-numeric mismatch), annotation lands `pending-igor` instead of `auto-resolved` — divergent 👍 may be sloppy or corrective (per `templates/review-prompt.md` "Wrong rewrite answer" rule). Igor decides at 3a.
+**👍 + big-diff → keep probing (codified 2026-05-01):** if a reviewer's 👍 Final Answer diverges from annotator's (numeric > 10% relative, or non-numeric mismatch), the chain does NOT stop — annotation stays `pending-igor` and the next reviewer fires. Chain stops only when a reviewer 👍 with a matching answer (→ `auto-resolved`) or all reviewers exhausted (→ `pending-igor`, Igor decides at 3a). When multiple 👍s exist, the first close-match wins.
 
 ---
 
@@ -399,10 +401,13 @@ Run Job 4 on stem `<S>` when:
    - Apply skill checkbox deltas: toggle off skills in `skills_uncheck`, toggle on skills in `skills_check`. Idempotent — skip if both lists empty. Use the per-annot 9-checkbox group (positions 0-6 = the 7 skills, 7 = MCQ, 8 = Short answer question; QType flips share this same group).
    - **Verify skill toggles via readback** — re-query checkbox state, retry on mismatch.
    - **Verify question type set** — exactly one of `MCQ` / `Short answer question` must be checked. Empty = fail loud, STOP (do not Save).
-   - If `sa.answer_final` non-null: write into Rewrite Answer textarea (native setter + `input` + `change` events).
+   - **NEVER write to the Rewrite Answer textarea for thumbs-down annotations (codified 2026-05-01).** If `sa.action ∈ {QC_Return, delete}`: skip the rewrite textarea entirely — do not read it, do not write it, do not include it in any DOM selection. Incident: Violin_163 A1 rewrite accidentally overwritten from "2" to "4" because the `rewriteTAs` filter was too broad and included offset textareas, causing A4's `answer_final` to land on A1's rewrite field.
+   - If `sa.answer_final` non-null AND `sa.action == approve`: write into Rewrite Answer textarea (native setter + `input` + `change` events). If already matches current value: skip (no-op).
    - Set QC rating per `sa.rating` — click thumbs-up or thumbs-down button in the QC section (active state = inline `style` contains `rgb(0, 205, 108)`).
    - If `sa.feedback` non-null: append to existing QC Feedback textarea — never replace. Readback to verify char-by-char match against payload `sa.feedback`.
-4. **Pre-save audit (mandatory):** for every annot, readback the feedback textarea value and compare against payload `sa.feedback` character-by-character. Mismatch = STOP, do not Save (SA tasks lock on submit; post-save correction impossible).
+4. **Pre-save audit (mandatory, codified 2026-05-01):** for every annot, readback ALL written fields against the payload before clicking Save:
+   - **Rewrite Answer readback:** for every annotation, read the current Rewrite Answer textarea value. If `sa.answer_final` is non-null: must match exactly. If `sa.answer_final` is null: must NOT have changed from the value at page-load (compare against pre-apply snapshot). Any mismatch = STOP, do not Save — a rewrite was written to the wrong textarea. Reason: the `rewriteTAs` filter can include extra empty textareas at offsets that shift annotation indices, causing `answer_final` from one annotation to land on another (incident: Violin_163 A1 rewrite accidentally set to "4" due to 2-textarea offset shift, 2026-05-01).
+   - **Feedback readback:** for every annot, readback the feedback textarea value and compare against payload `sa.feedback` character-by-character. Mismatch = STOP, do not Save (SA tasks lock on submit; post-save correction impossible).
 5. Click task-level **Save**. Confirm save toast.
 6. **Atomic move:** `mv payloads/<S>.yaml → payloads/sa_applied/<S>.yaml`. This is the filesystem signal that Job 4 succeeded for this stem.
 7. Exit. Print human-bridge instructions: "SA-applied for `<S>`. Set task-level QC status dropdown manually in SA UI. Click SA Delete button manually for any cycle-2 `action: delete` annots."
@@ -419,6 +424,7 @@ Run Job 4 on stem `<S>` when:
 - `payloads/sa_applied/<S>.yaml` already exists → refuse (binary write-once gate). Move/delete to re-apply.
 
 ### Hard rules
+- **NEVER write Rewrite Answer on thumbs-down (codified 2026-05-01).** `sa.action ∈ {QC_Return, delete}` → skip the rewrite textarea entirely. No read, no write, no DOM selection. This is an absolute rule — the Slack Concede ruling and the offset-bug incident both require it.
 - **CLI never clicks SA Delete.** Cycle-2 `action: delete` annots: CLI applies feedback + thumbs-down, STOPS. Igor manually clicks SA Delete (deletion is **IRREVERSIBLE** — only Igor's hands).
 - **CLI never sets task-level QC status dropdown.** Human-only field. Igor sets it manually after Job 4.
 - **Feedback writes are append, never replace.** Per playbook line 76: "Add your feedback in chronological order."

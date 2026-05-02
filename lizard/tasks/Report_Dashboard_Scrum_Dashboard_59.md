@@ -6,6 +6,7 @@
 - **Image:** screenshots/Report_Dashboard_Scrum_Dashboard_59.png — Scrum chat/messaging dashboard
 - **Date:** 2026-04-25
 - **Review Cycle:** 2nd
+- **NV Rebuttal Filed:** 2026-05-01 (A1)
 
 ## Task Status
 - **Status:** ALL-AUTO-RESOLVED
@@ -75,6 +76,18 @@ B
 
 #### Feedback
 2026-04-25: thumbs-up (gpt) — auto-resolved
+
+#### NV Audit
+- **Feedback:** "5/1 There's also a chat bubble that shows a 'video call' happened. This is a bit of a gray area, please specify if this is included."
+- **Rebuttal filed:** 2026-05-01 — awaiting ruling.
+- **Rebuttal text:**
+  > The video call event bubble is a system-generated notification, not a chat message authored by either party. It cannot be "sent to the receiver" or "sent by the receiver" — the only categories the prompt asks about.
+  >
+  > Visually, the video call bubble is green, not gray and not purple. The prompt's clarifier "The chat bubbles representing the receiver are gray" correctly assigns color to the receiver's messages. The green video call record falls into neither category.
+  >
+  > The answer B=2 is also MCQ-robust: if the video call were counted as receiver-sent (gray), the difference becomes 4−3=1 (no option matches). If counted as sent-to-receiver (non-gray), it becomes 5−2=3 (no option matches). The only interpretation that matches any option is to exclude the system event, yielding 4−2=2=B. The MCQ option set itself disambiguates.
+  >
+  > No change to prompt or answer is warranted. We stand by B=2.
 
 ---
 ## Form-Fill Payload

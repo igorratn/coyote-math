@@ -1,0 +1,45 @@
+task:
+  stem: Transportation_00001_IMG_5901-1568x1045_48049ead
+  sa_task_filename: Transportation_00001_IMG_5901-1568x1045_48049ead.json
+  task_id: 187833755
+  image: screenshots/Transportation_00001_IMG_5901-1568x1045_48049ead.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "10"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Transportation_00001_IMG_5901-1568x1045_48049ead.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Using the bus departure schedule shown on the display, what is the absolute difference in minutes between the departure time of the LAST scheduled bus shown and the departure time of the FIRST bus shown as a fixed clock time (not a countdown)? Answer with a single integer, example: 15
+      answer: "10"
+
+  - n: 2
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: []
+      feedback: "5/1: Model's \"Yes\" matches the correct answer (header date \"Aug 14th '18\" matches the forecast's first column \"TUESDAY 14/08\") — model not stumped (Type 2). The question can be answered by direct date-matching against the forecast column without further inference. Skill tag corrected: dropped Spatial Reasoning (\"top right corner\" is navigational, not relational)."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Transportation_00001_IMG_5901-1568x1045_48049ead.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        The display screen header shows the stop name and a date alongside the current time of 16:17. Reading the date shown in the top right corner of the display screen, what day of the week does the 3-day forecast begin on, and is that the same day as the date shown in the header? Answer in the format Yes or No, example: Yes
+      answer: "YES"

@@ -1,0 +1,27 @@
+stem: Plot_Violin_plot_statistics_22
+shadows:
+  - n: 1
+    uuid: f69b7782-a759-4402-8732-ff448f17610f
+    fired_at: 2026-05-01
+    rating: Approve
+    time_logged: "00:20:00"
+  - n: 2
+    uuid: ef6cf2cd-7b47-4016-9ce5-c2e051eab30f
+    fired_at: 2026-05-01
+    rating: Approve
+    time_logged: "00:20:00"
+  - n: 3
+    uuid: f375488c-ce6a-48e9-929e-258a43d0de90
+    fired_at: 2026-05-01
+    rating: Approve
+    time_logged: "00:20:00"
+  - n: 4
+    uuid: 05931b73-1e5d-448a-88bb-b1e9c56e56fe
+    fired_at: 2026-05-01
+    rating: Approve
+    time_logged: "00:20:00"
+  - n: 5
+    uuid: 01753dbf-5383-417f-9f61-0de78ec8b685
+    fired_at: 2026-05-01
+    rating: Approve
+    time_logged: "00:20:00"

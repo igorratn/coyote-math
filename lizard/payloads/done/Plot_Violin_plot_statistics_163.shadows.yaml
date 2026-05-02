@@ -1,0 +1,26 @@
+shadows:
+  - n: 1
+    uuid: ee4e84c8-c2d7-4681-b1b3-f74d17a2f137
+    fired_at: 2026-05-01
+    rating: Reject
+    time_logged: "00:20:00"
+  - n: 2
+    uuid: f3507224-97d1-442e-a64c-a6c7c6f3d715
+    fired_at: 2026-05-01
+    rating: Reject
+    time_logged: "00:20:00"
+  - n: 3
+    uuid: fa6eff9a-7eb8-4134-9951-2b2e839ef122
+    fired_at: 2026-05-01
+    rating: Reject
+    time_logged: "00:20:00"
+  - n: 4
+    uuid: da610784-a9b0-4bbe-a3f7-83c0512dcbe5
+    fired_at: 2026-05-01
+    rating: Approve
+    time_logged: "00:20:00"
+  - n: 5
+    uuid: f93dbf8e-3cb9-4455-838e-5655a9a3bfb3
+    fired_at: 2026-05-01
+    rating: Approve
+    time_logged: "00:20:00"

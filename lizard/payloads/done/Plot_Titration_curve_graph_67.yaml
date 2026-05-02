@@ -1,0 +1,55 @@
+task:
+  stem: Plot_Titration_curve_graph_67
+  sa_task_filename: Plot_Titration_curve_graph_67.json
+  task_id: 187833739
+  image: screenshots/Plot_Titration_curve_graph_67.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: []
+      feedback: "5/1: Prompt is ambiguous — at x=21 mL the curve sits at the midpoint of the second steep rise (pH ≈ 11.5), so MCQ options 11 and 12 are both defensible to within the readable precision of the chart. Either widen options to include a tolerance/half-integer, ask for an approximate range (\"between 11 and 12\"), or pick a sample point that lands cleanly on a plateau rather than mid-rise."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_Titration_curve_graph_67.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        The second equivalence point occurs at 21 mL. What is the pH value at this specific point on the graph? (choose a letter from the options below)
+        
+        A. 10
+        B. 12
+        C. 13
+        D. 11
+      answer: "D"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "A"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_Titration_curve_graph_67.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        If you were to draw a point at (10, 10), where would it sit relative to the titration curve? (choose a letter from the options below)
+        
+        A. Slightly above the curve
+        B. Directly on the curve
+        C. Slightly below the curve
+        D. Off the right side of the graph
+      answer: "A"
