@@ -259,6 +259,10 @@ let stumpFailSet = new Set();
     const stumpFails = pf.annotations
       .filter(a => a.prefilter_verdict)
       .map(a => ({ n: a.n, code: a.prefilter_verdict.carve_out, reason: a.prefilter_verdict.reason }));
+    // Always overwrite stumpfail.json — even when empty — so cycle-2 stems
+    // never read a stale cycle-1 file. (codified 2026-05-03 — incident: Violin_163
+    // cycle-2 merger stamped 👎 from cycle-1 stumpfail.json that was never cleaned.)
+    writeFileSync(join(TMP_DIR, 'stumpfail.json'), JSON.stringify({ stump_fails: stumpFails }, null, 2), 'utf8');
     if (stumpFails.length) {
       stumpFailSet = new Set(stumpFails.map(s => s.n));
       pending = pending.filter(n => !stumpFailSet.has(n));
@@ -266,9 +270,6 @@ let stumpFailSet = new Set();
         console.error(`[run-job2] stump pre-filter: A${sf.n} → 👎 (${sf.code}) — ${sf.reason}`);
       }
       console.error(`[run-job2] pending after stump pre-filter = ${pending.join(',') || '(none)'} (${pending.length} annot(s))`);
-      // Write stumpfail.json so merger can emit Auto Verdict 👎 blocks without
-      // needing reviewer output for these annotations.
-      writeFileSync(join(TMP_DIR, 'stumpfail.json'), JSON.stringify({ stump_fails: stumpFails }, null, 2), 'utf8');
     }
   }
 }

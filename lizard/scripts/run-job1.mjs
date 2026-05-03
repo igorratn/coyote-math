@@ -151,6 +151,25 @@ for (let i = 1; i <= nAnnotations; i++) {
   annotations.push({ n: i, skills: skillsClean, qtype, modelAnswer: modelAnswerEffective, modelAnswerMissing, annotatorAnswer, stumped, workRating, qcRating, prompt });
 }
 
+// Cycle-2 scope filter (CLAUDE.md §Job 1 step 6): emit skeleton only for the
+// thumbs-down returnees. Carry-forward (approve / unset) annots stay as-is in
+// SA from cycle 1 — Job 5 won't touch them. Cycle 1: include all.
+// (codified 2026-05-03 — incident: Violin_163 cycle 2 emitted all 5 annots,
+// re-reviewed/re-pushed already-approved A4+A5 unnecessarily.)
+const annotationsForSkeleton = (cycle === 2)
+  ? annotations.filter(a => a.qcRating === 'disapprove')
+  : annotations;
+if (cycle === 2) {
+  const dropped = annotations.filter(a => a.qcRating !== 'disapprove').map(a => a.n);
+  if (dropped.length) {
+    console.error(`[run-job1] cycle-2 scope filter: keeping ${annotationsForSkeleton.map(a => a.n).join(',') || '(none)'} (returnees); dropping ${dropped.join(',')} (carry-forward, qc=approve/unset)`);
+  }
+  if (annotationsForSkeleton.length === 0) {
+    console.error(`[run-job1] cycle-2 scope filter: 0 thumbs-down annots — nothing to re-review. Aborting.`);
+    process.exit(1);
+  }
+}
+
 // ---------- Build skeleton markdown ----------
 const cycleLabel = cycle === 1 ? '1st' : cycle === 2 ? '2nd' : cycle === 3 ? '3rd' : `${cycle}th`;
 const today = new Date().toISOString().slice(0, 10);
@@ -165,7 +184,7 @@ lines_out.push(`- **Image:** screenshots/${stem}.${imgExt} — (description)`);
 lines_out.push(`- **Date:** ${today}`);
 lines_out.push(`- **Review Cycle:** ${cycleLabel}`);
 
-for (const a of annotations) {
+for (const a of annotationsForSkeleton) {
   lines_out.push('');
   lines_out.push(`## Annotation ${a.n}`);
   lines_out.push(`- **Skills Tagged:** ${a.skills}`);
@@ -194,7 +213,7 @@ for (const a of annotations) {
   } else {
     lines_out.push('(to be filled by reviewer)');
   }
-  if (a.n < annotations.length) {
+  if (a !== annotationsForSkeleton[annotationsForSkeleton.length - 1]) {
     lines_out.push('');
     lines_out.push('---');
   }
@@ -205,4 +224,4 @@ mkdirSync(join(LIZARD_DIR, 'tasks', 'skeleton'), { recursive: true });
 writeFileSync(skeletonPath, lines_out.join('\n'), 'utf8');
 
 console.log(`[run-job1] skeleton written: ${skeletonPath}`);
-console.log(`[run-job1] stem=${stem} cycle=${cycle} n_annotations=${nAnnotations}`);
+console.log(`[run-job1] stem=${stem} cycle=${cycle} n_annotations=${annotationsForSkeleton.length}${cycle === 2 ? ` (of ${nAnnotations} total)` : ''}`);
