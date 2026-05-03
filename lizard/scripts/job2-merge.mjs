@@ -25,6 +25,32 @@ import { fileURLToPath, pathToFileURL } from 'url';
 import { detectBigDiff } from './job2-prefilter-rules.mjs';
 import { parseEditsMade } from './parse-edits-made.mjs';
 
+// Detect reviewer narrative hallucination: reviewer's Edits Made says
+// "Corrected from X to Y" or similar where Y matches reviewer's Final Answer
+// but X != actual annotator answer. The reviewer invented the annotator's
+// prior value — narrative would mislead the annotator if pushed to SA.
+// Returns {claimed, actual} on hallucination, null otherwise.
+function detectNarrativeHallucination(editsMadeText, annotatorAnswer, reviewerFinalAnswer) {
+  if (!editsMadeText || annotatorAnswer == null || reviewerFinalAnswer == null) return null;
+  const norm = s => String(s).toLowerCase().replace(/\s+/g, ' ').trim().replace(/[.,;]+$/, '');
+  const a = norm(annotatorAnswer);
+  const r = norm(reviewerFinalAnswer);
+  if (!a || !r) return null;
+  // Match "from X to Y" — capture both. Tokens allow internal periods (for
+  // decimals like 0.053) but stop at whitespace/quote/comma/semicolon. norm()
+  // strips trailing punctuation so "0.039." compares as "0.039".
+  const re = /\bfrom\s+["']?([^"'\s,;]+)["']?\s+to\s+["']?([^"'\s,;]+)["']?/gi;
+  let m;
+  while ((m = re.exec(editsMadeText)) !== null) {
+    const claimedFrom = norm(m[1]);
+    const claimedTo = norm(m[2]);
+    if (claimedTo === r && claimedFrom && claimedFrom !== a) {
+      return { claimed: m[1], actual: annotatorAnswer };
+    }
+  }
+  return null;
+}
+
 const __dir = pathDirname(fileURLToPath(import.meta.url));
 
 // Detect script-vs-import: tests import this file purely for the parser exports
@@ -311,6 +337,13 @@ for (const skel of skelAnnots) {
   //     · big-diff → pending-igor; chain CONTINUES (next reviewer probes for matching 👍)
   //   Chain stops only on auto-resolved (close-match 👍) or all reviewers exhausted.
   //   When multiple 👍s exist, prefer the first close-match over any big-diff 👍.
+  //
+  // Narrative-vs-payload check (codified 2026-05-03 — Currency_12 incident):
+  //   Block 👍-close auto-resolve if reviewer's `Edits Made` claims "from X to Y"
+  //   where Y matches reviewer's Final Answer but X != actual annotator answer.
+  //   That's a hallucinated narrative (reviewer invented the annotator's prior
+  //   value). Force Igor walkthrough so the misleading feedback doesn't get
+  //   pushed to SA.
   let decision;
   let finalPick = pick;
   if (!pick) {
@@ -318,7 +351,10 @@ for (const skel of skelAnnots) {
   } else {
     const allUp = allViews.filter(v => v.rating === 'thumbs-up');
     if (allUp.length > 0) {
-      const closeUp = allUp.find(v => !detectBigDiff(v.finalAnswer, skel.rewriteAnswer));
+      const closeUp = allUp.find(v =>
+        !detectBigDiff(v.finalAnswer, skel.rewriteAnswer) &&
+        !detectNarrativeHallucination(v.editsMadeText, skel.rewriteAnswer, v.finalAnswer)
+      );
       finalPick = closeUp ?? allUp[0];
       decision = closeUp ? 'auto-resolved' : 'pending-igor';
     } else {

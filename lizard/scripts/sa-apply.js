@@ -229,6 +229,7 @@ function saApplyAnnots({ annots }) {
 
     // c) Rewrite Answer (if non-null) — only on approve.
     if (isApprove && a.answer_final !== null && a.answer_final !== undefined) {
+      let wrote = false;
       try {
         // Annot root contains both Rewrite Answer (top) and QC (mid) sections.
         // Find by walking up further from QC container.
@@ -238,14 +239,26 @@ function saApplyAnnots({ annots }) {
           const tas = Array.from(annotRoot.querySelectorAll('textarea'));
           if (tas.length >= 2) { // expect ≥2 (Rewrite Answer + QC feedback)
             const rewriteTa = tas[0]; // top of annot panel = Rewrite Answer
-            setTextareaNative(rewriteTa, String(a.answer_final));
-            annotResult.ops.push(`answer="${String(a.answer_final).slice(0, 40)}"`);
+            // Idempotent: skip if already matches (no spurious React events).
+            if ((rewriteTa.value ?? '') === String(a.answer_final)) {
+              annotResult.ops.push(`answer="${String(a.answer_final).slice(0, 40)}" (already)`);
+            } else {
+              setTextareaNative(rewriteTa, String(a.answer_final));
+              annotResult.ops.push(`answer="${String(a.answer_final).slice(0, 40)}"`);
+            }
+            wrote = true;
             break;
           }
           annotRoot = annotRoot.parentElement;
         }
       } catch (e) {
         errors.push(`A${a.n}: Rewrite Answer write failed: ${e.message}`);
+      }
+      // Fail loud — silent skip would push a wrong/missing answer to SA undetected.
+      // (codified 2026-05-03 — Currency_12 incident: walk-up returned no container
+      // with ≥2 textareas, write block silently no-op'd, no error surfaced.)
+      if (!wrote) {
+        errors.push(`A${a.n}: Rewrite Answer write skipped — walk-up from QC container found no parent with ≥2 textareas in 4 levels`);
       }
     }
 

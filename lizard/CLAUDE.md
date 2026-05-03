@@ -156,6 +156,14 @@ Other reviewers' opinions embedded in task file for audit but don't gate the dec
 
 **👍 + big-diff → keep probing (codified 2026-05-01):** if a reviewer's 👍 Final Answer diverges from annotator's (numeric > 10% relative, or non-numeric mismatch), the chain does NOT stop — annotation stays `pending-igor` and the next reviewer fires. Chain stops only when a reviewer 👍 with a matching answer (→ `auto-resolved`) or all reviewers exhausted (→ `pending-igor`, Igor decides at 3a). When multiple 👍s exist, the first close-match wins.
 
+**Narrative-vs-payload check on 👍-close (codified 2026-05-03 — Currency_12 incident):** Block 👍-close auto-resolve if the reviewer's `Edits Made` text claims `from X to Y` where Y matches the reviewer's Final Answer but X ≠ the actual annotator answer. That's a hallucinated narrative (reviewer invented the annotator's prior value to justify a "correction" that didn't happen). Force `pending-igor` so Igor can fix the misleading feedback before it reaches SA. Implemented in `job2-merge.mjs:detectNarrativeHallucination()`. Reason: opus on Currency_12 fabricated `Corrected from 0.053 to 0.039` when the annotator wrote `0.039` from the start; the false narrative got pushed verbatim to SA's QC field.
+
+**Job 1 cycle-2 scope filter (codified 2026-05-03 — Violin_163 incident):** at cycle 2, skeleton emits only annots with `QC_RATING == disapprove` (the actual returnees). Carry-forward annots (`approve` / `unset`) stay as-is in SA from cycle 1; Job 5 won't touch them. Aborts if 0 returnees. Implemented in `run-job1.mjs`. Reason: Violin_163 cycle 2 emitted all 5 annots, re-reviewed and re-pushed already-approved A4+A5 unnecessarily.
+
+**Job 2 always-overwrite stumpfail.json (codified 2026-05-03 — Violin_163 incident):** `run-job2.mjs` now writes `stumpfail.json` on every prefilter read, even with `{stump_fails: []}`. Previously it only wrote when fails were detected, leaving cycle-1 files in `/tmp/lizard/<stem>/` that cycle-2 mergers picked up — stamping 👎 Auto Verdicts using cycle-1 model answers. Reason: cycle-1 Violin_163 had `stump_fail` entries (model = "2", no model answer); cycle-2 prefilter correctly detected no fails, but the stale file poisoned the merger.
+
+**SA push fail-loud on rewrite walk-up miss (codified 2026-05-03 — Currency_12 incident):** `sa-apply.js` now pushes an explicit error when the Rewrite Answer write block can't find a parent container with ≥2 textareas in 4 walk-up levels. Previously it silently skipped, so a missing/wrong write would never surface. Pre-save audit catches mismatches anyway, but this surfaces the root cause earlier. Also added idempotent skip when current value already matches payload (no spurious React events).
+
 ---
 
 ## Job 3 — Igor Verdicts + Payload Fan-out (Igor + CLI, per-task serial)
