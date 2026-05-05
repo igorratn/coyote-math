@@ -1,0 +1,26 @@
+task:
+  stem: Financial_Trading_pattern_examples_91
+  sa_task_filename: Financial_Trading_pattern_examples_91.json
+  task_id: 188123982
+  image: screenshots/Financial_Trading_pattern_examples_91.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "Sell, at the red \"Stop Loss\" line just above the breakout, at the green \"Minimum Target\" line below"
+      flags: []
+      feedback: "5/3: Final answer corrected from \"Sell, above the breakout point, at the lower level marked as the minimum target\" to \"Sell, at the red \\\"Stop Loss\\\" line just above the breakout, at the green \\\"Minimum Target\\\" line below\" — the chart's labeled reference lines anchor the locations more precisely."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Trading_pattern_examples_91.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        After the price breaks below the wedge pattern, what trading action is indicated, and where are the stop loss and minimum target levels shown in the chart? Provide your answer in the format: Action, Stop Loss location, Minimum Target location.
+      answer: "Sell, at the red \"Stop Loss\" line just above the breakout, at the green \"Minimum Target\" line below"

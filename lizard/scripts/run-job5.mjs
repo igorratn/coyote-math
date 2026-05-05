@@ -61,12 +61,20 @@ const QUEUE_FILE         = join(LIZARD_DIR, 'queue', `${STEM}.json`);
 // ---------- per-stem orphan self-heal ----------
 // If queue entry exists alongside an already-finalized done payload, this is
 // an orphan from a crash between the atomic mv and rm queue/<S>.json — BUT
-// only when the current-cycle shadow_applied payload is ABSENT. If
-// shadow_applied/ still has the payload, done/ is a prior-cycle artifact
-// (cycle 2 case); do NOT treat it as an orphan — fall through to archive it.
-if (existsSync(QUEUE_FILE) && existsSync(PAYLOAD_DONE) && !existsSync(PAYLOAD_LIVE)) {
+// only when no cycle-N work is in flight. Cycle-2 markers that veto self-heal:
+//   - tasks/<S>.cycle1.md exists (Job 1 archived prior-cycle task → cycle 2)
+//   - payloads/<S>.yaml exists (Job 3b wrote live payload, Job 4 not yet run)
+//   - payloads/shadow_applied/<S>.yaml exists (Job 4 done, archived below)
+// If any of these is true, this is legitimate cycle-2 work — fall through.
+// (codified 2026-05-05: prior bug — Plot_Titration_67 cycle 2 had its queue
+// nuked by a stray run-job5.mjs invocation while Job 3b/4 were still pending,
+// leaving auto-verdict stamped in tasks/<S>.md but no payload to push.)
+const TASK_CYCLE1 = join(LIZARD_DIR, 'tasks', `${STEM}.cycle1.md`);
+const PAYLOAD_PRELIVE = join(LIZARD_DIR, 'payloads', `${STEM}.yaml`);
+const cycleInFlight = existsSync(TASK_CYCLE1) || existsSync(PAYLOAD_PRELIVE) || existsSync(PAYLOAD_LIVE);
+if (existsSync(QUEUE_FILE) && existsSync(PAYLOAD_DONE) && !cycleInFlight) {
   unlinkSync(QUEUE_FILE);
-  console.error(`[run-job5] ${STEM}: orphan queue entry detected (done/ present, no shadow_applied/) — cleaned up`);
+  console.error(`[run-job5] ${STEM}: orphan queue entry detected (done/ present, no cycle-N work in flight) — cleaned up`);
   process.exit(0);
 }
 

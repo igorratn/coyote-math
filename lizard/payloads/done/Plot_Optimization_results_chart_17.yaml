@@ -1,0 +1,102 @@
+task:
+  stem: Plot_Optimization_results_chart_17
+  sa_task_filename: Plot_Optimization_results_chart_17.json
+  task_id: 187299984
+  image: screenshots/Plot_Optimization_results_chart_17.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: ["G2", "Type 3", "Type 10"]
+      feedback: "5/4: Prompt unclear — \"the maximum indicated Revenue ($) and Profit ($) reached by the bars and the line\" is incoherent because the bars represent Profit and the lines represent Revenue, so \"max Revenue reached by the bars\" and \"max Profit reached by the line\" have no defined value. The clause admits at least two defensible parses producing 0.20 vs 0.44. Threshold \"strictly greater than 1600 M\" also requires reading the right axis between printed ticks 1500 and 2000 without an \"approximately\" qualifier. Skill tag corrected: dropped Spatial Reasoning (chart-reading, not relational layout)."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Optimization_results_chart_17.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Count the total number of bars represented by the EM Cu 2.5+Split Ph4+Pushbacks 1+Schedules 1 Profit in the graphs key strictly greater than a Profit ($) of 1600 M. Let this number be x. Then, multiply the maximum indicated Revenue ($) and Profit ($) reached by the bars and the line represented by the graph. Divide this number by 1000000 and let this value be y. Finally, a bag contains two types of items. There are x type A items in the bag, and there are y type B items in the same bag. If one item is chosen at random, what is the probability of picking type A as a decimal? Answer using a single number rounded to two decimal places (e.g., 12.12).
+      answer: "0.23"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "24028.0"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Optimization_results_chart_17.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Calculate the sum of all numbers presented in the graph that are not in the graph's key. Answer using a single number rounded to one decimal place (e.g., 12.1).
+      answer: "24028.0"
+
+  - n: 3
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: []
+      feedback: "5/4: Prompt unclear — \"all numbers located only in the key of the graph\" is ambiguous because the legend strings contain alphanumeric tokens (Ph4, PBv3, LAV 3, 1%) whose number-token boundaries are not specified. Multiple defensible parses produce different sums (e.g. counting every digit run vs. dropping digits embedded in identifier strings). Disambiguate, e.g. \"sum of all standalone numeric tokens (digit sequences with optional decimal point) appearing in the legend, ignoring digits that are part of identifier strings like Ph4 or PBv3.\""
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Optimization_results_chart_17.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        First, count the total number of appearances of the letter 'E' (case insensitive) in the graph, excluding the graph's key. Second, multiply this by the total sum of all numbers located only in the key of the graph. Answer using a single whole number (e.g., 12).
+      answer: "342"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "17714.3"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Optimization_results_chart_17.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        Identify the largest number on the x-axis of the graph illustrated by the image. Then, identify the number of days in the month that is represented by this number. Next, multiply this number by the largest printed number on either y-axis of the same graph. Finally, divide this number by the total number of appearances of the symbol '+' in the entire graph. Answer using a single number rounded to one decimal place (e.g., 12.1).
+      answer: "17714.3"
+
+  - n: 5
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: ["G2", "Type 1", "Type 7"]
+      feedback: "5/4: Prompt unclear on two counts. (1) \"Punctuation symbols, mathematical symbols are not included\" does not specify whether the decimal point in \"2.5\" is punctuation or a mathematical symbol — the two readings give 0 vs 4 punctuation marks in the key. (2) \"Bars that have a line going through the bar, count both bars in the year if one bar in that year is being touched by the line\" is ambiguous because both lines pass over every bar group in the x-direction; \"going through\" / \"being touched by\" have no closed boundary. Tighten to e.g. \"count periods, commas, colons, and parentheses (decimal points and percent signs excluded)\" and define line/bar overlap precisely."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Optimization_results_chart_17.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        Count the total number of appearances of punctuation symbols, mathematical symbols are not included, located only in the key of the chart. Then multiply this number by the total number of bars in the graph that have a line going through the bar, count both bars in the year if one bar in that year is being touched by the line. Answer using a single whole number (e.g., 12).
+      answer: "16"

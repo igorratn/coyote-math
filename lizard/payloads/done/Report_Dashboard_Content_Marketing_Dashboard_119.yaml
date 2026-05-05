@@ -1,0 +1,53 @@
+task:
+  stem: Report_Dashboard_Content_Marketing_Dashboard_119
+  sa_task_filename: Report_Dashboard_Content_Marketing_Dashboard_119.json
+  task_id: 187300808
+  image: screenshots/Report_Dashboard_Content_Marketing_Dashboard_119.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "B"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Report_Dashboard_Content_Marketing_Dashboard_119.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        For the Affinity Categories that have seen a 20% or more increase in sessions, calculate the arithmetic mean of their number of sessions. Multiply that result by the click-through rate (CTR) of Facebook Ads. What is the result, rounded to one decimal place?
+        
+        A. 110.3
+        B. 128.5
+        C. 146.7
+        D. 120.3
+      answer: "B"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "Lifestyles & Hobbies/Shutterbugs"
+      flags: []
+      feedback: "5/4: Skill tag corrected: Added Table/Chart/Graph Understanding to skill tags (prompt requires reading values from multiple chart/table panels — KPI cards + Customer Interests table)."
+      verdict_source: auto
+      skills_check: [Table/Chart/Graph Understanding]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Content_Marketing_Dashboard_119.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Let the median of all KPIs (including Sessions) with values strictly below 200 be 'X'.
+        Let the median of all KPIs (including Sessions) with values strictly above 200 be 'Y'.
+        If you took the sum of 'X' and 'Y',  which Affinity Category would the calculated sum be closest to? 
+        Answer with the name of the Affinity Category (e.g., Shoppers/Value Shoppers).
+      answer: "Lifestyles & Hobbies/Shutterbugs"

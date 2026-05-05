@@ -1,0 +1,103 @@
+task:
+  stem: Report_Dashboard_E-commerce_Dashboard_66
+  sa_task_filename: Report_Dashboard_E-commerce_Dashboard_66.json
+  task_id: 187300936
+  image: screenshots/Report_Dashboard_E-commerce_Dashboard_66.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "2,175.27"
+      flags: ["G2", "Type 1"]
+      feedback: "5/4: Skill tag corrected: dropped Spatial Reasoning (chart-reading, not relational layout); added Enumeration (counting and ranking the 15 x-axis ticks) and Table/Chart/Graph Understanding (axis-label reading is the core task)."
+      verdict_source: igor
+      skills_check: [Enumeration, Table/Chart/Graph Understanding]
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_E-commerce_Dashboard_66.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Focus on the 'Sales Analytics' section of the image.
+        
+        Step 1: Determine the arithmetic mean of the fourth, fifth and eighth highest x-axis values (tick mark labels). Round your answer to the nearest hundredth (e.g., 12.34).
+        
+        Step 2: Determine the arithmetic mean of the axes values (tick mark labels). Round your answer to the nearest hundredth (e.g., 12.34).
+        
+        Step 3: Determine the sum of Step 1 and Step 2. 
+        
+        Step 4: Multiply the number from Step 3 by the total number of days for the month listed. Provide your answer in decimal format rounded to the nearest hundredth (e.g., 112.34).
+      answer: "2,175.27"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "Paleo Bars, Wood Sunglasses, Leggings, Bow Ties, Pocket Squares"
+      flags: ["Type 12"]
+      feedback: "5/4: Skill tag corrected: added Table/Chart/Graph Understanding (donut chart reading is the core task)."
+      verdict_source: igor
+      skills_check: [Table/Chart/Graph Understanding]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_E-commerce_Dashboard_66.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Focus on the 'Top 5 Products' section of the image.
+        
+        Based on the chart, what order would the products be listed from smallest part of the chart to the largest? Provide your answer with the products separated by commas (e.g., Product Name, Product Name).
+      answer: "Paleo Bars, Wood Sunglasses, Leggings, Bow Ties, Pocket Squares"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "-30,094.20"
+      flags: ["G2", "Type 1", "Type 7"]
+      feedback: "5/4: Skill tag corrected: dropped Spatial Reasoning (chart-reading, not relational layout); added Enumeration (identifying the set minimum)."
+      verdict_source: igor
+      skills_check: [Enumeration]
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_E-commerce_Dashboard_66.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Focus on the 'Sales Analytics' section and the section containing the 'Bounce Rate' (bottom-middle of image).
+        
+        Step 1: Based on the bounce rate percentage and the traffic (the traffic value in the 'Sales Analytics' section), determine the total number of bounces. Round your answer to the nearest whole number (e.g., 123).
+        
+        Step 2: Take the result from Step 1 and divide it by the lowest number shown in the 'Sales Analytics' section. For numbers with a '%' sign, only use the numeric value and ignore the '%' sign. For numbers with leading zeroes (e.g., '02'), ignore the '0'. Exclude '0' in your calculation. Provide your answer in decimal format rounded to the nearest hundredth (e.g., 1,234.77).
+      answer: "-30,094.20"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "-368"
+      flags: ["Type 12", "Type 6"]
+      feedback: "5/4: Skill tag corrected: dropped Spatial Reasoning (sidebar badge identification is navigational, not relational layout); added Enumeration (summing the inferred odd-numbered set 3..29) and Table/Chart/Graph Understanding (x-axis tick reading is the core task)."
+      verdict_source: igor
+      skills_check: [Enumeration, Table/Chart/Graph Understanding]
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_E-commerce_Dashboard_66.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        Focus on the 'Sales Analytics' section of the image.
+        
+        Step 1: Determine the arithmetic mean of the non-labeled x-axis values (odd-numbered values on the x-axis). Exclude values before '02' and after '30' in your calculation. Round your answer to the nearest whole number. 
+        
+        Step 2: Based on the month shown, subtract the number of total days of the month from the number within the yellow circle found in the image. 
+        
+        Step 3: Multiply the numbers from Step 1 and Step 2. Provide your answer with a whole number (e.g., 12).
+      answer: "-368"

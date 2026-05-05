@@ -29,12 +29,17 @@ if (!existsSync(scrapePath)) {
 }
 
 // Cycle detection by filesystem convention (not manifest):
-//   tasks/<stem>.md absent + no archive  → cycle 1
-//   tasks/<stem>.md present              → cycle 2 (archive cycle 1 first)
-//   tasks/<stem>.cycle1.md exists        → cycle 2 (already archived)
+//   tasks/<stem>.md absent + no archive + no done payload → cycle 1
+//   tasks/<stem>.md present                               → cycle 2 (archive cycle 1 first)
+//   tasks/<stem>.cycle1.md exists                         → cycle 2 (already archived)
+//   payloads/done/<stem>.yaml exists                      → cycle 2 (cycle 1 already shipped)
+// (codified 2026-05-04: prior bug — Plot_Titration_67 finalized to done/ in a
+// prior session, then re-queued; cycle detection only checked tasks/ paths
+// and treated it as cycle 1, missing the cycle-2 scope filter for returnees.)
 // task_id + SA_TASK_FILENAME come from scrape headers below — no manifest read needed.
 const archivePath = priorTaskPath.replace(/\.md$/, '.cycle1.md');
-const cycle = (existsSync(priorTaskPath) || existsSync(archivePath)) ? 2 : 1;
+const donePayloadPath = join(LIZARD_DIR, 'payloads', 'done', `${stem}.yaml`);
+const cycle = (existsSync(priorTaskPath) || existsSync(archivePath) || existsSync(donePayloadPath)) ? 2 : 1;
 const taskId = '?';            // overridden by scrape header below
 const saTaskFilename = stem + '.json';  // overridden by scrape header below
 

@@ -1,0 +1,26 @@
+task:
+  stem: Financial_Trading_pattern_examples_94
+  sa_task_filename: Financial_Trading_pattern_examples_94.json
+  task_id: 188123983
+  image: screenshots/Financial_Trading_pattern_examples_94.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: []
+      feedback: "2026-05-03: Model answered correctly — not stumped (model answer equals annotator's rewrite). Annotator must design a harder prompt that the model cannot answer."
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Trading_pattern_examples_94.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        What trend pattern is formed after the initial downtrend, and what key price movements indicate this change? Provide your answer in the format: Pattern, Key movements.
+      answer: "Uptrend, higher highs and higher lows"

@@ -1,0 +1,43 @@
+stem: Report_Dashboard_E-commerce_Dashboard_66
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: e0a29f76
+    fired_at: 2026-05-05T15:49:10.325Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: f7c0dd5e
+    fired_at: 2026-05-05T15:51:27.174Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: igor
+    hai_llm_eval: warning
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: 720f1681
+    fired_at: 2026-05-05T15:53:24.078Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 4
+    uuid: a058431d
+    fired_at: 2026-05-05T15:56:03.134Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: igor
+    hai_llm_eval: warning
+    hai_llm_comment: "HAI: math correct (-368), but prompt has scoping clarity issue — Step 2 references yellow circle outside Sales Analytics section. Igor verdict approved; gate-immune (verdict_source=igor)"
+    reclaimed: false
+    reclaim_diff: null

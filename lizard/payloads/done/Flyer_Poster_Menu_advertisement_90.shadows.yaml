@@ -1,0 +1,13 @@
+stem: Flyer_Poster_Menu_advertisement_90
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: 1257f08b
+    fired_at: 2026-05-03T18:13:03.285Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "HAI claims correct answer is C () — disagrees with annotator+opus B (). HAI's reasoning includes Inside Out Grilled Cheese in the wooden-board set ( total), but Inside Out Grilled Cheese is on a black plate (Igor pixel-verified 2026-05-03). Opus's calc B ( vs  = ) is correct. Warning recorded; verdict unchanged."
+    reclaimed: false
+    reclaim_diff: null

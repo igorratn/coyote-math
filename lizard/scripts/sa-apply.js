@@ -219,8 +219,13 @@ function saApplyAnnots({ annots }) {
       const mcqOn = mcqCb?.checked === true;
       const saqOn = saqCb?.checked === true;
       if (!mcqOn && !saqOn) {
-        if (a.qtype === 'MCQ' && mcqCb) { setCheckboxNative(mcqCb, true); annotResult.ops.push('+MCQ(qtype-fix)'); }
-        else if (a.qtype === 'Short answer question' && saqCb) { setCheckboxNative(saqCb, true); annotResult.ops.push('+SAQ(qtype-fix)'); }
+        // Accept both "SAQ" (run-job3.mjs shorthand) and "Short answer question" (full label).
+        // (codified 2026-05-05 — DevOps_86 A5 incident: payload had qtype:"SAQ", helper only checked
+        // for "Short answer question", qtype-fix bailed silently and SA pushed with empty qtype.)
+        const isSaq = a.qtype === 'Short answer question' || a.qtype === 'SAQ';
+        const isMcq = a.qtype === 'MCQ';
+        if (isMcq && mcqCb) { setCheckboxNative(mcqCb, true); annotResult.ops.push('+MCQ(qtype-fix)'); }
+        else if (isSaq && saqCb) { setCheckboxNative(saqCb, true); annotResult.ops.push('+SAQ(qtype-fix)'); }
         else { errors.push(`A${a.n}: qtype empty (neither MCQ nor SAQ checked) and payload qtype unhelpful: ${a.qtype}`); }
       } else if (mcqOn && saqOn) {
         errors.push(`A${a.n}: both MCQ and SAQ checked — manual fix required`);

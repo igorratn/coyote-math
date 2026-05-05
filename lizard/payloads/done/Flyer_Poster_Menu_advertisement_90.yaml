@@ -1,0 +1,34 @@
+task:
+  stem: Flyer_Poster_Menu_advertisement_90
+  sa_task_filename: Flyer_Poster_Menu_advertisement_90.json
+  task_id: 187832686
+  image: screenshots/Flyer_Poster_Menu_advertisement_90.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "B"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Flyer_Poster_Menu_advertisement_90.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        A customer computes a final value using both textual filtering and precise visual interpretation of how food is presented:
+        First, identify all menu items whose titles contain “HAND-DIPPED” (case-insensitive) and calculate the total of their prices.
+        Next, identify only those items that are served directly on a visible wooden board (i.e., the food itself is placed directly on the wooden surface, not inside any basket, tray, or paper lining) and calculate the total of their prices.
+        Finally, compute the absolute difference between these two totals.
+        Based strictly on the image, what is the final result?
+        A. $7
+        B. $8
+        C. $12
+        D. $11
+      answer: "B"

@@ -1,0 +1,13 @@
+stem: Financial_Return_on_investment_charts_130
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 1cc332e5
+    fired_at: 2026-05-03T19:11:28.616Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

@@ -1,0 +1,26 @@
+task:
+  stem: Financial_Currency_pair_charts_12
+  sa_task_filename: Financial_Currency_pair_charts_12.json
+  task_id: 188123285
+  image: screenshots/Financial_Currency_pair_charts_12.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "0.039"
+      flags: []
+      feedback: "5/2: Skill tags corrected: dropped Spatial Reasoning (chart-value lookup is not relational/positional reasoning); added World Knowledge (FX pair reciprocity convention)."
+      verdict_source: auto
+      skills_check: [World Knowledge]
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Currency_pair_charts_12.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        What is the difference between the highest value of the US dollar in euros recorded in August and the lowest value of the US dollar in euros recorded in September. Provide your answer as a number rounded to its third decimal (e.g., 1.128).
+      answer: "0.039"

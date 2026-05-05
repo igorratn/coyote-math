@@ -443,6 +443,7 @@ Run `STEM=<S> node scripts/run-job4.mjs --finalize`. Steps:
 ### Hard rules
 - **1 shadow per annot reviewed.** No exceptions for non-delete annots in non-skipped tasks.
 - **Time edit is ONE-WAY FLOOR.** Never overwrite a session time `> 20:00` — destroys real logged work.
+- **Time edit touches only minutes (codified 2026-05-05).** When firing the Edit time dialog, set only the Minutes input — leave Hours and Seconds at their rendered defaults (HAI starts both at 0). Reason: touching extra inputs dispatches superfluous React events for no payment-affecting change. Implemented in `haiSetTimeAndConfirm()` in `scripts/fill-hai-shadow.js`.
 - **Verify page advanced after Confirm time.** Silent rollback = no payment recorded.
 - **`Valid Skipped to Hold` / `Valid Skipped to Skipped` / `Valid Skip to Unusable` stems → ZERO shadows.** Task-level skip dispositions exit the pipeline directly to `payloads/done/`.
 - **Shadow file is canonical proof.** Sidecar is forward index for fast lookup; not a replacement.
@@ -510,6 +511,9 @@ Run Job 5 on stem `<S>` when:
 - **Pre-save audit is mandatory.** SA tasks lock on submit; post-save correction impossible.
 - **Move payload AFTER Save, not before.** Save fails → payload stays in `shadow_applied/`, re-runnable.
 - **Resolution gate is only override-able by Igor (codified 2026-05-02).** `mark-resolved.mjs` (no flip — Igor disagrees with HAI warning) or `run-reclaim.mjs` (flip — Igor agrees with HAI, updates answer + /reclaim shadow record). The gate exists to surface HAI LLM warnings on auto-verdict annots that Igor never personally walked at 3a.
+- **Orphan self-heal vetoed by cycle-N markers (codified 2026-05-05 — Titration_67 incident):** `run-job5.mjs`'s top-of-script orphan check (queue + done/ both present) now also requires NO cycle-N work in flight before nuking the queue. Veto markers: `tasks/<S>.cycle1.md` exists (Job 1 archived) OR `payloads/<S>.yaml` exists (Job 3b live) OR `payloads/shadow_applied/<S>.yaml` exists (Job 4 done). Reason: Titration_67 cycle 2 had Job 2 stamp an auto-verdict but Job 3b never fired; a stray run-job5.mjs invocation matched the old `done + queue + !shadow_applied` shape and deleted the cycle-2 queue, stranding the auto-verdict. Cycle-2 stems before Job 4 finalize legitimately have done/ (cycle 1) + queue (cycle 2) + no shadow_applied yet.
 
 ### DOM mechanics
-SA UI write helpers in `scripts/sa-apply.js` (browser-side blobs via Chrome MCP `evaluate_script`). DOM specifics in inline comments + `wiki/sa-interface.md`.
+SA UI write helpers in `scripts/sa-apply.js` (browser-side blobs via `evaluate_script`). DOM specifics in inline comments + `wiki/sa-interface.md`.
+
+**Use dev-browser, not chrome-devtools-mcp, for Job 5 SA push (codified 2026-05-05).** Invoke via `dev-browser --connect <<EOF ... EOF` from Bash. Reason: chrome-mcp's `take_snapshot` returns the entire a11y tree (~60 kB per call for SA editor — including all sibling support-chat iframes). dev-browser uses Playwright `page.evaluate()` and returns only what the script returns. Empirical: 22-annot V6 batch — Cross-validation_121 (5 annots) via chrome-mcp ≈ 4 min wall-clock; remaining 5 stems (16 annots) via dev-browser averaged ~10s each. ~25× speedup on identical work. Job 5 operates on a stable SA DOM (`iframe.custom-llm` + `ng-reflect-svg-icon` selectors), so snapshots aren't needed — find elements by attribute. Job 4 (HAI) still uses chrome-mcp because `upload_file` requires a uid that only `take_snapshot` exposes.

@@ -1,0 +1,53 @@
+stem: Flyer_Poster_00044_travel-agent-booking-vacation-flyer-template-d4sbr_76809a2e
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 86bce56b
+    fired_at: 2026-05-02T18:20:37.896Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 6a4130e0
+    fired_at: 2026-05-02T18:23:45.539Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: 7aaceb89
+    fired_at: 2026-05-02T18:28:26.587Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 4
+    uuid: 88063060
+    fired_at: 2026-05-02T18:32:57.490Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 5
+    uuid: 89fd90a2
+    fired_at: 2026-05-02T18:36:54.389Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

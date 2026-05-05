@@ -1,0 +1,127 @@
+task:
+  stem: Flyer_Poster_00044_travel-agent-booking-vacation-flyer-template-d4sbr_76809a2e
+  sa_task_filename: Flyer_Poster_00044_travel-agent-booking-vacation-flyer-template-d4sbr_76809a2e.json
+  task_id: 187832143
+  image: screenshots/Flyer_Poster_00044_travel-agent-booking-vacation-flyer-template-d4sbr_76809a2e.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "B"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Flyer_Poster_00044_travel-agent-booking-vacation-flyer-template-d4sbr_76809a2e.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Based on the travel flyer, which statement is correct about the contact methods provided?
+        
+        A. The flyer includes only a phone number and no social media options.
+        B. The flyer includes a phone number and at least two different social media platforms.
+        C. The flyer includes only social media handles and no phone number.
+        D. The flyer does not provide any contact information.
+      answer: "B"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Flyer_Poster_00044_travel-agent-booking-vacation-flyer-template-d4sbr_76809a2e.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Based on the travel flyer, which statement is correct about the specialization section?
+        
+        A. The flyer lists exactly four specialization bullet points.
+        B.  Every listed specialization refers only to group-based travel.
+        C. The flyer includes both specific trip types and a general catch-all statement.
+        D. The specialization section does not include any mention of discounts.
+      answer: "C"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "D"
+      flags: []
+      feedback: "5/2: Skill tag corrected: Dropped Spatial Reasoning (chart-text emphasis is Attribute Perception, not relational positioning). Added Logical Reasoning (MCQ elimination across visual claims; required as V6 anchor skill)."
+      verdict_source: auto
+      skills_check: [Logical Reasoning, MCQ]
+      skills_uncheck: [Attribute Perception, Spatial Reasoning]
+      qtype: "MCQ"
+    hai:
+      task_id_field: Flyer_Poster_00044_travel-agent-booking-vacation-flyer-template-d4sbr_76809a2e.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Based on the travel flyer, which statement is correct about the text formatting and emphasis?
+        
+        A. The phrase “Book your” is larger and bolder than “VACATION.”
+        B. The name “SUE VANEER” is written in a smaller font than “Travel agent.”
+        C. All headings on the flyer use the same font style and size.
+        D. The word “VACATION” is displayed more prominently than “DREAM” due to size and background emphasis.
+      answer: "D"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: "5/2: Skill tag corrected: Added Logical Reasoning (MCQ elimination across layout claims; required as V6 anchor skill)."
+      verdict_source: auto
+      skills_check: [Logical Reasoning, MCQ]
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Flyer_Poster_00044_travel-agent-booking-vacation-flyer-template-d4sbr_76809a2e.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        Based on the travel flyer, which statement is correct about the layout of the specialization list?
+        
+        A. The specialization items are displayed in two separate columns.
+        B. The specialization items are written in paragraph form without bullets. 
+        C. The specialization items are arranged as a single vertical list of bullet points.
+        D. The specialization items are placed at the very bottom of the flyer below the contact details.
+      answer: "C"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "A"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Flyer_Poster_00044_travel-agent-booking-vacation-flyer-template-d4sbr_76809a2e.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        Based on the travel flyer, which statement is correct about the placement of the agent’s name and title?
+        
+        A. The name “SUE VANEER” appears above the title “Travel agent.”
+        B. The title “Travel agent” is placed above the name “SUE VANEER.”
+        C. The name “SUE VANEER” appears below the contact information at the bottom of the flyer.
+        D. The name and title are placed on opposite sides of the flyer.
+      answer: "A"

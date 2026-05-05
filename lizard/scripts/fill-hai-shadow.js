@@ -304,10 +304,11 @@ async function haiSetTimeAndConfirm({ minutes = 20 } = {}) {
 
   // Heuristic: inputs in DOM order = Hours, Minutes, Seconds.
   // (Confirmed by wiki/hai-selectors.md step 8.)
-  const [hours, mins, secs] = Array.from(dialogInputs).slice(0, 3);
-  setInput(hours, '0');
+  // Only set minutes — leaving hours and seconds untouched preserves whatever
+  // the form rendered with (HAI starts hours=0/seconds=0 by default; touching
+  // them dispatches superfluous input events). (codified 2026-05-05)
+  const [, mins] = Array.from(dialogInputs).slice(0, 3);
   setInput(mins, String(minutes));
-  setInput(secs, '0');
   await new Promise(r => setTimeout(r, 300));
 
   const saveBtn = await waitFor(

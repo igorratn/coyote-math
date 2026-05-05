@@ -1,0 +1,26 @@
+task:
+  stem: Financial_Crypto_trading_graphs_129
+  sa_task_filename: Financial_Crypto_trading_graphs_129.json
+  task_id: 188123250
+  image: screenshots/Financial_Crypto_trading_graphs_129.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "27"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Crypto_trading_graphs_129.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Count the number of distinct purple/pink moving-average curves fanning upward in the left panel. Multiply this by the number of times the RSI line (bottom-left panel) crosses strictly above 70 (each crossing counted once). Then add the total number of Bollinger Band boundary lines (upper, middle, lower) visible in the right panel. Answer with a single integer (e.g., 12).
+      answer: "27"

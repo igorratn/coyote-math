@@ -1,0 +1,13 @@
+stem: Financial_Return_on_investment_charts_116
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 1c461e53
+    fired_at: 2026-05-03T19:08:46.073Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: igor
+    hai_llm_eval: warning
+    hai_llm_comment: "HAI claims SIP in 1y = 2 silver, RETURNS in 3y = 5 gold → 5-2=3. Disagrees with Igor's count (SIP=3, RETURNS=3 → 0). Type 3 ambiguous coin counting; opus/gpt/grok all flagged Type 3 at Job 2. Igor verdict gate-immune (codified 2026-05-02)."
+    reclaimed: false
+    reclaim_diff: null

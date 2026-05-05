@@ -1,0 +1,26 @@
+task:
+  stem: Financial_Crypto_trading_graphs_101
+  sa_task_filename: Financial_Crypto_trading_graphs_101.json
+  task_id: 188123248
+  image: screenshots/Financial_Crypto_trading_graphs_101.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "6"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Crypto_trading_graphs_101.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        In the right-side order book, count the green price values whose last digit is 9. Multiply that count by the number of pink horizontal price labels shown on the chart, then add the number of visible smooth moving-average curves crossing the candlestick area. Answer with a single integer (e.g., 6).
+      answer: "6"

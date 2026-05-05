@@ -1,0 +1,13 @@
+stem: Financial_Crypto_trading_graphs_129
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: f075484b
+    fired_at: 2026-05-03T04:19:56.300Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: "The annotation looks good, you may continue."
+    reclaimed: false
+    reclaim_diff: null

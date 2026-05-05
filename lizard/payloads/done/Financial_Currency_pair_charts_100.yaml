@@ -1,0 +1,26 @@
+task:
+  stem: Financial_Currency_pair_charts_100
+  sa_task_filename: Financial_Currency_pair_charts_100.json
+  task_id: 187831326
+  image: screenshots/Financial_Currency_pair_charts_100.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "8"
+      flags: ["Type 3", "Type 12", "IMAGE_UNREADABLE"]
+      feedback: null
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Currency_pair_charts_100.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Locate the vertical segmented line that is furthest left along the x-axis in the image. Determine how many candlestick bars have their "Close" bar spatially above their "Open" bar in the section of the graph between the left border of the graph and the leftmost segmented vertical line (not including any bars that are spatially plotted on either border); call this value A. Determine how many candlestick bars have their "Close" bar spatially above their "Open" bar in the section of the graph between the leftmost segmented vertical line and the segmented vertical line that is second from the left of the graph (not including any bars that are spatially plotted on either border); call this value B. What is the absolute difference between A and B? Provide the final answer as a whole number (e.g., 2).
+      answer: "8"

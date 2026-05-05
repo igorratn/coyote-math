@@ -1,0 +1,13 @@
+stem: Financial_Real-time_trading_charts_92
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: 1b7d21b5
+    fired_at: 2026-05-03T19:04:33.976Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "HAI flags prompt ambiguity: 'time intervals used between 10:30 and 15:00' could mean total duration (270 min) or step-size between consecutive labeled tick marks (90 min). HAI does NOT dispute the answer — recommends rephrasing prompt for clarity (e.g. 'interval between consecutive major labeled tick marks'). Answer 90 minutes accepted by gpt 👍 auto-resolve at Job 2."
+    reclaimed: false
+    reclaim_diff: null

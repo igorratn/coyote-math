@@ -1,0 +1,13 @@
+stem: Financial_Cryptocurrency_price_charts_102
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: e90f3f23
+    fired_at: 2026-05-03T04:22:55.114Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: "The annotation looks good, you may continue."
+    reclaimed: false
+    reclaim_diff: null

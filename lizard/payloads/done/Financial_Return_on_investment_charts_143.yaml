@@ -1,0 +1,26 @@
+task:
+  stem: Financial_Return_on_investment_charts_143
+  sa_task_filename: Financial_Return_on_investment_charts_143.json
+  task_id: 188123820
+  image: screenshots/Financial_Return_on_investment_charts_143.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "23"
+      flags: []
+      feedback: "5/3: Skill tag corrected: Dropped Logical Reasoning (prompt is sequential arithmetic — compute %₁, compute %₂, divide — not chained inference with conditional branching; Math Reasoning + TCG Understanding fully cover it; TCG anchor preserved)."
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: [Logical Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Return_on_investment_charts_143.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Using the labeled values on the chart, calculate the percentage increase from the Low to the current value, and the percentage decrease from the High to the current value. Then divide the increase percentage by the decrease percentage. Round the final result to the nearest whole number. Answer with a single number (e.g., 5).
+      answer: "23"

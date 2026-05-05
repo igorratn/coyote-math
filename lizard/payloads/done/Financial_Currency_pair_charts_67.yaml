@@ -1,0 +1,26 @@
+task:
+  stem: Financial_Currency_pair_charts_67
+  sa_task_filename: Financial_Currency_pair_charts_67.json
+  task_id: 188123290
+  image: screenshots/Financial_Currency_pair_charts_67.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "15.04"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Currency_pair_charts_67.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Using the EUR/USD chart, assume you exchanged 2,000 USD into EUR at today’s highest EUR/USD rate shown in the chart, then exchanged it back into USD at the final/closing EUR/USD rate shown. Approximately how much money would you lose in USD? Answer using a number rounded to two decimal places (e.g., 1000.25)
+      answer: "15.04"

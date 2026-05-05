@@ -277,6 +277,16 @@ let stumpFailSet = new Set();
 const runResults = [];
 let lastSummary = null;
 
+// Stump prefilter may have emptied pending before any reviewer fires. Run a
+// dry merge once so the merger can stamp 👎 Auto Verdict blocks from
+// stumpfail.json and lastSummary is populated for the final commit.
+// (codified 2026-05-04: prior bug — full-stump-filter stems aborted with
+// "no merge summary produced" because the for-loop broke on empty pending
+// before runMerger was ever called.)
+if (pending.length === 0) {
+  lastSummary = runMerger({ commit: false });
+}
+
 // Sequential fire with per-annot filtering: each reviewer fires only on the
 // annots still in `pending`. After each, dry-merge and drop annots the merger
 // classifies as auto-resolved.

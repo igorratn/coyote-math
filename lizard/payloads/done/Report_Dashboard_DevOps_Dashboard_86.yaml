@@ -1,0 +1,125 @@
+task:
+  stem: Report_Dashboard_DevOps_Dashboard_86
+  sa_task_filename: Report_Dashboard_DevOps_Dashboard_86.json
+  task_id: 187300917
+  image: screenshots/Report_Dashboard_DevOps_Dashboard_86.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "19"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_DevOps_Dashboard_86.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        How many total hours of remaining work is there for all rows with items in the state "To Do"?
+        
+        Answer with the number of hours as an integer (e.g., 5)
+      answer: "19"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "D"
+      flags: []
+      feedback: "5/4: Skill tag corrected: Added Math Reasoning (sum stacked Sprint 2: 8+11+10=29). Added Table/Chart/Graph Understanding (bar-chart reading is core to the prompt)."
+      verdict_source: auto
+      skills_check: [Math Reasoning, Table/Chart/Graph Understanding]
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Report_Dashboard_DevOps_Dashboard_86.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Identify the stacked bar chart.
+        From left to right, sort this chart by the following 2 conditions in respective order.
+        1. Total value within the bars, descending
+        2. Label of bars, ascending
+        
+        If this sorted bar chart was rotated clockwise to make it appear as a horizontally stacked bar chart, which category would then appear to be the bottommost category?
+        A. Sprint 2
+        B. Sprint 1
+        C. Sprint 3
+        D. Sprint 4
+      answer: "D"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Report_Dashboard_DevOps_Dashboard_86.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Of all the rows in the table where the title includes the acronym "API", what is the title of the row that has the greatest value of remaining work left?
+        A. Add required methods to API
+        B. Allow filtering of data
+        C. Ambient settings API
+        D. Hot fix for API
+      answer: "C"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "1"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_DevOps_Dashboard_86.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        In the rightmost donut chart, if each distinct slice corresponds to its own unique category and is supposed to be visibly labeled, how many slices still need to be labeled?
+        
+        Answer with the number of slices that still need to be labeled as an integer (e.g., 5).
+      answer: "1"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "2.077"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_DevOps_Dashboard_86.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        For the date range provided in this dashboard, calculate how many business days this range spans, including the start and end days.
+        
+        Next, calculate the sum of values across the bars containing strictly only values for the category "Proposed".
+        
+        Using the previous count and the previous sum, calculate the arithmetic mean amount for proposed per day.
+        
+        What is the result of this calculation? Answer with a number rounded to 3 decimal place (e.g., 4.433).
+      answer: "2.077"

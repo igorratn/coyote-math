@@ -1,0 +1,26 @@
+task:
+  stem: Financial_Return_on_investment_charts_130
+  sa_task_filename: Financial_Return_on_investment_charts_130.json
+  task_id: 188123819
+  image: screenshots/Financial_Return_on_investment_charts_130.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "1485"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Return_on_investment_charts_130.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Using the Monte Carlo values, first compute the ratio of the Upside value to the Downside value. Then divide that result by the ratio of the Ending Value to the Median value. Finally, subtract 1 from the result and convert it to a percentage. Round to the nearest whole number. Answer with a single number (e.g., 5).
+      answer: "1485"

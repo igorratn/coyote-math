@@ -1,0 +1,26 @@
+task:
+  stem: Financial_Crypto_trading_graphs_127
+  sa_task_filename: Financial_Crypto_trading_graphs_127.json
+  task_id: 188123249
+  image: screenshots/Financial_Crypto_trading_graphs_127.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "12"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Crypto_trading_graphs_127.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        In the image, treat only the four text-labeled annotations “Left shoulder,” “Head,” “Right shoulder,” and “Neckline” as pattern labels. Count the words in the two-line title, then add the number of white curved arcs above the candles and multiply by the number of yellow straight neckline lines. Answer with a single integer (e.g., 10).
+      answer: "12"

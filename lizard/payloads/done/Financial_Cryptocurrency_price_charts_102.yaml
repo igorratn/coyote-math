@@ -1,0 +1,26 @@
+task:
+  stem: Financial_Cryptocurrency_price_charts_102
+  sa_task_filename: Financial_Cryptocurrency_price_charts_102.json
+  task_id: 188123269
+  image: screenshots/Financial_Cryptocurrency_price_charts_102.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "11"
+      flags: []
+      feedback: "5/2: Skill tag corrected: Skill tags corrected: added Enumeration; dropped Spatial Reasoning."
+      verdict_source: auto
+      skills_check: [Enumeration]
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Cryptocurrency_price_charts_102.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        The chart title contains a colon. Count the total number of letters in the word immediately before the colon. Then count the total number of letters in the word immediately after the colon. What is the absolute difference between those two letter counts? Provide your answer as a single integer (e.g., 3).
+      answer: "11"

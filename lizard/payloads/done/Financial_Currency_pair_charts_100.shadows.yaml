@@ -1,0 +1,13 @@
+stem: Financial_Currency_pair_charts_100
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 7f08e5e0
+    fired_at: 2026-05-02T18:17:28.141Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: igor
+    hai_llm_eval: warning
+    hai_llm_comment: "Answer 8 appears incorrect. HAI LLM: A=1 (4 bars left of first dashed line, 1 up), B=5 (approx 20 bars, 5 up), |A-B|=4. Disagrees with annotator answer of 8."
+    reclaimed: false
+    reclaim_diff: null

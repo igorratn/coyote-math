@@ -1,0 +1,13 @@
+stem: Financial_Trading_pattern_examples_91
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 46d41f85
+    fired_at: 2026-05-04T01:22:58.331Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: igor
+    hai_llm_eval: warning
+    hai_llm_comment: "HAI LLM: Annotation needs adjustments. (1) Missing Example Answer — all SAQ should include an example. (2) Not Single-Verifiable — 'location' subjective on chart lacking Y-axis price scale; alternate answers like 'top red line, bottom green line' equally valid. Recommendation: convert to MCQ with 4 distinct options."
+    reclaimed: false
+    reclaim_diff: null

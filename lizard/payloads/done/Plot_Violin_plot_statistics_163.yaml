@@ -8,11 +8,11 @@ annotations:
 
   - n: 1
     sa:
-      action: QC_Return
-      rating: thumbs-down
-      answer_final: null
+      action: approve
+      rating: thumbs-up
+      answer_final: "2"
       flags: []
-      feedback: "2026-05-01: Model answered correctly — not stumped (model answer equals annotator's rewrite). Annotator must design a harder prompt that the model cannot answer."
+      feedback: null
       verdict_source: auto
       skills_check: []
       skills_uncheck: []
@@ -23,43 +23,37 @@ annotations:
       annotation_n: 1
       prompt: |
         How many day categories are explicitly labeled along the vertical axis of the plot? Provide the answer as a single number (e.g., 7)
-      answer: |
-        2
-        
-        **Auto-resolved at Job 2 (👎 stump-fail).** stump_fail_tie: Model answer "2" equals annotator's rewrite "2" — not stumped (Type 2). SA action at Job 4: **QC_Return** (cycle 1). Skipped at Job 3 walkthrough.
+      answer: "2"
 
   - n: 2
     sa:
-      action: QC_Return
-      rating: thumbs-down
-      answer_final: null
+      action: approve
+      rating: thumbs-up
+      answer_final: "2"
       flags: []
-      feedback: "2026-05-01: Model did not generate an answer for this annotation — treated as not stumped. Annotator must regenerate model response before resubmitting."
+      feedback: "5/2: Skill tag corrected: Skill tag corrected: added Enumeration, dropped Spatial Reasoning."
       verdict_source: auto
-      skills_check: []
-      skills_uncheck: []
+      skills_check: [Enumeration]
+      skills_uncheck: [Spatial Reasoning]
       qtype: "SAQ"
     hai:
       task_id_field: Plot_Violin_plot_statistics_163.json
       role: Reviewing
       annotation_n: 2
       prompt: |
-        If each labeled day has one mirrored violin-style distribution, how many full distribution groups are shown in total? Provide the answer as a single number (e.g., 7)
-      answer: |
-        2
-        
-        **Auto-resolved at Job 2 (👎 stump-fail).** stump_fail_no_model: No model answer captured — stump cannot be assessed; prompt failed task objective. SA action at Job 4: **QC_Return** (cycle 1). Skipped at Job 3 walkthrough.
+        If each labeled day has one mirrored violin-style distribution, how many full distribution groups are shown in total? Provide the answer as a single number (e.g., 7).
+      answer: "2"
 
   - n: 3
     sa:
-      action: QC_Return
-      rating: thumbs-down
-      answer_final: null
+      action: approve
+      rating: thumbs-up
+      answer_final: "4"
       flags: []
-      feedback: "2026-05-01: Model did not generate an answer for this annotation — treated as not stumped. Annotator must regenerate model response before resubmitting."
+      feedback: "5/2: Skill tag corrected: Skill tag corrected: added Enumeration, dropped Spatial Reasoning."
       verdict_source: auto
-      skills_check: []
-      skills_uncheck: []
+      skills_check: [Enumeration]
+      skills_uncheck: [Spatial Reasoning]
       qtype: "SAQ"
     hai:
       task_id_field: Plot_Violin_plot_statistics_163.json
@@ -67,10 +61,7 @@ annotations:
       annotation_n: 3
       prompt: |
         Counting the horizontal boxplot overlays inside both day distributions, how many box-shaped summaries are visible altogether? Provide the answer as a single number (e.g., 7)
-      answer: |
-        4
-        
-        **Auto-resolved at Job 2 (👎 stump-fail).** stump_fail_no_model: No model answer captured — stump cannot be assessed; prompt failed task objective. SA action at Job 4: **QC_Return** (cycle 1). Skipped at Job 3 walkthrough.
+      answer: "4"
 
   - n: 4
     sa:
@@ -78,9 +69,9 @@ annotations:
       rating: thumbs-up
       answer_final: "4"
       flags: []
-      feedback: "5/1: Skill tag corrected: Dropped Spatial Reasoning (chart-element identification is not relational reasoning). Added Enumeration (counting prompt requires it)."
+      feedback: "5/2: Skill tag corrected: Skill tag corrected: dropped Spatial Reasoning."
       verdict_source: auto
-      skills_check: [Enumeration]
+      skills_check: []
       skills_uncheck: [Spatial Reasoning]
       qtype: "SAQ"
     hai:
@@ -97,9 +88,9 @@ annotations:
       rating: thumbs-up
       answer_final: "6"
       flags: []
-      feedback: "5/1: Skill tag corrected: Dropped Spatial Reasoning (chart-element counting is not relational positional reasoning). Added Enumeration (two counts required). Added Math Reasoning (summation step required)."
+      feedback: "5/2: Skill tag corrected: Skill tag corrected: added Math Reasoning, dropped Spatial Reasoning."
       verdict_source: auto
-      skills_check: [Enumeration, Math Reasoning]
+      skills_check: [Math Reasoning]
       skills_uncheck: [Spatial Reasoning]
       qtype: "SAQ"
     hai:

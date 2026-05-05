@@ -1,0 +1,23 @@
+stem: Financial_Currency_pair_charts_8
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: f1ba6b96
+    fired_at: 2026-05-03T04:30:06.715Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: "The annotation looks good, you may continue."
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: f29a9567
+    fired_at: 2026-05-03T04:32:11.544Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: "The annotation looks good, you may continue."
+    reclaimed: false
+    reclaim_diff: null

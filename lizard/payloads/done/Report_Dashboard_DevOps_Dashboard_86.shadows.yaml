@@ -1,0 +1,53 @@
+stem: Report_Dashboard_DevOps_Dashboard_86
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: d83cabe8
+    fired_at: 2026-05-05T05:39:33.836Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: ecad026b
+    fired_at: 2026-05-05T05:41:40.569Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: 8c4f6ea9
+    fired_at: 2026-05-05T15:41:57.099Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 4
+    uuid: 613e92dd
+    fired_at: 2026-05-05T15:44:06.087Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 5
+    uuid: 82b5b357
+    fired_at: 2026-05-05T15:46:45.010Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "Minor grammar nit: \"3 decimal place\" should be \"3 decimal places\" (math/logic correct)"
+    reclaimed: false
+    reclaim_diff: null

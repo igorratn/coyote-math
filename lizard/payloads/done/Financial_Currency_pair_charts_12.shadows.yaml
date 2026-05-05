@@ -1,0 +1,13 @@
+stem: Financial_Currency_pair_charts_12
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: f03bd938
+    fired_at: 2026-05-03T04:25:45.566Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "Difference Rule Violation: prompt asks for difference without specifying order/absolute. Chart Misinterpretation: chart is EUR/USD (Euro in USD) but prompt asks for value of US dollar in euros (inverse). Calculation Error: answer 0.039 is incorrect; chart shows ~0.025 (broad) or ~0.053 (labeled extremes Sept H 1.19188 vs Aug L 1.13917)."
+    reclaimed: false
+    reclaim_diff: null

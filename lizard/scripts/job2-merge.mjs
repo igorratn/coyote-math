@@ -273,9 +273,6 @@ for (const name of REVIEWERS) {
     console.error(`[job2-merge] WARN: no review file for '${name}' at ${p} — skipping`);
   }
 }
-if (!reviewerFiles.size) {
-  console.error('[job2-merge] ERROR: no reviewer outputs found'); process.exit(1);
-}
 
 const parsedReviewers = new Map();
 for (const [name, { text }] of reviewerFiles.entries()) {
@@ -301,6 +298,24 @@ const stumpFailMap = new Map();
     const sf = JSON.parse(readFileSync(sfPath, 'utf8'));
     for (const s of (sf.stump_fails ?? [])) stumpFailMap.set(s.n, s);
   }
+}
+
+// Allow zero reviewer outputs only when every skeleton annot is stump-failed
+// (run-job2's stump prefilter empties pending → no reviewer fires; merger
+// still needs to stamp Auto Verdict 👎 blocks). Cycle-2 unchanged annots
+// also count as covered (they short-circuit to a no-op merge entry).
+// (codified 2026-05-04: prior bug — full-stump-filter stems aborted with
+// "no reviewer outputs found" instead of writing the task file with 👎 stamps.)
+if (!reviewerFiles.size) {
+  const uncovered = skelAnnots.filter(s => {
+    if (isCycle2 && s.status === 'unchanged') return false;
+    return !stumpFailMap.has(s.n);
+  });
+  if (uncovered.length) {
+    console.error(`[job2-merge] ERROR: no reviewer outputs found and ${uncovered.length} annot(s) not stump-failed (A${uncovered.map(u => u.n).join(',A')})`);
+    process.exit(1);
+  }
+  console.error(`[job2-merge] no reviewer outputs — all ${skelAnnots.length} annot(s) covered by stump-fail prefilter`);
 }
 
 // ---------- per-annot pick: delegate to the pure exported helper ----------
@@ -497,7 +512,12 @@ function renderAnnotation(entry) {
       const feedbackText = isTie
         ? `Model answered correctly — not stumped (model answer equals annotator's rewrite). Annotator must design a harder prompt that the model cannot answer.`
         : `Model did not generate an answer for this annotation — treated as not stumped. Annotator must regenerate model response before resubmitting.`;
-      lines.push(`**Auto-resolved at Job 2 (👎 stump-fail).** ${sf.code}: ${sf.reason}. SA action at Job 5: **${downAction}** (${cycleLabel}). Skipped at Job 3 walkthrough.\n`);
+      // Emit the Auto Verdict block FIRST so its `####` header closes the
+      // Rewrite Answer capture cleanly. The "**Auto-resolved...**" narrative
+      // moves AFTER the Feedback block (informational tail, not part of any
+      // capture). (codified 2026-05-04 — incident: stump-fail narrative
+      // landed inside Rewrite Answer capture, polluting hai.answer in the
+      // payload with merger commentary.)
       lines.push(`#### Auto Verdict`);
       lines.push(`carve_out: ${sf.code}`);
       lines.push(`rating: thumbs-down`);
@@ -509,6 +529,7 @@ function renderAnnotation(entry) {
       lines.push(`notes: ${sf.reason}\n`);
       lines.push(`#### Edits Made\n(none — stump-fail auto-down)\n`);
       lines.push(`#### Feedback\n${today}: ${feedbackText}\n`);
+      lines.push(`#### Audit Trail\n**Auto-resolved at Job 2 (👎 stump-fail).** ${sf.code}: ${sf.reason}. SA action at Job 5: **${downAction}** (${cycleLabel}). Skipped at Job 3 walkthrough.\n`);
       if (skel.n < skelAnnots.length) lines.push('\n---\n');
       return lines.join('\n');
     }

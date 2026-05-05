@@ -1,0 +1,13 @@
+stem: Financial_Trading_pattern_examples_94
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: 4fee5d06
+    fired_at: 2026-05-04T01:25:49.553Z
+    rating: Reject
+    time_logged: "00:20:00"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "HAI LLM: Missing Example Answer — SAQ format structure (Pattern, Key movements) needs an actual example like '(e.g., Consolidation, lower highs and lower lows)'."
+    reclaimed: false
+    reclaim_diff: null

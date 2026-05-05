@@ -1,0 +1,26 @@
+task:
+  stem: Financial_Return_on_investment_charts_116
+  sa_task_filename: Financial_Return_on_investment_charts_116.json
+  task_id: 188123818
+  image: screenshots/Financial_Return_on_investment_charts_116.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "0"
+      flags: []
+      feedback: "5/3: Corrected final answer from 3 to 0. 1y SIP = 3 silver coins; 3y RETURNS = 3 yellow coins; 3 − 3 = 0."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Return_on_investment_charts_116.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Subtract the number of coins representing SIP in 1y  from the number of coins representing RETURNS in 3y.(answer as a whole number e.g. 1)
+      answer: "0"

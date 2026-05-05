@@ -1,0 +1,55 @@
+task:
+  stem: Financial_Currency_pair_charts_8
+  sa_task_filename: Financial_Currency_pair_charts_8.json
+  task_id: 188123292
+  image: screenshots/Financial_Currency_pair_charts_8.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "D"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Financial_Currency_pair_charts_8.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        The green dashed bracket marks a 454 pip advance. At which part of the chart does the price reach the highest visible level within that bracket? Answer with only the letter of the correct option (e.g., A).
+        
+        A. Near the early-May low
+        B. Around May 9–10
+        C. Around May 15
+        D. Near May 21
+      answer: "D"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "B"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Financial_Currency_pair_charts_8.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        The green dashed bracket begins at the early-May low and ends at the late-May high. Which endpoint of the bracket is located at the higher price level? Answer with only the letter of the correct option (e.g., A).
+        
+        A. The left endpoint
+        B. The right endpoint
+        C. Both endpoints are at the same price level
+        D. Cannot be determined
+      answer: "B"

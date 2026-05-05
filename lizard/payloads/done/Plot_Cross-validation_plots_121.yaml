@@ -1,0 +1,102 @@
+task:
+  stem: Plot_Cross-validation_plots_121
+  sa_task_filename: Plot_Cross-validation_plots_121.json
+  task_id: 187299447
+  image: screenshots/Plot_Cross-validation_plots_121.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "8750"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Cross-validation_plots_121.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Using the graph, determine a final value by synthesizing numerical and visual components of the graph. Identify the number of iterations marked at the midpoint of the horizontal axis (1750) and multiply this by the total number of individual words found inside the three dark-bordered text boxes. To this product, add the number of distinct data lines shown in the legend. Finally, subtract the Error Function value that corresponds to the second labeled tick mark from the bottom on the vertical axis and provide your final result rounded to the nearest whole integer (e.g., 10497).
+      answer: "8750"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "16000"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Cross-validation_plots_121.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Based on the provided graph, determine a final value through a sequence of data extraction and arithmetic. Identify the number of iterations labeled at the fourth major tick mark from the left on the horizontal axis and multiply this by the total number of labeled major tick marks present on the vertical axis. To this product, add the number of distinct words (strings of text separated by spaces or hyphens) found in the legend in the bottom-left corner. Finally, subtract the Error Function value indicated by the second labeled tick mark from the bottom of the vertical axis and provide the result rounded to the nearest whole integer (e.g., 16000).
+      answer: "16000"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "16064"
+      flags: []
+      feedback: "5/4: Skill tag corrected: Added Enumeration to skill tags (from Attribute Perception, Math Reasoning, Logical Reasoning, Table/Chart/Graph Understanding to include Enumeration)."
+      verdict_source: auto
+      skills_check: [Enumeration, Attribute Perception, Math Reasoning, Logical Reasoning]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Cross-validation_plots_121.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Using the graph, calculate a single numerical value based on the geometric and textual properties of the graph. Determine the product of the number of lowercase "o" characters found in the vertical axis title "Error Function" and the numerical value of the number of iterations labeled at the second major tick mark from the left on the horizontal axis. To this result, add the total number of distinct words (strings of characters separated by spaces or hyphens) contained within the legend and all three dark-bordered text boxes combined. Finally, multiply that entire sum by the total count of labeled major tick marks on the vertical Error Function axis and provide the result as a single whole number (e.g., 15).
+      answer: "16064"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "44"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Cross-validation_plots_121.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        Determine the total number of distinct numerical labels on the vertical Error Function axis that consist of exactly four characters (including the decimal point) and multiply this count by the total number of labeled major tick marks on the horizontal number of iterations axis. To this product, add the number of distinct words in the phrase "under-learning" (treating the hyphen as a word separator). Finally, multiply the entire sum by the number of individual words in the legend that contain exactly eight letters and provide your result as a single whole number (e.g., 15).
+      answer: "44"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "42007"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Cross-validation_plots_121.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        Calculate the total number of lowercase "g" characters found across all three dark-bordered text boxes (case-sensitive) and multiply this count by the numerical value of the number of iterations labeled at the fourth major tick mark from the left on the horizontal axis. To this product, add the total number of times the letter "u" appears in the vertical axis title, "Error Function" (case-insensitive). Finally, multiply the entire sum by the number of labeled tick marks on the vertical Error Function axis that consist of exactly four characters, including the decimal point, and provide your result as a single whole number (e.g., 6001).
+      answer: "42007"

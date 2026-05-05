@@ -1,0 +1,26 @@
+task:
+  stem: Financial_Trading_signal_charts_13
+  sa_task_filename: Financial_Trading_signal_charts_13.json
+  task_id: 188123987
+  image: screenshots/Financial_Trading_signal_charts_13.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "4.82000"
+      flags: []
+      feedback: "5/3: Skill tag corrected: Dropped Spatial Reasoning (axis-extrapolation is chart-reading + arithmetic, not relational position judgment)."
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Trading_signal_charts_13.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Using the same trend in increments shown on the y-axis, what is the sum of the next four numbers at the top after '1.18000”? Round your answer to 5 decimal places (eg., 6.83838)
+      answer: "4.82000"
