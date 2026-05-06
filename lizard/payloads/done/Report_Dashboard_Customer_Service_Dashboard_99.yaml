@@ -1,0 +1,38 @@
+task:
+  stem: Report_Dashboard_Customer_Service_Dashboard_99
+  sa_task_filename: Report_Dashboard_Customer_Service_Dashboard_99.json
+  task_id: 187300870
+  image: screenshots/Report_Dashboard_Customer_Service_Dashboard_99.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "10"
+      flags: []
+      feedback: "5/5: Skill tag corrected: Added `Enumeration` and `Math Reasoning` to the skill tags."
+      verdict_source: auto
+      skills_check: [Enumeration, Math Reasoning]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Customer_Service_Dashboard_99.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Using the illustration in , follow these logical steps to determine the final numeric value.
+        
+        Locate the large white circular frame containing the hand icon. Count the total number of yellow stars that are physically touching or overlapping this white frame.
+        
+        Count the total number of light-colored circular spots used to represent the cheeks on the woman's face.
+        
+        Count the total number of fingers and thumbs (digits) visible on the white hand icon.
+        
+        Identify the number of black dots/buttons visible on the yellow sleeve of the hand icon.
+        
+        Find the final answer by calculating: (Result from Step 1) + (Result from Step 2) + (Result from Step 3) + (Result from Step 4).
+        
+        Provide your answer as a single numeric value only (e.g., 10).
+      answer: "10"

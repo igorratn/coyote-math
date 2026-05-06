@@ -26,6 +26,7 @@ const LIZARD_DIR = process.env.LIZARD_DIR || process.cwd();
 const QUEUE_DIR = join(LIZARD_DIR, 'queue');
 const SCRAPES_DIR = join(LIZARD_DIR, 'scrapes');
 const TASKS_DIR = join(LIZARD_DIR, 'tasks');
+const DONE_DIR = join(LIZARD_DIR, 'payloads', 'done');
 
 function readStdin() {
   return new Promise((resolve, reject) => {
@@ -55,6 +56,16 @@ function writeQueueFile(row, force) {
   const path = join(QUEUE_DIR, `${row.stem}.json`);
   if (existsSync(path) && !force) {
     return { stem: row.stem, status: 'skip-exists' };
+  }
+  // Cycle-3 guard (codified 2026-05-05): both done/<stem>.yaml AND
+  // done/<stem>.cycle1.yaml present means cycle 2 already finalized — re-
+  // queueing would be cycle 3 (not supported). SA queue tab can show finalized
+  // stems pre-refresh; intake must refuse them. cycle-1-only done (yaml without
+  // .cycle1.yaml) is the legitimate cycle-2 return path and is allowed.
+  const doneCur = join(DONE_DIR, `${row.stem}.yaml`);
+  const doneC1 = join(DONE_DIR, `${row.stem}.cycle1.yaml`);
+  if (existsSync(doneCur) && existsSync(doneC1) && !force) {
+    return { stem: row.stem, status: 'skip-already-done-cycle3' };
   }
   const scrapePath = join(SCRAPES_DIR, `${row.stem}.txt`);
   const isCycle2 = existsSync(join(TASKS_DIR, `${row.stem}.md`));
@@ -95,9 +106,11 @@ function writeQueueFile(row, force) {
     console.log(`\n${rows.length} candidate row(s):\n`);
     rows.forEach((r, i) => {
       const isCycle2 = existsSync(join(TASKS_DIR, `${r.stem}.md`));
+      const isCycle3 = existsSync(join(DONE_DIR, `${r.stem}.yaml`)) && existsSync(join(DONE_DIR, `${r.stem}.cycle1.yaml`));
+      const cycle3Tag = isCycle3 ? '  🛑 [ALREADY DONE — cycle 3, will refuse]' : '';
       const cycle2Tag = isCycle2 ? '  ⚠️  [CYCLE 2 RETURN]' : '';
       const catTag = r.category && r.category !== '-' ? `  [${r.category}]` : '';
-      console.log(`  [${i + 1}] ${r.stem}${cycle2Tag}${catTag}`);
+      console.log(`  [${i + 1}] ${r.stem}${cycle3Tag}${cycle2Tag}${catTag}`);
     });
     console.log('');
     const ans = await ask('queue which? (e.g. 1,3,5  or "all"  or empty to abort): ');

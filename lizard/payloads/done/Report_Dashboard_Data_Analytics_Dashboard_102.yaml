@@ -1,0 +1,102 @@
+task:
+  stem: Report_Dashboard_Data_Analytics_Dashboard_102
+  sa_task_filename: Report_Dashboard_Data_Analytics_Dashboard_102.json
+  task_id: 187300871
+  image: screenshots/Report_Dashboard_Data_Analytics_Dashboard_102.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "Week 38 2023"
+      flags: []
+      feedback: "5/6: Skill tag corrected: Dropped Spatial Reasoning."
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Data_Analytics_Dashboard_102.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        During which specific week and year on the "Weekly Social Actions" chart contained the most likes? Answer with the exact text (e.g., Week 25 2023)
+      answer: "Week 38 2023"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "68"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: [Enumeration]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Data_Analytics_Dashboard_102.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        On the "Weekly Social Actions" chart, can you sum up the number of "clicks", "likes", "shares", and "comments" for "Week 32 2023". Please answer with an exact number (e.g., 32)
+      answer: "68"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "12.76"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Data_Analytics_Dashboard_102.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        On the "Engagement Rate vs. Click-Through Rate" chart, what is the difference between the highest engagement rate and the lowest engagement rate? Please answer with an exact number (e.g., 20.3)
+      answer: "12.76"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "2"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: [Math Reasoning]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Data_Analytics_Dashboard_102.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        On the "Weekly Social Actions" chart, how many weeks show total weekly actions strictly greater than or equal to 60? Please answer with an exact number (e.g., 5)
+      answer: "2"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "3"
+      flags: []
+      feedback: "5/6: Skill tag corrected: added Enumeration (\"how many weeks\" is a count)."
+      verdict_source: igor
+      skills_check: [Enumeration]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Data_Analytics_Dashboard_102.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        On the "Weekly Social Actions" chart, how many weeks had strictly fewer shares than likes? Exclude "Week 39 2023". Please provide an exact number (e.g., 2)
+      answer: "3"

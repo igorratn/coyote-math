@@ -1,0 +1,33 @@
+stem: Plot_Climate_data_visualization_102
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: e32b2eff
+    fired_at: 2026-05-05T18:13:50.858Z
+    rating: Approve
+    time_logged: "00:20:25"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 73564ee5
+    fired_at: 2026-05-05T18:14:31.213Z
+    rating: Approve
+    time_logged: "00:20:28"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: dc9d4c50
+    fired_at: 2026-05-05T18:42:27.360Z
+    rating: Reject
+    time_logged: "00:26:44"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

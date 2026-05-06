@@ -1,0 +1,13 @@
+stem: Report_Dashboard_Database_Dashboard_31
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 2f041b1e
+    fired_at: 2026-05-06T03:31:32.265Z
+    rating: Approve
+    time_logged: "00:20:32"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

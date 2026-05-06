@@ -1,0 +1,42 @@
+task:
+  stem: Report_Dashboard_Customer_Service_Dashboard_30
+  sa_task_filename: Report_Dashboard_Customer_Service_Dashboard_30.json
+  task_id: 187300862
+  image: screenshots/Report_Dashboard_Customer_Service_Dashboard_30.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "14"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Customer_Service_Dashboard_30.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Using the dashboard image , follow these logical steps to determine the final numeric value.
+        
+        Examine the pie chart in the bottom center. Imagine the circle is a clock face. Identify the percentage value of the slice that covers the 4 o'clock position.
+        
+        Extract the first digit of that percentage value (e.g., if it is 30.00%, the digit is 3).
+        
+        Look at the "Top Performing Agents by Resolved Tickets" bar chart (bottom left). Identify the agent with the highest number of resolved tickets according to the numeric labels.
+        
+        Identify the agent positioned directly below that highest-performing agent in the vertical list. Count the total number of consonants in that agent's first name only.
+        
+        Look at the line chart titled "Customer Service Performance Dashboard" (top right). Identify the category on the x-axis where the orange line reaches its highest vertical peak on the grid.
+        
+        Count the total number of letters in that specific x-axis category name (do not include spaces).
+        
+        Find the final answer by calculating: (Result from Step 2) + (Result from Step 4) + (Result from Step 6).
+        
+        Provide your answer as a single numeric value only (e.g., 14).
+      answer: "14"

@@ -1,0 +1,76 @@
+task:
+  stem: Report_Dashboard_Database_Dashboard_76
+  sa_task_filename: Report_Dashboard_Database_Dashboard_76.json
+  task_id: 187300894
+  image: screenshots/Report_Dashboard_Database_Dashboard_76.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: "5/5: Skill tag corrected: Dropped Spatial Reasoning (cross-panel name lookup is logical, not relational position reasoning)."
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "MCQ"
+    hai:
+      task_id_field: Report_Dashboard_Database_Dashboard_76.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        First, locate the "DB Time per Second" graph and identify the database target responsible for the single highest spike recorded in the entire graph (reaching near 600 ms). Next, locate the vertical column of gauges on the far left side of the dashboard. What is the specific numerical value displayed strictly inside the gauge that corresponds to this identified database target?
+        A. 0.021
+        B. 0.012
+        C. 0.018
+        D. 82
+      answer: "C"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "A"
+      flags: []
+      feedback: "5/5: Skill tag corrected: Dropped Spatial Reasoning (column-name lookup is logical, not relational position reasoning)."
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "MCQ"
+    hai:
+      task_id_field: Report_Dashboard_Database_Dashboard_76.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        In the "User Calls (%)" panel, there is a dense, heavily fluctuating block of color that forms the main visual bulk of the graph, predominantly filling the space between the 10% and 25% grid lines. First, use the legend to identify the exact database target this specific color block represents. Next, locate the vertical column of gauges situated horizontally between the "Current Logon Count" and "Total Memory Usage (MB)" panels. What specific number is displayed inside the gauge assigned to that exact target?
+        A. 82
+        B. 0.021
+        C. 81
+        D. 0.018
+      answer: "A"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Report_Dashboard_Database_Dashboard_76.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        What is the absolute difference between the integer values located in the inner-right vertical column of gauges for the target with the absolute highest peak in the "SQL Execution Time per Second" panel and the target with the absolute highest spike in the "I/O MB per Second" panel?
+        A. 16
+        B. 0
+        C. 17
+        D. 1
+      answer: "C"

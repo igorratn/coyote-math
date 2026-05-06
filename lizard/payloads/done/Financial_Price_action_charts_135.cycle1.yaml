@@ -1,0 +1,28 @@
+task:
+  stem: Financial_Price_action_charts_135
+  sa_task_filename: Financial_Price_action_charts_135.json
+  task_id: 187831810
+  image: screenshots/Financial_Price_action_charts_135.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "BULLISH PINBAR and 6"
+      flags: []
+      feedback: "4/30: Corrected count to 6. Image contains 6 fully visible \"BULLISH PINBAR\" text labels; one partially visible instance on the left edge does not count per prompt. Added Enumeration (counting task)."
+      verdict_source: igor
+      skills_check: [Enumeration]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Price_action_charts_135.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        In the image, identify the word or phrase that is entirely contained within the green-shaded support zone. Then, based only on what is fully visible, count how many times this word or phrase appears throughout the entire image.
+        
+        Provide your answer in the format: word or phrase and count (e.g., BEARISH PINBAR and 2). (case-sensitive applies to this question)
+      answer: "BULLISH PINBAR and 6"

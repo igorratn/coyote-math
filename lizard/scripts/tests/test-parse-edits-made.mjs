@@ -129,6 +129,29 @@ assertSets(
   [], ['Spatial Reasoning']
 );
 
+// 16. Paren-depth guard: reviewer cites a skill inside parens to JUSTIFY a drop.
+// Justification skill must NOT be added to the action target list.
+// Codified 2026-05-06 — Data_Analytics_4 A1 incident.
+assertSets(
+  'paren-depth: justification skill is NOT a drop target',
+  parseEditsMade('Dropped Logical Reasoning (computing a mean of an enumerated set is Math Reasoning, not conditional/branching inference).'),
+  [], ['Logical Reasoning']
+);
+
+// 17. Paren-depth + multiple top-level drops still works.
+assertSets(
+  'paren-depth: top-level comma drops survive',
+  parseEditsMade('Dropped Spatial Reasoning, Logical Reasoning'),
+  [], ['Spatial Reasoning', 'Logical Reasoning']
+);
+
+// 18. Paren-depth: drop one at top, mention another in parens (justification).
+assertSets(
+  'paren-depth: drop A (this is really B) and C',
+  parseEditsMade('Dropped Logical Reasoning (this is really Math Reasoning) and Spatial Reasoning'),
+  [], ['Logical Reasoning', 'Spatial Reasoning']
+);
+
 // ---------- Result ----------
 if (failed) {
   console.error(`\n[test-parse-edits-made] ${failed} FAIL`);

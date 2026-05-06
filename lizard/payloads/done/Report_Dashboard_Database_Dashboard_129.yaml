@@ -1,0 +1,51 @@
+task:
+  stem: Report_Dashboard_Database_Dashboard_129
+  sa_task_filename: Report_Dashboard_Database_Dashboard_129.json
+  task_id: 187300885
+  image: screenshots/Report_Dashboard_Database_Dashboard_129.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "B"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Report_Dashboard_Database_Dashboard_129.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Which top time-series panel shows the strongest visual co-movement between its green and blue lines, with peaks and dips occurring at nearly the same times?
+        
+        A. Click Through Rate & Impressions
+        B. Conversion Rate & Cost
+        C. Cost Per Click
+        D. Top Campaigns
+      answer: "B"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "5"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Database_Dashboard_129.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        How many times do the green Clicks line and the blue CTR line visually intersect within the plotted chart area? Count only places where the two drawn lines clearly cross each other, and do not count spots where they merely get close without crossing.
+        Answer with a single whole number (e.g., 3).
+      answer: "5"

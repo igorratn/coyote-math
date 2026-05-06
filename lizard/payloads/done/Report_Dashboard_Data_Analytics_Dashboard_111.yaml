@@ -1,0 +1,102 @@
+task:
+  stem: Report_Dashboard_Data_Analytics_Dashboard_111
+  sa_task_filename: Report_Dashboard_Data_Analytics_Dashboard_111.json
+  task_id: 187300873
+  image: screenshots/Report_Dashboard_Data_Analytics_Dashboard_111.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "6"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: [Math Reasoning]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Data_Analytics_Dashboard_111.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Across all six panels in the dashboard, how many explicitly labeled dashed horizontal reference lines are shown in total? Answer as a single number (e.g., 2).
+      answer: "6"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "366.0%"
+      flags: ["Type 7"]
+      feedback: "5/6: Skill tag corrected: added Enumeration (\"identify all explicitly labeled percentage values\" requires enumeration)."
+      verdict_source: igor
+      skills_check: [Enumeration]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Data_Analytics_Dashboard_111.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Across the entire dashboard, identify all explicitly labeled percentage values. Compute their sum and express the result as a percentage with exactly one decimal place (e.g., 12.5%).
+      answer: "366.0%"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "65.2%"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Data_Analytics_Dashboard_111.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Across the entire dashboard, identify all explicitly labeled percentage values that are attached to dashed reference lines. Compute the arithmetic mean of these percentage values and express the result as a percentage with exactly one decimal place (e.g., 12.5%).
+      answer: "65.2%"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "30.0%"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: [Enumeration]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Data_Analytics_Dashboard_111.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        Across the entire dashboard, identify all explicitly labeled percentage values that are visually linked to dashed reference lines. After sorting these percentage values from smallest to largest, subtract the second-smallest value from the largest value. Express your answer as a percentage with exactly one decimal place (e.g., 12.5%).
+      answer: "30.0%"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "5.00"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: [Enumeration]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Data_Analytics_Dashboard_111.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        Across the entire dashboard, identify all explicitly labeled percentage values that are visually linked to dashed reference lines. After sorting these percentage values from largest to smallest, divide the second-largest value by the smallest value. Round your answer to two decimal places (e.g., 1.25).
+      answer: "5.00"

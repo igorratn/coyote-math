@@ -1,0 +1,13 @@
+stem: Report_Dashboard_Customer_Service_Dashboard_19
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: d8ffd38a
+    fired_at: 2026-05-06T17:40:20.768Z
+    rating: Approve
+    time_logged: "00:20:20"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

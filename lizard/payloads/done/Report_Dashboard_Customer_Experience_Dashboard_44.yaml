@@ -1,0 +1,26 @@
+task:
+  stem: Report_Dashboard_Customer_Experience_Dashboard_44
+  sa_task_filename: Report_Dashboard_Customer_Experience_Dashboard_44.json
+  task_id: 187300853
+  image: screenshots/Report_Dashboard_Customer_Experience_Dashboard_44.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "29%"
+      flags: []
+      feedback: "5/6: Skill tag corrected: Dropped World Knowledge (not required — \"quarterly customer churn rates\" directly visible and labeled in chart, no external facts needed)."
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: [World Knowledge]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Customer_Experience_Dashboard_44.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        What is the sum of the quarterly customer churn rates shown in the dashboard? (Answer as a percentage, e.g., 10%)
+      answer: "29%"

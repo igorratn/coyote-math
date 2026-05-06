@@ -1,0 +1,31 @@
+task:
+  stem: Report_Dashboard_Database_Dashboard_31
+  sa_task_filename: Report_Dashboard_Database_Dashboard_31.json
+  task_id: 187300891
+  image: screenshots/Report_Dashboard_Database_Dashboard_31.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "A"
+      flags: []
+      feedback: "5/5: Skill tag corrected: Added Math Reasoning (prompt requires subtraction + division + comparison). Dropped Attribute Perception (task is pure table-cell read + arithmetic, not perceptual judgment)."
+      verdict_source: auto
+      skills_check: [Math Reasoning]
+      skills_uncheck: [Attribute Perception]
+      qtype: "MCQ"
+    hai:
+      task_id_field: Report_Dashboard_Database_Dashboard_31.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Which RESOURCE_LIMITS row has the smallest absolute difference between MAX_UTILIZATION and CURRENT_UTILIZATION, while also having the highest CURRENT_UTILIZATION / INITIAL_ALLOCATION ratio?
+        
+        A. processes
+        B. sessions
+        C. enqueue_locks
+        D. sessions and enqueue_locks tie
+      answer: "A"

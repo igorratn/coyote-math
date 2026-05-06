@@ -1,0 +1,53 @@
+stem: Report_Dashboard_Data_Analytics_Dashboard_102
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: cd3b3eac
+    fired_at: 2026-05-06T18:40:41.835Z
+    rating: Approve
+    time_logged: "00:52:10"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: e2ef7202
+    fired_at: 2026-05-06T18:41:42.939Z
+    rating: Approve
+    time_logged: "00:20:25"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: ec0f0ace
+    fired_at: 2026-05-06T18:54:20.012Z
+    rating: Approve
+    time_logged: "00:20:02"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "Pre-submit QC: prompt should specify 'absolute difference' for clarity; calculation 12.76 confirmed correct. Igor approved override 2026-05-06"
+    reclaimed: false
+    reclaim_diff: null
+  - n: 4
+    uuid: fda41d5c
+    fired_at: 2026-05-06T18:57:09.083Z
+    rating: Approve
+    time_logged: "00:20:42"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 5
+    uuid: e5a7bfd0
+    fired_at: 2026-05-06T18:57:41.528Z
+    rating: Approve
+    time_logged: "00:20:26"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

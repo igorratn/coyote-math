@@ -1,0 +1,47 @@
+task:
+  stem: Report_Dashboard_Customer_Service_Dashboard_35
+  sa_task_filename: Report_Dashboard_Customer_Service_Dashboard_35.json
+  task_id: 187300863
+  image: screenshots/Report_Dashboard_Customer_Service_Dashboard_35.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "72"
+      flags: ["G5"]
+      feedback: |
+        5/5: Skill tag corrected: - Dropped Spatial Reasoning (navigational lookups, not relational reasoning).
+          - Added Enumeration (counting vowels in name).
+          - Added Math Reasoning (Step 4 subtraction + Step 7 addition).
+          - Added Table/Chart/Graph Understanding (reading stacked-bar percentages and line-chart values).
+          - Prompt edit: change `(e.g., 72)` to `(e.g., 50)` in Step 7 closing instruction — original example coincidentally equals the correct answer.
+      verdict_source: auto
+      skills_check: [Enumeration, Math Reasoning, Table/Chart/Graph Understanding]
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Customer_Service_Dashboard_35.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Using the dashboard image , follow these logical steps to determine the final numeric value.
+        
+        Locate the "Top Performers" list (top right). Identify the agent listed in the third position from the top.
+        
+        Count the total number of vowels (a, e, i, o, u) in that specific agent's full name (case-insensitive).
+        
+        Look at the "Proportion of Performance Range by Dept and Range" stacked bar chart. Find the department labeled "Marketing".
+        
+        Identify the percentage value for the "Middle" range (yellow) in Marketing, then subtract the percentage value of the "Bottom 20%" (red) for that same department.
+        
+        Find the "Overall Average Performance Score by Year" line chart (top left). Identify the lowest performance score displayed on the graph.
+        
+        Extract the first digit of that lowest score (e.g., if the score is 7.28, the first digit is 7).
+        
+        Find the final answer by calculating: (Result from Step 2) + (Result from Step 4) + (Result from Step 6).
+        
+        Provide your answer as a single numeric value only (e.g., 72).
+      answer: "72"

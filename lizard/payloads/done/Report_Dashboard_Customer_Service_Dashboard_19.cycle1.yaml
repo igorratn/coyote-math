@@ -1,0 +1,36 @@
+task:
+  stem: Report_Dashboard_Customer_Service_Dashboard_19
+  sa_task_filename: Report_Dashboard_Customer_Service_Dashboard_19.json
+  task_id: 187300861
+  image: screenshots/Report_Dashboard_Customer_Service_Dashboard_19.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: []
+      feedback: "5/5: Step 1 premise unverifiable — the Avg First Contact Resolution Rate gauge ring shows a smooth continuous gray arc to the right of the blue progress fill, with no distinct vertical bars to count. Rewrite Step 1 against a feature actually visible in the gauge. Skill tags: dropped Spatial Reasoning (gauge positions are navigational, not relational) and Logical Reasoning (chained extraction + addition is not conditional inference); added Enumeration (Steps 1 and 3 require counting), Math Reasoning (Step 4 sums), and Table/Chart/Graph Understanding (gauge and tile reads)."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Customer_Service_Dashboard_19.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Using the dashboard image , follow these logical steps to determine the final numeric value.
+        
+        Locate the "Avg First Contact Resolution Rate" gauge (bottom left). Identify the total number of distinct vertical gray bars located to the right of the blue progress arc within that circular gauge.
+        
+        Look at the "Occupancy Rate" gauge (top center). Identify the first digit of the "Target Range" maximum value (the second number in the range).
+        
+        Focus on the "Top Agents by Solved Tickets" section. Count how many individual agent profile photos are displayed in this list.
+        
+        Find the final answer by calculating: (Result from Step 1) + (Result from Step 2) + (Result from Step 3).
+        
+        Provide your answer as a single numeric value only (e.g., 18).
+      answer: "18"

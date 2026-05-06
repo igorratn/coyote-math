@@ -1,0 +1,53 @@
+stem: Report_Dashboard_Business_Intelligence_Dashboard_133
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: d300fdf9
+    fired_at: 2026-05-06T17:40:53.441Z
+    rating: Reject
+    time_logged: "00:20:20"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: d4d691a9
+    fired_at: 2026-05-06T17:45:13.773Z
+    rating: Reject
+    time_logged: "00:20:11"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: bdc5d60e
+    fired_at: 2026-05-06T17:46:13.807Z
+    rating: Reject
+    time_logged: "00:20:19"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 4
+    uuid: c1eebb1d
+    fired_at: 2026-05-06T17:46:36.027Z
+    rating: Approve
+    time_logged: "00:20:18"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 5
+    uuid: d0bc0509
+    fired_at: 2026-05-06T17:47:07.849Z
+    rating: Reject
+    time_logged: "00:20:27"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

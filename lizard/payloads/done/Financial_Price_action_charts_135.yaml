@@ -10,9 +10,9 @@ annotations:
     sa:
       action: approve
       rating: thumbs-up
-      answer_final: "BULLISH PINBAR and 6"
+      answer_final: "RESISTANCE and 9"
       flags: []
-      feedback: "4/30: Corrected count to 6. Image contains 6 fully visible \"BULLISH PINBAR\" text labels; one partially visible instance on the left edge does not count per prompt. Added Enumeration (counting task)."
+      feedback: "5/5: Skill tag corrected: added Enumeration (counting task). Final answer corrected from RESISTANCE and 10 to RESISTANCE and 9."
       verdict_source: igor
       skills_check: [Enumeration]
       skills_uncheck: []
@@ -22,7 +22,11 @@ annotations:
       role: Reviewing
       annotation_n: 1
       prompt: |
-        In the image, identify the word or phrase that is entirely contained within the green-shaded support zone. Then, based only on what is fully visible, count how many times this word or phrase appears throughout the entire image.
+        In the image, focus only on the candlestick bodies (the rectangular portions) and ignore the wicks (thin lines). Analyze their positions relative to the colored zones labeled RESISTANCE (red) and SUPPORT (green).
         
-        Provide your answer in the format: word or phrase and count (e.g., BEARISH PINBAR and 2). (case-sensitive applies to this question)
-      answer: "BULLISH PINBAR and 6"
+        Count a candlestick as interacting with a zone if any part of its body overlaps with or touches the boundary of that zone.
+        
+        Determine which zone contains more such candlesticks, and report the count for that specific zone only (not the total across both zones).
+        
+        Provide your answer in the format: zone and count (e.g., SUPPORT and 4).
+      answer: "RESISTANCE and 9"

@@ -39,6 +39,18 @@ if (!existsSync(scrapePath)) {
 // task_id + SA_TASK_FILENAME come from scrape headers below — no manifest read needed.
 const archivePath = priorTaskPath.replace(/\.md$/, '.cycle1.md');
 const donePayloadPath = join(LIZARD_DIR, 'payloads', 'done', `${stem}.yaml`);
+const doneCycle1PayloadPath = join(LIZARD_DIR, 'payloads', 'done', `${stem}.cycle1.yaml`);
+
+// Cycle-3 guard (codified 2026-05-05): both done/<stem>.yaml AND
+// done/<stem>.cycle1.yaml present means cycle 2 already finalized — Job 1 fire
+// would be cycle 3 (not supported). queue-intake.mjs has the same guard;
+// this is defense-in-depth in case a queue file was hand-written.
+if (existsSync(donePayloadPath) && existsSync(doneCycle1PayloadPath)) {
+  console.error(`[run-job1] ABORT: cycle 3 not supported — both done/${stem}.yaml and done/${stem}.cycle1.yaml exist.`);
+  console.error(`  Stem already finished cycle 2. Move done/ artifacts aside if you really need to re-process.`);
+  process.exit(1);
+}
+
 const cycle = (existsSync(priorTaskPath) || existsSync(archivePath) || existsSync(donePayloadPath)) ? 2 : 1;
 const taskId = '?';            // overridden by scrape header below
 const saTaskFilename = stem + '.json';  // overridden by scrape header below

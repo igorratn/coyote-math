@@ -98,37 +98,73 @@ export function parseEditsMade(text) {
     return result;
   }
 
-  // Pattern 2: per-token verbs. For each known token, scan ALL occurrences;
-  // the LAST occurrence with a clear preceding verb determines the final
-  // action for that token (so contradictory phrasing — "considered drop X,
-  // but actually add X" — resolves correctly).
+  // Pattern 2: verb-forward scoping with comma-list inheritance.
   //
-  // Word-boundary verb patterns. Tight enough to NOT match common nouns:
-  //   - "tag(s)" alone is the noun in "skill tags" — exclude.
-  //   - "tagged with" / "tag X" as a verb is too colloquial; skip the bare
-  //     "tag" form. Reviewers express adds as "Add X" canonically.
-  const removeWords = /\b(?:drop(?:s|ped|ping)?|remove(?:s|d|ing)?|delete(?:s|d|ing)?|kill(?:s|ed)?)\b/gi;
-  const addWords    = /\b(?:add(?:s|ed|ing)?|include(?:s|d|ing)?|append(?:s|ed|ing)?)\b/gi;
+  // Find each verb (add/drop/etc), assign it a forward scope that runs from
+  // verb.end to the next sentence boundary (`.;:`) OR the next verb position
+  // (whichever comes first). All known tokens within a verb's scope inherit
+  // that verb. Token's final action = verb of the LAST scope containing it
+  // (preserves "considered drop X, but actually add X" semantics).
+  //
+  // Replaces a backward 80-char-window scan that dropped tokens at the tail
+  // of long comma-separated lists (codified 2026-05-06 — CE_55 incident:
+  // "add A (paren), B (paren), C (paren)" missed C because verb→C gap > 80).
+  //
+  // Word-boundary verb patterns. Tight enough to NOT match common nouns.
+  const REMOVE_VERB_RE = /\b(?:drop(?:s|ped|ping)?|remove(?:s|d|ing)?|delete(?:s|d|ing)?|kill(?:s|ed)?)\b/gi;
+  const ADD_VERB_RE    = /\b(?:add(?:s|ed|ing)?|include(?:s|d|ing)?|append(?:s|ed|ing)?)\b/gi;
+  const BOUNDARY_RE    = /[.;]/g;  // `:` excluded — reviewers use "Removed:" / "Added:" as labels, not boundaries
 
+  // Collect all verb matches in document order with their action + position.
+  const verbs = [];
+  for (const [re, action] of [[REMOVE_VERB_RE, 'uncheck'], [ADD_VERB_RE, 'check']]) {
+    re.lastIndex = 0;
+    let vm;
+    while ((vm = re.exec(trimmed)) !== null) {
+      verbs.push({ pos: vm.index, end: vm.index + vm[0].length, action });
+    }
+  }
+  verbs.sort((a, b) => a.pos - b.pos);
+
+  // Each verb's scope: end at next verb OR next sentence boundary (`.;`), whichever first.
+  for (let i = 0; i < verbs.length; i++) {
+    const v = verbs[i];
+    const nextVerbPos = verbs[i + 1]?.pos ?? Infinity;
+    BOUNDARY_RE.lastIndex = v.end;
+    const bm = BOUNDARY_RE.exec(trimmed);
+    const boundaryPos = bm ? bm.index : Infinity;
+    v.scopeEnd = Math.min(nextVerbPos, boundaryPos, trimmed.length);
+  }
+
+  // Paren-depth check: tokens inside a deeper paren than the verb are JUSTIFICATIONS,
+  // not action targets. "Dropped LR (computing a mean is Math Reasoning, not LR)"
+  // → Math Reasoning is justification, not a target. (codified 2026-05-06 —
+  // Data_Analytics_4 A1 incident: parser dropped Math Reasoning along with LR
+  // because both were within the same verb scope; reviewer only meant LR.)
+  function parenDepthAt(pos) {
+    let d = 0;
+    for (let i = 0; i < pos; i++) {
+      if (trimmed[i] === '(') d++;
+      else if (trimmed[i] === ')') d = Math.max(0, d - 1);
+    }
+    return d;
+  }
+  for (const v of verbs) v.parenDepth = parenDepthAt(v.pos);
+
+  // Per token: latest containing scope wins.
   for (const token of ALL_TOKENS) {
     const tokenRe = new RegExp(`(?:^|\\b|[\`"'(])${escapeRe(token)}(?:\\b|[\`"',.;:)]|$)`, 'gi');
-    let lastAction = null;       // null | 'check' | 'uncheck'
+    let lastAction = null;
     let m;
     while ((m = tokenRe.exec(trimmed)) !== null) {
-      // Look at up to 80 chars BEFORE the match — find the closest verb of
-      // either kind. The verb whose match position is HIGHEST (closest to
-      // the token) wins for this occurrence.
-      const start = Math.max(0, m.index - 80);
-      const ctx = trimmed.slice(start, m.index);
-      let removeIdx = -1, addIdx = -1;
-      removeWords.lastIndex = 0;
-      addWords.lastIndex = 0;
-      let r;
-      while ((r = removeWords.exec(ctx)) !== null) removeIdx = r.index;
-      while ((r = addWords.exec(ctx))    !== null) addIdx    = r.index;
-      if (removeIdx > addIdx && removeIdx >= 0) lastAction = 'uncheck';
-      else if (addIdx > removeIdx && addIdx >= 0) lastAction = 'check';
-      // (no verb in window) leaves lastAction unchanged
+      const tokenPos = m.index;
+      const tokenDepth = parenDepthAt(tokenPos);
+      // Verbs are sorted by position; iterate in order so later containing scope wins.
+      for (const v of verbs) {
+        if (v.end <= tokenPos && tokenPos < v.scopeEnd && tokenDepth <= v.parenDepth) {
+          lastAction = v.action;
+        }
+      }
     }
     if (lastAction === 'uncheck') addTo(result.skills_uncheck, token);
     else if (lastAction === 'check') addTo(result.skills_check, token);

@@ -30,6 +30,27 @@ import { parseEditsMade } from './parse-edits-made.mjs';
 // but X != actual annotator answer. The reviewer invented the annotator's
 // prior value — narrative would mislead the annotator if pushed to SA.
 // Returns {claimed, actual} on hallucination, null otherwise.
+// Skill-audit heuristics — same rules as scripts/skill-audit-sanity.mjs.
+// Codified 2026-05-06. Demotes auto-resolve to pending-igor when reviewer's
+// final skill set fails the audit. Catches Job 2 carve-out gaps where the
+// picked reviewer didn't flag a missing skill (Dashboard batch incident:
+// Data_Analytics_111/37/4 had multi-annot stems where only ONE annot got the
+// Enumeration/Math/TCG audit applied; others skipped because they bypassed 3a).
+const SKILL_AUDIT_RULES = [
+  { name: 'Enumeration',                     regex: /\b(count|counts|counting|how many|number of|identify all)\b/i },
+  { name: 'Math Reasoning',                  regex: /\b(sum|mean|average|difference|subtract|subtraction|divide|division|multiply|multiplication|add(ed|ing)?|total|computing)\b/i },
+  { name: 'Table\/Chart\/Graph Understanding', regex: /\b(chart|graph|table|gauge|axis|axes|bar|panel|dashboard|plot|histogram|tile|column|legend)\b/i },
+];
+function auditPromptSkills(prompt, finalSkillsSet) {
+  const missing = [];
+  for (const r of SKILL_AUDIT_RULES) {
+    if (r.regex.test(prompt) && !finalSkillsSet.has(r.name.replace(/\\/g, ''))) {
+      missing.push(r.name.replace(/\\/g, ''));
+    }
+  }
+  return missing;
+}
+
 function detectNarrativeHallucination(editsMadeText, annotatorAnswer, reviewerFinalAnswer) {
   if (!editsMadeText || annotatorAnswer == null || reviewerFinalAnswer == null) return null;
   const norm = s => String(s).toLowerCase().replace(/\s+/g, ' ').trim().replace(/[.,;]+$/, '');
@@ -372,6 +393,21 @@ for (const skel of skelAnnots) {
       );
       finalPick = closeUp ?? allUp[0];
       decision = closeUp ? 'auto-resolved' : 'pending-igor';
+      // Skill-audit gate: if auto-resolve would ship a payload that fails the
+      // skill audit (prompt requires a skill that isn't in the final tagged set),
+      // demote to pending-igor so Igor walks the annot at 3a and can add the
+      // missing skill via the Igor Verdict's skills_check field.
+      // Codified 2026-05-06 — Dashboard batch: 11/12 mismatches were Job 2
+      // carve-outs that bypassed the 3a-only skill audit.
+      if (decision === 'auto-resolved') {
+        const editsDelta = parseEditsMade(closeUp.editsMadeText ?? '');
+        const origSkills = new Set((skel.skills || '').split(',').map(s => s.trim()).filter(Boolean));
+        const finalSkills = new Set([...origSkills, ...editsDelta.skills_check].filter(s => !editsDelta.skills_uncheck.includes(s)));
+        const missing = auditPromptSkills(skel.prompt, finalSkills);
+        if (missing.length) {
+          decision = 'pending-igor';
+        }
+      }
     } else {
       // Auto-resolve down gate (2026-04-25, Igor codification):
       //   ALL configured reviewers fired (≥2) AND ALL rated 👎 AND ALL flagged G1

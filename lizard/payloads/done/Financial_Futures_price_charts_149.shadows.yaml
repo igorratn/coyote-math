@@ -1,0 +1,23 @@
+stem: Financial_Futures_price_charts_149
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: eec92e5e
+    fired_at: 2026-05-05T20:25:02.029Z
+    rating: Approve
+    time_logged: "00:20:17"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: d4e18137
+    fired_at: 2026-05-05T20:25:39.195Z
+    rating: Approve
+    time_logged: "00:20:22"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

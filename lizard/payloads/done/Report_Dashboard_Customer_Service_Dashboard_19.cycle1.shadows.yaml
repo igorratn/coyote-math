@@ -1,0 +1,13 @@
+stem: Report_Dashboard_Customer_Service_Dashboard_19
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 35069554
+    fired_at: 2026-05-06T03:17:22.946Z
+    rating: Reject
+    time_logged: "00:20:21"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: true
+    reclaim_diff: "prompt: 93→738 chars (extractor truncation bug, codified 2026-05-06). Reclaimed via /reclaim endpoint, full prompt re-submitted, HAI LLM re-validated clean."

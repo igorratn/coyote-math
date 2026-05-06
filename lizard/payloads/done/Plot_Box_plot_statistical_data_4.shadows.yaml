@@ -1,17 +1,13 @@
 stem: Plot_Box_plot_statistical_data_4
+igor_resolved: false
 shadows:
   - n: 1
-    uuid: bd3e4aa5
-    fired_at: 2026-04-30T02:12:11.904Z
-    rating: Reject
-    time_logged: "00:20:00"
-  - n: 2
-    uuid: d2fc89c6
-    fired_at: 2026-04-30T02:22:21.006Z
+    uuid: b5f2568a
+    fired_at: 2026-05-05T18:13:04.069Z
     rating: Approve
-    time_logged: "00:20:00"
-  - n: 3
-    uuid: d3e0af51
-    fired_at: 2026-04-30T02:21:34.629Z
-    rating: Approve
-    time_logged: "00:20:00"
+    time_logged: "00:20:32"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

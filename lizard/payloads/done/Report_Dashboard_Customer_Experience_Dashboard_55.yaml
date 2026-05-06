@@ -1,0 +1,40 @@
+task:
+  stem: Report_Dashboard_Customer_Experience_Dashboard_55
+  sa_task_filename: Report_Dashboard_Customer_Experience_Dashboard_55.json
+  task_id: 187300856
+  image: screenshots/Report_Dashboard_Customer_Experience_Dashboard_55.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "25"
+      flags: []
+      feedback: "5/5: Skill tag corrected: Skill tags: drop Spatial Reasoning (tab-position is navigational, not relational); add Enumeration (char/letter counts), Table/Chart/Graph Understanding (dashboard read), Math Reasoning (addition)."
+      verdict_source: auto
+      skills_check: [Enumeration, Math Reasoning, Table/Chart/Graph Understanding]
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Customer_Experience_Dashboard_55.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Using the dashboard image , follow these logical steps to determine the final numeric value.
+        
+        Locate the navigation tabs at the top. Identify the fifth tab from the left (starting with "Tickets").
+        
+        Count the total number of characters in that fifth tab's name, including the space between words.
+        
+        Look at the "Solved tickets" metric box. Identify the last digit of that four-digit number.
+        
+        Examine the "Average tickets created by day of week" chart. Identify the day of the week represented by the shortest bar.
+        
+        Count the total number of letters in the full name of that identified day (e.g., "Monday" = 6).
+        
+        Find the final answer by calculating: (Result from Step 2) + (Result from Step 3) + (Result from Step 5).
+        
+        Provide your answer as a single numeric value only (e.g., 25).
+      answer: "25"

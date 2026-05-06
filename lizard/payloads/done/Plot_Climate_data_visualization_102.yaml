@@ -1,0 +1,64 @@
+task:
+  stem: Plot_Climate_data_visualization_102
+  sa_task_filename: Plot_Climate_data_visualization_102.json
+  task_id: 187108791
+  image: screenshots/Plot_Climate_data_visualization_102.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "6.3"
+      flags: []
+      feedback: "5/5: Skill tag corrected: Added Math Reasoning to skill tags (prompt requires summation + absolute difference, both arithmetic operations beyond pure counting/perception)."
+      verdict_source: auto
+      skills_check: [Math Reasoning]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Climate_data_visualization_102.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        What is the absolute difference between the percentage of the world's population that lacks safely managed drinking water and the combined nuclear electricity shares of the two countries with the lowest nuclear TWh output in the bubble chart? Your answer should be a decimal number (e.g. 10.2).
+      answer: "6.3"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "1343204"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Climate_data_visualization_102.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Of the top five largest wildfires in California, what is the total number of acres burned from fires that had an unknown cause. Your answer should be an integer. (e.g. 124000)
+      answer: "1343204"
+
+  - n: 3
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: []
+      feedback: "5/5: Skill tag corrected: added Attribute Perception (color-category recognition for green vs light-green vs orange-yellow ring slices is core to the task). Prompt not pixel-verifiable at the rendered country-ring resolution — Sufficient / Almost Sufficient slices on the Policies & Action ring are too small to discriminate from Insufficient reliably. Either raise the country-ratings panel resolution or convert to MCQ with bounded ranges."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Climate_data_visualization_102.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        How many countries are "Sufficient" or "Almost Sufficient" on "Policies & Action". Your number should be an integer (e.g. 10).
+      answer: "13"

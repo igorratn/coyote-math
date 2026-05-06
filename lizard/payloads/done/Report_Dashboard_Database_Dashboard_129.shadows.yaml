@@ -1,0 +1,23 @@
+stem: Report_Dashboard_Database_Dashboard_129
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 35014be7
+    fired_at: 2026-05-06T03:32:30.526Z
+    rating: Approve
+    time_logged: "00:20:23"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 3b9233e7
+    fired_at: 2026-05-06T03:34:51.268Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

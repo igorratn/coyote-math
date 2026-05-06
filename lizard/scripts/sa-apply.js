@@ -8,7 +8,7 @@
 //   1. saContext()                              → {iframe_ok, annot_count, qc_textareas}
 //   2. saApplyAnnots({annots})                  → {writes:[...], errors:[...]}
 //   3. saPreSaveAudit({annots})                 → {mismatches:[...]} (must be empty before Save)
-//   4. saSave()                                 → {saved: true|false, toast: "..."}
+//   4. saSave()                                 → {saved: true} (no toast wait)
 //
 // Total: 4 evaluate_script calls per stem (no per-annot round-trip — saApplyAnnots
 // loops over the entire annot array in-browser).
@@ -74,9 +74,20 @@ function setTextareaNative(ta, value) {
 }
 
 function setCheckboxNative(cb, checked) {
-  // Angular ignores native-setter+change; cb.click() toggles and triggers
-  // all framework handlers. Only click if state needs to change.
-  if (cb.checked !== checked) cb.click();
+  // Click the LABEL parent, not the input directly. Angular's (change) handler
+  // on <sn-checkbox> doesn't reliably fire from input.click() — for skills with
+  // special characters in their value (e.g. "Table/Chart/Graph Understanding"
+  // — the slashes appear to break ng-reflect-value), the input.click toggles
+  // cb.checked but Angular's form model never updates, so Save persists the
+  // pre-click state. label.click() is the accessibility-correct trigger and
+  // fires the full Angular change cycle reliably.
+  // Codified 2026-05-06 — Customer_Service_19 incident: +Math Reasoning + TCG
+  // appeared in apply log but didn't persist; ng-reflect-checked stayed "false"
+  // until ~2s after the click. Hard reload showed TCG missing.
+  if (cb.checked === checked) return;
+  const label = cb.parentElement;
+  if (label && label.tagName === 'LABEL') label.click();
+  else cb.click();  // fallback if DOM doesn't match expected wrapper
 }
 
 const SKILL_INDEX = {
@@ -127,6 +138,43 @@ function isRatingActive(btn) {
   const style = btn.getAttribute('style') || '';
   // approve active = green rgb(0,205,108); disapprove active = red rgb(245,34,45)
   return /rgb\(\s*0\s*,\s*205\s*,\s*108\s*\)/.test(style) || /rgb\(\s*245\s*,\s*34\s*,\s*45\s*\)/.test(style);
+}
+
+// Find the Nth textarea whose surrounding panel has a title element matching
+// `label`. Walks up to 6 ancestors looking for `p.title`/`p[class*="title"]`/
+// `h3`/`h4`/`label` whose textContent === label. Returns the annotIndex-th
+// match (0-based) in DOM order, or null if not found.
+//
+// Used for label-anchored lookups (Annotator Question, Rewrite Answer, etc.)
+// — robust against per-stem DOM-depth variation that broke the prior walk-up
+// + tas[0] heuristic. (codified 2026-05-06 — V6 batch incident)
+function findLabeledTextarea(doc, label, annotIndex) {
+  // Each labeled panel may contain MULTIPLE textareas (e.g. "Annotator Question"
+  // panels in V6 multi-annot Dashboard tasks contain a prompt textarea + a
+  // hidden JSON metadata textarea with model_response data). We want exactly
+  // one textarea per panel — the first one in DOM order, which is the actual
+  // editable prompt field. Dedupe by the title element itself so multiple
+  // textareas under the same title only count once.
+  // Codified 2026-05-06 — Data_Analytics_4 batch incident: pre-save audit
+  // returned A1's JSON metadata as A2's prompt (off-by-one shift), would have
+  // overwritten 5 stems' worth of prompts on Save.
+  const tas = Array.from(doc.querySelectorAll('textarea'));
+  const seenTitles = new Set();
+  const matches = [];
+  for (const t of tas) {
+    let cur = t;
+    let foundTitle = null;
+    for (let d = 0; d < 6 && cur; d++) {
+      const titleEl = cur.parentElement?.querySelector('p.title, p[class*="title"], h3, h4, label');
+      if (titleEl && titleEl.textContent.trim() === label) { foundTitle = titleEl; break; }
+      cur = cur.parentElement;
+    }
+    if (foundTitle && !seenTitles.has(foundTitle)) {
+      seenTitles.add(foundTitle);
+      matches.push(t);
+    }
+  }
+  return matches[annotIndex] ?? null;
 }
 
 // ============================================================
@@ -233,37 +281,28 @@ function saApplyAnnots({ annots }) {
     }
 
     // c) Rewrite Answer (if non-null) — only on approve.
+    //
+    // Find the Rewrite Answer textarea by LABEL ("Rewrite Answer" title element),
+    // not by walk-up + position. The walk-up + tas[0] approach was wrong: at
+    // depth 8 the parent contains 10+ textareas spanning prompt/model_answer/
+    // rewrite/explanation/etc, and tas[0] is the *Annotator Question* (prompt),
+    // not the Rewrite Answer. (codified 2026-05-06 — V6 batch incident: 12
+    // prompts across 8 stems were overwritten with answer values; 1 unrecoverable
+    // because SA task moved out of queue before restore could fire.)
     if (isApprove && a.answer_final !== null && a.answer_final !== undefined) {
-      let wrote = false;
       try {
-        // Annot root contains both Rewrite Answer (top) and QC (mid) sections.
-        // Find by walking up further from QC container.
-        const qcContainer = findQcSectionContainer(doc, idx);
-        let annotRoot = qcContainer.parentElement;
-        for (let depth = 0; depth < 4 && annotRoot; depth++) {
-          const tas = Array.from(annotRoot.querySelectorAll('textarea'));
-          if (tas.length >= 2) { // expect ≥2 (Rewrite Answer + QC feedback)
-            const rewriteTa = tas[0]; // top of annot panel = Rewrite Answer
-            // Idempotent: skip if already matches (no spurious React events).
-            if ((rewriteTa.value ?? '') === String(a.answer_final)) {
-              annotResult.ops.push(`answer="${String(a.answer_final).slice(0, 40)}" (already)`);
-            } else {
-              setTextareaNative(rewriteTa, String(a.answer_final));
-              annotResult.ops.push(`answer="${String(a.answer_final).slice(0, 40)}"`);
-            }
-            wrote = true;
-            break;
-          }
-          annotRoot = annotRoot.parentElement;
+        const rewriteTa = findLabeledTextarea(doc, 'Rewrite Answer', idx);
+        if (!rewriteTa) {
+          errors.push(`A${a.n}: Rewrite Answer textarea not found (label-anchor lookup failed for annot index ${idx})`);
+        } else if ((rewriteTa.value ?? '') === String(a.answer_final)) {
+          // Idempotent: skip if already matches (no spurious React events).
+          annotResult.ops.push(`answer="${String(a.answer_final).slice(0, 40)}" (already)`);
+        } else {
+          setTextareaNative(rewriteTa, String(a.answer_final));
+          annotResult.ops.push(`answer="${String(a.answer_final).slice(0, 40)}"`);
         }
       } catch (e) {
         errors.push(`A${a.n}: Rewrite Answer write failed: ${e.message}`);
-      }
-      // Fail loud — silent skip would push a wrong/missing answer to SA undetected.
-      // (codified 2026-05-03 — Currency_12 incident: walk-up returned no container
-      // with ≥2 textareas, write block silently no-op'd, no error surfaced.)
-      if (!wrote) {
-        errors.push(`A${a.n}: Rewrite Answer write skipped — walk-up from QC container found no parent with ≥2 textareas in 4 levels`);
       }
     }
 
@@ -309,11 +348,17 @@ function saApplyAnnots({ annots }) {
 }
 
 // ============================================================
-// 3. saPreSaveAudit — readback every annot's QC textarea, compare to payload.
+// 3. saPreSaveAudit — readback every annot's QC textarea + Annotator Question.
 // ============================================================
 //
-// Args: {annots: [{n, feedback}, ...]}  (only need n + feedback)
-// Returns: {mismatches: [{n, expected, got}], ok}
+// Args: {annots: [{n, feedback, hai_prompt}, ...]}
+//   - feedback: payload sa.feedback. If non-null, must be present in QC textarea.
+//   - hai_prompt: payload hai.prompt. ALWAYS readback the Annotator Question
+//     textarea and verify it equals hai_prompt. Catches the case where a
+//     write helper accidentally targeted the prompt textarea instead of the
+//     intended one (codified 2026-05-06 — V6 batch incident: 12 prompts
+//     overwritten with answer values; 1 unrecoverable).
+// Returns: {mismatches: [{n, kind, expected, got}], ok}
 //
 // MUST run before clicking Save. SA tasks lock on submit; post-save correction
 // impossible.
@@ -321,43 +366,57 @@ function saPreSaveAudit({ annots }) {
   const doc = getSaIframeDoc();
   const mismatches = [];
   for (const a of annots) {
-    if (!a.feedback) continue;
     const idx = a.n - 1;
-    try {
-      const ta = getQcTextarea(doc, idx);
-      const got = ta.value || '';
-      if (!got.includes(a.feedback)) {
-        mismatches.push({ n: a.n, expected: a.feedback.slice(0, 80), got: got.slice(-200) });
+    // Feedback readback (only when payload has feedback).
+    if (a.feedback) {
+      try {
+        const ta = getQcTextarea(doc, idx);
+        const got = ta.value || '';
+        if (!got.includes(a.feedback)) {
+          mismatches.push({ n: a.n, kind: 'feedback', expected: a.feedback.slice(0, 80), got: got.slice(-200) });
+        }
+      } catch (e) {
+        mismatches.push({ n: a.n, kind: 'feedback', error: e.message });
       }
-    } catch (e) {
-      mismatches.push({ n: a.n, error: e.message });
+    }
+    // Annotator Question (prompt) readback — MANDATORY for every annot,
+    // regardless of rating. The prompt must NOT have changed from what the
+    // payload recorded. (codified 2026-05-06 — V6 batch incident: 12 prompts
+    // overwritten with answer values; 1 unrecoverable.)
+    if (a.hai_prompt == null) {
+      mismatches.push({ n: a.n, kind: 'prompt', error: 'hai_prompt missing from payload — audit cannot verify' });
+    } else {
+      try {
+        const promptTa = findLabeledTextarea(doc, 'Annotator Question', idx);
+        if (!promptTa) {
+          mismatches.push({ n: a.n, kind: 'prompt', error: 'Annotator Question textarea not found' });
+        } else {
+          const got = promptTa.value || '';
+          if (got.trim() !== a.hai_prompt.trim()) {
+            mismatches.push({ n: a.n, kind: 'prompt', expected_len: a.hai_prompt.length, got_len: got.length, got_head: got.slice(0, 120) });
+          }
+        }
+      } catch (e) {
+        mismatches.push({ n: a.n, kind: 'prompt', error: e.message });
+      }
     }
   }
   return { mismatches, ok: mismatches.length === 0 };
 }
 
 // ============================================================
-// 4. saSave — click task-level Save, wait for toast.
+// 4. saSave — click task-level Save and return immediately.
 // ============================================================
 //
-// Returns: {saved, toast, error?}
-async function saSave() {
+// SA does NOT emit a save toast (codified 2026-05-05 — Box_plot_4 incident).
+// Pre-save audit at step 3 already verified state. Click and return.
+// Returns: {saved, error?}
+function saSave() {
   const doc = getSaIframeDoc();
   // Task-level Save lives in the editor's top toolbar (NOT inside any annot).
-  // Selector: button containing exact text "Save" that's enabled.
   const saveBtn = Array.from(doc.querySelectorAll('button'))
     .find(b => b.textContent.trim() === 'Save' && !b.disabled);
   if (!saveBtn) return { saved: false, error: 'Save button not found or disabled' };
   saveBtn.click();
-  // Wait for save toast (look for "saved" / "success" notification within 10s).
-  const start = Date.now();
-  while (Date.now() - start < 10000) {
-    const toasts = Array.from(doc.querySelectorAll('[class*="toast"], [class*="notification"], [class*="snack"]'))
-      .map(el => el.textContent.trim())
-      .filter(Boolean);
-    const success = toasts.find(t => /sav(ed|ing)|success/i.test(t));
-    if (success) return { saved: true, toast: success };
-    await new Promise(r => setTimeout(r, 200));
-  }
-  return { saved: false, error: 'Save toast not detected within 10s' };
+  return { saved: true };
 }

@@ -1,0 +1,26 @@
+task:
+  stem: Report_Dashboard_Customer_Experience_Dashboard_44
+  sa_task_filename: Report_Dashboard_Customer_Experience_Dashboard_44.json
+  task_id: 187300853
+  image: screenshots/Report_Dashboard_Customer_Experience_Dashboard_44.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: []
+      feedback: "5/5: Prompt ambiguous — \"respondent counts in the net promoters score\" can read as Promoters+Passives+Detractors (26+12+13=51 → -38) or just Promoters+Detractors (26+13=39 → -26). Specify which counts to sum and clarify whether \"net promoters score\" refers to the computed NPS value (13) or the panel header."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Customer_Experience_Dashboard_44.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Based on the infographic, subtract the sum of the respondent counts in the net promoters score from the net promoters score.(answer as a whole number e.g., 9)
+      answer: "-38"

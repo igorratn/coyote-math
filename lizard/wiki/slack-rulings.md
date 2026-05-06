@@ -2,6 +2,56 @@
 
 > **Primary channel for Lizard rulings:** `#lizard-reviewers` — Slack channel ID `C0ANPTSDQ81` in the `handshakeaicommunity` workspace. Search this channel first for any policy / workflow / edge-case question. Thread URLs follow the pattern `https://handshakeaicommunity.slack.com/archives/C0ANPTSDQ81/p<timestamp>`.
 
+## May 5, 2026 — Delete-annotation shadow rule (re-confirmed)
+
+Michael B. asked: "If we delete a cycle-2 annotation, should we log a Shadow Task?" Christian W. (peer): no shadow on a failed save attempt. ([thread](https://handshakeaicommunity.slack.com/archives/C0ANPTSDQ81/p1777991918139239))
+
+This re-confirms the **authoritative Angie Z. (HAI lead) ruling, 2026-04-21** ([thread](https://handshakeaicommunity.slack.com/archives/C0ANPTSDQ81/p1776815645602269)):
+
+> "We're no longer supposed to log shadow tasks for prompts that we delete, unless you spent a substantial amount of time trying to save it, only to end up not being able to."
+>
+> "In the case you spent a lot of time trying to fix it, put 'Deleted Annotation'."
+
+Same rule earlier from Angie Z., 2026-03-27 ([thread](https://handshakeaicommunity.slack.com/archives/C0ANPTSDQ81/p1774665936186649)):
+> "If you spent a substantial amount of time trying to fix it, then yes. But ideally, you want be able to tell if an annotation is un-saveable or not in a short amount of time, then you would not submit a shadow task."
+
+**The rule (HAI-facing):**
+- **Default for cycle-2 delete: NO shadow task.** Quick unsalvageable call → no shadow.
+- **Exception: substantial save effort that failed → fire shadow** with prompt = `Deleted Annotation`, answer = `Deleted Annotation`, HAI rating = Reject.
+
+**Implementation (auto-derived, codified 2026-05-05):**
+"Substantial save effort" is operationalized in our pipeline as **annotator changed the prompt cycle-over-cycle**. Rationale: if the annotator returned the same prompt unchanged, no real save attempt is warranted (deterministic 👎 → delete, no shadow). If the annotator rewrote the prompt and reviewers still 👎-delete, the cycle-2 review consumed real evaluation effort → shadow earned. This is a deterministic proxy — Igor never has to manually toggle a knob; the signal is auto-detected from filesystem at Job 1.
+
+- Job 1 cycle-2 path (after the cycle-1 archive step) compares each returnee's prompt text against the archived `tasks/<S>.cycle1.md`. Stamps the skeleton per-annot with `prompt_changed_cycle2: true|false`.
+- Field flows through Job 2 (skeleton → task file) and Job 3b (task file → payload) into `sa.prompt_changed_cycle2`.
+- Job 4 fires a delete-shadow only when `sa.action == delete AND sa.prompt_changed_cycle2 == true`. Otherwise, skip that annot's shadow entirely (sidecar records `shadow_skipped: true` for audit; no HAI form fires).
+- Cycle-1 annots and cycle-2 non-delete annots are unaffected — full shadow coverage as before.
+- Auto Verdict deletes (unanimous-G1-👎 carve-out): same gate. If annotator didn't change the prompt → no shadow. If annotator rewrote and reviewers still unanimously 👎-G1'd → shadow.
+
+---
+
+## May 5, 2026 — NV Audit Weekly Newsletter (Nikhil D. [HAI])
+
+First weekly summary of NV audit feedback patterns. ([thread](https://handshakeaicommunity.slack.com/archives/C0ANPTSDQ81/p1778000059792619)) Top patterns from week of 2026-05-04, ranked by flag count:
+
+1. **Unclear question wording — 96 flags.** Terms or references with ≥2 reasonable interpretations ("segments," "next to," "main line," "daily hours chart"). If a phrase could mean two things, define it explicitly.
+2. **Reviewer disputes the answer — 57 flags.** Audit independently recomputed and got a different result. Recompute multi-step math from scratch before submitting; scope tight enough that two readers get the same number.
+3. **Enumeration count too large — 13 flags.** Counts over ~30 items can't be reliably verified. **Cap counts at 30**, scope to a subsection, or convert to MCQ.
+4. **Missing MGA thumbs rating — 11 flags.** Annotation otherwise passing but no thumbs-down on the model-generated answer. Every non-passing MGA needs a thumbs-down before Complete.
+5. **Missing format specification — 11 flags.** Decimal vs %, currency notation, item ordering, decimal places. **Always include an example answer showing exact expected format.**
+6. **Answer not uniquely verifiable — 9 flags.** ≥2 defensible answers possible. Self-test: "could a careful reviewer arrive at a different answer while following my question exactly?" Yes → rewrite or convert to MCQ.
+7. **Missing MGA — 5 flags.** No model-generated answer present at all. Every annotation must include MGA.
+
+**Implication for Job 2 reviewer LLMs:** the prompts in `templates/review-prompt.md` should explicitly call out patterns 1, 3, 5, 6 — these are the ones reviewers can catch (4, 7 are SA UI blockers; 2 is already implicit in independent verification). Specifically:
+- Pattern 1 (unclear wording) → flag ambiguous reference terms; require explicit definitions.
+- Pattern 3 (count > 30) → hard cap; flag as G-class violation.
+- Pattern 5 (missing format spec) → flag prompts that ask for a number without specifying decimals/units/notation.
+- Pattern 6 (not uniquely verifiable) → already covered by single-verifiable-answer V6 rule; reinforce.
+
+**Implication for Job 3a Igor walkthrough:** when a 👎 is needed and feedback must be authored, lift wording from these patterns where applicable — annotators are already being trained on them by NV, so feedback that mirrors NV's terminology compounds.
+
+---
+
 ## May 1, 2026 Rulings
 
 ### TCG Understanding — litmus test (Nikhil D. [HAI], Apr 30 thread)

@@ -1,0 +1,47 @@
+task:
+  stem: Financial_Futures_price_charts_149
+  sa_task_filename: Financial_Futures_price_charts_149.json
+  task_id: 188123491
+  image: screenshots/Financial_Futures_price_charts_149.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "2-2"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Futures_price_charts_149.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Use only the legends and axis labels/markings. Create a code in the format G-S, where G is the number of Gold legend entries that explicitly include (LHS) or (RHS), and S is the number of Silver legend entries that explicitly include (LHS) or (RHS).
+        Answer in the exact format G-S (e.g., 1-2).
+      answer: "2-2"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "OO"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Futures_price_charts_149.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Use both panels. In each panel, identify which line reaches its highest visible peak first in time: the open interest line or the price line. Encode each panel as O if open interest peaks first and P if price peaks first. Read panels from top to bottom.
+        Answer with uppercase letters only (e.g., OP).
+      answer: "OO"

@@ -1,0 +1,102 @@
+task:
+  stem: Report_Dashboard_Business_Intelligence_Dashboard_133
+  sa_task_filename: Report_Dashboard_Business_Intelligence_Dashboard_133.json
+  task_id: 187300656
+  image: screenshots/Report_Dashboard_Business_Intelligence_Dashboard_133.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: []
+      feedback: "2026-05-06: Model answered correctly — not stumped (model answer equals annotator's rewrite). Annotator must design a harder prompt that the model cannot answer."
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Business_Intelligence_Dashboard_133.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        How many panels are displayed in the sales dashboard? Answer with a single number (e.g., '3').
+      answer: "4"
+
+  - n: 2
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: []
+      feedback: "2026-05-06: Model answered correctly — not stumped (model answer equals annotator's rewrite). Annotator must design a harder prompt that the model cannot answer."
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Business_Intelligence_Dashboard_133.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        How many columns are displayed in the "Leads by Product" table? Answer with a single number (e.g., '3').
+      answer: "5"
+
+  - n: 3
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: []
+      feedback: "2026-05-06: Model answered correctly — not stumped (model answer equals annotator's rewrite). Annotator must design a harder prompt that the model cannot answer."
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Business_Intelligence_Dashboard_133.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        What type of chart is used to display "New Sales by Month"? Answer with a single word (e.g., 'Bar').
+      answer: "line"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "Donut"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Business_Intelligence_Dashboard_133.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        What type of chart is used to display "Renewal Seats by Territory"? Answer with a single word (e.g., 'Bar').
+      answer: "Donut"
+
+  - n: 5
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: []
+      feedback: "2026-05-06: Model answered correctly — not stumped (model answer equals annotator's rewrite). Annotator must design a harder prompt that the model cannot answer."
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Business_Intelligence_Dashboard_133.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        What type of chart is used to display "Seats Sold by Sales Rep"? Answer with a single word (e.g., 'Line').
+      answer: "bar"

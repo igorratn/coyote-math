@@ -1,0 +1,36 @@
+task:
+  stem: Report_Dashboard_Customer_Service_Dashboard_19
+  sa_task_filename: Report_Dashboard_Customer_Service_Dashboard_19.json
+  task_id: 187300861
+  image: screenshots/Report_Dashboard_Customer_Service_Dashboard_19.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "29"
+      flags: []
+      feedback: "5/6: Skill tag corrected: Skill tags: dropped Spatial Reasoning (locator phrases like \"bottom left\", \"top center\", \"on the right\" are navigational, not relational/SR); added Enumeration (Step 3 counts profile photos), Math Reasoning (digit sum + final addition), Table/Chart/Graph Understanding (gauge + range reads across multiple chart panels)."
+      verdict_source: auto
+      skills_check: [Enumeration, Math Reasoning, Table/Chart/Graph Understanding]
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Customer_Service_Dashboard_19.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Using the business dashboard displayed in the image, follow these logical steps to determine the final numeric value:
+        
+        Gauge Extraction: Locate the "Avg First Contact Resolution Rate" gauge in the bottom left. Identify the large numeric percentage displayed in the center of the gauge and find the sum of its individual digits.
+        
+        Range Perception: Look at the "Occupancy Rate" gauge at the top center. Identify the "Target Range" maximum value (the second number in the range). Find the first digit of that value.
+        
+        Entity Counting: Focus on the "Top Agents by Solved Tickets" section on the right. Count the total number of individual agent profile photos displayed in this list.
+        
+        Final Calculation: Find the final answer by calculating: (Result from Step 1) + (Result from Step 2) + (Result from Step 3).
+        
+        Provide your answer as a single numeric value only (e.g., 18).
+      answer: "29"

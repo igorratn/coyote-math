@@ -90,10 +90,22 @@
   } catch (e) { /* leave blank */ }
 
   const N = 5; // SA tasks always have up to 5 annotations; detect actual count
-  // HDR=3: ta[0] empty, ta[1] "Automated Check Results", ta[2] empty (added 2026-05-01)
-  // Tail=5: SCORING_JSON, STATUS_LOG_TEXT, STATUS_LOG_JSON, extra JSON, empty
-  const HDR = 3;
-  const actualN = Math.round((textareas.length - HDR - 5) / 10);
+  // HDR auto-detect (codified 2026-05-05 — V5 vs V6 layout differ):
+  //   V6 HDR=3: ta[0] empty, ta[1] "Automated Check Results" (added 2026-05-01), ta[2] empty
+  //   V5 HDR=2: ta[0] empty, ta[1] empty (no Automated Check Results panel)
+  // Detect by finding first textarea whose placeholder starts with "write your own question"
+  // (the per-annot PROMPT field). V6: ta[3]; V5: ta[2].
+  let HDR = 3;
+  for (let h = 0; h < Math.min(textareas.length, 6); h++) {
+    const ph = textareas[h]?.placeholder || '';
+    if (ph.startsWith('write your own question')) { HDR = h; break; }
+  }
+  // Tail=5 for V6, =4 for V5. Compute n from total layout: N annots * 10 + HDR + TAIL = total.
+  // Round((total - HDR - TAIL) / 10) where TAIL ∈ {4,5}. Use 5 first; if rounding bad, try 4.
+  let actualN = Math.round((textareas.length - HDR - 5) / 10);
+  if (Math.abs((textareas.length - HDR - 5) - actualN * 10) > 2) {
+    actualN = Math.round((textareas.length - HDR - 4) / 10);
+  }
   const n = Math.min(N, actualN > 0 ? actualN : N);
 
   const annotations = [];
@@ -164,25 +176,13 @@
     lines.push('--- PROMPT ---');
     lines.push(prompt);
     lines.push('');
-    lines.push('--- MODEL_METRIC_LOG ---');
-    lines.push(metricLog);
-    lines.push('');
-    lines.push('--- QC_FEEDBACK ---');
-    lines.push(qcFeedback);
-    lines.push('');
-    lines.push('--- AUDIT_FEEDBACK ---');
-    lines.push(auditFeedback);
-    lines.push('');
-    lines.push('--- NV_AUDIT_FEEDBACK ---');
-    lines.push(nvAuditFeedback);
-    lines.push('');
+    // METRIC_LOG / QC_FEEDBACK / AUDIT_FEEDBACK / NV_AUDIT_FEEDBACK omitted —
+    // none consumed by Job 1+ (codified 2026-05-05). STATUS_LOG_JSON omitted
+    // for the same reason. STATUS_LOG_TEXT kept (DOM-load completeness check).
   }
 
   lines.push('=== STATUS_LOG_TEXT ===');
   lines.push(statusLogText);
-  lines.push('');
-  lines.push('=== STATUS_LOG_JSON ===');
-  lines.push(statusLogJson);
 
   const content = lines.join('\n');
   const missing = annotations.filter(a => a.prompt_len < 50 || a.answer_len === 0).length;
@@ -205,18 +205,20 @@
     return fail(`${missing} annotation(s) have prompt_len<50 or empty answer — DOM not fully loaded`);
   }
 
-  // Trigger download (only after passing checks)
+  // Trigger download from TOP-LEVEL document (Chrome blocks programmatic
+  // anchor downloads inside the SA custom-llm iframe — verified 2026-05-05;
+  // top-level doc fires reliably).
   const blob = new Blob([content], { type: 'text/plain' });
   const url = URL.createObjectURL(blob);
-  const a = doc.createElement('a');
+  const a = document.createElement('a');
   a.href = url;
   a.download = 'sa-scrape-' + TASK_ID + '.txt';
-  doc.body.appendChild(a);
+  document.body.appendChild(a);
   a.click();
-  doc.body.removeChild(a);
+  document.body.removeChild(a);
   setTimeout(() => URL.revokeObjectURL(url), 5000);
 
   // Stump rule: MODEL_GENERATED_ANSWER != ANSWER is expected (annotator objective).
   // If they match, flag — annotator likely failed objective → probable thumbs-down downstream.
-  return { ok: true, task_id: TASK_ID, sa_task_filename, n_annotations: n, image_url: image_url.substring(0, 120), annotations, missing };
+  return { ok: true, task_id: TASK_ID, sa_task_filename, n_annotations: n, image_url: image_url.substring(0, 120), annotations, missing, content };
 }

@@ -194,6 +194,23 @@ function runReviewer(name, annotsList) {
   if (!entry) { console.error(`[run-job2] skip unknown reviewer '${name}'`); return { name, ok: false, err: 'unknown' }; }
   const outPath = join(TMP_DIR, entry.out);
   const annotsEnv = annotsList?.length ? annotsList.join(',') : '';
+
+  // Idempotency: if a reviewer file already exists and validates, skip the subprocess.
+  // Codified 2026-05-06 — supports the "claude-as-opus" workflow where the
+  // orchestrator (this conversation, also claude-opus-4-7) writes opus-review.md
+  // directly instead of spinning up a separate `claude` CLI subprocess. Same
+  // model, no API call, full conversation context. Other reviewers (gpt/gemini/
+  // grok) still fire normally.
+  if (existsSync(outPath)) {
+    const expectedCount = annotsList?.length ?? EXPECTED_ANNOTS;
+    const v = validateReviewerOutput(outPath, expectedCount);
+    if (v.ok) {
+      console.error(`\n[run-job2] === ${name}: pre-existing output at ${outPath} (${v.found}/${expectedCount} annotations parsed) — skipping subprocess ===`);
+      return { name, ok: true, dur: '0.0', parsed: v.found, source: 'pre-existing' };
+    }
+    console.error(`\n[run-job2] === ${name}: pre-existing output at ${outPath} failed validation (${v.reason}) — re-running subprocess ===`);
+  }
+
   console.error(`\n[run-job2] === firing ${name} → ${outPath} (ANNOTS=${annotsEnv || 'all'}) ===`);
   const started = Date.now();
   const env = { ...process.env, STEM, LIZARD_DIR, OUT: outPath };

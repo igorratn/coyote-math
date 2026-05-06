@@ -1,0 +1,13 @@
+stem: Infographic_Real_estate_market_chart_64
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: f0fb8cdc
+    fired_at: 2026-05-05T20:56:04.123Z
+    rating: Approve
+    time_logged: "00:20:02"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: "Pre-submit QC bypassed (igor-verdict). QC tail: HAI counted 14 or 15 negative bars vs Igor's 13."
+    reclaimed: false
+    reclaim_diff: null

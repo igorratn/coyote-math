@@ -1,0 +1,23 @@
+stem: Plot_00058_quantitative-research-interpretation_f8e3c707
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: d623cbff
+    fired_at: 2026-05-05T18:08:35.874Z
+    rating: Reject
+    time_logged: "00:20:52"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 6265531d
+    fired_at: 2026-05-05T18:12:08.880Z
+    rating: Approve
+    time_logged: "00:20:31"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

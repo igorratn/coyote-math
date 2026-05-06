@@ -1,0 +1,26 @@
+task:
+  stem: Infographic_Real_estate_market_chart_64
+  sa_task_filename: Infographic_Real_estate_market_chart_64.json
+  task_id: 188125794
+  image: screenshots/Infographic_Real_estate_market_chart_64.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "13"
+      flags: []
+      feedback: null
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Infographic_Real_estate_market_chart_64.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        How many bars on this chart show a negative year-over-year price change? Answer with a whole number (e.g. 2).
+      answer: "13"

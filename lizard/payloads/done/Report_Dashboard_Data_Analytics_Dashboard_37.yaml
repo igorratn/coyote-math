@@ -1,0 +1,102 @@
+task:
+  stem: Report_Dashboard_Data_Analytics_Dashboard_37
+  sa_task_filename: Report_Dashboard_Data_Analytics_Dashboard_37.json
+  task_id: 187300877
+  image: screenshots/Report_Dashboard_Data_Analytics_Dashboard_37.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "57.88K"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: [Math Reasoning]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Data_Analytics_Dashboard_37.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Across the entire dashboard, identify all explicitly displayed numeric values that use an uppercase “K” suffix, excluding any axis tick labels that share the exact same value as a metric displayed elsewhere on the dashboard. Compute the arithmetic mean of these displayed values and express your answer using the “K” suffix rounded to exactly two decimal places (e.g., 12.34K).
+      answer: "57.88K"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "281.24K"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Data_Analytics_Dashboard_37.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Across the entire dashboard, identify all explicitly displayed numeric values that use an uppercase “K” suffix, excluding any axis tick labels that share the exact same value as a metric displayed elsewhere on the dashboard. After sorting these values from smallest to largest, subtract the third-smallest value from the second-largest value. Express your answer using the “K” suffix rounded to exactly two decimal places (e.g., 12.34K).
+      answer: "281.24K"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "323.894"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: [Table/Chart/Graph Understanding]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Data_Analytics_Dashboard_37.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Across the entire dashboard, identify all explicitly displayed numeric values that use an uppercase “K” suffix, excluding any axis tick labels that share the exact same value as a metric displayed elsewhere on the dashboard. After sorting these values from largest to smallest, divide the largest value by the sum of the two smallest values. Round your answer to exactly three decimal places (e.g., 1.234).
+      answer: "323.894"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "143.10K"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: [Enumeration]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Data_Analytics_Dashboard_37.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        Across the entire dashboard, identify all explicitly displayed numeric values that use an uppercase “K” suffix, excluding any axis tick labels that share the exact same value as a metric displayed elsewhere on the dashboard. Sort these values from smallest to largest. Then compute the arithmetic mean of the fourth-smallest value and the second-largest value. Express your answer using the “K” suffix rounded to exactly two decimal places (e.g., 12.34K).
+      answer: "143.10K"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "47.76K²"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: [Table/Chart/Graph Understanding]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Data_Analytics_Dashboard_37.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        Across the entire dashboard, identify all explicitly displayed numeric values that use an uppercase “K” suffix, excluding any axis tick labels that share the exact same value as a metric displayed elsewhere on the dashboard. Sort these values from largest to smallest. Multiply the third-largest value by the smallest nonzero value, then divide the result by the second-smallest nonzero value. Express your answer using the “K²” suffix rounded to exactly two decimal places (e.g., 12.34K²).
+      answer: "47.76K²"

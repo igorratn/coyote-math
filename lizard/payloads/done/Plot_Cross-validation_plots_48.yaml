@@ -1,0 +1,26 @@
+task:
+  stem: Plot_Cross-validation_plots_48
+  sa_task_filename: Plot_Cross-validation_plots_48.json
+  task_id: 187299452
+  image: screenshots/Plot_Cross-validation_plots_48.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "7"
+      flags: []
+      feedback: "5/6: Skill tag corrected: Dropped Spatial Reasoning (chart value-ranking, not relational positioning). Dropped World Knowledge (no external/public facts required — purely image-internal reasoning)."
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: [Spatial Reasoning, World Knowledge]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Cross-validation_plots_48.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        If the global scope graph were to be continuation of the local scope graph (e.g., global scope's x axis would change from 1 to 8, 2 to 9, etc. ), what would be the component number for the third highest RMSE value on top of the bar across all of the components? Give the answer as a whole number (e.g., 2)
+      answer: "7"
