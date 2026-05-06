@@ -26,3 +26,6 @@ peacock/drafts/models.md
 peacock/drafts/temp_responses_*.md
 
 .zshrc
+
+# Claude tooling state (local-only)
+.claude/
