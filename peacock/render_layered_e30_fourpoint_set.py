@@ -1,0 +1,200 @@
+from pathlib import Path
+import re
+import numpy as np
+from scipy.interpolate import CubicSpline
+from scipy.sparse import lil_matrix
+from scipy.sparse.linalg import spsolve
+from PIL import Image, ImageDraw, ImageFont
+
+WIN = Path('/Users/iratnere/dev/soil-models/src/tires/33L-32FI34.WIN')
+lines = [ln.strip() for ln in WIN.read_text().splitlines() if ln.strip()]
+xk = np.array([float(s) for s in re.findall(r'[-+]?\d*\.?\d+', lines[0])], dtype=float)
+yk = np.array([float(s) for s in re.findall(r'[-+]?\d*\.?\d+', lines[1])], dtype=float)
+a = float(np.max(np.abs(xk)))
+xn = xk / a
+p0 = float(np.max(yk))
+qn = yk / p0
+cs = CubicSpline(xn, qn, bc_type='not-a-knot')
+
+def q_of_x(x):
+    if x < xn[0] or x > xn[-1]:
+        return 0.0
+    return max(0.0, float(cs(x)))
+
+# Layered FEA with E2/E1 = 30
+E1 = 100.0
+E2 = 3000.0
+nu = 0.3
+h = 30.0 / a
+L = D = 15.0
+nx, nz = 480, 240
+x_nodes = np.linspace(-L, L, nx + 1)
+z_nodes = np.linspace(0.0, D, nz + 1)
+NX, NZ = nx + 1, nz + 1
+Nnodes = NX * NZ
+
+def nid(i, j): return j * NX + i
+nodes = np.zeros((Nnodes, 2))
+for j in range(NZ):
+    for i in range(NX):
+        nodes[nid(i, j)] = (x_nodes[i], z_nodes[j])
+
+elements = []
+for j in range(nz):
+    for i in range(nx):
+        n00=nid(i,j); n10=nid(i+1,j); n01=nid(i,j+1); n11=nid(i+1,j+1)
+        E = E1 if 0.5*(z_nodes[j] + z_nodes[j+1]) < h else E2
+        elements.append((n00,n10,n11,E))
+        elements.append((n00,n11,n01,E))
+
+def D_matrix(E):
+    c = E / ((1 + nu) * (1 - 2 * nu))
+    return np.array([[c*(1-nu), c*nu, 0.0],[c*nu, c*(1-nu), 0.0],[0.0,0.0,c*(1-2*nu)/2]])
+
+def element_K_B(coords, E):
+    x1,z1=coords[0]; x2,z2=coords[1]; x3,z3=coords[2]
+    A = 0.5 * abs((x2-x1)*(z3-z1) - (x3-x1)*(z2-z1))
+    b1=z2-z3; b2=z3-z1; b3=z1-z2
+    c1=x3-x2; c2=x1-x3; c3=x2-x1
+    B=(1.0/(2*A))*np.array([[b1,0,b2,0,b3,0],[0,c1,0,c2,0,c3],[c1,b1,c2,b2,c3,b3]])
+    Dm = D_matrix(E)
+    return A * B.T @ Dm @ B, B, Dm
+
+K = lil_matrix((2*Nnodes, 2*Nnodes))
+Bs = []
+for n1,n2,n3,E in elements:
+    Ke,B,Dm = element_K_B(nodes[[n1,n2,n3]], E)
+    Bs.append((B,Dm,n1,n2,n3))
+    dofs=[2*n1,2*n1+1,2*n2,2*n2+1,2*n3,2*n3+1]
+    for aidx in range(6):
+        for bidx in range(6):
+            K[dofs[aidx], dofs[bidx]] += Ke[aidx,bidx]
+
+F = np.zeros(2*Nnodes)
+for i in range(nx):
+    nl=nid(i,0); nr=nid(i+1,0)
+    xl=nodes[nl,0]; xr=nodes[nr,0]
+    ql=q_of_x(xl); qr=q_of_x(xr); Lseg=xr-xl
+    F[2*nl+1] += (Lseg/6.0)*(2*ql + qr)
+    F[2*nr+1] += (Lseg/6.0)*(ql + 2*qr)
+
+fixed=set()
+for j in range(NZ):
+    for n in (nid(0,j), nid(nx,j)):
+        fixed.add(2*n); fixed.add(2*n+1)
+for i in range(NX):
+    n=nid(i,nz); fixed.add(2*n); fixed.add(2*n+1)
+fixed=sorted(fixed)
+free=np.setdiff1d(np.arange(2*Nnodes), fixed)
+U=np.zeros(2*Nnodes)
+U[free] = spsolve(K.tocsr()[free,:][:,free], F[free])
+
+sigma_x=np.zeros(Nnodes); sigma_z=np.zeros(Nnodes); count=np.zeros(Nnodes)
+for B,Dm,n1,n2,n3 in Bs:
+    ue=np.array([U[2*n1],U[2*n1+1],U[2*n2],U[2*n2+1],U[2*n3],U[2*n3+1]])
+    sig = Dm @ (B @ ue)
+    for n in (n1,n2,n3):
+        sigma_x[n] += sig[0]
+        sigma_z[n] += sig[1]
+        count[n] += 1
+sigma_x = -sigma_x / count
+sigma_z = -sigma_z / count
+sigma_zo = 0.5 * (sigma_z - sigma_x)
+V = sigma_zo.reshape((NZ, NX))
+Xg, Zg = np.meshgrid(x_nodes, z_nodes)
+
+def value_at(x, z):
+    i=max(0,min(nx-1,int(np.searchsorted(x_nodes,x)-1)))
+    j=max(0,min(nz-1,int(np.searchsorted(z_nodes,z)-1)))
+    x0,x1=x_nodes[i],x_nodes[i+1]; z0,z1=z_nodes[j],z_nodes[j+1]
+    fx=(x-x0)/(x1-x0); fz=(z-z0)/(z1-z0)
+    n00=j*NX+i; n10=n00+1; n01=(j+1)*NX+i; n11=n01+1
+    arr=sigma_zo
+    return (1-fx)*(1-fz)*arr[n00] + fx*(1-fz)*arr[n10] + (1-fx)*fz*arr[n01] + fx*fz*arr[n11]
+
+# crop
+x_min,x_max=-3,3; z_min,z_max=0,3
+xi=np.where((x_nodes>=x_min)&(x_nodes<=x_max))[0]
+zi=np.where((z_nodes>=z_min)&(z_nodes<=z_max))[0]
+X=Xg[np.ix_(zi,xi)]; Z=Zg[np.ix_(zi,xi)]; Vc=V[np.ix_(zi,xi)]
+levels=[-0.2,-0.1,-0.05,0,0.05,0.1,0.2,0.3,0.4]
+
+def contour_segments(X, Z, V, level):
+    segs=[]; ny,nx=V.shape
+    def interp(p1,p2,v1,v2,level):
+        t=0.5 if v2==v1 else (level-v1)/(v2-v1)
+        return (p1[0]+t*(p2[0]-p1[0]), p1[1]+t*(p2[1]-p1[1]))
+    for j in range(ny-1):
+        for i in range(nx-1):
+            p00=(X[j,i],Z[j,i]); v00=V[j,i]
+            p10=(X[j,i+1],Z[j,i+1]); v10=V[j,i+1]
+            p11=(X[j+1,i+1],Z[j+1,i+1]); v11=V[j+1,i+1]
+            p01=(X[j+1,i],Z[j+1,i]); v01=V[j+1,i]
+            pts=[]
+            if (v00-level)*(v10-level) < 0: pts.append(interp(p00,p10,v00,v10,level))
+            if (v10-level)*(v11-level) < 0: pts.append(interp(p10,p11,v10,v11,level))
+            if (v11-level)*(v01-level) < 0: pts.append(interp(p11,p01,v11,v01,level))
+            if (v01-level)*(v00-level) < 0: pts.append(interp(p01,p00,v01,v00,level))
+            if len(pts)==2: segs.append((pts[0],pts[1]))
+            elif len(pts)==4: segs.append((pts[0],pts[1])); segs.append((pts[2],pts[3]))
+    return segs
+
+def load_font(size):
+    for p in ['/System/Library/Fonts/Supplemental/Arial.ttf','/System/Library/Fonts/Supplemental/Helvetica.ttf']:
+        try: return ImageFont.truetype(p,size=size)
+        except: pass
+    return ImageFont.load_default()
+
+width,height=1400,1000; pad_l,pad_r,pad_t,pad_b=100,90,50,100
+pw=width-pad_l-pad_r; ph=height-pad_t-pad_b
+sx=lambda x: pad_l + (x-x_min)/(x_max-x_min)*pw
+sy=lambda z: pad_t + (z-z_min)/(z_max-z_min)*ph
+img=Image.new('RGBA',(width,height),(255,255,255,255)); d=ImageDraw.Draw(img)
+font=load_font(24); small=load_font(18)
+d.rectangle([pad_l,pad_t,pad_l+pw,pad_t+ph], outline='black', width=2)
+for x in range(-3,4):
+    xx=sx(x); d.line([xx,pad_t+ph,xx,pad_t+ph+10], fill='black'); d.text((xx-8,pad_t+ph+14), str(x), fill='black', font=font)
+for z in range(0,4):
+    yy=sy(z); d.line([pad_l-10,yy,pad_l,yy], fill='black'); d.text((pad_l-32,yy-10), str(z), fill='black', font=font)
+d.text((pad_l+pw/2-25,height-40),'x / a',fill='black',font=font)
+d.text((25,pad_t+ph/2),'z / a',fill='black',font=font)
+pts=[]
+for x in np.linspace(xn[0], xn[-1], 200):
+    q=q_of_x(x); pts.append((sx(x), sy(0)+35-80*q))
+d.line(pts, fill='black', width=2); d.line([sx(xn[0]),sy(0),sx(xn[-1]),sy(0)], fill='black', width=1)
+if z_min <= h <= z_max:
+    d.line([sx(x_min), sy(h), sx(x_max), sy(h)], fill='black', width=1)
+for lev in levels:
+    w=3 if abs(lev) < 1e-12 else 1
+    for a1,b1 in contour_segments(X,Z,Vc,lev):
+        d.line([sx(a1[0]),sy(a1[1]),sx(b1[0]),sy(b1[1])], fill='black', width=w)
+
+points = {
+    'P1': (0.000, 0.500, value_at(0.000, 0.500)),
+    'P2': (0.750, 0.250, value_at(0.750, 0.250)),
+    'P3': (0.000, 1.500, value_at(0.000, 1.500)),
+    'P4': (1.300, 0.400, value_at(1.300, 0.400)),
+}
+offsets = {'P1':(18,-34),'P2':(18,-34),'P3':(18,-10),'P4':(18,-34)}
+for name,(x,z,s) in points.items():
+    px,py=sx(x),sy(z); r=6
+    d.ellipse([px-r,py-r,px+r,py+r], fill='black', outline='white', width=1)
+    dx,dy=offsets[name]; tx,ty=px+dx,py+dy
+    lines=[name, f'σzo/p0 = {s:+.4f}', f'({x:.3f}a, {z:.3f}a)']
+    widths=[]; heights=[]
+    for i,line in enumerate(lines):
+        f=font if i==0 else small
+        bb=d.textbbox((0,0), line, font=f)
+        widths.append(bb[2]-bb[0]); heights.append(bb[3]-bb[1])
+    box_w=max(widths)+12; box_h=sum(heights)+12
+    d.rounded_rectangle([tx-6,ty-4,tx-6+box_w,ty-4+box_h], radius=5, fill='white', outline='black', width=1)
+    y=ty
+    d.text((tx,y), lines[0], fill='black', font=font); y += heights[0] + 2
+    d.text((tx,y), lines[1], fill='black', font=small); y += heights[1] + 2
+    d.text((tx,y), lines[2], fill='black', font=small)
+
+out=Path('/Users/iratnere/dev/coyote-math/peacock/screenshots/layered_e30_fourpoint_set.png')
+flat=Image.new('RGB', img.size, 'white'); flat.paste(img, mask=img.split()[-1]); flat.save(out)
+print(out)
+for k,v in points.items():
+    print(k, v[2])

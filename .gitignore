@@ -19,4 +19,10 @@ phoenix_tasks/r1_*.png
 phoenix_tasks/r2_*.png
 phoenix_tasks/session_log.md
 phoenix_tasks/archive/
+
+# Peacock pipeline temp files
+peacock/responses/
+peacock/drafts/models.md
+peacock/drafts/temp_responses_*.md
+
 .zshrc
