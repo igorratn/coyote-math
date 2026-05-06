@@ -28,10 +28,11 @@ const RULES = [
 ];
 
 function loadOriginalSkills(stem) {
-  // tasks/<S>.md (current cycle) or tasks/<S>.cycle1.md (if cycle 2 archived)
-  const c2Md = join(LIZARD_DIR, 'tasks', `${stem}.md`);
-  const c1Archive = join(LIZARD_DIR, 'tasks', `${stem}.cycle1.md`);
-  const path = existsSync(c1Archive) ? c1Archive : c2Md;
+  // Always read the CURRENT cycle's task file. For cycle 2 stems the cycle-1
+  // archive (tasks/<S>.cycle1.md) holds the OLD skills — annotator may have
+  // re-tagged during cycle-2 rework, so SA's actual current state lives in
+  // tasks/<S>.md (freshly written by Job 2 from the cycle-2 scrape).
+  const path = join(LIZARD_DIR, 'tasks', `${stem}.md`);
   if (!existsSync(path)) return null;
   const md = readFileSync(path, 'utf8');
   // Per-annot ## Annotation N blocks

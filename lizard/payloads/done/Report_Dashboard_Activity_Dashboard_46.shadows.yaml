@@ -1,43 +1,13 @@
 stem: Report_Dashboard_Activity_Dashboard_46
-igor_resolved: false
+igor_resolved: true
 shadows:
   - n: 1
-    uuid: 31d71c84
-    fired_at: 2026-05-06T03:06:41.181Z
-    rating: Reject
-    time_logged: "00:20:56"
-    verdict_source: auto
-    hai_llm_eval: clean
-    hai_llm_comment: ""
-    reclaimed: false
-    reclaim_diff: null
-  - n: 2
-    uuid: 152b91ac
-    fired_at: 2026-05-06T03:10:41.115Z
-    rating: Reject
-    time_logged: "00:20:54"
-    verdict_source: auto
-    hai_llm_eval: clean
-    hai_llm_comment: ""
-    reclaimed: false
-    reclaim_diff: null
-  - n: 3
-    uuid: 1e161663
-    fired_at: 2026-05-06T03:13:15.173Z
+    uuid: b9f5fd73
+    fired_at: 2026-05-06T23:49:35.977Z
     rating: Approve
-    time_logged: "00:20:57"
+    time_logged: "00:20:36"
     verdict_source: auto
-    hai_llm_eval: clean
-    hai_llm_comment: ""
-    reclaimed: false
-    reclaim_diff: null
-  - n: 4
-    uuid: 2dccaf5b
-    fired_at: 2026-05-06T03:14:26.755Z
-    rating: Approve
-    time_logged: "00:20:18"
-    verdict_source: auto
-    hai_llm_eval: clean
-    hai_llm_comment: ""
+    hai_llm_eval: warning
+    hai_llm_comment: "Recommendation: Rewrite the prompt to be direct and logical. For example: \"Which numbered label points to the area that contains multiple charts?\" Additionally, be careful with punctuation in your format examples. Because you wrote \"2.\" (with the period inside the quotation marks), a user or model might output 4. instead of just 4. It is safer to use parentheses, such as: \"Answer with only the number (e.g., 2).\""
     reclaimed: false
     reclaim_diff: null

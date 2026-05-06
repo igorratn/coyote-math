@@ -1,0 +1,83 @@
+task:
+  stem: Report_Dashboard_Activity_Dashboard_46
+  sa_task_filename: Report_Dashboard_Activity_Dashboard_46.json
+  task_id: 187300564
+  image: screenshots/Report_Dashboard_Activity_Dashboard_46.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: []
+      feedback: "2026-05-05: Model answered correctly — not stumped (model answer equals annotator's rewrite). Annotator must design a harder prompt that the model cannot answer."
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Activity_Dashboard_46.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        What number label points to the top navigation tabs? Answer with only the number.
+      answer: "1"
+
+  - n: 2
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: []
+      feedback: "2026-05-05: Model answered correctly — not stumped (model answer equals annotator's rewrite). Annotator must design a harder prompt that the model cannot answer."
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Activity_Dashboard_46.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        What number label points to the filter dropdowns? Answer with only the number.
+      answer: "2"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "User Activity Breakdown Comparision"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Activity_Dashboard_46.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        What is the exact title of the chart pointed to by number 3? Answer with only the chart title text.
+      answer: "User Activity Breakdown Comparision"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "4"
+      flags: []
+      feedback: "5/5: Skill tag corrected: Added Table/Chart/Graph Understanding to skill tags"
+      verdict_source: auto
+      skills_check: [Table/Chart/Graph Understanding]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Activity_Dashboard_46.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        What number label points to the large right-side dashboard section containing the Accounts and Opportunities charts? Answer with only the number.
+      answer: "4"
