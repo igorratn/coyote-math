@@ -1,0 +1,107 @@
+task:
+  stem: Plot_Regression_analysis_plots_145
+  sa_task_filename: Plot_Regression_analysis_plots_145.json
+  task_id: 185554509
+  image: screenshots/Plot_Regression_analysis_plots_145.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: ["Type 2"]
+      feedback: "5/7: Prompt fails G2 — \"green dots in the image\" is ambiguous on whether legend markers count. 24 (panels only → 36) and 28 (with legend → 32) are both defensible."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Regression_analysis_plots_145.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        What is the absolute difference between the number of green dots that appear anywhere in the image and the largest labeled x-value in any of the graphs? Answer as a single number (e.g., 12)
+      answer: "32"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "80"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Regression_analysis_plots_145.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Multiply the number of characters in either subscript or superscript by the second-lowest labeled y-value in the top left graph. What is the result? Answer as a single number (e.g., 123).
+      answer: "80"
+
+  - n: 3
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: ["Type 2"]
+      feedback: "5/7: Under natural reading, 23 consonants + median x of 30 = 53. Model's 53 is correct → not a valid stump."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Regression_analysis_plots_145.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        What is the sum of the number of consonants in the legend of the upper left graph (not including "y" as a consonant, and counting each consonant every time that it appears) and the median of the labeled x-values in the upper left graph? Answer as a single number (e.g., 123).
+      answer: "52"
+
+  - n: 4
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: ["Type 2"]
+      feedback: "5/7: Under natural calculus reading, ∫(linear)dx = quadratic → top-left A. Model's A is correct → not a valid stump."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Regression_analysis_plots_145.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        If you were to take a first-order integral of the functions depicted in all of the graphs, which of the graphs would return a quadratic function? 
+        
+        A. top left 
+        B. top right 
+        C. bottom left 
+        D. bottom right
+      answer: "C"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "120"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Regression_analysis_plots_145.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        Take the sum of the degree of the top left graph and the degree of the bottom right graph. Multiply that result by the median of the labeled y-values in the top right graph. What is the final result? Answer as a single number (e.g., 999).
+      answer: "120"

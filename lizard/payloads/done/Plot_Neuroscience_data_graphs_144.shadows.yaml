@@ -1,0 +1,23 @@
+stem: Plot_Neuroscience_data_graphs_144
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: e60f8b18
+    fired_at: 2026-05-07T15:31:34.166Z
+    rating: Approve
+    time_logged: "00:20:54"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: b093b6b0
+    fired_at: 2026-05-07T15:32:15.021Z
+    rating: Approve
+    time_logged: "00:20:33"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

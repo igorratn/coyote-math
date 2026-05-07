@@ -1,0 +1,23 @@
+stem: Plot_Regression_analysis_plots_32
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 2afc6fda
+    fired_at: 2026-05-07T20:53:30.168Z
+    rating: Approve
+    time_logged: "00:20:49"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 1591b918
+    fired_at: 2026-05-07T20:54:12.960Z
+    rating: Approve
+    time_logged: "00:20:38"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

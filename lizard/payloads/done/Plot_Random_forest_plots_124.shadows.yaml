@@ -1,0 +1,53 @@
+stem: Plot_Random_forest_plots_124
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: 17c9e666
+    fired_at: 2026-05-07T20:28:31.109Z
+    rating: Reject
+    time_logged: "00:20:34"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 243ff2eb
+    fired_at: 2026-05-07T20:29:24.448Z
+    rating: Reject
+    time_logged: "00:20:46"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: 0a0dee1a
+    fired_at: 2026-05-07T20:30:28.888Z
+    rating: Approve
+    time_logged: "00:20:49"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 4
+    uuid: 0f5e4611
+    fired_at: 2026-05-07T20:31:55.454Z
+    rating: Approve
+    time_logged: "00:20:57"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 5
+    uuid: 03a010ab
+    fired_at: 2026-05-07T20:32:48.808Z
+    rating: Reject
+    time_logged: "00:20:43"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

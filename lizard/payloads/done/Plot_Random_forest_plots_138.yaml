@@ -1,0 +1,134 @@
+task:
+  stem: Plot_Random_forest_plots_138
+  sa_task_filename: Plot_Random_forest_plots_138.json
+  task_id: 185554499
+  image: screenshots/Plot_Random_forest_plots_138.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_Random_forest_plots_138.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Look at the black background region at the top. Count the total number of orange circles, counting overlapping ones,  that are located entirely within this black area. 
+        
+        
+        A. 2
+        B. 3
+        C. 4
+        D. 7
+      answer: "C"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "70"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Random_forest_plots_138.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Follow these steps to get the final integer:
+        
+        Look at the toolbar at the very bottom of the window (below the x-axis). Count the total number of distinct icons/buttons (e.g., the house, the arrows, the floppy disk, etc.).
+        
+        Count the total amount of numbers that are labeling the x-axis. 
+        
+        Multiply the two counts together 
+        
+        Provide your answer as an integer (e.g., 4).
+      answer: "70"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "A"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_Random_forest_plots_138.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Identify the Gray background region on the right side of the image. Count every Brown circle where any portion of its shape (including its outer boundary; also include overlapping circles ) overlaps with the Gray region.
+        
+        A. 5
+        B. 1
+        C. 2
+        D. 4
+      answer: "A"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "24"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Random_forest_plots_138.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        Follow these two steps to find the final integer:
+        
+        Locate the central junction of the classification map. Count the total number of distinct background colors that touch each other at this single intersection point.
+        
+        Look at the White background region (bottom-left). Count the total number of Light Blue circles that are located within or where any portion of its shape (including its outer boundary; also include overlapping circles) overlaps with the White region.
+        
+        Multiply the two counts together. What is the resulting final integer?
+        
+        Provide your answer as an integer (e.g., 6).
+      answer: "24"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "A"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_Random_forest_plots_138.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        Identify the Brown circle that is furthest to the left in the entire plot (the one with the lowest x-axis value). Look at the vertical y-axis and identify the y-coordinate of this specific circle.
+        
+        A. 1.5 
+        B. 2.2 
+        C. 1
+        D. 1.2
+      answer: "A"

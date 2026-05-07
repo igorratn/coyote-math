@@ -1,0 +1,45 @@
+task:
+  stem: Plot_Organic_chemistry_charts_130
+  sa_task_filename: Plot_Organic_chemistry_charts_130.json
+  task_id: 185554369
+  image: screenshots/Plot_Organic_chemistry_charts_130.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: ["Type 3", "IMAGE_UNREADABLE"]
+      feedback: "5/7: Prompt invalid — Type 3 / IMAGE_UNREADABLE. Counting fine details on a poster shown at thumbnail scale isn't pixel-feasible."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Organic_chemistry_charts_130.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Count the colored boxes that contain black text and chemical diagrams within each labeled rectangular section of the poster. Then multiply that value by the total number of arrowheads in the image. Answer with a single whole number (e.g., 18).
+      answer: "250"
+
+  - n: 2
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: ["Type 3", "IMAGE_UNREADABLE"]
+      feedback: "5/7: Prompt invalid — Type 3 / IMAGE_UNREADABLE. Counting fine details on a poster shown at thumbnail scale isn't pixel-feasible."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Organic_chemistry_charts_130.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Count all words that appear in white text and are placed on a clearly colored background or colored panel (Including the title at the top of the poster in the image). Then multiply that value by the number of blue vertical line text separators. Answer with a single whole number (e.g., 43).
+      answer: "99"

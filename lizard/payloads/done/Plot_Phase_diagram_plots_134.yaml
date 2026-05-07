@@ -1,0 +1,117 @@
+task:
+  stem: Plot_Phase_diagram_plots_134
+  sa_task_filename: Plot_Phase_diagram_plots_134.json
+  task_id: 185554409
+  image: screenshots/Plot_Phase_diagram_plots_134.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_Phase_diagram_plots_134.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Which point is positioned closest to the edge between components A and B (i.e., farthest from C)?
+        
+        A. X₂
+        B. X₅
+        C. X₆
+        D. X₁
+      answer: "C"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "3"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Phase_diagram_plots_134.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        How many labeled points lie in regions where A is approximately between 30% and 60% (inclusive)? Answer as a number (e.g., 2).
+      answer: "3"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_Phase_diagram_plots_134.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Which point has the smallest absolute difference between its B and C components, based on approximate grid positioning?
+        
+        A. X₁
+        B. X₂
+        C. X₃
+        D. X₄
+      answer: "C"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "B"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_Phase_diagram_plots_134.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        Which point has the largest absolute difference between A and C components, based on approximate grid positioning?
+        
+        A. X₁
+        B. X₂
+        C. X₅
+        D. X₆
+      answer: "B"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "4"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Phase_diagram_plots_134.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        How many labeled points have B less than or equal to 30%? Answer as a number (e.g., 2).
+      answer: "4"

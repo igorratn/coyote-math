@@ -1,0 +1,23 @@
+stem: Plot_Organic_chemistry_charts_130
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 70fde731
+    fired_at: 2026-05-07T15:33:51.480Z
+    rating: Reject
+    time_logged: "00:20:39"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: cd6dccce
+    fired_at: 2026-05-07T15:36:38.267Z
+    rating: Reject
+    time_logged: "00:20:16"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

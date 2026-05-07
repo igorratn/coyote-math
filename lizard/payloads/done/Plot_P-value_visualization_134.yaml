@@ -1,0 +1,30 @@
+task:
+  stem: Plot_P-value_visualization_134
+  sa_task_filename: Plot_P-value_visualization_134.json
+  task_id: 185554382
+  image: screenshots/Plot_P-value_visualization_134.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_P-value_visualization_134.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        In this image, the formula at the top uses a specific mathematical symbol between the two probability expressions. Which of the following correctly identifies that symbol? 
+        A. =
+        B. ≈
+        C. ≠
+        D. >
+      answer: "C"

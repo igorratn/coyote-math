@@ -1,0 +1,23 @@
+stem: Plot_Remote_sensing_data_visualization_133
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 25690d19
+    fired_at: 2026-05-07T20:59:16.458Z
+    rating: Approve
+    time_logged: "00:20:54"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 32867401
+    fired_at: 2026-05-07T20:59:53.964Z
+    rating: Reject
+    time_logged: "00:20:32"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

@@ -1,0 +1,28 @@
+task:
+  stem: Plot_Multivariate_analysis_plots_68
+  sa_task_filename: Plot_Multivariate_analysis_plots_68.json
+  task_id: 185554296
+  image: screenshots/Plot_Multivariate_analysis_plots_68.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: ["G2", "Type 3"]
+      feedback: "5/7: Prompt invalid — multi-step with subjective cluster-size, vowel-case, and \"approximately\" tick counts. Multiple defensible answers, no single verifiable result."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Multivariate_analysis_plots_68.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        First, determine the number of distinct clusters that contain more than 8 data points and multiply this by the number of lowercase vowels (a, e, i, o, u) in the bold, underlined title at the bottom.
+        Next, identify the red cluster and find its leftmost data point. Count approximately how many tick marks on the horizontal axis lie to the left of this point’s vertical position, and add this to the previous result.
+        What is the final value? Provide your answer as an integer (e.g., 15).
+      answer: "12"

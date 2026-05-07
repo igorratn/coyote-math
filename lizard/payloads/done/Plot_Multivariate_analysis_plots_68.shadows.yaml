@@ -1,0 +1,13 @@
+stem: Plot_Multivariate_analysis_plots_68
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 8c5fb8b3
+    fired_at: 2026-05-07T15:15:13.511Z
+    rating: Reject
+    time_logged: "00:20:45"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

@@ -1,0 +1,53 @@
+stem: Plot_Phase_diagram_plots_134
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: 33745d50
+    fired_at: 2026-05-07T15:24:21.538Z
+    rating: Approve
+    time_logged: "00:20:14"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 633325e8
+    fired_at: 2026-05-07T15:25:49.589Z
+    rating: Approve
+    time_logged: "00:20:06"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: d21ff576
+    fired_at: 2026-05-07T15:26:42.608Z
+    rating: Approve
+    time_logged: "00:20:46"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 4
+    uuid: 64d45913
+    fired_at: 2026-05-07T15:27:39.414Z
+    rating: Approve
+    time_logged: "00:20:47"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 5
+    uuid: 7e2c2e89
+    fired_at: 2026-05-07T15:28:54.932Z
+    rating: Approve
+    time_logged: "00:20:10"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "​ ) that have a B value less than or equal to 30%. The correct Rewrite Answer should be 3, not 4."
+    reclaimed: false
+    reclaim_diff: null

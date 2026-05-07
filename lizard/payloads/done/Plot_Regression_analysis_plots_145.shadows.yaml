@@ -1,0 +1,53 @@
+stem: Plot_Regression_analysis_plots_145
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: 2b6c5f48
+    fired_at: 2026-05-07T20:46:28.169Z
+    rating: Reject
+    time_logged: "00:20:33"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 273403bb
+    fired_at: 2026-05-07T20:47:23.165Z
+    rating: Approve
+    time_logged: "00:20:48"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: 263d52af
+    fired_at: 2026-05-07T20:48:09.181Z
+    rating: Reject
+    time_logged: "00:20:40"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 4
+    uuid: 23028171
+    fired_at: 2026-05-07T20:48:44.865Z
+    rating: Reject
+    time_logged: "00:20:26"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 5
+    uuid: 1f634b83
+    fired_at: 2026-05-07T20:51:00.626Z
+    rating: Approve
+    time_logged: "00:20:29"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

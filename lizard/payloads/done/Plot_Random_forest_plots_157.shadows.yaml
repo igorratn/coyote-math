@@ -1,0 +1,23 @@
+stem: Plot_Random_forest_plots_157
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: 2931f5ec
+    fired_at: 2026-05-07T20:41:28.059Z
+    rating: Approve
+    time_logged: "00:20:54"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 292a67eb
+    fired_at: 2026-05-07T20:44:03.448Z
+    rating: Reject
+    time_logged: "00:20:38"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

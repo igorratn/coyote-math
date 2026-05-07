@@ -1,0 +1,23 @@
+stem: Plot_Model_fitting_visualization_76
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: fda05d68
+    fired_at: 2026-05-07T15:13:31.583Z
+    rating: Approve
+    time_logged: "00:20:28"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "Using this count as the x-value in the equation Y = AX/(B+X) from the center panel, with A = B = 1, gives Y = 43 / (1 + 43) = 43 / 44 ≈ 0.97727... When rounded to three decimal places, the correct answer should be 0.977 instead of 0.978. Everything else in the prompt is well-written and clear!"
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 6edc83cf
+    fired_at: 2026-05-07T15:14:23.741Z
+    rating: Approve
+    time_logged: "00:20:44"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "The phrase \"the shortest name of the algebraic function type shown in the equation in the center of the image\" requires external knowledge to identify the expression Y=AX/(B+X) as a \"rational\" function (which gives the required 8 letters for the math to equal 1.25). Furthermore, asking for the \"shortest name\" implies there are multiple valid names, making it a subjective riddle rather than a singl"
+    reclaimed: false
+    reclaim_diff: null

@@ -1,0 +1,71 @@
+task:
+  stem: Plot_Peer-reviewed_graph_134
+  sa_task_filename: Plot_Peer-reviewed_graph_134.json
+  task_id: 185554395
+  image: screenshots/Plot_Peer-reviewed_graph_134.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "14"
+      flags: ["G1"]
+      feedback: null
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Peer-reviewed_graph_134.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        What is the absolute difference between:
+        1. the number of intervals on the x-axis, and 
+        2. the number of intervals on the y-axis?
+        Count an interval as the gap between two adjacent visible tick marks on the axis. Answer with a single number (e.g., 3).
+      answer: "14"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "B"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_Peer-reviewed_graph_134.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        In the plot, two curves are shown — one of solid dots for "Treatment" and one of open circles for "Control." Based on each marker's y-axis position, count the Treatment markers sitting strictly above 60 mg/mL. Then count the Control markers sitting strictly above 30 mg/mL. What is the absolute difference between these two counts? 
+        A. 3
+        B. 4
+        C. 5
+        D. 6
+      answer: "B"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "12"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Peer-reviewed_graph_134.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Pair up the markers from the two curves by their left-to-right order on each curve independently, so the first Treatment marker pairs with the first Control marker, the second Treatment marker pairs with the second Control marker, and so on, regardless of whether the two paired markers share the same x-axis position. Excluding the first pair, count how many of the remaining pairs have a Treatment marker whose y-axis position is higher than its paired Control marker's y-axis position. What is the result? Answer with a single whole number (e.g., 3).
+      answer: "12"

@@ -1,0 +1,13 @@
+stem: Plot_Regression_analysis_plots_82
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: 12cf49b3
+    fired_at: 2026-05-07T20:57:02.627Z
+    rating: Approve
+    time_logged: "00:20:26"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "You used the word \"above\" without stating whether the boundary value of 50 is included or excluded."
+    reclaimed: false
+    reclaim_diff: null

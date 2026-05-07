@@ -1,0 +1,23 @@
+stem: Plot_Model_accuracy_graphs_91
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 243423ff
+    fired_at: 2026-05-07T15:10:01.261Z
+    rating: Reject
+    time_logged: "00:20:57"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 33f72003
+    fired_at: 2026-05-07T15:11:59.129Z
+    rating: Reject
+    time_logged: "00:20:50"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

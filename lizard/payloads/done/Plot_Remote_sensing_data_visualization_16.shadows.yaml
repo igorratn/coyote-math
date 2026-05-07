@@ -1,0 +1,13 @@
+stem: Plot_Remote_sensing_data_visualization_16
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 30a2c7dc
+    fired_at: 2026-05-07T21:02:57.929Z
+    rating: Reject
+    time_logged: "00:20:38"
+    verdict_source: igor
+    hai_llm_eval: warning
+    hai_llm_comment: "Accuracy/Single-Verifiability: Tracing the red x marks (Inputs) along the line between 2019-2020 yields about 12-14 data points. Subjectivity from \"approximate\" + heavy overlap."
+    reclaimed: false
+    reclaim_diff: null

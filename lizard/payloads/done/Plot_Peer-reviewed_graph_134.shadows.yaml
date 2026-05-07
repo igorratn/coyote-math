@@ -1,0 +1,33 @@
+stem: Plot_Peer-reviewed_graph_134
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: 7cc682ff
+    fired_at: 2026-05-07T15:19:48.397Z
+    rating: Approve
+    time_logged: "00:20:30"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 82e41da5
+    fired_at: 2026-05-07T15:20:53.065Z
+    rating: Approve
+    time_logged: "00:20:59"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: 0e7fcf34
+    fired_at: 2026-05-07T15:21:44.478Z
+    rating: Approve
+    time_logged: "00:20:45"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "Boundary Ambiguity: \"higher than\" is considered a boundary-ambiguous phrase. Please change this to \"strictly higher than\" or \"strictly greater than\" to explicitly state that the boundary is excluded. Unmatched Markers: The Treatment curve has 13 markers, but the Control curve has 14 markers. While it is implied that a \"pair\" cannot be formed with the 14th Control marker, it is best to add a clarif"
+    reclaimed: false
+    reclaim_diff: null

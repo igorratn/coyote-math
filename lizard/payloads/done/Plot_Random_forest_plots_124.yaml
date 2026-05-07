@@ -1,0 +1,102 @@
+task:
+  stem: Plot_Random_forest_plots_124
+  sa_task_filename: Plot_Random_forest_plots_124.json
+  task_id: 185554495
+  image: screenshots/Plot_Random_forest_plots_124.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: ["G2", "Type 3"]
+      feedback: "5/7: Prompt fails G2 + Type 3 — at x=300, all 4 curves cluster within a 0.006 vertical band; sub-pixel precision needed to compare. Multiple defensible answers."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Random_forest_plots_124.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        What percentage of the variables Vars=2, Vars=3 and Vars=4 have a higher Misclassification Rate than Vars=All at 300 trees? Answer in a whole percentage (e.g., 95%).
+      answer: "33%"
+
+  - n: 2
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: ["G2", "Type 3"]
+      feedback: "5/7: Prompt fails G2 — pixel-margin difference between Vars=3 and Vars=All at x=500 makes the \"lower than\" count ambiguous (2 or 3)."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Random_forest_plots_124.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        What is the number of variables labeled on the chart that have a lower Misclassification Rate than Vars=All at 500 trees and then multiply that value by the sum of prime numbers found after any "=" sign in the image? Answer in a whole number (e.g., 9).
+      answer: "15"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "292.8"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Random_forest_plots_124.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        What is the total number of different colors used on the graph to represent misclassification rate data, divide that value by the total number of times the digit "0" appears on the y-axis and finally multiply that value by the number of days in a leap year? Answer in a number rounded to one decimal (e.g., 56.9).
+      answer: "292.8"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "0.12"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_Random_forest_plots_124.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        Add more labels on the y-axis half way between the current ones (numerically and visually) starting below .29 and ending above .32. Using the numbers now labeled on the y-axis, what is the arithmetic range of these values that you then multiply by the total number of Vars not labeled with the color black? Answer in a number rounded to two decimal places (e.g., 1.59).
+      answer: "0.12"
+
+  - n: 5
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: ["G2", "Type 3"]
+      feedback: "5/7: Prompt fails G2 + Type 3 — finding x-tick where Vars=2 is strictly below all other curves requires per-pixel comparison on noisy crossing curves."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_Random_forest_plots_124.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        Excluding 100 trees and lower, what value do you get when you add the x-axis values labeled that correspond to where Vars=2 has the lower misclassification rate than all the other Vars shown and then divide that value by the total number of days that occur in January? Answer in a number rounded to two decimal places (e.g., 56.93).
+      answer: "32.26"

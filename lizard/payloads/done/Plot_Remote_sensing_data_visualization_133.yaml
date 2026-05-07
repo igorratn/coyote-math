@@ -1,0 +1,49 @@
+task:
+  stem: Plot_Remote_sensing_data_visualization_133
+  sa_task_filename: Plot_Remote_sensing_data_visualization_133.json
+  task_id: 185554522
+  image: screenshots/Plot_Remote_sensing_data_visualization_133.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "A"
+      flags: ["Type 3", "IMAGE_UNREADABLE"]
+      feedback: null
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_Remote_sensing_data_visualization_133.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Approximately how many blue dots lie fully within the satellite’s vision cone (extended to the edge of the image) and are not touching the planet or the dashed lines?
+        A. 4
+        B. 7
+        C. 5
+        D. 3
+      answer: "A"
+
+  - n: 2
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: ["Type 3", "IMAGE_UNREADABLE"]
+      feedback: "5/7: Prompt fails Type 3 — gray-line and solar-panel counting on thumbnail-scale infographic isn't pixel-feasible."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Remote_sensing_data_visualization_133.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Multiply the number of gray lines in the white circle that lies between the two maps on display screen by the number of separate solar panels on the satellite. Please answer in an integer (e.g., 500).
+      answer: "9"

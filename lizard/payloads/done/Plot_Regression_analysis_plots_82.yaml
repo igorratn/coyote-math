@@ -1,0 +1,26 @@
+task:
+  stem: Plot_Regression_analysis_plots_82
+  sa_task_filename: Plot_Regression_analysis_plots_82.json
+  task_id: 185554517
+  image: screenshots/Plot_Regression_analysis_plots_82.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "1"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Regression_analysis_plots_82.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        How many points on the graph are at a body-mass index above 50 kg/m2? Answer as a single number (e.g. 10).
+      answer: "1"

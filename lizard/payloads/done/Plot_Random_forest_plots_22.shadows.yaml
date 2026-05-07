@@ -1,0 +1,13 @@
+stem: Plot_Random_forest_plots_22
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 2abee735
+    fired_at: 2026-05-07T20:45:49.126Z
+    rating: Reject
+    time_logged: "00:20:40"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

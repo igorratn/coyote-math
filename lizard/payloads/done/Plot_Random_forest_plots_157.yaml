@@ -1,0 +1,50 @@
+task:
+  stem: Plot_Random_forest_plots_157
+  sa_task_filename: Plot_Random_forest_plots_157.json
+  task_id: 185554500
+  image: screenshots/Plot_Random_forest_plots_157.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "B"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Random_forest_plots_157.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Look at the horizontal x-axis labeled "Importance" at the bottom of the chart. Identify the maximum labeled numerical value on this axis. Multiply this specific numerical value by 100, and assign the resulting integer as Value A. Next, look at the green data bars. Count the exact number of bars that visually extend past the 0.10 vertical grid line. Assign this count as Value B. Multiply Value A by Value B. What is your final value?
+        
+        A. 120
+        B. 90
+        C. 60
+        D. 30
+      answer: "B"
+
+  - n: 2
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: ["Type 2"]
+      feedback: "5/7: Under natural reading, 9th longest bar = \"fixed acidity\" (12 letters). Model's 12 is correct → not a valid stump."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Random_forest_plots_157.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Identify the "Feature" on the y-axis that corresponds to the 9th longest green bar in the chart (longest along the x-axis). Extract the full text label for this specific feature. Count the total number of letters in this label (excluding any spaces). Write your answer as a single integer (e.g., 10)
+      answer: "16"

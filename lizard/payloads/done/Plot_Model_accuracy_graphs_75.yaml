@@ -1,0 +1,28 @@
+task:
+  stem: Plot_Model_accuracy_graphs_75
+  sa_task_filename: Plot_Model_accuracy_graphs_75.json
+  task_id: 185554264
+  image: screenshots/Plot_Model_accuracy_graphs_75.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: ["Type 7"]
+      feedback: "5/7: Prompt invalid — multi-step with subjective \"smaller text\" identification (multiple defensible readings give wildly different counts) plus difficult-to-read overlapping baseline-vs-after bars. No verifiable answer."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Model_accuracy_graphs_75.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Assume the horizontal axis values range from 1 to 4 and there is another number above 80 on the vertical axis. Round down each "Baseline Accuracy" bar's height to the closest labeled vertical axis value below it (unless it aligns exactly with a labeled value), and use these points to calculate the line of best fit. 
+        
+        Then find the number of letters (excluding punctuation) that appear smaller than the other text in the image based on font size. Use that count as the x-value to calculate the y-value for the line of best fit. Answer with a single whole number (e.g., 30).
+      answer: "376"

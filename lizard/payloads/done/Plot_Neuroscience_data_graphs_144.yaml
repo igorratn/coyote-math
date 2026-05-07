@@ -1,0 +1,45 @@
+task:
+  stem: Plot_Neuroscience_data_graphs_144
+  sa_task_filename: Plot_Neuroscience_data_graphs_144.json
+  task_id: 185554327
+  image: screenshots/Plot_Neuroscience_data_graphs_144.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "6"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Neuroscience_data_graphs_144.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        How many blue font citations are in the first section of the paper (not counting the abstract)? Count each set of parentheses as one citation regardless of how many citations are between them. Respond with a whole number (e.g., 5).
+      answer: "6"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "26"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Neuroscience_data_graphs_144.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        How many lines are in the abstract section? Respond only with a whole number (e.g., 10).
+      answer: "26"

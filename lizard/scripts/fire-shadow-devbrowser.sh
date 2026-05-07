@@ -91,9 +91,9 @@ await page.evaluate(() => {
   }
   throw new Error('Start task button not found near Project Lizard');
 });
-await page.waitForFunction(() => Array.from(document.querySelectorAll('button')).find(b => b.textContent.trim() === 'Start timer' && !b.disabled), null, { timeout: 30000 });
+await page.waitForFunction(() => Array.from(document.querySelectorAll('button')).find(b => b.textContent.trim() === 'Start timer' && !b.disabled), null, { timeout: 60000 });
 await page.evaluate(() => Array.from(document.querySelectorAll('button')).find(b => b.textContent.trim() === 'Start timer' && !b.disabled).click());
-await page.waitForFunction(() => /\/annotations\/fellow\/task\/[a-f0-9-]+\/run/.test(location.pathname), null, { timeout: 30000 });
+await page.waitForFunction(() => /\/annotations\/fellow\/task\/[a-f0-9-]+\/run/.test(location.pathname), null, { timeout: 60000 });
 const taskUrl = page.url();
 const fullUuid = taskUrl.match(/task\/([a-f0-9-]+)\//)[1];
 console.log("UUID=" + fullUuid);
@@ -112,7 +112,7 @@ await page.evaluate(async () => {
     await new Promise(r => setTimeout(r, 1200));
   }
 });
-await page.waitForFunction(() => !!document.querySelector('textarea'), null, { timeout: 30000 });
+await page.waitForFunction(() => !!document.querySelector('textarea'), null, { timeout: 60000 });
 await page.evaluate((v) => {
   const setter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, 'value').set;
   const ta = document.querySelector('textarea');
@@ -121,10 +121,10 @@ await page.evaluate((v) => {
   ta.dispatchEvent(new Event('change', { bubbles: true }));
 }, TASK_ID_FIELD);
 // Wait for enabled submit before clicking (React form-validation lag).
-await page.waitForFunction(() => !!document.querySelector('button[type="submit"]:not([disabled])'), null, { timeout: 30000 });
+await page.waitForFunction(() => !!document.querySelector('button[type="submit"]:not([disabled])'), null, { timeout: 60000 });
 await new Promise(r => setTimeout(r, 500));
 await page.evaluate(() => document.querySelector('button[type="submit"]:not([disabled])').click());
-await page.waitForFunction(() => !!document.querySelector('input[type="number"]'), null, { timeout: 30000 });
+await page.waitForFunction(() => !!document.querySelector('input[type="number"]'), null, { timeout: 60000 });
 await page.evaluate((v) => {
   const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
   const inp = document.querySelector('input[type="number"]');
@@ -133,10 +133,10 @@ await page.evaluate((v) => {
   inp.dispatchEvent(new Event('change', { bubbles: true }));
 }, ANNOT_N);
 // Wait for enabled submit before clicking (React form-validation lag).
-await page.waitForFunction(() => !!document.querySelector('button[type="submit"]:not([disabled])'), null, { timeout: 30000 });
+await page.waitForFunction(() => !!document.querySelector('button[type="submit"]:not([disabled])'), null, { timeout: 60000 });
 await new Promise(r => setTimeout(r, 500));
 await page.evaluate(() => document.querySelector('button[type="submit"]:not([disabled])').click());
-await page.waitForFunction(() => Array.from(document.querySelectorAll('button')).find(b => (b.getAttribute('aria-label') || '') === 'Upload assets' && !b.disabled), null, { timeout: 30000 });
+await page.waitForFunction(() => Array.from(document.querySelectorAll('button')).find(b => (b.getAttribute('aria-label') || '') === 'Upload assets' && !b.disabled), null, { timeout: 60000 });
 console.log("PHASE1_MS=" + (Date.now() - t0));
 
 // ============ Phase 2: image upload (filechooser + buffer) ============
@@ -152,7 +152,7 @@ await page.waitForFunction(() => {
     const aria = (b.getAttribute('aria-label') || '').trim();
     return isVisible(b) && (aria.startsWith('Open ') || aria.startsWith('View file '));
   }).length > 0;
-}, null, { timeout: 30000 });
+}, null, { timeout: 60000 });
 console.log("PHASE2_MS=" + (Date.now() - t0));
 
 // ============ Phase 3: prompt textarea ============
@@ -191,7 +191,7 @@ console.log("PROMPT_READBACK_OK=" + promptText.length + "_chars");
 await page.waitForFunction(() => {
   function isVisible(el) { if (!el) return false; const r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0; }
   return Array.from(document.querySelectorAll('button[type="submit"]:not([disabled])')).filter(isVisible).length > 0;
-}, null, { timeout: 30000 });
+}, null, { timeout: 60000 });
 await new Promise(r => setTimeout(r, 1500));
 await page.evaluate(() => {
   function isVisible(el) { if (!el) return false; const r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0; }
@@ -199,7 +199,7 @@ await page.evaluate(() => {
   if (!subs.length) throw new Error('step3 submit not found');
   subs[0].click();
 });
-await page.waitForFunction(() => Array.from(document.querySelectorAll('textarea')).find(t => t.value === '' && t.getBoundingClientRect().height > 0), null, { timeout: 30000 });
+await page.waitForFunction(() => Array.from(document.querySelectorAll('textarea')).find(t => t.value === '' && t.getBoundingClientRect().height > 0), null, { timeout: 60000 });
 
 // ============ Phase 4: answer textarea ============
 const answerText = await readFile(ANSWER_TMP_NAME);
@@ -229,7 +229,7 @@ console.log("ANSWER_READBACK_OK=" + JSON.stringify(answerText));
 await page.waitForFunction(() => {
   function isVisible(el) { if (!el) return false; const r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0; }
   return Array.from(document.querySelectorAll('button[type="submit"]:not([disabled])')).filter(isVisible).length > 0;
-}, null, { timeout: 30000 });
+}, null, { timeout: 60000 });
 await new Promise(r => setTimeout(r, 1500));
 await page.evaluate(() => {
   function isVisible(el) { if (!el) return false; const r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0; }
@@ -280,10 +280,10 @@ if (preSubmitWarning) console.log("QC_WARNING_CAPTURED=true");
   // ============ Phase 6: role + Approve/Reject ============
   await page.evaluate(() => Array.from(document.querySelectorAll('button')).find(b => b.textContent.trim() === 'Reviewing' && !b.disabled).click());
   await new Promise(r => setTimeout(r, 500));
-  await page.waitForFunction(() => !!document.querySelector('button[type="submit"]:not([disabled])'), null, { timeout: 30000 });
+  await page.waitForFunction(() => !!document.querySelector('button[type="submit"]:not([disabled])'), null, { timeout: 60000 });
   await page.evaluate(() => document.querySelector('button[type="submit"]:not([disabled])').click());
 
-  await page.waitForFunction(() => Array.from(document.querySelectorAll('button')).find(b => /^(Approve|Reject)$/.test(b.textContent.trim())), null, { timeout: 30000 });
+  await page.waitForFunction(() => Array.from(document.querySelectorAll('button')).find(b => /^(Approve|Reject)$/.test(b.textContent.trim())), null, { timeout: 60000 });
   await page.evaluate((r) => {
     const btn = Array.from(document.querySelectorAll('button')).find(b => b.textContent.trim() === r && !b.disabled);
     if (!btn) throw new Error('rating button ' + r + ' not found');
@@ -300,7 +300,7 @@ if (preSubmitWarning) console.log("QC_WARNING_CAPTURED=true");
   await page.waitForFunction(() => {
     const btns = Array.from(document.querySelectorAll('button'));
     return btns.find(b => /^(Continue|Submit task)$/.test(b.textContent.trim()) && !b.disabled);
-  }, null, { timeout: 30000 });
+  }, null, { timeout: 60000 });
   const haiLlm = await page.evaluate(() => {
     const text = document.body.innerText.toLowerCase();
     return { has_warning: /warning|caution|please review/.test(text) };
@@ -315,11 +315,11 @@ if (preSubmitWarning) console.log("QC_WARNING_CAPTURED=true");
   // ============ Phase 7: Continue → Submit task ============
   await page.evaluate(() => Array.from(document.querySelectorAll('button')).find(b => b.textContent.trim() === 'Continue' && !b.disabled).click());
   await new Promise(r => setTimeout(r, 400));
-  await page.waitForFunction(() => Array.from(document.querySelectorAll('button')).find(b => b.textContent.trim() === 'Submit task' && !b.disabled), null, { timeout: 30000 });
+  await page.waitForFunction(() => Array.from(document.querySelectorAll('button')).find(b => b.textContent.trim() === 'Submit task' && !b.disabled), null, { timeout: 60000 });
   await page.evaluate(() => Array.from(document.querySelectorAll('button')).find(b => b.textContent.trim() === 'Submit task' && !b.disabled).click());
 
   // ============ Phase 8: time edit + Confirm time ============
-  await page.waitForFunction(() => Array.from(document.querySelectorAll('button')).find(b => b.textContent.trim() === 'Confirm time' && !b.disabled), null, { timeout: 30000 });
+  await page.waitForFunction(() => Array.from(document.querySelectorAll('button')).find(b => b.textContent.trim() === 'Confirm time' && !b.disabled), null, { timeout: 60000 });
   const sessionTime = await page.evaluate(() => {
     const m = document.body.innerText.match(/Time this session\\s*\\n?\\s*([\\d:]+)/);
     return m ? m[1] : null;
@@ -332,7 +332,7 @@ if (preSubmitWarning) console.log("QC_WARNING_CAPTURED=true");
   }
   if (toSec(sessionTime) < 1200) {
     await page.evaluate(() => Array.from(document.querySelectorAll('button')).find(b => b.textContent.trim() === 'Edit time').click());
-    await page.waitForFunction(() => document.querySelectorAll('input[type="text"], input:not([type])').length >= 3, null, { timeout: 30000 });
+    await page.waitForFunction(() => document.querySelectorAll('input[type="text"], input:not([type])').length >= 3, null, { timeout: 60000 });
     await page.evaluate(() => {
       const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
       const inps = document.querySelectorAll('input[type="text"], input:not([type])');
@@ -346,7 +346,7 @@ if (preSubmitWarning) console.log("QC_WARNING_CAPTURED=true");
   }
 
   await page.evaluate(() => Array.from(document.querySelectorAll('button')).find(b => b.textContent.trim() === 'Confirm time' && !b.disabled).click());
-  await page.waitForFunction(() => Array.from(document.querySelectorAll('button')).find(b => /^(Next task|Go home)$/.test(b.textContent.trim()) && !b.disabled), null, { timeout: 30000 });
+  await page.waitForFunction(() => Array.from(document.querySelectorAll('button')).find(b => /^(Next task|Go home)$/.test(b.textContent.trim()) && !b.disabled), null, { timeout: 60000 });
   const finalTime = await page.evaluate(() => {
     const m = document.body.innerText.match(/Time this session\\s*\\n?\\s*([\\d:]+)/);
     return m ? m[1] : null;

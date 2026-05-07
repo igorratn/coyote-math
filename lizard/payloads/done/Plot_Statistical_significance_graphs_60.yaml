@@ -1,0 +1,26 @@
+task:
+  stem: Plot_Statistical_significance_graphs_60
+  sa_task_filename: Plot_Statistical_significance_graphs_60.json
+  task_id: 187109810
+  image: screenshots/Plot_Statistical_significance_graphs_60.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "72.4"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Statistical_significance_graphs_60.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Examine the image. First, locate the two vertical dotted lines dropping down to the horizontal x-axis. Identify the explicitly printed numerical tick label where the right-most vertical dotted line meets the x-axis, and divide it by the explicitly printed tick label where the left-most vertical dotted line meets the x-axis. Hold this result. Next, examine the legend in the top right. Count the total number of words across all four labels combined (treat the hyphenated "Local-H1" as a single word). Finally, locate the right vertical y-axis and identify the explicitly printed red number located directly below the red number 3.4. Multiply your initial division result by the legend word count, then add that specific red number. Provide your final answer as a single decimal number (e.g., 45.2).
+      answer: "72.4"

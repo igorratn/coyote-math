@@ -1,0 +1,13 @@
+stem: Plot_P-value_visualization_134
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 9b8daff1
+    fired_at: 2026-05-07T15:19:07.728Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

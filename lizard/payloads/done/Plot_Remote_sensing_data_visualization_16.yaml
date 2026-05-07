@@ -1,0 +1,26 @@
+task:
+  stem: Plot_Remote_sensing_data_visualization_16
+  sa_task_filename: Plot_Remote_sensing_data_visualization_16.json
+  task_id: 185554524
+  image: screenshots/Plot_Remote_sensing_data_visualization_16.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: ["Type 1", "Type 7"]
+      feedback: "5/7: Prompt fails Type 3 — counting orange input dots in 2019-2020 sub-range under 9000 NDVI on slide-thumbnail-scale chart isn't pixel-feasible."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Remote_sensing_data_visualization_16.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        In the Time series visualization chart, what is the approximate number of inputs that are within the reconstructed line between 2019 and 2020, that are lower than 9000 Scaled NDVI? Answer the approximate value in whole numbers (e.g., 7).
+      answer: "17"

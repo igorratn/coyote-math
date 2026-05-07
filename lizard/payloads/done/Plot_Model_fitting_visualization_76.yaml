@@ -1,0 +1,45 @@
+task:
+  stem: Plot_Model_fitting_visualization_76
+  sa_task_filename: Plot_Model_fitting_visualization_76.json
+  task_id: 185554272
+  image: screenshots/Plot_Model_fitting_visualization_76.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "0.978"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Model_fitting_visualization_76.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Count the total number of apostrophes, slashes, equal signs, parentheses (count each pair as two), asterisks, periods, and commas across all text in the rightmost panel titled "Transformation" in the image. Then use that count as the x-value to calculate y in the equation in the center of the image, where A = B = 1. Answer with a single number rounded to three decimal places (e.g., 0.123).
+      answer: "0.978"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "1.25"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Model_fitting_visualization_76.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Count the total number of icons in the row of icons directly above "Run", "Variables" and "Transformation" at the top of the image. Do not count any icons above this row of icons. Then divide that value by the number of letters in the shortest name of the algebraic function type shown in the equation in the center of the image. Answer with a single number rounded to two decimal places (e.g., 9.03).
+      answer: "1.25"

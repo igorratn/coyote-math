@@ -1,0 +1,45 @@
+task:
+  stem: Plot_Organic_chemistry_charts_106
+  sa_task_filename: Plot_Organic_chemistry_charts_106.json
+  task_id: 185554368
+  image: screenshots/Plot_Organic_chemistry_charts_106.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "760"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Organic_chemistry_charts_106.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Multiply the number of vowels by the number of consonants across all letters in the text, where "y" is a consonant. Answer with a single whole number (e.g., 128).
+      answer: "760"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "48"
+      flags: ["Type 2"]
+      feedback: null
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Organic_chemistry_charts_106.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Count the total number of lowercase letters in the text. Then, find the absolute difference between that count and the number of functional groups in the image containing a hydroxyl group. Answer with a single whole number (e.g., 81).
+      answer: "48"

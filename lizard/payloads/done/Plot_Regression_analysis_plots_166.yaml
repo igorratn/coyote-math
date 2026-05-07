@@ -1,0 +1,31 @@
+task:
+  stem: Plot_Regression_analysis_plots_166
+  sa_task_filename: Plot_Regression_analysis_plots_166.json
+  task_id: 185554510
+  image: screenshots/Plot_Regression_analysis_plots_166.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "D"
+      flags: ["Type 3"]
+      feedback: null
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_Regression_analysis_plots_166.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        In the graph provided, what is the total number of points where the value of the horizontal axis is less than or equal to 0, assuming no points are perfectly overlapping?
+        
+        A. 18
+        B. 19
+        C. 21
+        D. 22
+      answer: "D"
