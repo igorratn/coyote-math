@@ -114,7 +114,14 @@ process.stdout.write(JSON.stringify(out));')
 ANNOTS_NAME="sa-annots-$STEM.json"
 printf '%s' "$ANNOTS_JSON" > "$TMP_DIR/$ANNOTS_NAME"
 
-EDITOR_URL="https://app.superannotate.com/editor/35245/290044/$TASK_ID?sort=name&direction=asc"
+# Derive project_id from queue file (handles V5 283665 vs V6 290044). Fall back to V6 if missing.
+QUEUE_FILE="queue/${STEM}.json"
+PROJECT_ID=290044
+if [ -f "$QUEUE_FILE" ]; then
+  PARSED=$(node -e "const j=require('./'+process.argv[1]); const m=(j.editor_url||'').match(/\\/editor\\/[0-9]+\\/([0-9]+)\\//); process.stdout.write(m?m[1]:'');" "$QUEUE_FILE" 2>/dev/null)
+  [ -n "$PARSED" ] && PROJECT_ID="$PARSED"
+fi
+EDITOR_URL="https://app.superannotate.com/editor/35245/$PROJECT_ID/$TASK_ID?sort=name&direction=asc"
 START=$(date +%s)
 
 dev-browser --connect --timeout 180 <<DBSCRIPT

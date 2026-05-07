@@ -8,28 +8,9 @@ annotations:
 
   - n: 1
     sa:
-      action: QC_Return
-      rating: thumbs-down
-      answer_final: null
-      flags: ["G1", "Type 7"]
-      feedback: "5/5: Prompt fails V6 anchor-skill requirement. Skills tagged are Enumeration + Attribute Perception + Spatial Reasoning — none of the V6 anchors (Logical Reasoning, Table/Chart/Graph Understanding, World Knowledge) are present. Counting arrow shapes irrespective of color is non-contextual enumeration. Spatial Reasoning is also over-tagged — pure shape-counting is not relational/positional reasoning."
-      verdict_source: auto
-      skills_check: []
-      skills_uncheck: []
-      qtype: "SAQ"
-    hai:
-      task_id_field: Plot_00058_quantitative-research-interpretation_f8e3c707.json
-      role: Reviewing
-      annotation_n: 1
-      prompt: |
-        Based on the given image, count the total number of arrow-like drawings irrespective of color. Leave the final answer as an integer ( e.g. 2).
-      answer: "13"
-
-  - n: 2
-    sa:
       action: approve
       rating: thumbs-up
-      answer_final: "16"
+      answer_final: "2"
       flags: []
       feedback: null
       verdict_source: auto
@@ -39,7 +20,7 @@ annotations:
     hai:
       task_id_field: Plot_00058_quantitative-research-interpretation_f8e3c707.json
       role: Reviewing
-      annotation_n: 2
+      annotation_n: 1
       prompt: |
-        Focusing on the given pie charts in the image, what is the approximate number of people that are likely to be found when you take 40 percent of the green slice in the upper pie chart and multiply it by the total number of people represented by the drawings? Round the final answer to the nearest whole number ( e.g 9).
-      answer: "16"
+        Based on the given image, count the total number of arrow-like drawings irrespective of color. Use the value and multiply it with lowest given percentage on the histogram graph on the right side of the image. Leave the final answer rounded up to the nearest whole number ( e.g. 21).
+      answer: "2"

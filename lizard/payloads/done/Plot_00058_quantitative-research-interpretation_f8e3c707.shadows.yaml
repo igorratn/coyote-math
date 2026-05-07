@@ -1,23 +1,13 @@
 stem: Plot_00058_quantitative-research-interpretation_f8e3c707
-igor_resolved: false
+igor_resolved: true
 shadows:
   - n: 1
-    uuid: d623cbff
-    fired_at: 2026-05-05T18:08:35.874Z
-    rating: Reject
-    time_logged: "00:20:52"
-    verdict_source: auto
-    hai_llm_eval: clean
-    hai_llm_comment: ""
-    reclaimed: false
-    reclaim_diff: null
-  - n: 2
-    uuid: 6265531d
-    fired_at: 2026-05-05T18:12:08.880Z
+    uuid: a9a8df58
+    fired_at: 2026-05-07T00:13:46.976Z
     rating: Approve
     time_logged: "00:20:31"
     verdict_source: auto
-    hai_llm_eval: clean
-    hai_llm_comment: ""
+    hai_llm_eval: warning
+    hai_llm_comment: "The annotation has a few issues. Ambiguity in Counting: \"arrow-like drawings\" could include axis arrows on the bar chart — specify \"large colorful arrows.\" Terminology: graph on right is a bar chart, not a histogram. Clarity in Math Step: \"multiply it with lowest given percentage\" could be misinterpreted (15 vs 0.15). (Note: math is correct: 10 arrows * 0.15 = 1.5 -> 2.) Please revise the prompt."
     reclaimed: false
     reclaim_diff: null
