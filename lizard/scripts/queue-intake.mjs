@@ -70,10 +70,15 @@ function writeQueueFile(row, force) {
   const scrapePath = join(SCRAPES_DIR, `${row.stem}.txt`);
   const isCycle2 = existsSync(join(TASKS_DIR, `${row.stem}.md`));
   const reScrape = existsSync(scrapePath);
+  // V5 second-pass: stems from project 283665 are Nikhil's older-batch cleanup —
+  // treat as cycle-2-equivalent at Job 3 (👎 → action: delete, no QC_Return).
+  // Detected from editor_url. Codified 2026-05-07.
+  const isV5SecondPass = /\/editor\/35245\/283665\//.test(row.editor_url || '');
+  const enriched = isV5SecondPass ? { ...row, second_pass: true } : row;
   const tmp = path + '.tmp';
-  writeFileSync(tmp, JSON.stringify(row, null, 2) + '\n');
+  writeFileSync(tmp, JSON.stringify(enriched, null, 2) + '\n');
   renameSync(tmp, path);
-  const status = isCycle2 ? 'queued-cycle2' : reScrape ? 'queued-rescrape' : 'queued';
+  const status = isCycle2 ? 'queued-cycle2' : reScrape ? 'queued-rescrape' : isV5SecondPass ? 'queued-v5-2nd-pass' : 'queued';
   return { stem: row.stem, status };
 }
 

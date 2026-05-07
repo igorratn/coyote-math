@@ -59,6 +59,19 @@ if (existsSync(PAYLOAD_FILE)) {
 const taskTxt = readFileSync(TASK_FILE, 'utf8');
 const cycle   = existsSync(CYCLE1_ARCHIVE) ? 2 : 1;
 
+// V5 second-pass override (codified 2026-05-07): queue file's `second_pass: true`
+// flag (set by queue-intake.mjs for V5 project 283665) treats the stem as
+// second-pass review per Slack ruling Apr 7: "approve or delete only" — no
+// QC_Return path. Maps cycle-1 + 👎 → action: delete (matching cycle-2
+// semantics), and bypasses the cycle-2 delete-shadow gate by setting
+// prompt_changed_cycle2: true on every annot (the gate's "annotator had a
+// chance and didn't fix it" semantics don't apply to first-pass-in-our-pipeline
+// V5 tasks).
+const QUEUE_FILE = join(LIZARD_DIR, 'queue', `${STEM}.json`);
+const secondPass = existsSync(QUEUE_FILE)
+  ? !!(JSON.parse(readFileSync(QUEUE_FILE, 'utf8')).second_pass)
+  : false;
+
 // ---------- task-level metadata ----------
 const taskIdM = /^- \*\*task_id:\*\*\s*(\S+)/m.exec(taskTxt);
 const saFileM = /^- \*\*SA_TASK_FILENAME:\*\*\s*(\S+)/m.exec(taskTxt);
@@ -173,11 +186,12 @@ for (const [n, ann] of annots) {
   }
 
   // sa.action: cycle-1 + 👎 = QC_Return; cycle-2 + 👎 = delete; 👍 = approve.
+  // V5 second-pass override: 👎 → delete regardless of cycle (codified 2026-05-07).
   let saAction;
   if (rating === 'thumbs-up') {
     saAction = 'approve';
   } else if (rating === 'thumbs-down') {
-    saAction = (cycle === 2) ? 'delete' : 'QC_Return';
+    saAction = (cycle === 2 || secondPass) ? 'delete' : 'QC_Return';
   } else {
     errors.push(`A${n}: rating='${rating}' not thumbs-up/thumbs-down`);
     continue;
@@ -206,19 +220,25 @@ for (const [n, ann] of annots) {
     ? (finalAnswer ?? ann.rewriteAnswer ?? null)
     : null;
 
+  // V5 second-pass: stamp prompt_changed_cycle2: true so Job 4 fires the shadow
+  // (with "Deleted Annotation" placeholder content for action: delete annots).
+  // The cycle-2 delete-shadow gate's skip path is for "annotator had a chance to
+  // fix and didn't" — doesn't apply to first-pass-in-our-pipeline V5 tasks.
+  const sa = {
+    action:         saAction,
+    rating,
+    answer_final:   answerFinal,
+    flags:          ann.flags,
+    feedback,
+    verdict_source: source,
+    skills_check:   skillsCheck,
+    skills_uncheck: skillsUncheck,
+    qtype:          ann.qtype,
+  };
+  if (secondPass) sa.prompt_changed_cycle2 = true;
   built.push({
     n,
-    sa: {
-      action:         saAction,
-      rating,
-      answer_final:   answerFinal,
-      flags:          ann.flags,
-      feedback,
-      verdict_source: source,
-      skills_check:   skillsCheck,
-      skills_uncheck: skillsUncheck,
-      qtype:          ann.qtype,
-    },
+    sa,
     hai: {
       task_id_field: saFile,
       role:          'Reviewing',
@@ -382,9 +402,10 @@ function verifyPayload(path, builtArr, cycle, annotMap) {
       errs.push(`A${a.n}: thumbs-up should map to action=approve, got ${sa.action}`);
     }
     if (sa.rating === 'thumbs-down') {
-      const expected = (cycle === 2) ? 'delete' : 'QC_Return';
+      // V5 second-pass: 👎 → delete regardless of cycle.
+      const expected = (cycle === 2 || secondPass) ? 'delete' : 'QC_Return';
       if (sa.action !== expected) {
-        errs.push(`A${a.n}: cycle ${cycle} + thumbs-down should map to action=${expected}, got ${sa.action}`);
+        errs.push(`A${a.n}: cycle ${cycle}${secondPass ? ' (V5 second-pass)' : ''} + thumbs-down should map to action=${expected}, got ${sa.action}`);
       }
     }
 
