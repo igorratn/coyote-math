@@ -1,0 +1,53 @@
+stem: Plot_00078_data-collection-labeling-market_7797383b
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 6fb05d0e
+    fired_at: 2026-05-07T04:06:47.065Z
+    rating: Approve
+    time_logged: "00:20:21"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 9784bd6e
+    fired_at: 2026-05-07T04:07:27.844Z
+    rating: Approve
+    time_logged: "00:20:20"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: 0174b24e
+    fired_at: 2026-05-07T04:08:27.881Z
+    rating: Approve
+    time_logged: "00:20:53"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 4
+    uuid: b84a7ac4
+    fired_at: 2026-05-07T04:09:59.698Z
+    rating: Approve
+    time_logged: "00:20:23"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 5
+    uuid: 17ed44c2
+    fired_at: 2026-05-07T04:10:31.699Z
+    rating: Approve
+    time_logged: "00:20:27"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

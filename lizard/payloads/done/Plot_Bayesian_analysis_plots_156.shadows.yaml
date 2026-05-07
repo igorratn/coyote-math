@@ -1,0 +1,33 @@
+stem: Plot_Bayesian_analysis_plots_156
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: 4e6b3ca9
+    fired_at: 2026-05-07T04:33:15.450Z
+    rating: Approve
+    time_logged: "00:20:26"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: f0a9619d
+    fired_at: 2026-05-07T04:34:01.660Z
+    rating: Approve
+    time_logged: "00:20:39"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: 11ffeb98
+    fired_at: 2026-05-07T04:34:29.860Z
+    rating: Approve
+    time_logged: "00:20:24"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

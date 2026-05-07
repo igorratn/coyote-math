@@ -1,0 +1,53 @@
+stem: Plot_00079_example-for-correlations-1-1024x731_58362aad
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: 45189957
+    fired_at: 2026-05-07T04:21:52.106Z
+    rating: Approve
+    time_logged: "00:20:36"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 176fe22f
+    fired_at: 2026-05-07T04:22:39.123Z
+    rating: Approve
+    time_logged: "00:20:38"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: 5d73e034
+    fired_at: 2026-05-07T04:23:17.736Z
+    rating: Approve
+    time_logged: "00:20:32"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 4
+    uuid: 4eef79b2
+    fired_at: 2026-05-07T04:24:10.498Z
+    rating: Approve
+    time_logged: "00:20:48"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 5
+    uuid: a8d96d8b
+    fired_at: 2026-05-07T04:24:58.966Z
+    rating: Approve
+    time_logged: "00:20:34"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "No relationship (1): The bottom-left graph displays random noise/scatter. Statistically, this is just a lack of any relationship, and it is incorrect to classify it as a \"non-linear\" graph—especially when the chart explicitly distinguishes it from the actual \"Non-linear\" panel next to it. The absolute difference between the linear graphs (2) and non-linear graphs (1) is 1 (|2 - 1| = 1). Please upd"
+    reclaimed: false
+    reclaim_diff: null

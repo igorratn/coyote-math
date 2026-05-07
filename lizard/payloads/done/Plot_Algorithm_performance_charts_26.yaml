@@ -1,0 +1,93 @@
+task:
+  stem: Plot_Algorithm_performance_charts_26
+  sa_task_filename: Plot_Algorithm_performance_charts_26.json
+  task_id: 186800426
+  image: screenshots/Plot_Algorithm_performance_charts_26.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: "5/6: Skill tags corrected: dropped Attribute Perception and World Knowledge (chart-read + division task; axis/legend reading covered by TCG, no external knowledge needed)."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: [Attribute Perception, World Knowledge]
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_Algorithm_performance_charts_26.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        At an input size of about 400 bytes how many times faster is the vb64 compared to the baseline?
+        
+        A. about 4.5 times faster
+        B. about 3.5 times faster
+        C. about 2.5 times faster
+        D. about 1.5 times faster
+      answer: "C"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "A"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_Algorithm_performance_charts_26.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        If we approximate the baseline data with a linear equation, what will it predict the Average time to be for an Input Size of 750 bytes?
+        
+        A. 475
+        B. 500
+        C. 450
+        D. 425
+      answer: "A"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "1350"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Algorithm_performance_charts_26.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        What do you get when you add all the numbers on the x-axis and then subtract the sum of all the numbers on the y-axis? Answer as an integer, e.g. 17.
+      answer: "1350"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "42.97"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Algorithm_performance_charts_26.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        What do you get when you add all the numbers on the x-axis and then divide by the sum of all numbers present in the image not evenly divisible by 5? Answer as a number rounded to two decimal places, e.g. 17.67.
+      answer: "42.97"

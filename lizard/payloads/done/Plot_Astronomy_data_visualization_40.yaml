@@ -1,0 +1,53 @@
+task:
+  stem: Plot_Astronomy_data_visualization_40
+  sa_task_filename: Plot_Astronomy_data_visualization_40.json
+  task_id: 186800439
+  image: screenshots/Plot_Astronomy_data_visualization_40.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "B"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_Astronomy_data_visualization_40.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        What is the absolute difference between the number of featureless spheres and the number of objects showing surface detail?
+        A. 0
+        B. 1
+        C. 2
+        D. 3
+      answer: "B"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_Astronomy_data_visualization_40.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Which object in the three-stage progression provides the most information about the celestial body being visualized, and what specific visual features make it most informative?
+        A. Grey sphere — because it shows the true size of the object
+        B. Dark sphere — because it shows the object's albedo
+        C. Earth — because it shows recognizable surface features including oceans and landmasses
+        D. All three provide equal information
+      answer: "C"

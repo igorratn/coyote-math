@@ -393,21 +393,9 @@ for (const skel of skelAnnots) {
       );
       finalPick = closeUp ?? allUp[0];
       decision = closeUp ? 'auto-resolved' : 'pending-igor';
-      // Skill-audit gate: if auto-resolve would ship a payload that fails the
-      // skill audit (prompt requires a skill that isn't in the final tagged set),
-      // demote to pending-igor so Igor walks the annot at 3a and can add the
-      // missing skill via the Igor Verdict's skills_check field.
-      // Codified 2026-05-06 — Dashboard batch: 11/12 mismatches were Job 2
-      // carve-outs that bypassed the 3a-only skill audit.
-      if (decision === 'auto-resolved') {
-        const editsDelta = parseEditsMade(closeUp.editsMadeText ?? '');
-        const origSkills = new Set((skel.skills || '').split(',').map(s => s.trim()).filter(Boolean));
-        const finalSkills = new Set([...origSkills, ...editsDelta.skills_check].filter(s => !editsDelta.skills_uncheck.includes(s)));
-        const missing = auditPromptSkills(skel.prompt, finalSkills);
-        if (missing.length) {
-          decision = 'pending-igor';
-        }
-      }
+      // Job-2 skill-audit gate removed 2026-05-07 (Igor): too many false
+      // positives (e.g. "average" matching the chart-legend marker name on
+      // Plot_00076 A1/A5). Job 5 pre-Save audit is the surviving safety net.
     } else {
       // Auto-resolve down gate (2026-04-25, Igor codification):
       //   ALL configured reviewers fired (≥2) AND ALL rated 👎 AND ALL flagged G1

@@ -64,8 +64,21 @@ const page = await browser.getPage("hai-lizard-job4");
 const t0 = Date.now();
 
 // ============ Phase 0: open new task ============
-await page.goto("https://ai.joinhandshake.com/fellow/projects", { waitUntil: "domcontentloaded" });
-await page.waitForFunction(() => Array.from(document.querySelectorAll('button')).find(b => b.textContent.trim() === 'Start task' && !b.disabled), null, { timeout: 30000 });
+// HAI's /fellow/projects can be slow to reach domcontentloaded under load —
+// retry the goto on timeout (codified 2026-05-07).
+async function gotoProjects() {
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      await page.goto("https://ai.joinhandshake.com/fellow/projects", { waitUntil: "domcontentloaded", timeout: 60000 });
+      return;
+    } catch (e) {
+      if (attempt === 2) throw e;
+      await new Promise(r => setTimeout(r, 2000));
+    }
+  }
+}
+await gotoProjects();
+await page.waitForFunction(() => Array.from(document.querySelectorAll('button')).find(b => b.textContent.trim() === 'Start task' && !b.disabled), null, { timeout: 60000 });
 await page.evaluate(() => {
   const lizardEl = Array.from(document.querySelectorAll('*')).find(el => el.children.length === 0 && el.textContent.trim() === 'Project Lizard');
   if (!lizardEl) throw new Error('Project Lizard text not found');
@@ -225,7 +238,24 @@ await page.evaluate(() => {
 console.log("PHASE4_MS=" + (Date.now() - t0));
 
 // ============ Phase 5: LLM validation + QC capture ============
-await page.waitForFunction(() => Array.from(document.querySelectorAll('button')).find(b => b.textContent.trim() === 'Reviewing' && !b.disabled), null, { timeout: 120000 });
+// HAI's pre-submit LLM validation can fail and surface a "Retry" button
+// (codified 2026-05-07). Watch for either Reviewing (success) or Retry; click
+// Retry up to 3 times before giving up.
+{
+  let retries = 0;
+  while (true) {
+    await page.waitForFunction(() => {
+      const btns = Array.from(document.querySelectorAll('button'));
+      return btns.find(b => (b.textContent.trim() === 'Reviewing' || b.textContent.trim() === 'Retry') && !b.disabled);
+    }, null, { timeout: 120000 });
+    const isRetry = await page.evaluate(() => !!Array.from(document.querySelectorAll('button')).find(b => b.textContent.trim() === 'Retry' && !b.disabled));
+    if (!isRetry) break;
+    if (++retries > 3) throw new Error('HAI LLM validation Retry limit exceeded');
+    console.log("LLM_RETRY=" + retries);
+    await page.evaluate(() => Array.from(document.querySelectorAll('button')).find(b => b.textContent.trim() === 'Retry' && !b.disabled).click());
+    await new Promise(r => setTimeout(r, 1000));
+  }
+}
 console.log("PHASE5_LLM_MS=" + (Date.now() - t0));
 
 const qc = await page.evaluate(() => {

@@ -1,0 +1,120 @@
+task:
+  stem: Plot_00078_biological_data_visualization_global_market_report_4507508c
+  sa_task_filename: Plot_00078_biological_data_visualization_global_market_report_4507508c.json
+  task_id: 186800365
+  image: screenshots/Plot_00078_biological_data_visualization_global_market_report_4507508c.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "2"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_00078_biological_data_visualization_global_market_report_4507508c.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        In the infographic, consider only the large circular or rounded-square icon graphics located in the central content sections (excluding any icons in the bottom row).
+        Among these, how many icons contain both a geometric shape (like a circle or rectangle) and at least one line extending outward from that shape?
+        Short Answer (format: integer, e.g., 1)
+      answer: "2"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "B"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_00078_biological_data_visualization_global_market_report_4507508c.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        In the circular icon located immediately to the right of the market driver description, how many open circular nodes are positioned at the terminal ends of the circuit lines extending outward from the central gear?
+        A. 4
+        B. 5
+        C. 6
+        D. 7
+      answer: "B"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "D"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_00078_biological_data_visualization_global_market_report_4507508c.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        How many distinct social media platform icons are visible in the entire infographic?
+        A. 1
+        B. 2
+        C. 3
+        D. 4
+      answer: "D"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "D"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_00078_biological_data_visualization_global_market_report_4507508c.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        In the square icon positioned immediately to the right of the expected growth rate section, how many distinct teeth (cogs) protrude from the outer perimeter of the gear graphic located in the top-right corner of the monitor screen?
+        A. 5
+        B. 6
+        C. 7
+        D. 8
+      answer: "D"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_00078_biological_data_visualization_global_market_report_4507508c.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        How many sections in the infographic contain both a visual icon and an associated textual description directly aligned with it (excluding the title area and footer)?
+        A. 2
+        B. 3
+        C. 4
+        D. 5
+      answer: "C"

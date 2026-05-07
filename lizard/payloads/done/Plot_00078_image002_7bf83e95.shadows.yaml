@@ -1,0 +1,53 @@
+stem: Plot_00078_image002_7bf83e95
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: cd53eff7
+    fired_at: 2026-05-07T04:17:20.323Z
+    rating: Approve
+    time_logged: "00:20:13"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 22be32dc
+    fired_at: 2026-05-07T04:18:49.646Z
+    rating: Approve
+    time_logged: "00:20:29"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: ec57475a
+    fired_at: 2026-05-07T04:19:43.803Z
+    rating: Approve
+    time_logged: "00:20:44"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 4
+    uuid: 631abde8
+    fired_at: 2026-05-07T04:20:13.428Z
+    rating: Approve
+    time_logged: "00:20:24"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 5
+    uuid: af590904
+    fired_at: 2026-05-07T04:21:10.089Z
+    rating: Approve
+    time_logged: "00:20:49"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "Case Sensitivity: Because you are asking the solver to evaluate distinct/unique text, you must declare case sensitivity (e.g., stating \"case-insensitive\") to comply with the text-counting rule, even if the repeating words in this specific image share the exact same casing. Suggested Fix: \"What is the sum of the number of distinct, alphabetical handwritten words (case-insensitive) in the entire ima"
+    reclaimed: false
+    reclaim_diff: null

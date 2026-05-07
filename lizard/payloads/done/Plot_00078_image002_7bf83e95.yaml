@@ -1,0 +1,102 @@
+task:
+  stem: Plot_00078_image002_7bf83e95
+  sa_task_filename: Plot_00078_image002_7bf83e95.json
+  task_id: 186800368
+  image: screenshots/Plot_00078_image002_7bf83e95.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "2"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_00078_image002_7bf83e95.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        What is the absolute difference between the number of labeled x-axis values and the number of labeled y-axis values? Report the answer as a whole integer (e.g. 10).
+      answer: "2"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "12"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_00078_image002_7bf83e95.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        What is the sum of the number of data points in the graph and the number of suits in a standard deck of cards? Report the answer as a whole integer (e.g. 1).
+      answer: "12"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "2"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_00078_image002_7bf83e95.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        What is the absolute difference between the number of data points that are above the line and the number of data points that are below the line in the graph? Note: Focus on the data point itself and not the circle surrounding it. Exclude the last data point on the very top right of the image from the calculation. Report the answer as a whole integer (e.g. 10).
+      answer: "2"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "242"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_00078_image002_7bf83e95.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        What is the sum of the fifth x-axis value and the first y-axis value? Assume that the first value of each axis is the first value starting from the bottom left of the graph. Round the answer up to the nearest whole integer (e.g. 1).
+      answer: "242"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "11"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_00078_image002_7bf83e95.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        What is the sum of the number of distinct, handwritten words in the entire image and the number of seasons in a year? Note: Do not count anything in parentheses in the calculation. Report the answer as a whole integer (e.g. 1).
+      answer: "11"

@@ -1,0 +1,23 @@
+stem: Plot_Astronomy_data_visualization_40
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 8e560117
+    fired_at: 2026-05-07T03:46:56.569Z
+    rating: Approve
+    time_logged: "00:20:38"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 461dc26a
+    fired_at: 2026-05-07T03:47:25.952Z
+    rating: Approve
+    time_logged: "00:20:23"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

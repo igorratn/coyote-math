@@ -1,0 +1,90 @@
+task:
+  stem: Plot_Bayesian_analysis_plots_156
+  sa_task_filename: Plot_Bayesian_analysis_plots_156.json
+  task_id: 186800450
+  image: screenshots/Plot_Bayesian_analysis_plots_156.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "tessbnaswhpc"
+      flags: []
+      feedback: "5/6: Skill tags corrected: dropped Enumeration, Spatial Reasoning, World Knowledge; added Table/Chart/Graph Understanding (text extraction from a chart component is covered by TCG; the other three don't apply to a 6-word per-word extraction task)."
+      verdict_source: igor
+      skills_check: [Table/Chart/Graph Understanding]
+      skills_uncheck: [Enumeration, Spatial Reasoning, World Knowledge]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Bayesian_analysis_plots_156.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Look at the title text above the plot.
+        
+        Read the text in Standard English reading order.
+        
+        For each space-separated word, extract the first and last English alphabetic character only, and append them (in order) to a result string.
+        
+        Ignore any non-English characters, numbers, symbols, and punctuation.  
+        
+        Convert all extracted letters to lowercase.  
+        
+        Return the final result as a string (e.g., "iamastring").
+        
+        Example: if the title text is "no substrings", the result would be "noss".
+      answer: "tessbnaswhpc"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "72"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Bayesian_analysis_plots_156.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Look at ALL TEXT ANYWHERE IN THE IMAGE.
+        
+        Count the total number of occurrences of vowels. Call that V.
+        
+        For example, "too" has two vowels.
+        
+        Do not count "y" as a vowel.
+        
+        Multiply V by 2 and return the result as an integer (e.g., 2).
+      answer: "72"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "33"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Bayesian_analysis_plots_156.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Extract and sum all individual digits that appear in any text anywhere in the image.
+        
+        If a number has multiple digits, extract each digit separately before summing. 
+        
+        For example, "-1.5" becomes 1 + 5. Ignore negative signs.
+        
+        Return the result as an integer (e.g., 2).
+      answer: "33"

@@ -1,0 +1,85 @@
+task:
+  stem: Plot_00078_featured_6efa2447
+  sa_task_filename: Plot_00078_featured_6efa2447.json
+  task_id: 186800367
+  image: screenshots/Plot_00078_featured_6efa2447.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "B"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_00078_featured_6efa2447.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        The text that says "Creating data-driven art" is written in a particular color. In how many distinct horizontal rows does that same color appear within the chart?
+        Instructions:
+        Identify the color of the text and count only rows containing that color.
+        Each row is counted once, even if multiple blocks of that color are present.
+        A. 2
+        B. 3
+        C. 4
+        D. 5
+      answer: "B"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "D"
+      flags: []
+      feedback: null
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_00078_featured_6efa2447.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        In the chart, how many individual pink-colored segments (blocks) appear in total across all rows?
+        Instructions:
+        Only count pink-colored blocks.
+        Each separate block is counted individually, even if in the same row.
+        A. 9
+        B. 10
+        C. 11
+        D. 12
+      answer: "D"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "D"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_00078_featured_6efa2447.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        In the chart, if you check each horizontal row, what is the maximum number of distinct colors present in any single row?
+        Instructions:
+        Count how many different colors appear in each individual row.
+        Find the row with the highest number of distinct colors.
+        A. 2
+        B. 3
+        C. 4
+        D. 5
+      answer: "D"

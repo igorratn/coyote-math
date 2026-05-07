@@ -1,0 +1,122 @@
+task:
+  stem: Plot_00078_data-collection-labeling-market_7797383b
+  sa_task_filename: Plot_00078_data-collection-labeling-market_7797383b.json
+  task_id: 186800366
+  image: screenshots/Plot_00078_data-collection-labeling-market_7797383b.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "B"
+      flags: []
+      feedback: "5/6: Skill tag corrected: dropped Logical Reasoning (counting + chart-reading task, no chained inference)."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: [Logical Reasoning]
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_00078_data-collection-labeling-market_7797383b.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        How many years have a total market size explicitly labeled above the bars (i.e., numeric annotations shown on top)?
+        A. 2
+        B. 3
+        C. 4
+        D. 5
+      answer: "B"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "B"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_00078_data-collection-labeling-market_7797383b.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Focus strictly on the vertically oriented y-axis title text located on the far left of the chart. Exactly how many uppercase alphabetical letters are contained entirely within the parentheses of that specific title?
+        A. 2
+        B. 3
+        C. 4
+        D. 5
+      answer: "B"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "B"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_00078_data-collection-labeling-market_7797383b.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        How many regions shown in the legend have their segments present in every single year from the first year to the last year?
+        A. 3
+        B. 4
+        C. 5
+        D. 2
+      answer: "B"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "B"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_00078_data-collection-labeling-market_7797383b.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        Between the bars that have numeric labels above them, how many unlabeled bars lie strictly between the first and the last labeled bars?
+        A. 4
+        B. 5
+        C. 6
+        D. 7
+      answer: "B"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "B"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_00078_data-collection-labeling-market_7797383b.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        Among the years that have numeric labels above the bars, which year is the middle one when ordered chronologically?
+        A. 2023
+        B. 2024
+        C. 2028
+        D. 2030
+      answer: "B"

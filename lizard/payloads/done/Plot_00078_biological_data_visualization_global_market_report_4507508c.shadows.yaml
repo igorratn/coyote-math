@@ -1,0 +1,53 @@
+stem: Plot_00078_biological_data_visualization_global_market_report_4507508c
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: 0be65107
+    fired_at: 2026-05-07T04:00:23.513Z
+    rating: Approve
+    time_logged: "00:20:48"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 4c31884f
+    fired_at: 2026-05-07T04:00:57.065Z
+    rating: Approve
+    time_logged: "00:20:25"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: e3c9873c
+    fired_at: 2026-05-07T04:01:25.246Z
+    rating: Approve
+    time_logged: "00:20:23"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 4
+    uuid: c1aaf90c
+    fired_at: 2026-05-07T04:01:57.078Z
+    rating: Approve
+    time_logged: "00:20:27"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 5
+    uuid: e1cbb36f
+    fired_at: 2026-05-07T04:04:15.806Z
+    rating: Approve
+    time_logged: "00:20:04"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

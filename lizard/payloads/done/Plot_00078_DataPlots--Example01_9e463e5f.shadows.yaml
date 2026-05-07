@@ -1,0 +1,43 @@
+stem: Plot_00078_DataPlots--Example01_9e463e5f
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: f2cd4676
+    fired_at: 2026-05-07T03:54:28.354Z
+    rating: Approve
+    time_logged: "00:20:31"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 1ec1ca77
+    fired_at: 2026-05-07T03:54:57.668Z
+    rating: Approve
+    time_logged: "00:20:24"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: 40aaa768
+    fired_at: 2026-05-07T03:55:34.819Z
+    rating: Approve
+    time_logged: "00:20:26"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 4
+    uuid: ad51ad63
+    fired_at: 2026-05-07T03:56:05.129Z
+    rating: Approve
+    time_logged: "00:20:25"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

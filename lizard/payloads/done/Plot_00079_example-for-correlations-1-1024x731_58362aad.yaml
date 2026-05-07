@@ -1,0 +1,110 @@
+task:
+  stem: Plot_00079_example-for-correlations-1-1024x731_58362aad
+  sa_task_filename: Plot_00079_example-for-correlations-1-1024x731_58362aad.json
+  task_id: 186800369
+  image: screenshots/Plot_00079_example-for-correlations-1-1024x731_58362aad.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "1"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_00079_example-for-correlations-1-1024x731_58362aad.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Locate the bottom left graph. What is the absolute difference between the number of labeled x-axis values and the number of labeled y-axis values? Report the answer as a whole integer (e.g. 10).
+      answer: "1"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "D"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_00079_example-for-correlations-1-1024x731_58362aad.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Which of the following graphs contains data points that follow the path of a line most closely? 
+        A. Positive relationship
+        B. Negative relationship
+        C. No relationship
+        D. Non-linear relationship
+      answer: "D"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "13"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_00079_example-for-correlations-1-1024x731_58362aad.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        What is the sum of the total number of capital letters in the image and the number of seasons in a year? Report the answer as a whole integer (e.g. 1).
+      answer: "13"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "D"
+      flags: []
+      feedback: "5/6: Skill tags corrected: dropped Spatial Reasoning, added Logical Reasoning (cross-panel distribution comparison is logical reasoning, not 2D spatial layout)."
+      verdict_source: igor
+      skills_check: [Logical Reasoning]
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_00079_example-for-correlations-1-1024x731_58362aad.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        Which of the following graphs has the most number of data points closest to both ends on the y-axis? 
+        A. Positive relationship
+        B. Negative relationship
+        C. No relationship
+        D. Non-linear relationship
+      answer: "D"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "0"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_00079_example-for-correlations-1-1024x731_58362aad.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        What is the absolute difference between the number of linear graphs and the non-linear graphs in the image? Report the answer as a whole integer (e.g. 10).
+      answer: "0"

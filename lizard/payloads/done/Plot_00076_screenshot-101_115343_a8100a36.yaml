@@ -1,0 +1,119 @@
+task:
+  stem: Plot_00076_screenshot-101_115343_a8100a36
+  sa_task_filename: Plot_00076_screenshot-101_115343_a8100a36.json
+  task_id: 186800363
+  image: screenshots/Plot_00076_screenshot-101_115343_a8100a36.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "D"
+      flags: []
+      feedback: null
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_00076_screenshot-101_115343_a8100a36.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        In the graph, focus on the month of July. Identify the interval between two consecutive y-axis tick marks within which the average marker (dot) for July lies.
+        A. 80–95
+        B. 90–100
+        C. 85–95
+        D. 90–95
+      answer: "D"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "240"
+      flags: []
+      feedback: "5/6: Skill tag corrected: added Enumeration (\"Identify all the y-axis tick values\" is an enumeration step before the sum)."
+      verdict_source: igor
+      skills_check: [Enumeration]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_00076_screenshot-101_115343_a8100a36.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        In the graph, focus on the month of September. Identify all the y-axis tick values that are intersected by the vertical temperature range line (from low to high) for September, including both endpoints.
+        Add all these intersecting y-axis values.
+        Short Answer (format: integer, e.g., 150)
+      answer: "240"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "165"
+      flags: []
+      feedback: "5/7: Model regenerated — produced 245; annotator's 165 differs, so the prompt is a valid stump. Approving."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_00076_screenshot-101_115343_a8100a36.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Identify all horizontal grid lines that strictly pass through the interior of exactly two vertical "range" lines (meaning the grid line's value is strictly greater than the bottom tip and strictly less than the top tip for exactly two months). Provide the sum of the numerical y-axis values of these specific grid lines.
+        Short Answer (i.e., 123)
+      answer: "165"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_00076_screenshot-101_115343_a8100a36.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        In the graph, consider all months shown. For each month, determine the temperature range by subtracting the low value from the high value (no intermediate rounding).
+        Which month has the largest temperature range?
+        A. May
+        B. June
+        C. July
+        D. August
+      answer: "C"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "B"
+      flags: []
+      feedback: null
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_00076_screenshot-101_115343_a8100a36.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        In the graph, consider all months shown. Identify the month(s) where the average marker (dot) lies exactly on a horizontal gridline (not between two gridlines).
+        How many such months are there?
+        A. 0
+        B. 1
+        C. 2
+        D. 3
+      answer: "B"

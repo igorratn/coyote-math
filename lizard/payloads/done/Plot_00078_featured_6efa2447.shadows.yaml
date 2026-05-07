@@ -1,0 +1,33 @@
+stem: Plot_00078_featured_6efa2447
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 476f4ce6
+    fired_at: 2026-05-07T04:12:03.897Z
+    rating: Approve
+    time_logged: "00:20:21"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 00852105
+    fired_at: 2026-05-07T04:12:55.422Z
+    rating: Approve
+    time_logged: "00:20:47"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: 04417c31
+    fired_at: 2026-05-07T04:13:53.980Z
+    rating: Approve
+    time_logged: "00:20:53"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

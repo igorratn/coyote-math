@@ -1,0 +1,107 @@
+task:
+  stem: Plot_00078_DataPlots--Example01_9e463e5f
+  sa_task_filename: Plot_00078_DataPlots--Example01_9e463e5f.json
+  task_id: 186800364
+  image: screenshots/Plot_00078_DataPlots--Example01_9e463e5f.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: "5/6: Skill tag corrected: added Enumeration (\"how many values\" is a counting prompt)."
+      verdict_source: igor
+      skills_check: [Enumeration]
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_00078_DataPlots--Example01_9e463e5f.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        From the dataset shown in the image, how many values are strictly greater than the median?
+        Instructions:
+        Use all visible scores.
+        If the dataset has an even count, take the median as the average of the two middle values.
+        Count only values strictly greater than the median (not equal).
+        A. 8
+        B. 9
+        C. 10
+        D. 11
+      answer: "C"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "B"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_00078_DataPlots--Example01_9e463e5f.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Identify the numerical value aligned perfectly with the extreme right edge of the solid blue box on the bottom scale. Locate every instance of this exact value within the two columns of test scores. For each instance found, identify the number located in the exact same horizontal row, but in the opposite column. Calculate the sum of these newly identified numbers.
+        A. 255
+        B. 178
+        C. 195
+        D. 210
+      answer: "B"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "B"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_00078_DataPlots--Example01_9e463e5f.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Identify the numerical value aligned perfectly with the extreme left end of the horizontal line extending to the left of the blue box. Locate all instances of this exact value within the two columns of test scores. For each instance found, identify the number located in the exact same horizontal row, but in the opposite column. Calculate the absolute difference between these newly identified numbers.
+        A. 20
+        B. 40
+        C. 50
+        D. 160
+      answer: "B"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "B"
+      flags: []
+      feedback: "5/6: Skill tag corrected: added Enumeration (\"Count total occurrences\" is a counting prompt)."
+      verdict_source: igor
+      skills_check: [Enumeration]
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_00078_DataPlots--Example01_9e463e5f.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        From the dataset shown in the image, how many values are equal to either the lower quartile (Q1) or the upper quartile (Q3)?
+        Instructions:
+        Use all visible scores.
+        Compute Q1 and Q3 using the standard method (exclude median when splitting).
+        Count total occurrences of values equal to Q1 or Q3.
+        A. 2
+        B. 3
+        C. 4
+        D. 5
+      answer: "B"
