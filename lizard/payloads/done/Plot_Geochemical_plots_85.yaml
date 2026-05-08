@@ -1,0 +1,55 @@
+task:
+  stem: Plot_Geochemical_plots_85
+  sa_task_filename: Plot_Geochemical_plots_85.json
+  task_id: 187299691
+  image: screenshots/Plot_Geochemical_plots_85.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "A"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_Geochemical_plots_85.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Using the legend on the right side of the graph, which of the following values has the highest concentration of "Points per grid cell"? Provide the answer as the corresponding letter to one of the choices below (e.g., A).
+        
+        A. Cu/(Cu+Ni) = 0.2
+        B. Cu/(Cu+Ni) = 0.7
+        C. (Cu+Ni)/S = 0.5
+        D. Cu/(Cu+Ni) = 0.4
+      answer: "A"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "D"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_Geochemical_plots_85.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        According to the Victor graph, between what x-axis numerical labels does the trend of plotted data of high Points per grid cell show that the metal to sulfur ratio remains constant? Provide the answer as the corresponding letter to one of the choices below (e.g., B).
+        
+        A. 0 ≤ x ≤ 0.6
+        B. 0.4 ≤ x ≤ 0.6
+        C. 0.2 ≤ x ≤ 0.6
+        D. 0.8 ≤ x ≤ 1
+      answer: "D"

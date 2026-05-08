@@ -1,0 +1,45 @@
+task:
+  stem: Plot_Computational_results_chart_35
+  sa_task_filename: Plot_Computational_results_chart_35.json
+  task_id: 187299378
+  image: screenshots/Plot_Computational_results_chart_35.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: ["Type 2"]
+      feedback: "5/8: Pie chart has 9 visible labeled slices; per the prompt's \"items just means a section of the data set\", the minimum is 9. Annotator's 10 is off by one — please recount the slices."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Computational_results_chart_35.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Looking at the pie chart, what is the minimum number of items that could be represented in the data set? Items just means a section of the data set. Answer as a single whole number (e.g., 4).
+      answer: "10"
+
+  - n: 2
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: ["G5", "Type 7"]
+      feedback: "5/8: Prompt is ambiguous on \"highest position on the chart\" — could mean the 12 o'clock starting line (where the next slice clockwise is the 1st) or the slice whose top edge is at 12. Please clarify the starting reference."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Computational_results_chart_35.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Looking at the pie chart, starting from the highest position on the chart and moving clockwise, what is the name of the fifth slice you encounter? The slice you begin on is the first encountered slice. Answer with the exact label as shown in the chart (e.g., Software Complexity).
+      answer: "Poor Geometry Representation"

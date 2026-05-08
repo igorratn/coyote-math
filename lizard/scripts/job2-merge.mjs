@@ -629,6 +629,22 @@ function renderAnnotation(entry) {
         .replace(/^\s*\.\s*/, '')   // tidy leading orphan period
         .trim();
     }
+    // Internal-jargon sanitizer (codified 2026-05-08 — Customer_Experience_5
+    // incident): strip any sentence mentioning pipeline-internal terms that
+    // shouldn't leak into annotator-facing QC feedback. The annotator should
+    // never see "skeleton", "HAI", reviewer model names, etc. — those are our
+    // internal scaffolding. Drop the whole sentence rather than redacting
+    // mid-sentence (cleaner output, no half-sentence stubs).
+    if (editsText) {
+      const INTERNAL_TERMS = /\b(skeleton|HAI|HAI\s*QC|opus|gpt|gemini|grok|reviewer'?s?|model'?s?|scaffold(?:ing)?)\b/i;
+      editsText = editsText
+        .split(/(?<=\.)\s+/)
+        .filter(sentence => !INTERNAL_TERMS.test(sentence))
+        .join(' ')
+        .replace(/^\s*\.\s*/, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
     feedbackBody = editsText
       ? `${mdToday}: Skill tag corrected: ${editsText}`
       : `${mdToday}: Skill tag corrected (no rationale captured).`;

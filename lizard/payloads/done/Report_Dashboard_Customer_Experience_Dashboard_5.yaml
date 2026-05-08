@@ -8,19 +8,19 @@ annotations:
 
   - n: 1
     sa:
-      action: QC_Return
-      rating: thumbs-down
-      answer_final: null
+      action: approve
+      rating: thumbs-up
+      answer_final: "259.5"
       flags: []
-      feedback: "2026-05-06: Model did not generate an answer for this annotation — treated as not stumped. Annotator must regenerate model response before resubmitting."
+      feedback: "5/8: Skill tags corrected: dropped Spatial Reasoning and World Knowledge; added Table/Chart/Graph Understanding and Enumeration."
       verdict_source: auto
-      skills_check: []
-      skills_uncheck: []
+      skills_check: [Enumeration, Table/Chart/Graph Understanding]
+      skills_uncheck: [Spatial Reasoning, World Knowledge]
       qtype: "SAQ"
     hai:
       task_id_field: Report_Dashboard_Customer_Experience_Dashboard_5.json
       role: Reviewing
       annotation_n: 1
       prompt: |
-        Based on the infographic,  "Top Issues by channel" subtract the communication channel  with the highest number of tickets  from the sum of two channels with the lowest number of tickets excluding the WhatsApp channel. (answer as a whole number e.g., -1)
-      answer: "38"
+        Analyze the data in the image, Calculate the mean of total tickets shown in the "Top issues by Product" part. Add the answer to the fourth highest number of tickets in the entire image. Round off answer to 1 decimal place (e.g. 1.8)
+      answer: "259.5"

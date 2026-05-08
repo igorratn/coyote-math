@@ -1,0 +1,23 @@
+stem: Plot_Geochemical_plots_85
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 8e5febf5
+    fired_at: 2026-05-08T01:11:38.529Z
+    rating: Approve
+    time_logged: "00:20:32"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 888e330c
+    fired_at: 2026-05-08T01:12:12.579Z
+    rating: Approve
+    time_logged: "00:20:29"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

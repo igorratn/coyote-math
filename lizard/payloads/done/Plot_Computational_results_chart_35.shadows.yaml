@@ -1,0 +1,23 @@
+stem: Plot_Computational_results_chart_35
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 93280c9b
+    fired_at: 2026-05-08T01:10:02.700Z
+    rating: Reject
+    time_logged: "00:20:00"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 8e3bd54e
+    fired_at: 2026-05-08T01:10:56.969Z
+    rating: Reject
+    time_logged: "00:20:49"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

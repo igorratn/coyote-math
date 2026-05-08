@@ -1,13 +1,13 @@
 stem: Report_Dashboard_Customer_Experience_Dashboard_5
-igor_resolved: false
+igor_resolved: true
 shadows:
   - n: 1
-    uuid: 854a7e4c
-    fired_at: 2026-05-06T17:22:50.012Z
-    rating: Reject
-    time_logged: "00:20:22"
+    uuid: 97bb0f35
+    fired_at: 2026-05-08T01:16:50.304Z
+    rating: Approve
+    time_logged: "00:20:59"
     verdict_source: auto
-    hai_llm_eval: clean
-    hai_llm_comment: ""
+    hai_llm_eval: warning
+    hai_llm_comment: "A better way to phrase the prompt would be: \"Analyze the data in the image. Calculate the mean of the ticket counts shown in the \"Top Issues by Product\" section. Add this to the fourth highest number of tickets in the entire image. Round off the answer to 1 decimal place (e.g. 1.8).\" Otherwise, the math (135.5 + 124 = 259.5) and interpretation of the image are perfectly correct, and all formatting"
     reclaimed: false
     reclaim_diff: null
