@@ -1,0 +1,33 @@
+stem: Financial_Trading_signal_charts_10
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 3a435d66
+    fired_at: 2026-05-08T17:22:37.724Z
+    rating: Approve
+    time_logged: "00:20:07"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 3d9face7
+    fired_at: 2026-05-08T17:23:19.753Z
+    rating: Approve
+    time_logged: "00:20:31"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: 3fd20005
+    fired_at: 2026-05-08T17:24:00.570Z
+    rating: Approve
+    time_logged: "00:20:35"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

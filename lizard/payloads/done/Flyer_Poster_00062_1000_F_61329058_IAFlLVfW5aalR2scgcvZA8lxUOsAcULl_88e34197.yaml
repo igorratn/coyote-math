@@ -1,0 +1,133 @@
+task:
+  stem: Flyer_Poster_00062_1000_F_61329058_IAFlLVfW5aalR2scgcvZA8lxUOsAcULl_88e34197
+  sa_task_filename: Flyer_Poster_00062_1000_F_61329058_IAFlLVfW5aalR2scgcvZA8lxUOsAcULl_88e34197.json
+  task_id: 188404981
+  image: screenshots/Flyer_Poster_00062_1000_F_61329058_IAFlLVfW5aalR2scgcvZA8lxUOsAcULl_88e34197.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "DUDUUD"
+      flags: []
+      feedback: null
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Flyer_Poster_00062_1000_F_61329058_IAFlLVfW5aalR2scgcvZA8lxUOsAcULl_88e34197.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Use only the bird silhouettes in the sky.
+        
+        Read the birds from left to right according to the horizontal position of their centers. Compare each bird to the next bird in sequence:
+        
+        encode U if the next bird is positioned higher
+        encode D if the next bird is positioned lower
+        encode S if the next bird is at approximately the same height
+        
+        Ignore tiny wing-angle differences and use the body center for vertical comparison.
+        
+        What is the resulting code?
+        
+        Answer format: Answer with uppercase letters only using U, D, and S (e.g., UDSD).
+      answer: "DUDUUD"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "0"
+      flags: []
+      feedback: "5/8: Final answer corrected from 6 to 0. The statue's raised torch arm extends high across the upper sky; per the prompt's exclusion clause (\"Exclude any bird silhouette that touches, overlaps, or falls directly within the horizontal span of the statue's visible body or raised arm\"), all visible bird silhouettes fall within that horizontal span and are therefore excluded. A=0, B=0, B−A=0."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Flyer_Poster_00062_1000_F_61329058_IAFlLVfW5aalR2scgcvZA8lxUOsAcULl_88e34197.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Use only the bird silhouettes in the sky area.
+        
+        Let:
+        
+        A = the number of separate bird silhouettes fully to the left of the Statue of Liberty’s visible body and raised arm
+        B = the number of separate bird silhouettes fully to the right of the Statue of Liberty’s visible body and raised arm
+        
+        Exclude any bird silhouette that touches, overlaps, or falls directly within the horizontal span of the statue’s visible body or raised arm. Do not count clouds, buildings, water reflections, or any part of the statue.
+        
+        Compute:
+        
+        B − A
+        
+        What is the result?
+        
+        Answer with a signed integer if needed, e.g., -2.
+      answer: "0"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "MLS"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Flyer_Poster_00062_1000_F_61329058_IAFlLVfW5aalR2scgcvZA8lxUOsAcULl_88e34197.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Use only the three major text regions:
+        
+        Come to
+        NEW YORK
+        The City that Never Sleeps
+        
+        Rank the three regions by their maximum visible letter height, where the region with the tallest visible letters is ranked largest, the next tallest is ranked medium, and the shortest visible letters are ranked smallest.
+        
+        Encode each region as:
+        
+        L = largest visible letter height
+        M = medium visible letter height
+        S = smallest visible letter height
+        
+        Read the regions in the order listed above.
+        
+        What is the resulting code?
+        
+        Answer format: Answer with uppercase letters only using L, M, and S (e.g., SML).
+      answer: "MLS"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "25"
+      flags: []
+      feedback: "5/8: Skill tags corrected: added Enumeration and Math Reasoning (prompt requires counting bird silhouettes and multiplying)."
+      verdict_source: igor
+      skills_check: [Enumeration, Math Reasoning]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Flyer_Poster_00062_1000_F_61329058_IAFlLVfW5aalR2scgcvZA8lxUOsAcULl_88e34197.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        Use only the sky area above the skyline and below the large NEW YORK title.
+        
+        Count the visible bird silhouettes in that sky area. Then multiply that count by the number of words in the bottom banner text.
+        
+        What is the result?
+        Answer with a single integer (e.g., 12).
+      answer: "25"

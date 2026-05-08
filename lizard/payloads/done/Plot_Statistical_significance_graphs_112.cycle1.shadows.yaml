@@ -1,0 +1,23 @@
+stem: Plot_Statistical_significance_graphs_112
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 80398b93
+    fired_at: 2026-05-08T01:13:38.783Z
+    rating: Approve
+    time_logged: "00:20:21"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 8d606c83
+    fired_at: 2026-05-08T01:15:44.150Z
+    rating: Reject
+    time_logged: "00:20:53"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

@@ -1,0 +1,59 @@
+task:
+  stem: Plot_Statistical_significance_graphs_112
+  sa_task_filename: Plot_Statistical_significance_graphs_112.json
+  task_id: 187300332
+  image: screenshots/Plot_Statistical_significance_graphs_112.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "246.68"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Statistical_significance_graphs_112.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Step 1: Focus on the table at the top of the image, specifically columns 'A', 'B', and 'C'. Determine the arithmetic mean of the second, third and fifth highest values within those columns. If there are duplicate values, only count the value once in your calculation. Round your answer to the nearest hundredth (e.g., 12.34).
+        
+        Step 2: Focus on the bar chart at the bottom of the image. Determine the arithmetic mean of the y-axis values (tick mark labels). Round your answer to the nearest hundredth (e.g., 12.34).
+        
+        Step 3: Determine the sum of Step 1 and Step 2. 
+        
+        Step 4: Multiply the number from Step 3 by the total count of unique numerical values which appear only once within the image. Provide your answer in decimal format rounded to the nearest hundredth (e.g., 112.34).
+      answer: "246.68"
+
+  - n: 2
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: ["Type 2"]
+      feedback: "5/8: Step 4 result is 280/(320/9) = 7.875 exactly, which rounds to 7.88 by standard round-half-up. Annotator's 7.87 doesn't match standard rounding."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Statistical_significance_graphs_112.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Focus on the bar chart at the bottom of the image.
+        
+        Step 1: Determine the arithmetic mean of the y-axis values (tick mark labels). Round your answer to the nearest hundredth (e.g., 12.34).
+        
+        Step 2: Multiply the number from Step 1 by the count of y-axis values (tick mark labels). Round your answer to the nearest hundredth (e.g., 12.34).
+        
+        Step 3: Determine the arithmetic mean of all numeric values in the image which begin with an odd digit. Include any duplicate numbers in your calculation. Round your answer to the nearest hundredth (e.g., 12.34).
+        
+        Step 4: Divide the number from Step 2 by the number from Step 3. Provide your answer in decimal format rounded to the nearest hundredth (e.g., 12.34).
+      answer: "7.87"

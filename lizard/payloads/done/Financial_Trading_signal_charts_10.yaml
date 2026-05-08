@@ -1,0 +1,78 @@
+task:
+  stem: Financial_Trading_signal_charts_10
+  sa_task_filename: Financial_Trading_signal_charts_10.json
+  task_id: 188404807
+  image: screenshots/Financial_Trading_signal_charts_10.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "D"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Financial_Trading_signal_charts_10.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Count each row with five visible stars in the Significance column as one starred row. Ignore the row with fewer than five stars. For only those starred rows, take the absolute difference between their availability-day numbers shown in Signal/Return. Then add the shared Recommended Holding Days value shown for those same rows. Which option is correct?
+        
+        A. 18
+        B. 24
+        C. 25
+        D. 26
+      answer: "D"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "D"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Financial_Trading_signal_charts_10.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Build a total in this order. First, identify the row with the highest Mean Return. Second, in that same row, multiply Recommended Holding Days by Triggers Per Year. Third, add the numeric value shown in that row’s Signal/Return cell. Round the final result to 2 decimal places. Which option is correct?
+        A. 12.47
+        B. 14.00
+        C. 13.90
+        D. 13.07
+      answer: "D"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "D"
+      flags: []
+      feedback: "5/8: Skill tag corrected: Added Enumeration (prompt requires \"count\" and \"largest\" — both core enumeration); Added Table/Chart/Graph Understanding (entire task is reading rows/columns from the trading signals table); Dropped Logical Reasoning (single-step equality match is not chained inference per the framework)."
+      verdict_source: auto
+      skills_check: [Enumeration, Table/Chart/Graph Understanding]
+      skills_uncheck: [Logical Reasoning]
+      qtype: "MCQ"
+    hai:
+      task_id_field: Financial_Trading_signal_charts_10.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Count the number of rows whose Mean Return matches the top row’s Mean Return. Then identify the largest number visible anywhere in the Signal/Return column, treating percentages and day counts as numbers only. Multiply those two results together. Which option is correct?
+        
+        A. 18
+        B. 20
+        C. 48
+        D. 40
+      answer: "D"

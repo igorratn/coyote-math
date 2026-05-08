@@ -6,82 +6,6 @@ task:
 
 annotations:
 
-  - n: 1
-    sa:
-      action: approve
-      rating: thumbs-up
-      answer_final: "15.00%"
-      flags: []
-      feedback: "5/6: Skill tag corrected: Dropped Logical Reasoning (computing a mean of an enumerated set is Math Reasoning, not conditional/branching inference)."
-      verdict_source: auto
-      skills_check: []
-      skills_uncheck: [Logical Reasoning]
-      qtype: "SAQ"
-    hai:
-      task_id_field: Report_Dashboard_Data_Analytics_Dashboard_4.json
-      role: Reviewing
-      annotation_n: 1
-      prompt: |
-        Within the dashboard preview on the right side of the image, identify all explicitly labeled percentage values. Compute the arithmetic mean of these percentage values and round your answer to exactly two decimal places (e.g., 12.34%).
-      answer: "15.00%"
-
-  - n: 2
-    sa:
-      action: approve
-      rating: thumbs-up
-      answer_final: "0.0627"
-      flags: []
-      feedback: "5/6: Skill tag corrected: Dropped Spatial Reasoning (sorting/ranking by magnitude is ordinal, not relational position)."
-      verdict_source: auto
-      skills_check: []
-      skills_uncheck: [Spatial Reasoning]
-      qtype: "SAQ"
-    hai:
-      task_id_field: Report_Dashboard_Data_Analytics_Dashboard_4.json
-      role: Reviewing
-      annotation_n: 2
-      prompt: |
-        Within the dashboard preview on the right side of the image, identify all explicitly labeled percentage values. Compute the ratio of the sum of the three smallest percentage values to the sum of the two largest percentage values. Round your answer to exactly four decimal places (e.g., 0.1234).
-      answer: "0.0627"
-
-  - n: 3
-    sa:
-      action: approve
-      rating: thumbs-up
-      answer_final: "36.476"
-      flags: []
-      feedback: null
-      verdict_source: auto
-      skills_check: []
-      skills_uncheck: []
-      qtype: "SAQ"
-    hai:
-      task_id_field: Report_Dashboard_Data_Analytics_Dashboard_4.json
-      role: Reviewing
-      annotation_n: 3
-      prompt: |
-        Within the dashboard preview on the right side of the image, identify all explicitly labeled percentage values. Sort these percentage values from largest to smallest. Add the second-largest value to the third-smallest value, then divide the result by the smallest value. Round your answer to exactly three decimal places (e.g., 1.234).
-      answer: "36.476"
-
-  - n: 4
-    sa:
-      action: approve
-      rating: thumbs-up
-      answer_final: "75.02%²"
-      flags: []
-      feedback: null
-      verdict_source: auto
-      skills_check: []
-      skills_uncheck: []
-      qtype: "SAQ"
-    hai:
-      task_id_field: Report_Dashboard_Data_Analytics_Dashboard_4.json
-      role: Reviewing
-      annotation_n: 4
-      prompt: |
-        Within the dashboard preview on the right side of the image, identify all explicitly labeled percentage values. Sort these percentage values from smallest to largest. Compute the product of the second-smallest value and the second-largest value, then subtract the median percentage value. Use the arithmetic mean of the two middle values when determining the median. Round your answer to exactly two decimal places and express it as a percentage-squared value (e.g., 12.34%²).
-      answer: "75.02%²"
-
   - n: 5
     sa:
       action: approve
@@ -98,5 +22,5 @@ annotations:
       role: Reviewing
       annotation_n: 5
       prompt: |
-        Within the dashboard preview on the right side of the image, identify all explicitly labeled percentage values. Sort these percentage values from smallest to largest. Add together the largest value and the second-smallest value. Then divide this result by the arithmetic mean of the two middle values. Use the arithmetic mean of the fourth and fifth values when determining the two middle values. Round your answer to exactly three decimal places (e.g., 1.234).
+        Within the dashboard preview on the right side of the image, identify all explicitly labeled percentage values. Sort these percentage values from smallest to largest. Add together the largest value and the second-smallest value. Then divide this result by the arithmetic mean of the two middle values. Use the arithmetic mean of the fourth and fifth values when determining the two middle values. What is the final result? Round your answer to exactly three decimal places (e.g., 1.234).
       answer: "10.082"

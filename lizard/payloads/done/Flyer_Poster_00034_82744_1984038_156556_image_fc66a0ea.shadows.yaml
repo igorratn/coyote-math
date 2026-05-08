@@ -1,0 +1,13 @@
+stem: Flyer_Poster_00034_82744_1984038_156556_image_fc66a0ea
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: 34584329
+    fired_at: 2026-05-08T17:20:08.331Z
+    rating: Approve
+    time_logged: "00:20:16"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "Irrelevant Information: The clause \"(assuming all years are non-leap years)\" is completely unnecessary and adds confusion, as there are no daily rates involved in the calculation that would require knowing the number of days in a year. Counterintuitive Setup: The image presents \"Over 5000 Installations Worldwide\" as a cumulative, all-time total. Treating this figure as an annual starting rate for "
+    reclaimed: false
+    reclaim_diff: null
