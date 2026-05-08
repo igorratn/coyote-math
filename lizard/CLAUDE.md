@@ -524,7 +524,7 @@ Run Job 5 on stem `<S>` when:
 
 ### Hard rules
 - **NEVER write Rewrite Answer on thumbs-down (codified 2026-05-01).** `sa.action ∈ {QC_Return, delete}` → skip the rewrite textarea entirely. No read, no write, no DOM selection. This is an absolute rule — the Slack Concede ruling and the offset-bug incident both require it.
-- **CLI never clicks SA Delete.** Cycle-2 `action: delete` annots: CLI applies feedback + thumbs-down, STOPS. Igor manually clicks SA Delete (deletion is **IRREVERSIBLE** — only Igor's hands).
+- **CLI may click per-annot X (`.delete-btn`) before Save (codified 2026-05-08, Igor override).** The per-annot X icon in SA's annot panel removes the annot from the in-memory editor state but is REVERSIBLE until Save fires — same risk profile as a skill-checkbox toggle. CLI may automate this via `scripts/sa-delete-annots.sh <STEM>` after Job 5 finalize: opens editor, clicks `.delete-btn` for each `action: delete` annot in the payload, then clicks Save inside the iframe. The task-level Delete (the trash icon on the task row, not the per-annot X) IS irreversible and remains Igor-only.
 - **CLI never sets task-level QC status dropdown.** Human-only field. Igor sets it manually after Job 5.
 - **Feedback writes are append, never replace.** Per playbook line 76: "Add your feedback in chronological order."
 - **Pre-save audit is mandatory.** SA tasks lock on submit; post-save correction impossible.
