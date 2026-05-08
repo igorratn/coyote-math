@@ -1,0 +1,82 @@
+task:
+  stem: Report_Dashboard_Conversion_Dashboard_134
+  sa_task_filename: Report_Dashboard_Conversion_Dashboard_134.json
+  task_id: 187300821
+  image: screenshots/Report_Dashboard_Conversion_Dashboard_134.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "0.23"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Conversion_Dashboard_134.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Focus on the Leads by Status section of the image.
+        
+        Step 1: In the 'Open' bar, examine which colored segment takes up the least space and based on the legend, determine the numerical value of the month (e.g., June = '6').  
+        
+        Step 2: Multiply the number from Step 1 with the count of orange segments in the entire bar chart. Exclude the orange square in the legend in your calculation.
+        
+        Step 3: Based on the months listed in the legend, determine the sum of the total number of calendar days for those months. 
+        
+        Step 4. Divide the number from Step 2 by the number from Step 3. Provide your answer in decimal format rounded to the nearest hundredth (e.g., 12.43).
+      answer: "0.23"
+
+  - n: 2
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: []
+      feedback: "5/8: Prompt fails on Step 1 (whether 0 counts as a \"y-axis value/tick mark label\" is unspecified) and Step 3 (\"blue colored segment\" is ambiguous — the bottom-right Leads by Month legend has two entries both labeled \"SFDC-DM\", one blue and one green). Compounded by Type 3 — the blue caps in those bars are sub-pixel slivers at the rendered image scale. Please disambiguate which blue band is meant (or replace with a visually distinct band like orange \"SFDC-IN|\") and clarify whether the 0 baseline tick counts as a tick label."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Conversion_Dashboard_134.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Step 1: Determine the arithmetic mean of all the y-axis values (tick mark labels) in the image. Round your answer to the nearest hundredth (e.g., 123.35).
+        
+        Step 2: Multiply the number from Step 1 with the count of charts in the image which have only four y-axis values (tick mark labels).
+        
+        Step 3: Focus on the 'Leads by Month' chart (bottom right of image). Determine the sum of calendar days for the months which has a blue colored segment in the bar. Divide that number by the number from Step 2. Provide your answer in decimal format rounded to the nearest hundredth (e.g., 123.35).
+      answer: "0.81"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "3.50"
+      flags: []
+      feedback: "5/8: Final answer corrected from 1.90 to 3.50. Step 1 = 2 peaks (Leads by Week dates 7/15 and 9/9). Step 2 = 7 months elapsed (March 2012 tallest → October 2012 shortest in bottom-right Leads by Month). Step 3 = 14. Step 4: sum of odd y-axis tick labels across all charts = 49 (Day: 1+3+5; Week: 5+15; Creator: 5+15). 49 / 14 = 3.50."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Conversion_Dashboard_134.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Step 1: Focus on the 'Leads by Week' chart. Determine the count of peaks or points with a value of 10 or greater (intersects the y-axis value or tick mark label of '10'). 
+        
+        Step 2: Focus on the 'Leads by Month' chart (bottom right of image). Identify the tallest and shortest bars and determine their corresponding month and year (e.g., November 2012 and January 2013). Calculate how many months (as an integer) elapsed between the tallest and shortest bars (e.g., November 2012 and January 2013 is 2). 
+        
+        Step 3: Multiply the number from Step 1 and from Step 2.
+        
+        Step 4: Determine the sum of all the odd y-axis values (tick mark labels) from all the charts and divide that number by the number from Step 3. Provide your answer in decimal format rounded to the nearest hundredth (e.g., 12.45).
+      answer: "3.50"

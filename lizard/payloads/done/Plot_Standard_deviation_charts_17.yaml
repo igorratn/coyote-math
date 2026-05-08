@@ -1,0 +1,124 @@
+task:
+  stem: Plot_Standard_deviation_charts_17
+  sa_task_filename: Plot_Standard_deviation_charts_17.json
+  task_id: 187300323
+  image: screenshots/Plot_Standard_deviation_charts_17.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "6"
+      flags: []
+      feedback: null
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Standard_deviation_charts_17.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        For the selected line chart in this spreadsheet, identify the numerical trend between each labeled vertical axis value tick mark.  Assuming this trend remains constant throughout the axis, what appears to be the least plotted vertical axis value for the solid blue line?
+        
+        Answer with the value as an integer (e.g., 1).
+      answer: "6"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "10"
+      flags: []
+      feedback: "5/8: Skill tag corrected: added Table/Chart/Graph Understanding (prompt references the line chart's data range and indices)."
+      verdict_source: auto
+      skills_check: [Table/Chart/Graph Understanding]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Standard_deviation_charts_17.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Using the visible row indices of the data points selected for the line chart, identify the index of the data point appearing at the bottom of the selected data range.
+        
+        Assuming each preceding row index from the last data point is also a data point, how many data points are there for the line chart given that the topmost row will be the chart headers?
+        
+        Answer with the number of data points as an integer (e.g., 17).
+      answer: "10"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "D"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_Standard_deviation_charts_17.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Looking at all the symbols for commands in the quick access toolbar, for Windows users, what is likely the keyboard shortcut for the symbol immediately to the right of the leftmost symbol?
+        A. CTRL + S
+        B. CTRL + V
+        C. CTRL + Y
+        D. CTRL + Z
+      answer: "D"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_Standard_deviation_charts_17.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        Looking at the solid blue line plotted on the chart in the spreadsheet, identify the approximate values of the start and end points of this line (the leftmost point of the line being the start, and the rightmost point being the end).
+        
+        What are the approximate values of the start and end of the line, respectively?
+        A. 20,14
+        B. 18,14
+        C. 19,15
+        D. 20,15
+      answer: "C"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "20.0"
+      flags: []
+      feedback: "5/8: Skill tag corrected: added Table/Chart/Graph Understanding (prompt references chart elements menu and chart-tools ribbon)."
+      verdict_source: auto
+      skills_check: [Table/Chart/Graph Understanding]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Standard_deviation_charts_17.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        Count the number of drop down selections that appear available within the add chart element drop down menu.
+        
+        Next, count the number of tabs that appear in the ribbon that are NOT part of the chart tools.
+        
+        Finally, sum these two counts.
+        
+        What is the final result? Answer with the result as a number rounded to 1 decimal place (e.g., 3.0).
+      answer: "20.0"

@@ -1,0 +1,53 @@
+task:
+  stem: Flyer_Poster_00078_FoodPriceComparison_10.2012_c30dca51
+  sa_task_filename: Flyer_Poster_00078_FoodPriceComparison_10.2012_c30dca51.json
+  task_id: 188404998
+  image: screenshots/Flyer_Poster_00078_FoodPriceComparison_10.2012_c30dca51.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "249.6%"
+      flags: []
+      feedback: "5/8: Skill tag corrected: Dropped Spatial Reasoning (table reading is not relative-position reasoning). Added Table/Chart/Graph Understanding (core task is reading a published price table)."
+      verdict_source: auto
+      skills_check: [Table/Chart/Graph Understanding]
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Flyer_Poster_00078_FoodPriceComparison_10.2012_c30dca51.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        On the Texas Farm Bureau “2012 Grocery Price Watch” table, ignore the total row and use all item prices shown in Q3 2011, Q1 2012, Q2 2012, and Q3 2012 to find the median price; since there is an even number of prices, use the arithmetic mean of the two middle values after sorting.
+        
+        Keep only the item rows that contain at least one quarterly price strictly greater than that median, then use only those rows’ Quarterly Change values to identify the highest and smallest signed percentages.
+        
+        By what percentage would the smallest signed Quarterly Change need to increase to equal the highest signed Quarterly Change, using the absolute value of the smallest signed Quarterly Change as the starting base? Round to one decimal place with no intermediate rounding. Answer in the format X.X% (e.g., 12.3%).
+      answer: "249.6%"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "15165.19%"
+      flags: []
+      feedback: "5/8: Skill tag corrected: Dropped Spatial Reasoning (aggregation across rows is enumeration + math; no relative-position reasoning)."
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Flyer_Poster_00078_FoodPriceComparison_10.2012_c30dca51.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        On the Texas Farm Bureau “2012 Grocery Price Watch” table, evaluate which Brand-column category has the strongest four-quarter price presence across all listed item rows, excluding the total row.
+        
+        Use that category’s combined four-quarter cost share of the combined four-quarter “Total (all 16 items)” cost as its price-presence percentage, then compare it with that same category’s overall signed Quarterly Change total.
+        
+        By what percentage would that signed Quarterly Change total need to increase to equal the price-presence percentage, using the signed Quarterly Change total as the starting base? Round to two decimal places with no intermediate rounding. Answer in the format X.XX% (e.g., 12.34%).
+      answer: "15165.19%"

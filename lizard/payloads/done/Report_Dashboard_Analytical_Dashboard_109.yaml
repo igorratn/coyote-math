@@ -1,0 +1,26 @@
+task:
+  stem: Report_Dashboard_Analytical_Dashboard_109
+  sa_task_filename: Report_Dashboard_Analytical_Dashboard_109.json
+  task_id: 187300591
+  image: screenshots/Report_Dashboard_Analytical_Dashboard_109.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "7,015.12"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Analytical_Dashboard_109.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Using only the fully visible metric cards in the Web Analytics panel, ignore the partially cut-off metric card on the far right. Convert abbreviated values so "K" means thousand and "M" means million. Treat percentage changes as numbers without the percent symbol, and use the absolute value only for the negative percentage change. For the metric cards with positive percentage changes, compute a weighted mean of their metric values using their percentage changes as weights. Then divide this weighted mean by the current visitors count shown near the top of the panel. For the metric card with the negative percentage change, divide its metric value by the same current visitors count. Compute "negative-change metric ratio minus positive-change weighted-mean ratio." Then multiply this result by the number of fully visible metric cards with positive percentage changes. What is the final result? Answer as a number rounded to two decimal places, and use comma separators because the answer has 4 or more digits (e.g., 6,391.48)
+      answer: "7,015.12"
