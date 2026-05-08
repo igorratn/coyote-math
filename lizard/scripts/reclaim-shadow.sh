@@ -81,20 +81,28 @@ async function editStep(idx) {
   await new Promise(r => setTimeout(r, 2000));
 }
 
-// Helper: fill the active step's textarea with given value, pick the textarea
-// with the LONGEST existing value (which is the one being edited, not new
-// blank ones for downstream steps).
-async function fillActiveTextarea(value) {
-  await page.evaluate((v) => {
+// Helper: fill the active step's textarea with given value.
+// mode='edit'  → pick the visible textarea with EXISTING content (overwriting an old saved value)
+// mode='new'   → pick the visible EMPTY textarea (filling a fresh active step)
+// (Codified 2026-05-08: previous "longest value wins" heuristic picked wrong
+// textarea when an empty active step coexisted with a stale-but-still-visible
+// edit textarea.)
+async function fillActiveTextarea(value, mode='edit') {
+  await page.evaluate(({ v, mode }) => {
     const setter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, 'value').set;
     const tas = Array.from(document.querySelectorAll('textarea')).filter(t => t.getBoundingClientRect().height > 0);
     if (!tas.length) throw new Error('no visible textarea');
-    // Pick textarea with greatest value length (the existing-content one being edited)
-    const ta = tas.reduce((a, b) => (b.value.length > (a?.value?.length || 0) ? b : a), null) || tas[0];
+    let ta;
+    if (mode === 'new') {
+      ta = tas.find(t => t.value === '') || tas[0];
+    } else {
+      // edit mode: pick textarea with greatest length
+      ta = tas.reduce((a, b) => (b.value.length > (a?.value?.length || 0) ? b : a), null) || tas[0];
+    }
     setter.call(ta, v);
     ta.dispatchEvent(new Event('input', { bubbles: true }));
     ta.dispatchEvent(new Event('change', { bubbles: true }));
-  }, value);
+  }, { v: value, mode });
   await new Promise(r => setTimeout(r, 800));
 }
 
@@ -155,7 +163,7 @@ if (hasSavedAnswer) {
   await clickVisibleSubmit();
 } else if (isActiveAnswerStep) {
   console.log("FILLING_NEW_ANSWER");
-  await fillActiveTextarea(answerText);
+  await fillActiveTextarea(answerText, 'new');
   await clickVisibleSubmit();
 }
 
