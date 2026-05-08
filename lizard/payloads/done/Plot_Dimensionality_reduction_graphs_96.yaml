@@ -1,0 +1,26 @@
+task:
+  stem: Plot_Dimensionality_reduction_graphs_96
+  sa_task_filename: Plot_Dimensionality_reduction_graphs_96.json
+  task_id: 186800740
+  image: screenshots/Plot_Dimensionality_reduction_graphs_96.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "6"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Dimensionality_reduction_graphs_96.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Look at the graph under the title "PCA". How many red dots are there on the line below this graph? Answer with a single whole number (e.g., 2).
+      answer: "6"

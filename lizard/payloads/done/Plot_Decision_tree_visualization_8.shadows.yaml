@@ -1,0 +1,13 @@
+stem: Plot_Decision_tree_visualization_8
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 72e6de1f
+    fired_at: 2026-05-07T23:43:53.125Z
+    rating: Approve
+    time_logged: "00:20:24"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

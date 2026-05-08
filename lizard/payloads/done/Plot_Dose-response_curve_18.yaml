@@ -1,0 +1,112 @@
+task:
+  stem: Plot_Dose-response_curve_18
+  sa_task_filename: Plot_Dose-response_curve_18.json
+  task_id: 186800753
+  image: screenshots/Plot_Dose-response_curve_18.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "14"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Dose-response_curve_18.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        In the graph, count the total number of blue triangle data points. Then count the number of labeled tick marks on the y-axis. Add these two values together.
+        
+        Answer in a single whole number (e.g., 12).
+      answer: "14"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "2"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Dose-response_curve_18.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        In the graph, count the total number of square data points. Then identify the first labeled tick mark on the x-axis. Add these two values together.
+        
+        Answer in a single number (e.g., 5).
+      answer: "2"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "56"
+      flags: []
+      feedback: "5/7: Skill tag corrected: Dropped Spatial Reasoning skill tag."
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Dose-response_curve_18.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        In the graph, count the number of triangle data points and the number of square data points. Multiply these two counts together. Then find the absolute difference between this result and the value labeled “Analyzed” in the table.
+        
+        Answer in a single number (e.g., 10).
+      answer: "56"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "29"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Dose-response_curve_18.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        Add together all the labeled tick mark values on the y-axis. Then, from the table, use the “Hill Slope” values under “Best-fit values” and “Std. Error.” Find the absolute difference between these two values. Finally, subtract this difference from the y-axis total.
+        
+        Answer in a single number (e.g., 10).
+      answer: "29"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "-54"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Dose-response_curve_18.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        Count the number of square data points including the key. Then identify the smallest labeled value on the x-axis. Multiply these two values together.
+        
+        Answer in a single number (e.g., -16).
+      answer: "-54"

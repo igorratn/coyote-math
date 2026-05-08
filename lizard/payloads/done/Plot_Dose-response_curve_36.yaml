@@ -1,0 +1,26 @@
+task:
+  stem: Plot_Dose-response_curve_36
+  sa_task_filename: Plot_Dose-response_curve_36.json
+  task_id: 186800755
+  image: screenshots/Plot_Dose-response_curve_36.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "2.449"
+      flags: []
+      feedback: "5/7: Skill tag corrected: Corrected skill tags: dropped `Attribute Perception`, added `Enumeration` and `Table/Chart/Graph Understanding`."
+      verdict_source: auto
+      skills_check: [Enumeration, Table/Chart/Graph Understanding]
+      skills_uncheck: [Attribute Perception]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Dose-response_curve_36.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        For graph A, what is the square root of the absolute difference between the number of hashmarks on the horizontal axis and the number of hashmarks on the vertical axis? Answer is a number with three decimal places (e.g. 1.234)
+      answer: "2.449"

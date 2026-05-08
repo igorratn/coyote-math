@@ -1,0 +1,102 @@
+task:
+  stem: Plot_Dimensionality_reduction_graphs_160
+  sa_task_filename: Plot_Dimensionality_reduction_graphs_160.json
+  task_id: 186800730
+  image: screenshots/Plot_Dimensionality_reduction_graphs_160.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: delete
+      rating: thumbs-down
+      answer_final: null
+      flags: ["G2", "Type 3"]
+      feedback: "5/7: Prompt fails G2 + Type 3 — slope-comparison on noisy line + top-axis interior-tick counting both sub-pixel."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Dimensionality_reduction_graphs_160.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        What is the approximate absolute range between the two points with the greatest increase in Y value over the smallest range of X values? Then multiply that value by the number of interior unlabeled tick marks along the top x-axis. Answer with a single number (example: 30).
+      answer: "25"
+
+  - n: 2
+    sa:
+      action: delete
+      rating: thumbs-down
+      answer_final: null
+      flags: ["G2", "Type 3"]
+      feedback: "5/7: Prompt fails G2 + Type 3 — first-crossing identification on noisy line + interior-tick counting both sub-pixel."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Dimensionality_reduction_graphs_160.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Locate the first point after x = 80 where the line becomes strictly less than 1. Take the next labeled x-axis tick to the right of that point. Then multiply that tick by the number of labeled y-axis tick values strictly greater than 0, and subtract the number of interior unlabeled tick marks along the top x-axis. Answer with a single integer (example: 120).
+      answer: "395"
+
+  - n: 3
+    sa:
+      action: delete
+      rating: thumbs-down
+      answer_final: null
+      flags: ["G2", "Type 3"]
+      feedback: "5/7: Prompt fails Type 3 — interior-tick counting on top x-axis not visible at this resolution."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Dimensionality_reduction_graphs_160.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Locate the first abrupt upward jump where the line moves from strictly less than -2 to strictly greater than 1. Take the closest labeled x-axis tick to that jump. Then count the number of labeled y-axis tick values from 0 through 4 inclusive and add the number of interior unlabeled tick marks along the top x-axis. Multiply the x-axis tick by that total. Answer with a single integer (example: 120).
+      answer: "400"
+
+  - n: 4
+    sa:
+      action: delete
+      rating: thumbs-down
+      answer_final: null
+      flags: ["G2", "Type 3"]
+      feedback: "5/7: Prompt fails G2 + Type 3 — strict y=3 crossing on noisy line + interior-tick counting both sub-pixel."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Dimensionality_reduction_graphs_160.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        Locate the first point after x = 80 where the line becomes strictly greater than 3. Take the next labeled x-axis tick to the right of that point. Then count the number of labeled y-axis tick values from -2 through 2 inclusive and subtract the number of interior unlabeled tick marks along the top x-axis. Multiply the x-axis tick by that result. Answer with a single integer (example: 120).
+      answer: "0"
+
+  - n: 5
+    sa:
+      action: delete
+      rating: thumbs-down
+      answer_final: null
+      flags: ["G2", "Type 3"]
+      feedback: "5/7: Prompt fails G2 + Type 3 — identical fragility to A4."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Dimensionality_reduction_graphs_160.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        Locate the first point after x = 80 where the line becomes strictly greater than 3. Take the closest labeled x-axis tick to that point. Then count the number of labeled y-axis tick values strictly greater than -1 and add the number of interior unlabeled tick marks along the top x-axis. Multiply the x-axis tick by that total. Answer with a single integer (example: 120).
+      answer: "800"

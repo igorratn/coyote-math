@@ -1,0 +1,30 @@
+task:
+  stem: Plot_Dimensionality_reduction_graphs_154
+  sa_task_filename: Plot_Dimensionality_reduction_graphs_154.json
+  task_id: 186800729
+  image: screenshots/Plot_Dimensionality_reduction_graphs_154.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: delete
+      rating: thumbs-down
+      answer_final: null
+      flags: ["G2", "Type 3"]
+      feedback: "5/7: Prompt fails G2 + Type 3 — identifying extreme-dot color among 4 similar gradient classes requires sub-pixel disambiguation."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_Dimensionality_reduction_graphs_154.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Locate these two data points: 1) the one with the approximate highest Y value, and 2) the one with the approximate lowest X value. Assign each data point a value based on its corresponding entry in the graph legend. The sum of these values is X. What is the product of X and Y, where Y is the number of months in a year?
+        A. 36
+        B. 72
+        C. 108
+        D. 144
+      answer: "A"

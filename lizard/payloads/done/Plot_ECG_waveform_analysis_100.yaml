@@ -1,0 +1,30 @@
+task:
+  stem: Plot_ECG_waveform_analysis_100
+  sa_task_filename: Plot_ECG_waveform_analysis_100.json
+  task_id: 186800757
+  image: screenshots/Plot_ECG_waveform_analysis_100.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_ECG_waveform_analysis_100.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        How many upward spikes can be seen in the green section? 
+        A. 2
+        B. 3
+        C. 1
+        D. 5
+      answer: "C"

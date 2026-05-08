@@ -1,0 +1,124 @@
+task:
+  stem: Plot_Dose-response_curve_20
+  sa_task_filename: Plot_Dose-response_curve_20.json
+  task_id: 186800754
+  image: screenshots/Plot_Dose-response_curve_20.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "30"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Dose-response_curve_20.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Count the number of data points with a biological response greater than 4. Then count the number with a response less than 2.
+        
+        Add these two counts together. Then multiply this total by the number of labeled tick marks on the y-axis.
+        
+        Finally, subtract the smallest labeled value on the x-axis.
+        
+        Answer in a single number (e.g., 10).
+      answer: "30"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "12"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Dose-response_curve_20.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Count the number of data points (red circles). Multiply this by the number of labeled tick marks on the y-axis.
+        
+        Then compute the absolute difference between the highest labeled values on the x-axis and y-axis, and divide this by the number of labeled tick marks on the x-axis.
+        
+        Finally, subtract the second result from the first. Round to the nearest whole number.
+        
+        Answer in a single number (e.g., 10).
+      answer: "12"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "161"
+      flags: []
+      feedback: "5/7: Skill tag corrected: Dropped the 'Spatial Reasoning' skill tag as the prompt does not require reasoning about relative positions or spatial arrangements."
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Dose-response_curve_20.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Compute the absolute difference between the highest labeled values on the x-axis and y-axis. Divide this by the number of labeled tick marks on the x-axis. Then multiply by the number of data points. Round to the nearest whole number.
+        
+        Answer in a single number (e.g., 10).
+      answer: "161"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "11"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Dose-response_curve_20.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        Add together all labeled tick mark values on the y-axis. Divide this sum by the number of data points. Then multiply the result by the number of labeled tick marks on the x-axis. Round to the nearest whole number.
+        
+        Answer in a single number (e.g., 10).
+      answer: "11"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "32"
+      flags: []
+      feedback: "5/7: Skill tag corrected: Dropped the 'Spatial Reasoning' skill tag as it is not required by the prompt."
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Dose-response_curve_20.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        Count the number of data points with a biological response greater than 5 and the number with a response less than 2. Multiply these two counts together.
+        
+        Then compute the absolute difference between the highest labeled values on the x-axis and y-axis, and divide this by the number of labeled tick marks on the x-axis.
+        
+        Finally, add the two results together and round to the nearest whole number.
+        
+        Answer in a single number (e.g., 10).
+      answer: "32"

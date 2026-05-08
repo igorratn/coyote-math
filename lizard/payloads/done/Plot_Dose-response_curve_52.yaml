@@ -1,0 +1,26 @@
+task:
+  stem: Plot_Dose-response_curve_52
+  sa_task_filename: Plot_Dose-response_curve_52.json
+  task_id: 186800756
+  image: screenshots/Plot_Dose-response_curve_52.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "8"
+      flags: []
+      feedback: null
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Dose-response_curve_52.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        What is the sum of all fully visible digits in the image? Answer is a number (e.g. 4).
+      answer: "8"

@@ -1,0 +1,13 @@
+stem: Plot_Dose-response_curve_36
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 75a84d5c
+    fired_at: 2026-05-08T00:06:49.449Z
+    rating: Approve
+    time_logged: "00:20:40"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

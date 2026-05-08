@@ -1,0 +1,13 @@
+stem: Plot_Dimensionality_reduction_graphs_96
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 7b1d3c47
+    fired_at: 2026-05-07T23:54:15.388Z
+    rating: Approve
+    time_logged: "00:20:22"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

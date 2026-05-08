@@ -1,0 +1,13 @@
+stem: Plot_ECG_waveform_analysis_100
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 8283e4b9
+    fired_at: 2026-05-08T00:08:23.962Z
+    rating: Approve
+    time_logged: "00:20:46"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

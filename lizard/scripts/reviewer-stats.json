@@ -6,7 +6,7 @@
       "first_agree": 66,
       "any_agree": 0,
       "escalates": 3,
-      "errors": 45,
+      "errors": 52,
       "igor_graded": {
         "annotations_scored": 0,
         "rating_match": 0,
@@ -17,15 +17,15 @@
         "by_qtype": {}
       },
       "error_types": {
-        "exit_nonzero": 45
+        "exit_nonzero": 52
       }
     },
     "grok": {
-      "fires": 72,
+      "fires": 74,
       "first_agree": 34,
       "any_agree": 0,
       "escalates": 16,
-      "errors": 6,
+      "errors": 7,
       "igor_graded": {
         "annotations_scored": 0,
         "rating_match": 0,
@@ -36,12 +36,12 @@
         "by_qtype": {}
       },
       "error_types": {
-        "exit_nonzero": 5
+        "exit_nonzero": 6
       }
     },
     "gemini": {
-      "fires": 58,
-      "first_agree": 12,
+      "fires": 65,
+      "first_agree": 13,
       "any_agree": 0,
       "escalates": 8,
       "errors": 14,
@@ -59,8 +59,8 @@
       }
     },
     "opus": {
-      "fires": 183,
-      "first_agree": 78,
+      "fires": 193,
+      "first_agree": 84,
       "any_agree": 0,
       "escalates": 9,
       "errors": 5,
@@ -84,7 +84,7 @@
     "gemini",
     "grok"
   ],
-  "updated_at": "2026-05-07T17:53:02.454Z",
+  "updated_at": "2026-05-07T23:21:35.859Z",
   "igor_reconcile": {
     "task_files_scanned": 83,
     "tasks_with_igor_verdicts": 7,

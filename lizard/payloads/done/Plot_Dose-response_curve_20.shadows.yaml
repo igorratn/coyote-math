@@ -1,0 +1,53 @@
+stem: Plot_Dose-response_curve_20
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: 79316db7
+    fired_at: 2026-05-08T00:00:44.176Z
+    rating: Approve
+    time_logged: "00:20:39"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 7d681d70
+    fired_at: 2026-05-08T00:01:38.970Z
+    rating: Approve
+    time_logged: "00:20:48"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: 81ff7fad
+    fired_at: 2026-05-08T00:02:23.638Z
+    rating: Approve
+    time_logged: "00:20:29"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 4
+    uuid: 7950f534
+    fired_at: 2026-05-08T00:03:07.719Z
+    rating: Approve
+    time_logged: "00:20:36"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 5
+    uuid: 79c26111
+    fired_at: 2026-05-08T00:05:48.091Z
+    rating: Approve
+    time_logged: "00:20:22"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "Boundary Ambiguity on \"greater than 5\" and \"less than 2\"."
+    reclaimed: false
+    reclaim_diff: null

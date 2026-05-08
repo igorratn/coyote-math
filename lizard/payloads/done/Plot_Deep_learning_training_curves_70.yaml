@@ -1,0 +1,26 @@
+task:
+  stem: Plot_Deep_learning_training_curves_70
+  sa_task_filename: Plot_Deep_learning_training_curves_70.json
+  task_id: 186800708
+  image: screenshots/Plot_Deep_learning_training_curves_70.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "42"
+      flags: []
+      feedback: "5/7: Skill tag corrected: Dropped Logical Reasoning skill tag, added Table/Chart/Graph Understanding skill tag."
+      verdict_source: auto
+      skills_check: [Table/Chart/Graph Understanding]
+      skills_uncheck: [Logical Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Deep_learning_training_curves_70.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        What is the product of the number of intervals between consecutive labeled tick values on the y-axis and the number of intervals between consecutive labeled tick values on the x-axis? Count each space between two adjacent labeled ticks as one interval. Answer with a single number (e.g., 3).
+      answer: "42"
