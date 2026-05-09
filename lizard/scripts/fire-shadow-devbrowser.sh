@@ -113,6 +113,20 @@ await page.evaluate(async () => {
   }
 });
 await page.waitForFunction(() => !!document.querySelector('textarea'), null, { timeout: 60000 });
+// Freshness gate (codified 2026-05-09 — cross-allocation corruption incident):
+// HAI's "Start task" can serve a mid-flow task whose textarea is the prompt slot
+// (Step 3) or rewrite slot (Step 4), already filled by another fire. If we blind-
+// fill TASK_ID_FIELD here we corrupt that task's prompt/rewrite. Before filling,
+// verify the textarea is empty (Step 1 fresh state). If not, abort cleanly so
+// fire-stem.sh moves on without corrupting cross-allocated content.
+const taPreState = await page.evaluate(() => {
+  const ta = document.querySelector('textarea');
+  return { value: ta.value || '', length: (ta.value || '').length };
+});
+if (taPreState.length > 0) {
+  console.log("FRESHNESS_FAIL=textarea_prefilled length=" + taPreState.length + " preview=" + taPreState.value.slice(0, 80).replace(/\\n/g, ' '));
+  throw new Error('Cross-allocation detected: Step 1 textarea is pre-filled (' + taPreState.length + ' chars). Refusing to fill.');
+}
 await page.evaluate((v) => {
   const setter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, 'value').set;
   const ta = document.querySelector('textarea');
@@ -231,10 +245,30 @@ await page.waitForFunction(() => {
   return Array.from(document.querySelectorAll('button[type="submit"]:not([disabled])')).filter(isVisible).length > 0;
 }, null, { timeout: 60000 });
 await new Promise(r => setTimeout(r, 1500));
-await page.evaluate(() => {
-  function isVisible(el) { if (!el) return false; const r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0; }
-  Array.from(document.querySelectorAll('button[type="submit"]:not([disabled])')).filter(isVisible)[0].click();
-});
+// Click submit with retry — long prompts (>200 chars) sometimes leave the React
+// onClick handler unbound when the DOM enables the button, making a single click
+// a silent no-op. Detect by waiting for Phase-5 'Reviewing'/'Retry' button to
+// appear; if it doesn't, re-click. Codified 2026-05-09 (Agile_99 A3 incident,
+// 396-char prompt — single click was silent no-op, manual click advanced page).
+let phase4ClickAttempt = 0;
+while (true) {
+  phase4ClickAttempt++;
+  await page.evaluate(() => {
+    function isVisible(el) { if (!el) return false; const r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0; }
+    Array.from(document.querySelectorAll('button[type="submit"]:not([disabled])')).filter(isVisible)[0].click();
+  });
+  try {
+    await page.waitForFunction(() => {
+      const btns = Array.from(document.querySelectorAll('button'));
+      return btns.find(b => (b.textContent.trim() === 'Reviewing' || b.textContent.trim() === 'Retry') && !b.disabled);
+    }, null, { timeout: 8000 });
+    break;
+  } catch (e) {
+    if (phase4ClickAttempt >= 3) throw e;
+    console.log("PHASE4_CLICK_RETRY=" + phase4ClickAttempt);
+    await new Promise(r => setTimeout(r, 1500));
+  }
+}
 console.log("PHASE4_MS=" + (Date.now() - t0));
 
 // ============ Phase 5: LLM validation + QC capture ============
@@ -278,12 +312,40 @@ const preSubmitWarning = !qcOk && VERDICT_SOURCE === "auto";
 if (preSubmitWarning) console.log("QC_WARNING_CAPTURED=true");
 {
   // ============ Phase 6: role + Approve/Reject ============
-  await page.evaluate(() => Array.from(document.querySelectorAll('button')).find(b => b.textContent.trim() === 'Reviewing' && !b.disabled).click());
-  await new Promise(r => setTimeout(r, 500));
-  await page.waitForFunction(() => !!document.querySelector('button[type="submit"]:not([disabled])'), null, { timeout: 60000 });
-  await page.evaluate(() => document.querySelector('button[type="submit"]:not([disabled])').click());
-
-  await page.waitForFunction(() => Array.from(document.querySelectorAll('button')).find(b => /^(Approve|Reject)$/.test(b.textContent.trim())), null, { timeout: 60000 });
+  // Reviewing-click + post-Reviewing submit can both fail silently (React onClick
+  // unbound) on the role-select page — same silent-noop pattern as Phase 4.
+  // Retry-click on each, verify advance via Approve/Reject button appearance.
+  // Codified 2026-05-09 (Agile_99 A3 incident — manual click via dev-browser
+  // advanced page when script's single click was a no-op).
+  let phase6ReviewAttempt = 0;
+  while (true) {
+    phase6ReviewAttempt++;
+    await page.evaluate(() => {
+      const btn = Array.from(document.querySelectorAll('button')).find(b => b.textContent.trim() === 'Reviewing' && !b.disabled);
+      if (btn) btn.click();
+    });
+    await new Promise(r => setTimeout(r, 500));
+    try {
+      await page.waitForFunction(() => !!document.querySelector('button[type="submit"]:not([disabled])'), null, { timeout: 8000 });
+      break;
+    } catch (e) {
+      if (phase6ReviewAttempt >= 3) throw e;
+      console.log("PHASE6_REVIEWING_RETRY=" + phase6ReviewAttempt);
+    }
+  }
+  let phase6SubmitAttempt = 0;
+  while (true) {
+    phase6SubmitAttempt++;
+    await page.evaluate(() => document.querySelector('button[type="submit"]:not([disabled])').click());
+    try {
+      await page.waitForFunction(() => Array.from(document.querySelectorAll('button')).find(b => /^(Approve|Reject)$/.test(b.textContent.trim())), null, { timeout: 8000 });
+      break;
+    } catch (e) {
+      if (phase6SubmitAttempt >= 3) throw e;
+      console.log("PHASE6_SUBMIT_RETRY=" + phase6SubmitAttempt);
+      await new Promise(r => setTimeout(r, 1500));
+    }
+  }
   await page.evaluate((r) => {
     const btn = Array.from(document.querySelectorAll('button')).find(b => b.textContent.trim() === r && !b.disabled);
     if (!btn) throw new Error('rating button ' + r + ' not found');

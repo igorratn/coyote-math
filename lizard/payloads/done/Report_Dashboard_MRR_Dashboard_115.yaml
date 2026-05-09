@@ -1,0 +1,45 @@
+task:
+  stem: Report_Dashboard_MRR_Dashboard_115
+  sa_task_filename: Report_Dashboard_MRR_Dashboard_115.json
+  task_id: 186802504
+  image: screenshots/Report_Dashboard_MRR_Dashboard_115.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "30"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_MRR_Dashboard_115.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Identify the graph on the bottom right of the image. What is the absolute difference between the highest and second lowest Y value of the dark blue line, rounding each point to the nearest marked line? Answer in a number (e.g. 5).
+      answer: "30"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "712446"
+      flags: ["Type 8"]
+      feedback: "5/7: Final answer corrected from 51,250 to 712,446. Bank Balance 12-month avg ≈ 735,862.50; Sales & Marketing Cost 12-month avg ≈ 23,416.67; absolute difference ≈ 712,446 (nearest dollar)."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_MRR_Dashboard_115.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        What is the absolute difference between the average bank balance and average sales and marketing cost? Answer with a number (e.g. 5).
+      answer: "712446"

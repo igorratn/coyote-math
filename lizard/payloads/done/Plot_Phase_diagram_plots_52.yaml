@@ -1,0 +1,106 @@
+task:
+  stem: Plot_Phase_diagram_plots_52
+  sa_task_filename: Plot_Phase_diagram_plots_52.json
+  task_id: 187109499
+  image: screenshots/Plot_Phase_diagram_plots_52.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "4"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Phase_diagram_plots_52.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Approximately how many plotted lines does the bcc_high_1 line touch? Answer with a single number (e.g., 5).
+      answer: "4"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "3"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Phase_diagram_plots_52.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        How many plotted lines achieve a carbon content weight of at least 1% at 1200 degrees Celsius? Answer with a single number (e.g., 5).
+      answer: "3"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_Phase_diagram_plots_52.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Which of the following is closest to the highest temperature achieved by any plotted line in the chart?
+        A. 1450
+        B. 1500
+        C. 1550
+        D. 1600
+      answer: "C"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "1500"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Phase_diagram_plots_52.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        What is the highest approximate temperature in Celsius where there is an intersection of 3 lines? Answer with a single number (e.g., 500)
+      answer: "1500"
+
+  - n: 5
+    sa:
+      action: delete
+      rating: thumbs-down
+      answer_final: null
+      flags: []
+      feedback: "5/8: Model not stumped — model answer (2) matches the correct answer."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Phase_diagram_plots_52.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        How many times is a slope of approximately 0 maintained over at least 0.5% carbon content weight? Answer with a single number (e.g., 1).
+      answer: "5"

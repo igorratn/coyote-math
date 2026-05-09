@@ -1,0 +1,53 @@
+stem: Report_Dashboard_Balanced_Scorecard_Dashboard_98
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: 181f844b
+    fired_at: 2026-05-08T14:46:24.661Z
+    rating: Approve
+    time_logged: "00:20:35"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 16430ebc
+    fired_at: 2026-05-08T14:47:17.449Z
+    rating: Approve
+    time_logged: "00:20:47"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: 1d160ff4
+    fired_at: 2026-05-08T14:47:49.422Z
+    rating: Approve
+    time_logged: "00:20:27"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 4
+    uuid: 16dd4759
+    fired_at: 2026-05-08T14:48:14.696Z
+    rating: Reject
+    time_logged: "00:20:19"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 5
+    uuid: 1ded1764
+    fired_at: 2026-05-08T14:48:47.394Z
+    rating: Approve
+    time_logged: "00:20:28"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "The provided Rewrite Answer is mathematically correct based on the most likely intended meaning of the prompt (100,000 * 42.5% = 42,500). However, the prompt has a rule violation: Unspecified \"Average\": The prompt asks for the \"average percentage\" but fails to specify whether it is looking for the mean, median, or mode. You must explicitly state which type of average to use (e.g., \"mean percentage"
+    reclaimed: false
+    reclaim_diff: null

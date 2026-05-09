@@ -1,0 +1,57 @@
+task:
+  stem: Plot_Heatmap_data_visualization_150
+  sa_task_filename: Plot_Heatmap_data_visualization_150.json
+  task_id: 187109177
+  image: screenshots/Plot_Heatmap_data_visualization_150.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "2"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Heatmap_data_visualization_150.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Count the number of cells that are darker than the other cell in the same row AND lighter than at least one cell in a different row within the same column.
+        What is the result?
+        Answer format: integer (e.g., 3)
+      answer: "2"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "1"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: [Enumeration, Math Reasoning]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Heatmap_data_visualization_150.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Assign each row a value as follows:
+        	•	+1 if column A is darker than column B
+        	•	-1 if column B is darker than column A
+        	•	0 if the two cells are the same shade
+        
+        Sum these values across all rows to get S.
+        
+        Then multiply S by the number of rows where the lighter cell is in column A.
+        
+        What is the result?
+        Answer format: single integer (e.g., 2)
+      answer: "1"

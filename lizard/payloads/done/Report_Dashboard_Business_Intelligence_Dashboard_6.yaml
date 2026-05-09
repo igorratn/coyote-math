@@ -1,0 +1,64 @@
+task:
+  stem: Report_Dashboard_Business_Intelligence_Dashboard_6
+  sa_task_filename: Report_Dashboard_Business_Intelligence_Dashboard_6.json
+  task_id: 186801931
+  image: screenshots/Report_Dashboard_Business_Intelligence_Dashboard_6.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "2M"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Business_Intelligence_Dashboard_6.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Look at the Total Revenue and Sales Target chart in the image. Identify the year with the highest total revenue bar. Then subtract the value of the lowest total revenue bar from the highest. Express all revenue values in millions (e.g., 3.3 for 3.3M). Then multiply that result by the number of year filter options displayed below the Year label, excluding the "All" option. Then divide that by the number of navigation tabs displayed at the top of the dashboard. Round to the nearest whole number. Provide your answer as a single whole number in millions (e.g., 8M).
+      answer: "2M"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "27"
+      flags: ["Type 7"]
+      feedback: "5/8: Skill tag corrected: added Enumeration (prompt requires counting chart panels and bars > 2M)."
+      verdict_source: auto
+      skills_check: [Enumeration]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Business_Intelligence_Dashboard_6.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Look at the Sales per Employee donut chart in the image. Take the percentage value displayed inside the chart, treating it as a whole number by rounding to the nearest whole number. Then divide that by the number of chart panels visible in the dashboard. Then subtract the Lead to Sale value displayed in the KPI panel at the top of the dashboard. Then add the Closed Deals value displayed in the KPI panel, expressing it in millions. Then divide that result by the number of bars in the Total Revenue and Sales Target chart that are strictly greater than 2M in value. Take the absolute value of the result and round to the nearest integer. Provide your answer as a single integer. (e.g., 34)
+      answer: "27"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "669"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Business_Intelligence_Dashboard_6.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Look at the Annual Sales chart in the image. Calculate the mean of all the years displayed on the y-axis, treating each year as a whole number. Then divide that by the number of bar charts visible in the dashboard. Then subtract the number of navigation tabs displayed at the top of the dashboard. Then add the difference between the Total Revenue and Closed Deals values displayed in the KPI panel, expressing values in millions, subtracting Closed Deals from Total Revenue. Then subtract the count of numbers containing a decimal point displayed in the KPI panel at the top of the page. Round to the nearest integer. Provide your answer as a single integer. (e.g., 700)
+      answer: "669"

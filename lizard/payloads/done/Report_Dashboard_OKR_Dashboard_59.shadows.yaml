@@ -1,0 +1,53 @@
+stem: Report_Dashboard_OKR_Dashboard_59
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: 1ede9350
+    fired_at: 2026-05-08T15:19:30.181Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 240748dd
+    fired_at: 2026-05-08T15:20:06.025Z
+    rating: Reject
+    time_logged: "00:20:23"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: 24708c3a
+    fired_at: 2026-05-08T15:21:03.365Z
+    rating: Approve
+    time_logged: "00:20:51"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 4
+    uuid: 1896b891
+    fired_at: 2026-05-08T15:21:41.758Z
+    rating: Approve
+    time_logged: "00:20:31"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 5
+    uuid: 21e0ad5c
+    fired_at: 2026-05-08T15:22:27.647Z
+    rating: Approve
+    time_logged: "00:20:39"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

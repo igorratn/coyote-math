@@ -1,0 +1,112 @@
+task:
+  stem: Report_Dashboard_Database_Dashboard_86
+  sa_task_filename: Report_Dashboard_Database_Dashboard_86.json
+  task_id: 187110397
+  image: screenshots/Report_Dashboard_Database_Dashboard_86.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "178,644"
+      flags: []
+      feedback: null
+      verdict_source: igor
+      skills_check: [Table/Chart/Graph Understanding]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Database_Dashboard_86.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Identify the table in the image that is not a bar graph.
+        
+        What is the absolute difference between the sum of all [Dimension].[City] and 
+        all [Fact].[Stock Holding] values ? Answer with a whole number (e.g 123)
+      answer: "178,644"
+
+  - n: 2
+    sa:
+      action: delete
+      rating: thumbs-down
+      answer_final: null
+      flags: []
+      feedback: "5/8: Prompt scopes the read to the top-right Bar Graph (Reserved Space) but asks for the \"precise\" value, while the bar's label is K-rounded (\"60K\"). Either drop \"precise\" and add \"approximate\" (and accept ~60,000), or remove the bar-graph restriction and let the answer come from the data table (59,800)."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Database_Dashboard_86.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Identify the Bar Graph in the uppermost right corner of the image.
+        
+        What is the precise value of [Fact].[Order]? Answer with a whole number (e.g. 1,000)
+      answer: "59,800"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "7"
+      flags: ["G2", "Type 7"]
+      feedback: null
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Database_Dashboard_86.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        How many objects that could be identified as an arrow are displayed in the image? Answer with a whole number (E.g. 123).
+      answer: "7"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "5"
+      flags: ["G2", "Type 3", "Type 7"]
+      feedback: "5/8: Final answer corrected from 18 to 5."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Database_Dashboard_86.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        How many characters displayed as white text can be seen in the image? Answer with a whole number (E.g 123).
+      answer: "5"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "B"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Report_Dashboard_Database_Dashboard_86.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        What is the range of the total values of each dataset that is represented by a bar graph?
+        
+        A. 788,924
+        B. 881,555
+        C. 899,904 
+        D. 904,899
+      answer: "B"

@@ -1,0 +1,102 @@
+task:
+  stem: Report_Dashboard_Board_Dashboard_139
+  sa_task_filename: Report_Dashboard_Board_Dashboard_139.json
+  task_id: 187110070
+  image: screenshots/Report_Dashboard_Board_Dashboard_139.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "13.6%"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Board_Dashboard_139.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        What is the percentage increase between Last Period and Current Period Actual in row Balance Sheet Strength?  Answer with percentage to the nearest tenths place (e.g., 1.0%)
+      answer: "13.6%"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "$12-$15K Within Range"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Board_Dashboard_139.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Which Target range does the value for Current Period Actual in row Median Revenue per Performance fall under? Answer with which Target (e.g., >$15K Meets Target).
+      answer: "$12-$15K Within Range"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "Median Revenue per Performance, Percentage of Performance Weeks with Free Public Show"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Board_Dashboard_139.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        According to the Target ranges found in the graphic, which Key Performance Indicators (KPI) scored Significantly Off Target for Last Period? Answer with KPI names separated by a comma (e.g., Months of Liquid Unrestricted Net Assets (LUNA), Fiscal YTD Operating Margin (Surplus/Deficit as % Revenue)).
+      answer: "Median Revenue per Performance, Percentage of Performance Weeks with Free Public Show"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "110"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Board_Dashboard_139.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        What is the absolute difference between the count of capital case letters and the count of lower case letters found in the six labels under Category. Do not include the label titled Category or any other rows or columns. Answer with a single number (e.g., 15).
+      answer: "110"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "307.5"
+      flags: []
+      feedback: "5/8: Skill tag corrected: Added Table/Chart/Graph Understanding; Dropped Spatial Reasoning (reading a table, not positional/relational layout)."
+      verdict_source: auto
+      skills_check: [Table/Chart/Graph Understanding]
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Board_Dashboard_139.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        What is the absolute difference between the value located in a red text label (with no percentage sign) and the value located in a yellow text label (with no dollar sign)? Answer with a single number rounded to the nearest tenth place (e.g., 1.0).
+      answer: "307.5"

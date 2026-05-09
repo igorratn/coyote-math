@@ -1,0 +1,31 @@
+task:
+  stem: Plot_Satellite_data_plots_86
+  sa_task_filename: Plot_Satellite_data_plots_86.json
+  task_id: 187109670
+  image: screenshots/Plot_Satellite_data_plots_86.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: delete
+      rating: thumbs-down
+      answer_final: null
+      flags: []
+      feedback: "5/8: Model not stumped — correct answer is B (top left), which matches the model's answer. Additionally, prompt has ambiguity: \"quadrant of the rotated diagram\" is unclear between the diagram's internal quadrants (which rotate with the diagram, leaving the satellite in TL = B) and page-fixed quadrants (which give a different result depending on which point is treated as \"center of the diagram\")."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Satellite_data_plots_86.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        If the diagram on the right were rotated clockwise about the center of the diagram by the sum of all of the degree measurements explicitly written out on the right half of the image, what quadrant of the rotated diagram would the leftmost satellite icon in the right diagram be found in? Answer with a single letter.
+        
+        A. Top right quadrant
+        B. Top left quadrant
+        C. Bottom right quadrant
+        D. Bottom left quadrant
+      answer: "A"

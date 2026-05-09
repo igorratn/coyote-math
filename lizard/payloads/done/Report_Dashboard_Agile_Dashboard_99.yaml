@@ -1,0 +1,84 @@
+task:
+  stem: Report_Dashboard_Agile_Dashboard_99
+  sa_task_filename: Report_Dashboard_Agile_Dashboard_99.json
+  task_id: 187110042
+  image: screenshots/Report_Dashboard_Agile_Dashboard_99.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "380000"
+      flags: []
+      feedback: "5/8: Skill tag corrected: Dropped Spatial Reasoning (bottom-right is navigational locator, not relational/positional reasoning)."
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Agile_Dashboard_99.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Count the number of bars in the bottom right bar chart that have text annotations above them. Call that B.
+        
+        Then, extract the budget value listed in USD inside the Budget & Cost dashboard panel. Call that U.
+        
+        Multiply U by B. What is the result?
+        
+        Return the answer as an integer (e.g., 123456).
+      answer: "380000"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "16744"
+      flags: []
+      feedback: "5/8: Final answer corrected from 20,384 to 16,744. H × V × A = 56 × 13 × 23 = 16,744 (H = HR Team Activity 56%, V = 13 vowels across the three panel titles, A = 23 active human icons in the HR Team Activity panel)."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Agile_Dashboard_99.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Look at the HR Team Activity dashboard panel and extract the listed percentage value. Call that H.
+        
+        Then, in the same HR Team Activity dashboard panel, count how many icons of humans are highlighted as active. Call that A.
+        
+        Then, focus on the three dashboard panels on the same row, directly to the left of the Budget donut chart. Count the total number of occurrences of vowels within the titles of these three panels. Do not count "y" or "&" as a vowel. E.g., "too" has two vowels. Call that V.
+        
+        Multiply H by V by A. What is the result?
+        
+        Return the answer as an integer (e.g., 1234).
+      answer: "16744"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "stcehrtmaymyes"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: [Table/Chart/Graph Understanding]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Agile_Dashboard_99.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Focus on the three dashboard panels on the same row at the bottom of the dashboard. Look at the titles of each, starting with the left-most panel.
+        
+        For each space-separated word, extract the first and last letters (A-Z or a-z) and append them (in order) into a string of characters. Convert the string to lowercase.
+        
+        What is the final result?
+        
+        Return your answer as a string (e.g., "iamastring").
+      answer: "stcehrtmaymyes"

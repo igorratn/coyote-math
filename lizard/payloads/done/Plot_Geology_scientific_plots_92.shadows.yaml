@@ -1,0 +1,23 @@
+stem: Plot_Geology_scientific_plots_92
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 17168842
+    fired_at: 2026-05-09T02:02:16.141Z
+    rating: Approve
+    time_logged: "00:20:35"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 16ce25cc
+    fired_at: 2026-05-09T02:02:53.217Z
+    rating: Approve
+    time_logged: "00:20:26"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

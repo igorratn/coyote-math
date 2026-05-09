@@ -1,0 +1,23 @@
+stem: Report_Dashboard_MRR_Dashboard_115
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: 0852be4d
+    fired_at: 2026-05-08T14:52:36.267Z
+    rating: Approve
+    time_logged: "00:20:05"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 1cd91d4d
+    fired_at: 2026-05-08T14:53:18.950Z
+    rating: Approve
+    time_logged: "00:20:34"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

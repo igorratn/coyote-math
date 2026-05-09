@@ -1,0 +1,23 @@
+stem: Plot_Machine_learning_results_graph_42
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 0d797b4b
+    fired_at: 2026-05-08T14:04:16.916Z
+    rating: Approve
+    time_logged: "00:20:23"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 084b8d1b
+    fired_at: 2026-05-08T14:04:47.961Z
+    rating: Approve
+    time_logged: "00:20:25"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

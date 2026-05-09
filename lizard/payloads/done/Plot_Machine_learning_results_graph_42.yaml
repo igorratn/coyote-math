@@ -1,0 +1,61 @@
+task:
+  stem: Plot_Machine_learning_results_graph_42
+  sa_task_filename: Plot_Machine_learning_results_graph_42.json
+  task_id: 186801033
+  image: screenshots/Plot_Machine_learning_results_graph_42.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "fycsil"
+      flags: []
+      feedback: "5/8: Skill tag corrected: added Table/Chart/Graph Understanding (prompt requires reading y-axis and x-axis titles)."
+      verdict_source: auto
+      skills_check: [Table/Chart/Graph Understanding]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Machine_learning_results_graph_42.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Look at the y-axis title and then the x-axis title.
+        
+        Read the text in Standard English reading order.
+        
+        For each word, extract the first and last English alphabetic character only, and append them (in order) to a result string.
+        
+        Ignore any non-English characters, numbers, symbols, and punctuation.  
+        
+        Convert all extracted letters to lowercase.  
+        
+        Return the final result as a string (e.g., "iamastring").
+        
+        Example: if the text in title 1 is "title one" and the text in title 2 is "title two", the result from those two texts would be "teoeteto".
+      answer: "fycsil"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "4"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Machine_learning_results_graph_42.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        How many arrows appear in the image that are pointing upward? Call that A.
+        
+        Do not count the scribble near the point of origin (0,0) as an arrow of any kind.
+        
+        Multiply A by 2 and return the result as an integer (e.g., 2).
+      answer: "4"

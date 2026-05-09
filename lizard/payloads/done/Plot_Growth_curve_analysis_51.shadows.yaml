@@ -1,0 +1,13 @@
+stem: Plot_Growth_curve_analysis_51
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 13ac6ae5
+    fired_at: 2026-05-09T01:59:55.384Z
+    rating: Approve
+    time_logged: "00:20:21"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

@@ -1,0 +1,26 @@
+task:
+  stem: Plot_Growth_curve_analysis_51
+  sa_task_filename: Plot_Growth_curve_analysis_51.json
+  task_id: 187109165
+  image: screenshots/Plot_Growth_curve_analysis_51.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "12"
+      flags: []
+      feedback: "5/8: Skill tag corrected: Dropped Spatial Reasoning (counting items in a grid, not relational/positional reasoning). Dropped Logical Reasoning (procedural count→divide, no chained inference). Added Enumeration (prompt asks for two counts). Added World Knowledge (recognition of standard 96-well plate and 8-channel pipette)."
+      verdict_source: auto
+      skills_check: [Enumeration, World Knowledge]
+      skills_uncheck: [Spatial Reasoning, Logical Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Growth_curve_analysis_51.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        In the Step 2 illustration, what is the total number of wells in the microplate divided by the total number of pipette tips? Answer as a single integer (e.g., 128)
+      answer: "12"

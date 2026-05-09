@@ -1,0 +1,112 @@
+task:
+  stem: Plot_MRI_data_visualization_32
+  sa_task_filename: Plot_MRI_data_visualization_32.json
+  task_id: 186801027
+  image: screenshots/Plot_MRI_data_visualization_32.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: null
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_MRI_data_visualization_32.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        What is the approximate value on the horizontal axis where the maximum of the chart with the red line occurs?
+        
+        A. 50
+        B. 100
+        C. 125
+        D. 150
+      answer: "C"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "21"
+      flags: []
+      feedback: null
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_MRI_data_visualization_32.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        What is the number for the only line of text outlined in a box? Answer in the form of a single number (e.g 12).
+      answer: "21"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "L"
+      flags: []
+      feedback: null
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_MRI_data_visualization_32.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        What is the letter approximately furthest from the center (intersection of the red crosshairs) of the upper-right MRI scan? Answer in the form of a letter (e.g. B).
+      answer: "L"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: null
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_MRI_data_visualization_32.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        What is the approximate value along the horizontal axis for the yellow line on the chart? 
+        
+        A. 140
+        B. 150
+        C. 160
+        D. 180
+      answer: "C"
+
+  - n: 5
+    sa:
+      action: delete
+      rating: thumbs-down
+      answer_final: null
+      flags: ["G2", "Type 3"]
+      feedback: "5/8: Prompt has multiple ambiguities. Specify which sub-image is meant by \"the image\" (whole screenshot vs MRI triptych vs single scan). Clarify which letters are intended as \"red font\" (crosshairs are red; orientation letters appear white/light). Define \"approximately left half\" boundary explicitly (image midline, scan midline, or other). Question type corrected from MCQ to Short answer question (no options in prompt). Skill tag corrected: added Math Reasoning (counting + summing across sub-images)."
+      verdict_source: igor
+      skills_check: [Math Reasoning]
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_MRI_data_visualization_32.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        What is the total number of letters in red font located approximately in the left half of the image? Answer with a single number (e.g, 3).
+      answer: "7"

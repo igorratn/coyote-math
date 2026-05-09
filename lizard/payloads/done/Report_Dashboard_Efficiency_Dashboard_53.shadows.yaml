@@ -1,0 +1,13 @@
+stem: Report_Dashboard_Efficiency_Dashboard_53
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 10b09364
+    fired_at: 2026-05-09T02:55:12.470Z
+    rating: Approve
+    time_logged: "00:20:46"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

@@ -1,0 +1,122 @@
+task:
+  stem: Report_Dashboard_OKR_Dashboard_59
+  sa_task_filename: Report_Dashboard_OKR_Dashboard_59.json
+  task_id: 186802631
+  image: screenshots/Report_Dashboard_OKR_Dashboard_59.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Report_Dashboard_OKR_Dashboard_59.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        If every category across both pie charts were arranged in a single row, sorted by the visual size of their respective slice in descending order from left to right, which category would appear leftmost?
+        
+        A. With OKR
+        B. Off Track
+        C. Not Started
+        D. On Track
+      answer: "C"
+
+  - n: 2
+    sa:
+      action: delete
+      rating: thumbs-down
+      answer_final: null
+      flags: []
+      feedback: "5/7: Olivia's chart shows one visible decline (mid-series dip); total = 1, which matches the model. Annotator's 2 doesn't match the visible chart. Model was not stumped."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_OKR_Dashboard_59.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Across all of Olivia's plotted observations, starting from the first point, how many times did Olivia experience a visible decline in performance from the previous observation?  Answer with a whole number (e.g., 3).
+      answer: "2"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "57.000%"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_OKR_Dashboard_59.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Assume Daniel's 1st quarter performance value is the value of the absolute difference between his current annual progress and his 4th quarter performance.
+        
+        Using this value for quarter 1, calculate Daniel's annual progress percentage.
+        
+        What is the final result?
+        Answer with the percentage number rounded to 3 decimal places with a trailing '%' (e.g., 45.433%).
+      answer: "57.000%"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "A"
+      flags: []
+      feedback: "5/8: Skill tag corrected: added Enumeration and Table/Chart/Graph Understanding (prompt requires reading dashboard navigation labels and identifying ordering)."
+      verdict_source: auto
+      skills_check: [Enumeration, Table/Chart/Graph Understanding]
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Report_Dashboard_OKR_Dashboard_59.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        From the current display selected on the dashboard, what is likely the respective order of labeled options I would need to select if I wanted to navigate to the key results for Q4?
+        A. Q4 2023, Key Results
+        B. Performance, Key Results
+        C. Head count, Objective, Key Results
+        D. Home, Q4 2023
+      answer: "A"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "0.66482"
+      flags: []
+      feedback: "5/7: Skill tag corrected: Dropped Spatial Reasoning (locating chart is navigational, not spatial reasoning about relative positions). Added Enumeration (prompt requires identifying the least-value point on the trend chart)."
+      verdict_source: auto
+      skills_check: [Enumeration]
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_OKR_Dashboard_59.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        Identify the value of the plotted point that appears to be the least value in the company objective progress trend chart.
+        
+        Using this value, calculate the 5th root of the arithmetic mean amount of company objective progress per head count.
+        
+        What is the final result?
+        
+        Answer with the result as a number rounded to 5 decimal places (e.g., 0.42524).
+      answer: "0.66482"

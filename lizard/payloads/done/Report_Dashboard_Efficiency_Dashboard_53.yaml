@@ -1,0 +1,30 @@
+task:
+  stem: Report_Dashboard_Efficiency_Dashboard_53
+  sa_task_filename: Report_Dashboard_Efficiency_Dashboard_53.json
+  task_id: 187110428
+  image: screenshots/Report_Dashboard_Efficiency_Dashboard_53.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "A"
+      flags: []
+      feedback: null
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Report_Dashboard_Efficiency_Dashboard_53.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Using only the "Performance Monitoring" line graph shown in the bottom right dashboard, calculate the approximate absolute difference between the highest "Energy Consumption" value and the highest "Energy Produced" value across the months shown.
+        A. 120
+        B. 150
+        C. 180
+        D. 210
+      answer: "A"

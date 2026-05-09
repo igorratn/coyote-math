@@ -1,0 +1,53 @@
+stem: Report_Dashboard_Marketing_Dashboard_101
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 1514b3f7
+    fired_at: 2026-05-08T15:02:47.851Z
+    rating: Approve
+    time_logged: "00:20:33"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 20d434f9
+    fired_at: 2026-05-08T15:03:21.660Z
+    rating: Approve
+    time_logged: "00:20:29"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: 222d74f8
+    fired_at: 2026-05-08T15:03:55.374Z
+    rating: Approve
+    time_logged: "00:20:25"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 4
+    uuid: 1f3154f4
+    fired_at: 2026-05-08T15:04:35.897Z
+    rating: Approve
+    time_logged: "00:20:34"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 5
+    uuid: 220cc0ad
+    fired_at: 2026-05-08T15:07:07.107Z
+    rating: Approve
+    time_logged: "00:20:14"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

@@ -1,0 +1,53 @@
+task:
+  stem: Plot_Geology_scientific_plots_92
+  sa_task_filename: Plot_Geology_scientific_plots_92.json
+  task_id: 187109154
+  image: screenshots/Plot_Geology_scientific_plots_92.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "D"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_Geology_scientific_plots_92.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Locate the thick black line in each diagram. For each diagram, count the number of rock layers that touch this line. Next, add all these numbers together; this sum is X. What is the product of X and Y, where Y is the number of seasons in a year?
+        A. 28
+        B. 32
+        C. 44
+        D. 52
+      answer: "D"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: "5/8: Skill tag corrected: Dropped Spatial Reasoning (identifying tilted vs horizontal is Attribute Perception, not relative positional reasoning). Added Logical Reasoning (comparing counts across diagrams to find max). Added Table/Chart/Graph Understanding (interpreting schematic diagrams with labels and layered structures)."
+      verdict_source: auto
+      skills_check: [Logical Reasoning, Table/Chart/Graph Understanding]
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "MCQ"
+    hai:
+      task_id_field: Plot_Geology_scientific_plots_92.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Determine which diagram has the most rock layers that are not placed horizontally. Count the number of horizontal rock layers and the number of non-horizontal rock layers in this diagram. Do not count the thick black line as a rock layer. What is the product of these two numbers?
+        A. 9
+        B. 12
+        C. 15
+        D. 18
+      answer: "C"

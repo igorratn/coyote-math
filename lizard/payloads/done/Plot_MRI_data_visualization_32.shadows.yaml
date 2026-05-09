@@ -1,0 +1,53 @@
+stem: Plot_MRI_data_visualization_32
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 0c7135ff
+    fired_at: 2026-05-08T13:57:48.827Z
+    rating: Approve
+    time_logged: "00:20:29"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 037acf55
+    fired_at: 2026-05-08T13:58:53.270Z
+    rating: Approve
+    time_logged: "00:20:57"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: 1427bc46
+    fired_at: 2026-05-08T14:00:01.630Z
+    rating: Approve
+    time_logged: "00:20:03"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 4
+    uuid: 136b0560
+    fired_at: 2026-05-08T14:00:38.542Z
+    rating: Approve
+    time_logged: "00:20:32"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 5
+    uuid: 166984cc
+    fired_at: 2026-05-08T14:01:04.402Z
+    rating: Reject
+    time_logged: "00:20:20"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

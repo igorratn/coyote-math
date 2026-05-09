@@ -1,0 +1,102 @@
+task:
+  stem: Report_Dashboard_Balanced_Scorecard_Dashboard_98
+  sa_task_filename: Report_Dashboard_Balanced_Scorecard_Dashboard_98.json
+  task_id: 186801883
+  image: screenshots/Report_Dashboard_Balanced_Scorecard_Dashboard_98.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "160"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Balanced_Scorecard_Dashboard_98.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        What is the absolute difference between the sum of all the percentages and the smallest "Target" value (excluding the percentages)? When calculating the difference, treat the percentages as whole numbers. Provide your answer as a number (e.g., 100).
+      answer: "160"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "1"
+      flags: []
+      feedback: "5/8: Skill tag corrected: added Enumeration (prompt requires counting objectives that exceeded vs. did not exceed targets)."
+      verdict_source: auto
+      skills_check: [Enumeration]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Balanced_Scorecard_Dashboard_98.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        What is the product between the number of objectives that have exceeded their target and the number of objectives that have not? For this question, an objective has exceeded its target when the value under the "Current" column has surpassed the value under the "Target" column. An objective has not exceeded its target when it is marked by a red arrow. Provide your answer as a number (e.g., 1).
+      answer: "1"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "3"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Balanced_Scorecard_Dashboard_98.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        What is the absolute difference between the total syllables for all the words before the hyphen in the dashboard's title and the words after the hyphen? For this question, use the complete phrase/word for any acronyms. As an example, "BSC" would be "Balanced Scorecard" Provide your answer as a number (e.g., 1).
+      answer: "3"
+
+  - n: 4
+    sa:
+      action: delete
+      rating: thumbs-down
+      answer_final: null
+      flags: []
+      feedback: "5/7: First sentence under the bullet is \"Write here your own description of the segment characteristics.\" — 1 occurrence of \"Write\". 1 × 8 chars in \"editable\" = 8, which matches the model. Model was not stumped."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Balanced_Scorecard_Dashboard_98.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        After counting the amount of times the word "editable" appears and the total number of characters in the word "editable", what is the product between the total number of characters in the word "editable" and the number of times the word "Write" appears in the first sentence under one bullet point in "Comments"? For this question, the count is case-insensitive. Provide your answer as a number (e.g., 1).
+      answer: "32"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "42500"
+      flags: ["Type 4"]
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Balanced_Scorecard_Dashboard_98.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        Taking the highest numerical value in the first two rows under "Target" and the average percentage in the bottom two rows under "Target," what is the product when multiplying these two values together? Provide your answer as a number (e.g., 1).
+      answer: "42500"

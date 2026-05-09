@@ -1,0 +1,53 @@
+stem: Report_Dashboard_Board_Dashboard_139
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 1d964253
+    fired_at: 2026-05-09T02:51:13.669Z
+    rating: Approve
+    time_logged: "00:20:40"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 1e466c54
+    fired_at: 2026-05-09T02:51:47.474Z
+    rating: Approve
+    time_logged: "00:20:29"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: 1e6eaaf9
+    fired_at: 2026-05-09T02:52:19.864Z
+    rating: Approve
+    time_logged: "00:20:28"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 4
+    uuid: 237907f7
+    fired_at: 2026-05-09T03:32:31.087Z
+    rating: Approve
+    time_logged: "00:20:38"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 5
+    uuid: 23839ba2
+    fired_at: 2026-05-09T03:32:59.652Z
+    rating: Approve
+    time_logged: "00:20:24"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

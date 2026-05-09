@@ -1,0 +1,33 @@
+stem: Report_Dashboard_Agile_Dashboard_99
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 1dcb0a3d
+    fired_at: 2026-05-09T02:48:22.600Z
+    rating: Approve
+    time_logged: "00:20:47"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 1e5ece93
+    fired_at: 2026-05-09T02:49:15.324Z
+    rating: Approve
+    time_logged: "00:20:45"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: 24ce66b8
+    fired_at: 2026-05-09T03:48:57.009Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

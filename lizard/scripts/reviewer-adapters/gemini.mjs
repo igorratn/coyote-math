@@ -63,14 +63,20 @@ export async function review({ mainImageBase64, mediaType, quadCrops, promptText
     const partsOut = result?.candidates?.[0]?.content?.parts ?? [];
     const text = partsOut.map(p => p.text ?? '').join('');
     const finish = result?.candidates?.[0]?.finishReason;
+    if (result.usageMetadata) {
+      const u = result.usageMetadata;
+      console.error(`[gemini] tokens: in=${u.promptTokenCount} out=${u.candidatesTokenCount} thoughts=${u.thoughtsTokenCount ?? 'n/a'} total=${u.totalTokenCount}`);
+    }
+    // MAX_TOKENS with no text means thinking burned the entire budget. Treat as
+    // hitCap so withCapRetry doubles and retries instead of exit(1)ing.
+    if (!text && finish === 'MAX_TOKENS') {
+      console.error(`[gemini] empty response — thinking exhausted maxOut=${maxOut}; will retry with doubled cap`);
+      return { text: '', hitCap: true };
+    }
     if (!text) {
       console.error(`[gemini] ERROR: empty response (finishReason=${finish})`);
       console.error('raw:', JSON.stringify(result).slice(0, 800));
       process.exit(1);
-    }
-    if (result.usageMetadata) {
-      const u = result.usageMetadata;
-      console.error(`[gemini] tokens: in=${u.promptTokenCount} out=${u.candidatesTokenCount} thoughts=${u.thoughtsTokenCount ?? 'n/a'} total=${u.totalTokenCount}`);
     }
     return { text, hitCap: finish === 'MAX_TOKENS' };
   };

@@ -1,0 +1,23 @@
+stem: Plot_Heatmap_data_visualization_150
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 183343d0
+    fired_at: 2026-05-09T02:03:35.455Z
+    rating: Approve
+    time_logged: "00:20:35"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 0c8d5d5d
+    fired_at: 2026-05-09T02:04:09.106Z
+    rating: Approve
+    time_logged: "00:20:22"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

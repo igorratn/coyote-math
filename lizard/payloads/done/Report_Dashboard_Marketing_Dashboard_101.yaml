@@ -1,0 +1,102 @@
+task:
+  stem: Report_Dashboard_Marketing_Dashboard_101
+  sa_task_filename: Report_Dashboard_Marketing_Dashboard_101.json
+  task_id: 186802551
+  image: screenshots/Report_Dashboard_Marketing_Dashboard_101.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "16"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Marketing_Dashboard_101.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Look only at the CTR and CPC Trends panel. Count how many x-axis date labels belong to 2022 and how many belong to 2023. Multiply those two counts. Then add the number of y-axis tick labels across both axes that contain a symbol rather than only digits. Finally, subtract the number of words in the panel title that do not appear in the legend labels, ignoring case. What is the final result? Answer as a whole number (e.g., 3).
+      answer: "16"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "13.52"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Marketing_Dashboard_101.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        In Top Campaigns by Cost, use only the three bars with the largest printed cost values. Take the largest printed cost value and subtract from it the sum of the other two printed cost values. Treat all three values as being in K. What is the final result? Answer as a number rounded to two decimal places (e.g., 1.3).
+      answer: "13.52"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "2.93"
+      flags: []
+      feedback: "5/8: Skill tag corrected: added Enumeration (prompt requires identifying drops between funnel stages)."
+      verdict_source: auto
+      skills_check: [Enumeration]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Marketing_Dashboard_101.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        In the Impression Funnel, use the three smaller displayed count values only. Compute the drop in count between each pair of adjacent funnel stages. Find the largest of those drops and the smallest of those drops. Subtract the smallest drop from the largest drop. Then convert the result to millions and round to two decimal places. What is the final result? Answer as a number only (e.g., 2.3).
+      answer: "2.93"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "129"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Marketing_Dashboard_101.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        Look only at the Clicks vs Impressions panel. Rank the four months from highest to lowest by Impressions bar height. Convert the printed Clicks labels for those months to tenths of K, so 3.6K becomes 36 and 3K becomes 30. Multiply the first and fourth values in that ranked order. From that product, subtract the product of the second and third values. Then divide the result by the number of legend entries in the panel. What is the final result? Answer as a whole number (e.g., 4).
+      answer: "129"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "129"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Marketing_Dashboard_101.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        Look only at the Clicks vs Impressions panel. Rank the four months from highest to lowest by Impressions bar height. Convert the printed Clicks labels for those months to tenths of K, so 3.6K becomes 36 and 3K becomes 30. Multiply the first and fourth values in that ranked order. From that product, subtract the product of the second and third values. Then divide the result by the number of legend entries in the panel. What is the final result? Answer as a whole number (e.g., 11).
+      answer: "129"

@@ -1,0 +1,45 @@
+task:
+  stem: Plot_Soil_analysis_charts_155
+  sa_task_filename: Plot_Soil_analysis_charts_155.json
+  task_id: 186801554
+  image: screenshots/Plot_Soil_analysis_charts_155.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "810"
+      flags: []
+      feedback: "5/8: Skill tag corrected: added Enumeration (prompt requires counting circular openings + binder holes)."
+      verdict_source: igor
+      skills_check: [Enumeration]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Soil_analysis_charts_155.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Find the total count of full circular openings on the entire page including the binder holes in the far-left, (excluding semi-circular openings). Multiply this total by the sum of the vertical 'Value'  displayed on the left axis. What is the resulting value? Provide the answer as an integer (e.g., 11).
+      answer: "810"
+
+  - n: 2
+    sa:
+      action: delete
+      rating: thumbs-down
+      answer_final: null
+      flags: ["G2"]
+      feedback: "5/8: Prompt fails V6 G1 — lacks required anchor skill (Logical Reasoning / Table-Chart-Graph Understanding / World Knowledge). Task is pure counting + addition with no chart interpretation or logical inference. Please reframe to require chart-content reasoning. Skill tag corrected: added Enumeration."
+      verdict_source: igor
+      skills_check: [Enumeration]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Soil_analysis_charts_155.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Count the total number of uppercase letters across the 'Soil-Color Charts' binder image (excluding any watermarks). Now, find the total number of directional arrows visible in the image. What is the sum of these two numbers? Provide the answer as an integer (e.g., 11).
+      answer: "21"

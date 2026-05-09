@@ -1,0 +1,53 @@
+stem: Plot_Phase_diagram_plots_52
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: 116fc45f
+    fired_at: 2026-05-09T02:05:12.767Z
+    rating: Approve
+    time_logged: "00:20:56"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 1b324a2d
+    fired_at: 2026-05-09T02:44:32.993Z
+    rating: Approve
+    time_logged: "00:20:40"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: 1c8c3a74
+    fired_at: 2026-05-09T02:45:27.929Z
+    rating: Approve
+    time_logged: "00:20:39"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 4
+    uuid: 1b13f6b2
+    fired_at: 2026-05-09T02:46:50.384Z
+    rating: Approve
+    time_logged: "00:20:16"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 5
+    uuid: 11cef842
+    fired_at: 2026-05-09T02:47:16.088Z
+    rating: Reject
+    time_logged: "00:20:21"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

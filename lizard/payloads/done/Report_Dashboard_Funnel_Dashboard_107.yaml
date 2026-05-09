@@ -1,0 +1,30 @@
+task:
+  stem: Report_Dashboard_Funnel_Dashboard_107
+  sa_task_filename: Report_Dashboard_Funnel_Dashboard_107.json
+  task_id: 187110541
+  image: screenshots/Report_Dashboard_Funnel_Dashboard_107.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "B"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Report_Dashboard_Funnel_Dashboard_107.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Use only the "Channel over time" line graph, and assume the chart uses unstacked values. Calculate the approximate absolute difference between the highest "Organic" value and the highest "Paid" value across the dates shown.
+        A. 400
+        B. 500
+        C. 600
+        D. 700
+      answer: "B"

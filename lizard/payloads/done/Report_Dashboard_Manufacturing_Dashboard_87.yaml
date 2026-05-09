@@ -1,0 +1,102 @@
+task:
+  stem: Report_Dashboard_Manufacturing_Dashboard_87
+  sa_task_filename: Report_Dashboard_Manufacturing_Dashboard_87.json
+  task_id: 186802549
+  image: screenshots/Report_Dashboard_Manufacturing_Dashboard_87.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "6"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Manufacturing_Dashboard_87.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Using only major headings, card titles, and sidebar items, count how many visible labels contain the exact word Production (case-sensitive). From that, subtract the number of visible labels that begin with the word Status (case-sensitive). Then multiply the result by the number of filter controls shown directly under the page title. What is the final result? Answer in a single number (e.g., 3).
+      answer: "6"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "27"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Manufacturing_Dashboard_87.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Using only the left sidebar and the Status Breakdown table, count the visible labels that contain exactly one space and end with the word Dashboard or Failure (case-insensitive). Add the number of sidebar items whose second word is Control or Monitoring (case-insensitive). Then multiply that total by the number of filter controls shown directly under the page title. What is the final result? Answer in a single number (e.g., 3).
+      answer: "27"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "12"
+      flags: []
+      feedback: null
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Manufacturing_Dashboard_87.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        On the Actual vs. Target chart, start at the first red bar and look strictly to its right. Count how many green bars appear there. Add the number of non-green legend entries above the donut chart. Multiply that sum by the number of red reasons in the Status Breakdown table whose names contain exactly three words. Then subtract the number of unselected sidebar items whose names end with Dashboard (case-sensitive). What is the final result? Answer in a single number (e.g., 3).
+      answer: "12"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "41.12"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Manufacturing_Dashboard_87.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        Among the three KPI cards immediately to the left of the wide Status History panel, subtract the Previous day value of the leftmost card from the current value of the center card. Then add the absolute value from adding the Versus value from the leftmost card and the Versus value from the rightmost card. Finally, add the number of horizontal and vertical dashed lines in the Status Breakdown table, counting only dashed lines and not the solid header line. What is the final answer? Answer with a single number rounded to two decimal places (e.g., 1.23).
+      answer: "41.12"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "56"
+      flags: []
+      feedback: null
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Manufacturing_Dashboard_87.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        Using the Actual vs. Target chart, find the absolute difference between the number of green columns and red columns. Multiply that value by the number of lowercase letters in the selected top-navigation label in the black menu bar. Then add the total number of uppercase letters across these fully visible labels only: Help, Invite, GoodUser, Edit, Share, and Production Breakdown KPIs. Answer in a single number (e.g., 3).
+      answer: "56"

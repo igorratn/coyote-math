@@ -1,0 +1,13 @@
+stem: Report_Dashboard_Funnel_Dashboard_107
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: 1fd47b5e
+    fired_at: 2026-05-09T02:56:34.002Z
+    rating: Approve
+    time_logged: "00:20:15"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "Because 440 is closer to 400 than it is to 500, the correct answer should be A (400), not B. Your prompt is otherwise well-written! It successfully avoids formatting ambiguity, includes 4 MCQ options, and clearly specifies an \"absolute difference\" and how to interpret the chart (\"assume unstacked values\"). You just need to update the Rewrite Answer to A."
+    reclaimed: false
+    reclaim_diff: null

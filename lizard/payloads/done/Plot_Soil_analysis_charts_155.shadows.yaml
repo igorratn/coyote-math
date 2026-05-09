@@ -1,0 +1,23 @@
+stem: Plot_Soil_analysis_charts_155
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 19f3523f
+    fired_at: 2026-05-08T14:44:59.948Z
+    rating: Approve
+    time_logged: "00:20:54"
+    verdict_source: igor
+    hai_llm_eval: warning
+    hai_llm_comment: "Find the total count... Total Openings: 25 + 4 = 29. Sum of Value: 8+7+6+5+4=30. Final Calculation: 29 x 30 = 870. The Rewrite Answer should be updated to 870."
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 18455296
+    fired_at: 2026-05-08T14:45:36.504Z
+    rating: Reject
+    time_logged: "00:20:20"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

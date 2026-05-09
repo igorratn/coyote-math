@@ -1,0 +1,53 @@
+stem: Report_Dashboard_Manufacturing_Dashboard_87
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 1ad0578c
+    fired_at: 2026-05-08T14:53:58.409Z
+    rating: Approve
+    time_logged: "00:20:27"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 14ddebe1
+    fired_at: 2026-05-08T14:56:45.939Z
+    rating: Approve
+    time_logged: "00:20:33"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: 163c040f
+    fired_at: 2026-05-08T14:58:57.935Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 4
+    uuid: 1fde968b
+    fired_at: 2026-05-08T14:59:44.050Z
+    rating: Approve
+    time_logged: "00:20:40"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 5
+    uuid: 1e7f5395
+    fired_at: 2026-05-08T15:02:01.147Z
+    rating: Approve
+    time_logged: "00:20:11"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
