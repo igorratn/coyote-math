@@ -4,46 +4,46 @@
 - **task_id:** 187300870
 - **SA_TASK_FILENAME:** Report_Dashboard_Customer_Service_Dashboard_99.json
 - **Image:** screenshots/Report_Dashboard_Customer_Service_Dashboard_99.png — (description)
-- **Date:** 2026-05-05
+- **Date:** 2026-05-09
 - **Review Cycle:** 1st
-- **Task QC Status:** QC_Complete
+- **Task QC Status:** TBD
 
 ## Task Status
-- **Status:** ALL-AUTO-RESOLVED
-- **Reviewers fired:** opus, gemini
-- **Summary:** 0 pending Igor, 1 auto-resolved, 0 no-reviewer-output, 0 unchanged-carry-forward (of 1 total)
+- **Status:** ALL-PENDING-IGOR
+- **Reviewers fired:** opus, gpt, gemini, grok
+- **Summary:** 1 pending Igor, 0 auto-resolved, 0 no-reviewer-output, 0 unchanged-carry-forward (of 1 total)
 
 ---
 
 ## Annotation 1
 
-- **Reviewer:** gemini
+- **Reviewer:** gpt
 - **Rating:** thumbs-up
-- **All Verdicts:** opus: 👎, gemini: 👍 (picked)
+- **All Verdicts:** opus: 👎, gpt: 👍 (picked), gemini: 👍, grok: 👎
 - **Flags:** []
-- **Final Answer (reviewer):** 10
-- **Skills Tagged:** Attribute Perception, Spatial Reasoning, Logical Reasoning
+- **Final Answer (reviewer):** 7
+- **Skills Tagged:** Enumeration, Attribute Perception, Spatial Reasoning, Logical Reasoning
 - **Question Type:** SAQ
 - **Model Answer:** 7
-- **Annotator Answer:** 10
+- **Annotator Answer:** 6
 
 #### Full Prompt
-Using the illustration in , follow these logical steps to determine the final numeric value.
+Review the illustration in the image. You are conducting a visual audit of the graphic elements. Follow these logical steps to determine the final numeric value:
 
-Locate the large white circular frame containing the hand icon. Count the total number of yellow stars that are physically touching or overlapping this white frame.
+Iconographic Enumeration: Locate the large white circular frame containing the hand icon. Count the total number of yellow stars that are physically touching or overlapping this white frame.
 
-Count the total number of light-colored circular spots used to represent the cheeks on the woman's face.
+Facial Details: Count the total number of light-colored circular spots used to represent the cheeks on the woman's face.
 
-Count the total number of fingers and thumbs (digits) visible on the white hand icon.
+Anatomy of the Icon: Look at the white hand icon. Count only the fully extended digits (fingers or thumbs) pointing upward.
 
-Identify the number of black dots/buttons visible on the yellow sleeve of the hand icon.
+Component Count: Identify the number of small circular marks (buttons) visible on the yellow sleeve cuff of the hand icon.
 
-Find the final answer by calculating: (Result from Step 1) + (Result from Step 2) + (Result from Step 3) + (Result from Step 4).
+Final Calculation: Sum the results from Step 1, Step 2, Step 3, and Step 4.
 
-Provide your answer as a single numeric value only (e.g., 10).
+Provide your answer as a single numeric value only (e.g., 6).
 
 #### Rewrite Answer (annotator)
-10
+6
 
 #### Reviewer Body (opus)
 - **Rating:** thumbs-down
@@ -55,7 +55,25 @@ Provide your answer as a single numeric value only (e.g., 10).
 - **Edits Made:** None
 - **Feedback:** 5/5: Prompt fails G2 — multiple counting boundaries are ambiguous (Type 7) and final sum is not deterministic. Step 1 "stars touching/overlapping" is judgment-dependent (2 vs 3 depending on whether upper-right star edge contacts frame). Step 3 "fingers and thumbs visible" on a thumbs-up icon is ambiguous: 1 extended thumb vs 5 digits represented including curled knuckles. Step 4 "black dots on yellow sleeve" — at most one faint mark visible; ambiguous whether it's a button or shading. Multiple defensible decompositions yield different totals (6, 7, 10, etc.). Rewrite the prompt with unambiguous counting targets or remove the ambiguous steps.
 
-#### Reviewer Body (gemini) (picked)
+#### Reviewer Body (gpt) (picked)
+- **Rating:** thumbs-up
+- **Final Rewrite Answer:** 7
+- **Flags:** []
+- **Two-Part Check:**
+  1. Question: Valid. Multi-step counting with a final sum requires Logical Reasoning and Enumeration. Terms like “touching/overlapping,” “cheek spots,” and “extended digits pointing upward” are visually specific and verifiable from the illustration. Single numeric output is specified.
+  2. Answer: 
+     - Step 1 (stars touching frame): 3 [Read-First] [pixel-verified].
+     - Step 2 (cheek spots): 2 [Read-First] [pixel-verified].
+     - Step 3 (upward digits): 1 [Read-First] [pixel-verified].
+     - Step 4 (sleeve cuff button): 1 [Read-First] [pixel-verified].
+     - Sum = 3 + 2 + 1 + 1 = 7 [pixel-verified].
+- **Edits Made:** None
+- **Feedback:** N/A
+
+Fix List
+- None — prompt valid and answer 7 confirmed from image.
+
+#### Reviewer Body (gemini)
 - **Rating:** thumbs-up
 - **Final Rewrite Answer:** 10
 - **Flags:** []
@@ -71,22 +89,30 @@ Provide your answer as a single numeric value only (e.g., 10).
 - **Edits Made:** Added `Enumeration` and `Math Reasoning` to the skill tags.
 - **Feedback:** 5/5: Added `Enumeration` and `Math Reasoning` as skill tags, as the prompt requires counting multiple sets of items and performing a final calculation.
 
-**Auto-resolved at Job 2 (👍).** gemini 👍 (matches annotator). SA action at Job 5: approve annotator's answer `10` (cycle 1). Skipped at Job 3 walkthrough.
+#### Reviewer Body (grok)
+- **Rating:** thumbs-down
+- **Final Rewrite Answer:** N/A — prompt invalid
+- **Flags:** [Type 2]
+- **Two-Part Check:**
+  1. Question: Passes G1 (multiple enumeration steps + summing requires Enumeration + Math Reasoning + Logical Reasoning; has Logical Reasoning as anchor skill). Passes G2 (ends with explicit single-output instruction: "Provide your answer as a single numeric value only (e.g., 6)."). Passes G3 (answerable from image alone; no specialized knowledge needed — terms like "digits" and "buttons" are general world knowledge). Passes G4 (standalone). Passes G5 (no leakage in format example; "6" is arbitrary and doesn't telegraph the sum). No other error types except Type 2: model answered correctly (output "7" matches the verifiable sum from image) — stump fail; prompt does not demonstrate a meaningful model error.
+  2. Answer: Step 1: 3 yellow stars, each with at least one point physically touching the white circular frame (large star above touches at bottom point; two smaller stars to the right each touch at their left points) [pixel-verified from top-right and bottom-right quadrants]. Step 2: 2 light-colored (pink) circular spots on the woman's cheeks [pixel-verified from top-left and bottom-left quadrants]. Step 3: 1 fully extended digit pointing upward (the thumb; four fingers are curled, not extended) [pixel-verified from bottom-right quadrant]. Step 4: 1 small circular mark (black dot) on the yellow sleeve cuff [pixel-verified from bottom-right quadrant]. Sum: 3 + 2 + 1 + 1 = 7 [pixel-verified]. Model output "7" matches this correct value, so model not stumped (Type 2 fail). No disagreement with any saved annotator answer possible here — 7 is the verifiable value from image.
+- **Edits Made:** None
+- **Feedback:** 5/9: Model output "7" is correct per image verification (3 stars touching frame + 2 cheek spots + 1 extended digit + 1 cuff mark); prompt fails to stump the model (Type 2).
 
-#### Auto Verdict
-carve_out: 👍-close
+**Pending Igor at Job 3.** Reviewer verdicts above are advisory; Igor decides 👍/👎. (cycle 1: 👎 → QC_Return; 👍 → approve)
+
+#### Igor Verdict
 rating: thumbs-up
-final_answer: 10
-source: gemini
-sa_action: approve
-skills_check: [Enumeration, Math Reasoning]
+final_answer: 6
+source: custom
+skills_check: [Math Reasoning]
 skills_uncheck: []
-notes: gemini 👍 close to annotator; SA approves annotator's answer. Skill edits: check=[Enumeration, Math Reasoning], uncheck=[].
+notes: Igor approves annotator's 6. Model 7 stumped. Prompt has 4 counting steps + final sum — Math Reasoning skill missing from tags.
 
 #### Edits Made
-(to be filled at Job 3 if needed)
+Skill tags corrected: added Math Reasoning (Step 5 sums Steps 1-4).
 
 #### Feedback
-5/5: Skill tag corrected: Added `Enumeration` and `Math Reasoning` to the skill tags.
+5/9: Skill tag corrected: added Math Reasoning (final step sums the four counts).
 
 ---

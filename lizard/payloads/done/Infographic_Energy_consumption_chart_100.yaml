@@ -1,0 +1,118 @@
+task:
+  stem: Infographic_Energy_consumption_chart_100
+  sa_task_filename: Infographic_Energy_consumption_chart_100.json
+  task_id: 188406329
+  image: screenshots/Infographic_Energy_consumption_chart_100.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "D"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Infographic_Energy_consumption_chart_100.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Which year marks a visible discontinuity or separation across all four panels, highlighted by the gray vertical band?
+        A. 2008
+        B. 2009
+        C. 2010
+        D. 2011
+      answer: "D"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Infographic_Energy_consumption_chart_100.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        In panel (a), which two load types together form the majority of non-electricity demand through most years?
+        A. Space cooling + hot water
+        B. Space heating + hot water
+        C. Space cooling + space heating
+        D. Electricity + hot water
+      answer: "C"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "D"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: [Math Reasoning]
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Infographic_Energy_consumption_chart_100.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        In panel (c), which source contributes most to the increase in total electricity supply after the 2010 divider?
+        A. PV generation
+        B. Fuel cell generation
+        C. Gas engine generation
+        D. Electricity imported from grid
+      answer: "D"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Infographic_Energy_consumption_chart_100.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        Which year has the largest absolute difference between electricity imported from the grid in panel (b) and gas purchased in the same panel, considering the size of the bars?
+        A. 2009
+        B. 2012
+        C. 2015
+        D. 2018
+      answer: "C"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "2011"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Infographic_Energy_consumption_chart_100.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        During which year was gas purchased, but the amount of electricity imported was not shown? Answer the name of the year (e.g., 2023)
+      answer: "2011"

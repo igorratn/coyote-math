@@ -1,0 +1,31 @@
+task:
+  stem: Infographic_Historical_timeline_poster_68
+  sa_task_filename: Infographic_Historical_timeline_poster_68.json
+  task_id: 188406398
+  image: screenshots/Infographic_Historical_timeline_poster_68.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "B"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: [Enumeration]
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Infographic_Historical_timeline_poster_68.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Use only event cards, defined as blocks with a printed year or year range followed by a bold event title. Exclude colored subperiod headings, captions, and decorative images. Treat a date range by its first printed year. Count event cards whose first printed year is strictly earlier than 1787 within the orange top row and the pink row. Multiply the orange-row count by the pink-row count, then subtract the number of pink subperiod heading bars. Which result is correct?
+        
+        A. 18
+        B. 21
+        C. 24
+        D. 27
+      answer: "B"

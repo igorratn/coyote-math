@@ -1,0 +1,26 @@
+task:
+  stem: Infographic_Home_buying_checklist_179
+  sa_task_filename: Infographic_Home_buying_checklist_179.json
+  task_id: 188406404
+  image: screenshots/Infographic_Home_buying_checklist_179.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "2"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Infographic_Home_buying_checklist_179.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Analyze the document to locate the handwritten notes situated near the top right, above the numbered step boxes. Identify the specific line that begins with the text "BASIC NEEDS:" and extract the very first numeric digit explicitly written on this single line (reading left to right). Next, locate the numbered step box titled "RESEARCH MORTGAGES". Count the exact number of square checkboxes (regardless of whether they are checked or empty) present strictly within this specific box. Multiply your extracted digit by this checkbox count to establish your first working number. Next, examine the numbered step box titled "EXPLORE NEIGHBORHOODS". Focus on the landscape illustration at the bottom of this box and count the exact number of distinct house structures depicted (strictly excluding any trees or vehicles). Add this count of house structures to your first working number. Finally, carefully scan all numbered step boxes visible across the entire document. Count the total, exact number of square checkboxes that remain completely empty (containing no handwritten marks, scribbles, or checkmarks of any kind). Subtract this total count of empty checkboxes from your previous sum. Provide your final answer as a single whole number (e.g., 5).
+      answer: "2"

@@ -113,19 +113,34 @@ await page.evaluate(async () => {
   }
 });
 await page.waitForFunction(() => !!document.querySelector('textarea'), null, { timeout: 60000 });
-// Freshness gate (codified 2026-05-09 — cross-allocation corruption incident):
-// HAI's "Start task" can serve a mid-flow task whose textarea is the prompt slot
-// (Step 3) or rewrite slot (Step 4), already filled by another fire. If we blind-
-// fill TASK_ID_FIELD here we corrupt that task's prompt/rewrite. Before filling,
-// verify the textarea is empty (Step 1 fresh state). If not, abort cleanly so
-// fire-stem.sh moves on without corrupting cross-allocated content.
-const taPreState = await page.evaluate(() => {
+// Freshness gate (codified 2026-05-09, refined 2026-05-09 — cross-allocation
+// corruption incident): HAI's "Start task" can serve a mid-flow task whose first
+// textarea is actually the PROMPT slot (Step 3) or REWRITE slot (Step 4), with
+// content empty if the prior fire bailed before filling. Empty-check alone is
+// insufficient — we MUST verify the page is on Step 1 by checking the label
+// text. Step 1 has "Copy the ID of the task..." prompt; Step 3 has "Copy over
+// the Annotator Prompt..."; Step 4 has "Copy over the Rewrite Answer...". If
+// the visible step label isn't Step 1's, abort cleanly.
+const stepCheck = await page.evaluate(() => {
+  const text = document.body.innerText;
   const ta = document.querySelector('textarea');
-  return { value: ta.value || '', length: (ta.value || '').length };
+  const onStep1 = /Copy the ID of the task that you are working on from SuperAnnotate/.test(text);
+  const onStep3 = /Copy over the Annotator Prompt from SuperAnnotate/.test(text);
+  const onStep4 = /Copy over the Rewrite Answer from SuperAnnotate/.test(text);
+  return {
+    onStep1, onStep3, onStep4,
+    taValue: (ta && ta.value) || '',
+    taLen: (ta && ta.value || '').length
+  };
 });
-if (taPreState.length > 0) {
-  console.log("FRESHNESS_FAIL=textarea_prefilled length=" + taPreState.length + " preview=" + taPreState.value.slice(0, 80).replace(/\\n/g, ' '));
-  throw new Error('Cross-allocation detected: Step 1 textarea is pre-filled (' + taPreState.length + ' chars). Refusing to fill.');
+if (!stepCheck.onStep1) {
+  const where = stepCheck.onStep3 ? 'Step 3 (prompt slot)' : stepCheck.onStep4 ? 'Step 4 (rewrite slot)' : 'unknown step';
+  console.log("FRESHNESS_FAIL=not_on_step1 page=" + where + " ta_len=" + stepCheck.taLen);
+  throw new Error('Cross-allocation detected: page is on ' + where + ', not Step 1. Refusing to fill (would corrupt prompt/rewrite).');
+}
+if (stepCheck.taLen > 0) {
+  console.log("FRESHNESS_FAIL=step1_textarea_prefilled length=" + stepCheck.taLen + " preview=" + stepCheck.taValue.slice(0, 80).replace(/\\n/g, ' '));
+  throw new Error('Cross-allocation detected: Step 1 textarea is pre-filled (' + stepCheck.taLen + ' chars). Refusing to fill.');
 }
 await page.evaluate((v) => {
   const setter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, 'value').set;
@@ -147,10 +162,28 @@ await page.evaluate((v) => {
   inp.dispatchEvent(new Event('change', { bubbles: true }));
 }, ANNOT_N);
 // Wait for enabled submit before clicking (React form-validation lag).
+// Retry submit click on silent-noop (same pattern as Phase 4 — codified 2026-05-09).
 await page.waitForFunction(() => !!document.querySelector('button[type="submit"]:not([disabled])'), null, { timeout: 60000 });
 await new Promise(r => setTimeout(r, 500));
-await page.evaluate(() => document.querySelector('button[type="submit"]:not([disabled])').click());
-await page.waitForFunction(() => Array.from(document.querySelectorAll('button')).find(b => (b.getAttribute('aria-label') || '') === 'Upload assets' && !b.disabled), null, { timeout: 60000 });
+let phase1Step2Attempt = 0;
+while (true) {
+  phase1Step2Attempt++;
+  const clicked = await page.evaluate(() => {
+    const sub = document.querySelector('button[type="submit"]:not([disabled])');
+    if (!sub) return false;
+    sub.click();
+    return true;
+  });
+  if (!clicked && phase1Step2Attempt > 1) { console.log("PHASE1_STEP2_PAGE_ADVANCED"); break; }
+  try {
+    await page.waitForFunction(() => Array.from(document.querySelectorAll('button')).find(b => (b.getAttribute('aria-label') || '') === 'Upload assets' && !b.disabled), null, { timeout: 15000 });
+    break;
+  } catch (e) {
+    if (phase1Step2Attempt >= 3) throw e;
+    console.log("PHASE1_STEP2_RETRY=" + phase1Step2Attempt);
+    await new Promise(r => setTimeout(r, 1500));
+  }
+}
 console.log("PHASE1_MS=" + (Date.now() - t0));
 
 // ============ Phase 2: image upload (filechooser + buffer) ============
@@ -250,18 +283,34 @@ await new Promise(r => setTimeout(r, 1500));
 // a silent no-op. Detect by waiting for Phase-5 'Reviewing'/'Retry' button to
 // appear; if it doesn't, re-click. Codified 2026-05-09 (Agile_99 A3 incident,
 // 396-char prompt — single click was silent no-op, manual click advanced page).
+// Click then wait long enough for HAI's LLM validation (which can take 30-60s).
+// On retry, only re-click if Step-4 submit button is STILL present (page didn't
+// advance). If the page advanced but Reviewing/Retry hasn't appeared yet, just
+// keep waiting — re-clicking would fail (no submit button → undefined.click()).
 let phase4ClickAttempt = 0;
 while (true) {
   phase4ClickAttempt++;
-  await page.evaluate(() => {
+  const clicked = await page.evaluate(() => {
     function isVisible(el) { if (!el) return false; const r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0; }
-    Array.from(document.querySelectorAll('button[type="submit"]:not([disabled])')).filter(isVisible)[0].click();
+    const sub = Array.from(document.querySelectorAll('button[type="submit"]:not([disabled])')).filter(isVisible)[0];
+    if (!sub) return false;
+    sub.click();
+    return true;
   });
+  if (!clicked && phase4ClickAttempt > 1) {
+    // No submit button visible AND we already clicked once → page advanced; just wait for Phase 5.
+    console.log("PHASE4_PAGE_ADVANCED");
+    await page.waitForFunction(() => {
+      const btns = Array.from(document.querySelectorAll('button'));
+      return btns.find(b => (b.textContent.trim() === 'Reviewing' || b.textContent.trim() === 'Retry') && !b.disabled);
+    }, null, { timeout: 90000 });
+    break;
+  }
   try {
     await page.waitForFunction(() => {
       const btns = Array.from(document.querySelectorAll('button'));
       return btns.find(b => (b.textContent.trim() === 'Reviewing' || b.textContent.trim() === 'Retry') && !b.disabled);
-    }, null, { timeout: 8000 });
+    }, null, { timeout: 60000 });
     break;
   } catch (e) {
     if (phase4ClickAttempt >= 3) throw e;
@@ -317,33 +366,61 @@ if (preSubmitWarning) console.log("QC_WARNING_CAPTURED=true");
   // Retry-click on each, verify advance via Approve/Reject button appearance.
   // Codified 2026-05-09 (Agile_99 A3 incident — manual click via dev-browser
   // advanced page when script's single click was a no-op).
+  // Click Reviewing → wait for submit-enabled (HAI's role-select can take 5-30s
+  // for form-validation to enable the submit). Re-click only if Reviewing button
+  // still present after wait (silent no-op case).
   let phase6ReviewAttempt = 0;
   while (true) {
     phase6ReviewAttempt++;
-    await page.evaluate(() => {
+    const reviewClicked = await page.evaluate(() => {
       const btn = Array.from(document.querySelectorAll('button')).find(b => b.textContent.trim() === 'Reviewing' && !b.disabled);
-      if (btn) btn.click();
+      if (!btn) return false;
+      btn.click();
+      return true;
     });
-    await new Promise(r => setTimeout(r, 500));
+    if (!reviewClicked && phase6ReviewAttempt > 1) {
+      // Already advanced past role-select on a prior click.
+      console.log("PHASE6_PAGE_ADVANCED");
+      break;
+    }
     try {
-      await page.waitForFunction(() => !!document.querySelector('button[type="submit"]:not([disabled])'), null, { timeout: 8000 });
+      // Wait for either submit-enabled (role accepted) OR Approve/Reject (already past submit).
+      await page.waitForFunction(() => {
+        if (document.querySelector('button[type="submit"]:not([disabled])')) return true;
+        return Array.from(document.querySelectorAll('button')).find(b => /^(Approve|Reject)$/.test(b.textContent.trim()) && !b.disabled);
+      }, null, { timeout: 30000 });
       break;
     } catch (e) {
       if (phase6ReviewAttempt >= 3) throw e;
       console.log("PHASE6_REVIEWING_RETRY=" + phase6ReviewAttempt);
+      await new Promise(r => setTimeout(r, 1000));
     }
   }
-  let phase6SubmitAttempt = 0;
-  while (true) {
-    phase6SubmitAttempt++;
-    await page.evaluate(() => document.querySelector('button[type="submit"]:not([disabled])').click());
-    try {
-      await page.waitForFunction(() => Array.from(document.querySelectorAll('button')).find(b => /^(Approve|Reject)$/.test(b.textContent.trim())), null, { timeout: 8000 });
-      break;
-    } catch (e) {
-      if (phase6SubmitAttempt >= 3) throw e;
-      console.log("PHASE6_SUBMIT_RETRY=" + phase6SubmitAttempt);
-      await new Promise(r => setTimeout(r, 1500));
+  // Submit (advances to Approve/Reject) — only if not already there.
+  const alreadyAtRating = await page.evaluate(() =>
+    !!Array.from(document.querySelectorAll('button')).find(b => /^(Approve|Reject)$/.test(b.textContent.trim()) && !b.disabled));
+  if (!alreadyAtRating) {
+    let phase6SubmitAttempt = 0;
+    while (true) {
+      phase6SubmitAttempt++;
+      const subClicked = await page.evaluate(() => {
+        const sub = document.querySelector('button[type="submit"]:not([disabled])');
+        if (!sub) return false;
+        sub.click();
+        return true;
+      });
+      if (!subClicked && phase6SubmitAttempt > 1) {
+        console.log("PHASE6_SUBMIT_PAGE_ADVANCED");
+        break;
+      }
+      try {
+        await page.waitForFunction(() => Array.from(document.querySelectorAll('button')).find(b => /^(Approve|Reject)$/.test(b.textContent.trim()) && !b.disabled), null, { timeout: 30000 });
+        break;
+      } catch (e) {
+        if (phase6SubmitAttempt >= 3) throw e;
+        console.log("PHASE6_SUBMIT_RETRY=" + phase6SubmitAttempt);
+        await new Promise(r => setTimeout(r, 1500));
+      }
     }
   }
   await page.evaluate((r) => {

@@ -1,0 +1,31 @@
+task:
+  stem: Flyer_Poster_00027_HM-5_Frankenstein
+  sa_task_filename: Flyer_Poster_00027_HM-5_Frankenstein_2325e4fe.json
+  task_id: 188404929
+  image: screenshots/Flyer_Poster_00027_HM-5_Frankenstein.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: ["G2", "Type 1", "Type 9"]
+      feedback: "5/9: Prompt invalid — \"D. All equal\" is a forbidden MCQ meta-option per V6 rules (Type 9). Also \"highest contrast\" is undefined (luminance, hue, tonal range — different defensible reads point to different answers). Skill tag corrected: dropped Enumeration, Math Reasoning, Table/Chart/Graph Understanding (no chart/graph/table on the poster, no counting, no arithmetic); added Attribute Perception (contrast is a visual attribute) and Logical Reasoning (comparison across alternatives)."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Flyer_Poster_00027_HM-5_Frankenstein_2325e4fe.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Which element has the highest contrast against the background? Please answer in letter format. (e.g. D)
+        
+        A. House
+        B. Trees
+        C. Character
+        D. All equal
+      answer: "C"

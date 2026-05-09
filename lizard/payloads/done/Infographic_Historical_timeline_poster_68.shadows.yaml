@@ -1,0 +1,13 @@
+stem: Infographic_Historical_timeline_poster_68
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 6fc54d39
+    fired_at: 2026-05-09T19:13:20.898Z
+    rating: Approve
+    time_logged: "00:20:37"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

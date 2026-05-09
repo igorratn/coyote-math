@@ -1,0 +1,187 @@
+task:
+  stem: Flyer_Poster_Sale_poster_design_121
+  sa_task_filename: Flyer_Poster_Sale_poster_design_121.json
+  task_id: 188405638
+  image: screenshots/Flyer_Poster_Sale_poster_design_121.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "DTPU"
+      flags: []
+      feedback: "5/9: Skill tag corrected: Dropped Spatial Reasoning (top-to-bottom is navigational, not relational position reasoning)."
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Flyer_Poster_Sale_poster_design_121.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Use only the vertically stacked promotional text groups.
+        
+        Read these groups from top to bottom:
+        
+        discount announcement
+        main sale-title area
+        red ribbon promotion
+        urgency/footer message
+        
+        Encode each group as:
+        
+        D = discount information
+        T = title/sale identity
+        P = promotional badge/ribbon
+        U = urgency or time limitation
+        
+        What is the resulting code?
+        
+        Answer format: Answer with uppercase letters only using D, T, P, and U (e.g., DTPP).
+      answer: "DTPU"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "DIII"
+      flags: []
+      feedback: "5/9: Skill tag corrected: Dropped Spatial Reasoning, added Enumeration (counting letters per region is the core operation)."
+      verdict_source: auto
+      skills_check: [Enumeration]
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Flyer_Poster_Sale_poster_design_121.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Use only the vertically centered text stack.
+        
+        Read these regions from top to bottom:
+        
+        top discount text
+        END
+        OF YEAR
+        red BIG SALE ribbon text
+        bottom urgency text
+        
+        For each adjacent pair, compare the number of visible letters only (ignore spaces and numbers).
+        
+        Encode:
+        
+        I if the second region contains strictly more letters than the first
+        D if the second region contains strictly fewer letters than the first
+        S if both regions contain the same number of letters
+        
+        What is the resulting code?
+        
+        Answer format: Answer with uppercase letters only using I, D, and S (e.g., IDDS).
+      answer: "DIII"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "19"
+      flags: []
+      feedback: "5/9: Skill tag corrected: Added Enumeration (word counting drives B and C)."
+      verdict_source: auto
+      skills_check: [Enumeration]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Flyer_Poster_Sale_poster_design_121.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Use only the visible text.
+        
+        Let:
+        
+        A = the discount percentage shown at the top
+        B = the number of words in the largest central title phrase
+        C = the number of words inside the red ribbon
+        
+        Compute (A ÷ B) + C.
+        
+        Round the result to the nearest whole number.
+        
+        What is the result?
+        Answer with a single integer (e.g., 20).
+      answer: "19"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "DTTBU"
+      flags: []
+      feedback: "5/9: Skill tag corrected: Dropped Spatial Reasoning (top-to-bottom listing is navigational, not relational)."
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Flyer_Poster_Sale_poster_design_121.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        Use only the five major text regions from top to bottom:
+        
+        DISCOUNT UP TO 50%
+        END
+        OF YEAR
+        BIG SALE
+        LIMITED TIME ONLY
+        
+        Encode each region by its main marketing role:
+        
+        D = discount offer
+        T = sale title
+        B = badge/ribbon promotion
+        U = urgency message
+        
+        What is the resulting code?
+        Answer with uppercase letters only using D, T, B, and U (e.g., DTBU).
+      answer: "DTTBU"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "6"
+      flags: []
+      feedback: "5/9: Skill tag corrected: Added Math Reasoning (multiplication step)."
+      verdict_source: auto
+      skills_check: [Math Reasoning]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Flyer_Poster_Sale_poster_design_121.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        Use only these five text lines, counted exactly as listed:
+        
+        DISCOUNT
+        UP TO 50%
+        END
+        OF YEAR
+        LIMITED TIME ONLY
+        
+        Do not count the BIG SALE ribbon text.
+        
+        Count:
+        
+        A = number of listed text lines whose lettering is dominantly blue
+        B = number of listed text lines whose lettering is dominantly white
+        
+        Compute A × B.
+        
+        What is the result?
+        Answer with a single integer (e.g., 9).
+      answer: "6"

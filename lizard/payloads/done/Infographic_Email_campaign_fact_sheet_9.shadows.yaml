@@ -1,0 +1,13 @@
+stem: Infographic_Email_campaign_fact_sheet_9
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 66fc644e
+    fired_at: 2026-05-09T17:25:31.632Z
+    rating: Approve
+    time_logged: "00:20:29"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

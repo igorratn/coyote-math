@@ -12,6 +12,23 @@ set -e
 : "${STEM:?STEM env required}"
 DRY_RUN="${1:-}"
 
+# Serialization lock — only one Job 4 fire-stem runs at a time per Igor 2026-05-09.
+# HAI's allocation pool gets confused when multiple Start-task clicks land
+# concurrently (cross-allocation incidents). Use PID-file lock (macOS has no flock).
+# Codified 2026-05-09. Lock file holds running PID; check if stale on conflict.
+LIZARD_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+FIRE_LOCK="$LIZARD_DIR/scrapes/.fire-stem.lock"
+if [ -f "$FIRE_LOCK" ]; then
+  HELD_PID=$(cat "$FIRE_LOCK" 2>/dev/null || echo "")
+  if [ -n "$HELD_PID" ] && kill -0 "$HELD_PID" 2>/dev/null; then
+    echo "ERROR: another fire-stem is running (pid=$HELD_PID, lock=$FIRE_LOCK). Job 4 must run one stem at a time."
+    exit 3
+  fi
+  # Stale lock — previous fire-stem died without cleanup. Take it.
+fi
+echo $$ > "$FIRE_LOCK"
+trap 'rm -f "$FIRE_LOCK"' EXIT INT TERM
+
 PRECHECK=$(STEM=$STEM node scripts/run-job4.mjs --precheck 2>/dev/null)
 [ -n "$PRECHECK" ] || { echo "ERROR: precheck failed for $STEM"; exit 2; }
 

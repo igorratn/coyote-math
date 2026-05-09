@@ -1,0 +1,30 @@
+task:
+  stem: Infographic_Email_campaign_fact_sheet_9
+  sa_task_filename: Infographic_Email_campaign_fact_sheet_9.json
+  task_id: 188406328
+  image: screenshots/Infographic_Email_campaign_fact_sheet_9.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: "5/9: Skill tag corrected: Dropped Spatial Reasoning (color-coded section identification is attribute perception, not relational spatial reasoning). Added Enumeration (scanning all percentage values across the infographic to identify the maximum)."
+      verdict_source: auto
+      skills_check: [Enumeration]
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "MCQ"
+    hai:
+      task_id_field: Infographic_Email_campaign_fact_sheet_9.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Which section contains the statistic with the highest percentage value shown anywhere in the infographic?
+        A. Email ROI
+        B. Mobile Emails
+        C. Email Personalization
+        D. Marketing Automation
+      answer: "C"
