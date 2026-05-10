@@ -1,0 +1,64 @@
+task:
+  stem: Plot_Precision-recall_graphs_96
+  sa_task_filename: Plot_Precision-recall_graphs_96.json
+  task_id: 188408598
+  image: screenshots/Plot_Precision-recall_graphs_96.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "0"
+      flags: []
+      feedback: "5/9: Skill tag corrected: Added Math Reasoning (prompt requires arithmetic)."
+      verdict_source: auto
+      skills_check: [Math Reasoning]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Precision-recall_graphs_96.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Based on the legend, how many labels contain the word 'average' (case-sensitive)? Answer in a single number (e.g., 7)
+      answer: "0"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "6"
+      flags: []
+      feedback: "5/9: Skill tag corrected: Added Math Reasoning (prompt requires arithmetic)."
+      verdict_source: auto
+      skills_check: [Math Reasoning]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Precision-recall_graphs_96.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        How many labeled recall ticks are visible in total on the x-axis? Answer in a single number (e.g., 7)
+      answer: "6"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "0.9"
+      flags: ["Type 10"]
+      feedback: "5/9: Skill tag corrected: Added Math Reasoning (prompt requires arithmetic)."
+      verdict_source: auto
+      skills_check: [Math Reasoning]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Precision-recall_graphs_96.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        What is the absolute difference between the precision value across the 0% to 80% recall range and the lowest precision value shown for the macro average at 100% recall? Answer in a single one-place decimal number (e.g., 0.5)."
+      answer: "0.9"

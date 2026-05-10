@@ -1,0 +1,64 @@
+task:
+  stem: Plot_Principal_component_analysis_plot_102
+  sa_task_filename: Plot_Principal_component_analysis_plot_102.json
+  task_id: 188408599
+  image: screenshots/Plot_Principal_component_analysis_plot_102.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "3"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Principal_component_analysis_plot_102.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        If you count the visible color-based clusters in the 3D scatter plot, how many distinct groups are represented? Answer in a single number (e.g., 7)
+      answer: "3"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "5"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Principal_component_analysis_plot_102.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        The x-axis appears to run from about 1 to 6. What is the approximate numeric span of the x-axis? Answer in a single number (e.g., 7)
+      answer: "5"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "20"
+      flags: []
+      feedback: "5/9: Skill tag corrected: Added Math Reasoning (prompt requires arithmetic)."
+      verdict_source: auto
+      skills_check: [Math Reasoning]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Principal_component_analysis_plot_102.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        The z-axis appears to run from about 10 to 30. What is the absolute difference between its maximum and minimum labeled values? Answer in a single number (e.g., 7)
+      answer: "20"

@@ -1,0 +1,33 @@
+stem: Plot_Precision-recall_graphs_96
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: b205700a
+    fired_at: 2026-05-10T06:50:10.350Z
+    rating: Approve
+    time_logged: "00:20:32"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: b3c03f2a
+    fired_at: 2026-05-10T06:50:38.313Z
+    rating: Approve
+    time_logged: "00:20:18"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: b220aa83
+    fired_at: 2026-05-10T06:51:29.175Z
+    rating: Approve
+    time_logged: "00:20:39"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
