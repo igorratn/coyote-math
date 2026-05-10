@@ -1,0 +1,44 @@
+task:
+  stem: Infographic_Product_one_pager_112
+  sa_task_filename: Infographic_Product_one_pager_112.json
+  task_id: 188406596
+  image: screenshots/Infographic_Product_one_pager_112.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: []
+      feedback: "5/10: Prompt has ambiguity issues. Part 1: top-right of right brochure contains two distinct elements (RSA Conference banner + QR code) — \"one specific visual element\" is ambiguous. Part 3: the Business leaders card is white on both brochures; the visible color difference is the page background behind the card, not \"the background box for Business leaders\" itself. Recommend rewording Part 3 to \"primary color of the page background behind the Business leaders card\" or removing Part 3 entirely."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Infographic_Product_one_pager_112.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Task: Comparative Document Analysis and Data Extraction.
+        
+        Question: Refer to the two brochures in image and provide a response to the following:
+        
+        Identify the one specific visual element (located in the top-right corner) that appears on the right brochure but is absent from the left brochure.
+        
+        Under the "MULTI-FRAMEWORK FLEXIBILITY" section, list the first four certification acronyms (e.g., SOC 2) shown in the hexagonal icons from left to right.
+        
+        In the bottom section titled "A solution for every security stakeholder," identify the primary color of the background box for "Business leaders" in the left brochure versus the right brochure.
+        
+        Answer Type: Structured list.
+        
+        Sample Answer:
+        
+        Unique Element: A barcode.
+        
+        First Four Certifications: 1. ABC, 2. XYZ, 3. 123, 4. 456.
+        
+        Box Colors: Left: Red / Right: Blue.
+      answer: "Unique Element: The RSA Conference logo and a QR code."

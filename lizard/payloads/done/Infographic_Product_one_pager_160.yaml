@@ -1,0 +1,44 @@
+task:
+  stem: Infographic_Product_one_pager_160
+  sa_task_filename: Infographic_Product_one_pager_160.json
+  task_id: 188406598
+  image: screenshots/Infographic_Product_one_pager_160.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: []
+      feedback: "5/10: Prompt requires reading a value from the KEY FEATURES table that is not pixel-resolvable in the rendered template preview (right-column text is sub-pixel placeholder). Drop the third sub-question or replace with a value verifiable from the image. Skill tags corrected: dropped Spatial Reasoning (locators like \"top left area\" and \"right-hand column\" are navigational, not relational reasoning); added Table/Chart/Graph Understanding (table read), World Knowledge (Canva/InDesign/Word icon recognition), and Enumeration (count of three icons)."
+      verdict_source: igor
+      skills_check: [Table/Chart/Graph Understanding, World Knowledge, Enumeration]
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Infographic_Product_one_pager_160.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Task: Technical Document Information Extraction and Layout Analysis.
+        
+        Question: Refer to the image and provide a response to the following:
+        
+        Under the first image in the left-hand column, identify the Serial Code and the Product Category listed.
+        
+        Identify the three software icons shown in the top left area of the display (outside the main document page).
+        
+        In the "KEY FEATURES" table, identify the specific value listed in the right-hand column for the "Third key characteristic" row.
+        
+        Answer Type: Structured list.
+        
+        Sample Answer:
+        
+        Identifiers: Code: ABC-123 / Category: Automotive.
+        
+        Software Icons: 1. Photoshop, 2. Illustrator, 3. PowerPoint.
+        
+        Table Value: 500 Watts.
+      answer: "Identifiers: Serial Code: 0123456789 / Product Category: Industrial tools."

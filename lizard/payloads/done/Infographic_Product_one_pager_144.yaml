@@ -1,0 +1,44 @@
+task:
+  stem: Infographic_Product_one_pager_144
+  sa_task_filename: Infographic_Product_one_pager_144.json
+  task_id: 188406597
+  image: screenshots/Infographic_Product_one_pager_144.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: []
+      feedback: "5/10: Prompt fails G2/Type 1 — multi-part question with no portrait name visible in image (Part 3 unanswerable from image alone, fails G3) and rewrite answer omits Parts 2 and 3 of the three-part prompt. Drop Part 3 entirely (no name caption on the portrait) and rewrite as a single-part prompt or add explicit closing format spec for combining parts. Skill tags: dropped Spatial Reasoning (location cues are navigational); added Enumeration (5 row labels) and Table/Chart/Graph Understanding (Summary table read)."
+      verdict_source: igor
+      skills_check: [Enumeration, Table/Chart/Graph Understanding]
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Infographic_Product_one_pager_144.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Task: Mobile UI Analysis and Instructional Text Extraction.
+        
+        Question: Refer to the smartphone screen in the image and provide a response to the following:
+        
+        Under the "Summary" table, identify the five specific row labels (e.g., Date) located in the left-hand column.
+        
+        In the "For Approval" section at the bottom, there are two "Canva Tips." Locate the second tip and transcribe the exact key/symbol combination mentioned to add a list of options to the document.
+        
+        Identify the name of the person displayed in the circular portrait at the very top left of the document header.
+        
+        Answer Type: Structured list.
+        
+        Sample Answer:
+        
+        Row Labels: 1. Time, 2. Owner, 3. Status, 4. Goal, 5. Link.
+        
+        Key/Symbol Combination: Press the "Shift + @" keys.
+        
+        Header Portrait: Sarah Jenkins.
+      answer: "Row Labels: 1. Date, 2. Key Information, 3. Blockers, 4. Next Steps, 5. Support Needed."

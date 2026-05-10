@@ -1,0 +1,13 @@
+stem: Infographic_Product_one_pager_112
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 9ca5a536
+    fired_at: 2026-05-10T00:54:54.454Z
+    rating: Reject
+    time_logged: "00:20:09"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
