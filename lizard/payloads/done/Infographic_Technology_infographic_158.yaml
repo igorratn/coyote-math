@@ -1,0 +1,31 @@
+task:
+  stem: Infographic_Technology_infographic_158
+  sa_task_filename: Infographic_Technology_infographic_158.json
+  task_id: 188406819
+  image: screenshots/Infographic_Technology_infographic_158.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "D"
+      flags: []
+      feedback: "5/9: Skill tag corrected: Added Math Reasoning (prompt requires multiplication of two counted values)."
+      verdict_source: auto
+      skills_check: [Math Reasoning]
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Infographic_Technology_infographic_158.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        In the “Must-Have Travel Apps” section, identify the app that helps with purchasing abroad. Count the distinct currency symbols shown in its icon, then multiply that count by the number of smartphone functions shown inside the large phone illustration. Which option is correct?
+        
+        A. 36
+        B. 72
+        C. 60
+        D. 48
+      answer: "D"

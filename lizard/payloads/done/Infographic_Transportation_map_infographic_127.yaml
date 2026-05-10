@@ -1,0 +1,55 @@
+task:
+  stem: Infographic_Transportation_map_infographic_127
+  sa_task_filename: Infographic_Transportation_map_infographic_127.json
+  task_id: 188406824
+  image: screenshots/Infographic_Transportation_map_infographic_127.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "A"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Infographic_Transportation_map_infographic_127.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Among the East African cities shown (Addis Ababa, Kampala, Kigali, Nairobi, Dar es Salaam), identify the city with the largest public transport share (purple segment). Using the legend, count the total transport categories shown, then multiply that count by the rank of that city among those five cities by public transport share (highest = 1).
+        
+        A. 4
+        B. 8
+        C. 12
+        D. 16
+      answer: "A"
+
+  - n: 2
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: []
+      feedback: "5/10: Prompt scope lists 5 West African cities (Dakar, Bamako, Abidjan, Accra, Lagos) but MCQ provides only 4 options (Abidjan missing). Plus visual comparison between Dakar and Bamako is too close to call without precision tooling (Type 3). QType also mistagged: prompt is MCQ, not SAQ."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Infographic_Transportation_map_infographic_127.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Among only the West African cities shown (Dakar, Bamako, Abidjan, Accra, Lagos), which city has the largest pedestrian/cycle share, represented by the teal segment?
+        
+        A. Dakar
+        B. Bamako
+        C. Accra
+        D. Lagos
+      answer: "A"

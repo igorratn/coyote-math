@@ -83,7 +83,8 @@ for (const stem of targets) {
       // Phase B: rewrite the bottom #### Feedback block IF it matches the
       // stale Job-2 placeholder pattern. Idempotent: a feedback already
       // rewritten to "M/D: Skill tag corrected per <name>:..." is left alone.
-      const mdToday = `${new Date().getMonth() + 1}/${new Date().getDate()}`;
+      // Date in PST (M/D format) — codified 2026-05-09 (Igor: always PST regardless of TZ env).
+      const mdToday = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Los_Angeles', month: 'numeric', day: 'numeric' }).format(new Date());
       // Legacy format: embed the reviewer's reasoning text but NEVER name the
       // reviewer model. RLHF integrity — annotator reads QC feedback; LLM
       // identity must not leak. See CLAUDE.md §Hard rules.

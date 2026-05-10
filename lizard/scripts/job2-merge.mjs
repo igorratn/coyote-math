@@ -599,7 +599,8 @@ function renderAnnotation(entry) {
   // skill deltas, emit an edit-explaining feedback so payload sa.feedback
   // mirrors something useful (Job 3b verifier requires non-null when edits).
   // Format: M/D: short-date.
-  const mdToday = `${new Date().getMonth() + 1}/${new Date().getDate()}`;
+  // Date in PST (M/D format) — codified 2026-05-09 (Igor: always PST regardless of TZ env).
+  const mdToday = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Los_Angeles', month: 'numeric', day: 'numeric' }).format(new Date());
   let feedbackBody;
   if (entry.decision === 'auto-resolved' && pick.rating === 'thumbs-up' && hasSkillEdit) {
     // Legacy format (HOST_SOP era): preserve the reviewer's reasoning text but

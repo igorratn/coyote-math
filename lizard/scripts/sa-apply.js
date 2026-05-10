@@ -367,6 +367,19 @@ function saPreSaveAudit({ annots }) {
   const mismatches = [];
   for (const a of annots) {
     const idx = a.n - 1;
+    // Required-feedback guardrail (codified 2026-05-09 — Tech_53/Travel_69 incident):
+    // CLAUDE.md feedback rule: sa.feedback must be non-null whenever a field changes
+    // (skills_check/uncheck, qtype, prompt, answer_final). Earlier audit only verified
+    // "feedback is in textarea IF non-null" — silently allowed null feedback when
+    // skills were patched, leaving SA with edits but no explanation.
+    const skillEdits = (Array.isArray(a.skills_check) && a.skills_check.length > 0) ||
+                        (Array.isArray(a.skills_uncheck) && a.skills_uncheck.length > 0);
+    const isReject = a.rating === 'thumbs-down';
+    if ((skillEdits || isReject) && (a.feedback == null || String(a.feedback).trim() === '')) {
+      mismatches.push({ n: a.n, kind: 'missing_feedback',
+        reason: isReject ? 'thumbs-down requires feedback' : 'skill edits require feedback',
+        skills_check: a.skills_check, skills_uncheck: a.skills_uncheck });
+    }
     // Feedback readback (only when payload has feedback).
     if (a.feedback) {
       try {

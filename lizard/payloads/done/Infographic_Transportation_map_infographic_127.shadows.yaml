@@ -1,0 +1,23 @@
+stem: Infographic_Transportation_map_infographic_127
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: ac307d00
+    fired_at: 2026-05-10T06:01:50.498Z
+    rating: Approve
+    time_logged: "00:20:31"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: b1c6c2d6
+    fired_at: 2026-05-10T06:02:29.839Z
+    rating: Reject
+    time_logged: "00:20:33"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

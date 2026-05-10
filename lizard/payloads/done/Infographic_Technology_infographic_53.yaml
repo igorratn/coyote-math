@@ -1,0 +1,31 @@
+task:
+  stem: Infographic_Technology_infographic_53
+  sa_task_filename: Infographic_Technology_infographic_53.json
+  task_id: 188406821
+  image: screenshots/Infographic_Technology_infographic_53.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: "5/9: Skill tag corrected: Added Math Reasoning (prompt requires summing two counts)."
+      verdict_source: auto
+      skills_check: [Math Reasoning]
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Infographic_Technology_infographic_53.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        This AI infographic shows several application icons branching from the central AI symbol. Using world knowledge, count the number of icons that represent location/navigation functionality, then count the total branching application icons connected to the AI arc. Add those two values together. Which option is correct?
+        
+        A. 5
+        B. 7
+        C. 6
+        D. 8
+      answer: "C"

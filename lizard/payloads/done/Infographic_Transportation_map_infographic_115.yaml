@@ -1,0 +1,31 @@
+task:
+  stem: Infographic_Transportation_map_infographic_115
+  sa_task_filename: Infographic_Transportation_map_infographic_115.json
+  task_id: 188406823
+  image: screenshots/Infographic_Transportation_map_infographic_115.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Infographic_Transportation_map_infographic_115.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        The infographic shows five checklist travel essentials along the bottom. Using world knowledge, identify which one is typically required for international border entry. Then subtract the percentage labeled for China from the percentage labeled for Europe. Multiply that difference by the number of letters in the required item’s label. Which option is correct?
+        
+        A. 120
+        B. 150
+        C. 240
+        D. 180
+      answer: "C"

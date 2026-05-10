@@ -1,0 +1,26 @@
+task:
+  stem: Infographic_Travel_destinations_map_poster_69
+  sa_task_filename: Infographic_Travel_destinations_map_poster_69.json
+  task_id: 188406839
+  image: screenshots/Infographic_Travel_destinations_map_poster_69.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "8"
+      flags: []
+      feedback: "5/9: Skill tag corrected: Corrected skill tags: dropped Spatial Reasoning as the task is a simple count across a visual and does not require complex reasoning about relative positions."
+      verdict_source: auto
+      skills_check: [Math Reasoning]
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Infographic_Travel_destinations_map_poster_69.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        The Qatar Travel map displays airplane icons positioned along dashed flight path lines radiating outward from Qatar's location pin. How many individual airplane icons are visible on the world map in total? Answer in a single whole number (e.g., 6).
+      answer: "8"

@@ -1,0 +1,36 @@
+task:
+  stem: Infographic_Work_efficiency_chart_1
+  sa_task_filename: Infographic_Work_efficiency_chart_1.json
+  task_id: 188406849
+  image: screenshots/Infographic_Work_efficiency_chart_1.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "72"
+      flags: []
+      feedback: "5/9: Skill tags corrected: Added Enumeration (counting) and Table/Chart/Graph Understanding (productivity graph read)."
+      verdict_source: auto
+      skills_check: [Enumeration, Table/Chart/Graph Understanding]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Infographic_Work_efficiency_chart_1.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Review the "The Productivity of working hours" graph in the image. You are an HR consultant analyzing workforce efficiency based on the data presented. Follow this logical sequence to determine the final value:
+        
+        Work Hour Identification: Identify the specific number of working hours mentioned in the bottom text at which adding more time becomes "pointless." Take the sum of the digits of this number.
+        
+        Comparative Analysis: Locate the final bullet point. Identify the number of hours that is stated to be "as productive as working 55h." Identify the first digit of this number.
+        
+        Graphic Logic: Look at the productivity curve. Count the total number of distinct data points (dots) plotted along the teal line that represent "Negative productivity" (those located below the horizontal Time axis).
+        
+        Final Calculation: Multiply the Digit Sum (Step 1) by the Productive Hour Digit (Step 2), then add the Negative Point Count (Step 3).
+        
+        Provide your answer as a single numeric value only(eg., 10).
+      answer: "72"

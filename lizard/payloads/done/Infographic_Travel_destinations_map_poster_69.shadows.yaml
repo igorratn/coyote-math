@@ -1,0 +1,13 @@
+stem: Infographic_Travel_destinations_map_poster_69
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 9e47bab0
+    fired_at: 2026-05-10T05:11:34.700Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

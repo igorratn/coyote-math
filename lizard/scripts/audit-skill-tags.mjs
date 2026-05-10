@@ -184,7 +184,8 @@ function processAnnot(blk) {
 
   // Update bottom #### Feedback block when non-empty edit (legacy V6 rule).
   if (drop.length || add.length) {
-    const md = `${new Date().getMonth() + 1}/${new Date().getDate()}`;
+    // Date in PST (M/D format) — codified 2026-05-09 (Igor: always PST regardless of TZ env).
+    const md = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Los_Angeles', month: 'numeric', day: 'numeric' }).format(new Date());
     const parts = [];
     if (drop.length) parts.push(`drop ${drop.map(s => `\`${s}\``).join(', ')}`);
     if (add.length)  parts.push(`add ${add.map(s => `\`${s}\``).join(', ')}`);

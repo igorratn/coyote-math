@@ -1,0 +1,31 @@
+task:
+  stem: Infographic_Transportation_map_infographic_132
+  sa_task_filename: Infographic_Transportation_map_infographic_132.json
+  task_id: 188406825
+  image: screenshots/Infographic_Transportation_map_infographic_132.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: "5/9: Skill tag corrected: Dropped Spatial Reasoning (numbered sequence; no relative-position reasoning required — Logical Reasoning + World Knowledge already cover the fencepost inference)."
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "MCQ"
+    hai:
+      task_id_field: Infographic_Transportation_map_infographic_132.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        This roadmap infographic labels four sequential parts (1–4). Using world knowledge that roads are typically traveled from the lowest numbered stage to the highest, if each transition between consecutive parts represents one move, how many moves are required to go from the FIRST PART to the FOURTH PART?
+        
+        A. 2
+        B. 4
+        C. 3
+        D. 5
+      answer: "C"

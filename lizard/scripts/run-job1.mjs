@@ -189,7 +189,8 @@ if (cycle === 2) {
 
 // ---------- Build skeleton markdown ----------
 const cycleLabel = cycle === 1 ? '1st' : cycle === 2 ? '2nd' : cycle === 3 ? '3rd' : `${cycle}th`;
-const today = new Date().toISOString().slice(0, 10);
+// Date in PST YYYY-MM-DD — codified 2026-05-09 (Igor: always PST regardless of TZ env).
+const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles' }).format(new Date());
 
 const lines_out = [];
 lines_out.push(`# Skeleton: ${stem}`);

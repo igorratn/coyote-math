@@ -1,0 +1,13 @@
+stem: Infographic_Technology_infographic_181
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: ac9f54a1
+    fired_at: 2026-05-10T04:59:21.996Z
+    rating: Approve
+    time_logged: "00:20:24"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

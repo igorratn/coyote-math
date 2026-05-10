@@ -1,0 +1,31 @@
+task:
+  stem: Infographic_Technology_infographic_181
+  sa_task_filename: Infographic_Technology_infographic_181.json
+  task_id: 188406820
+  image: screenshots/Infographic_Technology_infographic_181.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "B"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Infographic_Technology_infographic_181.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        In the infographic, count only the circular lettered modules on the left labeled A through E. Using standard infographic world knowledge, treat the two rectangular blocks at the bottom as summary cards. Multiply the number of lettered modules by the number of summary cards. Which option is correct?
+        
+        A. 8
+        B. 10
+        C. 12
+        D. 14
+      answer: "B"

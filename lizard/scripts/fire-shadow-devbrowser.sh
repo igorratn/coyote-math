@@ -150,10 +150,29 @@ await page.evaluate((v) => {
   ta.dispatchEvent(new Event('change', { bubbles: true }));
 }, TASK_ID_FIELD);
 // Wait for enabled submit before clicking (React form-validation lag).
+// Retry submit click on silent-noop (verify Step 2 number-input appears).
+// Codified 2026-05-09 (Igor: every submit must verify+retry, not single-shot).
 await page.waitForFunction(() => !!document.querySelector('button[type="submit"]:not([disabled])'), null, { timeout: 60000 });
 await new Promise(r => setTimeout(r, 500));
-await page.evaluate(() => document.querySelector('button[type="submit"]:not([disabled])').click());
-await page.waitForFunction(() => !!document.querySelector('input[type="number"]'), null, { timeout: 60000 });
+let phase1Step1Attempt = 0;
+while (true) {
+  phase1Step1Attempt++;
+  const clicked = await page.evaluate(() => {
+    const sub = document.querySelector('button[type="submit"]:not([disabled])');
+    if (!sub) return false;
+    sub.click();
+    return true;
+  });
+  if (!clicked && phase1Step1Attempt > 1) { console.log("PHASE1_STEP1_PAGE_ADVANCED"); break; }
+  try {
+    await page.waitForFunction(() => !!document.querySelector('input[type="number"]'), null, { timeout: 15000 });
+    break;
+  } catch (e) {
+    if (phase1Step1Attempt >= 3) throw e;
+    console.log("PHASE1_STEP1_RETRY=" + phase1Step1Attempt);
+    await new Promise(r => setTimeout(r, 1500));
+  }
+}
 await page.evaluate((v) => {
   const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
   const inp = document.querySelector('input[type="number"]');
@@ -240,13 +259,28 @@ await page.waitForFunction(() => {
   return Array.from(document.querySelectorAll('button[type="submit"]:not([disabled])')).filter(isVisible).length > 0;
 }, null, { timeout: 60000 });
 await new Promise(r => setTimeout(r, 1500));
-await page.evaluate(() => {
-  function isVisible(el) { if (!el) return false; const r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0; }
-  const subs = Array.from(document.querySelectorAll('button[type="submit"]:not([disabled])')).filter(isVisible);
-  if (!subs.length) throw new Error('step3 submit not found');
-  subs[0].click();
-});
-await page.waitForFunction(() => Array.from(document.querySelectorAll('textarea')).find(t => t.value === '' && t.getBoundingClientRect().height > 0), null, { timeout: 60000 });
+// Retry submit click on silent-noop (verify Step 4 textarea appears).
+// Codified 2026-05-09 (Igor: every submit must verify+retry).
+let phase3SubmitAttempt = 0;
+while (true) {
+  phase3SubmitAttempt++;
+  const clicked = await page.evaluate(() => {
+    function isVisible(el) { if (!el) return false; const r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0; }
+    const subs = Array.from(document.querySelectorAll('button[type="submit"]:not([disabled])')).filter(isVisible);
+    if (!subs.length) return false;
+    subs[0].click();
+    return true;
+  });
+  if (!clicked && phase3SubmitAttempt > 1) { console.log("PHASE3_PAGE_ADVANCED"); break; }
+  try {
+    await page.waitForFunction(() => Array.from(document.querySelectorAll('textarea')).find(t => t.value === '' && t.getBoundingClientRect().height > 0), null, { timeout: 15000 });
+    break;
+  } catch (e) {
+    if (phase3SubmitAttempt >= 3) throw e;
+    console.log("PHASE3_SUBMIT_RETRY=" + phase3SubmitAttempt);
+    await new Promise(r => setTimeout(r, 1500));
+  }
+}
 
 // ============ Phase 4: answer textarea ============
 const answerText = await readFile(ANSWER_TMP_NAME);
