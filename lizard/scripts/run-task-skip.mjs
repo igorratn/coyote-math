@@ -57,7 +57,13 @@ const LIZARD_DIR = process.env.LIZARD_DIR ?? join(SCRIPT_DIR, '..');
 // V5 ∪ V6 skip-set. V5 strings come from older SA dropdown; V6 strings per
 // Nikhil pinned 2026-04-29 in #lizard-reviewers.
 const V5_SKIP = ['Unusable', 'Skipped'];
-const V6_SKIP = ['Valid Skipped to Hold', 'Valid Skipped to Skipped', 'Valid Skip to Unusable'];
+// V6 skip strings — accept both legacy "Skipped to" forms (CLAUDE.md older codification)
+// AND actual SA UI "Skip to" forms (verified 2026-05-10 screenshot from #lizard-reviewers).
+const V6_SKIP = [
+  'Valid Skipped to Hold', 'Valid Skipped to Skipped',           // legacy form
+  'Valid Skip to Hold',    'Valid Skip to Skipped',              // actual SA UI form
+  'Valid Skip to Unusable',
+];
 const SKIP_SET = [...V5_SKIP, ...V6_SKIP];
 
 if (!SKIP_SET.includes(DISPOSITION)) {

@@ -1,0 +1,177 @@
+task:
+  stem: Report_Dashboard_HR_Dashboard_39
+  sa_task_filename: Report_Dashboard_HR_Dashboard_39.json
+  task_id: 188408813
+  image: screenshots/Report_Dashboard_HR_Dashboard_39.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "N"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_HR_Dashboard_39.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Use only the dark-dashboard charts titled Attendance Overview and Staff turnover.
+        
+        Identify the month where the tallest grouped attendance cluster occurs in the Attendance Overview chart.
+        
+        Then determine whether the Staff turnover chart also reaches its maximum height in that same month.
+        
+        Encode:
+        
+        Y if both charts peak in the same month
+        N otherwise
+        
+        What is the result?
+        
+        Answer format: Answer with a single uppercase letter (e.g., Y).
+      answer: "N"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "D"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_HR_Dashboard_39.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Use only the dark-dashboard charts titled Project employment and Staff turnover.
+        
+        Identify the weekday where the dark-blue Project bar is tallest in the Project employment chart. Then identify the month where the Staff turnover bar is tallest.
+        
+        Encode the result as:
+        
+        M if the peak positions occur at matching ordinal positions within their own x-axes
+        D if they occur at different ordinal positions
+        
+        For example, the first weekday and the first month would be matching ordinal positions.
+        
+        What is the result?
+        Answer with a single uppercase letter using M or D (e.g., A).
+      answer: "D"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "NAAA"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_HR_Dashboard_39.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Use only the four KPI cards visible on the dark dashboard.
+        
+        Read the cards from left to right:
+        
+        Happiness rate
+        New employees
+        Number of leave
+        Total employees
+        
+        For each card, compare whether the displayed change direction visually aligns with a desirable HR outcome:
+        
+        Happiness rate increasing = desirable; decreasing = undesirable
+        New employees increasing = desirable; decreasing = undesirable
+        Number of leave increasing = undesirable; decreasing = desirable
+        Total employees increasing = desirable; decreasing = undesirable
+        
+        Encode each card as:
+        
+        A if the displayed direction aligns with the desirable outcome
+        N if it does not align
+        
+        What is the resulting code?
+        Answer with uppercase letters only using A and N (e.g., AANN).
+      answer: "NAAA"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "16"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_HR_Dashboard_39.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        Use only the dark-dashboard Total Applications panel.
+        
+        Treat the displayed percentages as whole-number values.
+        
+        Let:
+        
+        A = Applications percentage
+        B = Shortlisted percentage
+        C = On-Hold percentage
+        D = Rejected percentage
+        
+        Compute:
+        
+        A − (B + C + D)
+        
+        What is the result?
+        Answer with a signed integer if needed (e.g., -5).
+      answer: "16"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "UUUDUUDD"
+      flags: []
+      feedback: "5/9: Final answer corrected from UUUDUUUD to UUUDUUDD (Aug→Sep transition is D, not U). Skill tag corrected: Dropped Spatial Reasoning (chart trend reading is Table/Chart/Graph Understanding, not relational positional reasoning)."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_HR_Dashboard_39.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        Use only the dark-dashboard Staff turnover bar chart.
+        
+        Read month-to-month transitions from Jan→Feb through Aug→Sep.
+        
+        Encode each transition as:
+        
+        U if the next bar is taller
+        D if the next bar is shorter
+        
+        Do not use a tie option.
+        
+        What is the resulting code?
+        Answer with uppercase letters only using U and D (e.g., UDDU).
+      answer: "UUUDUUDD"

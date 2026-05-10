@@ -1,0 +1,121 @@
+task:
+  stem: Report_Dashboard_Resource_Dashboard_22
+  sa_task_filename: Report_Dashboard_Resource_Dashboard_22.json
+  task_id: 188408958
+  image: screenshots/Report_Dashboard_Resource_Dashboard_22.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "18"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Resource_Dashboard_22.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Identify the total number of "Projects" listed in the panel labeled "Team"; calculate the total number of "Projects" that are listed in panels for individual users, and determine how many remaining "Projects" are not shown in the dashboard for individual users. What is this value? Provide the answer as an integer (e.g., 2).
+      answer: "18"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "1.94"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Resource_Dashboard_22.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Taking only the integer part of the numerical value for "Weeks Left", if this many weeks were added on to the end of the current span of calendar days that appear at the top of the image, determine how many calendar days are in this entire span of days (inclusive) and call this A. 
+        
+        Locate the white number inside of a green rectangle that is spatially underneath the panel that currently has 4 assignments and call this B.
+        
+        If A is strictly less than B, then multiply A and B together. 
+        
+        If A is strictly greater than B, then divide A by B.
+        
+        If A and B are equal, then answer with the integer '0'.
+        
+        What is this result? Provide the final answer as a single number rounded to two decimal places (e.g., 3.14).
+      answer: "1.94"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "3"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Resource_Dashboard_22.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        According to the panels within the dashboard, determine how many team members have spent strictly greater than $3,600 on their Role Budget but have not exceeded their current Role Budget cap. What is the result? Provide the final answer as a whole number (e.g., 1).
+      answer: "3"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "$138.89"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Resource_Dashboard_22.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        According to the numbers inside of the circles in the bottom row of the image, if all team member values add up to the Team value, then determine the number that is inside the circle for Grace T; call this A. 
+        
+        Calculate Grace T's spent portion of her Role Budget and divide by the total number of Projects that she is responsible for; call this B.
+        
+        What is the result of dividing B by A? Provide the final answer as a single number rounded to two decimal places and preceded by a dollar sign (e.g., $12.34).
+      answer: "$138.89"
+
+  - n: 5
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: []
+      feedback: "5/10: Model answered correctly (C is the false statement — Hansel has 4 Assignments vs Austin/Dexter 6 Projects). Annotator's D is wrong: 4.5 weeks from Apr 27 = ~May 29, the Phase ends in May → D is true. Stump rule fails; annotator must design a harder prompt the model cannot answer."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Report_Dashboard_Resource_Dashboard_22.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        According to the information present in the dashboard, which of the following statements is false? Provide the answer as the corresponding letter to one of the choices below (e.g., A).
+        
+        A. The team members in the panel have spent $1,680 more dollars on their Role Budget than the total dollar amount spent of the Phase Budget
+        B. Danielle S. is the only team member to have spent strictly over their allotted Role Budget
+        C. Hansel J. has the most "Assignments" of all team members
+        D. The Phase of this task will end in the month of May
+      answer: "D"

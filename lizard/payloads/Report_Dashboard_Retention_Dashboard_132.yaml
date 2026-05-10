@@ -1,0 +1,55 @@
+task:
+  stem: Report_Dashboard_Retention_Dashboard_132
+  sa_task_filename: Report_Dashboard_Retention_Dashboard_132.json
+  task_id: 188408966
+  image: screenshots/Report_Dashboard_Retention_Dashboard_132.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Report_Dashboard_Retention_Dashboard_132.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        In the dashboard, identify the product with the highest At Risk count in the Product Details table and the chain with the highest At Risk count in the Chain Details table. Compute the absolute difference between those two counts. Then add the number of letters in the common color name yellow, which is used for the At Risk bars. Which option is correct?
+        
+        A. 224
+        B. 225
+        C. 226
+        D. 228
+      answer: "C"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "B"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Report_Dashboard_Retention_Dashboard_132.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Using the dashboard, determine which listed product has the second-highest At Risk value in the Product Details table. Then, using the Estimated Lost Weekly Sales column, identify whether that product’s weekly loss magnitude is greater than the weekly loss magnitude of the chain with the highest At Risk value in the Chain Details table. Based on world knowledge, classify the product as a beverage subtype typically consumed as a juice or not. Which option is correct?
+        
+        A. Juice product, and its weekly loss magnitude is smaller
+        B. Juice product, and its weekly loss magnitude is greater
+        C. Non-juice beverage, and its weekly loss magnitude is greater
+        D. Non-juice beverage, and its weekly loss magnitude is smaller
+      answer: "B"

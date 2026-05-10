@@ -1,0 +1,7 @@
+stem: Report_Dashboard_Manufacturing_Dashboard_170
+task_id: 188408868
+project_id: 290044
+disposition: "Valid Skip to Skipped"
+reason: "Auto-applied default disposition for Annotator_Skipped (Igor 2026-05-10 rule)."
+applied_at: 2026-05-10
+kind: annotator_skipped_passthrough

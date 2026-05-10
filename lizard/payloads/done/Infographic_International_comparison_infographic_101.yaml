@@ -1,0 +1,37 @@
+task:
+  stem: Infographic_International_comparison_infographic_101
+  sa_task_filename: Infographic_International_comparison_infographic_101.json
+  task_id: 188406456
+  image: screenshots/Infographic_International_comparison_infographic_101.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: "5/10: Skill tag corrected: Dropped Spatial Reasoning (country ranks 1ST–7TH are explicit text labels in panel headers; reading panels and filtering by labeled rank is navigational + chart-reading, not relational spatial reasoning)."
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: [Spatial Reasoning]
+      qtype: "MCQ"
+    hai:
+      task_id_field: Infographic_International_comparison_infographic_101.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Observe the international health comparison infographic carefully.
+        Using the country panels at the top:
+        
+        Count the number of countries where public health spending is strictly greater than 75% and the number of doctors per 1,000 population is strictly greater than 3.0 → A
+        Count the number of countries ranked above the U.S. that have infant mortality of 5.0 or lower → B
+        Count the total number of countries shown in the infographic → C
+        
+        Now compute: Result = (20 × A) + (5 × B) + C. What is the correct value?
+        A. 62
+        B. 67
+        C. 72
+        D. 77
+      answer: "C"

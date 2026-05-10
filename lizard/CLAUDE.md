@@ -52,6 +52,7 @@ Two phases — both file-based, no manifest, no batch concept (codified 2026-04-
 1. Acquire concurrency lock: `flock -n scrapes/.lock` for the duration of the intake session (serializes SA queue-tab access). Fail loud if another CLI holds it.
 2. Open / refresh log: `logs/session-$(date +%s).md`. Newest-mtime under `logs/` is the active session.
 3. Open SA queue tab: `https://app.superannotate.com/35245/project/290044/data?sort=name&direction=asc` (V6 project)
+3a. **Always click "Request tasks" first (codified 2026-05-10).** SA's V6 queue does not auto-populate — reviewers must click the **Request tasks** button (top-right of the queue page) to pull new items from the project pool into their personal queue. Without this click, the queue may show no new rows even when items are available at the project level. Use `bash scripts/sa-request-tasks.sh` (clicks button + waits 5s + emits eligible rows JSON on stdout). Always run before reading candidate rows.
 4. `read_page(tabId, filter:"interactive")` → JSON of candidate rows (Name, category, editor_url, task_id, status).
 5. Filter NV rows: `node scripts/filter-queue-rows.mjs` (excludes `category === "return_to_QC_by_NV"`; SA's `status=6` URL filter handles terminal statuses server-side).
 6. Pipe to `node scripts/queue-intake.mjs` — interactive picker by default. Igor selects which to queue. CLI writes `queue/<stem>.json` per selection (atomic `.tmp` → rename). Refuses to clobber existing queue files unless `--force`. Re-queueing a stem whose `scrapes/<stem>.txt` already exists is allowed (cycle-2 re-scrape) and reported as `queued-rescrape`.
@@ -374,6 +375,17 @@ Default unset = `QC_Complete` or `QC_Return` (derivable from per-annot `sa.actio
 Verifier permits these null/none values only when `task.qc_disposition` is in the skip-set; otherwise per-annot rating required as before.
 
 **Task-level skip-disposition exit path (codified 2026-04-30):** when Igor sets the SA task-level dropdown to a skip-set value (V5 `Unusable`/`Skipped` or V6 `Valid Skipped to Hold`/`Valid Skipped to Skipped`/`Valid Skip to Unusable`), the stem **exits the pipeline without writing a payload** via `STEM=<S> DISPOSITION="<dropdown string>" [REASON="..."] node scripts/run-task-skip.mjs`. Script stamps `tasks/<S>.md` with a top-of-file disposition note (audit only; idempotent) and atomically removes `queue/<S>.json`. Subsequent Jobs never fire (their preconditions on queue/payload existence fail). Re-run on already-skipped stem → no-op. Refuses if any payload file exists (clean up first). Keep V5 dropdown string verbatim in audit notes (traceability to what Igor set in SA); do not rewrite to V6. The legacy Plot_Dim_156 path of writing a skip-payload + atomic-mv-to-done is **deprecated**.
+
+**Annotator_Skipped (SA status=4) handler (codified 2026-05-10).** Annotator-skipped images come into SA at `status=4`. Per Nikhil D. (HAI) pinned ruling in `#lizard-reviewers`: the reviewer **does not add new annotations** to these. Three dispositions (actual SA UI labels per 2026-05-10 screenshot):
+- `Valid Skip to Hold` — image issue (blurry / unusable per playbook)
+- `Valid Skip to Skipped` — useable image; SA reassigns to another annotator (**default**)
+- `Valid Skip to Unusable` — toxic content
+
+**Default = Valid Skip to Skipped (Igor 2026-05-10 rule):** auto-apply this disposition to all status=4 stems without scrape/analysis/prompt. Use `bash scripts/auto-skip-status4.sh` — scans status=4 queue, applies "Valid Skip to Skipped" to each (idempotent — skips stems with existing `.skipped.yaml` audit record). **This is run automatically as part of `sa-request-tasks.sh`** (codified 2026-05-10) so the status=4 backlog clears every time we refresh the queue.
+
+For exceptions (image issue → Hold, toxic → Unusable), call directly: `STEM=<S> TASK_ID=<numeric> DISPOSITION="<one of above>" [REASON="..."] node scripts/skip-annotator-skipped.mjs`. The script writes a minimal queue file, hands off to `run-task-skip.mjs` (stamp + queue removal), then writes `payloads/done/<S>.skipped.yaml` audit record. No scrape, no Jobs 1-5 fire, no HAI shadows. Igor sets the matching SA task QC dropdown manually.
+
+Both scripts accept the legacy `Valid Skipped to ...` form (older codification) and the actual SA UI `Valid Skip to ...` form interchangeably.
 
 **Field-source mapping:**
 - `sa.rating` ← `rating:` from picked Auto / Igor Verdict block
