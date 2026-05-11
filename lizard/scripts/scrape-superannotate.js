@@ -111,10 +111,30 @@
   const annotations = [];
   const lines = [];
 
-  // Status log: dynamic index based on annotation count
+  // Status log: dynamic index based on annotation count.
+  // 2026-05-10: SA shifted tail by 1 — STATUS_LOG_JSON moved from statusBase+2
+  // to statusBase+3, STATUS_LOG_TEXT moved from statusBase+1 to statusBase+2
+  // (V6 layout). For robustness, scan the tail textareas and pick:
+  //   - JSON: the textarea with the longest value containing an opening '{'
+  //   - TEXT: the textarea immediately before JSON if non-empty, else ''
   const statusBase = HDR + n * 10;
-  const statusLogText = textareas[statusBase + 1]?.value || '';
-  const statusLogJson = textareas[statusBase + 2]?.value || '';
+  let statusLogJson = '';
+  let statusLogText = '';
+  let jsonIdx = -1;
+  for (let i = statusBase; i < textareas.length; i++) {
+    const v = textareas[i]?.value || '';
+    if (v.length > statusLogJson.length && v.trim().startsWith('{')) {
+      statusLogJson = v;
+      jsonIdx = i;
+    }
+  }
+  if (jsonIdx > statusBase) {
+    // Try the textarea(s) just before the JSON for human-readable status text.
+    for (let i = jsonIdx - 1; i > statusBase; i--) {
+      const v = textareas[i]?.value || '';
+      if (v.length > 0) { statusLogText = v; break; }
+    }
+  }
 
   lines.push('TASK_ID: ' + TASK_ID);
   lines.push('SA_TASK_FILENAME: ' + sa_task_filename);
@@ -198,8 +218,12 @@
     status_log_submissions: ((statusLogText || '').match(/to:\s*(Submit_to_QC|QC_Complete)/g) || []).length });
 
   if (n < 1) return fail('n_annotations < 1');
-  if (!statusLogText || statusLogText.trim().length === 0) {
-    return fail('STATUS_LOG_TEXT is empty — DOM not fully loaded? retry after page settles');
+  // STATUS_LOG_TEXT may be empty on V6 layouts where SA merged text+JSON into
+  // one textarea — fall back to status_log_json presence as the readiness gate
+  // (codified 2026-05-10).
+  if ((!statusLogText || statusLogText.trim().length === 0) &&
+      (!statusLogJson || statusLogJson.trim().length === 0)) {
+    return fail('STATUS_LOG_TEXT and STATUS_LOG_JSON both empty — DOM not fully loaded? retry after page settles');
   }
   if (missing > 0) {
     return fail(`${missing} annotation(s) have prompt_len<50 or empty answer — DOM not fully loaded`);

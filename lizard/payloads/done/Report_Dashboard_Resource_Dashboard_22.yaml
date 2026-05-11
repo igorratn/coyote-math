@@ -12,9 +12,9 @@ annotations:
       rating: thumbs-up
       answer_final: "18"
       flags: []
-      feedback: null
+      feedback: "5/10: Skill tags added: Enumeration (counts Projects across Team + each user panel), Table/Chart/Graph Understanding (reads dashboard panels)."
       verdict_source: auto
-      skills_check: []
+      skills_check: [Enumeration, Table/Chart/Graph Understanding]
       skills_uncheck: []
       qtype: "SAQ"
     hai:
@@ -31,9 +31,9 @@ annotations:
       rating: thumbs-up
       answer_final: "1.94"
       flags: []
-      feedback: null
+      feedback: "5/10: Skill tags added: Enumeration (locates the panel with 4 assignments), Table/Chart/Graph Understanding (reads dashboard panels)."
       verdict_source: auto
-      skills_check: []
+      skills_check: [Enumeration, Table/Chart/Graph Understanding]
       skills_uncheck: []
       qtype: "SAQ"
     hai:
@@ -79,9 +79,9 @@ annotations:
       rating: thumbs-up
       answer_final: "$138.89"
       flags: []
-      feedback: null
+      feedback: "5/10: Skill tag added: Enumeration (counts circles in bottom row, sums team values)."
       verdict_source: auto
-      skills_check: []
+      skills_check: [Enumeration]
       skills_uncheck: []
       qtype: "SAQ"
     hai:

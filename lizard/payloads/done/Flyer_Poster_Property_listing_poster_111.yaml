@@ -1,0 +1,37 @@
+task:
+  stem: Flyer_Poster_Property_listing_poster_111
+  sa_task_filename: Flyer_Poster_Property_listing_poster_111.json
+  task_id: 188124712
+  image: screenshots/Flyer_Poster_Property_listing_poster_111.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "53"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Flyer_Poster_Property_listing_poster_111.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Count the total number of occurrences of the letter H (case-insensitive) anywhere in the picture and multiply that count by 2. Call  this Result 1.
+        
+        Next, add the values of every occurrence of digits that repeat in the telephone number. Call this Result 2.
+        
+        Then count the total number of occurrences of the letter S (case-insensitive) anywhere in the picture and multiply that count by 3. Call this Result 3.
+        
+        Next, count the total number of occurrences of the letter R (case-insensitive) only in vertical text. Call this Result 4.
+        
+        If Result 4 is an even number, multiply Result 1 by Result 3, and if it is an odd number then add Result 1 to Result 3. Call the result Result 5.
+        Then add Result 2.
+        
+        Provide the answer as a whole number (e.g., 21).
+      answer: "53"

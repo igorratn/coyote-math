@@ -1,0 +1,55 @@
+task:
+  stem: Report_Dashboard_Retention_Dashboard_36
+  sa_task_filename: Report_Dashboard_Retention_Dashboard_36.json
+  task_id: 188408967
+  image: screenshots/Report_Dashboard_Retention_Dashboard_36.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "A"
+      flags: []
+      feedback: "5/10: Skill tag added: Enumeration (counts major tick labels across two combined axes)."
+      verdict_source: auto
+      skills_check: [Enumeration]
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Report_Dashboard_Retention_Dashboard_36.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Using the dashboard, consider only the two explicitly dollar-labeled metrics in the top row. Compute the absolute difference between those values, then divide the result by the total number of visible major tick labels across those two top horizontal axes combined. Which option is correct?
+        
+        A. 48,718.75
+        B. 52,150.00
+        C. 43,305.56
+        D. 64,958.33
+      answer: "A"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "D"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Report_Dashboard_Retention_Dashboard_36.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Assume the dashboard is a customer-retention business report. Using world knowledge, identify which of the two explicitly dollar-labeled top metrics represents the more severe customer outcome, then compare its displayed value to the other labeled metric. Approximately what percentage larger is the more severe outcome than the other?
+        
+        A. 150%
+        B. 200%
+        C. 400%
+        D. 300%
+      answer: "D"

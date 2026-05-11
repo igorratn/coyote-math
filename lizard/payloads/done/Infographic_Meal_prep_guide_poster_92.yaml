@@ -1,0 +1,108 @@
+task:
+  stem: Infographic_Meal_prep_guide_poster_92
+  sa_task_filename: Infographic_Meal_prep_guide_poster_92.json
+  task_id: 188406531
+  image: screenshots/Infographic_Meal_prep_guide_poster_92.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "3"
+      flags: []
+      feedback: "5/11: Skill tag added: Math Reasoning (max-min difference × utensil count)."
+      verdict_source: auto
+      skills_check: [Math Reasoning]
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Infographic_Meal_prep_guide_poster_92.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Focus only on the three photos that contain prepared food dishes and ignore the bottom-right image with the person.
+        For counting purposes, include only the primary cookware or baking containers directly holding the main prepared dish. Do NOT count serving trays, side bowls, side plates, utensils, or garnish containers.
+        Using those rules:
+        Count the number of qualifying food containers in each relevant photo.
+        Find the absolute difference between the largest and smallest counts.
+        Then multiply that difference by the number of visible red-handled utensils across the entire book cover.
+        What is the final result?
+        Answer in a single number (e.g., 12)
+      answer: "3"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "A"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Infographic_Meal_prep_guide_poster_92.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Imagine you are hosting a dinner and serving the food exactly as it is portioned in the cover photos. You plan to give each person one individual savory pie (shown in the top-left photo) along with exactly one square piece of the baked dessert (shown in the top-right photo).
+        If you only serve dessert pieces that are still resting inside the parchment-lined baking tin, how many dessert pieces will be left inside the tin after everyone gets their portion?
+        A. 4
+        B. 5
+        C. 7
+        D. 8
+      answer: "A"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "B"
+      flags: []
+      feedback: "5/11: Skill tag added: Math Reasoning (pies-leftover subtraction × letter count multiplication)."
+      verdict_source: auto
+      skills_check: [Math Reasoning]
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Infographic_Meal_prep_guide_poster_92.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        A host is planning a dinner party using only the items pictured on the left side of the four-photo grid. They want to serve a combination meal to their guests: exactly one individual savory pie (from the top-left photo) paired with exactly one bowl of the hearty stew (from the bottom-left photo). The host will use the empty grey bowls stacked next to the stew pot to serve the portions of stew.
+        If the host fills every visible grey bowl in that specific stack to serve a guest, and gives each of those guests exactly one savory pie, how many savory pies will remain unserved? Once you have that leftover number, multiply it by the total number of letters in the primary cookbook author's first name (shown in teal text at the bottom). What is the final calculated number?
+        A. 3
+        B. 6
+        C. 0
+        D. 5
+      answer: "B"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "B"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Infographic_Meal_prep_guide_poster_92.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        Analyze the cover's visual details to solve this multi-step logic puzzle:
+        First, find the social media handle printed inside the circular teal badge and count its alphabetical letters (do not count the '@' symbol).
+        Next, locate the bottom-left photograph and count the exact number of ceramic bowls nested together in the stack near the left edge. Multiply your initial letter count by this number of stacked bowls.
+        Finally, observe the top-right photograph. Count the total number of distinct, separated baked squares visible (ensure you count all of them, including the one resting on the plate outside the pan). Subtract this total square count from your multiplied number.
+        What is the final result?
+        A. 6
+        B. 20
+        C. 21
+        D. 22
+      answer: "B"

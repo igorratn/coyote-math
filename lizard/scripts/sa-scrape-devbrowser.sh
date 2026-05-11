@@ -39,28 +39,69 @@ cp "$LIZARD_DIR/scripts/scrape-superannotate.js" "$TMP_DIR/$SCRAPE_SRC_NAME"
 START=$(date +%s)
 SCRAPE_OUT="$TMP_DIR/sa-scrape-$STEM.json"
 
+PROJECT_ID=$(echo "$EDITOR_URL" | sed -E 's|.*/editor/[0-9]+/([0-9]+)/.*|\1|')
+[ -n "$PROJECT_ID" ] || PROJECT_ID=290044
+
 dev-browser --connect --timeout 120 <<DBSCRIPT
 const EDITOR_URL = "${EDITOR_URL}";
 const SCRAPE_SRC_NAME = "${SCRAPE_SRC_NAME}";
+const STEM = "${STEM}";
+const PROJECT_ID = "${PROJECT_ID}";
 
 const page = await browser.getPage("sa-lizard-job0");
 await page.goto(EDITOR_URL, { waitUntil: "domcontentloaded" });
 
-// Wait for iframe + status log populated at expected position + img src loaded.
-// STATUS_LOG_TEXT lives at textareas[3 + n*10 + 1] (per scrape-superannotate.js).
-// img src is an AWS pre-signed URL (~1500 chars with query string) — wait until
-// it includes "?" so we don't capture a partial src.
+// Stale-task_id fallback (codified 2026-05-10): if direct navigation lands on
+// "Item unavailable" (SA reassigned the task_id since the queue refill captured
+// it), navigate to the queue list and click the row by stem name to pick up
+// the current assignment URL. Update the queue file with the fresh task_id.
+await new Promise(r => setTimeout(r, 4000));
+const unavailable = await page.evaluate(() => {
+  const ifr = document.querySelector('iframe.custom-llm') || document.querySelector('iframe[src*="custom-llm"]');
+  if (!ifr || !ifr.contentDocument) return false;
+  return (ifr.contentDocument.body.innerText || '').includes('Item unavailable');
+});
+if (unavailable) {
+  console.log("STALE_TASK_ID=true (Item unavailable on direct URL — falling back to queue-list click)");
+  await page.goto(\`https://app.superannotate.com/35245/project/\${PROJECT_ID}/data?sort=name&direction=asc&status=6\`, { waitUntil: "domcontentloaded", timeout: 30000 });
+  await new Promise(r => setTimeout(r, 4000));
+  const clicked = await page.evaluate((stem) => {
+    const trs = Array.from(document.querySelectorAll('tr'));
+    for (const tr of trs) {
+      const link = tr.querySelector('a[href*="/editor/"]');
+      if (link && link.textContent.includes(stem)) {
+        const href = link.href;
+        link.click();
+        return href;
+      }
+    }
+    return null;
+  }, STEM);
+  if (!clicked) {
+    console.log("OK=false");
+    console.log("ERROR=stale task_id AND stem not found in queue list — possibly handed to another reviewer");
+    process.exit(1);
+  }
+  console.log("NEW_EDITOR_URL=" + clicked);
+  await writeFile("sa-fresh-url.txt", clicked);
+  await new Promise(r => setTimeout(r, 4000));
+}
+
+// Wait for iframe + image loaded + sufficient textarea count.
+// (Updated 2026-05-10: prior wait checked a hard-coded status-log index that
+// SA layout moved; replaced with a coarse readiness check — the scrape script
+// itself does the precise DOM mapping and returns ok:false if anything is
+// missing. img src is an AWS pre-signed URL — wait until "?" appears so we
+// don't capture a partial src.)
 await page.waitForFunction(() => {
   const ifr = document.querySelector('iframe.custom-llm') || document.querySelector('iframe[src*="custom-llm"]');
   if (!ifr || !ifr.contentDocument) return false;
   const doc = ifr.contentDocument;
-  const qcCount = Array.from(doc.querySelectorAll('p.title')).filter(p => p.textContent.trim() === 'QC').length;
-  if (qcCount < 1) return false;
-  const tas = Array.from(doc.querySelectorAll('textarea'));
-  // n = qcCount; status log textarea index = 3 + n*10 + 1 = 4 + n*10
-  const statusLogIdx = 4 + qcCount * 10;
-  const statusLog = tas[statusLogIdx]?.value || '';
-  if (!statusLog || statusLog.length < 20) return false;  // need real status content
+  const tas = doc.querySelectorAll('textarea');
+  if (tas.length < 14) return false;  // header + at least 1 annot section (~10 + 4 = 14)
+  // At least one textarea must hold the prompt or rewrite content (>= 50 chars).
+  const hasContent = Array.from(tas).some(t => (t.value || '').length >= 50);
+  if (!hasContent) return false;
   const img = doc.querySelector('img');
   if (!img || !img.src || !img.src.includes('?')) return false;
   return true;
@@ -121,6 +162,30 @@ await writeFile("sa-scrape-out.json", JSON.stringify({
 DBSCRIPT
 
 # Pull staged output back.
+# If stale-task_id fallback fired, also patch the queue file with the fresh
+# editor_url + task_id picked up from the queue-list click.
+FRESH_URL_FILE="$TMP_DIR/sa-fresh-url.txt"
+if [ -f "$FRESH_URL_FILE" ]; then
+  FRESH_URL=$(cat "$FRESH_URL_FILE")
+  FRESH_TASK_ID=$(echo "$FRESH_URL" | sed -E 's|.*/editor/[0-9]+/[0-9]+/([0-9]+).*|\1|')
+  if [ -n "$FRESH_TASK_ID" ] && [ "$FRESH_TASK_ID" != "$TASK_ID" ]; then
+    echo "STALE_TASK_ID_FIXED: $TASK_ID → $FRESH_TASK_ID"
+    node -e '
+      const fs = require("fs");
+      const p = "'"$QUEUE_FILE"'";
+      const o = JSON.parse(fs.readFileSync(p, "utf8"));
+      o.task_id = "'"$FRESH_TASK_ID"'";
+      o.editor_url = "'"$FRESH_URL"'";
+      fs.writeFileSync(p + ".tmp", JSON.stringify(o, null, 2) + "\n");
+      fs.renameSync(p + ".tmp", p);
+    '
+    TASK_ID="$FRESH_TASK_ID"
+    EDITOR_URL="$FRESH_URL"
+    echo "SA_TASK_ID=$TASK_ID (updated)"
+  fi
+  rm -f "$FRESH_URL_FILE"
+fi
+
 SCRAPE_JSON="$TMP_DIR/sa-scrape-out.json"
 [ -f "$SCRAPE_JSON" ] || { echo "ERROR: dev-browser did not write sa-scrape-out.json"; exit 1; }
 

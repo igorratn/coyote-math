@@ -1,11 +1,11 @@
-stem: Report_Dashboard_Conversion_Dashboard_134
+stem: Flyer_Poster_Property_listing_poster_111
 igor_resolved: false
 shadows:
-  - n: 2
-    uuid: 1c9a434d
-    fired_at: 2026-05-11T15:33:33.444Z
+  - n: 1
+    uuid: 1706368d
+    fired_at: 2026-05-11T15:11:14.251Z
     rating: Approve
-    time_logged: "00:20:06"
+    time_logged: "00:20:59"
     verdict_source: auto
     hai_llm_eval: clean
     hai_llm_comment: ""

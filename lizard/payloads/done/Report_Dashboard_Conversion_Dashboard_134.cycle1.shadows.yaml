@@ -1,0 +1,33 @@
+stem: Report_Dashboard_Conversion_Dashboard_134
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 7a293618
+    fired_at: 2026-05-08T21:25:21.608Z
+    rating: Approve
+    time_logged: "00:20:37"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 793765e5
+    fired_at: 2026-05-08T21:26:27.306Z
+    rating: Reject
+    time_logged: "00:20:54"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: 6dfe8a46
+    fired_at: 2026-05-08T21:30:06.868Z
+    rating: Approve
+    time_logged: "00:20:03"
+    verdict_source: igor
+    hai_llm_eval: warning
+    hai_llm_comment: "HAI LLM: Ambiguity in Step 1 — peaks vs points unclear. Confusing phrasing about points intersecting y-axis label. Suggests rewording as 'count data points with value >= 10'."
+    reclaimed: false
+    reclaim_diff: null

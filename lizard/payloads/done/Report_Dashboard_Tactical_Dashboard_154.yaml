@@ -1,0 +1,26 @@
+task:
+  stem: Report_Dashboard_Tactical_Dashboard_154
+  sa_task_filename: Report_Dashboard_Tactical_Dashboard_154.json
+  task_id: 188409025
+  image: screenshots/Report_Dashboard_Tactical_Dashboard_154.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "47"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Tactical_Dashboard_154.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        In this grouped bar chart, eight beverage categories are displayed along the x-axis, with each category showing three colored bars representing three cities (Montreal in blue/blue-purple, Ottawa in green, Vancouver in yellow). For each city's color series separately, count the number of bars whose height falls strictly below the y-axis value of 2,000 across all eight categories. Sum these three city counts to obtain the total number of under-2000 bars. Now identify the beverage categories whose name corresponds to a coffee-based drink in standard food and drink terminology (preparations made primarily with brewed coffee or espresso as the main ingredient), as opposed to tea-based, citrus-based, or other beverage types. Count these coffee-based categories. Multiply the total under-2000 bar count by this coffee-based category count. Then subtract the total number of distinct cities shown in the legend. What is the result? Answer with a single whole number (e.g., 3).
+      answer: "47"

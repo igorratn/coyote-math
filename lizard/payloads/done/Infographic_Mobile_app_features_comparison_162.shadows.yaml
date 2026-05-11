@@ -1,11 +1,11 @@
-stem: Report_Dashboard_Conversion_Dashboard_134
+stem: Infographic_Mobile_app_features_comparison_162
 igor_resolved: false
 shadows:
-  - n: 2
-    uuid: 1c9a434d
-    fired_at: 2026-05-11T15:33:33.444Z
+  - n: 1
+    uuid: 1ea55b94
+    fired_at: 2026-05-11T15:32:02.016Z
     rating: Approve
-    time_logged: "00:20:06"
+    time_logged: "00:20:29"
     verdict_source: auto
     hai_llm_eval: clean
     hai_llm_comment: ""

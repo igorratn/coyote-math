@@ -6,68 +6,11 @@ task:
 
 annotations:
 
-  - n: 1
-    sa:
-      action: approve
-      rating: thumbs-up
-      answer_final: "7"
-      flags: []
-      feedback: "5/10: Final answer corrected from 23 to 7. Bars strictly above 80K gridline = 5; panels with visible legend = 2; IMPORTANT labels = 3. 5 × 2 − 3 = 7."
-      verdict_source: igor
-      skills_check: []
-      skills_uncheck: []
-      qtype: "SAQ"
-    hai:
-      task_id_field: Report_Dashboard_MRR_Dashboard_130.json
-      role: Reviewing
-      annotation_n: 1
-      prompt: |
-        In the lower-left stacked cost chart, count the weekly bars whose total height rises strictly above the 80K gridline. Multiply that count by the number of separate dashboard panels that contain a visible legend, then subtract the number of red overlay labels that include the word “IMPORTANT”  (case-sensitive). Answer in a single integer, (e.g., 20)
-      answer: "23"
-
   - n: 2
     sa:
-      action: QC_Return
-      rating: thumbs-down
-      answer_final: null
-      flags: []
-      feedback: "5/10: Yellow subscription line in Feb is ambiguous — appears to both increase and decrease within the interval, making the \"decreases\" classification non-deterministic for Jan→Feb (G2 / Type 7). Additionally, on the strict-monotonic reading, model answer (16) matches the correct answer (4 intervals × 4 categories), failing the stump rule."
-      verdict_source: igor
-      skills_check: []
-      skills_uncheck: []
-      qtype: "SAQ"
-    hai:
-      task_id_field: Report_Dashboard_MRR_Dashboard_130.json
-      role: Reviewing
-      annotation_n: 2
-      prompt: |
-        In the “Spend vs. Customer Acquisition with Forecast” chart, count the month-to-month intervals from January to May where the blue marketing-spend bar decreases and the yellow subscription line also decreases. Multiply that count by the number of legend categories in the lower-left stacked cost chart. Answer in a single integer, (e.g., 8)
-      answer: "12"
-
-  - n: 3
-    sa:
-      action: QC_Return
-      rating: thumbs-down
-      answer_final: null
-      flags: []
-      feedback: "5/10: Yellow subscription line in Feb is ambiguous — Jan→Feb interval scoring under-determined (2 vs 1 depending on yellow's interpretation), so the resulting base-3 sequence and base-10 conversion are not deterministic (G2 / Type 7). Additionally, on the all-decrease reading, model answer (80) matches the correct answer (2222₃ = 80), failing the stump rule."
-      verdict_source: igor
-      skills_check: []
-      skills_uncheck: []
-      qtype: "SAQ"
-    hai:
-      task_id_field: Report_Dashboard_MRR_Dashboard_130.json
-      role: Reviewing
-      annotation_n: 3
-      prompt: |
-        In the “Spend vs. Customer Acquisition with Forecast” chart, compare each month-to-month interval from Jan→Feb through Apr→May. For each interval, write 2 if both the blue bar and yellow line decrease, 1 if exactly one of them decreases, and 0 if neither decreases. Treat the resulting four-digit sequence as a base-3 number and convert it to base 10. Answer in a single integer, (e.g., 40)
-      answer: "53"
-
-  - n: 4
-    sa:
       action: approve
       rating: thumbs-up
-      answer_final: "18.22"
+      answer_final: "NYY | 3"
       flags: []
       feedback: null
       verdict_source: auto
@@ -77,7 +20,28 @@ annotations:
     hai:
       task_id_field: Report_Dashboard_MRR_Dashboard_130.json
       role: Reviewing
-      annotation_n: 4
+      annotation_n: 2
       prompt: |
-        Using only clearly readable KPI cards, subtract Marketing Spend from Operations Cost. Divide the result by Count of Users, then subtract the number of top-row KPI cards. Round the final result to two decimal places. Answer as a decimal, (e.g., 12.34)
-      answer: "18.22"
+        Focus on the three red priority annotations: MOST IMPORTANT, SECONDARY, and LEAST IMPORTANT. For each annotation from top to bottom, determine whether the arrow’s shaft or arrowhead visibly overlaps a chart/panel that has a legend. Write Y if it overlaps at least one legend-bearing chart/panel and N if it does not. Then treat Y = 1 and N = 0 as a three-bit binary number.
+        
+        Answer in the format code | decimal value (e.g., YNY | 5).
+      answer: "NYY | 3"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "MRR; Marketing Spend | 17"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_MRR_Dashboard_130.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Use the five top KPI card titles from left to right. Select only the KPI titles whose full title reappears as a visible legend category in a different dashboard panel. Use the selected KPI cards’ left-to-right positions as digits in order, with the leftmost KPI card counted as position 1. Treat the resulting digit string as a base-6 number and convert it to base 10. Answer in the format selected titles | base-10 value (e.g., Title A; Title B | 15).
+      answer: "MRR; Marketing Spend | 17"

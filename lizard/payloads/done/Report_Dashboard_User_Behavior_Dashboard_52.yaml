@@ -1,0 +1,30 @@
+task:
+  stem: Report_Dashboard_User_Behavior_Dashboard_52
+  sa_task_filename: Report_Dashboard_User_Behavior_Dashboard_52.json
+  task_id: 188409040
+  image: screenshots/Report_Dashboard_User_Behavior_Dashboard_52.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "A"
+      flags: []
+      feedback: null
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Report_Dashboard_User_Behavior_Dashboard_52.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Identify which specific date experienced the highest peak in user activity during the 30 day period shown.
+        A. Oct 15, Tue
+        B. Oct 16, Wed
+        C. Oct 22, Tue
+        D. Oct 29, Tue
+      answer: "A"

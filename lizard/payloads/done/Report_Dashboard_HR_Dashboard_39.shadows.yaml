@@ -1,0 +1,52 @@
+stem: Report_Dashboard_HR_Dashboard_39
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: d2822d51
+    fired_at: 2026-05-11T00:55:08.569Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: f376c0f7
+    fired_at: 2026-05-11T00:56:31.865Z
+    rating: Approve
+    time_logged: "00:20:07"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: ""
+    reclaimed: true
+    reclaim_diff: "answer: D → M"  - n: 3
+    uuid: f8269deb
+    fired_at: 2026-05-11T00:57:43.723Z
+    rating: Approve
+    time_logged: "00:20:03"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 4
+    uuid: f5a92285
+    fired_at: 2026-05-11T00:58:17.895Z
+    rating: Approve
+    time_logged: "00:20:29"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 5
+    uuid: f8147598
+    fired_at: 2026-05-11T00:58:51.702Z
+    rating: Approve
+    time_logged: "00:20:28"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

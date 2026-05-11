@@ -356,7 +356,6 @@ for (const skel of skelAnnots) {
       skel });
     continue;
   }
-  const pick = pickBestVerdict(skel.n);
   // Always collect ALL reviewers' views for this annot so Igor sees both
   // perspectives at 3a — not just the picked one. Order = fire order.
   const allViews = [];
@@ -366,6 +365,24 @@ for (const skel of skelAnnots) {
     const a = pr.annotations.get(skel.n);
     if (a) allViews.push({ name, ...a });
   }
+  // 👍-big-diff demotion (codified 2026-05-11 — User_Behavior_52 incident):
+  //   A reviewer rating thumbs-up means "approve the Final Rewrite Answer going
+  //   to SA". If their Final Answer differs significantly from annotator's
+  //   rewrite, they implicitly disagree with what the annotator submitted —
+  //   that's semantically a thumbs-down (stump fail or prompt issue), not a
+  //   thumbs-up. gpt and others occasionally rate 👍 while writing a Final
+  //   Answer matching the model's output (which means model isn't stumped) —
+  //   contradictory. Demote any such 👍 to 👎 BEFORE the decision logic so
+  //   the picked verdict and All-Verdicts display are internally consistent.
+  for (const v of allViews) {
+    if (v.rating === 'thumbs-up' && detectBigDiff(v.finalAnswer, skel.rewriteAnswer)) {
+      v.rating = 'thumbs-down';
+      v.demoted_big_diff = true;
+    }
+  }
+  // Re-pick from the post-demotion view list (mirror pickBestVerdict policy:
+  // prefer 👍, else first 👎).
+  const pick = allViews.find(v => v.rating === 'thumbs-up') || allViews.find(v => v.rating === 'thumbs-down') || null;
   // Auto-resolve up gate (probe model — codified 2026-04-27, updated 2026-05-01):
   //   Reviewers fire sequentially as binary probes. 👎 → fire next probe.
   //   👍 disposition depends on whether reviewer's Final Answer matches annotator's rewrite:
@@ -432,6 +449,9 @@ const taskId = taskIdM?.[1] ?? '?';
 const saFile = saFilenameM?.[1] ?? `${STEM}.json`;
 const image  = imageM?.[1] ?? `screenshots/${STEM}.png`;
 const today  = process.env.LOCAL_DATE ?? new Date().toLocaleDateString('en-CA');
+// Short M/D form in PST for feedback date stamps (codified 2026-05-11 — Plot_Hist_111
+// used YYYY-MM-DD form, inconsistent with the M/D convention used elsewhere).
+const mdTodayPst = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Los_Angeles', month: 'numeric', day: 'numeric' }).format(new Date());
 
 function renderUnchanged(entry) {
   const { skel } = entry;
@@ -552,7 +572,7 @@ function renderAnnotation(entry) {
       lines.push(`skills_uncheck: []`);
       lines.push(`notes: ${sf.reason}\n`);
       lines.push(`#### Edits Made\n(none — stump-fail auto-down)\n`);
-      lines.push(`#### Feedback\n${today}: ${feedbackText}\n`);
+      lines.push(`#### Feedback\n${mdTodayPst}: ${feedbackText}\n`);
       lines.push(`#### Audit Trail\n**Auto-resolved at Job 2 (👎 stump-fail).** ${sf.code}: ${sf.reason}. SA action at Job 5: **${downAction}** (${cycleLabel}). Skipped at Job 3 walkthrough.\n`);
       if (skel.n < skelAnnots.length) lines.push('\n---\n');
       return lines.join('\n');
@@ -651,7 +671,7 @@ function renderAnnotation(entry) {
       : `${mdToday}: Skill tag corrected (no rationale captured).`;
   } else {
     const feedbackTag = entry.decision === 'auto-resolved' ? 'auto-resolved' : 'pending Igor verdict';
-    feedbackBody = `${today}: ${pick.rating} (${pick.name}) — ${feedbackTag}`;
+    feedbackBody = `${mdTodayPst}: ${pick.rating} (${pick.name}) — ${feedbackTag}`;
   }
   lines.push(`#### Feedback\n${feedbackBody}\n`);
   lines.push(`---\n`);

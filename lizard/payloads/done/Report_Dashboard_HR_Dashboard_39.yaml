@@ -40,12 +40,12 @@ annotations:
 
   - n: 2
     sa:
-      action: approve
-      rating: thumbs-up
-      answer_final: "D"
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
       flags: []
-      feedback: null
-      verdict_source: auto
+      feedback: "5/10: Stump fail — model answer M is correct. Project employment dark-blue Project bar peaks at Sat (ordinal position 7); Staff turnover peak at Jul (ordinal position 7); positions match → M. Annotator's answer D incorrect; corrected from D to M."
+      verdict_source: igor
       skills_check: []
       skills_uncheck: []
       qtype: "SAQ"
@@ -75,9 +75,9 @@ annotations:
       rating: thumbs-up
       answer_final: "NAAA"
       flags: []
-      feedback: null
+      feedback: "5/10: Skill tag added: Enumeration (prompt iterates across 4 KPI cards, encoding each)."
       verdict_source: auto
-      skills_check: []
+      skills_check: [Enumeration]
       skills_uncheck: []
       qtype: "SAQ"
     hai:

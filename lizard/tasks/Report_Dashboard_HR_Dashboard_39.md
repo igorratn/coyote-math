@@ -164,11 +164,17 @@ skills_check: []
 skills_uncheck: []
 notes: grok 👍 close to annotator; SA approves annotator's answer.
 
+#### Igor Verdict
+rating: thumbs-down
+final_answer: M
+source: custom
+notes: Auto-resolve flipped post-HAI-warning. 3 reviewers (opus/gpt/gemini) read Project employment peak = Sat (pos 7) + Staff turnover peak = Jul (pos 7) → match → M. Grok outlier read Wed+Jun → D, won carve-out chain as first 👍-close-match. Model answered M correctly → not stumped. Action: QC_Return; answer_final: null (Slack Concede — don't overwrite annotator's rewrite on 👎).
+
 #### Edits Made
-(to be filled at Job 3 if needed)
+Flipped Auto Verdict: grok 👍 D → Igor 👎 M (QC_Return, cycle 1). No skill/qtype changes.
 
 #### Feedback
-2026-05-10: thumbs-up (grok) — auto-resolved
+5/10: Stump fail — model answer M is correct. Project employment dark-blue Project bar peaks at Sat (ordinal position 7); Staff turnover peak at Jul (ordinal position 7); positions match → M. Annotator's answer D incorrect; corrected from D to M.
 
 ---
 ## Annotation 3

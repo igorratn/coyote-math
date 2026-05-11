@@ -77,23 +77,55 @@ async function gotoProjects() {
     }
   }
 }
-await gotoProjects();
-await page.waitForFunction(() => Array.from(document.querySelectorAll('button')).find(b => b.textContent.trim() === 'Start task' && !b.disabled), null, { timeout: 60000 });
-await page.evaluate(() => {
-  const lizardEl = Array.from(document.querySelectorAll('*')).find(el => el.children.length === 0 && el.textContent.trim() === 'Project Lizard');
-  if (!lizardEl) throw new Error('Project Lizard text not found');
-  let cur = lizardEl;
-  for (let i = 0; i < 10; i++) {
-    cur = cur.parentElement;
-    if (!cur) break;
-    const btn = Array.from(cur.querySelectorAll('button')).find(b => b.textContent.trim() === 'Start task' && !b.disabled);
-    if (btn) { btn.click(); return; }
+// Phase 0 retry loop with "Error loading project" detection (codified 2026-05-11).
+// HAI's /fellow/projects sometimes loads with an "Error loading project" panel
+// instead of the project tiles → Start task button never appears → waitForFunction
+// times out. Recovery: reload the page and re-attempt from gotoProjects.
+let phase0Done = false;
+for (let outerAttempt = 0; outerAttempt < 3 && !phase0Done; outerAttempt++) {
+  try {
+    await gotoProjects();
+    // Detect "Error loading project" page early.
+    await new Promise(r => setTimeout(r, 2500));
+    const errPage = await page.evaluate(() => /loading your project|rror loading project/i.test(document.body.innerText || ''));
+    if (errPage) {
+      console.log("PHASE0_ERROR_LOADING_PROJECT=true (attempt " + (outerAttempt + 1) + ") — reloading");
+      await page.reload({ waitUntil: "domcontentloaded", timeout: 60000 });
+      await new Promise(r => setTimeout(r, 3000));
+      const stillErr = await page.evaluate(() => /loading your project|rror loading project/i.test(document.body.innerText || ''));
+      if (stillErr) {
+        if (outerAttempt === 2) throw new Error('Error loading project persists after 3 reload attempts');
+        continue;
+      }
+    }
+    await page.waitForFunction(() => Array.from(document.querySelectorAll('button')).find(b => b.textContent.trim() === 'Start task' && !b.disabled), null, { timeout: 60000 });
+    await page.evaluate(() => {
+      const lizardEl = Array.from(document.querySelectorAll('*')).find(el => el.children.length === 0 && el.textContent.trim() === 'Project Lizard');
+      if (!lizardEl) throw new Error('Project Lizard text not found');
+      let cur = lizardEl;
+      for (let i = 0; i < 10; i++) {
+        cur = cur.parentElement;
+        if (!cur) break;
+        const btn = Array.from(cur.querySelectorAll('button')).find(b => b.textContent.trim() === 'Start task' && !b.disabled);
+        if (btn) { btn.click(); return; }
+      }
+      throw new Error('Start task button not found near Project Lizard');
+    });
+    await page.waitForFunction(() => Array.from(document.querySelectorAll('button')).find(b => b.textContent.trim() === 'Start timer' && !b.disabled), null, { timeout: 60000 });
+    await page.evaluate(() => Array.from(document.querySelectorAll('button')).find(b => b.textContent.trim() === 'Start timer' && !b.disabled).click());
+    await page.waitForFunction(() => /\/annotations\/fellow\/task\/[a-f0-9-]+\/run/.test(location.pathname), null, { timeout: 60000 });
+    phase0Done = true;
+  } catch (e) {
+    if (outerAttempt === 2) throw e;
+    // Check if "Error loading project" is the cause; if so, reload and retry.
+    const errPage = await page.evaluate(() => /loading your project|rror loading project/i.test(document.body.innerText || '')).catch(() => false);
+    console.log("PHASE0_RETRY=" + (outerAttempt + 1) + " errLoadingProject=" + errPage + " msg=" + String(e.message || e).slice(0, 120));
+    if (errPage) {
+      try { await page.reload({ waitUntil: "domcontentloaded", timeout: 60000 }); } catch (_) {}
+      await new Promise(r => setTimeout(r, 3000));
+    }
   }
-  throw new Error('Start task button not found near Project Lizard');
-});
-await page.waitForFunction(() => Array.from(document.querySelectorAll('button')).find(b => b.textContent.trim() === 'Start timer' && !b.disabled), null, { timeout: 60000 });
-await page.evaluate(() => Array.from(document.querySelectorAll('button')).find(b => b.textContent.trim() === 'Start timer' && !b.disabled).click());
-await page.waitForFunction(() => /\/annotations\/fellow\/task\/[a-f0-9-]+\/run/.test(location.pathname), null, { timeout: 60000 });
+}
 const taskUrl = page.url();
 const fullUuid = taskUrl.match(/task\/([a-f0-9-]+)\//)[1];
 console.log("UUID=" + fullUuid);

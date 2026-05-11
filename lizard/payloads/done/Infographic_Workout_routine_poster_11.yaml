@@ -1,0 +1,79 @@
+task:
+  stem: Infographic_Workout_routine_poster_11
+  sa_task_filename: Infographic_Workout_routine_poster_11.json
+  task_id: 188406870
+  image: screenshots/Infographic_Workout_routine_poster_11.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: "5/11: Skill tag added: Enumeration (sums effort units across 5 exercises × per-session counts)."
+      verdict_source: auto
+      skills_check: [Enumeration]
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Infographic_Workout_routine_poster_11.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        If you completed every session of every exercise in Round 1 only, what is the total number of individual effort units (reps or seconds of work) performed across all five exercises? Answer with a single letter.
+        
+        A. 285
+        B. 315
+        C. 375
+        D. 345
+      answer: "C"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "A"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Infographic_Workout_routine_poster_11.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        In Round 2, one exercise tracks effort using time rather than repetitions AND has fewer sessions than any other timed exercise across both rounds. What does this combination most logically suggest about how that exercise is programmed? Answer with a single letter.
+        
+        A. Scissors, 2 timed sessions with shorter rest suggests it serves as a lower intensity finisher compared to its Round 2 peers
+        B. Mountain Climber, 3 timed sessions with longer rest suggests it is the most demanding exercise in the entire routine
+        C. Plank, fewer sessions with timed effort confirms it is used purely as a warm up with minimal training stimulus
+        D. Wall Squat, 3 timed sessions with short rest suggests it targets endurance more than any other exercise
+      answer: "A"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "B"
+      flags: []
+      feedback: "5/11: Skill tag added: Math Reasoning (comparing rest-period numbers — implicit max-of-set arithmetic)."
+      verdict_source: auto
+      skills_check: [Math Reasoning]
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Infographic_Workout_routine_poster_11.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Count the total number of exercises across both rounds that use timed effort (seconds) rather than repetitions. Then identify the longest rest period among those timed exercises. Which answer correctly states both? Answer with a single letter.
+        
+        A. 5 timed exercises; longest rest is 45 seconds
+        B. 4 timed exercises; longest rest is 45 seconds
+        C. 4 timed exercises; longest rest is 15 seconds
+        D. 6 timed exercises; longest rest is 30 seconds
+      answer: "B"

@@ -1,0 +1,13 @@
+stem: Infographic_Productivity_hacks_poster_113
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 1f114705
+    fired_at: 2026-05-11T15:14:25.853Z
+    rating: Approve
+    time_logged: "00:20:38"
+    verdict_source: igor
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

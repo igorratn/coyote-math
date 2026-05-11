@@ -1,0 +1,43 @@
+stem: Infographic_Meal_prep_guide_poster_92
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: 1d7b3fe0
+    fired_at: 2026-05-11T15:39:13.649Z
+    rating: Approve
+    time_logged: "00:20:26"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 1dc8f72c
+    fired_at: 2026-05-11T15:39:56.183Z
+    rating: Approve
+    time_logged: "00:20:35"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: 1ee69220
+    fired_at: 2026-05-11T15:40:56.864Z
+    rating: Approve
+    time_logged: "00:20:54"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "Multiplying the leftover pies by the number of letters: 1 * 3 = 3. The correct option should be A."
+    reclaimed: false
+    reclaim_diff: null
+  - n: 4
+    uuid: 2212e1d8
+    fired_at: 2026-05-11T15:42:18.075Z
+    rating: Approve
+    time_logged: "00:20:14"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "Following the prompt's instructions: (14 letters * 3 bowls) - 9 squares = 33. None of the provided options (including B) match this correct calculation. To arrive at 20 (Option B), the prompt creator likely miscounted the image as having 2 bowls and 8 total squares ((14 * 2) - 8 = 20). Please adjust the options to reflect the correct math (33) or change the prompt's instructions so they match a ve"
+    reclaimed: false
+    reclaim_diff: null

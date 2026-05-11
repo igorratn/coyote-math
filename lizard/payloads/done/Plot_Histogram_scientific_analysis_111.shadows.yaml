@@ -1,0 +1,33 @@
+stem: Plot_Histogram_scientific_analysis_111
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 18944267
+    fired_at: 2026-05-11T15:34:29.789Z
+    rating: Approve
+    time_logged: "00:20:31"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 1f0707b8
+    fired_at: 2026-05-11T15:35:17.753Z
+    rating: Reject
+    time_logged: "00:20:41"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: 2150f965
+    fired_at: 2026-05-11T15:36:17.919Z
+    rating: Approve
+    time_logged: "00:20:53"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

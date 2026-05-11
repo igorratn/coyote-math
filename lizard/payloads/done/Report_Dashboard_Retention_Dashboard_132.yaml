@@ -12,9 +12,9 @@ annotations:
       rating: thumbs-up
       answer_final: "C"
       flags: []
-      feedback: null
+      feedback: "5/10: Skill tag added: Enumeration (counts At-Risk values across table rows; counts letters in 'yellow')."
       verdict_source: auto
-      skills_check: []
+      skills_check: [Enumeration]
       skills_uncheck: []
       qtype: "MCQ"
     hai:
