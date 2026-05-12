@@ -145,14 +145,19 @@ await page.evaluate(async () => {
   }
 });
 await page.waitForFunction(() => !!document.querySelector('textarea'), null, { timeout: 60000 });
-// Freshness gate (codified 2026-05-09, refined 2026-05-09 — cross-allocation
-// corruption incident): HAI's "Start task" can serve a mid-flow task whose first
+// Freshness gate (codified 2026-05-09, refined 2026-05-12 — cross-allocation
+// corruption incident #2): HAI's "Start task" can serve a mid-flow task whose first
 // textarea is actually the PROMPT slot (Step 3) or REWRITE slot (Step 4), with
 // content empty if the prior fire bailed before filling. Empty-check alone is
 // insufficient — we MUST verify the page is on Step 1 by checking the label
-// text. Step 1 has "Copy the ID of the task..." prompt; Step 3 has "Copy over
-// the Annotator Prompt..."; Step 4 has "Copy over the Rewrite Answer...". If
-// the visible step label isn't Step 1's, abort cleanly.
+// text.
+//
+// IMPORTANT (codified 2026-05-12): HAI's form is accordion-style — Step 1's label
+// ("Copy the ID of the task...") REMAINS visible on the page even when the user is
+// currently on Step 3 or Step 4 (completed steps stay as headers above the active
+// step). So `onStep1=true` does NOT mean we're currently on Step 1. We must
+// ALSO check that Step 3 / Step 4 labels are NOT visible — if they are, we're past
+// Step 1. The active step is the LATEST step label visible.
 const stepCheck = await page.evaluate(() => {
   const text = document.body.innerText;
   const ta = document.querySelector('textarea');
@@ -165,10 +170,12 @@ const stepCheck = await page.evaluate(() => {
     taLen: (ta && ta.value || '').length
   };
 });
-if (!stepCheck.onStep1) {
-  const where = stepCheck.onStep3 ? 'Step 3 (prompt slot)' : stepCheck.onStep4 ? 'Step 4 (rewrite slot)' : 'unknown step';
+// Active step = LATEST step label visible (accordion completion order).
+// If Step 3 or Step 4 label is visible, we're past Step 1 — abort.
+if (stepCheck.onStep4 || stepCheck.onStep3 || !stepCheck.onStep1) {
+  const where = stepCheck.onStep4 ? 'Step 4 (rewrite slot)' : stepCheck.onStep3 ? 'Step 3 (prompt slot)' : 'unknown step';
   console.log("FRESHNESS_FAIL=not_on_step1 page=" + where + " ta_len=" + stepCheck.taLen);
-  throw new Error('Cross-allocation detected: page is on ' + where + ', not Step 1. Refusing to fill (would corrupt prompt/rewrite).');
+  throw new Error('Cross-allocation detected: page is on ' + where + ', not Step 1 (Step3=' + stepCheck.onStep3 + ' Step4=' + stepCheck.onStep4 + '). Refusing to fill (would corrupt prompt/rewrite).');
 }
 if (stepCheck.taLen > 0) {
   console.log("FRESHNESS_FAIL=step1_textarea_prefilled length=" + stepCheck.taLen + " preview=" + stepCheck.taValue.slice(0, 80).replace(/\\n/g, ' '));
