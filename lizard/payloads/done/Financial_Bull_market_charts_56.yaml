@@ -1,0 +1,89 @@
+task:
+  stem: Financial_Bull_market_charts_56
+  sa_task_filename: Financial_Bull_market_charts_56.json
+  task_id: 188773750
+  image: screenshots/Financial_Bull_market_charts_56.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "A"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Financial_Bull_market_charts_56.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Within the chart how many times is there a low that is lower than a previously established low of the $SPX chart? Pick the answer that is closest to the number of values that satisfy this criteria?
+        
+        A. 7
+        B. 5
+        C. 3
+        D. 2 
+        E. 1
+      answer: "A"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "2"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Bull_market_charts_56.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        During how many years does the stock price of $SPX finish lower than its opening stock price during that same year? Give your answer as a numerical value (e.g., 10)
+      answer: "2"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "82,83,84,85,86"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Bull_market_charts_56.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Which years fit the criteria of both being encompassed by the orange double sided arrow (partially encompassing the year counts), and has positive stock growth for that year? Give your answer as a list of the years that fit the criteria listed above using the abbreviated format as used in the chart in numerical order. (e.g., 19,20,23,30)
+      answer: "82,83,84,85,86"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "140"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Bull_market_charts_56.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        Identify the first and last year encompassed by the orange double arrow, take the opening stock price of the first year, and the closing stock price of the last year and round each to the nearest given y value, what is the absolute difference in stock price between the two? Give your answer as a numerical value. (e.g., 102)
+      answer: "140"

@@ -235,8 +235,11 @@ function parseSkeletonAnnotations(src) {
     const prompt  = /#### Full Prompt\n([\s\S]*?)(?=\n####|\n---|\n###|\n## |$)/.exec(body);
     const skills  = /\*\*Skills Tagged:\*\*\s*(.+?)$/m.exec(body);
     const qtype   = /\*\*Question Type:\*\*\s*(.+?)$/m.exec(body);
-    const modelA  = /\*\*Model Answer:\*\*\s*(.+?)$/m.exec(body);
-    const annotA  = /\*\*Annotator Answer:\*\*\s*(.+?)$/m.exec(body);
+    const modelA  = /\*\*Model Answer:\*\*\s*([\s\S]*?)(?=\n- \*\*|\n####|\n---|\n## |$)/.exec(body);
+    // Multi-line capture: from "**Annotator Answer:** " to the next "- **" bullet
+    // header, "####" block, or "---" separator. (codified 2026-05-11 —
+    // Product_one_pager_144 incident: bullet line truncated multi-paragraph rewrite.)
+    const annotA  = /\*\*Annotator Answer:\*\*\s*([\s\S]*?)(?=\n- \*\*|\n####|\n---|\n## |$)/.exec(body);
 
     const prev = annots.get(blocks[i].n);
     const entry = {

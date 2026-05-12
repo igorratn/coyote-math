@@ -8,15 +8,16 @@ annotations:
 
   - n: 1
     sa:
-      action: QC_Return
+      action: delete
       rating: thumbs-down
       answer_final: null
       flags: []
-      feedback: "5/10: Prompt has ambiguity issues. Part 1: top-right of right brochure contains two distinct elements (RSA Conference banner + QR code) — \"one specific visual element\" is ambiguous. Part 3: the Business leaders card is white on both brochures; the visible color difference is the page background behind the card, not \"the background box for Business leaders\" itself. Recommend rewording Part 3 to \"primary color of the page background behind the Business leaders card\" or removing Part 3 entirely."
-      verdict_source: igor
+      feedback: "5/11: Model did not generate an answer for this annotation — treated as not stumped. Annotator must regenerate model response before resubmitting."
+      verdict_source: auto
       skills_check: []
       skills_uncheck: []
       qtype: "SAQ"
+      prompt_changed_cycle2: false
     hai:
       task_id_field: Infographic_Product_one_pager_112.json
       role: Reviewing
@@ -24,21 +25,21 @@ annotations:
       prompt: |
         Task: Comparative Document Analysis and Data Extraction.
         
-        Question: Refer to the two brochures in image and provide a response to the following:
+        Question: Refer to the two brochures in the image and provide a response to the following:
         
         Identify the one specific visual element (located in the top-right corner) that appears on the right brochure but is absent from the left brochure.
         
-        Under the "MULTI-FRAMEWORK FLEXIBILITY" section, list the first four certification acronyms (e.g., SOC 2) shown in the hexagonal icons from left to right.
+        Under the "MULTI-FRAMEWORK FLEXIBILITY" section, list the first four certification acronyms shown in the hexagonal icons from left to right.
         
         In the bottom section titled "A solution for every security stakeholder," identify the primary color of the background box for "Business leaders" in the left brochure versus the right brochure.
         
-        Answer Type: Structured list.
+        Required Response Format:
+        Unique Element: [Element Name]
+        First Four Certifications: 1. [A], 2. [B], 3. [C], 4. [D]
+        Box Colors: Left: [Color] / Right: [Color]
+      answer: |
+        Unique Element: QR code
         
-        Sample Answer:
+        First Four Certifications: 1. SOC 2, 2. NIST, 3. ISO 27001, 4. HIPAA
         
-        Unique Element: A barcode.
-        
-        First Four Certifications: 1. ABC, 2. XYZ, 3. 123, 4. 456.
-        
-        Box Colors: Left: Red / Right: Blue.
-      answer: "Unique Element: The RSA Conference logo and a QR code."
+        Box Colors: Left: White / Right: White

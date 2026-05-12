@@ -1,0 +1,13 @@
+stem: Infographic_Product_comparison_79
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: 987e6b14
+    fired_at: 2026-05-10T00:53:34.289Z
+    rating: Reject
+    time_logged: "00:20:24"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "A complete and correct Rewrite Answer, following your Sample Answer format, should look like this: Factor 1 Leader: Product A Product B/Factor 3 Symbol: Checkmark Logical Match: Product C Additionally, to strictly adhere to the \"single-verifiable\" rule, it is highly recommended to only ask one question per prompt rather than chaining three distinct questions together."
+    reclaimed: false
+    reclaim_diff: null

@@ -240,9 +240,14 @@ console.log("PHASE1_MS=" + (Date.now() - t0));
 // ============ Phase 2: image upload (filechooser + buffer) ============
 const b64 = (await readFile(B64_NAME)).replace(/\\s+/g, '');
 const bytes = Buffer.from(b64, 'base64');
-const fcPromise = page.waitForEvent('filechooser', { timeout: 15000 });
-await page.evaluate(() => Array.from(document.querySelectorAll('button')).find(b => (b.getAttribute('aria-label') || '') === 'Upload assets').click());
-const fc = await fcPromise;
+// Use Playwright locator click (NOT page.evaluate JS click) for trusted
+// click that reliably opens the file dialog inside the sandbox. JS clicks via
+// page.evaluate log success but the filechooser event never fires — codified
+// 2026-05-11 after stuck-allocation incident.
+const [fc] = await Promise.all([
+  page.waitForEvent('filechooser', { timeout: 20000 }),
+  page.getByRole('button', { name: 'Upload assets', exact: true }).click({ timeout: 10000 })
+]);
 await fc.setFiles({ name: IMG_BASENAME, mimeType: "image/png", buffer: bytes });
 await page.waitForFunction(() => {
   function isVisible(el) { if (!el) return false; const r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0; }

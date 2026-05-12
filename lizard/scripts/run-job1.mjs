@@ -115,9 +115,22 @@ for (let i = 1; i <= nAnnotations; i++) {
   const section = lines.slice(startIdx + 1, endIdx === -1 ? undefined : endIdx).join('\n');
 
   function getSectionField(key) {
-    const re = new RegExp(`^${key}: (.*)$`, 'm');
-    const m = section.match(re);
-    return m ? m[1].trim() : '';
+    // Capture from "KEY: " up to (but not including) the next "<UPPERCASE_KEY>: "
+    // line, OR the next "--- LABEL ---" block, OR end of section. Multi-line
+    // values (e.g. multi-paragraph annotator rewrite answers) are preserved.
+    // (codified 2026-05-11 — Product_comparison_79 incident: annotator's 3-line
+    // answer was truncated to line 1 by the prior single-line regex.)
+    const lines = section.split('\n');
+    const startIdx = lines.findIndex(l => l.startsWith(key + ': '));
+    if (startIdx === -1) return '';
+    let endIdx = lines.length;
+    for (let i = startIdx + 1; i < lines.length; i++) {
+      if (/^[A-Z][A-Z0-9_]*: /.test(lines[i])) { endIdx = i; break; }
+      if (/^--- /.test(lines[i])) { endIdx = i; break; }
+    }
+    const firstLine = lines[startIdx].slice(key.length + 2);  // drop "KEY: "
+    const rest = lines.slice(startIdx + 1, endIdx);
+    return [firstLine, ...rest].join('\n').trim();
   }
 
   function getSectionBlock(label) {

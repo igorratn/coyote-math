@@ -2,12 +2,12 @@ stem: Infographic_Product_one_pager_112
 igor_resolved: false
 shadows:
   - n: 1
-    uuid: 9ca5a536
-    fired_at: 2026-05-10T00:54:54.454Z
+    uuid: 4986322c
+    fired_at: 2026-05-11T23:50:00Z
     rating: Reject
-    time_logged: "00:20:09"
-    verdict_source: igor
-    hai_llm_eval: clean
-    hai_llm_comment: ""
+    time_logged: "01:18:34"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "It appears that the question and rewrite answer have been deleted or were not provided. (Override: cycle 2 delete; expected.)"
     reclaimed: false
     reclaim_diff: null

@@ -1,0 +1,106 @@
+task:
+  stem: Infographic_00004_apple-watch-compare-models-apple-1_9fc34293
+  sa_task_filename: Infographic_00004_apple-watch-compare-models-apple-1_9fc34293.json
+  task_id: 188405895
+  image: screenshots/Infographic_00004_apple-watch-compare-models-apple-1_9fc34293.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "547mm"
+      flags: []
+      feedback: "5/11: Skill tag added: Enumeration (counts combinations of models × plans summing to $2,694)."
+      verdict_source: auto
+      skills_check: [Enumeration]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Infographic_00004_apple-watch-compare-models-apple-1_9fc34293.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Using the pricing shown in the image, determine how many different combinations of models and plans could account for a purchase cost of $2,694. Identify the two combinations with the greatest total case size using the largest available size for each model and sum those two totals together. What is the combined total? Answer with a value and unit of measurement (e.g., 94mm).
+      answer: "547mm"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "23:00"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Infographic_00004_apple-watch-compare-models-apple-1_9fc34293.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Identify the time displayed on the Ultra model and round it up to the nearest hour. Determine what time the Ultra would reach 0% battery after a full charge starting from that rounded time. Answer in 24-hour format (e.g., 14:00).
+      answer: "23:00"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "9"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Infographic_00004_apple-watch-compare-models-apple-1_9fc34293.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        What is the number of full (including abstract) depictions of smartwatch screens throughout the image? Answer as a whole number (e.g., 3).
+      answer: "9"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "D"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Infographic_00004_apple-watch-compare-models-apple-1_9fc34293.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        Which of the following best reflects the readings displayed on the Ultra's watch face as shown in the image?
+        A. Temp: 61F, UVI: 8, Elevation: 15400, Direction: 351NW, Time: 10:19
+        B. Temp: 16F, UVI: 3, Elevation: 14500, Direction: 315NW, Time: 10:19
+        C. Temp: 16F, UVI: 8, Elevation: 15400, Direction: 351NW, Time: 10:09
+        D. Temp: 61F, UVI: 3, Elevation: 14500, Direction: 315NW, Time: 10:09
+      answer: "D"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "0"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Infographic_00004_apple-watch-compare-models-apple-1_9fc34293.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        Find the absolute difference in number of buttons (excluding digital crowns) the Ultra model has compared to both the SE and Series 8 together. Cube the number of wavy black lines found in the image. What is the product of the absolute difference and the cubic value? Answer as a whole number (e.g., 800).
+      answer: "0"

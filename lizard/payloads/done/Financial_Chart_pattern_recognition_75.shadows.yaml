@@ -1,0 +1,53 @@
+stem: Financial_Chart_pattern_recognition_75
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: 605e085b
+    fired_at: 2026-05-12T01:03:17.141Z
+    rating: Approve
+    time_logged: "00:20:06"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: manual2
+    fired_at: 2026-05-12T01:15:00Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: 5ed5e8d2
+    fired_at: 2026-05-12T01:10:00.513Z
+    rating: Approve
+    time_logged: "00:20:33"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 4
+    uuid: manual4
+    fired_at: 2026-05-12T01:25:00Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 5
+    uuid: 61313874
+    fired_at: 2026-05-12T01:14:05.544Z
+    rating: Approve
+    time_logged: "00:20:35"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

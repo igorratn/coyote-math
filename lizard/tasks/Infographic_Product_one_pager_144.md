@@ -4,28 +4,34 @@
 - **task_id:** 188406597
 - **SA_TASK_FILENAME:** Infographic_Product_one_pager_144.json
 - **Image:** screenshots/Infographic_Product_one_pager_144.png — (description)
-- **Date:** 2026-05-09
+- **Date:** 2026-05-11
 - **Review Cycle:** 1st
-- **Task QC Status:** QC_Complete
+- **Task QC Status:** TBD
 
 ## Task Status
-- **Status:** ALL-AUTO-RESOLVED
-- **Reviewers fired:** opus, gpt, gemini
-- **Summary:** 0 pending Igor, 1 auto-resolved, 0 no-reviewer-output, 0 unchanged-carry-forward (of 1 total)
+- **Status:** ALL-PENDING-IGOR
+- **Reviewers fired:** opus, gpt, gemini, grok
+- **Summary:** 1 pending Igor, 0 auto-resolved, 0 no-reviewer-output, 0 unchanged-carry-forward (of 1 total)
 
 ---
 
 ## Annotation 1
 
-- **Reviewer:** gemini
-- **Rating:** thumbs-up
-- **All Verdicts:** opus: 👎, gpt: 👎, gemini: 👍 (picked)
+- **Reviewer:** opus
+- **Rating:** thumbs-down
+- **All Verdicts:** opus: 👎 (picked), gpt: 👎, gemini: 👎, grok: 👎
 - **Flags:** []
-- **Final Answer (reviewer):** Row Labels: 1. Date, 2. Key Information, 3. Blockers, 4. Next Steps, 5. Support Needed.
+- **Final Answer (reviewer):** Row Labels: 1. Date, 2. Key Information, 3. Blockers, 4. Next Steps, 5. Support Needed
 - **Skills Tagged:** Attribute Perception, Spatial Reasoning
 - **Question Type:** SAQ
 - **Model Answer:** Row Labels: 1. Date, 2. Key Information, 3. Blockers, 4. Next Steps, 5. Support Needed
+Key/Symbol Combination: + [Add magic]
+Header Portrait: Sarah Jenkins
 - **Annotator Answer:** Row Labels: 1. Date, 2. Key Information, 3. Blockers, 4. Next Steps, 5. Support Needed.
+
+Key/Symbol Combination: Select + (Add magic) and choose Dropdown.
+
+Header Portrait: None provided (The image shows an anonymous woman in an orange jacket, but no name is explicitly written next to the portrait).
 
 #### Full Prompt
 Task: Mobile UI Analysis and Instructional Text Extraction.
@@ -51,74 +57,82 @@ Header Portrait: Sarah Jenkins.
 #### Rewrite Answer (annotator)
 Row Labels: 1. Date, 2. Key Information, 3. Blockers, 4. Next Steps, 5. Support Needed.
 
-#### Reviewer Body (opus)
-- **Rating:** thumbs-down
-- **Final Rewrite Answer:** N/A — prompt invalid
-- **Flags:** [G2, Type 1]
+Key/Symbol Combination: Select + (Add magic) and choose Dropdown.
+
+Header Portrait: None provided (The image shows an anonymous woman in an orange jacket, but no name is explicitly written next to the portrait).
+
+#### Reviewer Body (opus) (picked)
+- **Rating:** thumbs-up
+- **Final Rewrite Answer:** Row Labels: 1. Date, 2. Key Information, 3. Blockers, 4. Next Steps, 5. Support Needed
+Key/Symbol Combination: + [Add magic]
+Header Portrait: Sarah Jenkins
+- **Flags:** []
 - **Two-Part Check:**
-  1. Question: Prompt has three sub-parts. Parts 1 and 2 are verifiable from the image. **Part 3 fails G2/Type 1**: "Identify the name of the person displayed in the circular portrait at the very top left of the document header." The portrait has NO name label visible anywhere in the image — it is a stock template photo with no caption. The sample answer provides a fabricated name ("Sarah Jenkins") as if expected, but no such name appears on the page. There is no deterministic way to identify this person from the image alone — fails G3 (self-contained) and G2 (single verifiable answer). The model answer omits parts 2 and 3 entirely, which suggests the model recognized the portrait is unidentifiable and only answered the verifiable sub-part.
-  2. Answer: Annotator's answer covers only Part 1 (row labels). Reading the Summary table left column [pixel-verified]: Date, Key Information, Blockers, Next Steps, Support Needed — matches annotator. But the prompt requires all three sub-parts, and the rewrite answer omits parts 2 and 3. Even if Part 3 were dropped as unanswerable, Part 2 (the Canva Tip key combo "+ (Add magic)" [pixel-verified]) is verifiable and missing from the rewrite. Multi-part prompt with no closing instruction telling annotator how to combine parts → Type 1 (non-verifiable format).
+  1. Question: G1 pass — 3 skills engaged (Attribute Perception for reading the row labels, Spatial Reasoning for locating "top left" / "left-hand column" / "very top left of document header", Table/Chart/Graph Understanding for reading the Summary table structure). V6 anchor skill (Table/Chart/Graph Understanding) is present in the task even if not all tagged. G2 pass — three deterministic sub-answers requested in structured-list format with sample answer demonstrating format. G3 pass — fully self-contained; only general knowledge needed (recognizing a table, reading text). G4 pass — no cross-annotation reference. G5 pass — sample answer uses different values (Time/Owner/Status/Goal/Link vs Date/Key Information/Blockers/Next Steps/Support Needed; "Shift + @" vs "+ [Add magic]"; Sarah Jenkins is a generic placeholder), no giveaways. Stump-trap: portrait has NO visible name text — only the abstract DD logo block. Model fabricated "Sarah Jenkins" matching the sample-answer placeholder verbatim — classic format-leakage failure where model echoed the sample. Correct response acknowledges no name is provided.
+  2. Answer: Verified from image: Row labels read as Date, Key Information, Blockers, Next Steps, Support Needed [pixel-verified]. Second Canva Tip text: "Select + (Add magic) and choose Dropdown to add a list of options to your Docs." → key/symbol combination is "+ (Add magic)" [pixel-verified]. Header portrait shows an anonymous woman in orange jacket with NO name text adjacent — only the colored geometric logo blocks (DD pattern). [pixel-verified]. Model answer fabricated "Sarah Jenkins" (the exact sample-answer placeholder) → model stumped. Annotator correctly identifies all three: (1) the 5 row labels verbatim, (2) "+ [Add magic]" as the key/symbol combo, (3) explicitly notes "None provided" with clarifying parenthetical about anonymous woman in orange jacket. Annotator's answer is correct and the model failed by hallucinating a name → thumbs-up.
 - **Edits Made:** None
-- **Feedback:** 5/10: Prompt fails G2/Type 1 — multi-part question with no portrait name visible in image (Part 3 unanswerable from image alone, fails G3) and rewrite answer omits Parts 2 and 3 of the three-part prompt. Drop Part 3 entirely (no name caption on the portrait) and rewrite as a single-part prompt or add explicit closing format spec for combining parts.
+- **Feedback:** N/A
 
 #### Reviewer Body (gpt)
 - **Rating:** thumbs-down
 - **Final Rewrite Answer:** N/A — prompt invalid
-- **Flags:** [G1, G3, IMAGE_UNREADABLE, Type 3]
+- **Flags:** [G1]
 - **Two-Part Check:**
-  1. Question: The prompt asks for (a) five “Summary” row labels, (b) an exact key/symbol combination from the second “Canva Tip,” and (c) the name of the person in the circular portrait. 
-     - Part (a) is directly readable: “Date; Key Information; Blockers; Next Steps; Support Needed” [pixel-verified; Read-First Title/labels].
-     - Part (b) requires verbatim transcription of very small text in the bottom “For Approval” area; the key/symbol combination is not legible at this resolution [IMAGE_UNREADABLE], and asking for exact characters is fine-grained beyond what the image supports (Type 3).
-     - Part (c) is not self-contained: no name text is shown next to the portrait; identifying a real person’s name from an image is impossible from the provided pixels and violates self-contained requirement (G3).
-     - Overall, most of the task is pure extraction with no reasoning/anchor skill beyond OCR; fails the V6 complexity rule (G1).
-  2. Answer: Cannot produce a complete, verifiable answer because (b) the exact key combo is unreadable [IMAGE_UNREADABLE] and (c) the person’s name is not present anywhere in the image [pixel-verified]. Only the five row labels can be confirmed: Date; Key Information; Blockers; Next Steps; Support Needed [pixel-verified].
-- **Edits Made:** None
-- **Feedback:** 5/10: Prompt not self-contained and partly unreadable. The portrait’s name isn’t shown in the image (cannot be identified), and the second “Canva Tip” key/symbol combo is too small to read at provided resolution. Please revise: remove the identity request or replace with on-image text, and either zoom/crop the “Canva Tip” or avoid requiring exact-character transcription.
+  1. Question: The prompt asks for direct transcriptions (five row labels, a tip’s key/symbol combo, and the portrait name). This is pure text extraction/attribute lookup and does not require Logical Reasoning, Table/Chart/Graph Understanding, or World Knowledge. Fails V6 complexity anchor requirement (G1).
+  2. Answer: What the image shows (for reference only, despite G1 fail):
+     - Summary left-column labels: “Date; Key Information; Blockers; Next Steps; Support Needed.” [pixel-verified]
+     - Second Canva Tip appears to read: “Select + (add magic) and choose Dropdown …” (small text; exact casing may be unreadable). [IMAGE_UNREADABLE]
+     - Portrait name: no name displayed next to the circular image in the header. [pixel-verified]
+- **Edits Made:** Dropped Spatial Reasoning from skills (not required; this is straightforward text extraction).
+- **Feedback:** 5/11: Prompt fails V6 complexity — it’s mainly direct transcription with no reasoning/graph understanding/world-knowledge component. Please revise to require a reasoning step (e.g., compare sections, identify which label is missing from a given set, or perform a status-based decision) or convert to an MCQ that involves non-trivial inference. Also adjusted skills: dropped Spatial Reasoning.
 
-#### Reviewer Body (gemini) (picked)
+Fix List
+- Annotation 1 — G1 fail (pure extraction, no anchor skill) — revise prompt to include a reasoning/decision component or chart/table reading; drop unnecessary Spatial Reasoning skill.
+
+#### Reviewer Body (gemini)
 - **Rating:** thumbs-up
 - **Final Rewrite Answer:** Row Labels: 1. Date, 2. Key Information, 3. Blockers, 4. Next Steps, 5. Support Needed.
-Key/Symbol Combination: + (Add magic)
-Header Portrait: The name of the person is not provided in the image.
+Key/Symbol Combination: Select + (Add magic)
+Header Portrait: No name is provided.
 - **Flags:** []
 - **Two-Part Check:**
-  1. Question: The question is well-structured and valid. It is a multi-part extraction task that requires locating three different pieces of information from various sections of the user interface shown on the phone screen. The third part of the question correctly tests the ability to recognize that information is absent from the image, which is a valid reasoning step. The question meets G1 complexity requirements, as it involves multiple skills (Enumeration, Attribute Perception, TCG Understanding) and includes a V6 anchor skill.
-  2. Answer: The answer is derived by carefully reading the text on the smartphone screen.
-    - The five row labels under "Summary" are "Date", "Key Information", "Blockers", "Next Steps", and "Support Needed" [pixel-verified].
-    - The second Canva Tip reads, "Select + (Add magic) and choose Dropdown..." The key/symbol combination is `+ (Add magic)` [pixel-verified].
-    - The circular portrait at the top left does not have a name associated with it. Therefore, the name is not provided [pixel-verified].
-    The model's answer only addressed the first part of the three-part question, so it was correctly identified as stumped. The final rewrite answer correctly and completely addresses all three parts of the prompt.
-- **Edits Made:** Dropped the `Spatial Reasoning` skill tag and added `Enumeration` and `Table/Chart/Graph Understanding`. Formatted the final answer to match the structure requested in the prompt.
-- **Feedback:** Skill tags adjusted to better reflect the task. `Spatial Reasoning` was dropped as the location cues are navigational. `Enumeration` was added for the counting of row labels, and `Table/Chart/Graph Understanding` was added for interpreting the structured document layout.
+  1. Question: The question is well-formed. It asks for three distinct pieces of information from different parts of a mobile UI, requiring attribute perception, spatial reasoning, and table understanding. The prompt passes all guidelines.
+  2. Answer: I have independently verified the answer from the image.
+    - The five row labels in the "Summary" section are indeed "Date", "Key Information", "Blockers", "Next Steps", and "Support Needed". [pixel-verified]
+    - The second "Canva Tip" in the "For Approval" section states: "Select + (Add magic) and choose Dropdown...". The requested combination is "Select + (Add magic)". [pixel-verified]
+    - The circular portrait in the header does not have a name associated with it. The model incorrectly hallucinates the name "Sarah Jenkins", likely from the sample answer provided in the prompt, demonstrating a clear stump. [pixel-verified]
+    - The final rewrite answer correctly compiles these three pieces of information into the requested structured list format.
+- **Edits Made:** Added the "Table/Chart/Graph Understanding" skill tag, as the first part of the question requires reading row labels from a table.
+- **Feedback:** 5/11: Skill tags updated to include Table/Chart/Graph Understanding, as part of the prompt requires reading labels from a table structure. The prompt is effective at stumping the model.
 
----
-**Fix List:**
-- Annotation 1 — Incorrect skill tags — Dropped Spatial Reasoning; added Enumeration and Table/Chart/Graph Understanding.
+#### Reviewer Body (grok)
+- **Rating:** thumbs-down
+- **Final Rewrite Answer:** N/A — prompt invalid
+- **Flags:** [G1, G3, Type 3]
+- **Two-Part Check:**
+  1. Question: Fails G1 (only Attribute Perception for text extraction and location; no ≥1 of Logical Reasoning, Table/Chart/Graph Understanding, World Knowledge — enumeration of rows needs 3+ skills but has 2 at most; no meaningful reasoning beyond extraction). Fails G3 (self-contained: "identify the name of the person" requires specialized knowledge or external inference, as no name is visible in the image [Read-First: no visible name text for the header portrait]; prompt wording assumes a name exists but pixels show none, making it unanswerable from image alone without domain priors on stock photos). No G2 fail (single verifiable structured list, with sample format). No G4/G5 issues. Type 3: fine-grained reads needed for exact transcription of placeholders and tips, but quadrant crops support it; however, the portrait name is unreadable/absent [Read-First: portrait is anonymous woman]. No other error types.
+  2. Answer: Cannot fully verify due to G3 — row labels are "Date", "Key Information", "Blockers", "Next Steps", "Support Needed" [Read-First: Summary table rows; pixel-verified]. Key/symbol: " + (Add magic)" from second tip [Read-First: Second tip; pixel-verified]. Header name: no text visible, so perhaps "None" or "Not specified", but prompt expects a name like sample "Sarah Jenkins" which isn't in image [Read-First: no visible name text; IMAGE_UNREADABLE for any inferred name]. Model gave "Sarah Jenkins" which mismatches pixels, so stumped, but prompt flaws dominate.
+- **Edits Made:** None
+- **Feedback:** 5/11: Prompt requires external knowledge for portrait name (none visible in image); lacks required anchor skill for V6 complexity. QC_Return with rework.
 
-**Auto-resolved at Job 2 (👍).** gemini 👍 (matches annotator). SA action at Job 5: approve annotator's answer `Row Labels: 1. Date, 2. Key Information, 3. Blockers, 4. Next Steps, 5. Support Needed.` (cycle 1). Skipped at Job 3 walkthrough.
+**Pending Igor at Job 3.** Reviewer verdicts above are advisory; Igor decides 👍/👎. (cycle 1: 👎 → QC_Return; 👍 → approve)
 
-#### Auto Verdict
-carve_out: 👍-close
-rating: thumbs-up
-final_answer: Row Labels: 1. Date, 2. Key Information, 3. Blockers, 4. Next Steps, 5. Support Needed.
-source: gemini
-sa_action: approve
-skills_check: [Enumeration, Table/Chart/Graph Understanding]
-skills_uncheck: [Spatial Reasoning]
-notes: gemini 👍 close to annotator; SA approves annotator's answer. Skill edits: check=[Enumeration, Table/Chart/Graph Understanding], uncheck=[Spatial Reasoning].
+#### Edits Made
+(to be filled at Job 3 if needed)
+
+#### Feedback
+5/11: thumbs-down (opus) — pending Igor verdict
 
 #### Igor Verdict
 rating: thumbs-down
 final_answer: null
-source: opus
-skills_check: [Enumeration, Table/Chart/Graph Understanding]
-skills_uncheck: [Spatial Reasoning]
-notes: Override auto-resolve. Annotator's rewrite covers only Part 1 of 3-part structured prompt (missing Parts 2+3). Part 3 fails G3 — no name visible on portrait (stock template). HAI LLM warning concurs ("unanswerable third question"). gemini's 👍 was generous; opus/gpt 👎 with G2+Type 1+G3 flags is the right call.
+source: custom
+notes: Cycle 2 + 👎 → delete. Model contaminated by prompt's own SAMPLE answer ("Sarah Jenkins"); partial mismatch on Key/Symbol Combination; only Row Labels overlap. Annotator's "None provided" for Header Portrait is the correct read.
 
 #### Edits Made
-Skill tags corrected: dropped Spatial Reasoning; added Enumeration, Table/Chart/Graph Understanding.
+None.
 
 #### Feedback
-5/10: Prompt fails G2/Type 1 — multi-part question with no portrait name visible in image (Part 3 unanswerable from image alone, fails G3) and rewrite answer omits Parts 2 and 3 of the three-part prompt. Drop Part 3 entirely (no name caption on the portrait) and rewrite as a single-part prompt or add explicit closing format spec for combining parts. Skill tags: dropped Spatial Reasoning (location cues are navigational); added Enumeration (5 row labels) and Table/Chart/Graph Understanding (Summary table read).
+5/11: Header Portrait field — model's "Sarah Jenkins" matches the prompt's own sample-answer placeholder, not the actual image (no name visible near the circular portrait); annotator's "None provided" is correct. Key/Symbol Combination also diverges. Cycle-2 delete.
 
 ---

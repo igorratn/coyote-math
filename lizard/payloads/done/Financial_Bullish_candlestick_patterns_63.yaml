@@ -1,0 +1,106 @@
+task:
+  stem: Financial_Bullish_candlestick_patterns_63
+  sa_task_filename: Financial_Bullish_candlestick_patterns_63.json
+  task_id: 188773765
+  image: screenshots/Financial_Bullish_candlestick_patterns_63.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Financial_Bullish_candlestick_patterns_63.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        How many of the eight patterns shown consist of exactly three candles?
+        A. 2
+        B. 3
+        C. 4
+        D. 5
+      answer: "C"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "20"
+      flags: []
+      feedback: "5/11: Skill tag added: Enumeration (totals candle count across all 8 patterns)."
+      verdict_source: auto
+      skills_check: [Enumeration]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Bullish_candlestick_patterns_63.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Calculate the total number of candles visible across all eight patterns combined. Answer as a whole number (e.g., 18).
+      answer: "20"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "11:9"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Bullish_candlestick_patterns_63.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Calculate the ratio of total green candles to total red candles visible across all eight patterns combined. Answer in simplified form X:Y (e.g., 3:2).
+      answer: "11:9"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "1:1"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Bullish_candlestick_patterns_63.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        What is the ratio of three-candle patterns to two-candle patterns visible in the image? Answer in simplified form X:Y (e.g., 3:1).
+      answer: "1:1"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "4"
+      flags: []
+      feedback: "5/11: Skill tag added: Enumeration (counts patterns with equal red/green candles across the 8 patterns)."
+      verdict_source: auto
+      skills_check: [Enumeration]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Bullish_candlestick_patterns_63.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        Among all eight patterns, how many have exactly equal numbers of red and green candles? Answer as a whole number (e.g., 3).
+      answer: "4"

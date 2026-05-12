@@ -1,0 +1,43 @@
+stem: Financial_Bull_market_charts_56
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: 5c8feec4
+    fired_at: 2026-05-12T00:30:00Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "criteria/criterion grammar nit + subjectivity in counting points"
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 58d120d6
+    fired_at: 2026-05-12T00:44:43.713Z
+    rating: Approve
+    time_logged: "00:20:01"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "1987: Opens at ~245 and closes at ~250. Despite the large crash in October, it still finished slightly higher than it opened. (Up) All other years clearly finish higher than they started. Therefore, there is only 1 year where the stock price finished lower than its opening price."
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: 5c9dd89f
+    fired_at: 2026-05-12T00:45:34.817Z
+    rating: Approve
+    time_logged: "00:20:42"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 4
+    uuid: 58a24f6a
+    fired_at: 2026-05-12T00:47:47.029Z
+    rating: Approve
+    time_logged: "00:20:03"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "\"Opening stock price of the first year\": This phrasing implies the price at the very beginning of that calendar year. For 1982, this would be 120 (at the '82' x-axis tick mark). However, to arrive at your answer of 140, it appears you used the value at the point where the arrow starts (which is 110, in mid-1982) and subtracted it from the closing value of 1987 (250). Referring to the start of the "
+    reclaimed: false
+    reclaim_diff: null

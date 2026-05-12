@@ -1,0 +1,13 @@
+stem: Infographic_Product_one_pager_144
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 9bf83fec
+    fired_at: 2026-05-10T00:55:32.596Z
+    rating: Approve
+    time_logged: "00:20:28"
+    verdict_source: igor
+    hai_llm_eval: warning
+    hai_llm_comment: "Unanswerable Question: The third part of your prompt asks to \"Identify the name of the person displayed in the circular portrait\". While there is a portrait in the header, there is no name written anywhere near it in the image. Therefore, this part of the question cannot be answered using the provided image. How to fix: Remove the unanswerable third question from your prompt. Then, update your Rew"
+    reclaimed: false
+    reclaim_diff: null

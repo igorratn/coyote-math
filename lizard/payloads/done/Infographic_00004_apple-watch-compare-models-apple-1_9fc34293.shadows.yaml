@@ -1,0 +1,53 @@
+stem: Infographic_00004_apple-watch-compare-models-apple-1_9fc34293
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: 6096caca
+    fired_at: 2026-05-12T01:16:28.795Z
+    rating: Approve
+    time_logged: "00:20:01"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 59692845
+    fired_at: 2026-05-12T01:17:25.375Z
+    rating: Approve
+    time_logged: "00:20:49"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: 6148ca8b
+    fired_at: 2026-05-12T01:18:01.903Z
+    rating: Approve
+    time_logged: "00:20:29"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 4
+    uuid: 61f27372
+    fired_at: 2026-05-12T01:18:41.034Z
+    rating: Approve
+    time_logged: "00:20:31"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 5
+    uuid: manualA5
+    fired_at: 2026-05-12T01:50:00Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

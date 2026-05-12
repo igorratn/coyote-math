@@ -1,0 +1,23 @@
+stem: Financial_Bull_market_charts_86
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: 4a847409
+    fired_at: 2026-05-11T22:08:05.410Z
+    rating: Approve
+    time_logged: "00:20:57"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 4a5e04cb
+    fired_at: 2026-05-11T22:10:48.034Z
+    rating: Approve
+    time_logged: "00:20:32"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "Recommendation: Add a short sentence at the end of the prompt specifying the format, such as: \"Answer with the single letter of the correct option (e.g., A).\" Once you add that instruction, the prompt will be good to go!"
+    reclaimed: false
+    reclaim_diff: null

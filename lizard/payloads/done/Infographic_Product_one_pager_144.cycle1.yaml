@@ -8,14 +8,14 @@ annotations:
 
   - n: 1
     sa:
-      action: delete
+      action: QC_Return
       rating: thumbs-down
       answer_final: null
       flags: []
-      feedback: "5/11: Header Portrait field — model's \"Sarah Jenkins\" matches the prompt's own sample-answer placeholder, not the actual image (no name visible near the circular portrait); annotator's \"None provided\" is correct. Key/Symbol Combination also diverges. Cycle-2 delete."
+      feedback: "5/10: Prompt fails G2/Type 1 — multi-part question with no portrait name visible in image (Part 3 unanswerable from image alone, fails G3) and rewrite answer omits Parts 2 and 3 of the three-part prompt. Drop Part 3 entirely (no name caption on the portrait) and rewrite as a single-part prompt or add explicit closing format spec for combining parts. Skill tags: dropped Spatial Reasoning (location cues are navigational); added Enumeration (5 row labels) and Table/Chart/Graph Understanding (Summary table read)."
       verdict_source: igor
-      skills_check: []
-      skills_uncheck: []
+      skills_check: [Enumeration, Table/Chart/Graph Understanding]
+      skills_uncheck: [Spatial Reasoning]
       qtype: "SAQ"
     hai:
       task_id_field: Infographic_Product_one_pager_144.json
@@ -41,9 +41,4 @@ annotations:
         Key/Symbol Combination: Press the "Shift + @" keys.
         
         Header Portrait: Sarah Jenkins.
-      answer: |
-        Row Labels: 1. Date, 2. Key Information, 3. Blockers, 4. Next Steps, 5. Support Needed.
-        
-        Key/Symbol Combination: Select + (Add magic) and choose Dropdown.
-        
-        Header Portrait: None provided (The image shows an anonymous woman in an orange jacket, but no name is explicitly written next to the portrait).
+      answer: "Row Labels: 1. Date, 2. Key Information, 3. Blockers, 4. Next Steps, 5. Support Needed."

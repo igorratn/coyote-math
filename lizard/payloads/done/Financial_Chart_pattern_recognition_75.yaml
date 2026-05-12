@@ -1,0 +1,102 @@
+task:
+  stem: Financial_Chart_pattern_recognition_75
+  sa_task_filename: Financial_Chart_pattern_recognition_75.json
+  task_id: 188773793
+  image: screenshots/Financial_Chart_pattern_recognition_75.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "12268"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Chart_pattern_recognition_75.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        In panel (a), identify the largest off-diagonal cell value as a percentage. In panel (c), identify the lowest diagonal cell value as a percentage. Take the absolute difference between these two values and multiply by 100 to express as an integer. Add the count of off-diagonal cells in panel (b) that are strictly greater than 5 percent. What's the final integer (e.g., 1000)?
+      answer: "12268"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "4200"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Chart_pattern_recognition_75.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        In panel (a), find the two classes that get most mixed up with each other. Measure mix-up by taking the cell where class X is the true label and Y is the predicted, then adding the cell where Y is the true label and X is the predicted. Find the pair with the highest sum. Multiply this sum by 100. Add the Total CRR from panel (c) times 100. Subtract the Total CRR from panel (a) times 100. What's the final integer (e.g., 1000)?
+      answer: "4200"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "15353"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Chart_pattern_recognition_75.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        In panel (a), find the predicted class column with the largest total off-diagonal sum, and call this sum S_col. Then in panel (a), compute each true class row's off-diagonal sum as 100 minus that class's diagonal value, and identify the row with the second-largest such sum, calling it S_row. Multiply S_col by 100. Multiply S_row by 100. Add both to the Total CRR of panel (c) times 100. What's the final integer (e.g., 1000)?
+      answer: "15353"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "28767"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Chart_pattern_recognition_75.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        Two of the six classes here are trend patterns and two are shift patterns. Add up the trend classes' diagonals in panel (c) and multiply by 100. Add up the shift classes' diagonals in panel (a) and multiply by 100. Add those two results, then subtract Total CRR of panel (a) times 100. What's the final integer (e.g., 1000)?
+      answer: "28767"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "6734"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Chart_pattern_recognition_75.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        In panel (c), count the visibly non-blue cells (cells showing clear warm color rather than deep blue). Take this count, multiply by 1000. Add Total CRR of panel (b) multiplied by 100. Subtract Total CRR of panel (a) multiplied by 100. What's the final integer (e.g., 1000)?
+      answer: "6734"

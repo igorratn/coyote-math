@@ -1,0 +1,64 @@
+task:
+  stem: Plot_Histogram_scientific_analysis_111
+  sa_task_filename: Plot_Histogram_scientific_analysis_111.json
+  task_id: 188408460
+  image: screenshots/Plot_Histogram_scientific_analysis_111.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "121"
+      flags: []
+      feedback: "5/11: Skill tag added: Enumeration (counts bar heights + total bar count for the subtraction step)."
+      verdict_source: auto
+      skills_check: [Enumeration]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Histogram_scientific_analysis_111.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Imagine a coordinate grid where the intersection of the two black axes is exactly at (0,0). Assume the width of exactly one green bar is equal to 1 unit on the horizontal x-axis, and the height of the shortest green bar is equal to 1 unit on the vertical y-axis. First, calculate the total "area" of the entire green shape in square units. Next, identify the exact (x, y) coordinates of the absolute top-right corner of the single tallest bar. Add the x and y values of this specific coordinate together. Multiply the total area of the shape by this coordinate sum. Finally, check the arrowheads at the ends of the axes: if they are solid black (filled), subtract the total number of bars from your product; if they are hollow (unfilled outlines), add the total number of bars. What is the final integer? (e.g., 5)
+      answer: "121"
+
+  - n: 2
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: []
+      feedback: "2026-05-11: Model did not generate an answer for this annotation — treated as not stumped. Annotator must regenerate model response before resubmitting."
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Histogram_scientific_analysis_111.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Focus exclusively on the outer, continuous perimeter line that completely encloses the green shape (ignore the arrowed axes, and strictly ignore any internal vertical black lines separating the bars). Count the exact number of distinct, straight line segments that make up this entire outer perimeter boundary (for example, a single horizontal top edge counts as 1 segment, the vertical drop to the next bar counts as 1 segment, etc.). Next, count the total number of arrowheads visible in the image. Multiply your perimeter segment count by this arrowhead count. Now, apply this logical rule: if the single tallest bar is physically located exactly in the horizontal center of the distribution, mathematically square your current product. If it is skewed to the left or right, divide your product by 2. What is the final calculated whole number? (e.g., 2)
+      answer: "1024"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "80"
+      flags: []
+      feedback: "5/11: Skill tag added: Enumeration (multiplies negative space by total bar count, requiring explicit bar enumeration)."
+      verdict_source: auto
+      skills_check: [Enumeration]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Plot_Histogram_scientific_analysis_111.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Define exactly one unit of area as the size of the single shortest visible green bar. Imagine a perfect, invisible rectangular "bounding box" drawn strictly around the outermost limits of the entire green shape (the bottom edge of the box rests on the x-axis, the top edge rests precisely on the top of the tallest bar, and the left/right edges touch the outermost green bars). First, calculate the total area of this invisible bounding box in square units. Next, calculate the area of the "negative space"—the empty, non-green area that exists strictly inside this bounding box but outside the green shape. Multiply this negative space area by the total number of individual green bars. Finally, look at the y-axis (the vertical black line with an arrow). If it physically touches the green shape, subtract the height (in units) of the tallest bar from your product. If there is a gap between the y-axis and the green shape, add it instead. What is the final integer? (e.g., 3)
+      answer: "80"
