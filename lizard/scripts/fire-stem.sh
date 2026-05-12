@@ -27,7 +27,17 @@ if [ -f "$FIRE_LOCK" ]; then
   # Stale lock — previous fire-stem died without cleanup. Take it.
 fi
 echo $$ > "$FIRE_LOCK"
-trap 'rm -f "$FIRE_LOCK"' EXIT INT TERM
+
+# Per-run log capture for post-fire analyzer (codified 2026-05-12).
+FIRE_LOG_DIR="$LIZARD_DIR/logs/fire"
+mkdir -p "$FIRE_LOG_DIR"
+FIRE_LOG="$FIRE_LOG_DIR/$(date +%s)-${STEM}.log"
+echo "[fire-stem] $STEM: log → $FIRE_LOG"
+
+trap 'rm -f "$FIRE_LOCK"; node "$LIZARD_DIR/scripts/post-fire-analyze.mjs" "$FIRE_LOG" 2>/dev/null || true' EXIT INT TERM
+
+# Helper: tee subsequent stdout to log.
+exec > >(tee -a "$FIRE_LOG") 2>&1
 
 PRECHECK=$(STEM=$STEM node scripts/run-job4.mjs --precheck 2>/dev/null)
 [ -n "$PRECHECK" ] || { echo "ERROR: precheck failed for $STEM"; exit 2; }
