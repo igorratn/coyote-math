@@ -1,0 +1,13 @@
+stem: Infographic_Workflow_process_diagram_43
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: 68681793
+    fired_at: 2026-05-12T03:39:05.617Z
+    rating: Approve
+    time_logged: "00:20:36"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "Question: What data flows from the 'Process order' step to the 'Storage facility' and 'Process payment' steps? Answer as a short phrase (e.g., Customer data and invoices). Rewrite Answer: Product details."
+    reclaimed: false
+    reclaim_diff: null

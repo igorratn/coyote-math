@@ -1,0 +1,13 @@
+stem: Infographic_Workflow_process_diagram_56
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: 71354722
+    fired_at: 2026-05-12T03:40:41.951Z
+    rating: Approve
+    time_logged: "00:20:06"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "The \"Change Request\" box touches the line separating the Author and Reviewer sections. Additionally, the term \"rectangular steps\" can be slightly ambiguous, as it could potentially include the white rectangular condition/event boxes (e.g., \"[not approved]\", \"[change needed]\"). To remove this format ambiguity, it would be best to rephrase \"rectangular steps\" to \"colored rectangular boxes\"."
+    reclaimed: false
+    reclaim_diff: null

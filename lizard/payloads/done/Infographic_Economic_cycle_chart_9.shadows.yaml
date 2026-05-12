@@ -1,0 +1,13 @@
+stem: Infographic_Economic_cycle_chart_9
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 72407152
+    fired_at: 2026-05-12T03:36:41.682Z
+    rating: Approve
+    time_logged: "00:20:28"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

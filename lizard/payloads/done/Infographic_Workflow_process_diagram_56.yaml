@@ -1,0 +1,28 @@
+task:
+  stem: Infographic_Workflow_process_diagram_56
+  sa_task_filename: Infographic_Workflow_process_diagram_56.json
+  task_id: 188406865
+  image: screenshots/Infographic_Workflow_process_diagram_56.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "8"
+      flags: []
+      feedback: "5/11: Skill tags added: Enumeration (counts qualifying rectangles), Math Reasoning (exclusion-based subtraction logic)."
+      verdict_source: auto
+      skills_check: [Enumeration, Math Reasoning]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Infographic_Workflow_process_diagram_56.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        How many rectangular steps do not touch the black lines that divide the flow chart into 4 sections?
+        
+        Answer with a whole number (e.g., 1)
+      answer: "8"

@@ -1,0 +1,64 @@
+task:
+  stem: Financial_Moving_average_charts_110
+  sa_task_filename: Financial_Moving_average_charts_110.json
+  task_id: 188774214
+  image: screenshots/Financial_Moving_average_charts_110.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "10"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Moving_average_charts_110.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        If you count the numbered labels marking the wave-like sequence on the right side of the chart, how many labeled points are shown altogether? Answer in a single number (e.g., 7)
+      answer: "10"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "0.0113"
+      flags: []
+      feedback: "5/11: Skill tag added: Math Reasoning (absolute difference between two y-axis values)."
+      verdict_source: auto
+      skills_check: [Math Reasoning]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Moving_average_charts_110.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        What is the absolute difference between the values marked by the red and blue horizontal lines on the right y-axis? Answer as a four-place decimal number (e.g., 0.8767)
+      answer: "0.0113"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "5.5"
+      flags: []
+      feedback: "5/11: Skill tag added: Math Reasoning (computes mean of smallest and largest labels)."
+      verdict_source: auto
+      skills_check: [Math Reasoning]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Moving_average_charts_110.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        If the numbered pattern runs from 1 through 10, what is the mean of the smallest and largest label values? Answer as a one-place decimal number (e.g., 7.6)
+      answer: "5.5"

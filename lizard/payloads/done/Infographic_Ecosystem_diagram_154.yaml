@@ -1,0 +1,28 @@
+task:
+  stem: Infographic_Ecosystem_diagram_154
+  sa_task_filename: Infographic_Ecosystem_diagram_154.json
+  task_id: 188406295
+  image: screenshots/Infographic_Ecosystem_diagram_154.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "14"
+      flags: []
+      feedback: "5/11: Skill tag added: Enumeration (counts entities surrounding Core Business circle)."
+      verdict_source: auto
+      skills_check: [Enumeration]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Infographic_Ecosystem_diagram_154.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Looking at this business ecosystem and the entities surrounding it, how many total entities surround the dark blue circle titled "Core Business"?
+        
+        Answer in a whole number (e.g., 1)
+      answer: "14"

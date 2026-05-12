@@ -1,0 +1,28 @@
+task:
+  stem: Infographic_Economic_cycle_chart_9
+  sa_task_filename: Infographic_Economic_cycle_chart_9.json
+  task_id: 188406290
+  image: screenshots/Infographic_Economic_cycle_chart_9.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "3"
+      flags: []
+      feedback: "5/11: Skill tag added: Enumeration (counts trough sections in the business cycle)."
+      verdict_source: auto
+      skills_check: [Enumeration]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Infographic_Economic_cycle_chart_9.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Looking at the trends of this business cycle graph, how many individual trough sections are there? 
+        
+        Answer using a whole number (e.g., 1)
+      answer: "3"

@@ -1,0 +1,28 @@
+task:
+  stem: Infographic_Workflow_process_diagram_43
+  sa_task_filename: Infographic_Workflow_process_diagram_43.json
+  task_id: 188406864
+  image: screenshots/Infographic_Workflow_process_diagram_43.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "Product details to get to storage facility and product details again to get to process payment."
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Infographic_Workflow_process_diagram_43.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Looking at this data flow diagram, what are the two intermediate steps that Process order needs to have in order to get to storage facility and Process payment
+        
+        Answer in a sentence (e.g., The customer and invoice)
+      answer: "Product details to get to storage facility and product details again to get to process payment."

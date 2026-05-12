@@ -1,0 +1,13 @@
+stem: Infographic_Ecosystem_diagram_154
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 70a31508
+    fired_at: 2026-05-12T03:38:06.109Z
+    rating: Approve
+    time_logged: "00:20:54"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
