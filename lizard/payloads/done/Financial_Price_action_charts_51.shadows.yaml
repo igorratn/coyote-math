@@ -1,0 +1,13 @@
+stem: Financial_Price_action_charts_51
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 6946b82b
+    fired_at: 2026-05-12T03:13:30.390Z
+    rating: Reject
+    time_logged: "00:20:46"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

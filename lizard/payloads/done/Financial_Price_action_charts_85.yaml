@@ -1,0 +1,26 @@
+task:
+  stem: Financial_Price_action_charts_85
+  sa_task_filename: Financial_Price_action_charts_85.json
+  task_id: 188774285
+  image: screenshots/Financial_Price_action_charts_85.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "15"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Price_action_charts_85.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Determine the angle that the horizontal dashed BOS line makes with the gray vertical candlestick it intersects. Divide this result by the total number of diagonal lines found in the image (include any blue diagonal lines found on the left side of the image and any diagonal lines found in the percent symbol). What is the resulting number? Answer as a single integer value (e.g., 3).
+      answer: "15"

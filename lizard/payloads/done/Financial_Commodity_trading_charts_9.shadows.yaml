@@ -1,0 +1,53 @@
+stem: Financial_Commodity_trading_charts_9
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 6eb3a656
+    fired_at: 2026-05-12T03:06:07.647Z
+    rating: Approve
+    time_logged: "00:20:30"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 6f807e66
+    fired_at: 2026-05-12T03:07:15.569Z
+    rating: Approve
+    time_logged: "00:20:55"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: 5fd12927
+    fired_at: 2026-05-12T03:08:22.867Z
+    rating: Approve
+    time_logged: "00:20:51"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 4
+    uuid: 6e7c2076
+    fired_at: 2026-05-12T03:09:05.965Z
+    rating: Approve
+    time_logged: "00:20:29"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 5
+    uuid: 57243fd0
+    fired_at: 2026-05-12T03:09:51.914Z
+    rating: Approve
+    time_logged: "00:20:32"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

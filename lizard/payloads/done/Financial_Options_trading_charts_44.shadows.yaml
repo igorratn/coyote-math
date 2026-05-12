@@ -1,0 +1,13 @@
+stem: Financial_Options_trading_charts_44
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 64828669
+    fired_at: 2026-05-12T03:11:11.455Z
+    rating: Approve
+    time_logged: "00:20:40"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

@@ -1,0 +1,33 @@
+task:
+  stem: Financial_Price_action_charts_51
+  sa_task_filename: Financial_Price_action_charts_51.json
+  task_id: 188774280
+  image: screenshots/Financial_Price_action_charts_51.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: []
+      feedback: "5/11: Model answered correctly — not stumped (model answer equals annotator's rewrite). Annotator must design a harder prompt that the model cannot answer."
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Financial_Price_action_charts_51.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Analyze the price behavior around the 0.618 Fibonacci retracement level; what does this indicate regarding prevailing market sentiment?
+         Options
+        ​A) Strong Bullish Reversal: The price has decisively broken above the 0.618 level with high-volume green candles, indicating aggressive buying.
+        ​B) Bearish Resistance/Indecision: The price has reached the 0.618 level but is consolidating horizontally below it, indicating a lack of buying momentum to force a breakout.
+        ​C) Parabolic Extension: The price has bypassed all Fibonacci levels without interaction, indicating extreme market volatility and FOMO.
+        ​D) Support Floor Confirmation: The price has dropped to the 0.618 level and bounced sharply upward, creating a "V-shaped" recovery and signaling strong buyer confidence.
+        
+        (Answer with the correct option letter)
+      answer: "B"

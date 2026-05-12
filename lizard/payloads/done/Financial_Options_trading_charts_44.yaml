@@ -1,0 +1,26 @@
+task:
+  stem: Financial_Options_trading_charts_44
+  sa_task_filename: Financial_Options_trading_charts_44.json
+  task_id: 188774246
+  image: screenshots/Financial_Options_trading_charts_44.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "43.31"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Options_trading_charts_44.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        What is the median of the y-axis tick labels bounding the absolute minimum of the stock price for the part of the year 2025 shown divided by the absolute difference between the Day Low and Day High? Write the answer as a single number rounded to two decimal places (e.g., 4.94).
+      answer: "43.31"

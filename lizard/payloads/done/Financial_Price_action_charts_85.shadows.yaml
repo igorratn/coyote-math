@@ -1,0 +1,13 @@
+stem: Financial_Price_action_charts_85
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: 700173ae
+    fired_at: 2026-05-12T03:14:27.915Z
+    rating: Approve
+    time_logged: "00:20:34"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "Math/Verifiability: A horizontal and vertical line intersect at exactly 90 degrees. For the final answer to be 15, the total number of diagonal lines would need to be exactly 6 (90 / 6 = 15). However, there appear to be 3 parallel blue lines forming the channel on the left, plus 4 percent symbols (which would total 7, making the math 90 / 7 = 12.85). To fix this, avoid asking the solver to count \""
+    reclaimed: false
+    reclaim_diff: null

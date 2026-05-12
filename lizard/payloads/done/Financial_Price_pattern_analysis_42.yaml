@@ -1,0 +1,26 @@
+task:
+  stem: Financial_Price_pattern_analysis_42
+  sa_task_filename: Financial_Price_pattern_analysis_42.json
+  task_id: 188774294
+  image: screenshots/Financial_Price_pattern_analysis_42.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "4"
+      flags: []
+      feedback: "5/11: Skill tag added: Math Reasoning (audit-suggested; the count includes a discriminative-exclusion step over labeled vs unlabeled chart elements)."
+      verdict_source: auto
+      skills_check: [Math Reasoning]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Price_pattern_analysis_42.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        The chart illustrates an Inverse Head and Shoulders pattern and places text labels directly on the price chart to identify the key structural components of the pattern. Count the total number of distinct structural components that are labeled by name on the chart itself, not including the title, the formula, or the explanatory text below the chart. How many named structural components of the pattern are labeled on the chart? Answer as a single whole number (e.g., 3).
+      answer: "4"

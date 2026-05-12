@@ -1,0 +1,102 @@
+task:
+  stem: Financial_Commodity_trading_charts_9
+  sa_task_filename: Financial_Commodity_trading_charts_9.json
+  task_id: 188773812
+  image: screenshots/Financial_Commodity_trading_charts_9.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "2016-354.8"
+      flags: []
+      feedback: "5/11: Skill tag added: Enumeration (sums percentage returns across commodities per year and selects the max-sum year)."
+      verdict_source: auto
+      skills_check: [Enumeration]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Commodity_trading_charts_9.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Between 2011 and 2016 (inclusive), what year had the highest sum of percentage returns across all commodities, and what was the sum of the percentage returns in that year? Provide your answer in the format year-percentage returns rounded to the nearest tenth (e.g., 1999-172.5).
+      answer: "2016-354.8"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "1128.25"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Commodity_trading_charts_9.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Assume that an investor invested $1000.00 USD in Coal at the beginning of 2008 and remained invested through the end of 2012. What amount would the investor have (in USD) in Coal at the end of 2012? Provide your answer in the form of a decimal to two digits (e.g., 1428.93).
+      answer: "1128.25"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "10"
+      flags: []
+      feedback: "5/11: Skill tag added: Enumeration (counts Performance Rank spots climbed 2014→2016)."
+      verdict_source: auto
+      skills_check: [Enumeration]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Commodity_trading_charts_9.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Let the top row of the table be considered Performance Rank 1, the second row of the table be considered Performance Rank 2, etc., down to the bottom row of the table, which is considered Performance Rank 14. How many Performance Rank spots did Natural Gas climb from 2014 to 2016 (inclusive)? Provide your answer as an integer (e.g., 3).
+      answer: "10"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "Performance Rank 1-Performance Rank 12"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Commodity_trading_charts_9.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        Let the top row of the table be considered Performance Rank 1, the second row of the table be considered Performance Rank 2, etc., down to the bottom row of the table, which is considered Performance Rank 14. Ignoring the percentage returns and only focusing on the relative Performance Ranks for the commodities in a given year, what are the best Performance Rank and worst Performance Rank achieved by the commodity that is represented as an orange block with white text and the letters Cu in the corner? Provide your answer in the format of best Performance Rank-worst Performance Rank (e.g., Performance Rank 2-Performance Rank 8).
+      answer: "Performance Rank 1-Performance Rank 12"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "-11.67"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Commodity_trading_charts_9.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        Let the "Target Commodity" be the commodity listed 8th from the top in the Legend. What is the result of summing the percentage returns for the Target Commodity during the years 2014-2017 (inclusive)? Provide your answer as a decimal rounded to the nearest hundredth (e.g., 56.29).
+      answer: "-11.67"
