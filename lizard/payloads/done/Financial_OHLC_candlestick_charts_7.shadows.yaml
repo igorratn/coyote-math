@@ -1,0 +1,13 @@
+stem: Financial_OHLC_candlestick_charts_7
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 91a283df
+    fired_at: 2026-05-12T14:51:31.411Z
+    rating: Approve
+    time_logged: "00:20:38"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

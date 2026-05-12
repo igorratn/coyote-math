@@ -1,0 +1,13 @@
+stem: Financial_Index_fund_charts_33
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: 9cfaf1f9
+    fired_at: 2026-05-12T14:49:44.335Z
+    rating: Approve
+    time_logged: "00:20:23"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "While you correctly used the phrase \"strictly above\" for the blue line, you used the word \"below\" for the orange line without specifying if the boundary is included or excluded. Per the evaluation rules, boundary words like \"over\", \"under\", \"below\", or \"less than\" must specify whether the boundary value is included. Please change \"below\" to \"strictly below\" to resolve this. Otherwise, the annotati"
+    reclaimed: false
+    reclaim_diff: null

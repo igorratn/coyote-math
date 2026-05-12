@@ -1,0 +1,31 @@
+task:
+  stem: Financial_OHLC_candlestick_charts_7
+  sa_task_filename: Financial_OHLC_candlestick_charts_7.json
+  task_id: 188774238
+  image: screenshots/Financial_OHLC_candlestick_charts_7.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Financial_OHLC_candlestick_charts_7.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        A technical analyst wants to estimate trend persistence from the candlestick chart. Using the labeled y-axis price levels, determine whether the chart’s final visible closing region is closer to 2250 or 2500, then compare that with the chart’s approximate starting price region near the first date label. Which classification best describes the overall price behavior shown?
+        
+        A. Long-term bearish reversal (ends materially below the starting region)
+        B. Sideways consolidation with no net directional change
+        C. Long-term bullish appreciation with moderate pullbacks
+        D. High-volatility collapse after a failed breakout
+      answer: "C"

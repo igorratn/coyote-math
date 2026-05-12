@@ -1,0 +1,31 @@
+task:
+  stem: Financial_Portfolio_performance_charts_98
+  sa_task_filename: Financial_Portfolio_performance_charts_98.json
+  task_id: 188774271
+  image: screenshots/Financial_Portfolio_performance_charts_98.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Financial_Portfolio_performance_charts_98.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        A portfolio manager wants to check whether unrealized gains are the main contributor to equity beyond cash holdings. Using the portfolio table, compare EXTRA VALUE OF OPEN POSITIONS to TOTAL EQUITY minus the sum of AVAILABLE CASH and INVESTED CASH. If EXTRA VALUE OF OPEN POSITIONS is strictly greater, choose the displayed risk category; otherwise choose the High risk classification from the image’s risk evaluation rule. Answer with the letter only.
+        
+        A. LOW
+        B. MEDIUM
+        C. HIGH
+        D. VERY HIGH
+      answer: "C"

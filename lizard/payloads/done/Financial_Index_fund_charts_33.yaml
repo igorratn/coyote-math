@@ -1,0 +1,26 @@
+task:
+  stem: Financial_Index_fund_charts_33
+  sa_task_filename: Financial_Index_fund_charts_33.json
+  task_id: 188774048
+  image: screenshots/Financial_Index_fund_charts_33.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "9"
+      flags: []
+      feedback: "5/12: Skill tag added: Math Reasoning (multiplication step: count × number of line series)."
+      verdict_source: auto
+      skills_check: [Math Reasoning]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Index_fund_charts_33.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Focus only on the line chart and only on the dates printed as x-axis labels. Identify the labeled dates where the blue “FFI: Index Equity” line is strictly above the gray 50 line while the orange “FFI: Active Equity” line is below the gray 50 line. Count those dates, then multiply that count by the number of line series shown in the legend. Answer as a single number, e.g., 6.
+      answer: "9"

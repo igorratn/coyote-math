@@ -1,0 +1,13 @@
+stem: Financial_Portfolio_performance_charts_98
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 955063e3
+    fired_at: 2026-05-12T14:55:09.612Z
+    rating: Approve
+    time_logged: "00:20:25"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
