@@ -3,7 +3,7 @@
 Source: https://project-peacock-40.learn.joinhandshake.com/
 Slack Physics Info canvas: F0AU78GEVJM (Fedor K., 2026-04-18)
 Slack PDF: physics_stumping_strategies_and_resources_for_peacock.pdf (Matt O., 2026-04-25)
-Scraped: 2026-05-02
+Scraped: 2026-05-02 (full); 2026-05-11 partial refresh of Physics domain-guidelines page after Matt O. clarification (#peacock-physics, 2026-05-11) that Computational Physics is NOT allowed (no FEA/MD/MC/etc., no Python/spreadsheets).
 
 ---
 
@@ -128,7 +128,7 @@ Topics beyond basic Standard Model particle classification are fine.
 - **Fluid Mechanics:** Basic Bernoulli/Archimedes/ideal flow: No. More complicated: probably.
 - **Astrophysics/Cosmology/GR:** First 5–6 chapters of undergrad-only textbooks: No. Grad: Cosmology, gravitational lensing, black holes.
 - **Biophysics:** Must be biophysics, not biology.
-- **Computational Physics:** Beyond trapezoidal rule, Euler's method, bisection: acceptable. Molecular dynamics, DFT, FEA, Monte-Carlo/Metropolis: all fine.
+- **Computational Physics — NOT ALLOWED for this project** (updated 2026-05-11 by Matt O.): "This project requires no external tools including python and spreadsheets so while the below would count as graduate level computational physics, they are not allowed for this project." Specifically NOT allowed: anything beyond trapezoidal rule for integration, Euler's method for ODEs, and bisection for root-finding; Molecular Dynamics simulation, electronic structure calculations, Finite element analysis; Monte-Carlo simulations, Metropolis algorithm. Effective rule (Matt's TI-83 guideline): anything a TI-83 from 1998 can do — integration, differentiation, root finding, expansions, small matrix operations. The model itself must be able to do the math without external tools.
 
 ---
 
