@@ -1,0 +1,23 @@
+stem: Financial_Financial_data_tables_111
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 9052edc0
+    fired_at: 2026-05-12T14:20:46.513Z
+    rating: Approve
+    time_logged: "00:20:35"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: manualF111_a2
+    fired_at: 2026-05-12T08:20:00Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

@@ -1,0 +1,136 @@
+task:
+  stem: Financial_Candlestick_trading_patterns_46
+  sa_task_filename: Financial_Candlestick_trading_patterns_46.json
+  task_id: 188773786
+  image: screenshots/Financial_Candlestick_trading_patterns_46.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "BBBGGGG"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Candlestick_trading_patterns_46.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Use only the seven candlestick pattern groups shown in the image.
+        
+        Read the groups left to right across the top row, then left to right across the bottom row.
+        
+        For each group, determine whether the sequence visually ends with:
+        
+        a dominant bearish outcome (final candle red),
+        a dominant bullish outcome (final candle green), or
+        a mixed outcome where neither side clearly dominates at the end.
+        
+        Encode:
+        
+        B for bearish outcome
+        G for bullish outcome
+        M for mixed outcome
+        
+        What is the resulting code?
+        
+        Answer format: Answer with uppercase letters only using B, G, and M (e.g., BGMGB).
+      answer: "BBBGGGG"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "3320"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Candlestick_trading_patterns_46.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Use only the final candle in each candlestick pattern group.
+        
+        Read the groups left to right across the top row, then left to right across the bottom row.
+        
+        Encode the final candle of each group as:
+        
+        2 if the final candle is green
+        1 if the final candle is red
+        0 if the final candle is visually neutral or unclear
+        
+        Concatenate the eight digits as a base-3 number and convert it to base 10.
+        
+        Answer format: Answer with a single integer (e.g., 50).
+      answer: "3320"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "12"
+      flags: []
+      feedback: "5/12: Skill tag added: Enumeration (counts groups by red/green/equal categories)."
+      verdict_source: auto
+      skills_check: [Enumeration]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Candlestick_trading_patterns_46.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Use only the seven candlestick pattern groups.
+        
+        Let:
+        
+        A = number of groups where red candles outnumber green candles
+        B = number of groups where green candles outnumber red candles
+        C = number of groups where red and green candle counts are equal
+        
+        Compute:
+        
+        (A × B) + C
+        
+        Answer format: Answer with a single integer (e.g., 10).
+      answer: "12"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "SSSDSSS"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Candlestick_trading_patterns_46.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        Read the groups in chronological viewing order: top row left-to-right, then bottom row left-to-right.
+        
+        For each adjacent pair of groups, compare the color of their final candle.
+        
+        Encode:
+        
+        S if both groups end with the same candle color
+        D if the groups end with different candle colors
+        
+        What is the resulting code?
+        
+        Answer format: Answer with uppercase letters only using S and D (e.g., SDSDS).
+      answer: "SSSDSSS"

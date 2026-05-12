@@ -1,0 +1,23 @@
+stem: Financial_Fibonacci_retracement_charts_99
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 95e1ca58
+    fired_at: 2026-05-12T14:19:07.785Z
+    rating: Approve
+    time_logged: "00:20:46"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 96439120
+    fired_at: 2026-05-12T14:19:45.275Z
+    rating: Approve
+    time_logged: "00:20:30"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

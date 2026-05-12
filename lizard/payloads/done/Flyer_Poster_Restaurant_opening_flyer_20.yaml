@@ -1,0 +1,26 @@
+task:
+  stem: Flyer_Poster_Restaurant_opening_flyer_20
+  sa_task_filename: Flyer_Poster_Restaurant_opening_flyer_20.json
+  task_id: 187832824
+  image: screenshots/Flyer_Poster_Restaurant_opening_flyer_20.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "3"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Flyer_Poster_Restaurant_opening_flyer_20.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        How many cars are shown in the window behind the man with the guitar? Answer in a single number (example: 1)
+      answer: "3"

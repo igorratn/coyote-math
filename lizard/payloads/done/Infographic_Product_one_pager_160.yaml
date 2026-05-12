@@ -8,14 +8,14 @@ annotations:
 
   - n: 1
     sa:
-      action: QC_Return
+      action: delete
       rating: thumbs-down
       answer_final: null
       flags: []
-      feedback: "5/10: Prompt requires reading a value from the KEY FEATURES table that is not pixel-resolvable in the rendered template preview (right-column text is sub-pixel placeholder). Drop the third sub-question or replace with a value verifiable from the image. Skill tags corrected: dropped Spatial Reasoning (locators like \"top left area\" and \"right-hand column\" are navigational, not relational reasoning); added Table/Chart/Graph Understanding (table read), World Knowledge (Canva/InDesign/Word icon recognition), and Enumeration (count of three icons)."
+      feedback: "5/12: Image resolution too low to verify Serial Code, Product Category, and Key Features table values. Skill tag corrected: added Table/Chart/Graph Understanding (KEY FEATURES table read required). Cycle-2 delete."
       verdict_source: igor
-      skills_check: [Table/Chart/Graph Understanding, World Knowledge, Enumeration]
-      skills_uncheck: [Spatial Reasoning]
+      skills_check: [Table/Chart/Graph Understanding]
+      skills_uncheck: []
       qtype: "SAQ"
     hai:
       task_id_field: Infographic_Product_one_pager_160.json
@@ -24,21 +24,21 @@ annotations:
       prompt: |
         Task: Technical Document Information Extraction and Layout Analysis.
         
-        Question: Refer to the image and provide a response to the following:
+        Question: Refer to the document layout in the image and provide a response to the following:
         
         Under the first image in the left-hand column, identify the Serial Code and the Product Category listed.
         
-        Identify the three software icons shown in the top left area of the display (outside the main document page).
+        Identify the three software icons shown in the top-left area of the display (located in the "Compatible With" section outside the main page).
         
         In the "KEY FEATURES" table, identify the specific value listed in the right-hand column for the "Third key characteristic" row.
         
-        Answer Type: Structured list.
+        Required Response Format:
+        Identifiers: Serial Code: [Code] / Product Category: [Category]
+        Software Icons: 1. [App 1], 2. [App 2], 3. [App 3]
+        Table Value: [Value]
+      answer: |
+        Identifiers: Serial Code: 0123456789 / Product Category: Industrial tools
         
-        Sample Answer:
+        Software Icons: 1. Canva, 2. Adobe InDesign (ID), 3. Microsoft Word (W)
         
-        Identifiers: Code: ABC-123 / Category: Automotive.
-        
-        Software Icons: 1. Photoshop, 2. Illustrator, 3. PowerPoint.
-        
-        Table Value: 500 Watts.
-      answer: "Identifiers: Serial Code: 0123456789 / Product Category: Industrial tools."
+        Table Value: Spatial element

@@ -1,0 +1,43 @@
+stem: Financial_Candlestick_trading_patterns_46
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: 8eebcbf7
+    fired_at: 2026-05-12T14:26:24.065Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "Incorrect Rewrite Answer: Because there are 8 patterns, the resulting code should have 8 letters. The final candle in the top 4 groups is red (Bearish), and the final candle in the bottom 4 groups is green (Bullish). Therefore, the correct answer should be BBBBGGGG, but the Rewrite Answer only provides 7 letters (BBBGGGG). Please update the prompt to reflect the correct number of patterns (8) and "
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 9420d61a
+    fired_at: 2026-05-12T14:27:17.290Z
+    rating: Approve
+    time_logged: "00:20:34"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: 97c6b09e
+    fired_at: 2026-05-12T14:28:55.803Z
+    rating: Approve
+    time_logged: "00:20:02"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 4
+    uuid: 99f87558
+    fired_at: 2026-05-12T14:30:09.303Z
+    rating: Approve
+    time_logged: "00:20:06"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

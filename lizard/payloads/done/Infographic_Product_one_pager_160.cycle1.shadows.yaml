@@ -2,10 +2,10 @@ stem: Infographic_Product_one_pager_160
 igor_resolved: false
 shadows:
   - n: 1
-    uuid: 97da7f6c
-    fired_at: 2026-05-12T14:31:32.361Z
+    uuid: 93ecf3bb
+    fired_at: 2026-05-10T00:56:07.755Z
     rating: Reject
-    time_logged: "00:20:42"
+    time_logged: "00:20:26"
     verdict_source: igor
     hai_llm_eval: clean
     hai_llm_comment: ""

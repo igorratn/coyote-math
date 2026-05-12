@@ -143,8 +143,14 @@ export function detectBigDiff(reviewerAns, annotAns) {
     return null;
   }
 
-  // Non-numeric: any case + whitespace normalized mismatch
-  const norm = s => s.toLowerCase().replace(/\s+/g, ' ').trim();
+  // Non-numeric: any case + whitespace normalized mismatch.
+  // Also normalize literal `\n` escape sequences to spaces — reviewer output
+  // (especially opus inline reviews) sometimes serializes multi-line answers
+  // with backslash-n instead of real newlines (codified 2026-05-12 —
+  // Product_one_pager_160 incident where opus 👍 was demoted to 👎 because
+  // its `\n`-escaped multi-line final_answer didn't whitespace-normalize-match
+  // annotator's real-newline multi-line rewrite).
+  const norm = s => s.toLowerCase().replace(/\\n/g, ' ').replace(/\s+/g, ' ').trim();
   if (norm(ra) !== norm(aa)) {
     return { reason: `Reviewer answer "${ra}" differs from annotator's "${aa}"` };
   }

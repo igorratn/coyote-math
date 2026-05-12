@@ -1,0 +1,55 @@
+task:
+  stem: Financial_Financial_data_tables_111
+  sa_task_filename: Financial_Financial_data_tables_111.json
+  task_id: 188773949
+  image: screenshots/Financial_Financial_data_tables_111.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "A"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Financial_Financial_data_tables_111.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        For each colored row, compare Header 5 with Header 3. Which row has the largest positive increase from Header 3 to Header 5, and what is that increase? Answer with a single letter.
+        
+        A. Teal row — 102,000,000
+        B. Green row — 70,000,000
+        C. Cyan row — 20,000,000
+        D. Navy row — 50,000,000
+      answer: "A"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Financial_Financial_data_tables_111.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Find all pairs of colored rows that have exactly the same Header 1 value. For each matching pair, compute the absolute difference between their Header 5 values. Which pair has the larger Header 5 gap? Answer with a single letter.
+        
+        A. Orange row and green row — 30,000,000
+        B. Top teal row and purple row — 70,000,000
+        C. Fifth cyan row and bottom navy row — 100,000,000
+        D. Purple row and fifth cyan row — 50,000,000
+      answer: "C"
