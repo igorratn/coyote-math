@@ -1,0 +1,45 @@
+task:
+  stem: Financial_Technical_trading_charts_57
+  sa_task_filename: Financial_Technical_trading_charts_57.json
+  task_id: 188774489
+  image: screenshots/Financial_Technical_trading_charts_57.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "0"
+      flags: []
+      feedback: "5/12: Skill tag added: Table/Chart/Graph Understanding (prompt requires counting columns in the table/data sheet at the top of the background image)."
+      verdict_source: auto
+      skills_check: [Table/Chart/Graph Understanding]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Technical_trading_charts_57.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Count the number of distinct columns visible in the table/data sheet at the top of the background image. Then count the number of distinct charts or graphs visible below that table in the same background image. Subtract the number of charts from the number of columns. Give your answer as a single whole number (e.g., 110000).
+      answer: "0"
+
+  - n: 2
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: []
+      feedback: "5/12: Prompt wording fix — replace 'single whole number' with 'single integer'. Whole numbers are non-negative {0, 1, 2, ...} by US math convention, but the correct answer is negative (-2340), so the formatting instruction is inconsistent with the answer space."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Technical_trading_charts_57.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Count the number of distinct charts or graphs in the background data sheet. Call this X. Count the number of letters in the large faded text partially obscured by the main title in the top right of the background image. Call this Y. Calculate ((X² × Y) − Y³) × X. Give your answer as a single whole number (e.g., 500).
+      answer: "-2340"

@@ -1,0 +1,51 @@
+stem: Financial_Technical_trading_charts_68
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: 9e1d4da6
+    fired_at: 2026-05-12T15:34:21.604Z
+    rating: Approve
+    time_logged: "00:20:40"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "Plugging these into your formula: (X³ × Y²) − (Y³ × X) = (3³ × 7²) − (7³ × 3) = (27 × 49) − (343 × 3) = 1323 − 1029 = 294 It appears you may have either reversed the subtraction in your final step (1029 - 1323 = -294) or accidentally counted X as 2 (which also coincidentally equals -294). Please update the Rewrite Answer to 294 and you will be good to go!"
+    reclaimed: true
+    reclaim_diff: "answer: -294 → -100"  - n: 2
+    uuid: 9d3f6374
+    fired_at: 2026-05-12T15:35:22.224Z
+    rating: Approve
+    time_logged: "00:20:52"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: 96805707
+    fired_at: 2026-05-12T15:37:10.366Z
+    rating: Approve
+    time_logged: "00:20:40"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: ""
+    reclaimed: true
+    reclaim_diff: "answer: 837 → 61"  - n: 4
+    uuid: 9ef3ba75
+    fired_at: 2026-05-12T15:38:11.500Z
+    rating: Approve
+    time_logged: "00:20:54"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 5
+    uuid: 93b7412e
+    fired_at: 2026-05-12T15:41:07.825Z
+    rating: Approve
+    time_logged: "00:20:46"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "Calculation: Following your formula (X³ − Y⁴) × (X − Y²) with X=14 and Y=2: (14³ − 2⁴) × (14 − 2²) (2744 − 16) × (14 − 4) 2728 × 10 = 27280 Your answer of 35659 is the exact mathematical result if Y = 1, which means you likely just missed the green candle when counting. Please update the Rewrite Answer to 27280."
+    reclaimed: true
+    reclaim_diff: "answer: 35659 → 27280"

@@ -1,0 +1,102 @@
+task:
+  stem: Financial_Technical_trading_charts_68
+  sa_task_filename: Financial_Technical_trading_charts_68.json
+  task_id: 188774491
+  image: screenshots/Financial_Technical_trading_charts_68.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "-100"
+      flags: []
+      feedback: "5/12: Corrected final answer from -294 to -100. Y count fix: 5 dashed vertical lines on chart (annotator used Y=7). With X=1, Y=5: (1·25) − (125·1) = -100."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Technical_trading_charts_68.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Count the number of individual candlesticks that are entirely and strictly above the red horizontal line (meaning the full candle body and both wicks do not touch or cross the line). Call this X. Count the number of dashed vertical lines visible on the chart. Call this Y. Calculate (X³ × Y²) − (Y³ × X). Give your answer as a single whole number (e.g., 500).
+      answer: "-294"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "42641"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Technical_trading_charts_68.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        The y-axis of the chart shows a series of price levels increasing by a fixed interval. Assuming the pattern continues upward, what would the 6th price level above the highest visible value on the y-axis be? Call this X. Count the number of individual candlesticks that are entirely and strictly above the red horizontal line (meaning the full candle body and both wicks do not touch or cross the line). Call this Y. Calculate (X − Y³)² − (X × Y). Give your answer as a single whole number (e.g., 500).
+      answer: "42641"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "61"
+      flags: []
+      feedback: "5/12: Corrected final answer from 837 to 61. Y count fix: 5 dashed vertical lines on chart (annotator used Y=7). With X=4, Y=5: (125 − 64)·(5 − 4) = 61."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Technical_trading_charts_68.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Count the total number of times the letter "a" (case insensitive) appears across all visible text on the chart including the ticker symbol, the timeframe label, and the full watermark text. Call this X. Count the number of dashed vertical lines visible on the chart. Call this Y. Calculate (Y³ − X³) × (Y − X). Give your answer as a single whole number (e.g., 500).
+      answer: "837"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "-30000"
+      flags: []
+      feedback: "5/12: Skill tag added: Enumeration (prompt requires counting unique digits in red line value AND counting dashed vertical lines)."
+      verdict_source: auto
+      skills_check: [Enumeration]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Technical_trading_charts_68.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        Take the value shown on the red horizontal line in the chart. Find the sum of all its unique digits. Call this X. Count the number of dashed vertical lines visible on the chart. Call this Y. Calculate (X² × Y²) − (X³ × Y). Give your answer as a single whole number (e.g., 500).
+      answer: "-30000"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "27280"
+      flags: []
+      feedback: "5/12: Corrected final answer from 35659 to 27280. Y count fix: 2 candles closed strictly above red (annotator used Y=1, missed one green close). With X=14, Y=2: (2744 − 16)·(14 − 4) = 27280."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Technical_trading_charts_68.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        Take the labeled high value shown on the chart. Find the sum of all its unique digits. Call this X. Count the number of individual candlesticks whose closing price (top of body for green, bottom of body for red) is strictly above the red horizontal line. Call this Y. Calculate (X³ − Y⁴) × (X − Y²). Give your answer as a single whole number (e.g., 500).
+      answer: "35659"

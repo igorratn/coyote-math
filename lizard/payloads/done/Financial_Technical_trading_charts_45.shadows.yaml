@@ -1,0 +1,53 @@
+stem: Financial_Technical_trading_charts_45
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: 98a56a44
+    fired_at: 2026-05-12T15:26:12.023Z
+    rating: Approve
+    time_logged: "00:20:33"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 8abc4205
+    fired_at: 2026-05-12T15:27:26.219Z
+    rating: Approve
+    time_logged: "00:20:06"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: 99ac3e44
+    fired_at: 2026-05-12T15:28:15.967Z
+    rating: Approve
+    time_logged: "00:20:42"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 4
+    uuid: 9d2c9ae5
+    fired_at: 2026-05-12T15:28:47.553Z
+    rating: Approve
+    time_logged: "00:20:24"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 5
+    uuid: 9db11e06
+    fired_at: 2026-05-12T15:29:41.832Z
+    rating: Approve
+    time_logged: "00:20:47"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

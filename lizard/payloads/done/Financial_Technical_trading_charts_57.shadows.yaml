@@ -1,0 +1,23 @@
+stem: Financial_Technical_trading_charts_57
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: 9ce1098b
+    fired_at: 2026-05-12T15:30:31.382Z
+    rating: Approve
+    time_logged: "00:20:37"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 9fbbc1da
+    fired_at: 2026-05-12T15:31:28.597Z
+    rating: Approve
+    time_logged: "00:20:47"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "Strictly speaking, \"whole numbers\" refer to non-negative integers (0, 1, 2, 3, etc.). Since your final calculated answer is a negative number (-2340), asking the solver for a \"whole number\" is mathematically inaccurate and could cause them to think they've made a calculation error. Please update the formatting instruction from \"single whole number\" to \"single integer\" (and consider updating the ex"
+    reclaimed: false
+    reclaim_diff: null

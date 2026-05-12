@@ -1,0 +1,115 @@
+task:
+  stem: Financial_Technical_trading_charts_45
+  sa_task_filename: Financial_Technical_trading_charts_45.json
+  task_id: 188774488
+  image: screenshots/Financial_Technical_trading_charts_45.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: QC_Return
+      rating: thumbs-down
+      answer_final: null
+      flags: [G2]
+      feedback: "5/12: Ambiguous prompt — image resolution too low to determine whether the left dashed vertical line directly bisects or overlaps any of the {Entry, Stop, Target} text labels. Labels and dashed line are too thin/close to call without higher resolution."
+      verdict_source: igor
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Financial_Technical_trading_charts_45.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Which text label is directly bisected or overlapped by the left dashed vertical line in the image?
+        A. Entry
+        B. Stop
+        C. Target
+        D. None
+      answer: "D"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "D"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Financial_Technical_trading_charts_45.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Which text label is directly bisected or overlapped by the right dashed vertical line in the image?
+        A. Entry
+        B. Down Trend
+        C. Target
+        D. None
+      answer: "D"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "D"
+      flags: []
+      feedback: "5/12: Skill tag added: Table/Chart/Graph Understanding (prompt requires reading red horizontal line position relative to FICM.com watermark in the right chart)."
+      verdict_source: auto
+      skills_check: [Table/Chart/Graph Understanding]
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Financial_Technical_trading_charts_45.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Which letters of the text "FICM.com" does the red horizontal line in the right graph directly overlap or bisect? This is not the red "STOP" line.
+        A. F, I, C and M
+        B. F, I and C only
+        C. I and C only
+        D. M, ., c, o, m only
+      answer: "D"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "0"
+      flags: []
+      feedback: "5/12: Skill tag added: Table/Chart/Graph Understanding (prompt requires reading red horizontal lines position relative to text labels in the left chart pattern)."
+      verdict_source: auto
+      skills_check: [Table/Chart/Graph Understanding]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Technical_trading_charts_45.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        In the left graph, how many of the following text labels do the red horizontal lines directly overlap or bisect: "Up Trend", "Entry", "Stop", "Target"?
+        Answer as a single whole number (e.g., 565).
+      answer: "0"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "0"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Technical_trading_charts_45.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        How many text labels in the entire image do the red horizontal lines in the right pattern directly overlap or bisect? Do not include the "FICM.com" watermark. Answer as a single whole number (e.g., 200000).
+      answer: "0"
