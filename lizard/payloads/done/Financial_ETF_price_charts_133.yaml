@@ -1,0 +1,122 @@
+task:
+  stem: Financial_ETF_price_charts_133
+  sa_task_filename: Financial_ETF_price_charts_133.json
+  task_id: 188773871
+  image: screenshots/Financial_ETF_price_charts_133.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "B"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Financial_ETF_price_charts_133.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        At approximately what price level did the chart begin on June 5 at the far left of the X-axis?
+        A. 21.00
+        B. 23.00
+        C. 25.00
+        D. 27.00
+      answer: "B"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "B"
+      flags: []
+      feedback: "5/11: Skill tag added: Math Reasoning (computes price difference between high and low)."
+      verdict_source: auto
+      skills_check: [Math Reasoning]
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Financial_ETF_price_charts_133.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        What is the approximate price difference between the lowest point visible on the chart and the highest point visible on the chart?
+        A. 7.00
+        B. 9.00
+        C. 10.00
+        D. 12.00
+      answer: "B"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: "5/11: Skill tags added: Enumeration (counts months), Table/Chart/Graph Understanding (reads X-axis labels)."
+      verdict_source: auto
+      skills_check: [Enumeration, Table/Chart/Graph Understanding]
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Financial_ETF_price_charts_133.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        How many months does this chart cover in total based on the X-axis labels?
+        A. 10 months
+        B. 11 months
+        C. 12 months
+        D. 13 months
+      answer: "C"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: "5/11: Skill tag added: Enumeration (counts labeled date markers Jun 5 to Jun 3)."
+      verdict_source: auto
+      skills_check: [Enumeration]
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Financial_ETF_price_charts_133.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        Based on the X-axis, how many labeled date markers are fully visible from Jun 5 to Jun 3?
+        A. 11
+        B. 12
+        C. 13
+        D. 14
+      answer: "C"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Financial_ETF_price_charts_133.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        Strictly based on the lower indicator panel, during which labeled month did the green shading visibly appear above the zero line?
+        A. January 2024
+        B. February 2024
+        C. March 2024
+        D. April 2024
+      answer: "C"

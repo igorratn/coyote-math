@@ -59,7 +59,7 @@
       }
     },
     "opus": {
-      "fires": 275,
+      "fires": 280,
       "first_agree": 99,
       "any_agree": 0,
       "escalates": 9,
@@ -84,7 +84,7 @@
     "gemini",
     "grok"
   ],
-  "updated_at": "2026-05-12T00:19:22.008Z",
+  "updated_at": "2026-05-12T01:44:48.240Z",
   "igor_reconcile": {
     "task_files_scanned": 83,
     "tasks_with_igor_verdicts": 7,

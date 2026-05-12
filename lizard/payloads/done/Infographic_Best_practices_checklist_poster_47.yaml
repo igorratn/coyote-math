@@ -1,0 +1,28 @@
+task:
+  stem: Infographic_Best_practices_checklist_poster_47
+  sa_task_filename: Infographic_Best_practices_checklist_poster_47.json
+  task_id: 188406043
+  image: screenshots/Infographic_Best_practices_checklist_poster_47.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "Going on a walk, no"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Infographic_Best_practices_checklist_poster_47.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Which chart contains the handwashing icon with a different skin color, and is that chart adjacent to the chart whose title mentions a medical location?
+        Answer in the following format: [title], yes/no.
+        (e.g. Going to the grocery store, yes)
+      answer: "Going on a walk, no"

@@ -1,0 +1,13 @@
+stem: Infographic_Best_practices_checklist_poster_47
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 60720f8d
+    fired_at: 2026-05-12T01:50:23.253Z
+    rating: Approve
+    time_logged: "00:20:28"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

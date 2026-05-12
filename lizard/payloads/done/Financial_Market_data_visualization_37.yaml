@@ -1,0 +1,26 @@
+task:
+  stem: Financial_Market_data_visualization_37
+  sa_task_filename: Financial_Market_data_visualization_37.json
+  task_id: 188774153
+  image: screenshots/Financial_Market_data_visualization_37.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "4"
+      flags: []
+      feedback: "5/11: Skill tag added: Enumeration (counts calendar years strictly between two x-axis labels)."
+      verdict_source: auto
+      skills_check: [Enumeration]
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Market_data_visualization_37.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        The "Revenue Estimates and Forecast" chart in the top right of the dashboard displays a series of year labels along its x-axis. Look at the two rightmost year labels on that x-axis. Using your knowledge that calendar years are consecutive whole numbers, count how many calendar years are skipped between those two labels, not including the labels themselves. Answer as a single whole number (e.g., 3).
+      answer: "4"

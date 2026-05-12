@@ -1,0 +1,53 @@
+stem: Financial_ETF_price_charts_133
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: 5e16ffa2
+    fired_at: 2026-05-12T01:58:00.902Z
+    rating: Approve
+    time_logged: "00:20:27"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 66ee587e
+    fired_at: 2026-05-12T01:58:38.771Z
+    rating: Approve
+    time_logged: "00:20:30"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: 6762255a
+    fired_at: 2026-05-12T01:59:27.644Z
+    rating: Approve
+    time_logged: "00:20:22"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 4
+    uuid: 655b03e1
+    fired_at: 2026-05-12T02:00:16.560Z
+    rating: Approve
+    time_logged: "00:20:41"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 5
+    uuid: manualETF133_a5
+    fired_at: 2026-05-12T02:45:00Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

@@ -1,0 +1,13 @@
+stem: Financial_Dividend_yield_charts_72
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: 6511b5b2
+    fired_at: 2026-05-12T01:48:12.837Z
+    rating: Approve
+    time_logged: "00:20:29"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

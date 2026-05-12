@@ -1,0 +1,26 @@
+task:
+  stem: Financial_Dividend_yield_charts_72
+  sa_task_filename: Financial_Dividend_yield_charts_72.json
+  task_id: 188404147
+  image: screenshots/Financial_Dividend_yield_charts_72.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "2017"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Dividend_yield_charts_72.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        During which year was the share price the lowest? Answer with a single year (e.g., 2019)
+      answer: "2017"

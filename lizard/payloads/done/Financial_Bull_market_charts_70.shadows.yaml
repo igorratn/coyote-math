@@ -1,0 +1,43 @@
+stem: Financial_Bull_market_charts_70
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: 545072bf
+    fired_at: 2026-05-12T01:51:41.841Z
+    rating: Approve
+    time_logged: "00:20:56"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: 5ecb3827
+    fired_at: 2026-05-12T01:52:31.247Z
+    rating: Approve
+    time_logged: "00:20:43"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: 63374f88
+    fired_at: 2026-05-12T01:54:09.759Z
+    rating: Approve
+    time_logged: "00:20:30"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "Boundary Ambiguity: The prompt uses the word \"after\" (\"after the year '52\"), which is a boundary-ambiguous term. You must specify whether the boundary year is included or excluded (e.g., \"strictly after the year '52\" or \"starting from the year 1953\"). Even though there is no bear market exactly in 1952 to change the outcome, the rule must still be followed to ensure zero ambiguity. Please adjust t"
+    reclaimed: false
+    reclaim_diff: null
+  - n: 4
+    uuid: manualBull70_a4
+    fired_at: 2026-05-12T02:30:00Z
+    rating: Approve
+    time_logged: "00:20:00"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
