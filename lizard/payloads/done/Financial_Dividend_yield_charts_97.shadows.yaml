@@ -1,0 +1,53 @@
+stem: Financial_Dividend_yield_charts_97
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: b8296c71
+    fired_at: 2026-05-12T18:09:56.933Z
+    rating: Approve
+    time_logged: "00:20:35"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 2
+    uuid: b6b7d79b
+    fired_at: 2026-05-12T18:37:23.538Z
+    rating: Approve
+    time_logged: "00:20:39"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 3
+    uuid: b4fc24f5
+    fired_at: 2026-05-12T18:37:56.700Z
+    rating: Approve
+    time_logged: "00:20:26"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 4
+    uuid: b9cde27d
+    fired_at: 2026-05-12T18:38:29.589Z
+    rating: Approve
+    time_logged: "00:20:24"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null
+  - n: 5
+    uuid: b116808b
+    fired_at: 2026-05-12T18:39:03.681Z
+    rating: Approve
+    time_logged: "00:20:26"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

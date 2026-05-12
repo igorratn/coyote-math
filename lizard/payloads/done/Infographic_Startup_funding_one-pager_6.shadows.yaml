@@ -1,0 +1,13 @@
+stem: Infographic_Startup_funding_one-pager_6
+igor_resolved: false
+shadows:
+  - n: 1
+    uuid: b6c2d565
+    fired_at: 2026-05-12T18:46:30.812Z
+    rating: Approve
+    time_logged: "00:20:30"
+    verdict_source: auto
+    hai_llm_eval: clean
+    hai_llm_comment: ""
+    reclaimed: false
+    reclaim_diff: null

@@ -463,13 +463,16 @@ if (preSubmitWarning) console.log("QC_WARNING_CAPTURED=true");
     }
     try {
       // Wait for either submit-enabled (role accepted) OR Approve/Reject (already past submit).
+      // Short per-retry timeout (8s) — if HAI hiccup occurs, re-click fast rather
+      // than waiting 30s. 6 retries = 48s total window. Codified 2026-05-12 (Igor:
+      // "when error submitting — wait a sec and re-try, instead of timeout — too long").
       await page.waitForFunction(() => {
         if (document.querySelector('button[type="submit"]:not([disabled])')) return true;
         return Array.from(document.querySelectorAll('button')).find(b => /^(Approve|Reject)$/.test(b.textContent.trim()) && !b.disabled);
-      }, null, { timeout: 30000 });
+      }, null, { timeout: 8000 });
       break;
     } catch (e) {
-      if (phase6ReviewAttempt >= 3) throw e;
+      if (phase6ReviewAttempt >= 6) throw e;
       console.log("PHASE6_REVIEWING_RETRY=" + phase6ReviewAttempt);
       await new Promise(r => setTimeout(r, 1000));
     }
@@ -492,10 +495,11 @@ if (preSubmitWarning) console.log("QC_WARNING_CAPTURED=true");
         break;
       }
       try {
-        await page.waitForFunction(() => Array.from(document.querySelectorAll('button')).find(b => /^(Approve|Reject)$/.test(b.textContent.trim()) && !b.disabled), null, { timeout: 30000 });
+        // Short per-retry timeout — re-click fast on HAI hiccup. Codified 2026-05-12.
+        await page.waitForFunction(() => Array.from(document.querySelectorAll('button')).find(b => /^(Approve|Reject)$/.test(b.textContent.trim()) && !b.disabled), null, { timeout: 8000 });
         break;
       } catch (e) {
-        if (phase6SubmitAttempt >= 3) throw e;
+        if (phase6SubmitAttempt >= 6) throw e;
         console.log("PHASE6_SUBMIT_RETRY=" + phase6SubmitAttempt);
         await new Promise(r => setTimeout(r, 1500));
       }

@@ -1,0 +1,127 @@
+task:
+  stem: Financial_Dividend_yield_charts_97
+  sa_task_filename: Financial_Dividend_yield_charts_97.json
+  task_id: 188773869
+  image: screenshots/Financial_Dividend_yield_charts_97.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "B"
+      flags: []
+      feedback: "5/12: Skill tag added: Math Reasoning (prompt requires counting series, identifying line style, and comparing positions — multi-step reasoning beyond direct chart reading)."
+      verdict_source: auto
+      skills_check: [Math Reasoning]
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Financial_Dividend_yield_charts_97.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        Looking at the chart legend, count the total number of distinct data series shown. Then identify which two series are represented by solid filled lines rather than hollow circle markers. Finally, looking at the chart itself, which of those two solid lines occupies the higher position for the majority of the Past section? Which answer correctly states all three? Answer with a single letter.
+        
+        A. 4 series total; Dividend Yield and Earnings Per Share are solid lines; Earnings Per Share sits higher in the Past section
+        B. 4 series total; Dividend Yield and Annual Amount are solid lines; Dividend Yield sits higher in the Past section
+        C. 3 series total; Dividend Yield and Annual Amount are solid lines; Annual Amount sits higher in the Past section
+        D. 4 series total; Dividend Payments and Annual Amount are solid lines; Dividend Yield sits higher in the Past section
+      answer: "B"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Financial_Dividend_yield_charts_97.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        The chart is divided into two sections: Past and Analysts Forecasts. Examining both lines in the Analysts Forecasts section only, which statement is unambiguously supported? Answer with a single letter.
+        
+        A. Both lines decline steadily throughout the Analysts Forecasts section
+        B. The Annual Amount line sits below the Dividend Yield line throughout the entire Analysts Forecasts section
+        C. Both lines trend upward throughout the Analysts Forecasts section, with Annual Amount positioned above Dividend Yield
+        D. The Dividend Yield line trends upward while the Annual Amount line trends downward in the Analysts Forecasts section
+      answer: "C"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "C"
+      flags: []
+      feedback: "5/12: Skill tag added: Table/Chart/Graph Understanding (prompt requires reading trough position from chart and identifying chart section)."
+      verdict_source: auto
+      skills_check: [Table/Chart/Graph Understanding]
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Financial_Dividend_yield_charts_97.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Identify the approximate year in which both the Dividend Yield and Annual Amount lines reach their lowest point. Then identify which section of the chart (Past or Analysts Forecasts) that trough falls within. Which answer correctly states both? Answer with a single letter.
+        
+        A. The trough occurs around 2020; it falls within the Past section
+        B. The trough occurs around 2022; it falls within the Analysts Forecasts section
+        C. The trough occurs around 2022; it falls within the Past section
+        D. The trough occurs around 2024; it falls within the Past section
+      answer: "C"
+
+  - n: 4
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "B"
+      flags: []
+      feedback: "5/12: Skill tag added: Table/Chart/Graph Understanding (prompt requires reading tooltip values from chart and identifying line trends at a specific point)."
+      verdict_source: auto
+      skills_check: [Table/Chart/Graph Understanding]
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Financial_Dividend_yield_charts_97.json
+      role: Reviewing
+      annotation_n: 4
+      prompt: |
+        The tooltip shown on the chart displays two values for Dec 31 2025. Using those two values, calculate the implied stock price by dividing the Annual Amount by the Dividend Yield expressed as a decimal, rounded to the nearest whole number. Then, considering that Dec 31 2025 falls within the Analysts Forecasts section, which answer correctly states both the implied stock price and the trend of both lines at that point in the chart? Answer with a single letter.
+        
+        A. €84; both lines are declining at Dec 31 2025
+        B. €97; both lines are rising at Dec 31 2025
+        C. €112; the Dividend Yield line is declining while Annual Amount is rising at Dec 31 2025
+        D. €97; both lines are declining at Dec 31 2025
+      answer: "B"
+
+  - n: 5
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "A"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "MCQ"
+    hai:
+      task_id_field: Financial_Dividend_yield_charts_97.json
+      role: Reviewing
+      annotation_n: 5
+      prompt: |
+        Between 2022 and 2023, both the Dividend Yield and Annual Amount lines follow a specific shared pattern. Identifying that pattern strictly from the chart, which statement is unambiguously supported? Answer with a single letter.
+        
+        A. Both lines reach their lowest point around 2022 then rise sharply toward 2023
+        B. Both lines peak around 2022 then decline toward 2023
+        C. The Dividend Yield line rises from 2022 to 2023 while the Annual Amount line continues declining
+        D. Both lines remain flat between 2022 and 2023 with no visible change in direction
+      answer: "A"

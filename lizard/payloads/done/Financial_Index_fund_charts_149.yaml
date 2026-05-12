@@ -1,0 +1,64 @@
+task:
+  stem: Financial_Index_fund_charts_149
+  sa_task_filename: Financial_Index_fund_charts_149.json
+  task_id: 188774043
+  image: screenshots/Financial_Index_fund_charts_149.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "0.3"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Index_fund_charts_149.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        First, identify the two 10-year performance values outlined in green and add them together. Next, identify the two 10-year performance values outlined in orange and add them together. Finally, find the absolute difference between the green-outlined total and the orange-outlined total. What is the result? Provide an answer in decimal format to the nearest tenth (e.g., 1.7)
+      answer: "0.3"
+
+  - n: 2
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "22.9"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Index_fund_charts_149.json
+      role: Reviewing
+      annotation_n: 2
+      prompt: |
+        Focus on the 1y column. First, identify all instruments whose names contain “MSCI ACWI” and add together their 1-year performance values. Next, identify all instruments whose names contain “Vanguard” and add together their 1-year performance values. Finally, find the absolute difference between the two combined 1-year totals. What is the result? Answer using a decimal number to the nearest tenth (e.g., 44.5)
+      answer: "22.9"
+
+  - n: 3
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "11.36%"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Financial_Index_fund_charts_149.json
+      role: Reviewing
+      annotation_n: 3
+      prompt: |
+        Focus on the 10y column. First, remove the 10-year percentage values outlined in the green box from consideration. Next, use the remaining numerical percentages in the 10y column to calculate the mean percentage. What is the mean of the remaining 10-year percentages? Answer using decimal format to the nearest hundredth percentage (e.g., 25.66%).
+      answer: "11.36%"
