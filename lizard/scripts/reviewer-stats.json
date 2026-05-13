@@ -2,7 +2,7 @@
   "generated_at": null,
   "per_reviewer": {
     "gpt": {
-      "fires": 159,
+      "fires": 160,
       "first_agree": 88,
       "any_agree": 0,
       "escalates": 3,
@@ -21,7 +21,7 @@
       }
     },
     "grok": {
-      "fires": 106,
+      "fires": 107,
       "first_agree": 36,
       "any_agree": 0,
       "escalates": 16,
@@ -40,7 +40,7 @@
       }
     },
     "gemini": {
-      "fires": 106,
+      "fires": 107,
       "first_agree": 19,
       "any_agree": 0,
       "escalates": 8,
@@ -59,8 +59,8 @@
       }
     },
     "opus": {
-      "fires": 306,
-      "first_agree": 100,
+      "fires": 308,
+      "first_agree": 101,
       "any_agree": 0,
       "escalates": 9,
       "errors": 5,
@@ -84,7 +84,7 @@
     "gemini",
     "grok"
   ],
-  "updated_at": "2026-05-12T18:08:56.120Z",
+  "updated_at": "2026-05-13T02:45:01.938Z",
   "igor_reconcile": {
     "task_files_scanned": 83,
     "tasks_with_igor_verdicts": 7,

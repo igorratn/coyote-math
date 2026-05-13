@@ -1,109 +1,65 @@
 # Review: Report_Dashboard_Metrics_Dashboard_5
 
 ## Task Info
-- **SuperAnnotate Task ID:** 187110799
-- **Image:** Customer support dashboard. Customer Retention line chart (monthly, Feb-22 through Dec-22). Data facts at top: total requests 2022 and % answered. Additional charts/metrics present.
-- **Date:** 2026-04-16
+- **task_id:** 187110799
+- **SA_TASK_FILENAME:** Report_Dashboard_Metrics_Dashboard_5.json
+- **Image:** screenshots/Report_Dashboard_Metrics_Dashboard_5.png — (description)
+- **Date:** 2026-05-12
 - **Review Cycle:** 1st
+- **Task QC Status:** QC_Complete
 
-## Annotations
-
-### Annotation 1
-- **Shadow Task:** ✅ submitted (cycle 1) — [18dc6388](shadows/18dc6388.md)
-- **Rating:** thumbs-up
-- **Question:** During which two months was customer retention lowest? SAQ with month+year format.
-- **Skills Tagged:** Logical Reasoning, Table/Chart/Graph Understanding
-- **Question Type:** Short Answer
-- **Model Answer Rating:** thumbs-down
-
-#### Two-Part Check
-1. **Question Check:**
-   - Guidelines violated: none
-   - Error types found: none. Format example shows single month but two are asked — minor, not a true Type 1 since the answer format is still clear enough (month-year pairs). Stage 3 manual review confirmed ambiguity call was too harsh.
-2. **Answer Check:**
-   - Math verified: yes — two lowest points on retention chart are Feb-22 and Jul-22. Model got Jun-22 wrong for second month.
-   - Answer correct: yes (Feb-22 and Jul-22)
-
-#### Full Prompt
-During which two months was the customer retention the lowest in the 'Customer Retention' chart?  Respond with month and 2 digit year. (eg: Jan-22)
-
-#### Rewrite Answer
-Feb-22 and Jul-22
-
-#### Edits Made (if any)
-None
-
-#### Feedback
-N/A
+## Task Status
+- **Status:** ALL-AUTO-RESOLVED
+- **Reviewers fired:** opus
+- **Summary:** 0 pending Igor, 1 auto-resolved, 0 no-reviewer-output, 0 unchanged-carry-forward (of 1 total)
 
 ---
 
-### Annotation 2
-- **Shadow Task:** ✅ submitted (cycle 1) — [17f91c88](shadows/17f91c88.md)
-- **Rating:** thumbs-up
-- **Question:** Total requests answered in 2022 from data facts; express to nearest tenth of a million.
-- **Skills Tagged:** Math Reasoning, Table/Chart/Graph Understanding
-- **Question Type:** Short Answer
-- **Model Answer Rating:** thumbs-down
+## Annotation 1
 
-#### Two-Part Check
-1. **Question Check:**
-   - Guidelines violated: none
-   - Error types found: none. Format "nearest tenth of a million (ex 8.5M)" is unambiguous.
-2. **Answer Check:**
-   - Math verified: yes — 84% of 1.03M total requests = 0.8652M ≈ 0.9M. Model answered 1.03M (just read total, missed the % calculation).
-   - Answer correct: yes (.9M)
+- **Reviewer:** opus
+- **Rating:** thumbs-up
+- **All Verdicts:** opus: 👍 (picked)
+- **Flags:** []
+- **Final Answer (reviewer):** Feb-22 and Jul-22
+- **Skills Tagged:** Logical Reasoning, Table/Chart/Graph Understanding
+- **Question Type:** SAQ
+- **Model Answer:** Feb-22 and Jun-22
+- **Annotator Answer:** Feb-22 and Jul-22
 
 #### Full Prompt
-According to the data facts at the top of the chart, what are the total number of requests answered in 2022?  Express value to the nearest tenth of a million. (ex 8.5M)
+During which two months was the customer retention the lowest in the 'Customer Retention' chart?  Respond with month and 2 digit year. (eg: Jan-22 and Feb-22)
 
-#### Rewrite Answer
-.9M
+#### Rewrite Answer (annotator)
+Feb-22 and Jul-22
 
-#### Edits Made (if any)
-None
+#### Reviewer Body (opus) (picked)
+
+- **Rating:** thumbs-up
+- **Final Rewrite Answer:** Feb-22 and Jul-22
+- **Flags:** []
+- **Two-Part Check:**
+  1. Question: Cycle-2 returnee. Prompt edit: format example tightened from "(eg: Jan-22)" to "(eg: Jan-22 and Feb-22)" — clearer two-month format. Annotator's answer unchanged. Identify the two lowest months in the Customer Retention monthly line chart (Feb-22 to Dec-22).
+  2. Answer: Customer Retention chart lowest points are Feb-22 (start trough) and Jul-22 (mid-year trough). Cycle 1 reviewer pixel-verified the two troughs as Feb-22 and Jul-22 — same as annotator's answer. Cycle 2 prompt-format clarification doesn't change the answer. Model picked Feb-22 + Jun-22 (off by one month on the second trough). Stump confirmed.
+- **Edits Made:** None
+- **Feedback:** N/A
+
+**Auto-resolved at Job 2 (👍).** opus 👍 (matches annotator). SA action at Job 5: approve annotator's answer `Feb-22 and Jul-22` (cycle 1). Skipped at Job 3 walkthrough.
+
+#### Auto Verdict
+carve_out: 👍-close
+rating: thumbs-up
+final_answer: Feb-22 and Jul-22
+source: opus
+sa_action: approve
+skills_check: []
+skills_uncheck: []
+notes: opus 👍 close to annotator; SA approves annotator's answer.
+
+#### Edits Made
+(to be filled at Job 3 if needed)
 
 #### Feedback
-N/A
+5/12: thumbs-up (opus) — auto-resolved
 
-## Task Status
-- **Status:** QC_Complete
-- **SA Applied:** ✅
-- **Reason:** Both annotations thumbs-up. A1 ambiguity call overridden by Stage 3 manual review — format is clear enough. A2 correct (0.9M).
-
-## Form-Fill Payload
-
-```yaml
-task_id: 187110799
-annotations:
-  - n: 1
-    sa:
-      rating: thumbs-up
-      skills_check: []
-      skills_uncheck: []
-      prompt_edits: null
-      answer_final: null
-      feedback: null
-    hai:
-      task_id_field: 187110799
-      role: Reviewing
-      annotation_n: 1
-      prompt: |
-        During which two months was the customer retention the lowest in the 'Customer Retention' chart?  Respond with month and 2 digit year. (eg: Jan-22)
-      answer: "Feb-22 and Jul-22"
-  - n: 2
-    sa:
-      rating: thumbs-up
-      skills_check: []
-      skills_uncheck: []
-      prompt_edits: null
-      answer_final: null
-      feedback: null
-    hai:
-      task_id_field: 187110799
-      role: Reviewing
-      annotation_n: 2
-      prompt: |
-        According to the data facts at the top of the chart, what are the total number of requests answered in 2022?  Express value to the nearest tenth of a million. (ex 8.5M)
-      answer: ".9M"
-```
+---

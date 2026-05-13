@@ -1,0 +1,26 @@
+task:
+  stem: Report_Dashboard_Metrics_Dashboard_5
+  sa_task_filename: Report_Dashboard_Metrics_Dashboard_5.json
+  task_id: 187110799
+  image: screenshots/Report_Dashboard_Metrics_Dashboard_5.png — (description)
+
+annotations:
+
+  - n: 1
+    sa:
+      action: approve
+      rating: thumbs-up
+      answer_final: "Feb-22 and Jul-22"
+      flags: []
+      feedback: null
+      verdict_source: auto
+      skills_check: []
+      skills_uncheck: []
+      qtype: "SAQ"
+    hai:
+      task_id_field: Report_Dashboard_Metrics_Dashboard_5.json
+      role: Reviewing
+      annotation_n: 1
+      prompt: |
+        During which two months was the customer retention the lowest in the 'Customer Retention' chart?  Respond with month and 2 digit year. (eg: Jan-22 and Feb-22)
+      answer: "Feb-22 and Jul-22"

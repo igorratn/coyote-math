@@ -1,0 +1,13 @@
+stem: Report_Dashboard_Metrics_Dashboard_5
+igor_resolved: true
+shadows:
+  - n: 1
+    uuid: fb204ece
+    fired_at: 2026-05-13T02:46:00.879Z
+    rating: Approve
+    time_logged: "00:20:36"
+    verdict_source: auto
+    hai_llm_eval: warning
+    hai_llm_comment: "Feb-22 and Jul-22 The annotation is mostly good, but to ensure completely zero format ambiguity, the prompt should specify the order in which the two months should be listed (e.g., \"List them in chronological order\"). Without this instruction, an answer like \"Jul-22 and Feb-22\" would technically be valid based on the prompt but might be marked incorrect by a strict grading script."
+    reclaimed: false
+    reclaim_diff: null
